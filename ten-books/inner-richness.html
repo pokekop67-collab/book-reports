@@ -13,9 +13,12 @@
     .hero{text-align:center;padding:60px 40px;margin-bottom:40px;background:rgba(255,255,255,0.6);backdrop-filter:blur(20px);border-radius:32px;border:1px solid rgba(255,255,255,0.8);box-shadow:0 20px 60px rgba(0,0,0,0.08);}
     .hero h1{font-size:2.2rem;font-weight:500;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}
     .hero .sub{font-size:1rem;color:var(--ts);margin-bottom:6px;}
-    .hero .meta{font-size:0.85rem;color:var(--tl);}
+    .hero .en{font-size:.88rem;color:var(--tl);font-style:italic;margin-bottom:12px;}
+    .hero .meta{font-size:.85rem;color:var(--tl);}
     .tag{display:inline-block;padding:3px 10px;border-radius:18px;font-size:.73rem;font-weight:400;margin:2px;}
     .tag-p{background:linear-gradient(135deg,var(--a),#764ba2);color:#fff;}
+    .tag-s{background:rgba(102,126,234,.12);color:var(--a);}
+    .tag-ai{background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:.7rem;}
     .card{background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border-radius:24px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 32px rgba(0,0,0,0.08);padding:36px 32px;margin-bottom:24px;transition:transform .3s,box-shadow .3s;}
     .card:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.12);}
     .st{font-size:1.3rem;font-weight:500;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid rgba(102,126,234,0.2);display:flex;align-items:center;gap:10px;}
@@ -38,6 +41,7 @@
     .sn{font-size:1.6rem;font-weight:600;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
     .sl{font-size:.82rem;color:var(--ts);margin-top:3px;}
     .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
+    .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:16px 0;}
     .mc{background:rgba(255,255,255,.85);border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,.6);}
     .mc h4{font-weight:500;color:var(--a);margin-bottom:6px;font-size:.93rem;}
     .mc p{font-size:.87rem;margin-bottom:0;}
@@ -46,90 +50,388 @@
     .tbl td{padding:10px 14px;border-bottom:1px solid rgba(0,0,0,.05);background:rgba(255,255,255,.6);}
     .tbl tr:last-child td{border-bottom:none;}
     .depth{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:500;margin-right:6px;}
-    .d1{background:#e0f0ff;color:#3b7dd8;}
-    .d2{background:#fff0e0;color:#d4850a;}
-    .d3{background:#f0e0ff;color:#8b5cf6;}
-    .tag-ai{background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:.7rem;}
+    .d1{background:#e0f0ff;color:#3b7dd8;}.d2{background:#fff0e0;color:#d4850a;}.d3{background:#f0e0ff;color:#8b5cf6;}
+    .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin:18px 0;}
+    .flow-n{background:rgba(255,255,255,.9);border-radius:14px;padding:10px 16px;font-size:.82rem;border:1px solid rgba(102,126,234,.2);text-align:center;min-width:100px;}
+    .flow-a{color:var(--a);font-size:1.2rem;}
     .checklist{list-style:none;padding-left:0;}
     .checklist li{padding:6px 0 6px 26px;position:relative;font-size:.9rem;}
     .checklist li::before{content:'□';position:absolute;left:0;color:var(--a);font-size:1rem;}
     footer{text-align:center;padding:40px;color:var(--tl);font-size:.85rem;}
-    @media(max-width:768px){.hero{padding:50px 24px;}.hero h1{font-size:1.7rem;}.card{padding:24px 18px;}.two{grid-template-columns:1fr;}}
+    @media(max-width:768px){.hero{padding:50px 24px;}.hero h1{font-size:1.7rem;}.card{padding:24px 18px;}.two,.three{grid-template-columns:1fr;}}
     @media print{body{background:#fff!important;padding:20px!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}.hero,.card{background:#faf8ff!important;backdrop-filter:none!important;box-shadow:none!important;border:1px solid #ddd!important;}.hero h1,.sn{color:var(--a)!important;-webkit-text-fill-color:var(--a)!important;}.card{page-break-inside:avoid;}}
-</style>
+  </style>
 </head>
 <body>
 <div class="container">
 
+<!-- ===== HERO ===== -->
 <header class="hero">
   <h1>📚 內在富裕</h1>
   <p class="sub">幸福、意義之外的第三條路——心理豐富的人生</p>
-  <p class="meta">大石繁宏（Shigehiro Oishi）著｜繁體中文版</p>
-  <div style="margin-top:14px;"><span class="tag tag-p">正向心理學</span><span class="tag tag-p">幸福學</span><span class="tag tag-p">人生哲學</span><span class="tag tag-p">體驗</span><span class="tag tag-p">內在富裕</span></div>
+  <p class="en">A Psychologically Rich Life: Beyond Happiness and Meaning</p>
+  <p class="meta">大石繁宏（Shigehiro Oishi）著｜繁體中文版｜遠流出版</p>
+  <div style="margin-top:14px;">
+    <span class="tag tag-p">正向心理學</span>
+    <span class="tag tag-p">幸福學</span>
+    <span class="tag tag-p">人生哲學</span>
+    <span class="tag tag-p">體驗</span>
+    <span class="tag tag-p">五大人格</span>
+  </div>
   <p style="margin-top:16px;font-size:.85rem;color:var(--tl);">覺醒系統 v2 完全體分析｜龍龍 🐉｜2026.03.06</p>
 </header>
 
+<!-- ===== Step 1 ===== -->
 <section class="card">
-  <h2 class="st">Step 1-2｜📖 書籍資料 + 🎯 核心命題</h2>
-  <p><strong>類型：</strong>🧠 心理成長型 + 📖 學術研究型　｜　<strong>評分：</strong>⭐⭐⭐⭐½ (4.5/5)</p>
-  <div class="bx bx-r"><strong>❶ 問題</strong><p style="margin-bottom:0;">幸福和意義都很重要，但為什麼有些人的人生明明幸福又有意義，卻仍感到不完整？心理學是否遺漏了美好人生的某個維度？</p></div>
-  <div class="bx bx-p"><strong>❷ 論點</strong><p style="margin-bottom:0;">美好人生不只有「幸福」和「意義」兩個維度，還有被忽視的第三維度——「內在富裕」（psychologically rich life）：充滿變化、新奇、複雜且能改變觀點的體驗。</p></div>
-  <div class="bx bx-g"><strong>❸ 方法</strong><p style="margin-bottom:0;">結合作者自身跨文化人生經歷（日本→美國）+ 大規模心理學實驗數據 + 文學/電影案例 + 哲學論證</p></div>
-  <div class="qb">「內在富裕的人生是曲折迴旋、高潮迭起的。不是直白易懂的，而是多樣與複雜的人生。」<div class="attr">— 大石繁宏</div></div>
-</section>
-
-<section class="card">
-  <h2 class="st">Step 3｜📖 主題式深度分析</h2>
-  
-    <div class="bx bx-r">
-      <p><span class="depth d1">L1</span> <strong>幸福的陷阱</strong></p>
-      <p style="margin-bottom:0;">盲目追求幸福反而導致不幸。賓大的「Penn Face」文化——裝出幸福的樣子反而增加自殺風險。幸福像打擊率，重要的是頻率而非單次全壘打。</p>
+  <h2 class="st">Step 1｜📚 書籍資料卡</h2>
+  <div class="two">
+    <div>
+      <p><strong>作者：</strong>大石繁宏（Shigehiro Oishi）— 芝加哥大學心理學教授，日本九州出身，18歲離鄉赴美，跨文化人生經歷本身就是「內在富裕」的活教材</p>
+      <p><strong>推薦者：</strong>Jonathan Haidt、Adam Grant、Daniel Gilbert、Martin Seligman — 正向心理學四大巨頭背書</p>
     </div>
-    <div class="bx bx-o">
-      <p><span class="depth d2">L2</span> <strong>意義的陷阱</strong></p>
-      <p style="margin-bottom:0;">自我犧牲式的有意義人生可能導致沙特所說的「自欺」（bad faith）。托妮·莫里森《秀拉》中的妮爾擱置冒險夢想扮演完美妻子，最終人生不再真實。意義也是動盪不定的——托爾斯泰50歲時突然出現存在危機。</p>
+    <div>
+      <p><strong>結構：</strong>14 章 + 3 附錄</p>
+      <p><strong>類型：</strong>🧠 心理成長型 + 📖 學術研究型</p>
+      <p><strong>方法：</strong>自傳 + 大規模心理學實驗 + 文學/電影案例 + 哲學論證</p>
+      <p><strong>版權敏感度：</strong>中（學術研究為主）</p>
     </div>
-    <div class="bx bx-p">
-      <p><span class="depth d1">L1</span> <strong>內在富裕的定義</strong></p>
-      <p style="margin-bottom:0;">內在富裕的人生充滿變化多端、不平凡、有趣的體驗。像黑巧克力——苦中帶甜帶鹹，味覺強度更高、更複雜、更具深度。是漫長蜿蜒的健行，不是在同一賽道跑圈。賈伯斯、奧利佛·薩克斯都是典型案例。</p>
-    </div>
-    <div class="bx bx-g">
-      <p><span class="depth d2">L2</span> <strong>探索與好奇心的力量</strong></p>
-      <p style="margin-bottom:0;">開放性（Big Five）是預測內在富裕的最強因子。好奇心不只是性格特質，是可以刻意培養的技能。關鍵：對「熟悉」保持警覺——稟賦效應讓我們高估已擁有的，低估未知的。</p>
-    </div>
-    <div class="bx bx-k">
-      <p><span class="depth d3">L3</span> <strong>把逆境化為內在富裕</strong></p>
-      <p style="margin-bottom:0;"><span class='tag tag-ai'>AI 跨書連結</span> 「創傷後成長」（PTG）不只是復原，而是觀點的根本轉變。這跟 Nassim Taleb《反脆弱》的核心論點結構相同——某些系統在壓力下不只存活，還會變得更強。內在富裕提供了心理學版本的「反脆弱」。</p>
-    </div>
-    <div class="bx bx-k">
-      <p><span class="depth d3">L3</span> <strong>了無遺憾的人生</strong></p>
-      <p style="margin-bottom:0;"><span class='tag tag-ai'>AI 文化轉譯</span> 研究顯示人長期更會為「沒做的事」後悔。華人文化中「穩定壓倒一切」的價值觀，可能正在系統性地製造遺憾。日本「仕方がない」（沒辦法的事）的文化接受度，跟內在富裕形成張力。</p>
-    </div>
-</section>
-
-<section class="card">
-  <h2 class="st">Step 5-6｜🔇 缺席分析 + 🤖 AI N+1 章</h2>
-  <div class="bx bx-o"><strong>🔇 缺席分析</strong><p style="margin-bottom:0;">❶ 刻意迴避：特權問題——探索需要經濟基礎，低收入者如何「內在富裕」？❷ 盲點：數位時代的虛擬探索（VR/遊戲/元宇宙）是否算「真正的」體驗？❸ 時代缺席：AI 時代「體驗」的定義正在被重新改寫。</p></div>
-  <div class="bx bx-k"><strong>🤖 AI N+1 章</strong><p style="margin-bottom:0;"><span class='tag tag-ai'>AI N+1 章</span> 第 15 章：內在貧窮——當探索成為焦慮。社交媒體上的「FOMO」正在把內在富裕變成新的績效指標。如果「體驗更多」成為另一種壓力，我們是否只是從「幸福的陷阱」跳進了「豐富的陷阱」？真正的內在富裕可能需要一種「選擇性無知」——知道自己不需要體驗所有事情。</p></div>
-</section>
-
-<section class="card">
-  <h2 class="st">Step 7-8｜🌐 跨域連結 + ✅ 行動轉化</h2>
-  <table class="tbl">
-    <tr><th>領域</th><th>連結</th><th>關係</th></tr>
-    <tr><td>心理學</td><td>Martin Seligman《真實的快樂》</td><td>幸福 2.0 框架的第三維度擴展</td></tr><tr><td>哲學</td><td>沙特《存在與虛無》</td><td>自欺 vs 真實存在 = 意義陷阱的哲學根源</td></tr><tr><td>商業</td><td>Taleb《反脆弱》</td><td>逆境轉化 = 心理學版反脆弱</td></tr><tr><td>佛教</td><td>無常觀</td><td>「變化即苦」vs「變化即富裕」的根本分歧</td></tr>
-  </table>
-  <div class="bx bx-g"><strong>✅ 立刻能做</strong>
-    <ul class="checklist" style="margin-bottom:0;"><li>「新奇日記」：每天記錄一件今天第一次做/看/嘗試的事</li><li>「對立選擇」：下次做決定時，刻意選你通常不會選的那個</li><li>「熟悉感審計」：列出你生活中最「舒適」的 5 件事，問自己：這是選擇還是慣性？</li></ul>
+  </div>
+  <div class="sg">
+    <div class="sc"><div class="sn">14</div><div class="sl">章節</div></div>
+    <div class="sc"><div class="sn">271</div><div class="sl">頁</div></div>
+    <div class="sc"><div class="sn">3</div><div class="sl">維度模型</div></div>
+    <div class="sc"><div class="sn">4.5</div><div class="sl">評分 /5</div></div>
   </div>
 </section>
 
+<!-- ===== Step 2 ===== -->
 <section class="card">
-  <h2 class="st">Step 11｜🐉 總結</h2>
-  <p>⭐ 4.5/5 — 這是正向心理學近十年最重要的概念突破。不是教你「更快樂」或「更有意義」，而是提醒你：人生的美好程度，取決於你願不願意走一條不確定的路。黑巧克力比甜巧克力難入口，但回味無窮。</p>
+  <h2 class="st">Step 2｜🎯 核心命題（三要素）</h2>
+  <div class="bx bx-r">
+    <strong>❶ 問題</strong>
+    <p style="margin-bottom:0;">幸福和意義都很重要，但為什麼有些人的人生明明幸福又有意義，卻仍感到不完整？心理學是否遺漏了美好人生的某個維度？作者自己從日本小鎮到美國的人生——充滿冒險但未必「幸福」——用現有的心理學框架無法解釋。</p>
+  </div>
+  <div class="bx bx-p">
+    <strong>❷ 論點</strong>
+    <p style="margin-bottom:0;">美好人生不只有「幸福」（hedonic wellbeing）和「意義」（eudaimonic wellbeing）兩個維度，還有被忽視的第三維度——<strong>「內在富裕」（psychologically rich life）</strong>：充滿變化多端、不平凡、有趣且能改變觀點的體驗。像黑巧克力——苦中帶甜帶鹹，味覺強度更高、更複雜、更具深度。</p>
+  </div>
+  <div class="bx bx-g">
+    <strong>❸ 方法</strong>
+    <p style="margin-bottom:0;">歸納法 + 實驗法。結合作者自身跨文化經歷（日本→美國→全球研究）+ 大規模跨國調查數據 + 文學案例（莫里森、齊克果、托爾斯泰）+ 哲學論證。以「該留還是該走？」的個人提問貫穿全書。</p>
+  </div>
+  <div class="qb">
+    「內在富裕的人生是曲折迴旋、高潮迭起的。不是直白易懂的，而是多樣與複雜的人生。感覺像漫長蜿蜒的健行，而不是在同一賽道上一圈圈地跑。」
+    <div class="attr">— 大石繁宏</div>
+  </div>
 </section>
 
-<footer><p>✧ 覺醒系統 v2 完全體分析 ✧</p><p>🐉 龍龍 · 2026.03.06</p></footer>
+<!-- ===== Step 3 ===== -->
+<section class="card">
+  <h2 class="st">Step 3｜📖 主題式深度分析</h2>
+
+  <h3 style="color:var(--a);margin:20px 0 10px;">主題一：幸福的陷阱（Ch2）</h3>
+  <p><strong>🎯 一句話：</strong>盲目追求幸福，反而是通往不幸的捷徑。</p>
+  <div class="bx bx-r">
+    <p><span class="depth d1">L1</span> <strong>「Penn Face」現象</strong></p>
+    <p>賓州大學的學生文化——無論多痛苦都要裝出幸福的樣子。2020 年美國有 1220 萬成年人「認真」考慮過自殺（每 20 人就有 1 人）。幸福壓力的核心：美國文化把幸福打造成「可以達成的目標」。</p>
+    <p style="margin-bottom:0;"><strong>❓ 自檢：</strong>你有沒有在社交媒體上展示「幸福的自己」，同時內心卻不是那個感覺？</p>
+  </div>
+  <div class="bx bx-o">
+    <p><span class="depth d2">L2</span> <strong>心理免疫系統 + 知足的力量</strong></p>
+    <p>人體有「心理免疫系統」會自動修復負面情緒。但幸福壓力讓我們不敢讓負面情緒「逗留」，轉而用酒精/甜點/購物土法煉鋼。Barry Schwartz 研究：「知足者」（覺得夠好了的人）比「追求最佳者」更快樂。</p>
+    <p style="margin-bottom:0;"><strong>🔧 立即可用：</strong>「夠好了練習」：下次做決定時，選擇第一個「夠好」的選項，不要繼續搜尋「最佳」。</p>
+  </div>
+
+  <h3 style="color:var(--a);margin:20px 0 10px;">主題二：意義的陷阱（Ch3）</h3>
+  <p><strong>🎯 一句話：</strong>自我犧牲式的有意義人生，可能是另一種自欺。</p>
+  <div class="bx bx-p">
+    <p><span class="depth d1">L1</span> <strong>托爾斯泰的存在危機</strong></p>
+    <p>托爾斯泰 50 歲時——好妻子、好孩子、財富、聲望——突然出現存在危機：「我在人生的一切所作所為中，卻找不出合理的意義。」意義也是動盪不定的。莫里森小說《秀拉》中的妮爾擱置冒險夢想扮演完美妻子——沙特稱之為「自欺」（bad faith）。</p>
+  </div>
+  <div class="bx bx-k">
+    <p><span class="depth d3">L3</span> <span class="tag tag-ai">AI 跨書連結</span></p>
+    <p style="margin-bottom:0;">沙特的「自欺」+ 布魯克斯《深刻認識一個人》的「人生任務盤點」= 兩個框架的交匯點。一個人如果卡在「人際任務」（討好他人）而跳不到「傳承」，可能正在經歷「意義的陷阱」——他覺得有意義，但那個意義是為別人活的。</p>
+  </div>
+
+  <h3 style="color:var(--a);margin:20px 0 10px;">主題三：內在富裕的定義與元素（Ch4-5）</h3>
+  <p><strong>🎯 一句話：</strong>美好人生的第三維度——不只是幸福或有意義，而是有趣、複雜、能改變你觀點的體驗。</p>
+  <div class="bx bx-g">
+    <p><span class="depth d1">L1</span> <strong>黑巧克力比喻</strong></p>
+    <p>黑巧克力 vs 甜巧克力：苦中帶甜帶鹹，味覺強度更高、更複雜、更具深度。內在富裕的人生就像黑巧克力——不一定好入口，但回味無窮。</p>
+    <p><strong>五大元素：</strong>新奇性 + 複雜性 + 觀點改變 + 記憶的持久性 + 情感的強度（正面和負面都算）</p>
+  </div>
+  <div class="bx bx-o">
+    <p><span class="depth d2">L2</span> <strong>賈伯斯與薩克斯</strong></p>
+    <p>賈伯斯：印度七個月、罹患痢疾瘦 40 磅、被自己創辦的公司開除——幸福分數低，但內在豐富性極高。神經學家薩克斯：一生在極端情境中冒險——從摩托車旅行到與患者的深度連結。「個人的幸福與滿足，或者自我犧牲與美德，都無法貼切說明薩克斯人生為何讓人敬佩。」</p>
+  </div>
+  <div class="bx bx-k">
+    <p><span class="depth d3">L3</span> <span class="tag tag-ai">AI 文化轉譯</span></p>
+    <p>「內在富裕」在不同文化中的體現：</p>
+    <ul style="margin-bottom:0;">
+      <li><strong>日本：</strong>「侘寂」（wabi-sabi）= 在不完美中找到美 ≈ 內在富裕的美學維度</li>
+      <li><strong>佛教：</strong>「無常觀」= 變化即苦 vs 大石的「變化即富裕」— 根本分歧在於：佛教要超越體驗，大石要擁抱體驗</li>
+      <li><strong>華人：</strong>「穩定壓倒一切」的價值觀可能系統性地製造遺憾——研究顯示人長期更會為「沒做的事」後悔</li>
+    </ul>
+  </div>
+
+  <h3 style="color:var(--a);margin:20px 0 10px;">主題四：誰是內在富翁？五大人格（Ch6）</h3>
+  <p><strong>🎯 一句話：</strong>開放性是預測內在富裕最強的人格因子。</p>
+  <div class="bx bx-p">
+    <p><span class="depth d1">L1</span> 五大人格與三維人生的關係：</p>
+    <ul>
+      <li><strong>外向性</strong>→ 預測幸福（正相關）</li>
+      <li><strong>責任感</strong>→ 預測意義（正相關）</li>
+      <li><strong>開放性</strong>→ 預測內在富裕（最強預測因子）</li>
+      <li><strong>親和力</strong>→ 預測意義（正相關，但與內在富裕弱相關）</li>
+      <li><strong>神經質</strong>→ 預測不幸福（負相關），但與內在富裕不一定衝突</li>
+    </ul>
+    <p style="margin-bottom:0;">愛開玩笑的人更傾向內在富裕——他們「不把規範視為神聖不可侵」「認為模稜兩可是智慧和樂趣的來源」。</p>
+  </div>
+  <div class="bx bx-o">
+    <p><span class="depth d2">L2</span> <strong>🔬 批判</strong></p>
+    <p style="margin-bottom:0;">開放性 → 內在富裕的因果方向不確定。是因為開放所以追求新體驗？還是因為新體驗塑造了開放的人格？作者坦承這是「雞生蛋」問題，但傾向雙向互動。</p>
+  </div>
+
+  <h3 style="color:var(--a);margin:20px 0 10px;">主題五：保持玩心 + 動手做（Ch7-8）</h3>
+  <div class="bx bx-g">
+    <p><span class="depth d1">L1</span> <strong>馬克思的異化論遇上內在富裕</strong></p>
+    <p>現代工作的例行公事化 → 人對人生失去掌控感 → 異化。凱根的「被稀釋的情緒」：專精某件事後，新鮮感消失，情緒反應變鈍。</p>
+    <p style="margin-bottom:0;">解法：保持「玩」的心態——玩的本質是「不帶目的的探索」。自己動手做（DIY）= 抵抗異化的最佳工具。</p>
+  </div>
+
+  <h3 style="color:var(--a);margin:20px 0 10px;">主題六：逆境轉化 + 在熟悉中發現豐富（Ch11-13）</h3>
+  <div class="bx bx-r">
+    <p><span class="depth d2">L2</span> <strong>颶風珊蒂的故事</strong></p>
+    <p>藤本貴志在颶風中觸電重傷，所有物被毀。但天主教基金會的 500 美元救濟金讓他買了一件外套——他說這是他人生中最有意義的體驗之一。逆境不只是被「克服」，而是成為人生故事中最有深度的章節。</p>
+  </div>
+  <div class="bx bx-k">
+    <p><span class="depth d3">L3</span> <span class="tag tag-ai">AI 跨書連結</span></p>
+    <p>Nassim Taleb《反脆弱》：某些系統在壓力下不只存活，還會變得更強。內在富裕 = 心理學版的「反脆弱」。</p>
+    <p style="margin-bottom:0;">齊克果《非此即彼》的 B（丈夫）：「在音樂中，均等的節奏可能蘊含極大的美感」——婚姻之愛可以像《波麗露》，表面單調，深處豐富。<strong>在熟悉中發現豐富，是內在富裕的最高段位。</strong></p>
+  </div>
+</section>
+
+<!-- ===== Step 4 ===== -->
+<section class="card">
+  <h2 class="st">Step 4｜📐 敘事弧線分析</h2>
+  <div class="flow">
+    <div class="flow-n"><strong>起點</strong><br><span style="font-size:.78rem;">「該留還是該走？」<br>作者18歲離開日本</span></div>
+    <div class="flow-a">→</div>
+    <div class="flow-n"><strong>破壞</strong><br><span style="font-size:.78rem;">幸福和意義都不夠<br>心理學遺漏了什麼</span></div>
+    <div class="flow-a">→</div>
+    <div class="flow-n"><strong>重建</strong><br><span style="font-size:.78rem;">第三維度：內在富裕<br>黑巧克力比喻</span></div>
+    <div class="flow-a">→</div>
+    <div class="flow-n"><strong>推力</strong><br><span style="font-size:.78rem;">大量研究 + 賈伯斯<br>薩克斯 + 康納曼案例</span></div>
+    <div class="flow-a">→</div>
+    <div class="flow-n"><strong>著陸</strong><br><span style="font-size:.78rem;">了無遺憾的美好人生<br>三維而非一維</span></div>
+  </div>
+  <div class="bx bx-p">
+    <strong>🎬 情緒設計：</strong>全書是「先共鳴再理論」——用作者自己的跨文化人生（父親 vs 自己的選擇）建立共鳴，再用研究數據支撐。結尾用齊克果的虛構書信（兒子寫給父親）回到開頭的「該留該走」，形成完美閉環。最後的附錄三是「搞笑版齊克果」——整本書的學術基調在此刻意鬆弛，這是最高級的敘事手法。
+  </div>
+</section>
+
+<!-- ===== Step 5 ===== -->
+<section class="card">
+  <h2 class="st">Step 5｜💡 整合洞見（四維度）</h2>
+  <div class="bx bx-p">
+    <strong>5a. 隱藏邏輯線</strong>
+    <p style="margin-bottom:0;">全書的底層邏輯是一個「維度升級」的過程：一維（幸福）→ 二維（幸福+意義）→ <strong>三維（幸福+意義+內在富裕）</strong>。就像從線到面到立體——你不會否認線的存在，但你知道立體才是完整的現實。比喻：心理學從 2D 電影升級到 3D。</p>
+  </div>
+  <div class="bx bx-o">
+    <strong>5b. 作者的潛台詞</strong>
+    <p>預設讀者：受過高等教育、有一定經濟基礎、對「成功=幸福」的公式感到不滿的人。迴避了：低收入者如何「內在富裕」？探索需要金錢和時間，這是特權。</p>
+    <p style="margin-bottom:0;">隱含假設：讀者已經有基本的幸福和意義，所以才覺得「還缺點什麼」。如果你連溫飽都是問題，這本書的實用性會大打折扣。</p>
+  </div>
+  <div class="bx bx-g">
+    <strong>5c. 批判與邊界</strong>
+    <ul style="margin-bottom:0;">
+      <li><strong>最強批評：</strong>「內在富裕」是不是只是「有錢人的幸福」的學術包裝？探索、旅行、留學——這些都需要經濟基礎</li>
+      <li><strong>作者的回應：</strong>顫風受災者也可以內在富裕——重點不是體驗的「價格」，而是體驗的「品質」</li>
+      <li><strong>適用邊界：</strong>在生存壓力下，幸福和安全比內在富裕更優先（馬斯洛層次）</li>
+    </ul>
+  </div>
+  <div class="bx bx-k">
+    <strong>5d. 知識的對話（血緣追溯）</strong>
+    <ul style="margin-bottom:0;">
+      <li><strong>精神前輩：</strong>Abraham Maslow（自我實現）、Mihaly Csikszentmihalyi（心流）、Carol Ryff（心理福祉六維度）</li>
+      <li><strong>同源分支：</strong>Martin Seligman PERMA 模型的擴展——大石加了第六個維度</li>
+      <li><strong>對立觀點：</strong>佛教「離苦得樂」= 減少體驗以減少苦；大石 = 增加體驗以增加豐富。根本分歧。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== Step 6 ===== -->
+<section class="card">
+  <h2 class="st">Step 6｜🔇 缺席分析（三類）</h2>
+  <div class="three">
+    <div class="mc" style="border-left:3px solid var(--ar);">
+      <h4 style="color:var(--ar);">❶ 刻意迴避</h4>
+      <p>特權問題只輕描淡寫——探索需要經濟基礎、時間自由、社會安全網。低收入單親媽媽如何「內在富裕」？作者用颶風案例試圖回應，但力度不足。</p>
+    </div>
+    <div class="mc" style="border-left:3px solid var(--ao);">
+      <h4 style="color:var(--ao);">❷ 盲點缺席</h4>
+      <p>數位體驗被忽略——VR、遊戲、元宇宙中的「探索」算不算內在富裕？如果體驗的品質不取決於物理性，那虛擬冒險也應該被計算。</p>
+    </div>
+    <div class="mc" style="border-left:3px solid var(--a);">
+      <h4 style="color:var(--a);">❸ 時代缺席</h4>
+      <p>AI 時代「體驗」的定義正在改寫——AI 可以模擬任何體驗，那「真實體驗」還重要嗎？內在富裕需要「親身」嗎？</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Step 7 ===== -->
+<section class="card">
+  <h2 class="st">Step 7｜🤖 AI 視角</h2>
+  <div class="bx bx-k">
+    <strong>7a. 第 15 章（AI N+1 章）：內在貧窮</strong> <span class="tag tag-ai">AI 原創洞見</span>
+    <p>如果「體驗更多」成為新的績效指標呢？FOMO（Fear of Missing Out）正在把內在富裕變成另一種壓力。社交媒體上「體驗展示」的競賽——誰去了更多國家、吃了更奇特的食物、做了更瘋狂的事——這不是內在富裕，這是「體驗的軍備競賽」。</p>
+    <p style="margin-bottom:0;">真正的內在富裕可能需要「選擇性無知」——知道自己不需要體驗所有事情。最高段位的內在富裕不是「到處去」，而是齊克果筆下的 B 所說：<strong>在均等的節奏中發現深處的豐富。</strong></p>
+  </div>
+  <div class="bx bx-p">
+    <strong>7b. 跨領域連結</strong> <span class="tag tag-ai">AI 跨領域連結</span>
+    <ul style="margin-bottom:0;">
+      <li><strong>投資學：</strong>內在富裕 ≈ 投資組合的多元化——不把所有雞蛋放在「幸福」這一個籃子裡</li>
+      <li><strong>遊戲設計：</strong>好遊戲的核心 = 有意義的選擇 + 新奇體驗 + 適度挑戰 ≈ 內在富裕的三大元素</li>
+      <li><strong>進化論：</strong>「探索 vs 利用」的兩難——探索新環境有風險但有收益，只利用已知環境安全但停滯</li>
+    </ul>
+  </div>
+  <div class="bx bx-g">
+    <strong>7c. 文化轉譯</strong> <span class="tag tag-ai">AI 文化轉譯</span>
+    <p>日本「仕方がない」（沒辦法的事）：接受命運 vs 內在富裕的「改變命運」</p>
+    <p>華人「安居樂業」：定居+穩定工作 = 幸福。大石的全書都在質疑這個公式</p>
+    <p style="margin-bottom:0;">紫微斗數的「命宮 vs 遷移宮」：命宮 = 安穩，遷移宮 = 探索。大石的理論 ≈ 提醒你重視遷移宮的力量</p>
+  </div>
+  <div class="bx bx-o">
+    <strong>7d. 一個比喻說完整本書</strong>
+    <p style="margin-bottom:0;">人生是一本書。幸福的人生是一本暢銷的甜蜜愛情小說——讀起來舒服，但看完就忘了。有意義的人生是一本嚴肅的傳記——值得尊敬，但不一定好看。<strong>內在富裕的人生是一本讀完會讓你重新審視自己人生的小說</strong>——可能有痛苦的章節，但你不會想跳過任何一頁。</p>
+  </div>
+</section>
+
+<!-- ===== Step 8 ===== -->
+<section class="card">
+  <h2 class="st">Step 8｜✅ 行動轉化（三層設計）</h2>
+  <div class="three">
+    <div class="mc" style="border-top:3px solid var(--ag);">
+      <h4 style="color:var(--ag);">🟢 本週啟動</h4>
+      <ul class="checklist">
+        <li>「新奇日記」：每天記一件今天第一次做/看/嘗試的事</li>
+        <li>「對立選擇」：做決定時，刻意選你通常不會選的</li>
+        <li>「夠好了」：下次購物時選第一個還不錯的，不繼續比較</li>
+      </ul>
+    </div>
+    <div class="mc" style="border-top:3px solid var(--ao);">
+      <h4 style="color:var(--ao);">🟡 本月實驗</h4>
+      <ul class="checklist">
+        <li>「熟悉感審計」：列出生活中最舒適的 5 件事，問自己是選擇還是慣性</li>
+        <li>「好玩事件記錄」：連續一週記錄每天遇到幾次好玩的事（研究顯示這能提升幸福感持續三個月）</li>
+      </ul>
+    </div>
+    <div class="mc" style="border-top:3px solid var(--ar);">
+      <h4 style="color:var(--ar);">🔴 長期追蹤</h4>
+      <ul class="checklist">
+        <li>核心指標：「內在富裕問卷」分數（附錄一有完整問卷）</li>
+        <li>每季自問：「過去三個月，有沒有一件事改變了我的觀點？」</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Step 9 ===== -->
+<section class="card">
+  <h2 class="st">Step 9｜📖 帶問題回去讀</h2>
+  <div class="bx bx-p">
+    <strong>二次閱讀焦點問題：</strong>
+    <ol>
+      <li>在讀到賈伯斯和薩克斯的案例時，問自己：「我的人生更像阿義（作者的父親，安穩一生）還是更像作者（漂泊但豐富）？」</li>
+      <li>在讀到「幸福的陷阱」時：「我追求的幸福，是真正想要的，還是社會告訴我應該要的？」</li>
+      <li>在讀到齊克果的婚姻之愛時：「我有沒有在熟悉的關係中，停止發現新的東西？」</li>
+    </ol>
+  </div>
+  <div class="bx bx-g">
+    <strong>📌 重點慢讀建議：</strong>
+    <ul style="margin-bottom:0;">
+      <li>Ch1（該留還是該走）— 作者的個人故事，是全書的情感基底</li>
+      <li>Ch11（把逆境化為內在富裕）— 最有深度，颶風珊蒂的故事</li>
+      <li>Ch14（了無遺憾）— 結尾，三維人生的最終整合</li>
+      <li>附錄三（搞笑版齊克果）— 看完會笑，也會眼眶濕潤</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== Step 10 ===== -->
+<section class="card">
+  <h2 class="st">Step 10｜🎬 延伸資源</h2>
+  <div class="two">
+    <div class="mc">
+      <h4>📖 深化同主題</h4>
+      <ul style="margin-bottom:0;">
+        <li>Martin Seligman《真實的快樂》— PERMA 模型</li>
+        <li>Mihaly Csikszentmihalyi《心流》— 內在富裕的巔峰體驗版</li>
+        <li>Barry Schwartz《選擇的悖論》— 知足者 vs 追求最佳者</li>
+      </ul>
+    </div>
+    <div class="mc">
+      <h4>📖 對立/互補觀點</h4>
+      <ul style="margin-bottom:0;">
+        <li>Nassim Taleb《反脆弱》— 逆境轉化的另一種框架</li>
+        <li>齊克果《非此即彼》— 大石最重要的哲學參照</li>
+        <li>佛教《心經》— 完全相反的路徑：減少體驗以減少苦</li>
+      </ul>
+    </div>
+  </div>
+  <div class="bx bx-o">
+    <strong>🌐 跨域連結網</strong>
+    <table class="tbl">
+      <tr><th>領域</th><th>連結</th><th>關係</th></tr>
+      <tr><td>心理學</td><td>Seligman PERMA 模型</td><td>第三維度的擴展</td></tr>
+      <tr><td>哲學</td><td>沙特《存在與虛無》</td><td>自欺 vs 真實存在 = 意義陷阱的根源</td></tr>
+      <tr><td>商業</td><td>Taleb《反脆弱》</td><td>逆境轉化 = 心理學版反脆弱</td></tr>
+      <tr><td>佛教</td><td>無常觀</td><td>「變化即苦」vs「變化即富裕」的根本分歧</td></tr>
+      <tr><td>進化論</td><td>探索 vs 利用</td><td>explore-exploit tradeoff 的人生版</td></tr>
+      <tr><td>遊戲設計</td><td>有意義的選擇</td><td>好遊戲 ≈ 內在富裕的模擬器</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ===== Step 11 ===== -->
+<section class="card">
+  <h2 class="st">Step 11｜🏷️ 書庫卡片 + 🐉 總結</h2>
+  <div class="sg">
+    <div class="sc"><div class="sn">4.5</div><div class="sl">總評 /5</div></div>
+    <div class="sc"><div class="sn">14</div><div class="sl">章節</div></div>
+    <div class="sc"><div class="sn">6</div><div class="sl">跨書連結</div></div>
+    <div class="sc"><div class="sn">⭐⭐⭐</div><div class="sl">閱讀難度 中等</div></div>
+  </div>
+  <div class="bx bx-p">
+    <strong>🏆 核心論點（一句話）：</strong>
+    <p style="margin-bottom:0;">美好人生不只有幸福和意義，還有「內在富裕」——充滿新奇、複雜、能改變觀點的體驗。</p>
+  </div>
+  <div class="bx bx-g">
+    <strong>🔑 關鍵概念：</strong>
+    <span class="tag tag-s">心理豐富性</span>
+    <span class="tag tag-s">三維人生</span>
+    <span class="tag tag-s">幸福陷阱</span>
+    <span class="tag tag-s">意義陷阱</span>
+    <span class="tag tag-s">開放性</span>
+    <span class="tag tag-s">知足者</span>
+    <span class="tag tag-s">心理免疫系統</span>
+    <span class="tag tag-s">黑巧克力比喻</span>
+  </div>
+  <div class="qb" style="font-style:normal;">
+    <strong>🐉 龍龍的一句話</strong><br><br>
+    這是正向心理學近十年最重要的概念突破。<br>
+    不是教你「更快樂」或「更有意義」，<br>
+    而是提醒你：<strong>人生的美好程度，取決於你願不願意走一條不確定的路。</strong><br><br>
+    <span style="font-size:.9rem;">黑巧克力比甜巧克力難入口，但回味無窮。</span>
+  </div>
+</section>
+
+<footer>
+  <p>✧ 覺醒系統 v2 完全體分析 ✧</p>
+  <p>🐉 龍龍 · 2026.03.06</p>
+  <p><a href="index.html" style="color:var(--a);text-decoration:none;">← 返回十書聯展</a></p>
+</footer>
+
 </div>
 </body>
 </html>
