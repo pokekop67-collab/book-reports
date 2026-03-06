@@ -1,123 +1,44 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>📚 覺醒 v2｜我跟門薩學的用腦好習慣</title>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
-  <style>
-    :root{--gs:#E8F4FD;--gm:#FFF0F5;--ge:#F5F0FF;--tp:#2D3436;--ts:#636E72;--tl:#B2BEC3;--a:#667eea;--ap:#f093fb;--ag:#4ECDC4;--ar:#FF6B6B;--ao:#F7B731;}
-    *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:'Noto Sans TC',-apple-system,sans-serif;font-weight:300;line-height:1.85;color:var(--tp);background:linear-gradient(135deg,var(--gs) 0%,var(--gm) 50%,var(--ge) 100%);min-height:100vh;padding:40px 20px;}
-    .container{max-width:920px;margin:0 auto;}
-    .hero{text-align:center;padding:60px 40px;margin-bottom:40px;background:rgba(255,255,255,0.6);backdrop-filter:blur(20px);border-radius:32px;border:1px solid rgba(255,255,255,0.8);box-shadow:0 20px 60px rgba(0,0,0,0.08);}
-    .hero h1{font-size:2.2rem;font-weight:500;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}
-    .hero .sub{font-size:1rem;color:var(--ts);margin-bottom:6px;}
-    .hero .meta{font-size:0.85rem;color:var(--tl);}
-    .tag{display:inline-block;padding:3px 10px;border-radius:18px;font-size:.73rem;font-weight:400;margin:2px;}
-    .tag-p{background:linear-gradient(135deg,var(--a),#764ba2);color:#fff;}
-    .card{background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border-radius:24px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 32px rgba(0,0,0,0.08);padding:36px 32px;margin-bottom:24px;transition:transform .3s,box-shadow .3s;}
-    .card:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.12);}
-    .st{font-size:1.3rem;font-weight:500;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid rgba(102,126,234,0.2);display:flex;align-items:center;gap:10px;}
-    .st::before{content:'';width:4px;height:22px;background:linear-gradient(135deg,var(--a),var(--ap));border-radius:2px;}
-    p{margin-bottom:13px;font-size:.95rem;}
-    strong{font-weight:500;}
-    .bx{border-radius:16px;padding:20px;margin:16px 0;}
-    .bx-p{background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(240,147,251,.1));border-left:4px solid var(--a);}
-    .bx-k{background:linear-gradient(135deg,rgba(255,182,193,.12),rgba(221,160,221,.12));border-left:4px solid var(--ap);}
-    .bx-g{background:linear-gradient(135deg,rgba(78,205,196,.1),rgba(129,236,236,.1));border-left:4px solid var(--ag);}
-    .bx-r{background:linear-gradient(135deg,rgba(255,107,107,.1),rgba(255,159,159,.1));border-left:4px solid var(--ar);}
-    .bx-o{background:linear-gradient(135deg,rgba(247,183,49,.1),rgba(255,211,99,.1));border-left:4px solid var(--ao);}
-    .qb{background:linear-gradient(135deg,rgba(255,182,193,.15),rgba(221,160,221,.15));border-radius:16px;padding:26px;margin:20px 0;text-align:center;font-size:1.05rem;font-weight:400;color:#555;font-style:italic;border:1px solid rgba(255,182,193,.3);}
-    .qb .attr{font-size:.85rem;color:var(--tl);margin-top:8px;font-style:normal;}
-    ul,ol{padding-left:22px;margin:10px 0;}
-    li{margin-bottom:8px;line-height:1.75;font-size:.93rem;}
-    li::marker{color:var(--a);}
-    .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin:18px 0;}
-    .sc{background:rgba(255,255,255,.85);border-radius:18px;padding:18px;text-align:center;border:1px solid rgba(255,255,255,.6);}
-    .sn{font-size:1.6rem;font-weight:600;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    .sl{font-size:.82rem;color:var(--ts);margin-top:3px;}
-    .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
-    .mc{background:rgba(255,255,255,.85);border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,.6);}
-    .mc h4{font-weight:500;color:var(--a);margin-bottom:6px;font-size:.93rem;}
-    .mc p{font-size:.87rem;margin-bottom:0;}
-    .tbl{width:100%;margin:16px 0;border-collapse:separate;border-spacing:0;border-radius:16px;overflow:hidden;font-size:.88rem;}
-    .tbl th{background:linear-gradient(135deg,var(--a),#764ba2);color:#fff;padding:11px 14px;text-align:left;font-weight:400;}
-    .tbl td{padding:10px 14px;border-bottom:1px solid rgba(0,0,0,.05);background:rgba(255,255,255,.6);}
-    .tbl tr:last-child td{border-bottom:none;}
-    .depth{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:500;margin-right:6px;}
-    .d1{background:#e0f0ff;color:#3b7dd8;}
-    .d2{background:#fff0e0;color:#d4850a;}
-    .d3{background:#f0e0ff;color:#8b5cf6;}
-    .tag-ai{background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:.7rem;}
-    .checklist{list-style:none;padding-left:0;}
-    .checklist li{padding:6px 0 6px 26px;position:relative;font-size:.9rem;}
-    .checklist li::before{content:'□';position:absolute;left:0;color:var(--a);font-size:1rem;}
-    footer{text-align:center;padding:40px;color:var(--tl);font-size:.85rem;}
-    @media(max-width:768px){.hero{padding:50px 24px;}.hero h1{font-size:1.7rem;}.card{padding:24px 18px;}.two{grid-template-columns:1fr;}}
-    @media print{body{background:#fff!important;padding:20px!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}.hero,.card{background:#faf8ff!important;backdrop-filter:none!important;box-shadow:none!important;border:1px solid #ddd!important;}.hero h1,.sn{color:var(--a)!important;-webkit-text-fill-color:var(--a)!important;}.card{page-break-inside:avoid;}}
-</style>
-</head>
-<body>
-<div class="container">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"><title>📚 覺醒 v2｜我跟門薩學的用腦好習慣</title><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet"><style>:root{--gs:#E8F4FD;--gm:#FFF0F5;--ge:#F5F0FF;--tp:#2D3436;--ts:#636E72;--tl:#B2BEC3;--a:#667eea;--ap:#f093fb;--ag:#4ECDC4;--ar:#FF6B6B;--ao:#F7B731;}*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Noto Sans TC',-apple-system,sans-serif;font-weight:300;line-height:1.85;color:var(--tp);background:linear-gradient(135deg,var(--gs),var(--gm),var(--ge));min-height:100vh;padding:40px 20px;}.container{max-width:920px;margin:0 auto;}.hero{text-align:center;padding:60px 40px;margin-bottom:40px;background:rgba(255,255,255,.6);backdrop-filter:blur(20px);border-radius:32px;border:1px solid rgba(255,255,255,.8);box-shadow:0 20px 60px rgba(0,0,0,.08);}.hero h1{font-size:2.2rem;font-weight:500;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}.hero .sub{font-size:1rem;color:var(--ts);margin-bottom:6px;}.hero .en{font-size:.88rem;color:var(--tl);font-style:italic;margin-bottom:12px;}.tag{display:inline-block;padding:3px 10px;border-radius:18px;font-size:.73rem;font-weight:400;margin:2px;}.tag-p{background:linear-gradient(135deg,var(--a),#764ba2);color:#fff;}.tag-s{background:rgba(102,126,234,.12);color:var(--a);}.tag-ai{background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:.7rem;}.card{background:rgba(255,255,255,.7);backdrop-filter:blur(10px);border-radius:24px;border:1px solid rgba(255,255,255,.5);box-shadow:0 8px 32px rgba(0,0,0,.08);padding:36px 32px;margin-bottom:24px;transition:transform .3s,box-shadow .3s;}.card:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,.12);}.st{font-size:1.3rem;font-weight:500;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid rgba(102,126,234,.2);display:flex;align-items:center;gap:10px;}.st::before{content:'';width:4px;height:22px;background:linear-gradient(135deg,var(--a),var(--ap));border-radius:2px;}p{margin-bottom:13px;font-size:.95rem;}strong{font-weight:500;}.bx{border-radius:16px;padding:20px;margin:16px 0;}.bx-p{background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(240,147,251,.1));border-left:4px solid var(--a);}.bx-k{background:linear-gradient(135deg,rgba(255,182,193,.12),rgba(221,160,221,.12));border-left:4px solid var(--ap);}.bx-g{background:linear-gradient(135deg,rgba(78,205,196,.1),rgba(129,236,236,.1));border-left:4px solid var(--ag);}.bx-r{background:linear-gradient(135deg,rgba(255,107,107,.1),rgba(255,159,159,.1));border-left:4px solid var(--ar);}.bx-o{background:linear-gradient(135deg,rgba(247,183,49,.1),rgba(255,211,99,.1));border-left:4px solid var(--ao);}.qb{background:linear-gradient(135deg,rgba(255,182,193,.15),rgba(221,160,221,.15));border-radius:16px;padding:26px;margin:20px 0;text-align:center;font-size:1.05rem;font-weight:400;color:#555;font-style:italic;border:1px solid rgba(255,182,193,.3);}.qb .attr{font-size:.85rem;color:var(--tl);margin-top:8px;font-style:normal;}ul,ol{padding-left:22px;margin:10px 0;}li{margin-bottom:8px;line-height:1.75;font-size:.93rem;}li::marker{color:var(--a);}.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin:18px 0;}.sc{background:rgba(255,255,255,.85);border-radius:18px;padding:18px;text-align:center;border:1px solid rgba(255,255,255,.6);}.sn{font-size:1.6rem;font-weight:600;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.sl{font-size:.82rem;color:var(--ts);margin-top:3px;}.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:16px 0;}.mc{background:rgba(255,255,255,.85);border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,.6);}.mc h4{font-weight:500;color:var(--a);margin-bottom:6px;font-size:.93rem;}.mc p,.mc li{font-size:.87rem;}.tbl{width:100%;margin:16px 0;border-collapse:separate;border-spacing:0;border-radius:16px;overflow:hidden;font-size:.88rem;}.tbl th{background:linear-gradient(135deg,var(--a),#764ba2);color:#fff;padding:11px 14px;text-align:left;font-weight:400;}.tbl td{padding:10px 14px;border-bottom:1px solid rgba(0,0,0,.05);background:rgba(255,255,255,.6);}.tbl tr:last-child td{border-bottom:none;}.depth{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:500;margin-right:6px;}.d1{background:#e0f0ff;color:#3b7dd8;}.d2{background:#fff0e0;color:#d4850a;}.d3{background:#f0e0ff;color:#8b5cf6;}.flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin:18px 0;}.flow-n{background:rgba(255,255,255,.9);border-radius:14px;padding:10px 16px;font-size:.82rem;border:1px solid rgba(102,126,234,.2);text-align:center;min-width:100px;}.flow-a{color:var(--a);font-size:1.2rem;}.checklist{list-style:none;padding-left:0;}.checklist li{padding:6px 0 6px 26px;position:relative;font-size:.9rem;}.checklist li::before{content:'□';position:absolute;left:0;color:var(--a);font-size:1rem;}footer{text-align:center;padding:40px;color:var(--tl);font-size:.85rem;}@media(max-width:768px){.hero{padding:50px 24px;}.hero h1{font-size:1.7rem;}.card{padding:24px 18px;}.two,.three{grid-template-columns:1fr;}}@media print{body{background:#fff!important;}.hero,.card{background:#faf8ff!important;backdrop-filter:none!important;box-shadow:none!important;border:1px solid #ddd!important;}.hero h1,.sn{color:var(--a)!important;-webkit-text-fill-color:var(--a)!important;}}</style></head>
+<body><div class="container">
+<header class="hero"><h1>🧩 我跟門薩學的用腦好習慣</h1><p class="sub">聰明可以後天訓練！學前 2% 聰明人這樣升級大腦</p><p class="en">中野信子 著｜腦科學博士・門薩會員</p><div style="margin-top:14px;"><span class="tag tag-p">門薩</span><span class="tag tag-p">腦科學</span><span class="tag tag-p">認知節能</span><span class="tag tag-p">習慣</span><span class="tag tag-p">演化心理學</span></div><p style="margin-top:16px;font-size:.85rem;color:var(--tl);">覺醒系統 v2 完全體分析｜龍龍 🐉｜2026.03.06</p></header>
 
-<header class="hero">
-  <h1>📚 我跟門薩學的用腦好習慣</h1>
-  <p class="sub">聰明可以後天訓練！學前 2% 聰明人這樣升級大腦</p>
-  <p class="meta">中野信子 著｜腦科學博士・門薩會員</p>
-  <div style="margin-top:14px;"><span class="tag tag-p">門薩</span><span class="tag tag-p">腦科學</span><span class="tag tag-p">聰明</span><span class="tag tag-p">習慣</span><span class="tag tag-p">認知節能</span></div>
-  <p style="margin-top:16px;font-size:.85rem;color:var(--tl);">覺醒系統 v2 完全體分析｜龍龍 🐉｜2026.03.06</p>
-</header>
+<section class="card"><h2 class="st">Step 1-2｜📚 資料卡 + 🎯 核心命題</h2>
+<div class="two"><div><p><strong>作者：</strong>中野信子——東京大學腦科學博士、門薩（Mensa）會員。用腦科學解析「聰明人的潛規則」。風格輕快但洞察力極強。</p></div><div><p><strong>類型：</strong>🧠 心理成長型 + 🔧 方法實踐型</p><p>126頁，精簡高濃度</p></div></div>
+<div class="bx bx-r"><strong>❶ 問題</strong><p style="margin-bottom:0;">聰明人到底有什麼不同？為什麼有些高智商的人反而活得更累？「聰明」能不能後天學習？</p></div>
+<div class="bx bx-p"><strong>❷ 論點</strong><p style="margin-bottom:0;">真正的聰明不是「把所有事都做好」，而是<strong>「少做錯誤的事」</strong>。聰明的核心是「認知節能」——讓多巴胺在對的時間出現。三大策略：不讀空氣、刻意讓別人贏、設計儀式。</p></div>
+<div class="qb">「聰明並不是把所有事都做好，而是少做錯誤的事。」<div class="attr">— 中野信子</div></div></section>
 
-<section class="card">
-  <h2 class="st">Step 1-2｜📖 書籍資料 + 🎯 核心命題</h2>
-  <p><strong>類型：</strong>🧠 心理成長型 + 🔧 方法實踐型　｜　<strong>評分：</strong>⭐⭐⭐⭐ (4/5)</p>
-  <div class="bx bx-r"><strong>❶ 問題</strong><p style="margin-bottom:0;">聰明人到底有什麼不同？為什麼有些高智商的人反而活得更累？「聰明」能不能後天學習？</p></div>
-  <div class="bx bx-p"><strong>❷ 論點</strong><p style="margin-bottom:0;">真正的聰明不是「把所有事都做好」，而是「少做錯誤的事」。聰明的核心是「認知節能」——讓多巴胺在對的時間出現，而非靠意志力硬撐。聰明人的秘密：不讀空氣、刻意讓別人贏、設計儀式。</p></div>
-  <div class="bx bx-g"><strong>❸ 方法</strong><p style="margin-bottom:0;">門薩成員觀察 + 腦科學原理 + 世界級研究人員案例 + 日本文化脈絡</p></div>
-  <div class="qb">「聰明並不是把所有事都做好，而是少做錯誤的事。」<div class="attr">— 中野信子</div></div>
-</section>
+<section class="card"><h2 class="st">Step 3｜主題一：不讀空氣——貫徹擅長的事</h2>
+<div class="bx bx-p"><p><span class="depth d1">L1</span> <strong>門薩成員 S 先生的策略</strong></p><p>只做擅長的事，不擅長的委託別人。這不是自私——人被依賴時會開心。獨自承擔所有事的 H 先生反而發展有限。棒球啟示：全能型選手極為罕見，專注強項才是正道。</p><p style="margin-bottom:0;"><strong>❓ 自檢：</strong>你每天花多少時間在「不擅長但覺得該做」的事上？如果把那些時間還給你的強項呢？</p></div>
+<div class="bx bx-k"><p><span class="depth d3">L3</span> <span class="tag tag-ai">AI 跨書連結</span></p><p style="margin-bottom:0;">「不讀空氣」跟 Greg McKeown《少，但是更好》（Essentialism）的核心一致——真正的生產力不是做更多，是做更少但做對的事。也跟《誰也偷不走你的專注力》的「漏洞二：行程太滿」直接對應。</p></div></section>
 
-<section class="card">
-  <h2 class="st">Step 3｜📖 主題式深度分析</h2>
-  
-    <div class="bx bx-p">
-      <p><span class="depth d1">L1</span> <strong>不讀空氣：貫徹擅長的事</strong></p>
-      <p style="margin-bottom:0;">門薩會員 S 先生只做擅長的事，不擅長的委託別人。這不是自私——人被依賴時會開心。獨自承擔所有事的 H 先生反而發展有限。棒球啟示：全能型選手極為罕見，專注強項才是正道。</p>
-    </div>
-    <div class="bx bx-o">
-      <p><span class="depth d2">L2</span> <strong>刻意讓別人贏</strong></p>
-      <p style="margin-bottom:0;">門薩成員 N 先生故意在猜拳中輸給全桌人，替大家買單。這不是示弱——是演化生物學中的「累贅原則」（handicap principle），跟孔雀的尾巴一樣，刻意承擔風險反而展現實力。</p>
-    </div>
-    <div class="bx bx-k">
-      <p><span class="depth d3">L3</span> <strong>認知節能：聰明的重新定義</strong></p>
-      <p style="margin-bottom:0;"><span class='tag tag-ai'>AI 跨領域連結</span> 「認知節能」跟工程學的「效能優化」結構相同。大腦消耗全身 20% 能量，真正高效的策略不是過勞，而是讓系統在最佳狀態運行。儀式、角色轉換、遊戲化背後都指向同一件事：讓多巴胺在對的地方出現。</p>
-    </div>
-</section>
+<section class="card"><h2 class="st">主題二：刻意讓別人贏——累贅原則</h2>
+<div class="bx bx-o"><p><span class="depth d2">L2</span> <strong>孔雀的尾巴</strong></p><p>門薩成員 N 先生故意在猜拳中輸給全桌人，替大家買單。這不是示弱——是演化生物學的<strong>「累贅原則」（handicap principle）</strong>：孔雀的華麗尾巴在自然界是負擔，但正因為「我扛得起這個負擔」，反而證明了基因的優越。</p><p style="margin-bottom:0;">刻意承擔風險/成本 = 展現實力的最高形式。「我不需要贏」比「我一定要贏」更有力量。</p></div>
+<div class="bx bx-k"><p><span class="depth d3">L3</span> <span class="tag tag-ai">AI 文化轉譯</span></p><p style="margin-bottom:0;">中文有「大智若愚」，日文有「能ある鷹は爪を隠す」（有本事的鷹隱藏爪子）。但中野的切入更銳利：不只是「隱藏實力」，而是<strong>主動展示「我可以輸得起」</strong>。這跟《深刻認識一個人》的「照亮者讓人綻放」結構相似——強者的標誌不是壓制弱者，而是抬升弱者。</p></div></section>
 
-<section class="card">
-  <h2 class="st">Step 5-6｜🔇 缺席分析 + 🤖 AI N+1 章</h2>
-  <div class="bx bx-o"><strong>🔇 缺席分析</strong><p style="margin-bottom:0;">❶ 門薩偏差：IQ 前 2% 的人的策略不一定適用於所有人。❷ 日本文化限定：「讀空氣」在華人/西方文化有不同含義。❸ 忽略情緒智力：聰明不只是認知效率。</p></div>
-  <div class="bx bx-k"><strong>🤖 AI N+1 章</strong><p style="margin-bottom:0;"><span class='tag tag-ai'>AI N+1 章</span> AI 時代的聰明人——當 AI 能完成大部分認知任務，人類的「聰明」將重新定義為：提出好問題的能力、跨領域連結的直覺、以及在不確定中做決策的勇氣。門薩 IQ 測試可能要加上「與 AI 協作能力」這個維度。</p></div>
-</section>
+<section class="card"><h2 class="st">主題三：認知節能——聰明的重新定義</h2>
+<div class="bx bx-g"><p><span class="depth d1">L1</span> <strong>儀式的力量</strong></p><p>固定的工作前儀式（泡咖啡/整理桌面/換衣服）= 告訴大腦「開工了」。不是迷信——是利用大腦的「情境記憶」觸發特定的神經迴路。遊戲化、角色轉換背後都指向同一件事：<strong>讓多巴胺在對的地方出現</strong>。</p></div>
+<div class="bx bx-k"><p><span class="depth d3">L3</span> <span class="tag tag-ai">AI 跨領域連結</span></p><p style="margin-bottom:0;">「認知節能」跟工程學的「效能優化」結構相同。大腦消耗全身 20% 能量，真正高效的策略不是讓引擎全速運轉（過勞），而是讓系統在最佳工況運行（節能）。Tesla 的續航不靠更大電池，靠更好的能量管理。你的大腦也是。</p></div></section>
 
-<section class="card">
-  <h2 class="st">Step 7-8｜🌐 跨域連結 + ✅ 行動轉化</h2>
-  <table class="tbl">
-    <tr><th>領域</th><th>連結</th><th>關係</th></tr>
-    <tr><td>心理學</td><td>Carol Dweck《心態致勝》</td><td>成長心態 vs 固定心態 = 聰明的可學習性</td></tr><tr><td>商業</td><td>Greg McKeown《少，但是更好》</td><td>精簡主義 = 認知節能的生活版</td></tr><tr><td>腦科學</td><td>《大腦就是你的超能力》</td><td>同一主題的不同切入——結構 vs 習慣</td></tr><tr><td>演化</td><td>Amotz Zahavi「累贅原則」</td><td>示弱=展現實力的演化策略</td></tr>
-  </table>
-  <div class="bx bx-g"><strong>✅ 立刻能做</strong>
-    <ul class="checklist" style="margin-bottom:0;"><li>「不辦事項清單」：列出 3 件你不該再做的事（比待辦清單更重要）</li><li>「工作前儀式」：設計一個 2 分鐘的固定儀式（泡咖啡/整理桌面），啟動大腦的「開工模式」</li><li>「示弱練習」：這週故意在一件小事上請求別人幫忙，觀察對方的反應</li></ul>
-  </div>
-</section>
+<section class="card"><h2 class="st">Step 4-6｜📐 敘事弧 + 💡 洞見 + 🔇 缺席</h2>
+<div class="flow"><div class="flow-n"><strong>觀察</strong><br><span style="font-size:.78rem;">門薩成員<br>怎麼做事</span></div><div class="flow-a">→</div><div class="flow-n"><strong>解構</strong><br><span style="font-size:.78rem;">腦科學原理<br>為什麼有效</span></div><div class="flow-a">→</div><div class="flow-n"><strong>顛覆</strong><br><span style="font-size:.78rem;">聰明≠努力<br>聰明=節能</span></div><div class="flow-a">→</div><div class="flow-n"><strong>實踐</strong><br><span style="font-size:.78rem;">三大策略<br>任何人可學</span></div></div>
+<div class="three"><div class="mc" style="border-left:3px solid var(--ar);"><h4 style="color:var(--ar);">❶ 門薩偏差</h4><p>IQ 前 2% 的人的策略不一定適用於所有人。</p></div><div class="mc" style="border-left:3px solid var(--ao);"><h4 style="color:var(--ao);">❷ 日本文化限定</h4><p>「讀空氣」在華人/西方文化有不同含義和社會成本。</p></div><div class="mc" style="border-left:3px solid var(--a);"><h4 style="color:var(--a);">❸ 情緒智力缺席</h4><p>聰明不只是認知效率——EQ、創造力、同理心被忽略。</p></div></div></section>
 
-<section class="card">
-  <h2 class="st">Step 11｜🐉 總結</h2>
-  <p>⭐ 4/5 — 含金量高但輕薄。最大的顛覆：聰明不是「更努力」，而是「更通透」。對「示弱是力量」的論證特別精彩。適合所有覺得自己「太努力但效果不好」的人。</p>
-</section>
+<section class="card"><h2 class="st">Step 7｜🤖 AI 視角</h2>
+<div class="bx bx-k"><strong>AI N+1 章</strong> <span class="tag tag-ai">AI 原創洞見</span><p>AI 時代的聰明人——當 AI 能完成大部分認知任務，人類的「聰明」將重新定義為：提出好問題的能力、跨領域連結的直覺、在不確定中做決策的勇氣。</p><p style="margin-bottom:0;">門薩 IQ 測試可能要加上「與 AI 協作能力」：知道什麼時候用 AI、什麼時候用人腦。<strong>最聰明的人不是跟 AI 競爭的人，而是知道如何把 AI 變成自己認知節能工具的人。</strong></p></div>
+<div class="bx bx-p"><strong>跨域連結：</strong><table class="tbl"><tr><th>領域</th><th>連結</th><th>關係</th></tr><tr><td>心理學</td><td>Dweck《心態致勝》</td><td>聰明是可學習的</td></tr><tr><td>商業</td><td>McKeown《少但是更好》</td><td>精簡主義=認知節能的生活版</td></tr><tr><td>腦科學</td><td>《大腦就是你的超能力》</td><td>同主題不同切入：結構 vs 習慣</td></tr><tr><td>演化</td><td>Zahavi 累贅原則</td><td>示弱=展現實力的演化策略</td></tr><tr><td>生產力</td><td>《誰也偷不走你的專注力》</td><td>漏洞二=認知超載的具體表現</td></tr></table></div></section>
 
-<footer><p>✧ 覺醒系統 v2 完全體分析 ✧</p><p>🐉 龍龍 · 2026.03.06</p></footer>
-</div>
-</body>
-</html>
+<section class="card"><h2 class="st">Step 8-10｜✅ 行動 + 📖 帶問題讀 + 🎬 延伸</h2>
+<div class="three"><div class="mc" style="border-top:3px solid var(--ag);"><h4 style="color:var(--ag);">🟢 本週</h4><ul class="checklist"><li>「不辦事項清單」：列 3 件你不該再做的事</li><li>「工作前儀式」：設計 2 分鐘固定儀式啟動開工模式</li><li>「示弱練習」：這週故意請別人幫一件小忙</li></ul></div>
+<div class="mc" style="border-top:3px solid var(--ao);"><h4 style="color:var(--ao);">📖 帶問題讀</h4><ul style="margin-bottom:0;font-size:.87rem;"><li>「我有哪些事是因為『讀空氣』而繼續做的？」</li><li>「我上次『讓別人贏』是什麼時候？」</li></ul></div>
+<div class="mc" style="border-top:3px solid var(--ar);"><h4 style="color:var(--ar);">📚 延伸</h4><ul style="margin-bottom:0;font-size:.87rem;"><li>Greg McKeown《少，但是更好》</li><li>Cal Newport《深度工作力》</li><li>Daniel Kahneman《快思慢想》</li></ul></div></div></section>
+
+<section class="card"><h2 class="st">Step 11｜🐉 總結</h2>
+<div class="sg"><div class="sc"><div class="sn">4</div><div class="sl">總評 /5</div></div><div class="sc"><div class="sn">126</div><div class="sl">頁</div></div><div class="sc"><div class="sn">5</div><div class="sl">跨書連結</div></div><div class="sc"><div class="sn">⭐</div><div class="sl">難度 低</div></div></div>
+<div class="bx bx-g"><strong>🔑 </strong><span class="tag tag-s">認知節能</span><span class="tag tag-s">不讀空氣</span><span class="tag tag-s">累贅原則</span><span class="tag tag-s">儀式</span><span class="tag tag-s">聰明=少做錯事</span></div>
+<div class="qb" style="font-style:normal;"><strong>🐉 龍龍的一句話</strong><br><br>含金量高但輕薄。<br>最大的顛覆：聰明不是「更努力」，而是「更通透」。<br><br>對「示弱是力量」的論證特別精彩。<br>適合所有覺得自己<br><strong>「太努力但效果不好」</strong>的人。<br><br><span style="font-size:.9rem;">有時候，最聰明的做法是承認自己不需要那麼聰明。</span></div></section>
+
+<footer><p>✧ 覺醒系統 v2 完全體分析 ✧</p><p>🐉 龍龍 · 2026.03.06</p><p><a href="index.html" style="color:var(--a);text-decoration:none;">← 返回十書聯展</a></p></footer>
+</div></body></html>
