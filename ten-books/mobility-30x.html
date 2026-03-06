@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📚 覺醒 v2｜收入翻30倍的移動力</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--gs:#E8F4FD;--gm:#FFF0F5;--ge:#F5F0FF;--tp:#2D3436;--ts:#636E72;--tl:#B2BEC3;--a:#667eea;--ap:#f093fb;--ag:#4ECDC4;--ar:#FF6B6B;--ao:#F7B731;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Noto Sans TC',-apple-system,sans-serif;font-weight:300;line-height:1.85;color:var(--tp);background:linear-gradient(135deg,var(--gs) 0%,var(--gm) 50%,var(--ge) 100%);min-height:100vh;padding:40px 20px;}
+    .container{max-width:920px;margin:0 auto;}
+    .hero{text-align:center;padding:60px 40px;margin-bottom:40px;background:rgba(255,255,255,0.6);backdrop-filter:blur(20px);border-radius:32px;border:1px solid rgba(255,255,255,0.8);box-shadow:0 20px 60px rgba(0,0,0,0.08);}
+    .hero h1{font-size:2.2rem;font-weight:500;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}
+    .hero .sub{font-size:1rem;color:var(--ts);margin-bottom:6px;}
+    .hero .meta{font-size:0.85rem;color:var(--tl);}
+    .tag{display:inline-block;padding:3px 10px;border-radius:18px;font-size:.73rem;font-weight:400;margin:2px;}
+    .tag-p{background:linear-gradient(135deg,var(--a),#764ba2);color:#fff;}
+    .card{background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border-radius:24px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 32px rgba(0,0,0,0.08);padding:36px 32px;margin-bottom:24px;transition:transform .3s,box-shadow .3s;}
+    .card:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.12);}
+    .st{font-size:1.3rem;font-weight:500;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid rgba(102,126,234,0.2);display:flex;align-items:center;gap:10px;}
+    .st::before{content:'';width:4px;height:22px;background:linear-gradient(135deg,var(--a),var(--ap));border-radius:2px;}
+    p{margin-bottom:13px;font-size:.95rem;}
+    strong{font-weight:500;}
+    .bx{border-radius:16px;padding:20px;margin:16px 0;}
+    .bx-p{background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(240,147,251,.1));border-left:4px solid var(--a);}
+    .bx-k{background:linear-gradient(135deg,rgba(255,182,193,.12),rgba(221,160,221,.12));border-left:4px solid var(--ap);}
+    .bx-g{background:linear-gradient(135deg,rgba(78,205,196,.1),rgba(129,236,236,.1));border-left:4px solid var(--ag);}
+    .bx-r{background:linear-gradient(135deg,rgba(255,107,107,.1),rgba(255,159,159,.1));border-left:4px solid var(--ar);}
+    .bx-o{background:linear-gradient(135deg,rgba(247,183,49,.1),rgba(255,211,99,.1));border-left:4px solid var(--ao);}
+    .qb{background:linear-gradient(135deg,rgba(255,182,193,.15),rgba(221,160,221,.15));border-radius:16px;padding:26px;margin:20px 0;text-align:center;font-size:1.05rem;font-weight:400;color:#555;font-style:italic;border:1px solid rgba(255,182,193,.3);}
+    .qb .attr{font-size:.85rem;color:var(--tl);margin-top:8px;font-style:normal;}
+    ul,ol{padding-left:22px;margin:10px 0;}
+    li{margin-bottom:8px;line-height:1.75;font-size:.93rem;}
+    li::marker{color:var(--a);}
+    .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin:18px 0;}
+    .sc{background:rgba(255,255,255,.85);border-radius:18px;padding:18px;text-align:center;border:1px solid rgba(255,255,255,.6);}
+    .sn{font-size:1.6rem;font-weight:600;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .sl{font-size:.82rem;color:var(--ts);margin-top:3px;}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
+    .mc{background:rgba(255,255,255,.85);border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,.6);}
+    .mc h4{font-weight:500;color:var(--a);margin-bottom:6px;font-size:.93rem;}
+    .mc p{font-size:.87rem;margin-bottom:0;}
+    .tbl{width:100%;margin:16px 0;border-collapse:separate;border-spacing:0;border-radius:16px;overflow:hidden;font-size:.88rem;}
+    .tbl th{background:linear-gradient(135deg,var(--a),#764ba2);color:#fff;padding:11px 14px;text-align:left;font-weight:400;}
+    .tbl td{padding:10px 14px;border-bottom:1px solid rgba(0,0,0,.05);background:rgba(255,255,255,.6);}
+    .tbl tr:last-child td{border-bottom:none;}
+    .depth{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:500;margin-right:6px;}
+    .d1{background:#e0f0ff;color:#3b7dd8;}
+    .d2{background:#fff0e0;color:#d4850a;}
+    .d3{background:#f0e0ff;color:#8b5cf6;}
+    .tag-ai{background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:.7rem;}
+    .checklist{list-style:none;padding-left:0;}
+    .checklist li{padding:6px 0 6px 26px;position:relative;font-size:.9rem;}
+    .checklist li::before{content:'□';position:absolute;left:0;color:var(--a);font-size:1rem;}
+    footer{text-align:center;padding:40px;color:var(--tl);font-size:.85rem;}
+    @media(max-width:768px){.hero{padding:50px 24px;}.hero h1{font-size:1.7rem;}.card{padding:24px 18px;}.two{grid-template-columns:1fr;}}
+    @media print{body{background:#fff!important;padding:20px!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}.hero,.card{background:#faf8ff!important;backdrop-filter:none!important;box-shadow:none!important;border:1px solid #ddd!important;}.hero h1,.sn{color:var(--a)!important;-webkit-text-fill-color:var(--a)!important;}.card{page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="hero">
+  <h1>📚 收入翻30倍的移動力</h1>
+  <p class="sub">追求穩定只會害慘你——培養生理與心理移動能力，闖過低谷反轉人生</p>
+  <p class="meta">日本暢銷作家｜第十一本著作</p>
+  <div style="margin-top:14px;"><span class="tag tag-p">移動力</span><span class="tag tag-p">遊牧生活</span><span class="tag tag-p">創業</span><span class="tag tag-p">環境改變</span><span class="tag tag-p">行動力</span></div>
+  <p style="margin-top:16px;font-size:.85rem;color:var(--tl);">覺醒系統 v2 完全體分析｜龍龍 🐉｜2026.03.06</p>
+</header>
+
+<section class="card">
+  <h2 class="st">Step 1-2｜📖 書籍資料 + 🎯 核心命題</h2>
+  <p><strong>類型：</strong>💼 商業策略型 + 🧠 心理成長型　｜　<strong>評分：</strong>⭐⭐⭐½ (3.5/5)</p>
+  <div class="bx bx-r"><strong>❶ 問題</strong><p style="margin-bottom:0;">為什麼大多數人明明想改變，卻永遠過著一成不變的日子？為什麼 100 個人中只有 1 個能堅持下去？</p></div>
+  <div class="bx bx-p"><strong>❷ 論點</strong><p style="margin-bottom:0;">人的行為模式遵循「環境→感受→行動」順序。不要靠意志力改變行為，只需要換個環境。定居是不幸的開端——移動力才是現代人最需要的核心能力。</p></div>
+  <div class="bx bx-g"><strong>❸ 方法</strong><p style="margin-bottom:0;">個人經歷 + 歷史論證（哈拉瑞《人類大歷史》）+ 腦科學（大腦萎縮論）+ 實踐案例</p></div>
+  <div class="qb">「一百個人裡有十個人會去做，能堅持下去的只有一個人。」<div class="attr">— 作者</div></div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 3｜📖 主題式深度分析</h2>
+  
+    <div class="bx bx-r">
+      <p><span class="depth d1">L1</span> <strong>定居是萬惡根源</strong></p>
+      <p style="margin-bottom:0;">引用哈拉瑞：農業革命讓人類定居，但定居後的生活反而比採集時代更辛苦。定居催生階級、嫉妒、比較。Brian Eno 指出：現代人大腦比狩獵時代更小——因為不再需要街頭智慧。</p>
+    </div>
+    <div class="bx bx-p">
+      <p><span class="depth d2">L2</span> <strong>環境決定行為</strong></p>
+      <p style="margin-bottom:0;">不是「我想改變→所以我行動」，而是「我換了環境→感受改變→行為自然改變」。23歲的大企業員工讀了一本書→辭職搬到東京→再移居新加坡→攻讀 MBA。改變人生的第一步不是「想通」，是「搬走」。</p>
+    </div>
+    <div class="bx bx-o">
+      <p><span class="depth d3">L3</span> <strong>移動力的經濟效益</strong></p>
+      <p style="margin-bottom:0;"><span class='tag tag-ai'>AI 原創洞見</span> 作者的隱含論證鏈：移動→接觸新環境→發現新機會→收入增加。但這裡有選擇偏差——願意移動的人本身就可能更有冒險精神和能力。因果關係 vs 相關性需要區分。</p>
+    </div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 5-6｜🔇 缺席分析 + 🤖 AI N+1 章</h2>
+  <div class="bx bx-o"><strong>🔇 缺席分析</strong><p style="margin-bottom:0;">❶ 特權盲點：能隨意移動是一種經濟特權。❷ 忽略根的力量：家族、社區、文化根源的價值被低估。❸ 倖存者偏差：只呈現移動成功的案例，移動失敗的呢？</p></div>
+  <div class="bx bx-k"><strong>🤖 AI N+1 章</strong><p style="margin-bottom:0;"><span class='tag tag-ai'>AI N+1 章</span> 第七章：不動的移動力——數位遊牧、遠端工作、AI 協作讓「心理移動」脫離「物理移動」。真正的移動力不是搬家，是思維的靈活度。一個住在同一個城市但不斷學習新技能的人，可能比到處旅行但從不反思的人更有「移動力」。</p></div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 7-8｜🌐 跨域連結 + ✅ 行動轉化</h2>
+  <table class="tbl">
+    <tr><th>領域</th><th>連結</th><th>關係</th></tr>
+    <tr><td>歷史</td><td>哈拉瑞《人類大歷史》</td><td>農業革命=人類最大的騙局</td></tr><tr><td>心理學</td><td>《內在富裕》</td><td>探索=內在富裕的核心引擎，結構相同</td></tr><tr><td>商業</td><td>Tim Ferriss《一週工作四小時》</td><td>地理套利+遠端工作的先驅</td></tr><tr><td>哲學</td><td>遊牧主義 vs 定居主義</td><td>後現代的存在選擇</td></tr>
+  </table>
+  <div class="bx bx-g"><strong>✅ 立刻能做</strong>
+    <ul class="checklist" style="margin-bottom:0;"><li>「通勤路線實驗」：明天換一條不同的路上班/上學</li><li>「30 天移動挑戰」：每天去一個你從沒去過的地方（咖啡店、公園、街區）</li><li>「數位移動」：訂閱一個你從沒接觸的領域的 Podcast 或 YouTube 頻道</li></ul>
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 11｜🐉 總結</h2>
+  <p>⭐ 3.5/5 — 核心觀點有力（環境>意志力），但論證有時過於極端。「定居=萬惡根源」的說法需要打折扣。最大的價值是給那些「想改變卻不敢」的人一記當頭棒喝。</p>
+</section>
+
+<footer><p>✧ 覺醒系統 v2 完全體分析 ✧</p><p>🐉 龍龍 · 2026.03.06</p></footer>
+</div>
+</body>
+</html>

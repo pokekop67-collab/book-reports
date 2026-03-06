@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📚 覺醒 v2｜誰也偷不走你的專注力</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--gs:#E8F4FD;--gm:#FFF0F5;--ge:#F5F0FF;--tp:#2D3436;--ts:#636E72;--tl:#B2BEC3;--a:#667eea;--ap:#f093fb;--ag:#4ECDC4;--ar:#FF6B6B;--ao:#F7B731;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Noto Sans TC',-apple-system,sans-serif;font-weight:300;line-height:1.85;color:var(--tp);background:linear-gradient(135deg,var(--gs) 0%,var(--gm) 50%,var(--ge) 100%);min-height:100vh;padding:40px 20px;}
+    .container{max-width:920px;margin:0 auto;}
+    .hero{text-align:center;padding:60px 40px;margin-bottom:40px;background:rgba(255,255,255,0.6);backdrop-filter:blur(20px);border-radius:32px;border:1px solid rgba(255,255,255,0.8);box-shadow:0 20px 60px rgba(0,0,0,0.08);}
+    .hero h1{font-size:2.2rem;font-weight:500;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}
+    .hero .sub{font-size:1rem;color:var(--ts);margin-bottom:6px;}
+    .hero .meta{font-size:0.85rem;color:var(--tl);}
+    .tag{display:inline-block;padding:3px 10px;border-radius:18px;font-size:.73rem;font-weight:400;margin:2px;}
+    .tag-p{background:linear-gradient(135deg,var(--a),#764ba2);color:#fff;}
+    .card{background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border-radius:24px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 32px rgba(0,0,0,0.08);padding:36px 32px;margin-bottom:24px;transition:transform .3s,box-shadow .3s;}
+    .card:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.12);}
+    .st{font-size:1.3rem;font-weight:500;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid rgba(102,126,234,0.2);display:flex;align-items:center;gap:10px;}
+    .st::before{content:'';width:4px;height:22px;background:linear-gradient(135deg,var(--a),var(--ap));border-radius:2px;}
+    p{margin-bottom:13px;font-size:.95rem;}
+    strong{font-weight:500;}
+    .bx{border-radius:16px;padding:20px;margin:16px 0;}
+    .bx-p{background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(240,147,251,.1));border-left:4px solid var(--a);}
+    .bx-k{background:linear-gradient(135deg,rgba(255,182,193,.12),rgba(221,160,221,.12));border-left:4px solid var(--ap);}
+    .bx-g{background:linear-gradient(135deg,rgba(78,205,196,.1),rgba(129,236,236,.1));border-left:4px solid var(--ag);}
+    .bx-r{background:linear-gradient(135deg,rgba(255,107,107,.1),rgba(255,159,159,.1));border-left:4px solid var(--ar);}
+    .bx-o{background:linear-gradient(135deg,rgba(247,183,49,.1),rgba(255,211,99,.1));border-left:4px solid var(--ao);}
+    .qb{background:linear-gradient(135deg,rgba(255,182,193,.15),rgba(221,160,221,.15));border-radius:16px;padding:26px;margin:20px 0;text-align:center;font-size:1.05rem;font-weight:400;color:#555;font-style:italic;border:1px solid rgba(255,182,193,.3);}
+    .qb .attr{font-size:.85rem;color:var(--tl);margin-top:8px;font-style:normal;}
+    ul,ol{padding-left:22px;margin:10px 0;}
+    li{margin-bottom:8px;line-height:1.75;font-size:.93rem;}
+    li::marker{color:var(--a);}
+    .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin:18px 0;}
+    .sc{background:rgba(255,255,255,.85);border-radius:18px;padding:18px;text-align:center;border:1px solid rgba(255,255,255,.6);}
+    .sn{font-size:1.6rem;font-weight:600;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .sl{font-size:.82rem;color:var(--ts);margin-top:3px;}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
+    .mc{background:rgba(255,255,255,.85);border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,.6);}
+    .mc h4{font-weight:500;color:var(--a);margin-bottom:6px;font-size:.93rem;}
+    .mc p{font-size:.87rem;margin-bottom:0;}
+    .tbl{width:100%;margin:16px 0;border-collapse:separate;border-spacing:0;border-radius:16px;overflow:hidden;font-size:.88rem;}
+    .tbl th{background:linear-gradient(135deg,var(--a),#764ba2);color:#fff;padding:11px 14px;text-align:left;font-weight:400;}
+    .tbl td{padding:10px 14px;border-bottom:1px solid rgba(0,0,0,.05);background:rgba(255,255,255,.6);}
+    .tbl tr:last-child td{border-bottom:none;}
+    .depth{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:500;margin-right:6px;}
+    .d1{background:#e0f0ff;color:#3b7dd8;}
+    .d2{background:#fff0e0;color:#d4850a;}
+    .d3{background:#f0e0ff;color:#8b5cf6;}
+    .tag-ai{background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:.7rem;}
+    .checklist{list-style:none;padding-left:0;}
+    .checklist li{padding:6px 0 6px 26px;position:relative;font-size:.9rem;}
+    .checklist li::before{content:'□';position:absolute;left:0;color:var(--a);font-size:1rem;}
+    footer{text-align:center;padding:40px;color:var(--tl);font-size:.85rem;}
+    @media(max-width:768px){.hero{padding:50px 24px;}.hero h1{font-size:1.7rem;}.card{padding:24px 18px;}.two{grid-template-columns:1fr;}}
+    @media print{body{background:#fff!important;padding:20px!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}.hero,.card{background:#faf8ff!important;backdrop-filter:none!important;box-shadow:none!important;border:1px solid #ddd!important;}.hero h1,.sn{color:var(--a)!important;-webkit-text-fill-color:var(--a)!important;}.card{page-break-inside:avoid;}}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="hero">
+  <h1>📚 誰也偷不走你的專注力</h1>
+  <p class="sub">堵住分心漏洞，做得更好，犯錯更少</p>
+  <p class="meta">馬克．提赫拉爾、奧斯卡．德．博斯 著</p>
+  <div style="margin-top:14px;"><span class="tag tag-p">專注力</span><span class="tag tag-p">生產力</span><span class="tag tag-p">腦科學</span><span class="tag tag-p">時間管理</span><span class="tag tag-p">分心</span></div>
+  <p style="margin-top:16px;font-size:.85rem;color:var(--tl);">覺醒系統 v2 完全體分析｜龍龍 🐉｜2026.03.06</p>
+</header>
+
+<section class="card">
+  <h2 class="st">Step 1-2｜📖 書籍資料 + 🎯 核心命題</h2>
+  <p><strong>類型：</strong>🔧 方法實踐型　｜　<strong>評分：</strong>⭐⭐⭐⭐ (4/5)</p>
+  <div class="bx bx-r"><strong>❶ 問題</strong><p style="margin-bottom:0;">為什麼我們比以前更忙，完成的卻更少？為什麼專注對現代人來說難如登天？</p></div>
+  <div class="bx bx-p"><strong>❷ 論點</strong><p style="margin-bottom:0;">分心不是意志力問題，而是大腦的四個「漏洞」：❶ 缺乏刺激（無聊）❷ 內部刺激過多（太忙）❸ 缺乏燃料（倦怠）❹ 外部刺激過多（干擾）。堵住漏洞，專注自然回來。</p></div>
+  <div class="bx bx-g"><strong>❸ 方法</strong><p style="margin-bottom:0;">腦科學實證 + 四大漏洞診斷框架 + 企業培訓實戰 + 個人化工具</p></div>
+  <div class="qb">「忙了一整天，最後卻發現自己其實沒完成什麼事。」<div class="attr">— 作者的朋友彼特</div></div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 3｜📖 主題式深度分析</h2>
+  
+    <div class="bx bx-p">
+      <p><span class="depth d1">L1</span> <strong>四大專注力漏洞模型</strong></p>
+      <p style="margin-bottom:0;">❶ 無聊→大腦思考速度太快，需要換檔填補空白。❷ 行程太滿→任務切換的隱性成本巨大。❸ 倦怠→時間與生產力不是線性關係，看 YouTube 對大腦是苦差事而非休息。❹ 干擾→通知是專注力的殺手。</p>
+    </div>
+    <div class="bx bx-g">
+      <p><span class="depth d2">L2</span> <strong>大腦的外接硬碟</strong></p>
+      <p style="margin-bottom:0;">越聰明的人越容易讓大腦超載——因為他們習慣在腦中處理一切。解法：把大腦當 RAM 而非硬碟，用外部系統（筆記、清單）釋放工作記憶。GTD 的核心不是效率，是認知減負。</p>
+    </div>
+    <div class="bx bx-k">
+      <p><span class="depth d3">L3</span> <strong>擁抱無聊</strong></p>
+      <p style="margin-bottom:0;"><span class='tag tag-ai'>AI 跨書連結</span> 「擁抱無聊」跟 Cal Newport《深度工作力》的「無聊耐受度」概念完全一致——無聊是專注力的訓練場。如果你連排隊等三分鐘都要拿手機，你的專注力肌肉正在萎縮。</p>
+    </div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 5-6｜🔇 缺席分析 + 🤖 AI N+1 章</h2>
+  <div class="bx bx-o"><strong>🔇 缺席分析</strong><p style="margin-bottom:0;">❶ 忽略：ADHD 等神經多樣性族群的專注力問題需要不同策略。❷ 盲點：創造力需要一定程度的分心——書中承認但未充分展開。❸ 系統性問題：資本主義的注意力經濟是根源，個人策略只是治標。</p></div>
+  <div class="bx bx-k"><strong>🤖 AI N+1 章</strong><p style="margin-bottom:0;"><span class='tag tag-ai'>AI N+1 章</span> AI 作為專注力外骨骼——AI 可以幫你過濾資訊、排序任務、甚至在你分心時溫柔提醒你。但最終問題是：如果 AI 替你專注了，你的大腦還需要這項能力嗎？</p></div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 7-8｜🌐 跨域連結 + ✅ 行動轉化</h2>
+  <table class="tbl">
+    <tr><th>領域</th><th>連結</th><th>關係</th></tr>
+    <tr><td>心理學</td><td>Cal Newport《深度工作力》</td><td>分心時代的專注力必讀雙書</td></tr><tr><td>心理學</td><td>Mihaly Csikszentmihalyi《心流》</td><td>心流 = 專注力的巔峰狀態</td></tr><tr><td>商業</td><td>David Allen《GTD》</td><td>外部系統 = 大腦外接硬碟的具體實踐</td></tr><tr><td>科技批評</td><td>Tristan Harris《注意力商人》</td><td>分心的結構性根源</td></tr>
+  </table>
+  <div class="bx bx-g"><strong>✅ 立刻能做</strong>
+    <ul class="checklist" style="margin-bottom:0;"><li>「漏洞診斷」：今天觀察自己分心的時刻，判斷是哪種漏洞（無聊/太忙/倦怠/干擾）</li><li>「通知斷捨離」：關掉手機上除了電話和訊息以外的所有通知</li><li>「90 分鐘區塊」：明天早上設定 90 分鐘不受打擾的深度工作時間</li></ul>
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 11｜🐉 總結</h2>
+  <p>⭐ 4/5 — 四大漏洞模型是本書最大的貢獻——它把模糊的「分心」變成可診斷、可處理的具體問題。比起教你「更專注」，這本書教你「為什麼會分心」，這才是治本。</p>
+</section>
+
+<footer><p>✧ 覺醒系統 v2 完全體分析 ✧</p><p>🐉 龍龍 · 2026.03.06</p></footer>
+</div>
+</body>
+</html>
