@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>📚 書醒 v2｜深刻認識一個人</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gradient-start: #E8F4FD;
+      --gradient-mid: #FFF0F5;
+      --gradient-end: #F5F0FF;
+      --text-primary: #2D3436;
+      --text-secondary: #636E72;
+      --text-light: #B2BEC3;
+      --accent: #667eea;
+      --accent-pink: #f093fb;
+      --accent-green: #4ECDC4;
+      --accent-red: #FF6B6B;
+      --accent-gold: #F7B731;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Noto Sans TC', -apple-system, sans-serif;
+      font-weight: 300; line-height: 1.85; color: var(--text-primary);
+      background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-mid) 50%, var(--gradient-end) 100%);
+      min-height: 100vh; padding: 40px 20px;
+    }
+    .container { max-width: 920px; margin: 0 auto; }
+
+    /* Hero */
+    .hero {
+      text-align: center; padding: 70px 40px; margin-bottom: 40px;
+      background: rgba(255,255,255,0.6); backdrop-filter: blur(20px);
+      border-radius: 32px; border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+    .hero h1 {
+      font-size: 2.4rem; font-weight: 500;
+      background: linear-gradient(135deg, var(--accent), var(--accent-pink));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 12px;
+    }
+    .hero .subtitle { font-size: 1.05rem; color: var(--text-secondary); font-weight: 300; margin-bottom: 8px; }
+    .hero .en-title { font-size: 0.9rem; color: var(--text-light); font-style: italic; margin-bottom: 16px; }
+    .hero .meta { font-size: 0.85rem; color: var(--text-light); }
+
+    /* Cards */
+    .card {
+      background: rgba(255,255,255,0.7); backdrop-filter: blur(10px);
+      border-radius: 24px; border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08); padding: 36px 32px; margin-bottom: 24px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,0,0,0.12); }
+
+    .section-title {
+      font-size: 1.35rem; font-weight: 500; margin-bottom: 20px; padding-bottom: 10px;
+      border-bottom: 2px solid rgba(102,126,234,0.2); display: flex; align-items: center; gap: 10px;
+    }
+    .section-title::before {
+      content: ''; width: 4px; height: 22px;
+      background: linear-gradient(135deg, var(--accent), var(--accent-pink)); border-radius: 2px;
+    }
+
+    p { margin-bottom: 14px; font-size: 0.95rem; }
+    strong { font-weight: 500; }
+
+    /* Boxes */
+    .box {
+      border-radius: 16px; padding: 22px; margin: 18px 0;
+    }
+    .box-purple { background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1)); border-left: 4px solid var(--accent); }
+    .box-pink { background: linear-gradient(135deg, rgba(255,182,193,0.15), rgba(221,160,221,0.15)); border-left: 4px solid var(--accent-pink); }
+    .box-green { background: linear-gradient(135deg, rgba(78,205,196,0.1), rgba(129,236,236,0.1)); border-left: 4px solid var(--accent-green); }
+    .box-red { background: linear-gradient(135deg, rgba(255,107,107,0.1), rgba(255,159,159,0.1)); border-left: 4px solid var(--accent-red); }
+    .box-gold { background: linear-gradient(135deg, rgba(247,183,49,0.1), rgba(255,211,99,0.1)); border-left: 4px solid var(--accent-gold); }
+
+    .quote-box {
+      background: linear-gradient(135deg, rgba(255,182,193,0.15), rgba(221,160,221,0.15));
+      border-radius: 16px; padding: 28px; margin: 22px 0; text-align: center;
+      font-size: 1.1rem; font-weight: 400; color: #555; font-style: italic;
+      border: 1px solid rgba(255,182,193,0.3);
+    }
+    .quote-box .attr { font-size: 0.85rem; color: var(--text-light); margin-top: 10px; font-style: normal; }
+
+    /* Tags */
+    .tag { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 400; margin: 2px; }
+    .tag-purple { background: linear-gradient(135deg, var(--accent), #764ba2); color: white; }
+    .tag-soft { background: rgba(102,126,234,0.12); color: var(--accent); }
+    .tag-green { background: rgba(78,205,196,0.15); color: #2EAD9F; }
+    .tag-red { background: rgba(255,107,107,0.15); color: var(--accent-red); }
+    .tag-gold { background: rgba(247,183,49,0.15); color: #D4A017; }
+    .tag-ai { background: linear-gradient(135deg, #667eea, #764ba2); color: white; font-size: 0.7rem; }
+
+    /* Grids */
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin: 20px 0; }
+    .stat-card { background: rgba(255,255,255,0.8); border-radius: 20px; padding: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.6); }
+    .stat-number { font-size: 1.8rem; font-weight: 600; background: linear-gradient(135deg, var(--accent), var(--accent-pink)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .stat-label { font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px; }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+    .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin: 18px 0; }
+
+    .mini-card { background: rgba(255,255,255,0.85); border-radius: 16px; padding: 20px; border: 1px solid rgba(255,255,255,0.6); }
+    .mini-card h4 { font-weight: 500; color: var(--accent); margin-bottom: 8px; font-size: 0.95rem; }
+    .mini-card p { font-size: 0.88rem; margin-bottom: 0; }
+
+    /* Lists */
+    ul, ol { padding-left: 22px; margin: 12px 0; }
+    li { margin-bottom: 8px; line-height: 1.75; font-size: 0.93rem; }
+    li::marker { color: var(--accent); }
+
+    /* Table */
+    .vs-table { width: 100%; margin: 18px 0; border-collapse: separate; border-spacing: 0; border-radius: 16px; overflow: hidden; font-size: 0.9rem; }
+    .vs-table th { background: linear-gradient(135deg, var(--accent), #764ba2); color: white; padding: 12px 14px; text-align: left; font-weight: 400; }
+    .vs-table td { padding: 10px 14px; border-bottom: 1px solid rgba(0,0,0,0.05); background: rgba(255,255,255,0.6); }
+    .vs-table tr:last-child td { border-bottom: none; }
+
+    /* Depth labels */
+    .depth { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 500; margin-right: 6px; }
+    .depth-l1 { background: #e0f0ff; color: #3b7dd8; }
+    .depth-l2 { background: #fff0e0; color: #d4850a; }
+    .depth-l3 { background: #f0e0ff; color: #8b5cf6; }
+
+    /* Arc */
+    .arc { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 8px; margin: 20px 0; }
+    .arc-node { background: rgba(255,255,255,0.9); border-radius: 14px; padding: 10px 16px; font-size: 0.82rem; border: 1px solid rgba(102,126,234,0.2); text-align: center; }
+    .arc-arrow { color: var(--accent); font-size: 1.2rem; }
+
+    /* Checklist */
+    .checklist { list-style: none; padding-left: 0; }
+    .checklist li { padding: 8px 0 8px 28px; position: relative; }
+    .checklist li::before { content: '□'; position: absolute; left: 0; color: var(--accent); font-size: 1.1rem; }
+    .checklist.green li::before { color: var(--accent-green); }
+    .checklist.gold li::before { color: var(--accent-gold); }
+    .checklist.red li::before { color: var(--accent-red); }
+
+    /* Step number */
+    .step-num { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; font-size: 0.8rem; font-weight: 600; color: white; background: linear-gradient(135deg, var(--accent), var(--accent-pink)); margin-right: 8px; flex-shrink: 0; }
+
+    footer { text-align: center; padding: 40px; color: var(--text-light); font-size: 0.85rem; }
+
+    @media (max-width: 768px) {
+      .hero { padding: 50px 24px; }
+      .hero h1 { font-size: 1.8rem; }
+      .card { padding: 24px 18px; border-radius: 20px; }
+      .two-col, .three-col { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media print {
+      body { background: white !important; padding: 20px !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .hero, .card { background: #faf8ff !important; backdrop-filter: none !important; box-shadow: none !important; border: 1px solid #ddd !important; }
+      .hero h1, .stat-number { color: var(--accent) !important; -webkit-text-fill-color: var(--accent) !important; }
+      .card { page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+<!-- ===== HERO ===== -->
+<header class="hero">
+  <h1>📚 深刻認識一個人</h1>
+  <p class="subtitle">發現自己與他人的非凡之處</p>
+  <p class="en-title">How to Know a Person: The Art of Seeing Others Deeply and Being Deeply Seen</p>
+  <p class="meta">David Brooks 著｜廖月娟 譯｜遠見天下文化 2024</p>
+  <div style="margin-top:16px;">
+    <span class="tag tag-purple">心理成長</span>
+    <span class="tag tag-purple">人際關係</span>
+    <span class="tag tag-purple">同理心</span>
+    <span class="tag tag-purple">五大人格</span>
+    <span class="tag tag-purple">照亮者</span>
+  </div>
+  <p style="margin-top:18px; font-size:0.85rem; color:var(--text-light);">書醒系統 v2 完全體分析｜龍龍 🐉｜2026.03.06</p>
+</header>
+
+<!-- ===== Step 1: 書籍資料卡 ===== -->
+<section class="card">
+  <h2 class="section-title">Step 1｜📖 書籍資料卡</h2>
+  <div class="two-col">
+    <div>
+      <p><strong>作者：</strong>David Brooks — 《紐約時報》專欄作家、耶魯大學教授、PBS/NPR/NBC 固定評論員</p>
+      <p><strong>譯者：</strong>廖月娟（金鼎獎最佳翻譯人）</p>
+      <p><strong>結構：</strong>三大部分・17 章</p>
+    </div>
+    <div>
+      <p><strong>類型：</strong>🧠 心理成長 + 📝 哲學散文</p>
+      <p><strong>方法：</strong>自傳 + 心理學實證 + 新聞採訪 + 文學案例</p>
+      <p><strong>評分：</strong>⭐⭐⭐⭐½（4.5/5）</p>
+    </div>
+  </div>
+  <div class="stat-grid" style="margin-top:16px;">
+    <div class="stat-card"><div style="font-size:1.5rem;">📖</div><div class="stat-label">第一部 Ch1-7</div><div style="font-size:0.8rem;color:var(--text-secondary);">看見他人的基礎</div></div>
+    <div class="stat-card"><div style="font-size:1.5rem;">💔</div><div class="stat-label">第二部 Ch8-12</div><div style="font-size:0.8rem;color:var(--text-secondary);">我看到你的磨難</div></div>
+    <div class="stat-card"><div style="font-size:1.5rem;">💪</div><div class="stat-label">第三部 Ch13-17</div><div style="font-size:0.8rem;color:var(--text-secondary);">我看到你的力量</div></div>
+  </div>
+</section>
+
+<!-- ===== Step 2: 核心命題 ===== -->
+<section class="card">
+  <h2 class="section-title">Step 2｜🎯 核心命題</h2>
+  <div class="box box-red">
+    <strong>❶ 問題</strong>
+    <p style="margin-bottom:0;">美國自殺率 20 年上升 33%、36% 的人覺得孤獨、45% 青少年感到絕望。在一個日益對立的社會中，人與人為什麼彼此「看不見」？</p>
+  </div>
+  <div class="box box-purple">
+    <strong>❷ 論點</strong>
+    <p style="margin-bottom:0;">問題的根源：我們從未學過如何「看見」另一個人。世界上有兩種人——<strong>削弱者</strong>讓人覺得渺小，<strong>照亮者</strong>讓人綻放。成為照亮者不是天性，是可訓練的技藝。</p>
+  </div>
+  <div class="box box-green">
+    <strong>❸ 方法</strong>
+    <p style="margin-bottom:0;">用作者自己從「情感冰河期」蛻變為「照亮者」的真實經歷為骨架，穿插心理學研究、文學案例，歸納出一套「看見他人」的實踐系統。</p>
+  </div>
+  <div class="quote-box">
+    「你看見我，照亮我，我就綻放如花。」
+    <div class="attr">— 全書核心命題</div>
+  </div>
+</section>
+
+<!-- ===== Step 3: 主題一 ===== -->
+<section class="card">
+  <h2 class="section-title">Step 3｜主題一：削弱者 vs 照亮者</h2>
+  <p><span class="depth depth-l1">L1</span> <strong>削弱者的 7 種伎倆：</strong>自我中心、焦慮、無知的現實主義、自命不凡、客觀主義、本質主義、停滯心態</p>
+  <p><span class="depth depth-l1">L1</span> <strong>照亮者的目光特質：</strong>溫柔、接受、強烈好奇心——不是「用力觀察」，而是帶著尊重的凝視</p>
+  
+  <div class="box box-gold">
+    <p><span class="depth depth-l2">L2</span> <strong>棒球棍隱喻</strong></p>
+    <p style="margin-bottom:0;">作者撿到千載難逢的斷棒，卻面無表情放在腳邊。這不只是「內向」——是<strong>情感的結構性壓抑</strong>。很多「聰明人」的冷漠不是因為不在乎，而是被訓練成只用腦不用心。</p>
+  </div>
+
+  <div class="box box-pink">
+    <p><span class="depth depth-l3">L3</span> <span class="tag tag-ai">AI 跨書連結</span></p>
+    <p>「照亮者 vs 削弱者」跟 Adam Grant《給予》中的「給予者 vs 索取者」結構相似，但布魯克斯更深：Grant 談<strong>行為</strong>（給予 vs 索取），布魯克斯談<strong>存在方式</strong>（你的目光本身就在給予或剝奪）。</p>
+    <p style="margin-bottom:0;"><span class="tag tag-ai">AI 文化轉譯</span> 韓文「눈치」（察言觀色）和德文「Herzensbildung」（心靈修練）被引用。華人最接近的概念是「體貼」——但華人的「體貼」常伴隨「不要麻煩別人」的壓抑，跟布魯克斯追求的「相互敞開」形成張力。</p>
+  </div>
+
+  <div class="two-col">
+    <div class="box box-green" style="margin:0;">
+      <strong>🔧 立刻能做</strong>
+      <ul style="margin-bottom:0;">
+        <li>「削弱者自檢」：回想今天三次對話，你在哪一次犯了哪種伎倆？</li>
+        <li>「棒球棍測試」：上次有好事，你有表達喜悅嗎？</li>
+      </ul>
+    </div>
+    <div class="box box-gold" style="margin:0;">
+      <strong>❓ 自我檢核</strong>
+      <p style="margin-bottom:0;">你的伴侶/孩子/同事，如果被問「你覺得被 [你的名字] 看見了嗎？」，他們會怎麼回答？</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 主題二：對話 ===== -->
+<section class="card">
+  <h2 class="section-title">主題二：對話的藝術（Ch6-7）</h2>
+  
+  <div class="stat-grid" style="grid-template-columns: repeat(5, 1fr);">
+    <div class="stat-card"><div style="font-size:1.3rem;">🪑</div><div class="stat-label">坐直</div></div>
+    <div class="stat-card"><div style="font-size:1.3rem;">↗️</div><div class="stat-label">傾身向前</div></div>
+    <div class="stat-card"><div style="font-size:1.3rem;">❓</div><div class="stat-label">提問</div></div>
+    <div class="stat-card"><div style="font-size:1.3rem;">👍</div><div class="stat-label">點頭</div></div>
+    <div class="stat-card"><div style="font-size:1.3rem;">👁️</div><div class="stat-label">注視</div></div>
+  </div>
+  <p style="text-align:center;font-size:0.85rem;color:var(--text-secondary);">SLANT 傾聽法則</p>
+
+  <div class="box box-purple">
+    <p><span class="depth depth-l1">L1</span> <strong>核心技巧</strong></p>
+    <ul style="margin-bottom:0;">
+      <li><strong>出聲傾聽：</strong>像歐普拉一樣「啊…喔…咿…」的鼓勵合音</li>
+      <li><strong>迴圈（Looping）：</strong>重述對方的話確認理解——「所以你是說…？」</li>
+      <li><strong>助產士模式：</strong>不提供見解，幫助對方形成自己的見解</li>
+      <li><strong>讓人當主角：</strong>問具體事件和感受，不問抽象意見</li>
+    </ul>
+  </div>
+
+  <div class="box box-gold">
+    <p><span class="depth depth-l2">L2</span> <strong>三層「聽」</strong></p>
+    <p style="margin-bottom:0;">被動聽（假裝在聽）→ 為了回應而聽（到手肘就開始想自己要說什麼）→ <strong>為了理解而聽</strong>（聽到指尖）。大多數人停在手肘。</p>
+  </div>
+
+  <div class="box box-pink">
+    <p><span class="depth depth-l3">L3</span> <span class="tag tag-ai">AI 跨領域連結</span></p>
+    <p style="margin-bottom:0;">「迴圈」在心理治療中叫「反映式傾聽」，是 Carl Rogers 人本主義治療的核心。布魯克斯把臨床級工具降維成日常可用的對話技巧——這是本書最大的實用價值。</p>
+  </div>
+
+  <div class="box box-green">
+    <strong>🔧 立刻能做</strong>
+    <ul style="margin-bottom:0;">
+      <li>「手肘測試」：觀察自己在對方說到手臂的哪個位置就開始想自己要說什麼</li>
+      <li>「多等三秒」：今天跟某人對話時，刻意多等 3 秒再回應</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== 主題三：磨難 ===== -->
+<section class="card">
+  <h2 class="section-title">主題三：看見磨難（Ch8-12）</h2>
+  
+  <div class="quote-box">
+    「跟得了憂鬱症的人做朋友很難，但這是你能做的最善良、最高貴、最好的事情。」
+    <div class="attr">— Stephen Fry</div>
+  </div>
+
+  <div class="box box-red">
+    <p><span class="depth depth-l1">L1</span> <strong>作者的錯誤（摯友彼得的故事）</strong></p>
+    <ul style="margin-bottom:0;">
+      <li>❌ 告訴他「你可以做什麼來好轉」→ 等於告訴他：你不懂他</li>
+      <li>❌ 「積極重塑」提醒他擁有的幸福 → 憂鬱症患者無法享受，反而更痛苦</li>
+      <li>✅ 最有用：傳一段同為憂鬱症患者的講道影片，讓他覺得被理解</li>
+    </ul>
+  </div>
+
+  <div class="box box-gold">
+    <p><span class="depth depth-l2">L2</span> <strong>方法論的謙遜</strong></p>
+    <p style="margin-bottom:0;">布魯克斯在寫「如何深刻認識一個人」，卻坦承無法拯救最親密的朋友。有些痛苦超越了所有技巧，你能做的只是<strong>陪伴</strong>。彼得最終在 2022 年自殺。</p>
+  </div>
+
+  <div class="box box-pink">
+    <p><span class="depth depth-l3">L3</span> <span class="tag tag-ai">AI 文化轉譯</span></p>
+    <p style="margin-bottom:0;">巴爾札克：「有時我們只想要朋友待在自己身邊，其他都無法忍受。」這跟佛教的「同事攝」有結構性相似。在華人文化中，「陪」這個字被嚴重低估。我們傾向「解決問題」而非「陪伴痛苦」。<strong>陪伴本身就是行動。</strong></p>
+  </div>
+
+  <div class="box box-green">
+    <strong>🔧 700 張明信片法</strong>
+    <p style="margin-bottom:0;">一位兄長寄了 700+ 張明信片給憂鬱症弟弟，上面寫：「支持你。無需回覆。」不要等到想出完美的話才聯繫。一句「想到你」就夠了。</p>
+  </div>
+</section>
+
+<!-- ===== 主題四：五大人格 ===== -->
+<section class="card">
+  <h2 class="section-title">主題四：五大人格特質（Ch13）</h2>
+
+  <div class="box box-red" style="text-align:center;">
+    <p style="margin-bottom:0;"><strong>MBTI 在科學上站不住腳</strong>——50% 的人做兩次得到不同結果。應該用<strong>五大人格特質（Big Five）</strong>。</p>
+  </div>
+
+  <div class="stat-grid" style="grid-template-columns: repeat(5, 1fr); margin-top:20px;">
+    <div class="stat-card">
+      <div style="font-size:1.5rem;">🎉</div>
+      <div style="font-weight:500;color:var(--accent);font-size:0.9rem;">外向性</div>
+      <div class="stat-label">熱情但易怒衝動</div>
+    </div>
+    <div class="stat-card">
+      <div style="font-size:1.5rem;">📋</div>
+      <div style="font-weight:500;color:#D4699B;font-size:0.9rem;">責任感</div>
+      <div class="stat-label">成就高但可能強迫</div>
+    </div>
+    <div class="stat-card">
+      <div style="font-size:1.5rem;">😰</div>
+      <div style="font-weight:500;color:var(--accent-red);font-size:0.9rem;">神經質</div>
+      <div class="stat-label">敏感但能預見危險</div>
+    </div>
+    <div class="stat-card">
+      <div style="font-size:1.5rem;">🤝</div>
+      <div style="font-weight:500;color:var(--accent-green);font-size:0.9rem;">親和力</div>
+      <div class="stat-label">善良但升遷困難</div>
+    </div>
+    <div class="stat-card">
+      <div style="font-size:1.5rem;">🎨</div>
+      <div style="font-weight:500;color:#8b5cf6;font-size:0.9rem;">開放性</div>
+      <div class="stat-label">創造力強但活在幻想</div>
+    </div>
+  </div>
+
+  <div class="box box-gold">
+    <p><span class="depth depth-l2">L2</span> <strong>小布希案例</strong></p>
+    <p style="margin-bottom:0;">高度外向 + 低度好奇心 = 大膽行動但不考慮其他觀點 → 伊拉克戰爭的人格根源。這種「性格 → 決策 → 命運」的鏈條，是全書最有政治力量的分析。</p>
+  </div>
+</section>
+
+<!-- ===== 主題五：人生任務 ===== -->
+<section class="card">
+  <h2 class="section-title">主題五：人生任務（Ch14）</h2>
+
+  <div class="arc">
+    <div class="arc-node"><strong>以我為尊</strong><br><span style="font-size:0.75rem;">我要證明自己厲害</span></div>
+    <div class="arc-arrow">→</div>
+    <div class="arc-node"><strong>人際任務</strong><br><span style="font-size:0.75rem;">我要被群體接受</span></div>
+    <div class="arc-arrow">→</div>
+    <div class="arc-node"><strong>職涯鞏固</strong><br><span style="font-size:0.75rem;">專業出類拔萃</span></div>
+    <div class="arc-arrow">→</div>
+    <div class="arc-node"><strong>傳承任務</strong><br><span style="font-size:0.75rem;">為下一代做什麼</span></div>
+    <div class="arc-arrow">→</div>
+    <div class="arc-node"><strong>圓滿</strong><br><span style="font-size:0.75rem;">不負此生</span></div>
+  </div>
+
+  <div class="box box-gold">
+    <p><span class="depth depth-l2">L2</span> <strong>布魯克斯最誠實的自我揭露</strong></p>
+    <p style="margin-bottom:0;">「我寫了一本關於如何為他人而活的書。出版那幾週，我一直查看亞馬遜的排名。」——卡在「職涯鞏固」和「傳承」之間。<strong>知道正確答案但做不到</strong>，比任何完美的框架都更有說服力。</p>
+  </div>
+
+  <div class="box box-pink">
+    <p><span class="depth depth-l3">L3</span> <span class="tag tag-ai">AI 文化轉譯</span></p>
+    <ul style="margin-bottom:0;">
+      <li>「以我為尊」在華人文化被集體主義更早壓抑</li>
+      <li>「人際任務」在華人面子社會被無限延長</li>
+      <li>「職涯鞏固」在華人男性中往往佔據整個成年期</li>
+      <li>最大缺口：華人文化缺少「圓滿」語彙——有「養老」但沒有「圓滿」</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== 主題六：智慧 ===== -->
+<section class="card">
+  <h2 class="section-title">主題六：智慧與真理共同體（Ch17）</h2>
+
+  <div class="three-col">
+    <div class="mini-card">
+      <h4>🌍 基德與狄奧</h4>
+      <p>跨越文化鴻溝的認識。花兩年多才讓對方開口。</p>
+    </div>
+    <div class="mini-card">
+      <h4>🔓 葛利布與約翰</h4>
+      <p>「我會看到你，你會想躲，但我還是會看到你。」</p>
+    </div>
+    <div class="mini-card">
+      <h4>🎬 心靈捕手</h4>
+      <p>「我看到的不是聰明的人，而是狂妄的孩子。」</p>
+    </div>
+  </div>
+
+  <div class="box box-purple">
+    <p><span class="depth depth-l2">L2</span> <strong>「濫慈悲」（idiot compassion）</strong></p>
+    <p style="margin-bottom:0;">一味接受、從不質疑，不是同理心，是掩飾。真正的照亮者既溫柔又銳利——<strong>「尊重和反抗之間的平衡」</strong>。</p>
+  </div>
+
+  <div class="box box-pink">
+    <p><span class="depth depth-l3">L3</span> <span class="tag tag-ai">AI 跨書連結</span></p>
+    <p style="margin-bottom:0;">「真理共同體」跟 Peter Senge《第五項修練》的「學習型組織」、Martin Buber《我與你》的「對話哲學」形成三角呼應。布魯克斯的貢獻是把它從哲學拉回日常。</p>
+  </div>
+</section>
+
+<!-- ===== Step 4: 七層模板 ===== -->
+<section class="card">
+  <h2 class="section-title">Step 4｜🧬 七層主題模板</h2>
+  <table class="vs-table">
+    <tr><th>層級</th><th>主題</th><th>本書對應</th></tr>
+    <tr><td><span class="tag tag-soft">L1 表層</span></td><td>溝通技巧改善</td><td>SLANT、迴圈、出聲傾聽</td></tr>
+    <tr><td><span class="tag tag-soft">L2 結構</span></td><td>照亮者的存在模式</td><td>目光即道德行為</td></tr>
+    <tr><td><span class="tag tag-gold">L3 暗線</span></td><td>作者的自我蛻變</td><td>棒球棍 → 歐普拉 → 太太的凝望</td></tr>
+    <tr><td><span class="tag tag-gold">L4 對話</span></td><td>跨書對話</td><td>Grant / Rogers / 佛教</td></tr>
+    <tr><td><span class="tag tag-red">L5 文化</span></td><td>美國孤立危機</td><td>自殺率+33%、AI 時代</td></tr>
+    <tr><td><span class="tag tag-red">L6 哲學</span></td><td>不可化約的主觀性</td><td>靈魂、可供性、認知差異</td></tr>
+    <tr><td><span class="tag tag-purple">L7 存在</span></td><td>被看見 = 存在的基礎</td><td>「你看見我，我就綻放如花」</td></tr>
+  </table>
+</section>
+
+<!-- ===== Step 5-6: 缺席 + N+1 ===== -->
+<section class="card">
+  <h2 class="section-title">Step 5-6｜🔇 缺席分析 + AI N+1 章</h2>
+
+  <div class="three-col">
+    <div class="mini-card" style="border-left:3px solid var(--accent-red);">
+      <h4 style="color:var(--accent-red);">❶ 刻意的沉默</h4>
+      <p>數位時代的「被看見」= 被千萬人瀏覽但無人真正看見。權力結構中的「看見」可能是監控。</p>
+    </div>
+    <div class="mini-card" style="border-left:3px solid var(--accent-gold);">
+      <h4 style="color:var(--accent-gold);">❷ 結構性盲點</h4>
+      <p>非西方傳統（日本讀空氣、佛教觀、印度 darshan）完全缺席。神經多樣性的「看見」方式未討論。</p>
+    </div>
+    <div class="mini-card" style="border-left:3px solid var(--accent);">
+      <h4 style="color:var(--accent);">❸ 時代性空缺</h4>
+      <p>AI 治療師、AI 聊天夥伴作為「看見」的中介——這改變了遊戲規則嗎？</p>
+    </div>
+  </div>
+
+  <div class="box box-pink" style="margin-top:20px;">
+    <p><span class="tag tag-ai">AI N+1 章</span> <strong>第 18 章：看見自己</strong></p>
+    <p>全書 17 章都在談「看見他人」，但缺少最終的反轉：<strong>你能看見自己嗎？</strong></p>
+    <p>答案：不能獨自完成。布魯克斯是透過寫書、歐普拉、太太的凝望才逐漸看見自己。</p>
+    <p><strong>這形成一個美妙的循環：</strong></p>
+    <p style="text-align:center;font-size:1rem;margin:12px 0;">我看見你 → 你在被看見中看見自己 → 你因此能看見我 → 我在被看見中看見自己</p>
+    <p style="margin-bottom:0;">孤獨之所以致命，不是因為缺少陪伴，而是因為<strong>缺少鏡子</strong>。佛教的「無我」在此有了新詮釋：不是「自我不存在」，而是「自我不能獨立存在」。</p>
+  </div>
+</section>
+
+<!-- ===== Step 7-8: 批判 + 跨域 ===== -->
+<section class="card">
+  <h2 class="section-title">Step 7-8｜🔬 批判 + 跨域連結</h2>
+  
+  <div class="two-col">
+    <div class="box box-green" style="margin:0;">
+      <strong>✅ 最有力的部分</strong>
+      <ul style="margin-bottom:0;">
+        <li>彼得自殺的章節——方法論在真實痛苦面前謙卑</li>
+        <li>感知理論（可供性 + 認知差異）——解釋了政治對立的根源</li>
+        <li>大量心理學實證支撐</li>
+      </ul>
+    </div>
+    <div class="box box-red" style="margin:0;">
+      <strong>❌ 方法論問題</strong>
+      <ul style="margin-bottom:0;">
+        <li>削弱者/照亮者二分法 ↔ 批評本質主義 = 內部矛盾</li>
+        <li>採樣偏差：美國中上階層文化精英</li>
+        <li>描述不等於處方——知道不等於能做到</li>
+      </ul>
+    </div>
+  </div>
+
+  <div style="margin-top:20px;">
+    <p><strong>🌐 跨域連結網</strong></p>
+    <table class="vs-table">
+      <tr><th>領域</th><th>連結</th><th>關係</th></tr>
+      <tr><td>心理學</td><td>Carl Rogers《成為一個人》</td><td>反映式傾聽 = 迴圈的臨床版</td></tr>
+      <tr><td>心理學</td><td>Kahneman《快思慢想》</td><td>系統一快速判斷 = 削弱者的自動模式</td></tr>
+      <tr><td>哲學</td><td>Martin Buber《我與你》</td><td>「我-你」= 照亮者，「我-它」= 削弱者</td></tr>
+      <tr><td>哲學</td><td>Levinas「他者的面容」</td><td>面容的召喚 = 最初的凝視</td></tr>
+      <tr><td>佛教</td><td>「觀」+ 「同事攝」</td><td>不帶評判的看見 ≈ 照亮者的溫柔凝視</td></tr>
+      <tr><td>儒家</td><td>「仁者愛人」</td><td>但儒家的愛是等差的，布魯克斯追求無差別尊重</td></tr>
+      <tr><td>禪宗</td><td>「直指人心」</td><td>禪師一棒 ≈ 心靈捕手的「痛苦但重要的榮耀」</td></tr>
+      <tr><td>社會學</td><td>Putnam《獨自打保齡球》</td><td>社會資本崩解 = 孤立危機的結構性原因</td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- ===== Step 9: 敘事弧 ===== -->
+<section class="card">
+  <h2 class="section-title">Step 9｜🎬 敘事弧</h2>
+  <div class="arc">
+    <div class="arc-node" style="border-color:rgba(255,107,107,0.3);">❄️ 冰河期<br><span style="font-size:0.75rem;">猶太家庭的情感壓抑</span></div>
+    <div class="arc-arrow">→</div>
+    <div class="arc-node" style="border-color:rgba(247,183,49,0.3);">⚾ 棒球棍<br><span style="font-size:0.75rem;">觸底：面無表情的隱喻</span></div>
+    <div class="arc-arrow">→</div>
+    <div class="arc-node" style="border-color:rgba(78,205,196,0.3);">🎭 公共劇院<br><span style="font-size:0.75rem;">覺醒：「我要改變」</span></div>
+    <div class="arc-arrow">→</div>
+    <div class="arc-node" style="border-color:rgba(102,126,234,0.3);">🔬 研究之旅<br><span style="font-size:0.75rem;">學習照亮者技能</span></div>
+    <div class="arc-arrow">→</div>
+    <div class="arc-node" style="border-color:rgba(255,107,107,0.3);">💔 彼得之死<br><span style="font-size:0.75rem;">方法論的極限</span></div>
+    <div class="arc-arrow">→</div>
+    <div class="arc-node" style="border-color:rgba(240,147,251,0.3);">👁️ 太太的凝望<br><span style="font-size:0.75rem;">「我了解她」</span></div>
+  </div>
+  <p style="text-align:center;font-size:0.88rem;color:var(--text-secondary);margin-top:12px;">全書不只是方法論，更是一個人從「削弱者」走向「照亮者」的自傳。</p>
+</section>
+
+<!-- ===== Step 10: 行動追蹤 ===== -->
+<section class="card">
+  <h2 class="section-title">Step 10｜📋 行動追蹤</h2>
+
+  <div class="three-col">
+    <div class="mini-card" style="border-top:3px solid var(--accent-green);">
+      <h4 style="color:var(--accent-green);">🟢 今天就做</h4>
+      <ul class="checklist green">
+        <li>削弱者自檢：回想三次對話</li>
+        <li>多等三秒再回應</li>
+        <li>傳一句「想到你」給正在痛苦中的朋友</li>
+      </ul>
+    </div>
+    <div class="mini-card" style="border-top:3px solid var(--accent-gold);">
+      <h4 style="color:var(--accent-gold);">🟡 本週實踐</h4>
+      <ul class="checklist gold">
+        <li>用五大人格重新理解一個親近的人</li>
+        <li>做「手肘測試」</li>
+        <li>盤點自己的「人生任務」階段</li>
+      </ul>
+    </div>
+    <div class="mini-card" style="border-top:3px solid var(--accent-red);">
+      <h4 style="color:var(--accent-red);">🔴 長期改變</h4>
+      <ul class="checklist red">
+        <li>建立「真理共同體」（2-3 人定期深談）</li>
+        <li>從「為回應而聽」→「為理解而聽」</li>
+        <li>有意識地選擇照亮者的凝視</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Step 11: 總結 ===== -->
+<section class="card">
+  <h2 class="section-title">Step 11｜🐉 總結卡</h2>
+
+  <div class="stat-grid" style="grid-template-columns: repeat(4, 1fr);">
+    <div class="stat-card"><div class="stat-number">4.5</div><div class="stat-label">總評 / 5</div></div>
+    <div class="stat-card"><div class="stat-number">17</div><div class="stat-label">章</div></div>
+    <div class="stat-card"><div class="stat-number">5</div><div class="stat-label">實用工具</div></div>
+    <div class="stat-card"><div class="stat-number">8</div><div class="stat-label">跨書連結</div></div>
+  </div>
+
+  <div class="box box-purple" style="margin-top:20px;">
+    <p><strong>🏆 核心貢獻</strong></p>
+    <p style="margin-bottom:0;">把「看見他人」從模糊的善意，變成可拆解、學習、練習的技能組。有心理學研究、有臨床技術、有自傳式的誠實。</p>
+  </div>
+
+  <div class="box box-green">
+    <p><strong>🔑 五大實用工具</strong></p>
+    <ol style="margin-bottom:0;">
+      <li>削弱者七伎倆自檢</li>
+      <li>SLANT + 迴圈傾聽法</li>
+      <li>助產士模式（幫人形成見解，不提供見解）</li>
+      <li>五大人格特質取代 MBTI</li>
+      <li>人生任務盤點</li>
+    </ol>
+  </div>
+
+  <div class="quote-box" style="font-style:normal;">
+    <strong>🐉 龍龍的一句話</strong><br><br>
+    這不是一本教你技巧的書。這是一本教你<strong>成為一種人</strong>的書<br>
+    ——一個願意在別人的痛苦面前停下來，<br>
+    用溫柔的目光說「我看見你了」的人。<br><br>
+    <span style="font-size:0.9rem;">技巧可以學，但那個目光，要用一輩子去練。</span>
+  </div>
+</section>
+
+<footer>
+  <p>✧ 書醒系統 v2 完全體分析 ✧</p>
+  <p>🐉 龍龍 · 2026.03.06</p>
+</footer>
+
+</div>
+</body>
+</html>
