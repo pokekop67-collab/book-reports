@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>書醒 v2｜《我是誰？我在哪？》深度分析</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gradient-start: #E8F4FD;
+      --gradient-mid: #FFF0F5;
+      --gradient-end: #F5F0FF;
+      --accent-pink: #FFB6C1;
+      --accent-blue: #87CEEB;
+      --accent-purple: #DDA0DD;
+      --text-primary: #2D3436;
+      --text-secondary: #636E72;
+      --text-light: #B2BEC3;
+      --card-bg: rgba(255, 255, 255, 0.7);
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Noto Sans TC', -apple-system, sans-serif;
+      font-weight: 300; line-height: 1.8; color: var(--text-primary);
+      background: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+      min-height: 100vh; padding: 40px 20px;
+    }
+    .container { max-width: 900px; margin: 0 auto; }
+    .hero {
+      text-align: center; padding: 70px 40px; margin-bottom: 40px;
+      background: rgba(255,255,255,0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-radius: 32px; border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+    .hero h1 {
+      font-size: 2.4rem; font-weight: 500;
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 12px; letter-spacing: -0.02em;
+    }
+    .hero .subtitle { font-size: 1.15rem; color: var(--text-secondary); font-weight: 300; margin-bottom: 16px; }
+    .hero .meta { font-size: 0.85rem; color: var(--text-light); }
+    .tag {
+      display: inline-block; background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white; padding: 5px 14px; border-radius: 20px; font-size: 0.8rem; font-weight: 400; margin: 3px;
+    }
+    .tag.soft { background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(240,147,251,0.15)); color: #667eea; }
+    .tag.l1 { background: #E8F4FD; color: #4A90D9; }
+    .tag.l2 { background: #FFF0F5; color: #D4699B; }
+    .tag.l3 { background: #F5F0FF; color: #7C5CBF; }
+    .tag.ai { background: linear-gradient(135deg, #f093fb33, #667eea33); color: #764ba2; border: 1px solid #764ba244; }
+    .card {
+      background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-radius: 24px; border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08); padding: 36px 32px; margin-bottom: 24px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.12); }
+    .section-title {
+      font-size: 1.4rem; font-weight: 500; margin-bottom: 20px; padding-bottom: 10px;
+      border-bottom: 2px solid rgba(102,126,234,0.2); display: flex; align-items: center; gap: 10px;
+    }
+    .section-title::before {
+      content: ''; width: 4px; height: 22px;
+      background: linear-gradient(135deg, #667eea, #f093fb); border-radius: 2px;
+    }
+    p { margin-bottom: 14px; font-size: 0.95rem; line-height: 1.9; }
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+      border-radius: 16px; padding: 22px; margin: 18px 0; border-left: 4px solid #667eea;
+    }
+    .highlight-box.pink { border-left-color: #f093fb; }
+    .highlight-box.green { border-left-color: #4ECDC4; }
+    .highlight-box strong { color: #667eea; }
+    .highlight-box.pink strong { color: #D4699B; }
+    .highlight-box.green strong { color: #2EAD9F; }
+    .quote-box {
+      background: linear-gradient(135deg, rgba(255,182,193,0.15), rgba(221,160,221,0.15));
+      border-radius: 16px; padding: 28px; margin: 20px 0; text-align: center;
+      font-size: 1.05rem; font-weight: 400; color: #555; font-style: italic;
+      border: 1px solid rgba(255,182,193,0.3);
+    }
+    ul, ol { padding-left: 22px; margin: 14px 0; }
+    li { margin-bottom: 10px; line-height: 1.7; font-size: 0.95rem; }
+    li::marker { color: #667eea; }
+    .stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px; margin: 20px 0; }
+    .stat-card {
+      background: rgba(255,255,255,0.8); border-radius: 20px; padding: 22px; text-align: center;
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    .stat-number {
+      font-size: 2rem; font-weight: 600;
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-label { font-size: 0.85rem; color: var(--text-secondary); margin-top: 6px; }
+    .rating-bar { height: 8px; border-radius: 4px; background: rgba(0,0,0,0.06); overflow: hidden; margin: 6px 0; }
+    .rating-fill { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #667eea, #f093fb); }
+    .timeline { position: relative; padding-left: 30px; margin: 18px 0; }
+    .timeline::before {
+      content: ''; position: absolute; left: 10px; top: 0; bottom: 0; width: 2px;
+      background: linear-gradient(135deg, #667eea, #f093fb); border-radius: 1px;
+    }
+    .timeline-item { position: relative; margin-bottom: 22px; }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -25px; top: 7px; width: 10px; height: 10px;
+      border-radius: 50%; background: linear-gradient(135deg, #667eea, #f093fb);
+    }
+    .timeline-item h4 { font-weight: 500; color: #667eea; margin-bottom: 4px; font-size: 0.95rem; }
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 18px 0; }
+    .insight-block { margin-bottom: 22px; padding: 18px; background: rgba(255,255,255,0.4); border-radius: 16px; }
+    .insight-block h4 { font-weight: 500; margin-bottom: 8px; }
+    .action-card {
+      background: rgba(255,255,255,0.85); border-radius: 18px; padding: 22px; text-align: center;
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    .action-card h4 { font-weight: 500; color: #667eea; margin-bottom: 6px; }
+    .action-card .emoji { font-size: 2rem; margin-bottom: 8px; }
+    footer { text-align: center; padding: 40px; color: var(--text-light); font-size: 0.85rem; }
+    @media (max-width: 768px) {
+      .hero { padding: 50px 24px; }
+      .hero h1 { font-size: 1.8rem; }
+      .card { padding: 24px 18px; border-radius: 20px; }
+      .two-col { grid-template-columns: 1fr; }
+    }
+    @media print {
+      body { background: white !important; padding: 20px !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .hero { background: #f8f0ff !important; backdrop-filter: none !important; }
+      .card { background: #fff !important; backdrop-filter: none !important; box-shadow: none !important; border: 1px solid #ddd !important; page-break-inside: avoid; }
+      .hero h1 { color: #667eea !important; -webkit-text-fill-color: #667eea !important; }
+      .stat-number { color: #667eea !important; -webkit-text-fill-color: #667eea !important; }
+      .highlight-box { background: #f5f0ff !important; }
+      .highlight-box.pink { background: #fff0f5 !important; }
+      .highlight-box.green { background: #e8faf8 !important; }
+      .quote-box { background: #fff5f8 !important; }
+      .insight-block { background: #fafafa !important; }
+      .action-card { background: #fafafa !important; }
+      .stat-card { background: #fafafa !important; }
+      .tag { color: white !important; -webkit-print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+<!-- Hero -->
+<header class="hero">
+  <h1>🌸 我是誰？我在哪？<br>「我」根本不存在</h1>
+  <p class="subtitle">東方哲學奇才聯盟，帶你看穿人生 bug</p>
+  <p class="meta">書醒系統 v2 完全體深度分析 · 龍龍 🐉 · 2026.03.05</p>
+  <div style="margin-top:16px;">
+    <span class="tag">東方哲學</span><span class="tag">佛教</span><span class="tag">無我</span>
+    <span class="tag">空</span><span class="tag">虛無主義</span><span class="tag">自我探索</span>
+  </div>
+</header>
+
+<!-- Step 1 -->
+<section class="card">
+  <h2 class="section-title">📚 Step 1：書籍資料卡</h2>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number" style="font-size:1.3rem;">📝 哲學散文</div>
+      <div class="stat-label">書籍類型</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number" style="font-size:1.3rem;">鎌田東二</div>
+      <div class="stat-label">監修（京大名譽教授）</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">7</div>
+      <div class="stat-label">位東方哲學家</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">⭐⭐</div>
+      <div class="stat-label">閱讀難度</div>
+    </div>
+  </div>
+  <p>作者：32 歲失業離婚的前東大生，既非學者也非僧侶。用無業遊民的視角解讀東方哲學。在父母家被窩裡找到人生答案，然後寫了這本書。</p>
+  <p style="font-size:0.85rem; color:var(--text-secondary);">版權敏感度：中（大量引用佛經原文，以個人感悟為主）</p>
+</section>
+
+<!-- Step 2 -->
+<section class="card">
+  <h2 class="section-title">🎯 Step 2：核心命題</h2>
+  <div class="highlight-box">
+    <strong>❶ 問題：</strong>
+    <p style="margin-bottom:0;">現代人的存在性虛無感。不是缺錢缺資源，而是「莫名地，超級空虛」。想努力卻提不起勁，想追求成功卻覺得噁心。</p>
+  </div>
+  <div class="highlight-box pink">
+    <strong style="color:#D4699B;">❷ 論點：</strong>
+    <p style="margin-bottom:0;">痛苦的根源不是環境，而是「我」本身。「我」是不存在的幻覺，看穿這個 bug，虛無感就會消解。東方哲學比西方哲學更能直接解決「該怎麼活」。</p>
+  </div>
+  <div class="highlight-box green">
+    <strong style="color:#2EAD9F;">❸ 方法：</strong>
+    <p style="margin-bottom:0;">敘事法＋案例法。以自己從被窩爬出來的經驗為主線，穿插七位哲學家的故事，用「個人感悟」而非「學術論證」推進。</p>
+  </div>
+</section>
+
+<!-- Step 3: Theme 1 -->
+<section class="card">
+  <h2 class="section-title">📖 Step 3：主題分析 — 前言：虛無感的解剖</h2>
+  <div class="quote-box">🎯 勵志書讓虛無感翻十倍，西方哲學讓你跟著瘋，只有東方哲學能讓你在被窩裡找到出路。</div>
+
+  <div class="insight-block">
+    <h4><span class="tag l1">L1</span> 勵志書的生理性排斥</h4>
+    <p>「找到你的熱情！」「發揮你的優勢！」每一句都讓虛無感翻十倍。這不是懶，而是某種直覺在抗拒。</p>
+  </div>
+  <div class="insight-block">
+    <h4><span class="tag l2">L2</span> 排斥的深層意義</h4>
+    <p>勵志書的底層假設是「你有一個『我』需要被激勵」。但如果「我」本身就是問題呢？作者的身體比大腦先一步察覺到了這個矛盾。</p>
+  </div>
+  <div class="insight-block">
+    <h4><span class="tag l3">L3</span> <span class="tag ai">AI 跨領域連結</span> 正向毒性</h4>
+    <p>臨床心理學中的「Toxic Positivity」：強迫灌輸正向訊息反而加重心理負擔。Susan David 在《情緒靈敏力》中指出，真正的韌性不是「想正面的事」，而是接受所有情緒的存在。作者的排斥反應是心理健康的信號。</p>
+  </div>
+
+  <div class="highlight-box">
+    <strong>🔬 批判：</strong>
+    <p style="margin-bottom:0;">作者把西方哲學簡化為「對怎麼活沒興趣」——嚴重以偏概全。斯多葛學派、存在主義整套都在回答「該怎麼活」。選擇性只提認識論派（笛卡兒、康德、黑格爾），這是敘事策略而非公允評價。</p>
+  </div>
+
+  <p><span class="tag ai">AI 跨書連結</span> 尼采「瘋了死了」被用來否定西方哲學，但 Irvin Yalom 在《存在心理治療》中證明尼采的思想在現代心理治療中極為有效。個人命運 ≠ 思想的失敗。</p>
+
+  <div class="highlight-box green">
+    <strong style="color:#2EAD9F;">🔧 立即可用：「排斥偵測器」</strong>
+    <p style="margin-bottom:0;">下次看到勵志語錄感到不適時，不要自責「我太消極」，而是問：「這句話的隱含假設是什麼？它假設我是什麼樣的人？」</p>
+  </div>
+  <p><strong>❓ 自我檢核：</strong>你有沒有某本書或某句話，每次看到就莫名反感？那個反感裡藏著什麼？</p>
+  <p style="font-size:0.85rem; color:var(--text-secondary);">📖 延伸提示：前言中「尼采 vs 佛陀」的臉部表情對比是全書最精彩的視覺論證。值得停下來想想這個比較公平嗎。</p>
+</section>
+
+<!-- Step 3: Theme 2 -->
+<section class="card">
+  <h2 class="section-title">📖 主題二：佛陀篇 — 無我</h2>
+  <div class="quote-box">🎯 你在垃圾屋裡瘋狂找電視遙控器，找了兩小時才發現——你家根本沒有電視。「我」就是那個不存在的遙控器。</div>
+
+  <div class="insight-block">
+    <h4><span class="tag l1">L1</span> 萬物相連，沒有獨立的「我」</h4>
+    <p>身體由食物構成（我吃雞→雞吃蟲→蟲吃草→草喝水曬陽光）。連想法和情緒都不是「我」製造的——像天氣一樣自然湧現。</p>
+  </div>
+  <div class="insight-block">
+    <h4><span class="tag l1">L1</span> 方法論比毅力重要</h4>
+    <p>苦行六年無果，喝蘇嘉塔的一碗粥反而開悟。方向錯了，越努力越遠。</p>
+  </div>
+  <div class="insight-block">
+    <h4><span class="tag l2">L2</span> 你不能直接跳到「無我」</h4>
+    <p>佛陀的路線是「先全部擁有→全部放棄→發現放棄本身也不對→找到中道」。你必須先認真執著過，才有資格放下。「無我」不是通過否定自我達成的，而是窮盡所有執著之後自然浮現的。</p>
+  </div>
+  <div class="insight-block">
+    <h4><span class="tag l3">L3</span> <span class="tag ai">AI 跨領域連結</span> 忒修斯之船 × 量子場論</h4>
+    <p>希臘人問「換了所有零件的船還是同一艘船嗎？」佛陀直接說「根本沒有船」。Zoom in 到夠細的層級，任何「東西」都會消融成「過程」——跟量子物理中「粒子只是場的激發態」驚人一致。</p>
+  </div>
+
+  <div class="highlight-box">
+    <strong>🔬 批判：</strong>
+    <p>如果「我」不存在，那「誰」在觀察到「我不存在」？佛教內部爭論了兩千年。作者完全跳過。</p>
+    <p style="margin-bottom:0;"><span class="tag ai">AI 跨書連結</span> Mark Epstein《無我的智慧》：<strong>你需要先有一個健康的自我，才有資格放下自我</strong>。對正在經歷霸凌的人說「你的痛苦是因為執著於我」不是解脫，是二次傷害。</p>
+  </div>
+
+  <div class="two-col">
+    <div class="highlight-box green" style="margin:0;">
+      <strong style="color:#2EAD9F;">🔧「念頭旁觀者」</strong>
+      <p style="margin-bottom:0;">花 3 分鐘坐著，只觀察腦中念頭。不跟隨、不抗拒，像坐在河邊看落葉飄過。</p>
+    </div>
+    <div class="highlight-box green" style="margin:0;">
+      <strong style="color:#2EAD9F;">🔧「身體溯源」</strong>
+      <p style="margin-bottom:0;">午餐的食材往回追溯三層。體驗一次「萬物相連」的真實感。</p>
+    </div>
+  </div>
+
+  <p><strong>❓ 自我檢核：</strong>你上一次「努力到死」卻毫無成果的經歷是什麼？有沒有可能不是不夠努力，而在方向需要一碗粥式的根本轉向？</p>
+  <p style="font-size:0.85rem; color:var(--text-secondary);">📖 佛陀喝粥前的「終極二選一」是全書最有戲劇張力的段落——不只是粥，而是「沉沒成本 vs 新可能」的人生抉擇。值得慢讀三遍。</p>
+</section>
+
+<!-- Step 3: Theme 3 -->
+<section class="card">
+  <h2 class="section-title">📖 主題三：龍樹篇 — 空</h2>
+  <div class="quote-box">🎯 佛陀說「我不存在」，龍樹更狠——「連『不存在』本身也不存在」，整個世界都是虛構的。</div>
+
+  <div class="insight-block">
+    <h4><span class="tag l1">L1</span> 印度的辯論王</h4>
+    <p>駁倒全印度學者，讓佛教復興為大乘佛教。核心概念「空」：不只「我」是空的，連佛陀的教義本身也是空的。</p>
+  </div>
+  <div class="insight-block">
+    <h4><span class="tag l2">L2</span> 空 ≠ 虛無，空 = 自由</h4>
+    <p>如果一切都是空的，一切也都是可能的。「空」不是虛無主義，而是「因為沒有固定本質，所以一切都可以改變」。這是佛教和虛無主義的根本分歧。</p>
+  </div>
+  <div class="insight-block">
+    <h4><span class="tag l3">L3</span> <span class="tag ai">AI 跨領域連結</span> 龍樹 × Derrida</h4>
+    <p>Derrida 的「延異」：語言中沒有固定意義，所有意義在差異和延遲中產生。龍樹早了 1800 年：所有「存在」都依賴關係而暫時顯現。不同的是，Derrida 止步於解構，龍樹還提供了「中道」作為建設性出口。</p>
+  </div>
+
+  <p><span class="tag ai">AI 跨書連結</span> 龍樹的「既非 A，也非非 A」vs 黑格爾的辯證法（正→反→合）。黑格爾收束於「絕對精神」（有終極答案），龍樹無限展開（連答案也被空掉）。黑格爾是建築師，龍樹是拆除大師。</p>
+
+  <div class="highlight-box">
+    <strong>🔬 批判：</strong>
+    <p style="margin-bottom:0;">把龍樹比作 2ch 創辦人博之——有趣但危險。博之「為了贏而辯」（詭辯），龍樹的目的是「讓對方看到真相」（解脫）。動機完全不同。另外，龍樹的「黑歷史」來自學術爭議很大的《龍樹菩薩傳》。</p>
+  </div>
+
+  <div class="highlight-box green">
+    <strong style="color:#2EAD9F;">🔧「空性練習」</strong>
+    <p style="margin-bottom:0;">選一個「不可能改變」的信念（如「我就是不擅長社交」），問：這是固定的「本質」，還是過去經驗暫時形成的「模式」？模式可以被新經驗覆寫嗎？</p>
+  </div>
+  <p><strong>❓ 自我檢核：</strong>生活中什麼是你一直認為「本來就這樣」的？如果它們都是「空」的，你會怎麼重新設計？</p>
+</section>
+
+<!-- Step 4 -->
+<section class="card">
+  <h2 class="section-title">📐 Step 4：敘事弧線</h2>
+  <div class="timeline">
+    <div class="timeline-item"><h4>🏠 起點：模糊的虛無</h4><p>讀者覺得空，不知道為什麼不開心。</p></div>
+    <div class="timeline-item"><h4>💥 破壞（三連擊）</h4><p>① 勵志書加重虛無 → ② 尼采瘋了死了 → ③ 佛陀也是虛無宅男。三層幻覺依次被打碎。</p></div>
+    <div class="timeline-item"><h4>🔨 重建</h4><p>「無我」框架：在流動世界裡硬造不變的「我」= 痛苦。「空」框架：連存在都是暫時的。</p></div>
+    <div class="timeline-item"><h4>🔥 推力</h4><p>涅槃 = 「最爽的境界」，由體驗過所有人間享樂的王子認證。</p></div>
+    <div class="timeline-item"><h4>🌅 著陸</h4><p>也許我的問題不是不夠努力，而是太執著於有一個「我」。</p></div>
+  </div>
+  <div class="highlight-box">
+    <strong>🎭 情緒設計：自嘲喜劇弧線</strong>
+    <p style="margin-bottom:0;">全書基調不是「我來教你」而是「我是失敗者，分享我怎麼爬出來的」。用自嘲降低防禦，在共鳴最強時悄悄塞入核心哲學。<br><br>曲線：低谷（虛無）→ 更低谷（尼采也瘋了）→ 意外共鳴（佛陀也躺平）→ 緩慢上揚 → 頂峰（涅槃＝最爽）</p>
+  </div>
+</section>
+
+<!-- Step 5 -->
+<section class="card">
+  <h2 class="section-title">💡 Step 5：整合洞見</h2>
+  <div class="highlight-box">
+    <strong>5a. 隱藏邏輯線：心理手術</strong>
+    <p style="margin-bottom:0;">佛陀是麻醉師（讓你放鬆到可以被打開）→ 龍樹是外科醫生（切除病灶：固化的「我」）→ 後五位哲學家可能是康復師（幫你重新站起來）。</p>
+  </div>
+  <div class="two-col">
+    <div class="highlight-box pink" style="margin:0;">
+      <strong style="color:#D4699B;">5b. 潛台詞</strong>
+      <p style="margin-bottom:0;">預設讀者：有教育背景、衣食無憂但空虛的人。迴避了因物質匱乏而痛苦的人——吃不飽飯時，「無我」不是解藥。</p>
+    </div>
+    <div class="highlight-box" style="margin:0;">
+      <strong>5c. 批判與邊界</strong>
+      <p style="margin-bottom:0;">✅ 覺得「學越多越焦慮」的人<br>✅ 被宗教感嚇退的東方哲學新手<br>❌ 嚴重心理疾病（需專業治療）<br>❌ 已有深厚佛學基礎者</p>
+    </div>
+  </div>
+  <div class="highlight-box green" style="margin-top:16px;">
+    <strong style="color:#2EAD9F;">5d. 知識血緣</strong>
+    <p>直系：巴利三藏→龍樹《中論》→大乘佛教<br>同源：Alan Watts《禪的智慧》、一行禪師《正念的奇蹟》<br>對立：Sam Harris《醒覺》（神經科學路線）、Sartre/Camus（存在主義路線）</p>
+  </div>
+</section>
+
+<!-- Step 6 -->
+<section class="card">
+  <h2 class="section-title">🔇 Step 6：缺席分析</h2>
+  <div class="insight-block">
+    <h4>1️⃣ 刻意迴避</h4>
+    <ul>
+      <li><strong>冥想方法：</strong>提到佛陀通過冥想觀察到無我，卻完全沒教讀者怎麼冥想。定位「哲學散文」不是「修行指南」，但這是最大遺憾。</li>
+      <li><strong>東方哲學的黑暗面：</strong>以「無我」之名的邪教控制，只用「猛藥」一詞帶過。</li>
+    </ul>
+  </div>
+  <div class="insight-block">
+    <h4>2️⃣ 盲點缺席</h4>
+    <ul>
+      <li><strong>「無我」與愛：</strong>如果「我」不存在，那「誰」在愛「誰」？佛教對此有大量討論（慈悲 vs 執著），本書完全沒碰。</li>
+      <li><strong>性別視角：</strong>佛陀拋妻棄子輕描淡寫，蘇嘉塔僅為「幫助男主角的 NPC」，全書哲學家全為男性。</li>
+    </ul>
+  </div>
+  <div class="insight-block">
+    <h4>3️⃣ 時代缺席</h4>
+    <ul>
+      <li><strong>AI 時代的「無我」：</strong>如果 AI 也能模擬人格，「我」的定義需要更新。</li>
+      <li><strong>數位自我：</strong>社交媒體上的「數位我」是另一層需要看穿的幻覺。</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Step 7 -->
+<section class="card">
+  <h2 class="section-title">🤖 Step 7：AI 視角</h2>
+
+  <div class="highlight-box">
+    <strong><span class="tag ai">AI 原創洞見</span> 第 N+1 章：《無我之後，然後呢？》</strong>
+    <p style="margin-bottom:0;">無我之後的第一個星期一早上，你要怎麼上班？你不能對老闆說「我不存在」。真正需要的是「功能性自我」：承認「我」是幻覺，但承認這個幻覺有實用價值。就像你知道彩虹不是實體，但你還是可以欣賞它。關鍵不是「消滅我」，而是「不被我綁架」。</p>
+  </div>
+
+  <div class="two-col">
+    <div class="highlight-box" style="margin:0;">
+      <strong><span class="tag ai">AI 跨領域</span> 無我 × 裂腦研究</strong>
+      <p style="margin-bottom:0;">Gazzaniga 發現左腦會對右腦的行為編造故事，堅稱「是我決定的」。意識不是行為的原因，而是事後旁白員。佛陀的直覺被神經科學驗證了。</p>
+    </div>
+    <div class="highlight-box pink" style="margin:0;">
+      <strong style="color:#D4699B;"><span class="tag ai">AI 跨領域</span> 空 × 量子場論</strong>
+      <p style="margin-bottom:0;">「粒子」不是獨立實體，而是場的局部激發。沒有永恆的粒子，只有暫時的波動。龍樹說「沒有自性，只有緣起」——語言不同，結構一致。</p>
+    </div>
+  </div>
+
+  <div class="highlight-box green" style="margin-top:16px;">
+    <strong style="color:#2EAD9F;"><span class="tag ai">AI 文化轉譯</span> 三個脈絡中的「無我」</strong>
+    <p><strong>印度：</strong>反駁婆羅門教「永恆靈魂」，沒有這背景會被誤讀為虛無主義。</p>
+    <p><strong>日本：</strong>文化已內建「無常」意識，「無我」的功能是把直覺升級為可操作的智慧。</p>
+    <p style="margin-bottom:0;"><strong>華人：</strong>跟道家「無為」表面相似但深層不同。儒家「修身」預設有「自我」需修煉，跟「無我」形成根本張力。</p>
+  </div>
+
+  <div class="quote-box" style="font-style:normal;">
+    <strong>✧ 一個比喻說完整本書 ✧</strong><br><br>
+    你一直在暗房裡跟自己的影子搏鬥。影子越打越大，你越累越虛無。<br><br>
+    佛陀走過來，沒有教你更好的搏擊術。他只是<strong style="color:#667eea;">打開了燈</strong>。<br><br>
+    燈一亮，影子消失了。不是被打敗的，而是從來就不是實體。<br><br>
+    龍樹更狠。他說：「連那個打開燈的人，也是影子。」<br><br>
+    但奇怪的是，知道這一切之後，你反而能好好過日子了。<br>因為你終於不用再跟影子打架了。
+  </div>
+</section>
+
+<!-- Step 8 -->
+<section class="card">
+  <h2 class="section-title">✅ Step 8：行動轉化</h2>
+  <h3 style="font-weight:500; color:#667eea; margin-bottom:16px;">本週啟動</h3>
+  <div class="stat-grid" style="grid-template-columns: repeat(3, 1fr);">
+    <div class="action-card">
+      <div class="emoji">🌤️</div>
+      <h4>念頭天氣報告</h4>
+      <p style="font-size:0.85rem;">每晚寫 3 個今天冒出的念頭，標註「主動想的」還是「自己冒出來的」。</p>
+    </div>
+    <div class="action-card">
+      <div class="emoji">🔗</div>
+      <h4>身體借物清單</h4>
+      <p style="font-size:0.85rem;">今天吃的食物往回追溯三層。感受萬物相連。</p>
+    </div>
+    <div class="action-card">
+      <div class="emoji">🌊</div>
+      <h4>河流堵壩測試</h4>
+      <p style="font-size:0.85rem;">列出 3 件抗拒的變化，問：我在改善處境，還是在堵河？</p>
+    </div>
+  </div>
+
+  <h3 style="font-weight:500; color:#D4699B; margin:20px 0 12px;">本月實驗</h3>
+  <div class="highlight-box pink">
+    <strong style="color:#D4699B;">「無我觀察者」日記</strong>
+    <p>每週選一天用第三人稱寫日記。不寫「我今天...」而是「那個人今天...」。</p>
+    <p style="margin-bottom:0;"><strong>追蹤：</strong>月底比較第一 vs 第三人稱日記，看哪些情緒在轉換視角後改變。<br><strong>預期：</strong>你會開始察覺「我」的故事性——它是你在編的腳本，不是固定事實。</p>
+  </div>
+
+  <h3 style="font-weight:500; color:#2EAD9F; margin:20px 0 12px;">長期指標</h3>
+  <div class="highlight-box green">
+    <strong style="color:#2EAD9F;">「影子搏鬥率」（5 分制自評）</strong>
+    <p>每週問：這週有多少痛苦來自「事情本身」，多少來自「我對自己的期待/定義」？</p>
+    <p style="margin-bottom:0;">1＝幾乎都在跟影子打架 → 5＝大部分痛苦是真實的、需要解決的問題<br><strong>為什麼有效：</strong>直接測量「無我」洞見在生活中的滲透程度。</p>
+  </div>
+</section>
+
+<!-- Step 9 -->
+<section class="card">
+  <h2 class="section-title">📖 Step 9：帶問題回去讀</h2>
+  <ol>
+    <li>佛陀在「苦行無用」和「喝粥開悟」之間做了什麼內在決定？放下六年沉沒成本的勇氣從哪來？</li>
+    <li>龍樹從「後宮犯罪的天才流氓」到「哲學巨人」——作者跳過了這段轉變，這個空白本身就是最值得思考的「空」。</li>
+    <li>後五位哲學家跟佛陀/龍樹的關係：繼承？發展？反駁？</li>
+  </ol>
+  <p style="font-size:0.85rem; color:var(--text-secondary);">📌 慢讀建議：前言「尼采 vs 佛陀的臉」、佛陀喝粥段落、「我家沒有電視」比喻——每處帶入不同的人生問題反覆讀。</p>
+</section>
+
+<!-- Step 10 -->
+<section class="card">
+  <h2 class="section-title">🎬 Step 10：延伸資源</h2>
+  <div class="two-col">
+    <div>
+      <h4 style="font-weight:500; color:#667eea;">📖 深化同主題</h4>
+      <ul>
+        <li>一行禪師《正念的奇蹟》— 實踐版「無我」</li>
+        <li>Mark Epstein《無我的智慧》— 佛教 × 心理治療</li>
+      </ul>
+      <h4 style="font-weight:500; color:#D4699B; margin-top:12px;">📖 源頭經典</h4>
+      <ul>
+        <li>龍樹《中論》</li>
+        <li>《法句經》— 佛陀精華濃縮</li>
+        <li>鈴木大拙《禪與日本文化》</li>
+      </ul>
+    </div>
+    <div>
+      <h4 style="font-weight:500; color:#2EAD9F;">📖 不同觀點</h4>
+      <ul>
+        <li>Camus《乜忒薜斯的神話》— 擁抱荒謬路線</li>
+        <li>Frankl《活出意義來》— 找到意義路線</li>
+        <li>Sam Harris《醒覺》— 神經科學路線</li>
+      </ul>
+      <h4 style="font-weight:500; color:#764ba2; margin-top:12px;">📹 影片</h4>
+      <ul>
+        <li>BBC 紀錄片《佛陀的一生》</li>
+        <li>Alan Watts 演講（YouTube）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- Step 11 -->
+<section class="card">
+  <h2 class="section-title">🏷️ Step 11：書庫卡片</h2>
+  <div class="stat-grid" style="grid-template-columns: 1fr 1fr;">
+    <div>
+      <p><strong>分析者：</strong>龍龍 🐉</p>
+      <p><strong>分析模式：</strong>書醒 v2 完全體</p>
+      <p><strong>產出日期：</strong>2026-03-05</p>
+    </div>
+    <div>
+      <p style="margin-bottom:6px;"><strong>推薦度</strong></p>
+      <div class="rating-bar"><div class="rating-fill" style="width:90%;"></div></div>
+      <p style="font-size:0.8rem; color:var(--text-secondary);">4.5/5 — 極佳入門書，缺少實踐指引</p>
+      <p style="margin-bottom:6px; margin-top:10px;"><strong>閱讀難度</strong></p>
+      <div class="rating-bar"><div class="rating-fill" style="width:25%;"></div></div>
+      <p style="font-size:0.8rem; color:var(--text-secondary);">⭐⭐ — 零基礎友好</p>
+    </div>
+  </div>
+  <p><strong>核心論點：</strong>痛苦的根源是「我」這個幻覺。佛陀用「無我」消解它，龍樹用「空」粉碎它。看穿 bug，人生重開機。</p>
+  <p><strong>AI 原創洞見：</strong>① 功能性自我框架 ② 無我×裂腦研究 ③ 空×量子場論 ④ 暗房影子比喻 ⑤ 三文化脈絡轉譯</p>
+  <div style="margin-top:10px;">
+    <span class="tag soft">東方哲學</span><span class="tag soft">佛教</span><span class="tag soft">無我</span>
+    <span class="tag soft">空</span><span class="tag soft">虛無主義</span><span class="tag soft">哲學散文</span>
+  </div>
+</section>
+
+<footer>
+  <p>✧ 由 🐉 龍龍 精心分析 · 書醒系統 v2 完全體 · 2026.03.05 ✧</p>
+</footer>
+
+</div>
+</body>
+</html>
