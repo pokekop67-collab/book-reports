@@ -6,118 +6,145 @@
   <title>📚 覺醒 v2｜大腦就是你的超能力</title>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
-    :root{--gs:#E8F4FD;--gm:#FFF0F5;--ge:#F5F0FF;--tp:#2D3436;--ts:#636E72;--tl:#B2BEC3;--a:#667eea;--ap:#f093fb;--ag:#4ECDC4;--ar:#FF6B6B;--ao:#F7B731;}
-    *{margin:0;padding:0;box-sizing:border-box;}
-    body{font-family:'Noto Sans TC',-apple-system,sans-serif;font-weight:300;line-height:1.85;color:var(--tp);background:linear-gradient(135deg,var(--gs) 0%,var(--gm) 50%,var(--ge) 100%);min-height:100vh;padding:40px 20px;}
-    .container{max-width:920px;margin:0 auto;}
-    .hero{text-align:center;padding:60px 40px;margin-bottom:40px;background:rgba(255,255,255,0.6);backdrop-filter:blur(20px);border-radius:32px;border:1px solid rgba(255,255,255,0.8);box-shadow:0 20px 60px rgba(0,0,0,0.08);}
-    .hero h1{font-size:2.2rem;font-weight:500;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}
-    .hero .sub{font-size:1rem;color:var(--ts);margin-bottom:6px;}
-    .hero .meta{font-size:0.85rem;color:var(--tl);}
-    .tag{display:inline-block;padding:3px 10px;border-radius:18px;font-size:.73rem;font-weight:400;margin:2px;}
-    .tag-p{background:linear-gradient(135deg,var(--a),#764ba2);color:#fff;}
-    .card{background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border-radius:24px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 32px rgba(0,0,0,0.08);padding:36px 32px;margin-bottom:24px;transition:transform .3s,box-shadow .3s;}
-    .card:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.12);}
-    .st{font-size:1.3rem;font-weight:500;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid rgba(102,126,234,0.2);display:flex;align-items:center;gap:10px;}
-    .st::before{content:'';width:4px;height:22px;background:linear-gradient(135deg,var(--a),var(--ap));border-radius:2px;}
-    p{margin-bottom:13px;font-size:.95rem;}
-    strong{font-weight:500;}
-    .bx{border-radius:16px;padding:20px;margin:16px 0;}
-    .bx-p{background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(240,147,251,.1));border-left:4px solid var(--a);}
-    .bx-k{background:linear-gradient(135deg,rgba(255,182,193,.12),rgba(221,160,221,.12));border-left:4px solid var(--ap);}
-    .bx-g{background:linear-gradient(135deg,rgba(78,205,196,.1),rgba(129,236,236,.1));border-left:4px solid var(--ag);}
-    .bx-r{background:linear-gradient(135deg,rgba(255,107,107,.1),rgba(255,159,159,.1));border-left:4px solid var(--ar);}
-    .bx-o{background:linear-gradient(135deg,rgba(247,183,49,.1),rgba(255,211,99,.1));border-left:4px solid var(--ao);}
-    .qb{background:linear-gradient(135deg,rgba(255,182,193,.15),rgba(221,160,221,.15));border-radius:16px;padding:26px;margin:20px 0;text-align:center;font-size:1.05rem;font-weight:400;color:#555;font-style:italic;border:1px solid rgba(255,182,193,.3);}
-    .qb .attr{font-size:.85rem;color:var(--tl);margin-top:8px;font-style:normal;}
-    ul,ol{padding-left:22px;margin:10px 0;}
-    li{margin-bottom:8px;line-height:1.75;font-size:.93rem;}
-    li::marker{color:var(--a);}
-    .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin:18px 0;}
-    .sc{background:rgba(255,255,255,.85);border-radius:18px;padding:18px;text-align:center;border:1px solid rgba(255,255,255,.6);}
-    .sn{font-size:1.6rem;font-weight:600;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    .sl{font-size:.82rem;color:var(--ts);margin-top:3px;}
-    .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
-    .mc{background:rgba(255,255,255,.85);border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,.6);}
-    .mc h4{font-weight:500;color:var(--a);margin-bottom:6px;font-size:.93rem;}
-    .mc p{font-size:.87rem;margin-bottom:0;}
-    .tbl{width:100%;margin:16px 0;border-collapse:separate;border-spacing:0;border-radius:16px;overflow:hidden;font-size:.88rem;}
-    .tbl th{background:linear-gradient(135deg,var(--a),#764ba2);color:#fff;padding:11px 14px;text-align:left;font-weight:400;}
-    .tbl td{padding:10px 14px;border-bottom:1px solid rgba(0,0,0,.05);background:rgba(255,255,255,.6);}
-    .tbl tr:last-child td{border-bottom:none;}
-    .depth{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:500;margin-right:6px;}
-    .d1{background:#e0f0ff;color:#3b7dd8;}
-    .d2{background:#fff0e0;color:#d4850a;}
-    .d3{background:#f0e0ff;color:#8b5cf6;}
-    .tag-ai{background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:.7rem;}
-    .checklist{list-style:none;padding-left:0;}
-    .checklist li{padding:6px 0 6px 26px;position:relative;font-size:.9rem;}
-    .checklist li::before{content:'□';position:absolute;left:0;color:var(--a);font-size:1rem;}
-    footer{text-align:center;padding:40px;color:var(--tl);font-size:.85rem;}
-    @media(max-width:768px){.hero{padding:50px 24px;}.hero h1{font-size:1.7rem;}.card{padding:24px 18px;}.two{grid-template-columns:1fr;}}
-    @media print{body{background:#fff!important;padding:20px!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}.hero,.card{background:#faf8ff!important;backdrop-filter:none!important;box-shadow:none!important;border:1px solid #ddd!important;}.hero h1,.sn{color:var(--a)!important;-webkit-text-fill-color:var(--a)!important;}.card{page-break-inside:avoid;}}
-</style>
+    :root{--gs:#E8F4FD;--gm:#FFF0F5;--ge:#F5F0FF;--tp:#2D3436;--ts:#636E72;--tl:#B2BEC3;--a:#667eea;--ap:#f093fb;--ag:#4ECDC4;--ar:#FF6B6B;--ao:#F7B731;}*{margin:0;padding:0;box-sizing:border-box;}body{font-family:'Noto Sans TC',-apple-system,sans-serif;font-weight:300;line-height:1.85;color:var(--tp);background:linear-gradient(135deg,var(--gs),var(--gm),var(--ge));min-height:100vh;padding:40px 20px;}.container{max-width:920px;margin:0 auto;}.hero{text-align:center;padding:60px 40px;margin-bottom:40px;background:rgba(255,255,255,.6);backdrop-filter:blur(20px);border-radius:32px;border:1px solid rgba(255,255,255,.8);box-shadow:0 20px 60px rgba(0,0,0,.08);}.hero h1{font-size:2.2rem;font-weight:500;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}.hero .sub{font-size:1rem;color:var(--ts);margin-bottom:6px;}.hero .en{font-size:.88rem;color:var(--tl);font-style:italic;margin-bottom:12px;}.tag{display:inline-block;padding:3px 10px;border-radius:18px;font-size:.73rem;font-weight:400;margin:2px;}.tag-p{background:linear-gradient(135deg,var(--a),#764ba2);color:#fff;}.tag-s{background:rgba(102,126,234,.12);color:var(--a);}.tag-ai{background:linear-gradient(135deg,#667eea,#764ba2);color:white;font-size:.7rem;}.card{background:rgba(255,255,255,.7);backdrop-filter:blur(10px);border-radius:24px;border:1px solid rgba(255,255,255,.5);box-shadow:0 8px 32px rgba(0,0,0,.08);padding:36px 32px;margin-bottom:24px;transition:transform .3s,box-shadow .3s;}.card:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,.12);}.st{font-size:1.3rem;font-weight:500;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid rgba(102,126,234,.2);display:flex;align-items:center;gap:10px;}.st::before{content:'';width:4px;height:22px;background:linear-gradient(135deg,var(--a),var(--ap));border-radius:2px;}p{margin-bottom:13px;font-size:.95rem;}strong{font-weight:500;}.bx{border-radius:16px;padding:20px;margin:16px 0;}.bx-p{background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(240,147,251,.1));border-left:4px solid var(--a);}.bx-k{background:linear-gradient(135deg,rgba(255,182,193,.12),rgba(221,160,221,.12));border-left:4px solid var(--ap);}.bx-g{background:linear-gradient(135deg,rgba(78,205,196,.1),rgba(129,236,236,.1));border-left:4px solid var(--ag);}.bx-r{background:linear-gradient(135deg,rgba(255,107,107,.1),rgba(255,159,159,.1));border-left:4px solid var(--ar);}.bx-o{background:linear-gradient(135deg,rgba(247,183,49,.1),rgba(255,211,99,.1));border-left:4px solid var(--ao);}.qb{background:linear-gradient(135deg,rgba(255,182,193,.15),rgba(221,160,221,.15));border-radius:16px;padding:26px;margin:20px 0;text-align:center;font-size:1.05rem;font-weight:400;color:#555;font-style:italic;border:1px solid rgba(255,182,193,.3);}.qb .attr{font-size:.85rem;color:var(--tl);margin-top:8px;font-style:normal;}ul,ol{padding-left:22px;margin:10px 0;}li{margin-bottom:8px;line-height:1.75;font-size:.93rem;}li::marker{color:var(--a);}.sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin:18px 0;}.sc{background:rgba(255,255,255,.85);border-radius:18px;padding:18px;text-align:center;border:1px solid rgba(255,255,255,.6);}.sn{font-size:1.6rem;font-weight:600;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}.sl{font-size:.82rem;color:var(--ts);margin-top:3px;}.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}.three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:16px 0;}.mc{background:rgba(255,255,255,.85);border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,.6);}.mc h4{font-weight:500;color:var(--a);margin-bottom:6px;font-size:.93rem;}.mc p,.mc li{font-size:.87rem;}.tbl{width:100%;margin:16px 0;border-collapse:separate;border-spacing:0;border-radius:16px;overflow:hidden;font-size:.88rem;}.tbl th{background:linear-gradient(135deg,var(--a),#764ba2);color:#fff;padding:11px 14px;text-align:left;font-weight:400;}.tbl td{padding:10px 14px;border-bottom:1px solid rgba(0,0,0,.05);background:rgba(255,255,255,.6);}.tbl tr:last-child td{border-bottom:none;}.depth{display:inline-block;padding:2px 8px;border-radius:10px;font-size:.7rem;font-weight:500;margin-right:6px;}.d1{background:#e0f0ff;color:#3b7dd8;}.d2{background:#fff0e0;color:#d4850a;}.d3{background:#f0e0ff;color:#8b5cf6;}.flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin:18px 0;}.flow-n{background:rgba(255,255,255,.9);border-radius:14px;padding:10px 16px;font-size:.82rem;border:1px solid rgba(102,126,234,.2);text-align:center;min-width:100px;}.flow-a{color:var(--a);font-size:1.2rem;}.checklist{list-style:none;padding-left:0;}.checklist li{padding:6px 0 6px 26px;position:relative;font-size:.9rem;}.checklist li::before{content:'□';position:absolute;left:0;color:var(--a);font-size:1rem;}footer{text-align:center;padding:40px;color:var(--tl);font-size:.85rem;}@media(max-width:768px){.hero{padding:50px 24px;}.hero h1{font-size:1.7rem;}.card{padding:24px 18px;}.two,.three{grid-template-columns:1fr;}}@media print{body{background:#fff!important;padding:20px!important;}.hero,.card{background:#faf8ff!important;backdrop-filter:none!important;box-shadow:none!important;border:1px solid #ddd!important;}.hero h1,.sn{color:var(--a)!important;-webkit-text-fill-color:var(--a)!important;}.card{page-break-inside:avoid;}}
+  </style>
 </head>
 <body>
 <div class="container">
 
 <header class="hero">
-  <h1>📚 大腦就是你的超能力</h1>
+  <h1>🧠 大腦就是你的超能力</h1>
   <p class="sub">輕鬆理解大腦真相、讓大腦脫胎換骨的十四堂課</p>
-  <p class="meta">德國腦科學科普著作｜意志力＋思考力＋記憶力全面提升</p>
-  <div style="margin-top:14px;"><span class="tag tag-p">腦科學</span><span class="tag tag-p">記憶力</span><span class="tag tag-p">專注力</span><span class="tag tag-p">學習法</span><span class="tag tag-p">神經可塑性</span></div>
+  <p class="en">意志力＋思考力＋記憶力全面提升</p>
+  <p style="margin-top:8px;font-size:.85rem;color:var(--tl);">德國腦科學科普著作</p>
+  <div style="margin-top:14px;"><span class="tag tag-p">腦科學</span><span class="tag tag-p">記憶力</span><span class="tag tag-p">專注力</span><span class="tag tag-p">神經可塑性</span><span class="tag tag-p">學習法</span><span class="tag tag-p">意志力</span></div>
   <p style="margin-top:16px;font-size:.85rem;color:var(--tl);">覺醒系統 v2 完全體分析｜龍龍 🐉｜2026.03.06</p>
 </header>
 
 <section class="card">
-  <h2 class="st">Step 1-2｜📖 書籍資料 + 🎯 核心命題</h2>
-  <p><strong>類型：</strong>🧠 心理成長型 + 🔧 方法實踐型　｜　<strong>評分：</strong>⭐⭐⭐½ (3.5/5)</p>
-  <div class="bx bx-r"><strong>❶ 問題</strong><p style="margin-bottom:0;">大腦有近一千億個神經元，但我們為什麼總覺得自己不夠聰明、記不住、無法專注？有沒有「大腦使用說明書」？</p></div>
-  <div class="bx bx-p"><strong>❷ 論點</strong><p style="margin-bottom:0;">大腦終身具有可塑性（neuroplasticity）。智商不是固定的，好奇心和熱情比 IQ 更能預測成就。透過理解大腦運作原理，任何人都能提升思考力、記憶力和意志力。</p></div>
-  <div class="bx bx-g"><strong>❸ 方法</strong><p style="margin-bottom:0;">腦科學研究 + 圖像記憶法（德文聯想法）+ 實用練習 + 生活化比喻</p></div>
-  <div class="qb">「如果人類的大腦簡單到我們可以理解，那我們根本就笨到無法理解我們的大腦。」<div class="attr">— 喬斯坦．賈德《蘇菲的世界》</div></div>
+  <h2 class="st">Step 1｜📚 書籍資料卡</h2>
+  <div class="two">
+    <div><p><strong>作者：</strong>德國腦科學科普作家，風格輕鬆幽默，用大量生活化比喻（巧克力瑪芬、小狗、水族箱）降低入門門檻。14堂課結構，涵蓋大腦基礎→記憶→專注→情緒→意志力。</p></div>
+    <div><p><strong>類型：</strong>🧠 心理成長型 + 🔧 方法實踐型</p><p><strong>結構：</strong>14 堂課，從基礎腦科學到實用技巧</p><p><strong>版權：</strong>低（科普為主）</p></div>
+  </div>
+  <div class="sg"><div class="sc"><div class="sn">14</div><div class="sl">堂課</div></div><div class="sc"><div class="sn">215</div><div class="sl">頁</div></div><div class="sc"><div class="sn">1000億</div><div class="sl">神經元</div></div><div class="sc"><div class="sn">3.5</div><div class="sl">評分 /5</div></div></div>
 </section>
 
 <section class="card">
-  <h2 class="st">Step 3｜📖 主題式深度分析</h2>
-  
-    <div class="bx bx-p">
-      <p><span class="depth d1">L1</span> <strong>大腦的基本架構</strong></p>
-      <p style="margin-bottom:0;">海馬迴=記憶、前額葉=決策、杏仁核=情緒。作者用「水族箱」比喻大腦——你可以從外面觀察它，也可以當導演改變劇情。大腦像小狗：自私（消耗全身 20% 能量）但忠誠。</p>
-    </div>
-    <div class="bx bx-g">
-      <p><span class="depth d2">L2</span> <strong>可塑性：變聰明永遠不嫌晚</strong></p>
-      <p style="margin-bottom:0;">梵谷 27 歲才開始畫畫。「一萬小時定律」不是唯一路徑——理解大腦原理 + 刻意練習 = 效率型成長。中國有 5000 萬人鋼琴彈得好，其中數千名被稱為天才——練習量可以製造「天才」。</p>
-    </div>
-    <div class="bx bx-k">
-      <p><span class="depth d3">L3</span> <strong>IQ 的迷思</strong></p>
-      <p style="margin-bottom:0;"><span class='tag tag-ai'>AI 跨書連結</span> 史丹佛 Terman 追蹤研究：高 IQ 兒童長大後並沒有在事業上特別成功。這跟 Angela Duckworth《恆毅力》的發現一致——毅力比智力更能預測長期成就。IQ 測試只測量邏輯/語言能力，忽略了情緒智力、創造力和社交能力。</p>
-    </div>
+  <h2 class="st">Step 2｜🎯 核心命題（三要素）</h2>
+  <div class="bx bx-r"><strong>❶ 問題</strong><p style="margin-bottom:0;">大腦有近一千億個神經元，但我們為什麼總覺得自己不夠聰明、記不住、無法專注？我們沒有「大腦使用說明書」——如果有一本，該有多好？</p></div>
+  <div class="bx bx-p"><strong>❷ 論點</strong><p style="margin-bottom:0;">大腦終身具有<strong>神經可塑性</strong>（neuroplasticity）——新的神經連結可以不斷形成。智商不是固定的，好奇心和熱情比 IQ 更能預測成就。「變聰明永遠不嫌遲。」梵谷 27 歲才開始畫畫，中國有 5000 萬人鋼琴彈得好——練習量可以製造「天才」。</p></div>
+  <div class="bx bx-g"><strong>❸ 方法</strong><p style="margin-bottom:0;">腦科學研究 + 圖像記憶法（德式聯想法）+ 實用練習 + 生活化比喻。每章結尾都有「本章概要」和「如何變聰明」的行動清單。</p></div>
+  <div class="qb">「如果人類的大腦簡單到我們可以理解，那我們根本就笨到無法理解我們的大腦。」<div class="attr">— 喬斯坦．賈德《蘇菲的世界》（本書開篇引用）</div></div>
 </section>
 
 <section class="card">
-  <h2 class="st">Step 5-6｜🔇 缺席分析 + 🤖 AI N+1 章</h2>
-  <div class="bx bx-o"><strong>🔇 缺席分析</strong><p style="margin-bottom:0;">❶ 過度簡化：為了通俗化犧牲了科學精確度。❷ 盲點：缺乏對神經多樣性（ADHD、自閉症）的討論。❸ 文化偏差：圖像記憶法基於德文語言聯想，中文讀者需自行轉換。</p></div>
-  <div class="bx bx-k"><strong>🤖 AI N+1 章</strong><p style="margin-bottom:0;"><span class='tag tag-ai'>AI N+1 章</span> 第 15 堂課：AI 時代的大腦——當計算和記憶被外包給機器，人類大腦的核心價值是什麼？答案可能是：情感連結、道德判斷、創造性直覺——這些恰恰是大腦中最「非邏輯」的部分。</p></div>
-</section>
-
-<section class="card">
-  <h2 class="st">Step 7-8｜🌐 跨域連結 + ✅ 行動轉化</h2>
-  <table class="tbl">
-    <tr><th>領域</th><th>連結</th><th>關係</th></tr>
-    <tr><td>心理學</td><td>Carol Dweck《心態致勝》</td><td>成長心態 = 可塑性的心理學應用</td></tr><tr><td>心理學</td><td>Angela Duckworth《恆毅力》</td><td>毅力 > IQ 的實證</td></tr><tr><td>腦科學</td><td>Daniel Kahneman《快思慢想》</td><td>系統一/系統二 = 大腦的自動 vs 手動模式</td></tr><tr><td>教育</td><td>Ken Robinson《讓天賦自由》</td><td>IQ 不代表一切的教育革命</td></tr>
-  </table>
-  <div class="bx bx-g"><strong>✅ 立刻能做</strong>
-    <ul class="checklist" style="margin-bottom:0;"><li>「圖像記憶」：今天學一個新概念，用一個荒謬的畫面把它記住</li><li>「3 分鐘正念」：早上起床後閉眼 3 分鐘，只觀察呼吸——訓練前額葉</li><li>「睡前回顧」：睡前花 2 分鐘回想今天學到的三件事——海馬迴會在睡眠中鞏固它</li></ul>
+  <h2 class="st">Step 3｜主題一：大腦的基本架構——你的老闆在忙什麼（Ch1-3）</h2>
+  <div class="bx bx-p"><p><span class="depth d1">L1</span> <strong>三層結構：爬蟲腦→情感腦→思考腦</strong></p><p>爬蟲腦（腦幹）管生存：呼吸、心跳、戰或逃。情感腦（邊緣系統）管情緒：杏仁核=恐懼警報、海馬迴=記憶快遞。思考腦（大腦皮質/前額葉）管決策：規劃、推理、自制力。</p><p style="margin-bottom:0;"><strong>巧克力瑪芬比喻：</strong>大腦像巧克力瑪芬——外面是皺褶的皮質（灰質），裡面是蓬鬆的白質（神經纖維）。消耗全身 20% 的能量，占體重卻只有 2%。「大腦就像是我們的老闆，整天都很忙，但沒人知道他在忙什麼。」</p></div>
+  <div class="bx bx-o"><p><span class="depth d2">L2</span> <strong>你的大腦在建構自己的「電影」</strong></p><p style="margin-bottom:0;">大腦不是被動接收資訊，而是主動建構現實——它從大量感官資訊中篩選、拼接，製造出「你以為你看到的世界」。視覺盲點、錯覺、選擇性注意力——都是大腦「導演」的證據。你不是在看世界，你在看大腦製作的電影。</p></div>
+  <div class="bx bx-k"><p><span class="depth d3">L3</span> <span class="tag tag-ai">AI 跨書連結</span></p><p style="margin-bottom:0;">「大腦建構自己的電影」跟桑塔格《論攝影》的「攝影改變觀看」異曲同工——我們永遠不是在看「真實」，而是在看經過某種媒介（大腦/相機/螢幕）處理後的版本。Kahneman《快思慢想》的系統一/系統二 = 這裡的「自動模式 vs 手動模式」。</p></div>
+  <div class="two">
+    <div class="bx bx-g" style="margin:0;"><strong>🔧 立刻能做</strong><ul style="margin-bottom:0;"><li>「水族箱觀察」：把你的大腦想像成水族箱，觀察它在想什麼，不要介入</li><li>了解你的「能量曲線」：早上還是下午思考力最強？</li></ul></div>
+    <div class="bx bx-o" style="margin:0;"><strong>❓ 自我檢核</strong><p style="margin-bottom:0;">你每天花多少時間在「手動模式」（有意識地思考）vs「自動模式」（慣性反應）？大多數人的比例是 5:95。</p></div>
   </div>
 </section>
 
 <section class="card">
-  <h2 class="st">Step 11｜🐉 總結</h2>
-  <p>⭐ 3.5/5 — 適合腦科學零基礎的讀者。用生活化的比喻降低了入門門檻，但深度有限。最大的價值是「可塑性」這個概念——知道大腦可以改變，就是改變的開始。</p>
+  <h2 class="st">主題二：IQ 的迷思——聰明不等於成功（Ch2）</h2>
+  <div class="bx bx-p"><p><span class="depth d1">L1</span> <strong>Terman 追蹤研究的顛覆</strong></p><p>史丹佛 Terman 教授從 1921 年開始追蹤 1500 名高 IQ 兒童——他們長大後並沒有在事業上特別成功。「好奇心和熱情才是驅使一個人竭盡所能達成目標的動力。」IQ 測試只測量邏輯/語言能力，忽略了情緒智力、創造力、社交能力。</p><p style="margin-bottom:0;">梵谷 27 歲開始畫畫。5000 萬中國人鋼琴彈得很好——其中數千名被稱為天才。練習的量足以製造「天才的幻覺」。</p></div>
+  <div class="bx bx-k"><p><span class="depth d3">L3</span> <span class="tag tag-ai">AI 跨書連結</span></p><p style="margin-bottom:0;">Angela Duckworth《恆毅力》的核心發現完全一致——毅力比智力更能預測長期成就。Carol Dweck《心態致勝》的「成長心態 vs 固定心態」= 本書「可塑性」的心理學版。《AI無法取代的非認知能力》的核心論點也在此：IQ 可被 AI 取代，但好奇心、毅力、熱情不行。</p></div>
 </section>
 
-<footer><p>✧ 覺醒系統 v2 完全體分析 ✧</p><p>🐉 龍龍 · 2026.03.06</p></footer>
-</div>
-</body>
-</html>
+<section class="card">
+  <h2 class="st">主題三：可塑性——你的大腦可以改變（Ch3-5）</h2>
+  <div class="bx bx-g"><p><span class="depth d1">L1</span> <strong>神經可塑性：新連結永遠可以形成</strong></p><p>「新結構越複雜，建構相應電路所需的時間越久。但一旦運動模式儲存在大腦的網絡中之後，就像是刻在木板上，它就會自動執行。」學騎腳踏車的過程 = 從「有意識的笨拙」到「無意識的精熟」。</p><p style="margin-bottom:0;">一萬小時定律不是唯一路徑——理解大腦原理 + 刻意練習 = 效率型成長。關鍵不是「練多久」，而是「怎麼練」。</p></div>
+  <div class="bx bx-o"><p><span class="depth d2">L2</span> <strong>自我認知：通往「當下」的鑰匙</strong></p><p style="margin-bottom:0;">「唯有具備自我觀察和分析的能力，才能從錯誤中有意識地學習。」這把「通往當下的鑰匙」= 正念（mindfulness）的腦科學版本。作者沒用「正念」這個詞，但描述的完全是同一件事——觀察自己的思緒而不被帶走。</p></div>
+  <div class="bx bx-k"><p><span class="depth d3">L3</span> <span class="tag tag-ai">AI 文化轉譯</span></p><p style="margin-bottom:0;">「自我認知」在佛教就是「覺知」（sati），在儒家是「慎獨」。東方兩千年前就知道的東西，西方腦科學現在用 fMRI 重新發現。有趣的是：冥想（東方的「覺知訓練」）已被證實能改變大腦結構——前額葉皮質增厚、杏仁核縮小。古老智慧的科學背書。</p></div>
+</section>
+
+<section class="card">
+  <h2 class="st">主題四：記憶力——資訊可視化的威力（Ch6-8）</h2>
+  <div class="bx bx-p"><p><span class="depth d1">L1</span> <strong>圖像記憶法</strong></p><p>大腦處理圖像的速度比文字快 60,000 倍。記憶的秘密：把抽象資訊轉換成荒謬的畫面。越荒謬越好記——因為杏仁核對「反常」的東西反應最強。</p><p style="margin-bottom:0;">「記憶宮殿」技巧：把要記的東西「放」在你熟悉的空間路徑上。走一圈就回想起所有內容。</p></div>
+  <div class="bx bx-o"><p><span class="depth d2">L2</span> <strong>🔬 批判：文化轉換的盲點</strong></p><p style="margin-bottom:0;">書中的圖像記憶法基於德文語言聯想——很多諧音梗中文讀者用不上。但核心原理（視覺化+荒謬化+空間化）是通用的。中文的優勢：漢字本身就是象形文字，天然具有圖像記憶的基因。</p></div>
+</section>
+
+<section class="card">
+  <h2 class="st">主題五：意志力與動力——熱情消失時怎麼辦（Ch11-14）</h2>
+  <div class="bx bx-p"><p><span class="depth d1">L1</span> <strong>作者的親身經歷：在高鐵上失去動力</strong></p><p>「我的靈魂想征服的那座山很高，感覺自己像個登山的小旅人，甚至都還沒離開停車場，因為得先吃掉為登山準備的口糧才行。」——寫到第 14 章時動力歸零。</p><p style="margin-bottom:0;">這段自我揭露是全書最真誠的部分：一個寫「如何變聰明」的作者坦承自己也會失去動力。就像布魯克斯（《深刻認識一個人》）坦承「一直查亞馬遜排名」一樣——<strong>知道正確答案但做不到</strong>，比完美的框架更有說服力。</p></div>
+  <div class="bx bx-k"><p><span class="depth d3">L3</span> <span class="tag tag-ai">AI 原創洞見</span></p><p style="margin-bottom:0;">意志力研究的最新趨勢：意志力不是「肌肉」（Roy Baumeister 的舊理論已被挑戰），而是「價值判斷」——你不是「沒力氣」做某件事，而是你的大腦判斷這件事「不值得」消耗能量。改變動力的關鍵不是「更努力」，而是「重新定義值不值得」。</p></div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 4｜📐 敘事弧線分析</h2>
+  <div class="flow">
+    <div class="flow-n"><strong>基礎</strong><br><span style="font-size:.78rem;">大腦結構<br>神經元/突觸</span></div><div class="flow-a">→</div>
+    <div class="flow-n"><strong>可塑性</strong><br><span style="font-size:.78rem;">IQ迷思打破<br>變聰明不嫌遲</span></div><div class="flow-a">→</div>
+    <div class="flow-n"><strong>工具</strong><br><span style="font-size:.78rem;">記憶法/專注力<br>學習技巧</span></div><div class="flow-a">→</div>
+    <div class="flow-n"><strong>情緒</strong><br><span style="font-size:.78rem;">壓力管理<br>自我認知</span></div><div class="flow-a">→</div>
+    <div class="flow-n"><strong>動力</strong><br><span style="font-size:.78rem;">意志力/熱情<br>作者的坦承</span></div>
+  </div>
+  <div class="bx bx-p"><strong>🎬 情緒設計：</strong>從「你的大腦很厲害」（激勵）→「但你用錯了」（危機感）→「這樣用才對」（工具）→「我自己也在學」（共鳴）。作者刻意在最後暴露自己的脆弱，打破了「腦科學專家」的全知形象——這是最有效的說服策略。</div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 5｜💡 整合洞見</h2>
+  <div class="bx bx-p"><strong>隱藏邏輯線：</strong><p style="margin-bottom:0;">表面教你「大腦使用說明書」，底層在教你「自我認知」。每一章的工具（記憶法、專注技巧、壓力管理）都指向同一件事：觀察你的大腦在做什麼 → 有意識地調整 → 建立新的神經迴路。本質上，這是一本包裝成腦科學的<strong>正念入門書</strong>。</p></div>
+  <div class="bx bx-o"><strong>批判與邊界：</strong><ul style="margin-bottom:0;"><li><strong>過度簡化：</strong>為了通俗化犧牲了科學精確度（巧克力瑪芬比喻雖然好記但不夠精確）</li><li><strong>神經多樣性缺席：</strong>ADHD、自閉症、讀寫障礙——這些大腦的「不同」被忽略了</li><li><strong>文化偏差：</strong>圖像記憶法基於德語聯想，中文讀者需自行轉換</li><li><strong>深度不足：</strong>每個主題只觸及表面，進階讀者會覺得不夠</li></ul></div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 6｜🔇 缺席分析</h2>
+  <div class="three">
+    <div class="mc" style="border-left:3px solid var(--ar);"><h4 style="color:var(--ar);">❶ 刻意迴避</h4><p>神經退化疾病（阿茲海默、帕金森）——一本講「大腦超能力」的書不想談「大腦的脆弱」。但真正理解大腦需要正視兩面。</p></div>
+    <div class="mc" style="border-left:3px solid var(--ao);"><h4 style="color:var(--ao);">❷ 盲點</h4><p>神經多樣性。ADHD 的大腦不是「壞掉的正常大腦」，而是「不同的大腦」。一本號稱「大腦使用說明書」的書，卻只寫了一種大腦的說明書。</p></div>
+    <div class="mc" style="border-left:3px solid var(--a);"><h4 style="color:var(--a);">❸ 時代缺席</h4><p>AI 時代大腦的核心價值——當計算和記憶被外包給機器，人類大腦的獨特性在哪裡？答案可能是：情感連結、道德判斷、創造性直覺。</p></div>
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 7｜🤖 AI 視角</h2>
+  <div class="bx bx-k"><strong>AI N+1 章：第 15 堂課——AI 時代的大腦</strong> <span class="tag tag-ai">AI 原創洞見</span><p>當 ChatGPT 可以寫文章、Midjourney 可以畫畫、AlphaFold 可以預測蛋白質結構——人類大腦的「超能力」是什麼？</p><p>答案可能是：<strong>那些「非邏輯」的部分</strong>——直覺（gut feeling）、同理心（mirror neurons）、幽默感（需要同時處理多層語義）、道德判斷（價值的衝突與抉擇）。AI 擅長模式辨識，人類擅長意義建構。</p><p style="margin-bottom:0;">最終的悖論：這本書教你的「記憶法」可能很快被 AI 取代，但書中最有價值的洞見——<strong>「自我認知」</strong>——恰恰是 AI 最不擅長的。</p></div>
+  <div class="bx bx-p"><strong>跨域連結網</strong>
+    <table class="tbl"><tr><th>領域</th><th>連結</th><th>關係</th></tr>
+    <tr><td>心理學</td><td>Carol Dweck《心態致勝》</td><td>成長心態 = 可塑性的心理學應用</td></tr>
+    <tr><td>心理學</td><td>Angela Duckworth《恆毅力》</td><td>毅力 > IQ 的實證</td></tr>
+    <tr><td>腦科學</td><td>Kahneman《快思慢想》</td><td>系統一/二 = 自動 vs 手動模式</td></tr>
+    <tr><td>教育</td><td>Ken Robinson《讓天賦自由》</td><td>IQ 不代表一切</td></tr>
+    <tr><td>佛教</td><td>正念/覺知（sati）</td><td>自我認知 = 兩千年前的腦科學</td></tr>
+    <tr><td>教育</td><td>《AI無法取代的非認知能力》</td><td>IQ可被取代，非認知能力不行</td></tr></table>
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 8｜✅ 行動轉化</h2>
+  <div class="three">
+    <div class="mc" style="border-top:3px solid var(--ag);"><h4 style="color:var(--ag);">🟢 本週啟動</h4><ul class="checklist"><li>「圖像記憶」：今天學一個新概念，用荒謬畫面記住它</li><li>「3 分鐘正念」：早上閉眼 3 分鐘只觀察呼吸</li><li>「睡前回顧」：花 2 分鐘回想今天學到的三件事</li></ul></div>
+    <div class="mc" style="border-top:3px solid var(--ao);"><h4 style="color:var(--ao);">🟡 本月實驗</h4><ul class="checklist"><li>「記憶宮殿」：選一條你熟悉的路，把要記的東西「放」在路上</li><li>「能量日記」：記錄一週內每天不同時段的精力水平</li></ul></div>
+    <div class="mc" style="border-top:3px solid var(--ar);"><h4 style="color:var(--ar);">🔴 長期追蹤</h4><ul class="checklist"><li>核心指標：每月學會一個新技能（不論多小）</li><li>每季自問：「我的大腦在過去三個月有沒有建立新的連結？」</li></ul></div>
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 9｜📖 帶問題回去讀</h2>
+  <div class="bx bx-p"><strong>二次閱讀焦點：</strong><ol><li>Ch2（IQ迷思）：「我有沒有因為覺得自己『不夠聰明』而放棄過什麼？」</li><li>Ch5（可塑性）：「我最近一次學到全新的東西是什麼時候？」</li><li>Ch14（意志力）：「作者在高鐵上失去動力那段，跟我的哪段經歷像？」</li></ol></div>
+  <div class="bx bx-g"><strong>📌 慢讀建議：</strong> Ch2 IQ段落、Ch5 可塑性研究、Ch14 作者自我揭露</div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 10｜🎬 延伸資源</h2>
+  <div class="two">
+    <div class="mc"><h4>📖 深化</h4><ul style="margin-bottom:0;"><li>Norman Doidge《改變是大腦的天性》</li><li>Matthew Walker《為什麼要睡覺》</li><li>Jim Kwik《超腦零極限》</li></ul></div>
+    <div class="mc"><h4>📖 互補</h4><ul style="margin-bottom:0;"><li>Kahneman《快思慢想》— 更嚴謹的認知科學</li><li>《我跟門薩學的用腦好習慣》— 同主題不同切入</li><li>Cal Newport《深度工作力》— 專注力的進階版</li></ul></div>
+  </div>
+</section>
+
+<section class="card">
+  <h2 class="st">Step 11｜🏷️ 書庫卡片 + 🐉 總結</h2>
+  <div class="sg"><div class="sc"><div class="sn">3.5</div><div class="sl">總評 /5</div></div><div class="sc"><div class="sn">14</div><div class="sl">堂課</div></div><div class="sc"><div class="sn">6</div><div class="sl">跨書連結</div></div><div class="sc"><div class="sn">⭐⭐</div><div class="sl">難度 低</div></div></div>
+  <div class="bx bx-p"><strong>🏆 一句話：</strong><p style="margin-bottom:0;">大腦終身可塑。智商不是命運，熱情才是。變聰明永遠不嫌遲。</p></div>
+  <div class="bx bx-g"><strong>🔑 關鍵概念：</strong><span class="tag tag-s">神經可塑性</span><span class="tag tag-s">IQ迷思</span><span class="tag tag-s">圖像記憶法</span><span class="tag tag-s">自我認知</span><span class="tag tag-s">巧克力瑪芬</span><span class="tag tag-s">一萬小時</span><span class="tag tag-s">熱情>智商</span></div>
+  <div class="qb" style="font-style:normal;"><strong>🐉 龍龍的一句話</strong><br><br>適合腦科學零基礎的讀者。<br>用生活化比喻降低了入門門檻，但深度有限。<br><br>最大的價值不是那些記憶技巧——<br>而是一個簡單的信念：<br><strong>「知道大腦可以改變，就是改變的開始。」</strong><br><br><span style="font-size:.9rem;">這本書是大腦的「新手村」，進階玩家請去讀 Kahneman。</span></div>
+</section>
+
+<footer><p>✧ 覺醒系統 v2 完全體分析 ✧</p><p>🐉 龍龍 · 2026.03.06</p><p><a href="index.html" style="color:var(--a);text-decoration:none;">← 返回十書聯展</a></p></footer>
+</div></body></html>
