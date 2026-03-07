@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>說到賣得動 — 超級大腦讀書法｜書+簽書會雙源深度解構</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gradient-start: #E8F4FD;
+      --gradient-mid: #FFF0F5;
+      --gradient-end: #F5F0FF;
+      --accent-main: #667eea;
+      --accent-secondary: #764ba2;
+      --accent-warm: #f093fb;
+      --text-primary: #2D3436;
+      --text-secondary: #636E72;
+      --text-light: #B2BEC3;
+      --green: #00b894;
+      --orange: #fdcb6e;
+      --red: #e17055;
+      --blue: #74b9ff;
+      --teal: #00cec9;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Noto Sans TC', -apple-system, sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text-primary);
+      background: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .container { max-width: 920px; margin: 0 auto; }
+
+    /* Hero */
+    .hero {
+      text-align: center; padding: 80px 40px; margin-bottom: 40px;
+      background: rgba(255,255,255,0.6); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border-radius: 32px; border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08); position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(102,126,234,0.06) 0%, transparent 50%),
+                  radial-gradient(circle at 70% 80%, rgba(240,147,251,0.06) 0%, transparent 50%);
+      animation: float 15s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-20px,-10px)} }
+    .hero-badge {
+      display: inline-block; background: linear-gradient(135deg, var(--accent-main), var(--accent-secondary));
+      color: white; padding: 8px 24px; border-radius: 50px; font-size: 0.85rem;
+      font-weight: 500; letter-spacing: 2px; margin-bottom: 24px; position: relative; z-index: 1;
+    }
+    .hero h1 {
+      font-family: 'Noto Serif TC', serif; font-size: 2.8rem; font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+      margin-bottom: 16px; letter-spacing: -0.02em; position: relative; z-index: 1;
+    }
+    .hero .subtitle { font-size: 1.1rem; color: var(--text-secondary); font-weight: 300; position: relative; z-index: 1; }
+    .hero .meta { margin-top: 20px; font-size: 0.85rem; color: var(--text-light); position: relative; z-index: 1; }
+
+    /* Source Badge */
+    .source-badge {
+      display: inline-block; padding: 3px 10px; border-radius: 12px; font-size: 0.7rem;
+      font-weight: 500; margin-left: 6px; vertical-align: middle;
+    }
+    .src-book { background: rgba(102,126,234,0.15); color: var(--accent-main); }
+    .src-live { background: rgba(0,184,148,0.15); color: var(--green); }
+    .src-both { background: rgba(240,147,251,0.15); color: var(--accent-secondary); }
+
+    /* Cards */
+    .card {
+      background: rgba(255,255,255,0.7); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border-radius: 24px; border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08); padding: 40px 36px; margin-bottom: 24px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 16px 48px rgba(0,0,0,0.12); }
+
+    .section-title {
+      font-family: 'Noto Serif TC', serif; font-size: 1.45rem; font-weight: 700;
+      color: var(--text-primary); margin-bottom: 24px; padding-bottom: 12px;
+      border-bottom: 2px solid rgba(102,126,234,0.2); display: flex; align-items: center; gap: 12px;
+    }
+    .section-title .icon { font-size: 1.5rem; }
+    .section-desc { color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 20px; line-height: 1.7; }
+    p { margin-bottom: 14px; font-size: 0.93rem; line-height: 1.9; }
+    .sub-heading {
+      font-family: 'Noto Serif TC', serif; font-size: 1.1rem; font-weight: 700;
+      color: var(--accent-main); margin: 28px 0 14px;
+    }
+
+    /* Highlight */
+    .hl {
+      background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(240,147,251,0.08));
+      border-radius: 16px; padding: 22px; margin: 18px 0; border-left: 4px solid var(--accent-main);
+    }
+    .hl.green { border-left-color: var(--green); }
+    .hl.orange { border-left-color: var(--orange); }
+    .hl.red { border-left-color: var(--red); }
+    .hl.teal { border-left-color: var(--teal); }
+    .hl strong { font-weight: 500; }
+
+    /* Tags */
+    .tag {
+      display: inline-block; background: linear-gradient(135deg, var(--accent-main), var(--accent-secondary));
+      color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 400; margin: 2px;
+    }
+    .tag.green { background: linear-gradient(135deg, #00b894, #00cec9); }
+    .tag.orange { background: linear-gradient(135deg, #fdcb6e, #e17055); }
+    .tag.blue { background: linear-gradient(135deg, #74b9ff, #0984e3); }
+    .tag.pink { background: linear-gradient(135deg, #fd79a8, #e84393); }
+    .tag.teal { background: linear-gradient(135deg, #00cec9, #55efc4); }
+
+    /* Tables */
+    table {
+      width: 100%; border-collapse: separate; border-spacing: 0; margin: 18px 0;
+      background: rgba(255,255,255,0.6); border-radius: 16px; overflow: hidden; font-size: 0.88rem;
+    }
+    th {
+      background: linear-gradient(135deg, #667eea, #764ba2); color: white;
+      padding: 12px 14px; text-align: left; font-weight: 500; font-size: 0.82rem;
+    }
+    td { padding: 10px 14px; border-bottom: 1px solid rgba(0,0,0,0.04); line-height: 1.6; }
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(102,126,234,0.04); }
+
+    /* Block */
+    .block {
+      background: rgba(255,255,255,0.5); border-radius: 18px; padding: 24px;
+      margin-bottom: 18px; border: 1px solid rgba(255,255,255,0.4);
+    }
+    .block h3 {
+      font-family: 'Noto Serif TC', serif; font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 10px; color: var(--accent-main);
+    }
+    .core-box {
+      background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.08));
+      border-left: 4px solid var(--accent-main); padding: 14px 18px; border-radius: 0 12px 12px 0;
+      margin: 10px 0; font-size: 0.95rem;
+    }
+    .il { list-style: none; margin: 14px 0; padding: 0; }
+    .il li { padding: 8px 0 8px 26px; position: relative; border-bottom: 1px solid rgba(0,0,0,0.04); font-size: 0.9rem; }
+    .il li::before { content: '💡'; position: absolute; left: 0; top: 8px; font-size: 0.85rem; }
+
+    /* Chain */
+    .chain { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin: 14px 0; }
+    .cn {
+      background: linear-gradient(135deg, var(--accent-main), var(--accent-secondary));
+      color: white; padding: 5px 14px; border-radius: 20px; font-size: 0.8rem;
+    }
+    .ca { color: var(--accent-main); font-size: 1.1rem; font-weight: 700; }
+
+    /* Meta Quote */
+    .mq {
+      font-family: 'Noto Serif TC', serif; font-size: 1.1rem; font-weight: 700;
+      color: var(--accent-main); text-align: center; padding: 18px;
+      margin: 12px 0; background: linear-gradient(135deg, rgba(102,126,234,0.06), rgba(240,147,251,0.06));
+      border-radius: 16px;
+    }
+
+    /* Action Grid */
+    .ag { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
+    .ac {
+      background: rgba(255,255,255,0.6); border-radius: 18px; padding: 24px;
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    .ac h4 { font-weight: 500; margin-bottom: 14px; color: var(--accent-main); font-size: 1rem; }
+    .ac ul { list-style: none; padding: 0; }
+    .ac li { padding: 7px 0 7px 18px; position: relative; border-bottom: 1px solid rgba(0,0,0,0.04); font-size: 0.88rem; }
+    .ac li::before { content: '→'; position: absolute; left: 0; color: var(--accent-main); }
+
+    /* Stat */
+    .sg { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 14px; margin: 20px 0; }
+    .sc {
+      background: rgba(255,255,255,0.8); border-radius: 18px; padding: 20px 14px;
+      text-align: center; border: 1px solid rgba(255,255,255,0.6);
+    }
+    .sn {
+      font-size: 2rem; font-weight: 700;
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .sl { font-size: 0.82rem; color: var(--text-secondary); margin-top: 4px; }
+
+    /* Resource */
+    .ri {
+      display: flex; gap: 12px; padding: 14px; background: rgba(255,255,255,0.5);
+      border-radius: 12px; margin-bottom: 10px; align-items: flex-start;
+    }
+    .rt { padding: 3px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 500; white-space: nowrap; }
+    .t-up { background: rgba(102,126,234,0.15); color: var(--accent-main); }
+    .t-pa { background: rgba(0,184,148,0.15); color: var(--green); }
+    .t-op { background: rgba(225,112,85,0.15); color: var(--red); }
+    .t-co { background: rgba(116,185,255,0.15); color: #0984e3; }
+
+    /* Verbatim Box */
+    .vb {
+      background: rgba(0,184,148,0.06); border-left: 3px solid var(--green);
+      border-radius: 0 12px 12px 0; padding: 14px 18px; margin: 12px 0;
+      font-size: 0.88rem; color: var(--text-secondary);
+    }
+    .vb .speaker { font-weight: 500; color: var(--green); margin-bottom: 4px; }
+
+    /* Footer */
+    footer { text-align: center; padding: 50px 20px; color: var(--text-light); font-size: 0.88rem; }
+    footer .logo { font-size: 2rem; margin-bottom: 10px; }
+
+    @media (max-width: 768px) {
+      .hero { padding: 50px 24px; }
+      .hero h1 { font-size: 2rem; }
+      .card { padding: 26px 18px; border-radius: 20px; }
+      .sg { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media print {
+      body { background: white; padding: 0; }
+      .card { box-shadow: none; border: 1px solid #eee; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+<!-- HERO -->
+<header class="hero">
+  <span class="hero-badge">超級大腦讀書法 🧠 雙源解構</span>
+  <h1>說到賣得動</h1>
+  <p class="subtitle">書本試閱 × 簽書會逐字稿 — 全域交叉比對深度分析</p>
+  <p class="meta">作者：小竺（高言值表達力教練）｜雙素材標記：<span class="source-badge src-book">📖 書本</span> <span class="source-badge src-live">🎤 現場</span> <span class="source-badge src-both">🔗 交叉</span></p>
+</header>
+
+<!-- ===== 獨家發現：作者自曝的建書思維 ===== -->
+<section class="card">
+  <h2 class="section-title"><span class="icon">🔑</span> 獨家發現：作者的建書心智模型 <span class="source-badge src-live">🎤 現場</span></h2>
+  <p class="section-desc">簽書會中，小竺首次公開他「從一個念頭到一本書」的完整思考過程。這是書本身不會告訴你的 meta-level 洞見。</p>
+
+  <div class="hl">
+    <strong>核心架構：點 → 線 → 面 → 體</strong>
+    <p>整本書的建構邏輯不是「章節列表」，而是一個從原點向外擴展的立體結構。</p>
+  </div>
+
+  <div class="block">
+    <h3>⚫ 原點（點）：KISS 高價值表達模型</h3>
+    <p>一切從這個信仰開始 — Key Message + Information + Structure + Skill。這不只是書的框架，更是作者看待所有表達行為的核心信念。</p>
+  </div>
+
+  <div class="block">
+    <h3>📏 連點成線：消費決策旅程 5 階段</h3>
+    <p>從 KISS 延伸出路徑思維 — 客戶的決策不是一瞬間的事，而是：產生需求 → 確認類別 → 選擇品牌 → 選擇商品 → 締結成交。每個階段的溝通重點完全不同。</p>
+    <div class="chain">
+      <span class="cn">引發痛點</span><span class="ca">→</span>
+      <span class="cn">教育市場</span><span class="ca">→</span>
+      <span class="cn">凸顯優勢</span><span class="ca">→</span>
+      <span class="cn">降低風險</span><span class="ca">→</span>
+      <span class="cn">強化信任</span>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>🔲 織線成面：精準表達三層框架</h3>
+    <p>面 = 有範圍的思考。精準表達不是「把話說精簡」，而是三層同時到位：</p>
+    <table>
+      <thead><tr><th>層次</th><th>核心問題</th><th>書中位置</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Why to say</strong></td><td>你期待這次對話達成什麼結果？（兼顧對方的期望值）</td><td>觀念篇 Ch4-5</td></tr>
+        <tr><td><strong>What to say</strong></td><td>什麼訊息能戳到痛點或搔到癢處？</td><td>觀念篇 Ch3, Ch6</td></tr>
+        <tr><td><strong>How to say</strong></td><td>用什麼策略和技巧傳遞？</td><td>實戰篇全部</td></tr>
+      </tbody>
+    </table>
+    <p>加上四階段精準表達層次（現場獨家）：<strong>目標清晰 → 框架明確 → 邏輯嚴謹 → 內容有重點</strong></p>
+  </div>
+
+  <div class="block">
+    <h3>📦 構面成體：工具與模組的堆疊</h3>
+    <p>在「面」的基礎上，堆疊具體可用的思考工具和表達模組 — 自我介紹模組、提問模組、異議處理模組、結單模組等。這就是實戰篇的核心價值：即學即用的工具箱。</p>
+  </div>
+
+  <div class="hl green">
+    <strong>💎 超級大腦讀書法洞見：</strong>
+    <p>這個「點線面體」不只是書的架構，更是作者建議所有人組織表達內容的方法。先找到核心信念（點），沿著客戶旅程展開路徑（線），建立精準表達的範圍（面），最後用工具和模組讓它立體化（體）。書本身就是方法論的最佳範例。</p>
+  </div>
+</section>
+
+<!-- ===== 書本未揭露的實戰篇結構 ===== -->
+<section class="card">
+  <h2 class="section-title"><span class="icon">🗺️</span> 實戰篇全貌（簽書會獨家揭露）<span class="source-badge src-live">🎤 現場</span></h2>
+  <p class="section-desc">試閱版只有觀念篇 Ch1-6，但簽書會完整揭露了實戰篇的單元結構。</p>
+
+  <table>
+    <thead><tr><th>單元</th><th>核心任務</th><th>對應「點線面體」</th></tr></thead>
+    <tbody>
+      <tr><td><strong>消費決策旅程</strong></td><td>切出客戶從無需求到成交的路徑</td><td>線（路徑）</td></tr>
+      <tr><td><strong>自我介紹</strong>（Ch14）</td><td>ABCDE 模組：角色定位→獨特能力→目標客群→關鍵問題→商業邀請</td><td>體（模組）</td></tr>
+      <tr><td><strong>洞察需求</strong></td><td>提問工具，挖掘客戶真正的內在需求</td><td>體（工具）</td></tr>
+      <tr><td><strong>價值表達</strong></td><td>如何讓客戶感受到你的獨特價值</td><td>體（策略）</td></tr>
+      <tr><td><strong>成交/結單</strong></td><td>異議處理、結單技巧</td><td>體（模組）</td></tr>
+      <tr><td><strong>聆聽的藝術</strong></td><td>用耳朵、眼睛、身體、聲音、筆記、心、腦聆聽</td><td>體（心法）</td></tr>
+      <tr><td><strong>讚美</strong></td><td>不說話也重要的表達行為</td><td>體（技巧）</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ===== 交叉比對核心洞見 ===== -->
+<section class="card">
+  <h2 class="section-title"><span class="icon">🕸️</span> 全域交叉比對：隱藏連結網絡 <span class="source-badge src-both">🔗 交叉</span></h2>
+
+  <div class="sub-heading">1. 書中沒寫但現場親口說的核心信念</div>
+
+  <div class="block">
+    <h3>信念①「決策是100%感性的」</h3>
+    <div class="vb">
+      <div class="speaker">小竺原話：</div>
+      思考是理性的，但決策一定是感性的。有很多醫學跟科學證據證明，情緒中樞受損的人，他完全不會影響思考，但會影響決策。
+    </div>
+    <p>這解釋了為什麼他把 Information 拆成「資訊、觀點、感受」三種成分 — 資訊建立信任，觀點展現獨特性，感受驅動決策。三者缺一不可，但比例要根據對方狀態動態調整。</p>
+    <p><strong>對 Rex 的啟示：</strong>影片提案時，不要只給客戶「規格和價格」（資訊），要加入「為什麼這個方向對他最好」（觀點）和「如果不做這件事，可能會怎樣」（感受）。</p>
+  </div>
+
+  <div class="block">
+    <h3>信念②「教育市場 ≠ 教訓市場」</h3>
+    <div class="vb">
+      <div class="speaker">現場學員反思：</div>
+      我以前常常講太艱深的內容，最後讓人家感覺你是不是一直覺得我現在做自己不好。我沒有想要教訓市場的意圖，但最後我這麼做了。
+    </div>
+    <p>這是書中完全沒有提到的概念，但在現場引發強烈共鳴。教育是「讓對方感覺被賦能」，教訓是「讓對方感覺被否定」。同樣的專業知識，表達方式決定了對方接收到的是教育還是教訓。</p>
+  </div>
+
+  <div class="block">
+    <h3>信念③「半推半就，弄假成真」— 作者的反目標論</h3>
+    <div class="vb">
+      <div class="speaker">小竺原話：</div>
+      我不是一個非常目標導向的人。可是我就是有點像半推半就弄假成真 — 機會來了剛好遇到了，問題發生了我得找機會。
+    </div>
+    <p>這與書中強烈的「以終為始」論述形成微妙張力。書教你「設定清晰目標」，但作者自己的成功路徑卻是「看見訊號 → 回應機會 → 累積成系統」。這揭示了一個隱藏元原則：<strong>表達需要目標，但人生可以靈活</strong>。</p>
+  </div>
+
+  <div class="sub-heading">2. 現場教學展示的隱藏方法論</div>
+
+  <div class="block">
+    <h3>🎯 ABCDE 自我介紹模組（Ch14 精華版）</h3>
+    <div class="core-box">
+      我是<strong>A（角色定位）</strong>，擅長<strong>B（獨特能力）</strong>，協助<strong>C（目標客群）</strong>解決<strong>D（關鍵問題）</strong>，需要<strong>E（商業邀請）</strong>。
+    </div>
+    <p>作者的示範：「我是高言值表達力教練小竺，也是中翻中的專家。我擅長運用系統化、模組化與深入淺出的教學方式，協助有企圖心的專業工作者，將抽象的思維轉化為有價值的商業語言。」</p>
+    <p><strong>E 的兩種方向：</strong>「我要的」（介紹客戶給我）或「我能給的」（我介紹專業人士給你）— 兩種都是給對方一個「找你的理由」。</p>
+  </div>
+
+  <div class="block">
+    <h3>🎯 消費決策旅程 × KISS = 不同階段說不同話</h3>
+    <table>
+      <thead><tr><th>階段</th><th>客戶狀態</th><th>溝通重點</th><th>常犯錯誤</th></tr></thead>
+      <tbody>
+        <tr><td><strong>產生需求</strong></td><td>沒意識到問題</td><td>引發痛點、願景描繪</td><td>一上來就講產品優勢</td></tr>
+        <tr><td><strong>確認類別</strong></td><td>知道要解決，不確定方式</td><td>教育市場、差異化定位</td><td>否定對方現有選擇</td></tr>
+        <tr><td><strong>選擇品牌</strong></td><td>比較各家</td><td>凸顯獨特優勢、案例</td><td>只講價格</td></tr>
+        <tr><td><strong>選擇商品</strong></td><td>決定要買</td><td>降低風險、試用體驗</td><td>繼續推銷</td></tr>
+        <tr><td><strong>締結成交</strong></td><td>準備付款</td><td>信任強化、轉介機制</td><td>忘了售後跟進</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="block">
+    <h3>🎯 四種反應診斷法的現場展演</h3>
+    <table>
+      <thead><tr><th>對方反應</th><th>問題出在</th><th>現場補充</th></tr></thead>
+      <tbody>
+        <tr><td>😶 沒反應</td><td>Skill（技巧）</td><td>太小聲、太平淡、太 boring</td></tr>
+        <tr><td>😕 蛤？</td><td>Structure（結構）</td><td>講到什麼才想什麼，邊講邊想</td></tr>
+        <tr><td>🤷 所以咧？</td><td>Information（訊息）</td><td>沒重點、沒 CTA、跟對方無關</td></tr>
+        <tr><td>🙅 認同但不行動</td><td>Key Message</td><td>沒戳到痛點，價值感不夠強烈</td></tr>
+      </tbody>
+    </table>
+    <p>現場金句：「每個潛在客戶心裡都有四個字 —『關我屁事』。」</p>
+  </div>
+
+  <div class="sub-heading">3. 表面矛盾組（書 vs 現場）</div>
+
+  <div class="block">
+    <h3>矛盾組：「反對話術」vs「提供大量模組」</h3>
+    <p><strong>書中立場：</strong>不相信話術，每次對話無法複製貼上。</p>
+    <p><strong>現場立場：</strong>提供了 ABCDE 自我介紹、提問模組、結單模組等大量「公式」。</p>
+    <div class="hl green">
+      <strong>深層統一（現場原話解答）：</strong>
+      <p>「用模組的目的是引導你思考，不是取代你的大腦。如果你有更好的想法，你可以不用模組。但如果你現在腦袋一片空白，模組可以幫助大家。」</p>
+      <p>→ 模組是「訓練輪」，不是「永久義肢」。確保狀況再差都有60分的表現。</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h3>矛盾組：「邊想邊講 OK」vs「先想後說」</h3>
+    <p><strong>書中：</strong>「脫口而出是本能，謹言慎行是本事」— 暗示要先想好再說。</p>
+    <p><strong>現場：</strong>「邊想邊講本來就是正常的過程，因為大部分對話是 real-time 發生的。」</p>
+    <div class="hl green">
+      <strong>深層統一：</strong>
+      <p>關鍵不是「想完才說」，而是「想在前面」。「邊想邊講」是OK的（想→講→想→講），但「邊講邊想」是危險的（講→才開始想），因為第一句話會定錨後續所有思緒。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 元原則萃取（雙源升級版） ===== -->
+<section class="card">
+  <h2 class="section-title"><span class="icon">💎</span> 元原則萃取（雙源升級版）</h2>
+
+  <div class="mq">元原則 01「你現在的表達方式，是你過往人生的總和」</div>
+  <p>這句話在現場被強調了三次以上。它的深層含義是：改變表達不是學一個技巧，而是覺察並調整根深蒂固的習慣。如果不理解這一點，就會覺得「太麻煩了，不好改，這就不是我」。</p>
+
+  <div class="mq">元原則 02「精準表達不是把話說精簡，是能不能達成我的期待」</div>
+  <p>話多話少、頁面多少、文字長短都不是重點。重點是有沒有辦法達成目標。這個元原則統一了書中所有的工具和方法 — 一切以目標為導向。</p>
+
+  <div class="mq">元原則 03「不處理、不改變，會更痛」</div>
+  <p>這是作者在談消費決策旅程「產生需求」階段時揭露的底層信念。需求不一定是天然存在的，可以被「發掘」甚至「創造」— 讓對方看到不行動的代價。</p>
+
+  <div class="mq">元原則 04「種子心態：不急著收割，先建立信任」</div>
+  <p>多次在現場展現：「我先撒下種子，什麼時候發酵我不知道。我很清楚展現我的價值，讓對方理解我可以協助什麼。」這與「以終為始」不矛盾 — 目標是長期信任，不是即時成交。</p>
+</section>
+
+<!-- ===== 個人化透鏡 ===== -->
+<section class="card">
+  <h2 class="section-title"><span class="icon">🔮</span> Rex 的個人化透鏡（雙源升級版）</h2>
+
+  <div class="block">
+    <h3>轉化 1：你在簽書會的自我介紹 → ABCDE 重構</h3>
+    <div class="vb">
+      <div class="speaker">你的現場版本：</div>
+      「我是 Rex，摄影師，拍過總統跟跨國企業。影像上有問題都可以找我。」
+    </div>
+    <p><strong>用 ABCDE 重構：</strong></p>
+    <div class="core-box">
+      我是<strong>叡思影像的創辦人 Rex（A）</strong>，擅長<strong>用影像策略為企業傳遞品牌核心價值，而不只是拍出漂亮的畫面（B）</strong>。我協助<strong>需要舉辦高規格活動或製作品牌形象影片的中大型企業（C）</strong>，解決<strong>「影像做了卻無法精準傳達品牌訊息」的問題（D）</strong>。如果你身邊有企業正在規劃品牌影片或重要活動記錄，<strong>歡迎介紹給我，我可以從影像顧問的角度先幫他們釐清方向（E）</strong>。
+    </div>
+    <p>差異：原版停在「我是什麼」，重構版延伸到「我能為你解決什麼」+ 給對方一個找你的理由。</p>
+  </div>
+
+  <div class="block">
+    <h3>轉化 2：消費決策旅程 → 叡思影像的客戶路徑設計</h3>
+    <table>
+      <thead><tr><th>階段</th><th>Rex 的溝通重點</th><th>具體動作</th></tr></thead>
+      <tbody>
+        <tr><td>產生需求</td><td>讓企業意識到「沒有好影像 = 品牌無法被感受」</td><td>社群內容：分享「影像做對 vs 做錯」的案例對比</td></tr>
+        <tr><td>確認類別</td><td>教育市場：為什麼要找專業團隊而非自己拍</td><td>顧問式內容：「影片製作前要問自己的3個問題」</td></tr>
+        <tr><td>選擇品牌</td><td>凸顯你的獨特優勢（政商經驗、策略思維）</td><td>案例展示：從策略到成品的完整思考過程</td></tr>
+        <tr><td>選擇商品</td><td>降低風險，提供試用</td><td>免費30分鐘影像顧問諮詢</td></tr>
+        <tr><td>締結成交</td><td>信任強化 + 轉介機制</td><td>完成後提供精華剪輯，方便客戶內部展示成果</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="block">
+    <h3>轉化 3：「客戶不理你」→ 精準診斷</h3>
+    <p>簽書會中你提到「客戶不太理你」，小竺當場做了一個示範性的重新定義：「不理你」其實是「沒有買單你的建議」— 這兩個的應對方式完全不同。</p>
+    <p>如果是「聽都不想聽」→ 信任不足，需要先建立關係（決策旅程前端）。<br>
+    如果是「聽了但不採納」→ Key Message 沒戳到痛點，需要先了解對方在意什麼。</p>
+    <p><strong>行動建議：</strong>下次遇到這種情況，先問自己：「客戶現在在決策旅程的哪個階段？我講的話是這個階段該講的嗎？」</p>
+  </div>
+
+  <div class="block">
+    <h3>轉化 4：資訊 × 觀點 × 感受 → 保險業溝通升級</h3>
+    <p>小竺在現場強調：「如果你完全沒有資訊，全是觀點和感受，聽起來就是靠北。如果只有資訊沒有觀點，完全沒有獨特性。」</p>
+    <p><strong>保險場景應用：</strong></p>
+    <div class="hl">
+      <p>❌ 純資訊：「這份保單年繳3萬，保障額度500萬。」</p>
+      <p>❌ 純觀點：「我覺得你應該要買這份保單。」</p>
+      <p>✅ 三者兼具：「根據你的家庭狀況，如果主要收入來源中斷，家庭支出至少需要維持3年（資訊）。我認為用每月2500元的成本換取500萬的保障，對你來說是性價比最高的選擇（觀點）。說實話，我自己也是因為成為爸爸之後，才真正理解這份安全感有多重要（感受）。」</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 缺席分析（雙源升級） ===== -->
+<section class="card">
+  <h2 class="section-title"><span class="icon">🔍</span> 缺席分析（雙源升級版）</h2>
+
+  <div class="block">
+    <h3 style="color:var(--red);">缺席 1：非同步表達（文字、社群、影音腳本）</h3>
+    <p>整本書 + 簽書會都聚焦在「即時口語溝通」場景。但一人公司經營者的大量表達是非同步的（社群貼文、Email、提案文件）。作者在現場說「文字也是一種說法，只是以文字方式呈現」，但並未展開方法論。</p>
+  </div>
+
+  <div class="block">
+    <h3 style="color:var(--red);">缺席 2：內向者的表達策略</h3>
+    <p>現場互動以外向式場景為主（上台演講、一對多、活動社交）。對於內向型專業工作者，如何在不強迫自己變外向的前提下，運用 KISS 框架建立影響力？書中未特別討論。</p>
+  </div>
+
+  <div class="block">
+    <h3 style="color:var(--red);">缺席 3：數位時代的「不見面表達」</h3>
+    <p>現場學員提到的 SEO、網站內容等場景，其實就是「不見面的表達」。KISS 框架理論上適用，但實際轉化需要額外思考（例如：線上的 Structure 和線下的 Structure 規則不同）。</p>
+  </div>
+</section>
+
+<!-- ===== 頻率分析（雙源升級） ===== -->
+<section class="card">
+  <h2 class="section-title"><span class="icon">📊</span> 頻率分析（雙源升級版）</h2>
+
+  <table>
+    <thead><tr><th>隱藏主題</th><th>書中頻率</th><th>現場頻率</th><th>解讀</th></tr></thead>
+    <tbody>
+      <tr><td><strong>以對方為中心</strong></td><td>5/6章</td><td>極高（全程）</td><td>作者最核心的信念，每個工具都圍繞「對方想聽什麼」</td></tr>
+      <tr><td><strong>先想後說</strong></td><td>4/6章</td><td>高</td><td>但現場補充了「邊想邊講OK」的彈性</td></tr>
+      <tr><td><strong>期望值管理</strong></td><td>1章（Ch5）</td><td>極高（反覆強調）</td><td>書中只給一章，但現場幾乎每個環節都在示範期望值管理</td></tr>
+      <tr><td><strong>聆聽</strong></td><td>提及但未展開</td><td>高（結尾重點）</td><td>作者認為聆聽比說話更重要，但書中放在最後 — 暗示它是「畢業課題」</td></tr>
+      <tr><td><strong>框架/結構</strong></td><td>2章</td><td>極高</td><td>「框架像移動迷宮，把對方引進你的邏輯裡」— 現場比書中更直接</td></tr>
+      <tr><td><strong>個人品牌信任</strong></td><td>2章</td><td>高</td><td>作者出書的核心動機不是版稅，而是「話語權和品牌好感度」</td></tr>
+    </tbody>
+  </table>
+
+  <div class="hl">
+    <strong>雙源交叉後的作者世界觀：</strong>
+    <p style="font-family:'Noto Serif TC',serif; font-weight:700; color:var(--accent-main); font-size:1rem;">
+      「表達是過往人生的總和。高價值表達的本質不是說話技巧，而是以對方為中心的思考系統。先洞察、再思考、最後才開口 — 用結構化的框架確保狀況再差都有60分，然後透過每一次表達持續堆疊信任與好感。」
+    </p>
+  </div>
+</section>
+
+<!-- ===== 行動轉化 ===== -->
+<section class="card">
+  <h2 class="section-title"><span class="icon">🎬</span> 行動轉化（雙源升級版）</h2>
+
+  <div class="ag">
+    <div class="ac">
+      <h4>📌 本週啟動</h4>
+      <ul>
+        <li>用 ABCDE 重寫你的自我介紹，30秒內能講完</li>
+        <li>在下一次客戶提案前，判斷客戶在「決策旅程5階段」的哪個位置</li>
+        <li>檢視你最近的社群貼文，有沒有同時包含「資訊＋觀點＋感受」三種成分</li>
+      </ul>
+    </div>
+    <div class="ac">
+      <h4>📌 本月實驗</h4>
+      <ul>
+        <li>設計叡思影像的消費決策旅程，每個階段的溝通內容都不同</li>
+        <li>每次重要對話後用「四種反應診斷法」自我檢測：對方是沒反應？蛤？所以咧？還是認同但不行動？</li>
+      </ul>
+    </div>
+    <div class="ac">
+      <h4>📌 長期追蹤</h4>
+      <ul>
+        <li>「種子轉化率」— 你撒下的種子（自我介紹、社群內容、諮詢服務），多少最終發芽成客戶？追蹤3-6個月的回流數據</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 延伸資源 ===== -->
+<section class="card">
+  <h2 class="section-title"><span class="icon">📚</span> 延伸資源</h2>
+  <div class="ri"><span class="rt t-up">上游</span><div><strong>《納瓦爾寶典》</strong> — 作者直接引用的哲學基底：「做自己這件事上，沒有人可以跟你競爭」</div></div>
+  <div class="ri"><span class="rt t-pa">平行</span><div><strong>《峰值體驗》汪志謙</strong> — MOT 方法論與消費決策旅程高度互補</div></div>
+  <div class="ri"><span class="rt t-co">互補</span><div><strong>《金字塔原理》Barbara Minto</strong> — 補上「結構」這一環的系統性方法</div></div>
+  <div class="ri"><span class="rt t-op">對立</span><div><strong>《影響力》Robert Cialdini</strong> — 6大說服原則（互惠、承諾等）與「反話術」立場形成有趣對話</div></div>
+  <div class="ri"><span class="rt t-co">互補</span><div><strong>《文化地圖》Erin Meyer</strong> — 跨文化溝通差異，補上書中的文化視角缺席</div></div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">🧠</div>
+  <p>超級大腦讀書法 — 雙源深度解構</p>
+  <p style="margin-top:6px;">《說到賣得動》小竺 著 × 簽書會逐字稿交叉比對</p>
+  <p style="margin-top:4px; font-size:0.82rem;">分析日期：2026-03-07｜為 Rex（叡思影像）量身轉化</p>
+</footer>
+
+</div>
+</body>
+</html>
