@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔗 TOC 瓶頸突破 — 峰值體驗</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gradient-start: #E8F4FD;
+  --gradient-mid: #FFF0F5;
+  --gradient-end: #F5F0FF;
+  --accent: #667eea;
+  --accent2: #764ba2;
+  --accent-pink: #f093fb;
+  --text-primary: #2D3436;
+  --text-secondary: #636E72;
+  --text-light: #B2BEC3;
+  --card-bg: rgba(255,255,255,0.7);
+  --green: #00b894;
+  --orange: #fdcb6e;
+  --red: #e17055;
+  --blue: #74b9ff;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Noto Sans TC', -apple-system, sans-serif;
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--text-primary);
+  background: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+.container { max-width: 920px; margin: 0 auto; }
+.hero {
+  text-align: center;
+  padding: 80px 40px;
+  margin-bottom: 40px;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 32px;
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+}
+.hero-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white;
+  padding: 8px 24px;
+  border-radius: 24px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+}
+.hero h1 {
+  font-size: 2.8rem;
+  font-weight: 500;
+  background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+.hero .subtitle {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto;
+}
+.card {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  padding: 40px 36px;
+  margin-bottom: 24px;
+}
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 24px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid rgba(102,126,234,0.2);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-title::before {
+  content: '';
+  width: 4px;
+  height: 24px;
+  background: linear-gradient(135deg, #667eea, #f093fb);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+.step-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white;
+  padding: 4px 14px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+p { margin-bottom: 16px; font-size: 1rem; line-height: 1.9; }
+strong { font-weight: 500; }
+.highlight-box {
+  background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+  border-radius: 16px;
+  padding: 24px;
+  margin: 20px 0;
+  border-left: 4px solid #667eea;
+}
+.warning-box {
+  background: linear-gradient(135deg, rgba(225,112,85,0.08), rgba(253,203,110,0.08));
+  border-radius: 16px;
+  padding: 24px;
+  margin: 20px 0;
+  border-left: 4px solid var(--orange);
+}
+.green-box {
+  background: linear-gradient(135deg, rgba(0,184,148,0.08), rgba(116,185,255,0.08));
+  border-radius: 16px;
+  padding: 24px;
+  margin: 20px 0;
+  border-left: 4px solid var(--green);
+}
+.tree {
+  background: rgba(255,255,255,0.5);
+  border-radius: 16px;
+  padding: 24px;
+  margin: 20px 0;
+  font-size: 0.92rem;
+  line-height: 2;
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+.ec-cloud {
+  background: rgba(255,255,255,0.6);
+  border-radius: 20px;
+  padding: 32px;
+  margin: 24px 0;
+  text-align: center;
+  border: 2px dashed rgba(102,126,234,0.3);
+}
+.ec-goal {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white;
+  padding: 12px 28px;
+  border-radius: 16px;
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+.ec-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin: 12px 0;
+}
+.ec-need {
+  background: rgba(102,126,234,0.12);
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 400;
+}
+.ec-action {
+  background: rgba(240,147,251,0.12);
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 400;
+}
+.ec-conflict {
+  background: var(--red);
+  color: white;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 0.85rem;
+}
+.ec-arrow { color: var(--text-light); font-size: 1.4rem; }
+.injection {
+  background: rgba(255,255,255,0.6);
+  border-radius: 16px;
+  padding: 24px;
+  margin: 16px 0;
+  border-left: 4px solid var(--green);
+}
+.injection h4 { color: var(--green); font-weight: 500; margin-bottom: 8px; }
+.injection-type {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-right: 8px;
+}
+.type-cognitive { background: rgba(0,184,148,0.15); color: var(--green); }
+.type-behavior { background: rgba(253,203,110,0.2); color: #e67e22; }
+.type-structure { background: rgba(225,112,85,0.15); color: var(--red); }
+.bottleneck {
+  background: rgba(255,255,255,0.6);
+  border-radius: 16px;
+  padding: 24px;
+  margin: 16px 0;
+  border-left: 4px solid var(--red);
+}
+.bottleneck h4 { color: var(--red); font-weight: 500; margin-bottom: 8px; }
+.obstacle {
+  background: rgba(255,255,255,0.5);
+  border-radius: 16px;
+  padding: 20px;
+  margin: 12px 0;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+.obstacle-icon {
+  width: 48px; height: 48px;
+  background: linear-gradient(135deg, rgba(225,112,85,0.15), rgba(253,203,110,0.15));
+  border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+.obstacle-resolve {
+  background: rgba(0,184,148,0.08);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-top: 8px;
+  font-size: 0.92rem;
+}
+.week-block {
+  background: rgba(255,255,255,0.6);
+  border-radius: 20px;
+  padding: 28px;
+  margin: 16px 0;
+  border: 1px solid rgba(102,126,234,0.15);
+}
+.week-label {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: white;
+  padding: 4px 16px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+.tt-action {
+  background: rgba(255,255,255,0.5);
+  border-radius: 12px;
+  padding: 16px;
+  margin: 10px 0;
+}
+.tt-action h5 { font-weight: 500; font-size: 0.95rem; margin-bottom: 6px; }
+.tt-meta { font-size: 0.85rem; color: var(--text-secondary); }
+.tt-check { color: var(--green); font-weight: 400; }
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 20px 0;
+  background: rgba(255,255,255,0.6);
+  border-radius: 16px;
+  overflow: hidden;
+}
+th {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 14px 16px;
+  text-align: left;
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  font-size: 0.92rem;
+}
+tr:last-child td { border-bottom: none; }
+.tag {
+  display: inline-block;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  padding: 4px 14px;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 400;
+  margin: 3px 2px;
+}
+footer {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-light);
+  font-size: 0.9rem;
+}
+@media (max-width: 768px) {
+  .hero { padding: 50px 24px; }
+  .hero h1 { font-size: 2rem; }
+  .card { padding: 28px 20px; border-radius: 20px; }
+  .ec-row { flex-direction: column; }
+  .obstacle { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<header class="hero">
+  <div class="hero-badge">🔗 TOC 瓶頸突破讀書法</div>
+  <h1>峰值體驗 × 實戰突破</h1>
+  <p class="subtitle">你讀完了《峰值體驗》，知道 MOT 很重要——但你卡在哪裡？<br>用限制理論找出那個瓶頸，然後打破它。</p>
+</header>
+
+<!-- STEP 1 -->
+<section class="card">
+  <span class="step-badge">Step 1</span>
+  <h2 class="section-title">📍 系統界定 — 書在治什麼系統的病？</h2>
+  <div class="tree">系統名稱：品牌體驗驅動的消費者決策影響系統
+
+系統邊界：
+├─ 輸入：企業資源（時間、人力、資金、注意力）
+├─ 產出：消費者行為改變（進店、轉化、複購、推薦）
+├─ 組成要素：
+│   ├─ 目標客群選擇（TA）
+│   ├─ 消費者洞察（三種人 × 四維度）
+│   ├─ 關鍵時刻識別（MOT）
+│   ├─ 體驗設計（MOTX）
+│   └─ 品牌訊息（心智標籤）
+└─ 系統目標：用最少資源在最關鍵的時刻創造最大決策影響
+
+作者的三大假設：
+├─ 假設 1：消費者是非理性的（系統一主導決策）
+├─ 假設 2：企業問題的根源是「不了解消費者」
+└─ 假設 3：聚焦少數 MOT 比整體提升更有效</div>
+
+  <div class="highlight-box">
+    <strong>🔑 Rex 的系統差異</strong><br>
+    書假設的是「有一定規模的 B2C/B2B 企業」。你的系統更複雜：叡思影像（B2B 影片製作）、社群經濟（C2C）、AI 系統建構（B2B/內部）、保險（B2C 金融）四個子系統同時運行。框架需要分別套入每個子系統，而不是混在一起用。
+  </div>
+</section>
+
+<!-- STEP 2 -->
+<section class="card">
+  <span class="step-badge">Step 2</span>
+  <h2 class="section-title">🌲 現況實境樹 CRT — 不良效應與根因</h2>
+  
+  <p>書診斷的 <strong>不良效應（UDE）</strong>：</p>
+  <div class="tree">UDE1：企業做了一堆事，消費者一個都記不住
+UDE2：體驗設計基於「老闆覺得好」而非消費者洞察
+UDE3：行銷預算花了卻看不到指標變化
+UDE4：品牌沒有辨識度，消費者搞不清你是誰
+UDE5：整體服務提升耗資巨大但效果平庸
+UDE6：消費者接觸品牌後心智沒有任何改變
+UDE7：無法產生口碑裂變，增長靠砸錢買流量</div>
+
+  <p>追溯到 <strong>2 個根因</strong>：</p>
+  <div class="tree">🔴 根因 A：企業用「自己的視角」而非「消費者的視角」做決策
+   └→ UDE2 → UDE1 → UDE6 → UDE7
+
+🔴 根因 B：企業平均分配資源，不聚焦關鍵時刻
+   └→ UDE5 → UDE3 → UDE4 → UDE7
+
+交叉點：UDE7（無法增長）是最終不良效應，兩條根因都導向它。</div>
+
+  <div class="highlight-box">
+    <strong>根因驗證</strong>：消除根因 A（換成消費者視角）+ 根因 B（聚焦 MOT），7 個 UDE 中至少 6 個會消失。✅ 根因定位有效。
+  </div>
+</section>
+
+<!-- STEP 3 -->
+<section class="card">
+  <span class="step-badge">Step 3</span>
+  <h2 class="section-title">☁️ 核心衝突雲 EC — 書的核心兩難</h2>
+  
+  <div class="ec-cloud">
+    <div class="ec-goal">A：讓消費者記住品牌並持續消費</div>
+    <div class="ec-row">
+      <div class="ec-need">B：打造優質全面的服務</div>
+      <span class="ec-arrow">→</span>
+      <div class="ec-action">D：整體服務提升，面面俱到</div>
+    </div>
+    <div style="margin:8px 0"><span class="ec-conflict">⚡ 衝突 ⚡</span></div>
+    <div class="ec-row">
+      <div class="ec-need">C：在有限資源內最大化影響</div>
+      <span class="ec-arrow">→</span>
+      <div class="ec-action">D'：只聚焦少數關鍵時刻</div>
+    </div>
+  </div>
+  
+  <div class="warning-box">
+    <strong>🧨 書揭示的錯誤假設：</strong>
+    <p style="margin-top:8px"><strong>假設 α</strong>：「消費者會注意到每個環節」→ <strong>錯！</strong>峰終定律：只記得峰值和終值。</p>
+    <p><strong>假設 β</strong>：「80 分的全面勝過 120 分的少數」→ <strong>錯！</strong>平庸全面 = 零辨識度。</p>
+    <p><strong>假設 γ</strong>：「放棄某些環節消費者會不滿」→ <strong>錯！</strong>只要不製造谷底就好，資源要用來造峰值。</p>
+    <p style="margin-top:12px;font-weight:500;color:var(--accent)">核心突破：「80% 做到及格、20% 做到極致」——減法 + 乘法可以兼得。</p>
+  </div>
+</section>
+
+<!-- STEP 4 -->
+<section class="card">
+  <span class="step-badge">Step 4</span>
+  <h2 class="section-title">💉 注入解萃取 — 書的五大藥方</h2>
+  
+  <div class="injection">
+    <h4>注入 1：視角翻轉——從企業視角切換到消費者視角</h4>
+    <span class="injection-type type-cognitive">🟢 認知注入</span>
+    <p>透過訪談「三種人」（愛你的/不愛你的/愛過你的）獲得真實洞察。<br>
+    <strong>前提</strong>：需要可接觸的消費者 + 訪談技巧。<strong>邊界</strong>：消費者自己也說不清時，訪談技巧不足會被誤導。</p>
+  </div>
+  
+  <div class="injection">
+    <h4>注入 2：四維度診斷——進店/轉化/複購/推薦結構化思考</h4>
+    <span class="injection-type type-structure">🔴 結構注入</span>
+    <p>把「品牌不好」拆成四個可量化維度，先找最弱環節。<br>
+    <strong>前提</strong>：需有基本數據或體感。<strong>邊界</strong>：某些業態四維度邊界不清晰。</p>
+  </div>
+  
+  <div class="injection">
+    <h4>注入 3：峰值聚焦——在三個黃金時刻創造極致體驗</h4>
+    <span class="injection-type type-behavior">🟡 行為注入</span>
+    <p>停止分散資源，選 1-3 個 MOT 做到 120 分。<br>
+    <strong>前提</strong>：已完成注入 1+2。<strong>邊界</strong>：產品有硬傷時，峰值無法掩蓋根本問題。</p>
+  </div>
+  
+  <div class="injection">
+    <h4>注入 4：系統一設計——用直覺而非理性說服消費者</h4>
+    <span class="injection-type type-cognitive">🟢 認知注入</span>
+    <p>設計「打破劇本」的驚喜，讓品牌訊息不知不覺植入心智。<br>
+    <strong>前提</strong>：了解消費者的「預設劇本」。<strong>邊界</strong>：B2B 高價決策中系統二仍重要。</p>
+  </div>
+  
+  <div class="injection">
+    <h4>注入 5：品牌輪閉環——TA → MOT → 訊息 → MOTX → 迭代</h4>
+    <span class="injection-type type-structure">🔴 結構注入</span>
+    <p>品牌輪是迭代系統，每次循環基於數據反饋優化。<br>
+    <strong>前提</strong>：前四個注入都到位。<strong>邊界</strong>：一人企業迭代速度受限。</p>
+  </div>
+</section>
+
+<!-- STEP 5 -->
+<section class="card">
+  <span class="step-badge">Step 5</span>
+  <h2 class="section-title">🌳 未來實境樹 FRT — 照做之後的因果鏈</h2>
+  
+  <div class="tree">如果 [注入1：訪談三種人] + [注入2：四維度診斷]
+那麼 → ✅ 知道消費者真正在乎什麼 + 知道該攻哪個維度
+
+如果 [知道該攻什麼] + [注入3：峰值聚焦]
+那麼 → ✅ 在 1-3 個 MOT 上創造極致體驗 → 品牌印記建立
+
+如果 [品牌印記] + [注入4：系統一設計]
+那麼 → ✅ 消費者主動分享 → 口碑裂變
+
+如果 [裂變] + [注入5：品牌輪迭代]
+那麼 → ✅ 正向循環 → 🎯 品牌持續增長</div>
+
+  <div class="warning-box">
+    <strong>⚠️ 負面分支：</strong>
+    <p style="margin-top:8px"><strong>風險 1</strong>：非峰值體驗太差 → 預防：維持「及格線」。</p>
+    <p><strong>風險 2</strong>：訪談技巧不足得到錯誤洞察 → 預防：多問「為什麼」追到具體場景。</p>
+    <p><strong>風險 3</strong>：一人企業迭代太慢 → 預防：用 AI 工具輔助分析，減少人工。</p>
+  </div>
+</section>
+
+<!-- STEP 6 ★★★ -->
+<section class="card" style="border: 2px solid rgba(225,112,85,0.3);">
+  <span class="step-badge" style="background:linear-gradient(135deg, var(--red), var(--orange))">Step 6 ← 核心</span>
+  <h2 class="section-title">🎯 Rex 的瓶頸定位 — 你卡在哪裡？</h2>
+  
+  <table>
+    <thead><tr><th>注入</th><th>認知</th><th>技能</th><th>環境</th><th>慣性</th><th>恐懼</th><th>主瓶頸</th></tr></thead>
+    <tbody>
+      <tr><td>1. 視角翻轉</td><td>✅</td><td>⚠️</td><td>⚠️</td><td>✅</td><td>✅</td><td>技能+環境</td></tr>
+      <tr><td>2. 四維度診斷</td><td>✅</td><td>✅</td><td>🔴</td><td>✅</td><td>✅</td><td>環境</td></tr>
+      <tr><td>3. 峰值聚焦</td><td>✅</td><td>✅</td><td>✅</td><td>🔴</td><td>🔴</td><td><strong>慣性+恐懼</strong></td></tr>
+      <tr><td>4. 系統一設計</td><td>✅</td><td>⚠️</td><td>✅</td><td>✅</td><td>✅</td><td>技能</td></tr>
+      <tr><td>5. 品牌輪閉環</td><td>✅</td><td>⚠️</td><td>🔴</td><td>🔴</td><td>✅</td><td>環境+慣性</td></tr>
+    </tbody>
+  </table>
+  
+  <div class="bottleneck">
+    <h4>🔴 主瓶頸 #1：慣性瓶頸 ——「同時追多條線，每條都淺」</h4>
+    <p>你同時經營叡思影像、社群經濟、AI 系統、保險——書說「1 公分寬打透 1 萬公尺深」，但你正在做「4 公分寬 × 2500 公尺深」。MOT 的核心是「聚焦」，你的慣性模式是「展開」。</p>
+    <p><strong>舊模式的即時滿足</strong>：每條線有進展時的充實感。<strong>新模式的延遲回饋</strong>：只做一件事時的焦慮。</p>
+    <p><strong>瓶頸本質</strong>：不是時間管理問題，是「用行動替代選擇」的恐懼——選擇一條線意味著暫時放棄其他三條。</p>
+  </div>
+  
+  <div class="bottleneck">
+    <h4>🔴 主瓶頸 #2：環境瓶頸 ——「一人企業沒有訪談基礎設施」</h4>
+    <p>書假設有團隊做大規模訪談。你是一人多角色，要自己訪談、分析、設計、執行。</p>
+    <p><strong>等效替代</strong>：你已有的 AI 工具 + 社群互動數據，可以部分替代傳統訪談。不是「沒資源」，是「沒把現有資源重組為洞察流程」。</p>
+  </div>
+  
+  <div class="green-box">
+    <strong>✅ 好消息：你沒有認知瓶頸。</strong>你完全相信 MOT 的邏輯。問題不是「不知道」或「不相信」，而是「知道了但卡在執行」。慣性和環境瓶頸比認知瓶頸更容易用結構化方法打破。
+  </div>
+</section>
+
+<!-- STEP 7 -->
+<section class="card">
+  <span class="step-badge">Step 7</span>
+  <h2 class="section-title">🧱 障礙拆解 — 前提樹 PrT</h2>
+  
+  <p><strong>目標</strong>：在叡思影像上完成一次完整品牌輪循環。</p>
+  
+  <div class="obstacle">
+    <div class="obstacle-icon">🧱</div>
+    <div>
+      <strong>障礙 1：不知道先聚焦哪個事業體</strong>（恐懼）
+      <div class="obstacle-resolve">
+        🏁 中間目標：做「四事業體吞吐量審計」，用數據選出 ROI 最高的一個。<br>
+        行動：列出四個事業體的「營收貢獻 / 成長潛力 / 精力投入」，選 T/(I+OE) 最高的。
+      </div>
+    </div>
+  </div>
+  
+  <div class="obstacle">
+    <div class="obstacle-icon">🧱</div>
+    <div>
+      <strong>障礙 2：沒有系統化的消費者洞察流程</strong>（環境）
+      <div class="obstacle-resolve">
+        🏁 中間目標：建立「輕量版三種人訪談 SOP」。<br>
+        行動：從選定事業體客戶中各找 3 人，準備 5 個結構化問題，做 15 分鐘電話訪談。
+      </div>
+    </div>
+  </div>
+  
+  <div class="obstacle">
+    <div class="obstacle-icon">🧱</div>
+    <div>
+      <strong>障礙 3：不知道怎麼把訪談結果轉化為 MOT</strong>（技能）
+      <div class="obstacle-resolve">
+        🏁 中間目標：掌握「追問為什麼」技巧。<br>
+        行動：用書第八章的兩種方法做模板，搭配 AI 做結構化分析。
+      </div>
+    </div>
+  </div>
+  
+  <div class="obstacle">
+    <div class="obstacle-icon">🧱</div>
+    <div>
+      <strong>障礙 4：沒有持續迭代的紀律</strong>（慣性）
+      <div class="obstacle-resolve">
+        🏁 中間目標：建立 MOT 迭代看板。<br>
+        行動：每週五固定 30 分鐘覆盤，欄位：MOT / 本週行動 / 消費者反應 / 下週迭代。
+      </div>
+    </div>
+  </div>
+  
+  <div class="highlight-box">
+    <strong>🔗 執行順序</strong>：障礙 1 → 2 → 3 → 4。不先選定事業體，後面全無方向。
+  </div>
+</section>
+
+<!-- STEP 8 -->
+<section class="card">
+  <span class="step-badge">Step 8</span>
+  <h2 class="section-title">🪜 轉變樹 — 四週突破行動計畫</h2>
+  
+  <div class="week-block">
+    <span class="week-label">📅 第一週：選擇 + 聚焦</span>
+    <div class="tt-action">
+      <h5>行動 1：四事業體吞吐量審計（45 分鐘）</h5>
+      <p>列表比較叡思影像、社群經濟、AI 系統、保險的營收 / 潛力 / 精力。選出一個作為品牌輪實驗場。</p>
+      <p class="tt-meta">→ 預期：明確知道先拿哪個做 MOT 實驗<br><span class="tt-check">✅ 驗證：能用一句話說出「我選了 X，因為 Y」</span></p>
+    </div>
+    <div class="tt-action">
+      <h5>行動 2：四維度快速診斷（30 分鐘）</h5>
+      <p>對選定事業體判斷：進店/轉化/複購/推薦哪個最弱？</p>
+      <p class="tt-meta"><span class="tt-check">✅ 驗證：能說出「最弱維度是 X，證據是 Y」</span></p>
+    </div>
+    <div class="tt-action">
+      <h5>行動 3：列出「三種人」名單（20 分鐘）</h5>
+      <p>各找 3 人：愛你的、不愛你的、愛過你的。</p>
+      <p class="tt-meta"><span class="tt-check">✅ 驗證：9 人名單完成，標注分類理由</span></p>
+    </div>
+  </div>
+  
+  <div class="week-block">
+    <span class="week-label">📅 第二週：洞察 + 挖 MOT</span>
+    <div class="tt-action">
+      <h5>行動 4：完成 6-9 場訪談（每場 15 分鐘）</h5>
+      <p>五個核心問題：(1) 怎麼跟朋友介紹我們？(2) 為什麼？(3) 第一次接觸的場景？(4) 什麼讓你決定合作/不合作？(5) 推薦時會說什麼？</p>
+      <p class="tt-meta"><span class="tt-check">✅ 驗證：至少 6 場完成，記錄關鍵語句</span></p>
+    </div>
+    <div class="tt-action">
+      <h5>行動 5：AI 分析訪談→MOT 清單（60 分鐘）</h5>
+      <p>訪談記錄丟進 Claude，用兩種方法交叉分析。產出 MOT 清單。</p>
+      <p class="tt-meta"><span class="tt-check">✅ 驗證：5-10 個 MOT 清單，標記維度和優先級</span></p>
+    </div>
+  </div>
+  
+  <div class="week-block">
+    <span class="week-label">📅 第三週：設計 + 實測</span>
+    <div class="tt-action">
+      <h5>行動 6：選 Top 2 MOT，設計峰值體驗（90 分鐘）</h5>
+      <p>為每個 MOT 設計「打破劇本」的體驗。覆蓋至少一個黃金時刻。</p>
+      <p class="tt-meta"><span class="tt-check">✅ 驗證：方案能讓局外人 3 秒懂你在做什麼</span></p>
+    </div>
+    <div class="tt-action">
+      <h5>行動 7：真實場景測試（一週持續）</h5>
+      <p>在下一個客戶接觸中實際使用設計好的 MOT 體驗。</p>
+      <p class="tt-meta"><span class="tt-check">✅ 驗證：至少 3 次測試，記錄消費者即時反應</span></p>
+    </div>
+  </div>
+  
+  <div class="week-block">
+    <span class="week-label">📅 第四週：迭代 + 系統化</span>
+    <div class="tt-action">
+      <h5>行動 8：覆盤並迭代（60 分鐘）</h5>
+      <p>MOT 設計引起預期反應了嗎？消費者的實際反應和訪談一致嗎？需要調什麼？</p>
+      <p class="tt-meta"><span class="tt-check">✅ 驗證：至少一個 MOT 從 v1.0 迭代到 v2.0</span></p>
+    </div>
+    <div class="tt-action">
+      <h5>行動 9：建立 MOT 迭代看板（30 分鐘）</h5>
+      <p>固化為持續系統：每週五 30 分鐘覆盤 + 月底品牌輪檢核。</p>
+      <p class="tt-meta"><span class="tt-check">✅ 最終驗證：你能回答「品牌標籤是___，在___MOT 上做了___設計，消費者反應是___」</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 9 -->
+<section class="card">
+  <span class="step-badge">Step 9</span>
+  <h2 class="section-title">📊 吞吐量審計 — ROI 排序</h2>
+  
+  <table>
+    <thead><tr><th>行動</th><th>T 貢獻</th><th>I 前期投入</th><th>OE 持續成本</th><th>ROI</th><th>優先</th></tr></thead>
+    <tbody>
+      <tr><td>選事業體聚焦</td><td>極高</td><td>45 分鐘</td><td>零</td><td>⭐⭐⭐⭐⭐</td><td>1</td></tr>
+      <tr><td>三種人訪談</td><td>極高</td><td>3 小時</td><td>低</td><td>⭐⭐⭐⭐⭐</td><td>2</td></tr>
+      <tr><td>AI 分析→MOT 清單</td><td>高</td><td>1 小時</td><td>低</td><td>⭐⭐⭐⭐</td><td>3</td></tr>
+      <tr><td>峰值體驗設計</td><td>高</td><td>1.5 小時</td><td>低</td><td>⭐⭐⭐⭐</td><td>4</td></tr>
+      <tr><td>實測 + 迭代</td><td>高</td><td>1 週</td><td>中</td><td>⭐⭐⭐</td><td>5</td></tr>
+      <tr><td>建立迭代看板</td><td>中</td><td>30 分鐘</td><td>30分/週</td><td>⭐⭐⭐</td><td>6</td></tr>
+    </tbody>
+  </table>
+  
+  <div class="highlight-box">
+    <strong>🔑 關鍵發現</strong>：ROI 最高的行動是「選事業體聚焦」——45 分鐘的投入決定後面所有行動方向。這步做錯或跳過，後面全部浪費。正是本書核心：<strong>不是做更多，而是先選對戰場。</strong>
+  </div>
+</section>
+
+<!-- STEP 10 -->
+<section class="card">
+  <span class="step-badge">Step 10</span>
+  <h2 class="section-title">🔄 POOGI — 瓶頸遷移預測</h2>
+  
+  <div class="tree">當前瓶頸：慣性（多線不聚焦）+ 環境（缺洞察流程）
+   │
+   ├── 打破後 → 新瓶頸 #1：技能
+   │    「訪談做了，但提煉不出有商業價值的 MOT」
+   │    → 對策：AI 結構化分析 + 參考第八章方法
+   │    → 對應書目：Chip Heath《The Power of Moments》
+   │
+   ├── 打破後 → 新瓶頸 #2：規模
+   │    「一個事業體做通了，沒精力複製到其他三個」
+   │    → 對策：建立 SOP 模板 + AI 半自動化
+   │    → 對應書目：《峰值體驗 2》三複四效框架
+   │
+   └── 打破後 → 新瓶頸 #3：深度
+        「MOT 做了第一層，缺乏持續創新素材」
+        → 對策：建立持續傾聽機制（社群投票、月訪 2 人）
+        → 對應書目：Byron Sharp《How Brands Grow》</div>
+
+  <div class="green-box">
+    <strong>🔗 瓶頸遷移路徑</strong>
+    <p style="margin-top:8px; text-align:center; font-weight:500;">
+    [慣性：不聚焦] → 打破 → [技能：提煉 MOT] → 打破 → [規模：複製] → 打破 → [深度：持續創新] → 🎯 品牌輪自動運轉
+    </p>
+  </div>
+</section>
+
+<!-- 總結 -->
+<section class="card" style="text-align:center; border: 2px solid rgba(102,126,234,0.3);">
+  <h2 class="section-title" style="justify-content:center">🎯 一句話瓶頸診斷</h2>
+  
+  <p style="font-size:1.3rem; font-weight:500; background: linear-gradient(135deg, #667eea, #f093fb); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin: 20px 0;">
+    你不缺知識，你缺的是「選一個戰場，蹲下來打透」的紀律。
+  </p>
+  
+  <p>《峰值體驗》的核心是「聚焦」——你讀完最需要做的，恰好也是「聚焦」。</p>
+  
+  <p style="margin-top:16px;">汪志謙說：「真正的關鍵時刻，是你穿上鞋出門的那一刻。」</p>
+  
+  <p style="font-weight:500; margin-top:8px;">你的「穿上鞋出門」= 選定一個事業體 + 做完第一輪三種人訪談。</p>
+  
+  <p style="margin-top:20px; color:var(--text-secondary);">
+    <span class="tag">第一步</span> 花 45 分鐘做四事業體審計 <span class="tag">本週</span>
+  </p>
+</section>
+
+<footer>
+  <p>🔗 TOC 瓶頸突破讀書法 × 峰值體驗<br>
+  <span style="font-size:0.85rem;">2026 年 3 月 7 日 · 為 Rex 個人化定製</span></p>
+</footer>
+
+</div>
+</body>
+</html>
