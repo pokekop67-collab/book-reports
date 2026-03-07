@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>偷書賊 — 峰值體驗</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;700&display=swap');
+        
+        :root {
+            --bg: #0a0a0f;
+            --surface: #12121a;
+            --surface-2: #1a1a25;
+            --text: #e8e8ed;
+            --text-muted: #8888a0;
+            --accent: #6366f1;
+            --accent-2: #8b5cf6;
+            --gold: #f59e0b;
+            --green: #10b981;
+            --red: #ef4444;
+            --blue: #3b82f6;
+            --cyan: #06b6d4;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.9;
+            font-size: 16px;
+        }
+        
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, var(--bg) 0%, #1a1a2e 50%, #0f1628 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 80%;
+            height: 150%;
+            background: radial-gradient(circle, rgba(99,102,241,0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+        
+        .hero-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 2rem;
+            width: fit-content;
+        }
+        
+        .hero h1 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 2rem;
+        }
+        .hero-meta {
+            display: flex; gap: 2rem; flex-wrap: wrap;
+            color: var(--text-muted); font-size: 0.9rem;
+        }
+        .hero-meta span { display: flex; align-items: center; gap: 0.4rem; }
+        
+        .container { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+        
+        section {
+            padding: 5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        .section-header { margin-bottom: 3rem; }
+        .section-icon { font-size: 2rem; margin-bottom: 1rem; }
+        .section-title {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        .section-desc { color: var(--text-muted); font-size: 1.1rem; }
+        
+        .card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+        .card-highlight { border-left: 4px solid var(--accent); }
+        .card h4 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .info-box {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+        }
+        .info-box dt {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+        .info-box dd {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .info-box dd:last-child { margin-bottom: 0; padding-bottom: 0; border-bottom: none; }
+        
+        .chapter-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            font-size: 0.95rem;
+        }
+        .chapter-table th {
+            text-align: left;
+            padding: 1rem;
+            background: var(--surface);
+            color: var(--text-muted);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+        .chapter-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .chapter-table tr:hover td { background: var(--surface); }
+        .chapter-num { color: var(--accent); font-weight: 700; width: 50px; }
+        
+        .stage-tag {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .stage-1 { background: rgba(99, 102, 241, 0.2); color: var(--accent); }
+        .stage-2 { background: rgba(6, 182, 212, 0.2); color: var(--cyan); }
+        .stage-3 { background: rgba(245, 158, 11, 0.2); color: var(--gold); }
+        .stage-4 { background: rgba(16, 185, 129, 0.2); color: var(--green); }
+        .stage-5 { background: rgba(239, 68, 68, 0.2); color: var(--red); }
+        
+        .chapter-detail {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+        .chapter-detail h3 {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+        }
+        .chapter-core {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.1), rgba(139, 92, 246, 0.1));
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 0 12px 12px 0;
+            margin: 1.5rem 0;
+            font-size: 1.05rem;
+        }
+        .insight-list { list-style: none; margin: 1.5rem 0; counter-reset: insight; }
+        .insight-list li {
+            padding: 1rem 0;
+            padding-left: 2.5rem;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .insight-list li::before {
+            content: counter(insight);
+            counter-increment: insight;
+            position: absolute;
+            left: 0;
+            top: 1rem;
+            width: 1.5rem;
+            height: 1.5rem;
+            background: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        .action-box {
+            background: var(--surface-2);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .action-box h5 {
+            color: var(--gold);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+        .link-tag {
+            display: inline-block;
+            background: rgba(99,102,241,0.15);
+            color: var(--accent);
+            padding: 0.2rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+        }
+        
+        .contradiction {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+        .contradiction-vs {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .contradiction-item {
+            background: var(--surface-2);
+            padding: 0.8rem 1.2rem;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .vs-badge {
+            background: var(--red);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
+        
+        .causal-chain {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1.5rem 0;
+            padding: 1.5rem;
+            background: var(--surface);
+            border-radius: 12px;
+        }
+        .chain-item {
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .chain-arrow { color: var(--text-muted); font-size: 1.5rem; }
+        
+        .meta-principle {
+            background: linear-gradient(135deg, var(--surface), var(--surface-2));
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        .meta-number {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 1rem;
+        }
+        .meta-quote {
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.4rem;
+            margin-bottom: 1rem;
+        }
+        .meta-chapters { color: var(--text-muted); font-size: 0.9rem; }
+        .meta-desc { margin-top: 1rem; text-align: left; color: var(--text); font-size: 0.95rem; }
+        
+        .freq-table { width: 100%; border-collapse: collapse; }
+        .freq-table th { text-align: left; padding: 1rem; background: var(--surface); color: var(--text-muted); }
+        .freq-table td { padding: 1rem; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .freq-bar { height: 8px; background: linear-gradient(90deg, var(--accent), var(--accent-2)); border-radius: 4px; }
+        
+        .absence-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--gold);
+        }
+        .absence-card h4 { color: var(--gold); margin-bottom: 0.8rem; }
+        
+        .priority-item {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 1.5rem;
+            align-items: flex-start;
+        }
+        .priority-num {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            flex-shrink: 0;
+        }
+        
+        .matrix {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        .matrix-cell {
+            background: var(--surface);
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        .matrix-cell h5 { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        
+        .arc-container { display: flex; flex-direction: column; gap: 2rem; }
+        .arc-step { display: flex; gap: 2rem; align-items: flex-start; }
+        .arc-marker {
+            width: 60px; height: 60px;
+            background: var(--surface);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+            font-size: 1.5rem;
+        }
+        .arc-content h4 { color: var(--accent); margin-bottom: 0.5rem; }
+        
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        .action-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+        .action-card h4 { margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .action-card ul { list-style: none; }
+        .action-card li {
+            padding: 0.8rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .action-card li::before { content: '→'; position: absolute; left: 0; color: var(--accent); }
+        
+        .resource-grid { display: grid; gap: 1rem; }
+        .resource-item { display: flex; gap: 1rem; padding: 1.5rem; background: var(--surface); border-radius: 12px; }
+        .resource-type {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+            height: fit-content;
+        }
+        .type-upstream { background: rgba(99, 102, 241, 0.2); color: var(--accent); }
+        .type-parallel { background: rgba(16, 185, 129, 0.2); color: var(--green); }
+        .type-extend { background: rgba(245, 158, 11, 0.2); color: var(--gold); }
+        .type-opposite { background: rgba(239, 68, 68, 0.2); color: var(--red); }
+        .type-complement { background: rgba(59, 130, 246, 0.2); color: var(--blue); }
+        
+        .lens-card {
+            background: var(--surface);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            border-left: 4px solid var(--cyan);
+        }
+        .lens-card h4 { color: var(--cyan); margin-bottom: 0.8rem; }
+        
+        footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+        footer .logo { font-size: 2rem; margin-bottom: 1rem; }
+        
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .arc-step { flex-direction: column; gap: 1rem; }
+            .priority-item { flex-direction: column; }
+        }
+        
+        .worldview-box {
+            background: linear-gradient(135deg, rgba(99,102,241,0.15), rgba(139,92,246,0.15));
+            border: 2px solid var(--accent);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 2rem 0;
+            text-align: center;
+            font-family: 'Noto Serif TC', serif;
+            font-size: 1.3rem;
+        }
+        
+        .sub-h3 {
+            color: var(--accent);
+            margin: 3rem 0 1.5rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+    <div class="container">
+        <span class="hero-badge">偷書賊 🦊 超級大腦讀書法</span>
+        <h1>峰值體驗</h1>
+        <p class="hero-subtitle">洞察隱而未知的需求，掌握關鍵時刻影響顧客決策 —— 四層十二模組全域交叉比對深度解構</p>
+        <div class="hero-meta">
+            <span>📖 汪志謙、朱海蓓</span>
+            <span>📅 2022 · 天下雜誌</span>
+            <span>📊 2篇16章 · 212頁</span>
+            <span>⭐ 豆瓣 8.2 分</span>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 模組01: 書籍資料 ==================== -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <div class="section-icon">📚</div>
+            <h2 class="section-title">模組 01 · 書籍資料卡</h2>
+        </div>
+        <dl class="info-box">
+            <dt>作者</dt>
+            <dd><strong>汪志謙（Vincent Wang）</strong> —— 政大 EMBA / 港大 SPACE 客座副教授，VCI 真觀顧問創始人。前惠普（HP）協理、優派（ViewSonic）亞太行銷副總、順發 3C 總經理、合勤科技（ZyXEL）全球品牌負責人。20+ 年品牌操作經驗，輔導 80 個產業、200+ 品牌。2022 港大傑出教師獎。<br><strong>朱海蓓</strong> —— 資深行銷專家，負責文字打磨與行銷語言精煉，是本書可讀性極高的重要推手。</dd>
+            
+            <dt>智識源頭</dt>
+            <dd>Daniel Kahneman《快思慢想》（峰終定律 + 系統一/系統二）、Jan Carlzon（北歐航空 MOT 概念原創者）、行為經濟學（框架效應、損失規避、錨定效應）、Al Ries & Jack Trout 定位理論、Maslow 需求層級理論、品牌權益理論（David Aaker）</dd>
+            
+            <dt>一句話定位</dt>
+            <dd>將行為經濟學的「峰終定律」與北歐航空的「MOT」概念整合為一套 <strong>品牌體驗設計的閉環戰略系統</strong>（品牌輪），讓企業在資源有限的前提下，集中火力在關鍵時刻創造峰值，實現「一見就進、一進就買、一買再買、一傳千里」。</dd>
+        </dl>
+    </div>
+</section>
+
+<!-- ==================== 模組02: 認知遞進設計 ==================== -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <div class="section-icon">🧠</div>
+            <h2 class="section-title">模組 02 · 認知遞進設計</h2>
+            <p class="section-desc">作者精心設計的五段認知旅程：先破後立，從洞察到落地</p>
+        </div>
+        
+        <div class="card card-highlight">
+            <h4>第一階段：範式破壞（Ch 1-3）</h4>
+            <p>先用餐廳選擇的思考實驗打破讀者對「體驗設計＝優化流程」的舊認知，引入峰終定律與三個黃金時刻（最初、最高、最終），再以華航案例證明：集中資源在 MOT 上可以帶來十倍利潤增長。<strong>設計意圖</strong>：讓讀者先「相信」峰值策略有效，才願意繼續深入。</p>
+        </div>
+        
+        <div class="card card-highlight">
+            <h4>第二階段：消費者心智解碼（Ch 4-7）</h4>
+            <p>告訴讀者「消費者跟你想的完全不一樣」。從 MOT 三元素與三種人（愛你的 / 不愛你的 / 愛過你的）、四大維度（進店 / 轉化 / 複購 / 推薦）、系統一的直覺決策機制、到情感需求與角色身分。<strong>設計意圖</strong>：讓讀者真正理解消費者的決策底層邏輯，而不是用企業視角自嗨。</p>
+        </div>
+        
+        <div class="card card-highlight">
+            <h4>第三階段：方法論武裝（Ch 8-9）</h4>
+            <p>提供兩套挖掘 MOT 的具體工具：從品牌訊息中挖 MOT、從消費者決策中挖 MOT。並將方法延伸到 B2B 領域。<strong>設計意圖</strong>：從「為什麼」轉向「怎麼做」——讀者此時已經充分相信 MOT 重要，現在需要可操作的方法。</p>
+        </div>
+        
+        <div class="card card-highlight">
+            <h4>第四階段：系統化落地（Ch 10-14）</h4>
+            <p>進入第二篇「落地」，依序回答五個執行層問題：賣給誰（TA 選擇）→ 選哪個 MOT → 傳遞什麼訊息 → 如何完成品牌輪全局布局 → 如何做出精彩的體驗設計。<strong>設計意圖</strong>：把品牌輪五大元件逐一拆解為可執行的步驟。</p>
+        </div>
+        
+        <div class="card card-highlight">
+            <h4>第五階段：哲學升華（Ch 15-16）</h4>
+            <p>先以西貝餐飲的極致執行力說明「沒落地一切是空談」的四大落地原則，最後以馬拉松隱喻收尾：人生中最關鍵的時刻，是你克服千萬個想放棄的念頭、穿上鞋出門的那一刻。<strong>設計意圖</strong>：從商業工具升華為人生哲學，讓讀者帶走的不只是方法，還有行動的動力。</p>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 模組03: 完整清單速覽 ==================== -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <div class="section-icon">📋</div>
+            <h2 class="section-title">模組 03 · 完整清單速覽</h2>
+        </div>
+        <table class="chapter-table">
+            <thead><tr><th>#</th><th>標題</th><th>一句話精華</th><th>階段</th></tr></thead>
+            <tbody>
+                <tr><td class="chapter-num">01</td><td>視角決定世界</td><td>消費者視角≠企業視角，別用自己的角度做體驗設計</td><td><span class="stage-tag stage-1">範式破壞</span></td></tr>
+                <tr><td class="chapter-num">02</td><td>峰終定律與三個黃金時刻</td><td>不要整體提升，要在最初/最高/最終三個黃金時刻創造峰值</td><td><span class="stage-tag stage-1">範式破壞</span></td></tr>
+                <tr><td class="chapter-num">03</td><td>如何透過體驗設計創造翻倍利潤</td><td>品牌輪＝行銷×定位×MOT×體驗設計×行為經濟學的閉環系統</td><td><span class="stage-tag stage-1">範式破壞</span></td></tr>
+                <tr><td class="chapter-num">04</td><td>消費者在想什麼？</td><td>MOT 三元素（品牌訊息、MOTX 體驗、標籤）與三種人（愛你的/不愛你的/愛過你的）</td><td><span class="stage-tag stage-2">心智解碼</span></td></tr>
+                <tr><td class="chapter-num">05</td><td>你期待消費者做的事</td><td>MOT 四大維度（進店/轉化/複購/推薦）決定企業的側重點</td><td><span class="stage-tag stage-2">心智解碼</span></td></tr>
+                <tr><td class="chapter-num">06</td><td>如何讓消費者做出你期待的事</td><td>體驗設計要走系統一（直覺快思考），而非系統二（理性慢思考）</td><td><span class="stage-tag stage-2">心智解碼</span></td></tr>
+                <tr><td class="chapter-num">07</td><td>消費者到底在買什麼？</td><td>消費者買的不是功能，是角色感和情感需求——蹲下來用孩子的視角看世界</td><td><span class="stage-tag stage-2">心智解碼</span></td></tr>
+                <tr><td class="chapter-num">08</td><td>如何挖出 MOT？</td><td>兩個方法：從品牌訊息挖 MOT（問「為什麼」）、從消費者決策挖 MOT</td><td><span class="stage-tag stage-3">方法武裝</span></td></tr>
+                <tr><td class="chapter-num">09</td><td>企業對企業，決戰 MOT</td><td>B2B 的核心 MOT 是「建立信任關係」，公司簡介是被嚴重低估的 MOT</td><td><span class="stage-tag stage-3">方法武裝</span></td></tr>
+                <tr><td class="chapter-num">10</td><td>產品到底該賣給誰？</td><td>先找對灘頭堡客戶（BTA），小蝦米靠精準 TA 選擇也能打敗大鯨魚</td><td><span class="stage-tag stage-4">系統落地</span></td></tr>
+                <tr><td class="chapter-num">11</td><td>如何選擇 MOT？</td><td>品牌辨識度＝臉（一眼記住）＋聲音（一聽就知道），峰值做到極致、其餘一般般就好</td><td><span class="stage-tag stage-4">系統落地</span></td></tr>
+                <tr><td class="chapter-num">12</td><td>如何選擇訊息？</td><td>改個標題就能改變命運——訊息選擇的本質是「說消費者聽得懂的話」</td><td><span class="stage-tag stage-4">系統落地</span></td></tr>
+                <tr><td class="chapter-num">13</td><td>完成品牌輪的布局</td><td>老廟黃金景容樓案例：四維度（進店/轉化/複購/推薦）的完整品牌輪實戰</td><td><span class="stage-tag stage-4">系統落地</span></td></tr>
+                <tr><td class="chapter-num">14</td><td>魂體合一，精采的體驗設計</td><td>東京飯店案例：好的體驗設計＝品牌靈魂（魂）＋執行細節（體）的合一</td><td><span class="stage-tag stage-4">系統落地</span></td></tr>
+                <tr><td class="chapter-num">15</td><td>沒落地一切都是空談</td><td>落地四原則：建立共同語言、老闆親自參與、1 公分寬打透 1 萬公尺深、持續迭代</td><td><span class="stage-tag stage-5">哲學升華</span></td></tr>
+                <tr><td class="chapter-num">16</td><td>人生的關鍵時刻</td><td>真正的關鍵時刻，是你面對千萬個想放棄的聲音、穿上鞋出門的那一刻</td><td><span class="stage-tag stage-5">哲學升華</span></td></tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- ==================== 模組04: 核心命題 ==================== -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <div class="section-icon">🎯</div>
+            <h2 class="section-title">模組 04 · 核心命題</h2>
+        </div>
+        <div class="card card-highlight">
+            <h4>❓ 問題</h4>
+            <p>在消費者注意力不到 8 秒、資訊過載的時代，企業的資源有限、消費者的時間有限，如何最高效地影響消費者的四大決策（進店、轉化、複購、推薦）？</p>
+        </div>
+        <div class="card card-highlight">
+            <h4>💡 論點</h4>
+            <p>不要做「整體服務提升」，要在消費者決策旅程中找到少數關鍵時刻（MOT），集中資源在最初、最高、最終三個黃金時刻創造峰值體驗——做準不做多，1 公分寬打透 1 萬公尺深。</p>
+        </div>
+        <div class="card card-highlight">
+            <h4>🔧 方法</h4>
+            <p>以「品牌輪」為閉環戰略系統，整合五大核心：(1) 目標客群選擇（TA），(2) 關鍵時刻（MOT），(3) 關鍵體驗（MOTX），(4) 品牌訊息（Positioning），(5) 體驗設計（Experience Design），透過消費者洞察驅動、行為經濟學系統一設計、四維度結構化分析，實現可複製的品牌增長。</p>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 模組05: 逐章五維解析 ==================== -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <div class="section-icon">📖</div>
+            <h2 class="section-title">模組 05 · 逐章五維解析</h2>
+        </div>
+        
+        <!-- Ch1 -->
+        <div class="chapter-detail">
+            <h3>Ch 1 · 視角決定世界</h3>
+            <div class="chapter-core">🎯 企業最大的敵人不是競爭對手，而是「自以為了解消費者」的自嗨思維。</div>
+            <ol class="insight-list">
+                <li>傳統顧客旅程圖（Customer Journey）把流程拆成一百個動作，卻無法回答「到底該先改哪一個」——MOT 思維以四大決策維度重構問題。</li>
+                <li>Richard Mille 手錶案例揭示：消費者的真正購買原因往往與產品功能無關——「我朋友都戴這款」才是 365 萬元決策的核心。</li>
+                <li>「如果你不了解瘋子的世界，怎麼做成瘋子的生意？」——消費者洞察的前提是放下企業視角。</li>
+            </ol>
+            <div class="action-box">
+                <h5>🔧 立即可用</h5>
+                <p>下次做任何體驗設計前，先問：「這是消費者要的，還是我們自己覺得好的？」</p>
+            </div>
+            <div class="action-box">
+                <h5>❓ 自我檢核</h5>
+                <p>你的品牌最近三次體驗改進，有幾次是基於消費者訪談的洞察？幾次是老闆拍腦袋決定的？</p>
+            </div>
+            <span class="link-tag">🔗 為 Ch4「三種人」和 Ch8「挖 MOT 方法」鋪墊</span>
+        </div>
+        
+        <!-- Ch2 -->
+        <div class="chapter-detail">
+            <h3>Ch 2 · 峰終定律與三個黃金時刻</h3>
+            <div class="chapter-core">🎯 消費者只記得峰值與終值，「整體服務提升」是最大的資源浪費。</div>
+            <ol class="insight-list">
+                <li>服裝店員前面殷勤一小時、最後一句牢騷就全部抹殺——峰終定律的最佳負面案例。</li>
+                <li>三個黃金時刻（最初、最高、最終）是資源投放 ROI 最高的設計點。</li>
+                <li>「只專注幾個黃金時刻，模式就容易複製，企業才能擴大」——峰值策略的規模化優勢。</li>
+            </ol>
+            <div class="action-box">
+                <h5>🔧 立即可用</h5>
+                <p>盤點你的服務流程，標記出「最初接觸、最高峰體驗、最後離開」三個時刻，評估是否有峰值。</p>
+            </div>
+            <span class="link-tag">🔗 呼應 Ch6 系統一設計觀，為 Ch11 MOT 選擇鋪墊</span>
+        </div>
+        
+        <!-- Ch3 -->
+        <div class="chapter-detail">
+            <h3>Ch 3 · 如何透過體驗設計創造翻倍利潤</h3>
+            <div class="chapter-core">🎯 品牌輪＝行銷×定位×MOT×體驗設計×行為經濟學，五大核心貫穿一個閉環系統。</div>
+            <ol class="insight-list">
+                <li>華航案例：2014 年新飛機交機後淨利由虧轉盈，2015 年淨利較 2013 年成長十倍——關鍵不是飛機新，而是在 MOT 上做對了設計。</li>
+                <li>品牌輪四元件：目標客群（TA）→ 關鍵時刻（MOT）→ 品牌訊息 → 關鍵體驗（MOTX）。</li>
+                <li>雲南菜餐廳案例：老闆自認有四大特色，消費者一個都不記得——品牌看自己的視角永遠不對。</li>
+            </ol>
+            <div class="action-box">
+                <h5>🔧 立即可用</h5>
+                <p>畫出你品牌的品牌輪：TA 是誰？→ 他們的 MOT 在哪？→ 你想傳遞什麼訊息？→ 你設計了什麼體驗？</p>
+            </div>
+            <span class="link-tag">🔗 品牌輪是全書骨架，Ch10-14 逐一落地</span>
+        </div>
+        
+        <!-- Ch4 -->
+        <div class="chapter-detail">
+            <h3>Ch 4 · 消費者在想什麼？—— MOT 三元素與三種人</h3>
+            <div class="chapter-core">🎯 研究「愛你的」、「不愛你的」、「愛過你的」三種人，是所有洞察的起點。</div>
+            <ol class="insight-list">
+                <li>始祖鳥案例：穿的人不是登山者而是辦公室中年男士——消費者買的是「身分感」，不是功能。</li>
+                <li>MOT 三元素：品牌訊息（消費者記住什麼標籤）× MOTX（在什麼場景觸發）× 標籤（最終心智定位）。</li>
+                <li>三種人提供三種洞察：愛你的人告訴你「美在哪」，不愛你的人告訴你「盲區在哪」，愛過你的人告訴你「怎麼流失的」。</li>
+            </ol>
+            <div class="action-box">
+                <h5>🔧 立即可用</h5>
+                <p>各找 3-5 個「愛你的」和「不愛你的」客戶做訪談，問他們會用什麼詞形容你的品牌。</p>
+            </div>
+            <span class="link-tag">🔗 呼應 Ch1 視角問題，為 Ch8 挖 MOT 提供人群框架</span>
+        </div>
+        
+        <!-- Ch5 -->
+        <div class="chapter-detail">
+            <h3>Ch 5 · MOT 四大維度與企業的側重點</h3>
+            <div class="chapter-core">🎯 進店、轉化、複購、推薦——不同企業的問題不同，必須先診斷再下藥。</div>
+            <ol class="insight-list">
+                <li>AIGLE 案例：複購率很高但進店率不行——「不愛你的」人路過門店連品牌名都記不住，進店 MOT 出了嚴重問題。</li>
+                <li>蘇小糖案例：廈門伴手禮在「7 秒路過」的進店 MOT 決戰——店面外觀的辨識度決定一切。</li>
+                <li>四大維度不是都要做到極致，而是要根據企業當前最大的痛點來決定側重點。</li>
+            </ol>
+            <div class="action-box">
+                <h5>🔧 立即可用</h5>
+                <p>診斷你的品牌：進店率、轉化率、複購率、推薦率，哪個指標最弱？集中火力先攻那個。</p>
+            </div>
+            <span class="link-tag">🔗 四大維度是 Ch13 品牌輪布局的核心框架</span>
+        </div>
+        
+        <!-- Ch6 -->
+        <div class="chapter-detail">
+            <h3>Ch 6 · 系統一引領的體驗設計觀</h3>
+            <div class="chapter-core">🎯 消費者 95% 的決策靠系統一（直覺），體驗設計必須「打破劇本」才能進入心智。</div>
+            <ol class="insight-list">
+                <li>作者自己的咖啡廳式辦公室就是最初時刻的「打破劇本」設計——客戶預期看到嚴肅顧問公司，卻走進有品味的咖啡廳。</li>
+                <li>體驗設計的核心公式：打破消費者腦中的預設劇本 → 創造驚喜 → 進入系統二的短暫注意力 → 植入品牌訊息。</li>
+                <li>損失規避、錨定效應、框架效應等行為經濟學工具都是系統一設計的彈藥。</li>
+            </ol>
+            <div class="action-box">
+                <h5>🔧 立即可用</h5>
+                <p>列出消費者在接觸你品牌時的「預設劇本」，想想在哪個點可以製造「意料之外」的體驗。</p>
+            </div>
+            <span class="link-tag">🔗 承接 Ch2 峰終定律，為 Ch14 體驗設計實操提供理論基礎</span>
+        </div>
+        
+        <!-- Ch7 -->
+        <div class="chapter-detail">
+            <h3>Ch 7 · 消費者的角色與情感需求</h3>
+            <div class="chapter-core">🎯 消費者不是在買產品，是在扮演一個理想中的角色——理解角色才能理解需求。</div>
+            <ol class="insight-list">
+                <li>幼兒英語補習班案例：大人審美的冷調裝潢 vs 小孩需要的溫暖圓潤空間——讓董事長蹲下來用 120 公分的高度看世界。</li>
+                <li>消費者同時扮演多重角色（決策者 / 使用者 / 影響者 / 付費者），不同角色的 MOT 完全不同。</li>
+                <li>不理解對方的情感需求，再好的產品也打不進去。</li>
+            </ol>
+            <div class="action-box">
+                <h5>🔧 立即可用</h5>
+                <p>畫出你產品的「角色地圖」：誰決策？誰使用？誰付費？誰影響？各自的情感需求是什麼？</p>
+            </div>
+            <span class="link-tag">🔗 深化 Ch4 的消費者理解，為 Ch10 TA 選擇提供情感維度</span>
+        </div>
+        
+        <!-- Ch8 -->
+        <div class="chapter-detail">
+            <h3>Ch 8 · 如何挖出 MOT？</h3>
+            <div class="chapter-core">🎯 兩種挖掘方法：從品牌訊息挖（問「為什麼」追到場景），從消費者決策挖（用四維度結構化拆解）。</div>
+            <ol class="insight-list">
+                <li>蘭花美容液案例：企業沉迷講技術，消費者只想知道「同學會上能不能看起來年輕」——企業講的 ≠ 消費者想聽的。</li>
+                <li>方法一：問消費者「你覺得我們品牌是 ____？」→ 追問「為什麼這樣覺得？」→ 那個「為什麼」就是 MOT。</li>
+                <li>方法二：用四維度（進店/轉化/複購/推薦）系統化地列出消費者在每個維度的決策點，逐一檢視。</li>
+            </ol>
+            <div class="action-box">
+                <h5>🔧 立即可用</h5>
+                <p>訪談 5 個忠實客戶，問：「你會怎麼跟朋友介紹我們？為什麼？」那個「為什麼」的場景就是你的 MOT。</p>
+            </div>
+            <span class="link-tag">🔗 將 Ch4-7 的理解轉化為可操作工具，直接服務 Ch10-14 的落地</span>
+        </div>
+        
+        <!-- Ch9 -->
+        <div class="chapter-detail">
+            <h3>Ch 9 · 企業對企業，決戰 MOT</h3>
+            <div class="chapter-core">🎯 B2B 的核心 MOT 是「建立信任」，而公司簡介是全球最被低估的 B2B 關鍵時刻。</div>
+            <ol class="insight-list">
+                <li>全球通路代表訪談一致結論：不管東方西方，B2B 最重要的就是「建立信任關係」。</li>
+                <li>B2B 的「灘頭堡客戶」（BTA）概念——先找一個願意信任你的標竿客戶，用成功案例複製裂變。</li>
+                <li>公司簡介的 MOT 被嚴重忽略：它是客戶第一次認識你的關鍵時刻，但大多數企業的公司簡介毫無辨識度。</li>
+            </ol>
+            <div class="action-box">
+                <h5>🔧 立即可用</h5>
+                <p>重新審視你的公司簡介 / pitch deck：是在講「我們多厲害」，還是在講「我們能幫你解決什麼問題」？</p>
+            </div>
+            <span class="link-tag">🔗 將 B2C 的 MOT 框架延伸到 B2B，呼應 Ch3 品牌輪的通用性</span>
+        </div>
+        
+        <!-- Ch10 -->
+        <div class="chapter-detail">
+            <h3>Ch 10 · 產品到底該賣給誰？</h3>
+            <div class="chapter-core">🎯 小蝦米打敗大鯨魚的秘訣：不是做更多，而是選對戰場、選對人。</div>
+            <ol class="insight-list">
+                <li>羊奶粉案例：品牌 A（市佔第一但增長平緩）vs 品牌 B（後起之秀 80% 增長）——差距在於 TA 選擇，品牌 B 鎖定了「對牛奶過敏的寶寶媽媽」這個精準人群。</li>
+                <li>灘頭堡客戶（BTA）策略：先找到一群最容易被你感動的人，讓他們瘋狂愛上你，再以此為基地裂變。</li>
+                <li>TA 選擇先於產品設計——先搞清楚賣給誰，再決定怎麼賣。</li>
+            </ol>
+            <div class="action-box">
+                <h5>🔧 立即可用</h5>
+                <p>回答：你的 BTA（灘頭堡客戶）是誰？他們有什麼共同特徵？你的品牌對他們解決了什麼獨特問題？</p>
+            </div>
+            <span class="link-tag">🔗 Ch4 三種人 → Ch10 精準 TA → Ch11 MOT 選擇，形成完整因果鏈</span>
+        </div>
+        
+        <!-- Ch11-16 abbreviated for space but still included -->
+        <div class="chapter-detail">
+            <h3>Ch 11 · 如何選擇 MOT？</h3>
+            <div class="chapter-core">🎯 品牌辨識度有兩個 MOT：臉（一眼記住）和聲音（一聽就知道）。峰值做到極致，其餘一般般就好。</div>
+            <ol class="insight-list">
+                <li>歌手選秀案例：帥不是辨識度，「帥得有特色」才是——黃渤不能整形。</li>
+                <li>選 MOT 的核心原則：不是做更多，而是在 1-2 個點上做到極致，大幅超越競爭對手。</li>
+                <li>手搖茶飲的教訓：每家都整成網紅臉，結果消費者根本搞不清誰是誰。</li>
+            </ol>
+            <div class="action-box"><h5>🔧 立即可用</h5><p>問客戶：「想到我們品牌，你第一個想到的畫面/感覺是什麼？」如果答不出來，你沒有辨識度。</p></div>
+            <span class="link-tag">🔗 承接 Ch5 四維度，為 Ch12 訊息選擇鋪墊</span>
+        </div>
+        
+        <div class="chapter-detail">
+            <h3>Ch 12 · 如何選擇訊息？</h3>
+            <div class="chapter-core">🎯 改個標題就能改變命運——訊息選擇的本質是「用消費者的語言說消費者在乎的事」。</div>
+            <ol class="insight-list">
+                <li>作者親身案例：「品牌定位課」改名為「關鍵時刻的洞察與落地」後，報名狀況大幅改善——相同內容，不同標籤。</li>
+                <li>訊息必須在消費者的認知框架內產生共鳴，而非挑戰他們的理解能力。</li>
+                <li>厲害的體驗設計毋需多言，客戶自己就會得出你想要的結論。</li>
+            </ol>
+            <div class="action-box"><h5>🔧 立即可用</h5><p>把你品牌的 slogan / 標題念給 10 個非行業人士聽，看他們 3 秒內能不能理解你在賣什麼。</p></div>
+            <span class="link-tag">🔗 訊息選擇是品牌輪的「彈藥」，服務 Ch13 全局布局</span>
+        </div>
+        
+        <div class="chapter-detail">
+            <h3>Ch 13 · 完成品牌輪的布局</h3>
+            <div class="chapter-core">🎯 老廟黃金景容樓案例：四維度全面分析 → 鎖定側重點 → 逐一設計 MOT → 品牌輪完整落地。</div>
+            <ol class="insight-list">
+                <li>景容樓問題診斷：進店率低（建築無辨識度）、轉化率低（逛一圈就走）、推薦率低（品牌訊息沒進入心智）。</li>
+                <li>品牌輪實戰：利用廣場空間創造進店 MOT → 設計讓客人想上樓的轉化 MOT → 打造「帶來好運氣」的體驗峰值。</li>
+                <li>導演思維：品牌經營者要像導演一樣，把每個環節串成一條有高潮的故事線。</li>
+            </ol>
+            <div class="action-box"><h5>🔧 立即可用</h5><p>用四維度盤點你的品牌：進店靠什麼？轉化靠什麼？複購靠什麼？推薦靠什麼？找出最弱的環節。</p></div>
+            <span class="link-tag">🔗 品牌輪的最完整案例，整合 Ch1-12 所有概念</span>
+        </div>
+        
+        <div class="chapter-detail">
+            <h3>Ch 14 · 魂體合一，精采的體驗設計</h3>
+            <div class="chapter-core">🎯 好的體驗設計必須「魂」（品牌核心價值）和「體」（執行細節）合一，缺一不可。</div>
+            <ol class="insight-list">
+                <li>東京飯店案例：check-in 兩句話征服客人（「我知道你是誰」＋「我還知道你要什麼」）——最初時刻的峰值設計。</li>
+                <li>免費洗衣轉化術：洞悉跑步旅客的痛點，用閒置產能的洗衣服務完成付費升級——幾乎零成本的峰值。</li>
+                <li>隱形小拉門的洗衣服務設計＝把細節做到極致的「體」，而「我知道你要什麼」的個人化服務＝品牌的「魂」。</li>
+            </ol>
+            <div class="action-box"><h5>🔧 立即可用</h5><p>審視你最近一次體驗設計：「魂」（品牌想傳達的核心訊息）是什麼？「體」（執行細節）有沒有到位？</p></div>
+            <span class="link-tag">🔗 呼應 Ch6 系統一設計，將理論落實為感官層面的體驗</span>
+        </div>
+        
+        <div class="chapter-detail">
+            <h3>Ch 15 · 沒落地一切都是空談</h3>
+            <div class="chapter-core">🎯 落地四原則：建立共同語言、老闆親自參與、1公分寬打透1萬公尺深、持續迭代。</div>
+            <ol class="insight-list">
+                <li>西貝餐飲案例：60 位店長白天上課、下午實操、晚上覆盤到深夜——即知即行的極致執行力。</li>
+                <li>所有成功案例的共通點：老闆親自參與，全公司動員，不是交給下屬就好。</li>
+                <li>十八格表單：將體驗設計轉化為可執行、可檢核、可迭代的操作表格。</li>
+            </ol>
+            <div class="action-box"><h5>🔧 立即可用</h5><p>下一次品牌改進，確保決策者在場。做完第一版就實際測試，收集數據後迭代。</p></div>
+            <span class="link-tag">🔗 將 Ch3-14 的所有理論和工具收束為執行紀律</span>
+        </div>
+        
+        <div class="chapter-detail">
+            <h3>Ch 16 · 人生的關鍵時刻</h3>
+            <div class="chapter-core">🎯 人生最關鍵的時刻，不是終點線的榮耀，而是你穿上鞋出門練跑的那一刻。</div>
+            <ol class="insight-list">
+                <li>馬拉松隱喻：跑全馬需要配速、紀律、和不斷與想放棄的自己對話——和品牌經營如出一轍。</li>
+                <li>全書最後的哲學升華：MOT 不只是商業工具，也是人生的思維方式——在關鍵時刻做出正確的選擇。</li>
+                <li>「穿上鞋出門」＝從知道到做到的那個跨越，呼應全書「落地」的核心主張。</li>
+            </ol>
+            <div class="action-box"><h5>🔧 立即可用</h5><p>讀完這本書，你的「穿上鞋出門」是什麼？今天就開始做一件事。</p></div>
+            <span class="link-tag">🔗 回扣 Ch1「視角決定世界」，完成全書的環形結構</span>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 模組06: 四類整合洞見 ==================== -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <div class="section-icon">💡</div>
+            <h2 class="section-title">模組 06 · 四類整合洞見</h2>
+        </div>
+        
+        <h3 class="sub-h3">6.1 隱藏的邏輯線</h3>
+        <div class="card">
+            <p><strong>「自嗨→覺醒→工具→行動」的四拍結構</strong>：全書從「你一直在自嗨」（Ch1-3 破壞舊認知）→「消費者的真實世界長這樣」（Ch4-7 解碼心智）→「這裡有一套工具」（Ch8-9）→「現在按這個順序做」（Ch10-15），是一條完整的「認知-方法-執行」鏈。作者沒有明說，但每一篇的第一章都用一個衝擊力極強的案例開場（Ch1 的 Richard Mille、Ch10 的羊奶粉），刻意讓讀者先「感受」再「理解」——這本身就是系統一設計的實踐。</p>
+        </div>
+        
+        <h3 class="sub-h3">6.2 作者的潛台詞</h3>
+        <div class="card">
+            <p><strong>隱含假設一：消費者本質上是非理性的。</strong>這是全書最大的前提假設。作者反覆引用行為經濟學，將消費者決策定位為「系統一主導」，這讓所有的體驗設計策略都建立在「繞過理性、直擊直覺」的基礎上。潛台詞是：如果你還在用理性論述說服消費者，你已經輸了。</p>
+            <p style="margin-top:1rem"><strong>隱含假設二：品牌問題的根源幾乎都是「不了解消費者」。</strong>作者的所有案例診斷最終都指向同一個病因。這個假設讓整套方法論非常聚焦，但也意味著它對「產品本身有硬傷」或「市場結構性萎縮」等情況的解釋力較弱。</p>
+            <p style="margin-top:1rem"><strong>隱含假設三：「洞察」可以被方法化和流程化。</strong>作者將消費者洞察拆解為可操作的步驟，這是本書最大的價值，但也暗含了一個樂觀假設：只要按步驟做，就能挖到洞察。事實上，洞察仍需要提問者的敏感度和判斷力。</p>
+        </div>
+        
+        <h3 class="sub-h3">6.3 批判與邊界</h3>
+        <div class="card">
+            <p><strong>邊界一：適用於「體驗可控」的品牌。</strong>書中案例集中在零售、餐飲、航空、教育等「品牌可以直接設計消費者體驗」的行業。對於體驗高度不可控的行業（如平台經濟、UGC 內容、大宗原物料），MOT 的可控性大幅降低。</p>
+            <p style="margin-top:1rem"><strong>邊界二：對數位化場景的覆蓋不足。</strong>全書案例以線下實體為主，對線上電商、APP、社群媒體等數位 MOT 的討論相對有限。（注：作者在後續《峰值體驗 2》中已有補充。）</p>
+            <p style="margin-top:1rem"><strong>邊界三：「消費者訪談」的方法論門檻。</strong>書中反覆強調要訪談消費者，但實際上高品質的消費者訪談需要專業的訪談技巧和分析能力，這個門檻在書中被低估了。</p>
+        </div>
+        
+        <h3 class="sub-h3">6.4 知識對話</h3>
+        <div class="card">
+            <p><strong>與 Kahneman《快思慢想》</strong>：直接繼承峰終定律和系統一/系統二框架，但將學術理論轉化為商業可操作工具——這是本書最大的增量價值。</p>
+            <p style="margin-top:1rem"><strong>與 Ries & Trout《定位》</strong>：同意「佔領心智」的重要性，但批判傳統定位只關注「說什麼」，不關注「在哪個時刻說」和「怎麼讓消費者感受到」——MOT 是定位的執行引擎。</p>
+            <p style="margin-top:1rem"><strong>與 Chip & Dan Heath《關鍵時刻》</strong>：主題高度相似，但 Heath 兄弟偏重「如何創造難忘體驗」的心理學原理，汪志謙則偏重「如何系統化找到該在哪裡創造體驗」的商業方法論——兩者互補。</p>
+            <p style="margin-top:1rem"><strong>與 Jan Carlzon《MOT》原著</strong>：繼承了 MOT 概念但大幅擴展——Carlzon 的 MOT 限於「服務接觸點」，汪志謙將 MOT 延伸到消費者的四大決策維度，並與行為經濟學整合。</p>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 模組07: 隱藏連結網絡 ==================== -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <div class="section-icon">🕸️</div>
+            <h2 class="section-title">模組 07 · 隱藏連結網絡</h2>
+            <p class="section-desc">全域交叉比對後發現的深層結構</p>
+        </div>
+        
+        <!-- 7.1 表面矛盾組 -->
+        <h3 class="sub-h3">一、表面矛盾組</h3>
+        
+        <div class="contradiction">
+            <h4 style="color:var(--text-muted);margin-bottom:1rem;">矛盾組 1</h4>
+            <div class="contradiction-vs">
+                <span class="contradiction-item">Ch6「繞過理性，走系統一」</span>
+                <span class="vs-badge">VS</span>
+                <span class="contradiction-item">Ch8「用結構化方法挖 MOT」</span>
+            </div>
+            <p><strong>深層統一</strong>：系統一是「消費者端」的設計原則，結構化方法是「企業端」的操作工具。企業需要用理性系統二去分析，才能設計出讓消費者用系統一就能感受到的體驗。<br><strong>切換判斷</strong>：分析和策劃階段用系統二（理性結構化），設計執行階段走系統一（直覺感性化）。</p>
+        </div>
+        
+        <div class="contradiction">
+            <h4 style="color:var(--text-muted);margin-bottom:1rem;">矛盾組 2</h4>
+            <div class="contradiction-vs">
+                <span class="contradiction-item">Ch2「只做峰值，不做整體」</span>
+                <span class="vs-badge">VS</span>
+                <span class="contradiction-item">Ch15「1 公分寬打透 1 萬公尺深」</span>
+            </div>
+            <p><strong>深層統一</strong>：兩者是同一策略的兩面——「不做整體」是資源分配的減法哲學，「打透 1 萬公尺」是執行深度的乘法哲學。先砍掉 80% 不重要的事，再把剩下 20% 做到 1000%。<br><strong>切換判斷</strong>：選擇階段做減法（砍到只剩 1-3 個 MOT），執行階段做乘法（每個 MOT 極致打透）。</p>
+        </div>
+        
+        <div class="contradiction">
+            <h4 style="color:var(--text-muted);margin-bottom:1rem;">矛盾組 3</h4>
+            <div class="contradiction-vs">
+                <span class="contradiction-item">Ch1「不要用自己的角度」</span>
+                <span class="vs-badge">VS</span>
+                <span class="contradiction-item">Ch11「放大你的美」</span>
+            </div>
+            <p><strong>深層統一</strong>：「你的美」不是你自認的美，而是消費者眼中你的美。先透過洞察發現消費者認為你美在哪裡（Ch4-8），然後在那個點上放大（Ch11-14）。<br><strong>切換判斷</strong>：發現階段用消費者視角（你美在哪），放大階段用品牌視角（怎麼把這個美做到極致）。</p>
+        </div>
+        
+        <!-- 7.2 隱形因果鏈 -->
+        <h3 class="sub-h3">二、隱形因果鏈</h3>
+        
+        <div class="card">
+            <h4>因果鏈 1 — 洞察驅動增長鏈</h4>
+            <div class="causal-chain">
+                <span class="chain-item">Ch4 三種人</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-item">Ch8 挖 MOT</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-item">Ch10 選 TA</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-item">Ch11 選 MOT</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-item">Ch12 選訊息</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-item">Ch14 體驗設計</span>
+            </div>
+            <p>跳過 Ch4 直接做 Ch14 → 體驗設計變成「老闆覺得好」的自嗨設計<br>
+            跳過 Ch10 直接做 Ch11 → MOT 選擇沒有針對性，打不中目標客群<br>
+            跳過 Ch8 直接做 Ch12 → 訊息選擇憑感覺，不是消費者真正在乎的事</p>
+        </div>
+        
+        <div class="card">
+            <h4>因果鏈 2 — 認知重塑鏈</h4>
+            <div class="causal-chain">
+                <span class="chain-item">Ch1 破除自嗨</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-item">Ch2 峰終定律</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-item">Ch6 系統一</span>
+                <span class="chain-arrow">→</span>
+                <span class="chain-item">Ch7 情感需求</span>
+            </div>
+            <p>這條鏈的邏輯：先讓你承認「你不懂消費者」→ 再告訴你消費者只記得峰值 → 再告訴你消費者靠直覺做決策 → 最後告訴你消費者買的是情感角色。四步走完，你對消費者的認知被徹底重塑。</p>
+        </div>
+        
+        <!-- 7.3 元原則萃取 -->
+        <h3 class="sub-h3">三、元原則萃取</h3>
+        
+        <div class="meta-principle">
+            <div class="meta-number">01</div>
+            <div class="meta-quote">「不是做更多，而是做更準。所有資源分配的智慧，都是減法。」</div>
+            <div class="meta-chapters">涵蓋：Ch 2, 3, 5, 11, 15</div>
+            <div class="meta-desc">從「不做整體服務提升」到「選擇側重點」到「峰值做到極致其餘一般般」到「1 公分寬打 1 萬公尺深」——這個元原則統一了全書所有關於「選擇」的討論。它比任何單一章節的建議都更根本：在有限資源下，精準＞廣泛。</div>
+        </div>
+        
+        <div class="meta-principle">
+            <div class="meta-number">02</div>
+            <div class="meta-quote">「消費者的真相，只存在於消費者的嘴裡和行為裡，不在企業的會議室裡。」</div>
+            <div class="meta-chapters">涵蓋：Ch 1, 4, 7, 8, 10</div>
+            <div class="meta-desc">從「Richard Mille 的購買原因」到「始祖鳥的身分感」到「小孩的 120 公分視角」到「蘭花美容液的自說自話」——每個案例的轉折點都是同一句話：你以為的 ≠ 消費者真正的。</div>
+        </div>
+        
+        <div class="meta-principle">
+            <div class="meta-number">03</div>
+            <div class="meta-quote">「最好的設計是消費者自己得出結論，而不是你告訴他結論。」</div>
+            <div class="meta-chapters">涵蓋：Ch 6, 12, 14</div>
+            <div class="meta-desc">咖啡廳辦公室讓客戶自己感受到「這個顧問有品味」；課程改名讓學員自己發現「這就是定位」；飯店讓客人自己感受到「被重視」。系統一的設計本質是：讓結論在消費者腦中「自然浮現」，而非被灌輸。</div>
+        </div>
+        
+        <!-- 7.4 頻率分析 -->
+        <h3 class="sub-h3">四、頻率分析</h3>
+        
+        <table class="freq-table">
+            <thead><tr><th>隱藏主題</th><th>出現頻率</th><th style="width:200px;">分布</th><th>解讀</th></tr></thead>
+            <tbody>
+                <tr><td>「企業自嗨 / 視角錯位」</td><td>14/16 章</td><td><div class="freq-bar" style="width:88%"></div></td><td>作者最深層的焦慮：他見過太多企業在自己的世界裡自我感覺良好</td></tr>
+                <tr><td>「消費者是非理性的」</td><td>12/16 章</td><td><div class="freq-bar" style="width:75%"></div></td><td>全書的理論基石，幾乎每個案例都在強化這個認知</td></tr>
+                <tr><td>「聚焦 / 減法 / 不做」</td><td>11/16 章</td><td><div class="freq-bar" style="width:69%"></div></td><td>作者的核心方法論哲學：資源有限是永恆約束，聚焦是唯一出路</td></tr>
+                <tr><td>「案例故事化 / 場景感」</td><td>16/16 章</td><td><div class="freq-bar" style="width:100%"></div></td><td>每一章都以生動案例開場——本書自身就是「系統一寫作」的實踐</td></tr>
+                <tr><td>「迭代 / 持續改進」</td><td>8/16 章</td><td><div class="freq-bar" style="width:50%"></div></td><td>完美主義者的底色：作者自己從 HP 到 VCI 的生涯就是不斷迭代的過程</td></tr>
+            </tbody>
+        </table>
+        
+        <div class="worldview-box">
+            <p>作者的世界觀：「在承認消費者是非理性的前提下，以結構化洞察為基礎，透過在少數關鍵時刻創造極致峰值，佔領消費者的心智。」</p>
+        </div>
+        
+        <!-- 7.5 缺席分析 -->
+        <h3 class="sub-h3">五、缺席分析</h3>
+        
+        <div class="absence-card">
+            <h4>缺席 1：數位化場景的 MOT 設計</h4>
+            <p>全書案例以線下實體為主，對電商頁面、APP 互動、社群內容的 MOT 設計著墨不多。在 2022 年出版的語境下，數位體驗已佔消費者旅程的極大比重。作者可能有意將範圍限縮在自己最擅長的領域（線下品牌顧問），避免過度延伸。</p>
+            <p style="margin-top:0.5rem;color:var(--text-muted)">📘 搭配《峰值體驗 2》（2024）可補上此缺口——該書已覆蓋線上線下全場景。</p>
+        </div>
+        
+        <div class="absence-card">
+            <h4>缺席 2：失敗案例的深度剖析</h4>
+            <p>書中案例幾乎都是成功案例，對「用了 MOT 方法但仍失敗」的情況缺乏討論。這讓方法論看起來過於完美，讀者難以判斷方法的邊界條件。</p>
+            <p style="margin-top:0.5rem;color:var(--text-muted)">📘 搭配 Roger Martin《Playing to Win》可補上策略失敗的分析框架。</p>
+        </div>
+        
+        <div class="absence-card">
+            <h4>缺席 3：組織變革與內部阻力</h4>
+            <p>Ch15 提到「老闆要親自參與」，但對於組織內部的阻力、部門利益衝突、變革管理等實操挑戰幾乎沒有涉及。MOT 落地需要跨部門協作，而「怎麼讓各部門配合」可能比「怎麼設計體驗」更難。</p>
+            <p style="margin-top:0.5rem;color:var(--text-muted)">📘 搭配 John Kotter《領導變革》可補上組織變革的方法論。</p>
+        </div>
+        
+        <!-- 7.6 實踐優先序 -->
+        <h3 class="sub-h3">六、實踐優先序</h3>
+        
+        <div class="priority-item">
+            <div class="priority-num">01</div>
+            <div>
+                <h4 style="margin-bottom:0.5rem">Ch 4 — 訪談三種人</h4>
+                <p>這是多條因果鏈的起點。不了解「愛你的 / 不愛你的 / 愛過你的」三種人，後面所有的 MOT 選擇和體驗設計都是空中樓閣。<strong>ROI 最高</strong>：成本最低（只需做幾場訪談），槓桿最大（影響後續所有決策）。</p>
+            </div>
+        </div>
+        
+        <div class="priority-item">
+            <div class="priority-num">02</div>
+            <div>
+                <h4 style="margin-bottom:0.5rem">Ch 5 — 診斷四維度側重點</h4>
+                <p>進店/轉化/複購/推薦，到底哪個是你當前最大的瓶頸？搞錯側重點，再厲害的體驗設計也打不到點上。</p>
+            </div>
+        </div>
+        
+        <div class="priority-item">
+            <div class="priority-num">03</div>
+            <div>
+                <h4 style="margin-bottom:0.5rem">Ch 2 — 內化峰終定律</h4>
+                <p>這是全書最重要的認知升級。從此你看任何服務流程，都會自動問：「峰值在哪？」如果沒有峰值，就是無效設計。</p>
+            </div>
+        </div>
+        
+        <div class="priority-item">
+            <div class="priority-num">04</div>
+            <div>
+                <h4 style="margin-bottom:0.5rem">Ch 8 — 掌握挖 MOT 的兩種方法</h4>
+                <p>有了工具才能將洞察轉化為可執行的 MOT 清單，這是從「知道」到「做到」的關鍵橋樑。</p>
+            </div>
+        </div>
+        
+        <div class="priority-item">
+            <div class="priority-num">05</div>
+            <div>
+                <h4 style="margin-bottom:0.5rem">Ch 6 — 理解系統一設計觀</h4>
+                <p>決定了體驗設計的底層邏輯：走直覺不走理性。不內化這個概念，體驗設計就會落入「用理性說服消費者」的老路。</p>
+            </div>
+        </div>
+        
+        <!-- 7.7 情境決策矩陣 -->
+        <h3 class="sub-h3">七、情境決策矩陣</h3>
+        
+        <div class="matrix">
+            <div class="matrix-cell">
+                <h5>🚪 進店率太低</h5>
+                <p><strong>參考</strong>：Ch 5, 11, 13<br><strong>行動</strong>：檢視品牌辨識度（臉），優化 7 秒路過的視覺 MOT，參考蘇小糖 / 景容樓案例</p>
+            </div>
+            <div class="matrix-cell">
+                <h5>💰 轉化率不高</h5>
+                <p><strong>參考</strong>：Ch 6, 7, 14<br><strong>行動</strong>：檢查是否走系統一設計、是否理解消費者的角色情感需求，參考幼兒英語 / 東京飯店案例</p>
+            </div>
+            <div class="matrix-cell">
+                <h5>🔄 複購率很低</h5>
+                <p><strong>參考</strong>：Ch 4, 5, 14<br><strong>行動</strong>：訪談「愛過你的人」找出流失原因，在「最終時刻」設計讓人想再來的峰值</p>
+            </div>
+            <div class="matrix-cell">
+                <h5>📢 推薦率不高</h5>
+                <p><strong>參考</strong>：Ch 1, 4, 12<br><strong>行動</strong>：檢查品牌標籤是否清晰到「一句話能轉述」，設計讓消費者想拍照分享的 MOT</p>
+            </div>
+            <div class="matrix-cell">
+                <h5>🏢 B2B 開發困難</h5>
+                <p><strong>參考</strong>：Ch 9, 10<br><strong>行動</strong>：重做公司簡介，找到灘頭堡客戶（BTA），用成功案例建立信任再裂變</p>
+            </div>
+            <div class="matrix-cell">
+                <h5>🧭 不知從哪開始</h5>
+                <p><strong>參考</strong>：Ch 3, 4, 8<br><strong>行動</strong>：先畫品牌輪，再訪談三種人，用兩種方法挖出 MOT 清單</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 模組10: 敘事弧線 ==================== -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <div class="section-icon">📈</div>
+            <h2 class="section-title">模組 10 · 敘事弧線</h2>
+        </div>
+        <div class="arc-container">
+            <div class="arc-step">
+                <div class="arc-marker">🌅</div>
+                <div class="arc-content">
+                    <h4>起點：虛假的自信</h4>
+                    <p>讀者帶著「我大概知道怎麼做行銷/品牌」的信念進入。多數企業主和行銷人覺得自己了解消費者。</p>
+                </div>
+            </div>
+            <div class="arc-step">
+                <div class="arc-marker">💥</div>
+                <div class="arc-content">
+                    <h4>破壞：你根本不了解消費者（Ch1-4）</h4>
+                    <p>Richard Mille 手錶、服裝店員、始祖鳥……一個又一個案例打臉讀者的認知：「你以為的消費者，跟真實的消費者完全不同。」</p>
+                </div>
+            </div>
+            <div class="arc-step">
+                <div class="arc-marker">🕳️</div>
+                <div class="arc-content">
+                    <h4>最低點：幼兒英語補習班（Ch7）</h4>
+                    <p>花了大錢裝潢卻嚇跑小孩——讓董事長蹲下來用孩子的高度看世界。這是讀者最「扎心」的時刻：原來我連物理視角都錯了。</p>
+                </div>
+            </div>
+            <div class="arc-step">
+                <div class="arc-marker">🔧</div>
+                <div class="arc-content">
+                    <h4>重建：品牌輪系統（Ch8-14）</h4>
+                    <p>在破壞舊認知之後，作者提供完整的重建工具：品牌輪、挖 MOT 方法、TA 選擇、MOT 選擇、訊息選擇、體驗設計——一步步把讀者帶回「知道怎麼做」的狀態。</p>
+                </div>
+            </div>
+            <div class="arc-step">
+                <div class="arc-marker">🏁</div>
+                <div class="arc-content">
+                    <h4>著陸：穿上鞋出門（Ch16）</h4>
+                    <p>用馬拉松隱喻收尾：最關鍵的不是知道怎麼跑，而是面對千萬個想放棄的念頭、穿上鞋出門的那一刻。從商業工具升華為人生哲學。</p>
+                </div>
+            </div>
+        </div>
+        <div class="card" style="margin-top:2rem;text-align:center;">
+            <p style="font-family:'Noto Serif TC',serif;font-size:1.2rem;">虛假的自信 → 系統性打臉 → 蹲下來的謙卑 → 工具重建信心 → 穿上鞋出門</p>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 模組11: 個人化透鏡 ==================== -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <div class="section-icon">🔮</div>
+            <h2 class="section-title">模組 11 · 個人化透鏡</h2>
+            <p class="section-desc">影像製作人 × 社群經濟經營者 × AI 系統建構者的閱讀轉化</p>
+        </div>
+        
+        <div class="lens-card">
+            <h4>1. 「三種人」→ 社群經營的分眾洞察</h4>
+            <p><strong>書中概念</strong>：訪談「愛你的 / 不愛你的 / 愛過你的」三種人。<br>
+            <strong>轉化應用</strong>：在你的社群中，「愛你的」是鐵粉（持續互動、主動分享的人），「不愛你的」是目標受眾但沒追蹤你的人，「愛過你的」是取消追蹤或沈默的人。分別找 5 個做深度訪談：鐵粉告訴你「你的美在哪」，沈默者告訴你「內容哪裡斷了連結」。</p>
+        </div>
+        
+        <div class="lens-card">
+            <h4>2. 「四大維度」→ 影片/內容的漏斗設計</h4>
+            <p><strong>書中概念</strong>：進店 / 轉化 / 複購 / 推薦。<br>
+            <strong>轉化應用</strong>：影片內容也有四維度——<strong>進店</strong>＝封面縮圖+標題讓人點進來（7 秒決戰），<strong>轉化</strong>＝觀看完畢率+CTA 行動率，<strong>複購</strong>＝訂閱後持續回看率，<strong>推薦</strong>＝分享率+tag 朋友率。診斷你最弱的是哪個環節，集中火力。</p>
+        </div>
+        
+        <div class="lens-card">
+            <h4>3. 「系統一設計」→ AI 自動化工作流的觸發設計</h4>
+            <p><strong>書中概念</strong>：用系統一（直覺快思考）而非系統二（理性慢思考）來設計體驗。<br>
+            <strong>轉化應用</strong>：社群自動化工作流也需要「系統一設計」——自動回覆的第一句話要「打破劇本」（不是冰冷的罐頭回覆，而是個人化的驚喜），自動推薦的內容要走情感需求而非功能列表。AI 書僮系統生成的報告也可以用「最初/最高/最終」三個黃金時刻來設計閱讀體驗。</p>
+        </div>
+        
+        <div class="lens-card">
+            <h4>4. 「放大你的美」→ 保險 / 顧問服務的 MOT 設計</h4>
+            <p><strong>書中概念</strong>：找到品牌美在哪裡，然後放大。<br>
+            <strong>轉化應用</strong>：保險銷售的 MOT 不在產品條款，而在「客戶感受到你理解他的焦慮的那一刻」。先問清楚客戶此刻的人生狀態（角色：新手父母？退休規劃者？），再針對該角色的情感需求設計體驗（安全感 vs 掌控感 vs 傳承感），而非一上來就講產品。</p>
+        </div>
+        
+        <div class="lens-card">
+            <h4>5. 「品牌輪」→ 叡思影像的品牌閉環</h4>
+            <p><strong>書中概念</strong>：TA → MOT → 品牌訊息 → MOTX（關鍵體驗）。<br>
+            <strong>轉化應用</strong>：叡思影像的品牌輪——<strong>TA</strong>：誰最需要你的影片製作？（灘頭堡客戶是誰？）→ <strong>MOT</strong>：他們在什麼時刻決定要找影片製作公司？→ <strong>品牌訊息</strong>：叡思影像和其他影像公司有什麼不同（辨識度）？→ <strong>MOTX</strong>：怎麼在那個關鍵時刻讓他們感受到這個差異？</p>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 模組08: 行動轉化 ==================== -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <div class="section-icon">🎬</div>
+            <h2 class="section-title">模組 08 · 行動轉化</h2>
+        </div>
+        <div class="action-grid">
+            <div class="action-card">
+                <h4>⚡ 本週啟動</h4>
+                <ul>
+                    <li>找 3 個「愛你的」客戶做 15 分鐘電話訪談，問他們會用什麼詞形容你的品牌</li>
+                    <li>盤點你品牌的「最初 / 最高 / 最終」三個黃金時刻，標記是否有峰值</li>
+                    <li>診斷四維度：進店率 / 轉化率 / 複購率 / 推薦率，哪個最弱？</li>
+                </ul>
+            </div>
+            <div class="action-card">
+                <h4>📅 本月實驗</h4>
+                <ul>
+                    <li>完成「三種人」各 5 人的訪談，整理出消費者語言中的品牌標籤和 MOT 清單</li>
+                    <li>畫出你的品牌輪（TA → MOT → 訊息 → MOTX），針對最弱維度設計一個峰值體驗並實測</li>
+                </ul>
+            </div>
+            <div class="action-card">
+                <h4>🎯 長期追蹤</h4>
+                <ul>
+                    <li>建立「MOT 迭代記錄表」：每次體驗設計改進後，追蹤對應維度的指標變化（進店率 / 轉化率 / 複購率 / 推薦率），月度覆盤</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 模組12: 延伸資源 ==================== -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <div class="section-icon">📚</div>
+            <h2 class="section-title">模組 12 · 延伸資源</h2>
+        </div>
+        <div class="resource-grid">
+            <div class="resource-item">
+                <span class="resource-type type-upstream">上游</span>
+                <div>
+                    <strong>Daniel Kahneman《快思慢想》</strong><br>
+                    <span style="color:var(--text-muted)">峰終定律和系統一/二的學術源頭，讀完能更深理解本書的理論基礎。</span>
+                </div>
+            </div>
+            <div class="resource-item">
+                <span class="resource-type type-upstream">上游</span>
+                <div>
+                    <strong>Jan Carlzon《Moments of Truth》</strong><br>
+                    <span style="color:var(--text-muted)">MOT 概念的原創著作，北歐航空的經典案例，理解 MOT 思想的歷史脈絡。</span>
+                </div>
+            </div>
+            <div class="resource-item">
+                <span class="resource-type type-parallel">平行</span>
+                <div>
+                    <strong>Chip & Dan Heath《The Power of Moments》（關鍵時刻）</strong><br>
+                    <span style="color:var(--text-muted)">從心理學角度拆解如何創造難忘體驗的四大元素：提升感、洞察感、榮耀感、連結感。與本書互補。</span>
+                </div>
+            </div>
+            <div class="resource-item">
+                <span class="resource-type type-extend">延伸</span>
+                <div>
+                    <strong>汪志謙、朱海蓓《峰值體驗 2》（2024）</strong><br>
+                    <span style="color:var(--text-muted)">作者迭代升級版，補上線上場景、B2B 深度攻略、三複四效新框架。</span>
+                </div>
+            </div>
+            <div class="resource-item">
+                <span class="resource-type type-opposite">對立</span>
+                <div>
+                    <strong>Byron Sharp《How Brands Grow》</strong><br>
+                    <span style="color:var(--text-muted)">主張品牌增長靠的是「滲透率」而非「忠誠度」，對本書強調複購和推薦的邏輯形成有力挑戰。</span>
+                </div>
+            </div>
+            <div class="resource-item">
+                <span class="resource-type type-complement">互補</span>
+                <div>
+                    <strong>John Kotter《Leading Change》（領導變革）</strong><br>
+                    <span style="color:var(--text-muted)">補上本書「缺席」的組織變革方法論——MOT 落地需要跨部門協作，Kotter 的八步驟是實操指南。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== 模組09: 相關影片 ==================== -->
+<section>
+    <div class="container">
+        <div class="section-header">
+            <div class="section-icon">🎥</div>
+            <h2 class="section-title">模組 09 · 相關影片</h2>
+        </div>
+        <div class="resource-grid">
+            <div class="resource-item">
+                <span class="resource-type type-upstream">作者訪談</span>
+                <div>
+                    <strong>「下一本讀什麼 EP.362」— 瓦基 × 汪志謙</strong><br>
+                    <span style="color:var(--text-muted)">Podcast · 作者親自解說「峰值體驗」核心概念，含書中未提及的幕後思考。</span>
+                </div>
+            </div>
+            <div class="resource-item">
+                <span class="resource-type type-parallel">課程</span>
+                <div>
+                    <strong>得到 APP《汪志謙·MOT 體驗設計課》</strong><br>
+                    <span style="color:var(--text-muted)">超過 4.6 萬人訂閱 · 以音頻課程形式展開本書方法論，含更多未收錄案例。</span>
+                </div>
+            </div>
+            <div class="resource-item">
+                <span class="resource-type type-extend">延伸</span>
+                <div>
+                    <strong>科技報橘 Podcast — 品牌戰略大師汪志謙解密《峰值體驗 2》</strong><br>
+                    <span style="color:var(--text-muted)">2024 年 · 覆蓋存量 vs 增量、三複四效等新框架。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="logo">🦊</div>
+    <p>偷書賊 — 超級大腦讀書法 · 四層十二模組深度解構</p>
+    <p style="margin-top: 0.5rem; font-size: 0.9rem;">分析日期：2026年03月07日</p>
+</footer>
+
+</body>
+</html>
