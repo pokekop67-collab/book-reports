@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>說到賣得動 — TOC 限制理論十步深度實戰系統</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--a:#667eea;--a2:#764ba2;--w:#f093fb;--t:#2D3436;--t2:#636E72;--tl:#B2BEC3;--g:#00b894;--o:#fdcb6e;--r:#e17055;--b:#74b9ff;--tl2:#00cec9}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Noto Sans TC',-apple-system,sans-serif;font-weight:300;line-height:1.8;color:var(--t);background:linear-gradient(135deg,#E8F4FD 0%,#FFF0F5 50%,#F5F0FF 100%);min-height:100vh;padding:40px 20px}
+    .c{max-width:940px;margin:0 auto}
+    .hero{text-align:center;padding:70px 40px;margin-bottom:32px;background:rgba(255,255,255,.6);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-radius:32px;border:1px solid rgba(255,255,255,.8);box-shadow:0 20px 60px rgba(0,0,0,.08);position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(102,126,234,.06) 0%,transparent 50%),radial-gradient(circle at 70% 80%,rgba(240,147,251,.06) 0%,transparent 50%);animation:fl 15s ease-in-out infinite}
+    @keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,-10px)}}
+    .bg{display:inline-block;background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;padding:7px 22px;border-radius:50px;font-size:.82rem;font-weight:500;letter-spacing:2px;margin-bottom:20px;position:relative;z-index:1}
+    .hero h1{font-family:'Noto Serif TC',serif;font-size:2.5rem;font-weight:700;background:linear-gradient(135deg,#667eea,#f093fb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;position:relative;z-index:1}
+    .hero .sub{font-size:1rem;color:var(--t2);position:relative;z-index:1}
+    .hero .meta{margin-top:16px;font-size:.8rem;color:var(--tl);position:relative;z-index:1}
+
+    .cd{background:rgba(255,255,255,.7);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:24px;border:1px solid rgba(255,255,255,.5);box-shadow:0 8px 32px rgba(0,0,0,.08);padding:34px 30px;margin-bottom:20px;transition:transform .3s,box-shadow .3s}
+    .cd:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(0,0,0,.1)}
+
+    .st{font-family:'Noto Serif TC',serif;font-size:1.3rem;font-weight:700;color:var(--t);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid rgba(102,126,234,.2);display:flex;align-items:center;gap:10px}
+    .sd{color:var(--t2);font-size:.88rem;margin-bottom:16px;line-height:1.7}
+    p{margin-bottom:11px;font-size:.9rem;line-height:1.85}
+    .sh{font-family:'Noto Serif TC',serif;font-size:1.02rem;font-weight:700;color:var(--a);margin:22px 0 10px}
+
+    .hl{background:linear-gradient(135deg,rgba(102,126,234,.08),rgba(240,147,251,.08));border-radius:14px;padding:18px;margin:14px 0;border-left:4px solid var(--a)}
+    .hl.g{border-left-color:var(--g)}.hl.o{border-left-color:var(--o)}.hl.r{border-left-color:var(--r)}.hl.t{border-left-color:var(--tl2)}
+    .hl strong{font-weight:500}
+
+    .tg{display:inline-block;background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;padding:3px 10px;border-radius:18px;font-size:.7rem;font-weight:400;margin:2px}
+    .tg.g{background:linear-gradient(135deg,#00b894,#00cec9)}.tg.o{background:linear-gradient(135deg,#fdcb6e,#e17055)}.tg.r{background:linear-gradient(135deg,#e17055,#d63031)}.tg.b{background:linear-gradient(135deg,#74b9ff,#0984e3)}.tg.p{background:linear-gradient(135deg,#a29bfe,#6c5ce7)}
+
+    table{width:100%;border-collapse:separate;border-spacing:0;margin:14px 0;background:rgba(255,255,255,.6);border-radius:14px;overflow:hidden;font-size:.84rem}
+    th{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.78rem}
+    td{padding:9px 12px;border-bottom:1px solid rgba(0,0,0,.04);line-height:1.6}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:rgba(102,126,234,.03)}
+
+    .bk{background:rgba(255,255,255,.5);border-radius:16px;padding:20px;margin-bottom:14px;border:1px solid rgba(255,255,255,.4)}
+    .bk h3{font-family:'Noto Serif TC',serif;font-size:1rem;font-weight:700;margin-bottom:8px;color:var(--a)}
+
+    .chain{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin:10px 0;font-size:.84rem}
+    .cn{background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;padding:4px 12px;border-radius:18px;font-size:.76rem}
+    .cn.rd{background:linear-gradient(135deg,#e17055,#d63031)}.cn.gn{background:linear-gradient(135deg,#00b894,#00cec9)}
+    .ca{color:var(--a);font-size:1rem;font-weight:700}
+
+    .mq{font-family:'Noto Serif TC',serif;font-size:1rem;font-weight:700;color:var(--a);text-align:center;padding:16px;margin:10px 0;background:linear-gradient(135deg,rgba(102,126,234,.06),rgba(240,147,251,.06));border-radius:14px}
+
+    /* CRT If-Then */
+    .it{background:rgba(102,126,234,.04);border-radius:12px;padding:14px 16px;margin:10px 0;font-size:.86rem;line-height:1.7}
+    .it .if{color:var(--a);font-weight:500}.it .then{color:var(--a2);font-weight:500}.it .root{color:#d63031;font-weight:700}
+
+    /* EC Cloud */
+    .ec{background:rgba(255,255,255,.5);border-radius:18px;padding:22px;margin:14px 0;border:2px dashed rgba(102,126,234,.3)}
+    .ec-row{display:flex;gap:12px;align-items:stretch;margin:10px 0;flex-wrap:wrap}
+    .ec-box{flex:1;min-width:200px;background:rgba(102,126,234,.06);border-radius:12px;padding:12px;font-size:.86rem}
+    .ec-vs{display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:var(--r);font-weight:900;min-width:40px}
+
+    /* TT 4-Element */
+    .tt{background:rgba(255,255,255,.45);border-radius:14px;padding:18px;margin-bottom:12px;border:1px solid rgba(255,255,255,.4)}
+    .tt h4{font-weight:500;color:var(--a);margin-bottom:10px;font-size:.92rem}
+    .tt-row{display:grid;grid-template-columns:80px 1fr;gap:6px 10px;font-size:.85rem;margin-bottom:6px}
+    .tt-label{font-weight:500;color:var(--t2);font-size:.78rem}
+    .tt-val{line-height:1.6}
+    .tt-branch{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;font-size:.82rem}
+    .tt-ok{background:rgba(0,184,148,.08);border-radius:10px;padding:10px}
+    .tt-fail{background:rgba(225,112,85,.08);border-radius:10px;padding:10px}
+
+    .ok{color:var(--g);font-weight:700}.warn{color:var(--o);font-weight:700}.block{color:var(--r);font-weight:700}
+
+    footer{text-align:center;padding:40px 20px;color:var(--tl);font-size:.84rem}
+    footer .logo{font-size:2rem;margin-bottom:8px}
+
+    @media(max-width:768px){.hero{padding:50px 20px}.hero h1{font-size:2rem}.cd{padding:22px 16px}.ec-row{flex-direction:column}.tt-branch{grid-template-columns:1fr}}
+    @media print{body{background:#fff;padding:0}.cd{box-shadow:none;border:1px solid #eee;page-break-inside:avoid}}
+  </style>
+</head>
+<body>
+<div class="c">
+
+<header class="hero">
+  <span class="bg">TOC 限制理論 × 五棵思考樹 🔗</span>
+  <h1>說到賣得動 — 十步深度實戰系統</h1>
+  <p class="sub">找出你「知道卻做不到」的那個瓶頸，然後用因果邏輯打破它</p>
+  <p class="meta">基於書本試閱 Ch1-6 × 簽書會逐字稿 × 超級大腦讀書法交叉比對｜為 Rex 量身打造</p>
+</header>
+
+<!-- ══════════ STEP 1 ══════════ -->
+<section class="cd">
+  <h2 class="st">📍 Step 1｜系統界定</h2>
+  <div class="hl"><strong>系統名稱：</strong>Rex 的「專業 → 表達 → 變現」商業表達轉化系統</div>
+
+  <div class="sh">系統邊界</div>
+  <table>
+    <tr><td style="width:80px"><strong>輸入</strong></td><td>影像製作專業、保險知識、社群經濟實戰、紫微斗數、NLP溝通技巧、AI工具能力、過往客戶經驗</td></tr>
+    <tr><td><strong>產出</strong></td><td>客戶從「不知道你」→「信任你」→「付費委託」→「轉介他人」的完整旅程</td></tr>
+    <tr><td><strong>組件</strong></td><td>①自我介紹 ②需求探詢 ③提案表達 ④期望值管理 ⑤售後跟進 ⑥社群內容 ⑦一對一溝通</td></tr>
+    <tr><td><strong>目標</strong></td><td>用最少的推銷、最精準的表達，讓對的客戶主動找上門 — 吸引式而非追逐式</td></tr>
+  </table>
+
+  <div class="sh">作者假設 vs Rex 現實的落差</div>
+  <table>
+    <thead><tr><th>作者假設</th><th>Rex 現實</th><th>落差影響</th></tr></thead>
+    <tbody>
+      <tr><td>讀者專注經營一個專業領域</td><td>同時經營影像、保險、社群經濟、紫微斗數四條線</td><td>書的建議需要在「哪條線先落地」上做選擇，而非全面鋪開</td></tr>
+      <tr><td>主要表達場景是同步口語溝通</td><td>大量非同步表達（社群貼文、短影音、提案文件）</td><td>KISS 框架需要額外轉化才能適用文字/影像場景</td></tr>
+      <tr><td>讀者有穩定的客戶會議頻率</td><td>影像案件不定期，保險可能更零散</td><td>練習機會不規律，習慣養成更難</td></tr>
+      <tr><td>讀者尚未接觸過表達方法論</td><td>Rex 已接觸過 NLP、MOT、峰值體驗等多套框架</td><td>不是「認知不足」的問題，是「框架太多未整合」的問題</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════ STEP 2 ══════════ -->
+<section class="cd">
+  <h2 class="st">🌲 Step 2｜現況實境樹（CRT）</h2>
+  <p class="sd">用 If-Then 因果鏈，從10個不良效應追溯到3個根因。</p>
+
+  <div class="sh">不良效應清單（UDE）</div>
+  <table>
+    <thead><tr><th>#</th><th>不良效應</th><th>來源</th></tr></thead>
+    <tbody>
+      <tr><td>UDE1</td><td>向客戶提出影像專業建議，但客戶不買單</td><td>簽書會現場</td></tr>
+      <tr><td>UDE2</td><td>不確定客戶在決策旅程的哪個階段，導致說錯階段的話</td><td>書 Ch5 + 簽書會</td></tr>
+      <tr><td>UDE3</td><td>講得太專業，客戶聽不懂或覺得有「代溝」</td><td>簽書會現場</td></tr>
+      <tr><td>UDE4</td><td>自我介紹停在「我是攝影師」，沒有傳遞獨特價值</td><td>簽書會 ABCDE 練習</td></tr>
+      <tr><td>UDE5</td><td>表達中缺少「感受」成分，內容有料但沒有溫度</td><td>簽書會「資訊/觀點/感受」段落</td></tr>
+      <tr><td>UDE6</td><td>四條事業線各有各的表達方式，沒有統一的核心訊息</td><td>跨對話推斷</td></tr>
+      <tr><td>UDE7</td><td>學了很多框架（NLP、MOT、KISS…），但實戰中回歸直覺</td><td>跨對話推斷</td></tr>
+      <tr><td>UDE8</td><td>溝通前沒有做「Why-What-How」準備就開講</td><td>書 Ch4</td></tr>
+      <tr><td>UDE9</td><td>客戶覺得「不如預期」但事前沒有做期望值定錨</td><td>書 Ch5</td></tr>
+      <tr><td>UDE10</td><td>整體商業變現效率與專業能力不成正比</td><td>系統最終不良效應</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sh">If-Then 因果鏈</div>
+
+  <div class="it">
+    <p><span class="root">🔴 根因 A：開口前缺乏「以終為始」的系統化思考流程</span></p>
+    <p><span class="if">如果</span> 溝通前沒有走 Why-What-How 序列（根因A）</p>
+    <p><span class="then">那麼</span> → 不清楚這次對話的目標是什麼（<strong>UDE8</strong>）</p>
+    <p><span class="then">那麼</span> → 無法判斷客戶在決策旅程的哪個階段（<strong>UDE2</strong>）</p>
+    <p><span class="then">那麼</span> → 在客戶還沒有需求時就講產品優勢，或在需要信任時猛推方案</p>
+    <p><span class="then">那麼</span> → 客戶覺得「講得很專業但跟我無關」（<strong>UDE3</strong>）+ 客戶不買單建議（<strong>UDE1</strong>）</p>
+    <p><span class="then">那麼</span> → 沒有事先做期望值管理，客戶對結果失望（<strong>UDE9</strong>）</p>
+    <p><span class="then">最終</span> → 專業能力無法轉化為商業價值（<strong>UDE10</strong>）</p>
+  </div>
+
+  <div class="it">
+    <p><span class="root">🔴 根因 B：多條事業線缺乏統一的核心定位與 Key Message</span></p>
+    <p><span class="if">如果</span> 四條事業線各自為政，沒有一個統一的「我是誰」敘事（根因B）</p>
+    <p><span class="then">那麼</span> → 自我介紹只能停在「我是攝影師」層級（<strong>UDE4</strong>）</p>
+    <p><span class="then">那麼</span> → 每次換場景都要重新構思表達策略，認知負荷過高</p>
+    <p><span class="then">那麼</span> → 精力分散在多個方向（<strong>UDE6</strong>）</p>
+    <p><span class="then">最終</span> → 沒有一條線的表達深度足以建立話語權（<strong>UDE10</strong>）</p>
+  </div>
+
+  <div class="it">
+    <p><span class="root">🔴 根因 C：框架多但缺乏「即時回饋→強化循環」的落地機制</span></p>
+    <p><span class="if">如果</span> 學了 NLP、MOT、KISS 等多套框架但沒有統一的實踐流程（根因C）</p>
+    <p><span class="then">那麼</span> → 框架留在「知道」層面，實戰中回歸直覺式表達（<strong>UDE7</strong>）</p>
+    <p><span class="then">那麼</span> → 表達中缺少「資訊×觀點×感受」的刻意調配（<strong>UDE5</strong>）</p>
+    <p><span class="then">那麼</span> → 每次對話後沒有復盤，錯誤模式重複發生</p>
+    <p><span class="then">最終</span> → 讀再多書也無法轉化為行為改變（<strong>UDE10</strong>）</p>
+  </div>
+
+  <div class="hl g">
+    <strong>根因驗證</strong>
+    <table>
+      <thead><tr><th>根因</th><th>消除後影響的UDE數</th><th>在Rex控制範圍內？</th><th>書有提供解法？</th><th>槓桿度</th></tr></thead>
+      <tbody>
+        <tr><td>A：缺乏以終為始思考</td><td>6/10（UDE1,2,3,8,9,10）</td><td>✅ 完全可控</td><td>✅ Ch4 Why-What-How</td><td>⭐⭐⭐⭐⭐</td></tr>
+        <tr><td>B：缺乏統一定位</td><td>3/10（UDE4,6,10）</td><td>⚠️ 需要做取捨決策</td><td>⚠️ 部分（ABCDE模組）</td><td>⭐⭐⭐</td></tr>
+        <tr><td>C：框架未落地</td><td>3/10（UDE5,7,10）</td><td>✅ 完全可控</td><td>⚠️ 部分（Try This練習）</td><td>⭐⭐⭐</td></tr>
+      </tbody>
+    </table>
+    <p><strong>結論：根因 A 是當前系統的主要制約。先集中全部資源打破它。</strong></p>
+  </div>
+</section>
+
+<!-- ══════════ STEP 3 ══════════ -->
+<section class="cd">
+  <h2 class="st">☁️ Step 3｜核心衝突雲（EC）</h2>
+
+  <div class="sh">衝突雲 1（書的核心兩難）</div>
+  <div class="ec">
+    <p style="text-align:center;font-weight:700;color:var(--a);margin-bottom:12px">A：讓專業價值被看見、被理解、被買單</p>
+    <div class="ec-row">
+      <div class="ec-box"><strong>B：展現專業深度</strong><br>需要讓客戶知道你的能力、經驗、獨特性</div>
+      <div class="ec-box"><strong>C：建立信任關係</strong><br>需要讓客戶感覺被理解、被尊重、有安全感</div>
+    </div>
+    <div class="ec-row">
+      <div class="ec-box" style="border:2px solid var(--a)"><strong>D：大量輸出專業資訊</strong><br>滔滔不絕介紹背景、產品特色、技術優勢</div>
+      <div class="ec-vs">⚡</div>
+      <div class="ec-box" style="border:2px solid var(--r)"><strong>D'：專注聆聽和提問</strong><br>把時間給對方，先理解需求再回應</div>
+    </div>
+    <p><strong>錯誤假設 α：</strong>「專業度必須靠大量資訊來證明」→ 錯！一句精準的 Key Message 勝過一小時的背景介紹。</p>
+    <p><strong>錯誤假設 β：</strong>「聆聽 = 被動 = 浪費30分鐘會議時間」→ 錯！聆聽是最高效的情報蒐集。</p>
+    <p><strong>錯誤假設 γ：</strong>「D 和 D' 是時間的零和博弈」→ 錯！用 Why-What-How 可以用 20% 的時間表達 80% 的關鍵資訊，剩下的時間用來聆聽。</p>
+  </div>
+
+  <div class="sh">衝突雲 2（Rex 的個人兩難）</div>
+  <div class="ec">
+    <p style="text-align:center;font-weight:700;color:var(--a);margin-bottom:12px">A：建立個人品牌影響力</p>
+    <div class="ec-row">
+      <div class="ec-box"><strong>B：探索多元機會</strong><br>同時發展影像/保險/社群/紫微，保持選項開放</div>
+      <div class="ec-box"><strong>C：深耕單一領域</strong><br>在一個方向上建立不可替代的話語權</div>
+    </div>
+    <div class="ec-row">
+      <div class="ec-box" style="border:2px solid var(--a)"><strong>D：四線並行</strong><br>每條線都投入一些精力，分散風險</div>
+      <div class="ec-vs">⚡</div>
+      <div class="ec-box" style="border:2px solid var(--r)"><strong>D'：聚焦一線</strong><br>砍掉其他線，全力押注一個方向</div>
+    </div>
+    <p><strong>錯誤假設 δ：</strong>「聚焦 = 放棄其他線」→ 不一定！可以設定一條「主線」和多條「支線」，支線不需要砍掉，只需要降低表達投入的優先級。</p>
+    <p><strong>錯誤假設 ε：</strong>「四條線沒有共通點」→ 錯！Rex 的所有線都圍繞「幫助專業人士/企業展現價值」，可以抽出一個統一的上層 Key Message。</p>
+    <p><strong>書的突破注入：</strong>不是「聚焦一線」，而是「統一核心定位 + 在主線上練熟表達系統 + 複製到其他線」。</p>
+  </div>
+</section>
+
+<!-- ══════════ STEP 4 ══════════ -->
+<section class="cd">
+  <h2 class="st">💉 Step 4｜注入解萃取</h2>
+  <p class="sd">從書 + 簽書會中萃取 7 個注入解，按類型分類並評估槓桿度。</p>
+
+  <table>
+    <thead><tr><th>#</th><th>注入解</th><th>類型</th><th>打破假設</th><th>前提條件</th><th>邊界/失效情境</th><th>槓桿度</th></tr></thead>
+    <tbody>
+      <tr><td>I1</td><td><strong>Why→What→How 思考序列</strong><br>每次重要溝通前先走三步</td><td><span class="tg g">認知</span></td><td>α γ</td><td>願意慢下來</td><td>完全即興場合（酒會、偶遇）</td><td>⭐⭐⭐⭐⭐</td></tr>
+      <tr><td>I2</td><td><strong>KISS 四維檢核</strong><br>Key Message + Information + Structure + Skill</td><td><span class="tg o">行為</span></td><td>α γ</td><td>已理解 I1</td><td>陌生產業需額外調研 I 成分</td><td>⭐⭐⭐⭐</td></tr>
+      <tr><td>I3</td><td><strong>消費決策旅程 5 階段定位</strong><br>先判斷客戶在哪，再說該說的話</td><td><span class="tg o">行為</span></td><td>β</td><td>需要有提問能力</td><td>一次性短暫接觸無法完整判斷</td><td>⭐⭐⭐⭐</td></tr>
+      <tr><td>I4</td><td><strong>ABCDE 自我介紹模組</strong><br>角色→能力→客群→問題→邀請</td><td><span class="tg o">行為</span></td><td>α</td><td>需要先完成角色定位</td><td>非商業場合不適用</td><td>⭐⭐⭐⭐</td></tr>
+      <tr><td>I5</td><td><strong>資訊×觀點×感受 三成分調配</strong><br>根據對方狀態動態調整比例</td><td><span class="tg r">結構</span></td><td>α</td><td>能區分三者</td><td>初期刻意感強，需大量練習</td><td>⭐⭐⭐</td></tr>
+      <tr><td>I6</td><td><strong>期望值管理</strong><br>溝通開始前幫客戶定錨合理預期</td><td><span class="tg p">關係</span></td><td>γ</td><td>需要心理安全感去「說實話」</td><td>客戶已有強烈固定預期時較難</td><td>⭐⭐⭐</td></tr>
+      <tr><td>I7</td><td><strong>四種反應診斷法</strong><br>即時判斷表達問題出在 K/I/S/S 哪一層</td><td><span class="tg g">認知</span></td><td>—</td><td>已理解 KISS</td><td>對方刻意隱藏反應時無效</td><td>⭐⭐⭐</td></tr>
+    </tbody>
+  </table>
+
+  <div class="hl">
+    <strong>注入間的依賴關係：</strong>
+    <div class="chain"><span class="cn">I1 Why-What-How</span><span class="ca">→</span><span class="cn">I2 KISS</span><span class="ca">→</span><span class="cn">I7 反應診斷</span></div>
+    <div class="chain"><span class="cn">I1</span><span class="ca">→</span><span class="cn">I3 決策旅程</span><span class="ca">→</span><span class="cn">I5 三成分調配</span></div>
+    <div class="chain"><span class="cn">I4 ABCDE</span><span class="ca">←</span><span class="cn">需要先有角色定位</span></div>
+    <div class="chain"><span class="cn">I6 期望值管理</span><span class="ca">←</span><span class="cn">I1 + I3 為前提</span></div>
+    <p style="margin-top:10px"><strong>I1 是所有注入的根基。不打通 I1，後面的注入都無法生效。</strong></p>
+  </div>
+</section>
+
+<!-- ══════════ STEP 5 ══════════ -->
+<section class="cd">
+  <h2 class="st">🌳 Step 5｜未來實境樹（FRT）</h2>
+
+  <div class="it">
+    <p><span class="if">如果</span> Rex 在每次重要溝通前花 3 分鐘走 Why-What-How（I1）</p>
+    <p><span class="if">加上</span> 用 KISS 快速檢核 Key Message 是否到位（I2）</p>
+    <p><span class="then">那麼</span> → 每次表達都有明確目標和核心訊息（消除 UDE8）</p>
+    <p><span class="then">那麼</span> → 減少無效輸出，對話效率提升 50%+</p>
+  </div>
+  <div class="it">
+    <p><span class="if">如果</span> 對話效率提升 <span class="if">加上</span> 判斷客戶在決策旅程的哪個階段（I3）</p>
+    <p><span class="then">那麼</span> → 說「這個階段該說的話」，不再一上來就講產品優勢（消除 UDE2）</p>
+    <p><span class="then">那麼</span> → 客戶感覺「你懂我」而非「你在推銷我」（消除 UDE1、UDE3）</p>
+  </div>
+  <div class="it">
+    <p><span class="if">如果</span> 客戶感覺被理解 <span class="if">加上</span> 有做期望值管理（I6）</p>
+    <p><span class="then">那麼</span> → 客戶的預期和交付品質對齊（消除 UDE9）</p>
+    <p><span class="then">那麼</span> → 客訴率下降、口碑和轉介率上升</p>
+    <p><span class="then">最終</span> → 專業能力開始穩定轉化為商業價值（消除 UDE10）</p>
+  </div>
+
+  <div class="sh">⚠️ 負面分支檢查</div>
+  <table>
+    <thead><tr><th>注入</th><th>可能副作用</th><th>預防措施</th></tr></thead>
+    <tbody>
+      <tr><td>I1 Why-What-How</td><td>過度思考導致「分析癱瘓」，在需要快速反應時卡住</td><td>設定「重要溝通」和「日常對話」的區分標準。只有涉及商業目標的溝通才啟動完整序列，日常閒聊不啟動。</td></tr>
+      <tr><td>I3 決策旅程定位</td><td>過度「分析」客戶而忽略「連結」，讓對方覺得被研究</td><td>提問要自然融入對話（「你們目前在這方面有什麼嘗試？」），不要像問卷調查。</td></tr>
+      <tr><td>I5 三成分調配</td><td>初期刻意加入「感受」會不自然，反而降低可信度</td><td>從最真實的感受開始（不要編造），一次只加一句，逐步增加比例。</td></tr>
+      <tr><td>全部注入</td><td>同時練 7 個注入 = 同時改 7 個習慣 = 一個都改不成</td><td><strong>TOC 紀律：一次只聚焦 1 個注入。從 I1 開始，練到自動化再加 I2。</strong></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════════ STEP 6 ══════════ -->
+<section class="cd">
+  <h2 class="st">🎯 Step 6｜Rex 的瓶頸深度定位</h2>
+
+  <div class="sh">五型瓶頸逐一診斷</div>
+
+  <div class="bk">
+    <h3>類型 A — 認知瓶頸（不相信）</h3>
+    <p><strong>診斷問題：</strong>書的哪個主張讓你本能想反駁？</p>
+    <p><strong>診斷結果：</strong><span class="ok">✅ 不卡。</span> Rex 的理解力和接受度很高，不會因為「這是雞湯」就排斥。他在簽書會上對 KISS 框架、ABCDE 模組都展現了積極態度。唯一微弱的抗拒可能在「反話術」立場上——Rex 可能仍期待一些「具體句型」作為起步。但這不構成主要瓶頸。</p>
+  </div>
+
+  <div class="bk">
+    <h3>類型 B — 技能瓶頸（不會做）</h3>
+    <p><strong>診斷問題：</strong>書假設你已經會什麼，但你其實不會？</p>
+    <p><strong>診斷結果：</strong><span class="warn">⚠️ 中度。</span>兩個具體技能缺口：①「判斷客戶在決策旅程哪個階段」需要通過提問來探測，但提問技巧需要練習。②「區分資訊/觀點/感受」是一個需要刻意練習才能自動化的能力。但這些都可以通過實戰累積，不是根本性障礙。</p>
+  </div>
+
+  <div class="bk">
+    <h3>類型 C — 環境瓶頸（沒條件）</h3>
+    <p><strong>診斷問題：</strong>書假設你有什麼資源，但你其實沒有？</p>
+    <p><strong>診斷結果：</strong><span class="warn">⚠️ 中度。</span>書假設讀者有穩定的客戶會議頻率作為練習場景。Rex 的影像案件頻率不規律，可能一個月有密集提案，下個月很少。這意味著練習機會不穩定，習慣養成曲線更長。<strong>對策：</strong>把「社群貼文」也當作練習場景——每篇貼文都是一次 KISS 練習，頻率可控。</p>
+  </div>
+
+  <div class="bk">
+    <h3>類型 D — 慣性瓶頸（舊習太強）🔴 主瓶頸</h3>
+    <p><strong>診斷問題：</strong>舊模式給你什麼即時滿足？新模式要多久才見效？</p>
+    <p><strong>診斷結果：</strong><span class="block">🔴 嚴重。</span></p>
+    <div class="hl r">
+      <p><strong>舊模式的即時回饋：</strong>直覺式表達（到了就開講、想到什麼講什麼）→ 即時滿足：「我講完了，任務完成」的控制感 + 不需要花精力做準備的輕鬆感 + 遇到不同場景可以快速切換的靈活感。</p>
+      <p><strong>新模式的延遲回饋：</strong>系統化表達（Why-What-How → KISS → 復盤）→ 回饋延遲 3-7 天：客戶回覆、成交率變化、社群互動數據。而且初期因為「不熟練」，表達反而可能比直覺模式更卡頓。</p>
+      <p><strong>這就是慣性瓶頸的本質：</strong>舊模式「60分的即時回饋」 vs 新模式「85分但要等一週才看到」。人腦天然選擇即時回饋。</p>
+      <p><strong>加上多線經營的放大效應：</strong>你在影像線剛練了兩天的 KISS，就要切到保險線的溝通場景——大腦瞬間回到熟悉的舊模式。多線切換是慣性瓶頸的放大器。</p>
+    </div>
+  </div>
+
+  <div class="bk">
+    <h3>類型 E — 恐懼瓶頸（怕後果）</h3>
+    <p><strong>診斷問題：</strong>如果你真的改變表達方式，你害怕失去什麼？</p>
+    <p><strong>診斷結果：</strong><span class="warn">⚠️ 潛在。</span>可能存在一個隱性恐懼：「如果我用系統化的方式表達，會不會失去自己的自然和真實？」小竺在簽書會上說「你現在的表達是過往人生的總和」——這意味著改變表達就是改變「你是誰」的一部分。Rex 可能在意識層面接受這個改變，但在潛意識層面有抵觸。<strong>對策：</strong>框架是「60分的保底」，不是「取代你的個性」。用框架的骨架，填入你自己的血肉。</p>
+  </div>
+
+  <div class="mq">
+    Rex 的瓶頸結構：<br>
+    🔴 主瓶頸 = 慣性（舊的直覺式表達太順手）<br>
+    ⚠️ 次瓶頸 = 技能（判斷決策階段 + 三成分調配）<br>
+    ⚠️ 環境 = 練習場景不規律 → 用社群貼文補充<br>
+    ⚠️ 恐懼 = 潛在的「失去自然感」→ 框架是骨架不是牢籠
+  </div>
+</section>
+
+<!-- ══════════ STEP 7 ══════════ -->
+<section class="cd">
+  <h2 class="st">🧱 Step 7｜障礙拆解（前提樹 PrT）</h2>
+
+  <div class="hl"><strong>🎯 目標：</strong>讓「重要溝通前走 Why-What-How + KISS 檢核」成為不需要提醒的自動行為（≈ 30 天內）</div>
+
+  <div class="bk">
+    <h3>🧱 障礙 1（慣性）：沒有「暫停」觸發器，到了就直接開講</h3>
+    <p><strong>來源：</strong>系統障礙 + 心理障礙</p>
+    <p><strong>🏁 中間目標：</strong>在「重要溝通」和「開口」之間插入一個物理觸發點</p>
+    <p><strong>行動：</strong>① 定義「重要溝通」（涉及商業目標的對話，包括客戶會議、提案、有目的的社交）② 手機日曆設定「溝通前 15 分鐘」提醒，內容只有一行：「Why？」③ 在皮夾/手機殼裡放一張口袋卡</p>
+  </div>
+
+  <div class="bk">
+    <h3>🧱 障礙 2（資源）：檢核流程太長，實戰來不及</h3>
+    <p><strong>來源：</strong>知識障礙</p>
+    <p><strong>🏁 中間目標：</strong>把 7 個注入壓縮成 5 個問題的「口袋卡」</p>
+    <p><strong>行動：</strong>製作一張名片大小的卡（或手機備忘錄置頂），正面 5 問：❶ 我期待什麼結果？（Why）❷ 對方在決策旅程哪裡？❸ 我的 Key Message 一句話？❹ 資訊/觀點/感受比例？❺ 我希望對方下一步做什麼？（CTA）</p>
+  </div>
+
+  <div class="bk">
+    <h3>🧱 障礙 3（慣性×環境）：多線切換讓新習慣無法固化</h3>
+    <p><strong>來源：</strong>系統障礙</p>
+    <p><strong>🏁 中間目標：</strong>選定一條主線，30 天內只在這條線上練習新模式</p>
+    <p><strong>行動：</strong>選擇「叡思影像提案」作為主練習場景（理由：頻率可預期、客單價最高、ROI 最明顯）。其他線暫時繼續用舊模式——不是放棄，是「先做好一條再複製」。</p>
+  </div>
+
+  <div class="bk">
+    <h3>🧱 障礙 4（慣性）：新模式缺乏即時回饋，大腦選擇舊模式</h3>
+    <p><strong>來源：</strong>心理障礙</p>
+    <p><strong>🏁 中間目標：</strong>為新模式設計「人工即時回饋」</p>
+    <p><strong>行動：</strong>每次溝通後花 2 分鐘做「事後復盤 3 問」並記錄在備忘錄：① 我的 Why 達成了嗎？② 對方反應屬於四種的哪一種？③ 下次我調整什麼？——這個復盤本身就是即時的成就感。</p>
+  </div>
+
+  <div class="bk">
+    <h3>🧱 障礙 5（恐懼）：「用框架會不會不自然？」的潛在抵觸</h3>
+    <p><strong>來源：</strong>心理障礙</p>
+    <p><strong>🏁 中間目標：</strong>完成一次「安全實驗」——在低風險場景試用框架，體驗到「自然感沒有消失」</p>
+    <p><strong>行動：</strong>先在社群貼文（非同步、可修改、低風險）上試用 KISS 檢核。成功一次後再推進到客戶溝通。</p>
+  </div>
+
+  <div class="hl g">
+    <strong>執行順序：</strong>障礙 3（選定主線）→ 障礙 2（製作口袋卡）→ 障礙 5（社群安全實驗）→ 障礙 1（設定觸發器）→ 障礙 4（建立復盤機制）→ 🎯 目標
+  </div>
+</section>
+
+<!-- ══════════ STEP 8 ══════════ -->
+<section class="cd">
+  <h2 class="st">🪜 Step 8｜轉變樹（TT）— 四週行動計畫</h2>
+  <p class="sd">每個行動都包含四元素：現狀 → 行動 → 預期效果 → 驗證指標，加上成功/失敗的分支。</p>
+
+  <div class="sh">📅 第一週：地基 — 建立觸發與工具</div>
+
+  <div class="tt">
+    <h4>行動 1：選定主練習線 + 製作口袋卡</h4>
+    <div class="tt-row"><span class="tt-label">現狀</span><span class="tt-val">四條事業線各自為政，沒有統一的練習場景</span></div>
+    <div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">① 決定以「叡思影像提案」為主練習線 ② 製作口袋卡（5 問），存入手機備忘錄置頂 + 實體卡放皮夾（15分鐘完成）</span></div>
+    <div class="tt-row"><span class="tt-label">預期效果</span><span class="tt-val">有了明確的「練習場」和隨身工具，降低每次「啟動新模式」的認知負荷</span></div>
+    <div class="tt-row"><span class="tt-label">驗證指標</span><span class="tt-val">口袋卡是否已存在手機+皮夾？主線是否確認？</span></div>
+    <div class="tt-branch">
+      <div class="tt-ok"><strong>✅ 成功：</strong>進入行動 2</div>
+      <div class="tt-fail"><strong>❌ 失敗/卡住：</strong>如果無法選定一條線 → 先不選，直接拿「下一次任何客戶溝通」當練習場</div>
+    </div>
+  </div>
+
+  <div class="tt">
+    <h4>行動 2：用 ABCDE 重寫自我介紹</h4>
+    <div class="tt-row"><span class="tt-label">現狀</span><span class="tt-val">自我介紹停在「我是 Rex，攝影師，拍過總統和跨國企業」</span></div>
+    <div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">用 ABCDE 模組重寫 30 秒版自介，寫完後錄音播放一次（20分鐘完成）</span></div>
+    <div class="tt-row"><span class="tt-label">預期效果</span><span class="tt-val">從「我是什麼」升級到「我能為你解決什麼」，並埋下商業邀請種子</span></div>
+    <div class="tt-row"><span class="tt-label">驗證指標</span><span class="tt-val">是否有一段30秒可講完的 ABCDE 文字？聽自己的錄音時是否覺得「比之前清楚」？</span></div>
+    <div class="tt-branch">
+      <div class="tt-ok"><strong>✅ 成功：</strong>進入行動 3</div>
+      <div class="tt-fail"><strong>❌ 卡住：</strong>如果寫不出 D（關鍵問題）→ 回想最近三個客戶來找你的原因，那就是 D</div>
+    </div>
+  </div>
+
+  <div class="tt">
+    <h4>行動 3：在社群貼文上做第一次 KISS 安全實驗</h4>
+    <div class="tt-row"><span class="tt-label">現狀</span><span class="tt-val">社群貼文是想到什麼寫什麼，沒有用框架</span></div>
+    <div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">本週發一篇貼文前，先用口袋卡跑一遍 5 個問題。寫完後檢查：有沒有一個明確的 Key Message？有沒有同時包含資訊+觀點+感受？</span></div>
+    <div class="tt-row"><span class="tt-label">預期效果</span><span class="tt-val">體驗到「用框架不會失去自然感」的安全感 + 貼文的互動數據可能有變化</span></div>
+    <div class="tt-row"><span class="tt-label">驗證指標</span><span class="tt-val">貼文是否發出？互動數據和往常相比有無變化（不求提升，只求觀察）？</span></div>
+    <div class="tt-branch">
+      <div class="tt-ok"><strong>✅ 成功：</strong>第一週目標達成。恐懼瓶頸初步鬆動。</div>
+      <div class="tt-fail"><strong>❌ 卡住：</strong>如果覺得「太刻意」→ 只保留第一問「Why」，其他先不管。降低門檻。</div>
+    </div>
+  </div>
+
+  <div class="hl"><strong>📋 第一週驗證：</strong>口袋卡存在✓ + ABCDE 自介寫好✓ + 社群貼文安全實驗完成✓ → 全部完成才進入第二週。如果只完成 2/3，第二週繼續完成剩下的。</div>
+
+  <div class="sh">📅 第二週：實戰 — 在影像提案中落地</div>
+
+  <div class="tt">
+    <h4>行動 4：提案前走完口袋卡 5 問</h4>
+    <div class="tt-row"><span class="tt-label">現狀</span><span class="tt-val">提案前通常直接準備作品集和報價，沒有做「Why」思考</span></div>
+    <div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">在下一次影像提案前 15 分鐘，拿出口袋卡，寫下 5 個問題的答案（特別是 ❷ 客戶在決策旅程哪裡 和 ❸ 我的 Key Message）</span></div>
+    <div class="tt-row"><span class="tt-label">預期效果</span><span class="tt-val">提案時有明確目標，不會「到了就開始秀作品集」，而是先了解客戶需求再對接</span></div>
+    <div class="tt-row"><span class="tt-label">驗證指標</span><span class="tt-val">提案前是否寫了口袋卡的答案？提案過程中是否有至少一次「先問再說」？</span></div>
+    <div class="tt-branch">
+      <div class="tt-ok"><strong>✅ 成功：</strong>進入行動 5</div>
+      <div class="tt-fail"><strong>❌ 忘了/來不及：</strong>會議結束後立刻做復盤 3 問（行動 5），把這次當「對照組」</div>
+    </div>
+  </div>
+
+  <div class="tt">
+    <h4>行動 5：事後復盤 3 問（每次溝通後 2 分鐘）</h4>
+    <div class="tt-row"><span class="tt-label">現狀</span><span class="tt-val">溝通結束後沒有復盤，同樣的錯誤模式重複發生</span></div>
+    <div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">每次重要溝通後打開備忘錄，寫三行：① 我的 Why 達成了嗎？② 對方反應 = 沒反應 / 蛤 / 所以咧 / 認同不行動？③ 下次調整什麼？</span></div>
+    <div class="tt-row"><span class="tt-label">預期效果</span><span class="tt-val">建立「即時回饋」替代物，讓大腦對新模式產生正向連結</span></div>
+    <div class="tt-row"><span class="tt-label">驗證指標</span><span class="tt-val">本週是否累積了 ≥ 2 份復盤筆記？</span></div>
+    <div class="tt-branch">
+      <div class="tt-ok"><strong>✅ 成功：</strong>慣性瓶頸開始鬆動。進入第三週。</div>
+      <div class="tt-fail"><strong>❌ 本週沒有客戶溝通：</strong>用社群貼文的讀者回應做復盤（同樣的 3 個問題）</div>
+    </div>
+  </div>
+
+  <div class="sh">📅 第三週：進階 — 三成分調配 + 期望值管理</div>
+
+  <div class="tt">
+    <h4>行動 6：刻意加入「感受」成分</h4>
+    <div class="tt-row"><span class="tt-label">現狀</span><span class="tt-val">表達以資訊和觀點為主，很少加入「我的感受」（簽書會中確認的 UDE5）</span></div>
+    <div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">在本週一次提案中，刻意加入一句真實感受：「說實話，看到你們品牌的潛力還沒被影像好好呈現，我覺得有點可惜。」觀察對方反應。</span></div>
+    <div class="tt-row"><span class="tt-label">預期效果</span><span class="tt-val">對方的反應從「專業但冷」變成「有溫度，想繼續聊」</span></div>
+    <div class="tt-row"><span class="tt-label">驗證指標</span><span class="tt-val">加入感受後，用四種反應診斷法觀察變化</span></div>
+    <div class="tt-branch">
+      <div class="tt-ok"><strong>✅ 成功：</strong>技能瓶頸開始鬆動。</div>
+      <div class="tt-fail"><strong>❌ 覺得不自然：</strong>降級——先在社群貼文中加入感受成分，不在面對面場景嘗試</div>
+    </div>
+  </div>
+
+  <div class="tt">
+    <h4>行動 7：在一次溝通中實踐期望值管理</h4>
+    <div class="tt-row"><span class="tt-label">現狀</span><span class="tt-val">客戶對影片成品的期待常常和實際交付有落差</span></div>
+    <div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">在下一次簽約前溝通中，主動說：「影片製作通常需要 X 週，中間會有兩次對稿確認。有些客戶期待一次定稿，但我經驗是兩次確認能確保品質。」</span></div>
+    <div class="tt-row"><span class="tt-label">預期效果</span><span class="tt-val">客戶預期被定錨在合理範圍，後續「不如預期」的可能性降低</span></div>
+    <div class="tt-row"><span class="tt-label">驗證指標</span><span class="tt-val">是否主動做了期望值定錨？客戶的反應是「哦，好的」（正向）還是沉默/皺眉（需調整）？</span></div>
+  </div>
+
+  <div class="sh">📅 第四週：系統化 — 從行動變成系統</div>
+
+  <div class="tt">
+    <h4>行動 8：整理個人版「表達 SOP」</h4>
+    <div class="tt-row"><span class="tt-label">現狀</span><span class="tt-val">前三週累積了復盤筆記和實戰經驗，但沒有整理成自己的流程</span></div>
+    <div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">回顧所有復盤筆記，提取你自己版本的「提案前準備流程」——不是書的版本，是你用起來最順手的版本。寫成一頁 A4 貼在工作桌前。</span></div>
+    <div class="tt-row"><span class="tt-label">預期效果</span><span class="tt-val">從「照著口袋卡做」升級到「這是我自己的系統」——內化完成</span></div>
+    <div class="tt-row"><span class="tt-label">驗證指標</span><span class="tt-val">是否產出了一份「Rex 版表達 SOP」？下一次溝通不看口袋卡也能自動走流程？</span></div>
+  </div>
+
+  <div class="tt">
+    <h4>行動 9：設計叡思影像消費決策旅程表</h4>
+    <div class="tt-row"><span class="tt-label">現狀</span><span class="tt-val">每次遇到不同階段的客戶，都要重新思考「該說什麼」</span></div>
+    <div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">畫一張表：5 個決策階段 × 每階段的溝通重點 × 具體的話術/行為。做一次，用很久。</span></div>
+    <div class="tt-row"><span class="tt-label">預期效果</span><span class="tt-val">未來遇到任何客戶，先判斷階段 → 對照表格 → 直接執行。決策速度提升 3 倍。</span></div>
+    <div class="tt-row"><span class="tt-label">驗證指標</span><span class="tt-val">表格是否完成？在下一次客戶接觸時是否有參照使用？</span></div>
+  </div>
+
+  <div class="mq">📋 最終驗證（第四週末）：<br>「重要溝通前自動走 Why-What-How」是否已成為不需要提醒的行為？<br>用數據回答：四週內的客戶回覆率/成交率/互動數據，和四週前相比是否有正向變化？</div>
+</section>
+
+<!-- ══════════ STEP 9 ══════════ -->
+<section class="cd">
+  <h2 class="st">📊 Step 9｜吞吐量審計</h2>
+
+  <table>
+    <thead><tr><th>行動</th><th>T 貢獻度<br>（對變現的直接影響）</th><th>I 前期投入</th><th>OE 持續成本</th><th>是否為<br>其他行動前提</th><th>T/(I+OE)<br>淨ROI</th><th>優先序</th></tr></thead>
+    <tbody>
+      <tr><td>1. 選定主線+口袋卡</td><td>間接高（啟動全部流程）</td><td>15分鐘</td><td>0</td><td><strong>是（全部前提）</strong></td><td>⭐⭐⭐⭐⭐</td><td><strong>🥇</strong></td></tr>
+      <tr><td>2. ABCDE自介</td><td>高（每次社交都用）</td><td>20分鐘</td><td>0（做一次用永久）</td><td>否</td><td>⭐⭐⭐⭐⭐</td><td><strong>🥈</strong></td></tr>
+      <tr><td>5. 復盤3問</td><td>高（建立回饋循環）</td><td>0</td><td>每次2分鐘</td><td>是（行動8的輸入）</td><td>⭐⭐⭐⭐</td><td><strong>🥉</strong></td></tr>
+      <tr><td>4. 提案前口袋卡</td><td>高（直接影響提案品質）</td><td>每次3分鐘</td><td>每次3分鐘</td><td>否</td><td>⭐⭐⭐⭐</td><td>4</td></tr>
+      <tr><td>9. 消費決策旅程表</td><td>高（長期複利）</td><td>1-2小時</td><td>0</td><td>否</td><td>⭐⭐⭐</td><td>5</td></tr>
+      <tr><td>6. 感受成分加入</td><td>中</td><td>0</td><td>每次思考成本</td><td>否</td><td>⭐⭐⭐</td><td>6</td></tr>
+      <tr><td>8. 個人版表達SOP</td><td>高（內化標誌）</td><td>1小時</td><td>0</td><td>需要前三週復盤累積</td><td>⭐⭐⭐</td><td>7</td></tr>
+      <tr><td>7. 期望值管理</td><td>中（防守型）</td><td>0</td><td>每次思考成本</td><td>否</td><td>⭐⭐</td><td>8</td></tr>
+      <tr><td>3. 社群安全實驗</td><td>低（主要是心理建設）</td><td>正常發文時間</td><td>0</td><td>是（恐懼瓶頸前提）</td><td>⭐⭐</td><td>9</td></tr>
+    </tbody>
+  </table>
+
+  <div class="hl g">
+    <strong>TOC 決策規則應用：</strong>
+    <p>行動 1（口袋卡）是所有其他行動的前提 → 即使 ROI 只算「間接」，也必須排第一。</p>
+    <p>行動 2（ABCDE）和行動 5（復盤3問）的 ROI 最高且幾乎零成本 → 第一週就做。</p>
+    <p><strong>永遠只聚焦在瓶頸上：</strong>前兩週的所有行動都指向打破「慣性瓶頸」（建立觸發→累積回饋→強化新模式）。第三週才開始處理「技能瓶頸」（三成分調配、期望值管理）。不要同時做。</p>
+  </div>
+</section>
+
+<!-- ══════════ STEP 10 ══════════ -->
+<section class="cd">
+  <h2 class="st">🔄 Step 10｜持續改善循環（POOGI）</h2>
+
+  <div class="sh">TOC 五聚焦步驟</div>
+  <div class="bk">
+    <h3>1. 識別當前瓶頸</h3>
+    <p>慣性瓶頸 — 開口前沒有系統化思考流程，回歸直覺式表達。</p>
+  </div>
+  <div class="bk">
+    <h3>2. 利用瓶頸</h3>
+    <p>最大化利用現有的「直覺式表達能力」：直覺不是敵人，它是你 20 年累積的經驗值。用 KISS 框架<strong>引導</strong>直覺而非<strong>取代</strong>它 — 先想 Why（3秒），然後讓直覺帶著框架跑。</p>
+  </div>
+  <div class="bk">
+    <h3>3. 遷就瓶頸</h3>
+    <p>讓所有非瓶頸環節配合：暫時不要同時改善「聲音技巧」「肢體語言」「PPT設計」等非瓶頸環節。全部精力放在「建立溝通前思考的自動化」上。</p>
+  </div>
+  <div class="bk">
+    <h3>4. 提升瓶頸</h3>
+    <p>用四週計畫打破慣性：物理觸發器 → 口袋卡 → 復盤機制 → 個人SOP → 自動化。</p>
+  </div>
+  <div class="bk">
+    <h3>5. 回到第一步 — 瓶頸是否已遷移？</h3>
+    <p>四週後重新做一次瓶頸診斷。預測的遷移路徑如下：</p>
+  </div>
+
+  <div class="sh">瓶頸遷移地圖</div>
+  <div class="chain">
+    <span class="cn rd">瓶頸1 慣性<br>開口前不思考</span>
+    <span class="ca">→</span>
+    <span class="cn rd">瓶頸2 技能<br>不會判斷客戶階段<br>不會調配三成分</span>
+    <span class="ca">→</span>
+    <span class="cn rd">瓶頸3 環境<br>多線缺乏統一定位<br>練習場景不規律</span>
+    <span class="ca">→</span>
+    <span class="cn rd">瓶頸4 聚焦<br>四條線要不要收斂？<br>（超出本書範疇）</span>
+    <span class="ca">→</span>
+    <span class="cn gn">🎯 系統升級</span>
+  </div>
+
+  <div class="sh">每個瓶頸對應的資源</div>
+  <table>
+    <thead><tr><th>瓶頸</th><th>對應資源</th><th>預計遷移時間</th></tr></thead>
+    <tbody>
+      <tr><td><strong>瓶頸1：慣性</strong></td><td>本書觀念篇 Ch3-5 + 本 TOC 四週計畫</td><td>第 1-4 週</td></tr>
+      <tr><td><strong>瓶頸2：技能</strong></td><td>本書實戰篇（提問模組、需求洞察工具）+ 《峰值體驗》MOT</td><td>第 5-8 週</td></tr>
+      <tr><td><strong>瓶頸3：環境</strong></td><td>本書 ABCDE 模組 + 跨線統一定位工作坊（自我設計或找教練）</td><td>第 9-12 週</td></tr>
+      <tr><td><strong>瓶頸4：聚焦</strong></td><td>超出本書範疇 → 《一個人的獲利模式》/ Dan Koe 框架 / 策略導師對話</td><td>第 13 週+</td></tr>
+    </tbody>
+  </table>
+
+  <div class="hl">
+    <strong>瓶頸遷移日誌模板（建議每月記錄一次）：</strong>
+    <table>
+      <thead><tr><th>日期</th><th>舊瓶頸</th><th>是否打破？證據</th><th>新瓶頸</th><th>下一步行動</th></tr></thead>
+      <tbody>
+        <tr><td>Week 4</td><td>慣性（開口前不思考）</td><td>是/否？溝通前是否自動走5問？</td><td>？</td><td>重做 Step 6 診斷</td></tr>
+        <tr><td>Week 8</td><td>？</td><td>？</td><td>？</td><td>？</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ══════════ CHECKLIST ══════════ -->
+<section class="cd">
+  <h2 class="st">✅ TOC 十步完成度檢查清單</h2>
+  <table>
+    <thead><tr><th>Step</th><th>名稱</th><th>核心產出</th><th>完成？</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>系統界定</td><td>系統邊界 + 作者假設 vs 讀者現實的落差表</td><td>✅</td></tr>
+      <tr><td>2</td><td>CRT 現況實境樹</td><td>10 個 UDE + 3 條 If-Then 因果鏈 + 3 個根因 + 驗證表</td><td>✅</td></tr>
+      <tr><td>3</td><td>EC 核心衝突雲</td><td>2 朵衝突雲（書的 + Rex 個人）+ 5 個錯誤假設</td><td>✅</td></tr>
+      <tr><td>4</td><td>注入解萃取</td><td>7 個注入（分類 + 機制 + 前提 + 邊界 + 依賴關係圖）</td><td>✅</td></tr>
+      <tr><td>5</td><td>FRT 未來實境樹</td><td>3 條正向因果鏈 + 4 個負面分支檢查</td><td>✅</td></tr>
+      <tr><td>6</td><td>瓶頸定位</td><td>5 型逐一診斷 + 主瓶頸確認（慣性）+ 次瓶頸排序</td><td>✅</td></tr>
+      <tr><td>7</td><td>PrT 障礙拆解</td><td>5 個障礙 → 5 個中間目標 → 執行順序</td><td>✅</td></tr>
+      <tr><td>8</td><td>TT 轉變樹</td><td>9 個行動（四元素格式）+ 四週時間框架 + 成功/失敗分支</td><td>✅</td></tr>
+      <tr><td>9</td><td>吞吐量審計</td><td>9 個行動的 T/I/OE 評估 + ROI 排序 + 決策規則</td><td>✅</td></tr>
+      <tr><td>10</td><td>POOGI 持續改善</td><td>五聚焦步驟 + 瓶頸遷移地圖 + 遷移日誌模板</td><td>✅</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">🔗</div>
+  <p>TOC 限制理論 × 五棵思考樹 — 十步深度實戰系統</p>
+  <p style="margin-top:6px;">《說到賣得動》小竺 著｜書本試閱 + 簽書會逐字稿雙源分析</p>
+  <p style="margin-top:4px;font-size:.78rem;">分析日期：2026-03-08｜為 Rex（叡思影像）量身打造</p>
+  <p style="margin-top:10px;font-size:.82rem;font-style:italic;">「讀書的目的不是知道更多，而是打破你卡住的那個點。」</p>
+</footer>
+
+</div>
+</body>
+</html>
