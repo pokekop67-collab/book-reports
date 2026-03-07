@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🔧 深刻認識一個人｜五大實用工具</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--gs:#E8F4FD;--gm:#FFF0F5;--ge:#F5F0FF;--tp:#2D3436;--ts:#636E72;--tl:#B2BEC3;--a:#667eea;--ap:#f093fb;--ag:#4ECDC4;--ar:#FF6B6B;--ao:#F7B731;}
+    *{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Noto Sans TC',-apple-system,sans-serif;font-weight:300;line-height:1.85;color:var(--tp);background:linear-gradient(135deg,var(--gs) 0%,var(--gm) 50%,var(--ge) 100%);min-height:100vh;padding:40px 20px;}
+    .container{max-width:920px;margin:0 auto;}
+    .hero{text-align:center;padding:60px 40px;margin-bottom:40px;background:rgba(255,255,255,0.6);backdrop-filter:blur(20px);border-radius:32px;border:1px solid rgba(255,255,255,0.8);box-shadow:0 20px 60px rgba(0,0,0,0.08);}
+    .hero h1{font-size:2.2rem;font-weight:500;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;}
+    .hero .sub{font-size:1rem;color:var(--ts);margin-bottom:6px;}
+    .hero .meta{font-size:0.85rem;color:var(--tl);}
+    .card{background:rgba(255,255,255,0.7);backdrop-filter:blur(10px);border-radius:24px;border:1px solid rgba(255,255,255,0.5);box-shadow:0 8px 32px rgba(0,0,0,0.08);padding:36px 32px;margin-bottom:24px;transition:transform .3s,box-shadow .3s;}
+    .card:hover{transform:translateY(-3px);box-shadow:0 16px 48px rgba(0,0,0,0.12);}
+    .st{font-size:1.3rem;font-weight:500;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid rgba(102,126,234,0.2);display:flex;align-items:center;gap:10px;}
+    .st::before{content:'';width:4px;height:22px;background:linear-gradient(135deg,var(--a),var(--ap));border-radius:2px;}
+    p{margin-bottom:13px;font-size:.95rem;}
+    strong{font-weight:500;}
+    .bx{border-radius:16px;padding:20px;margin:16px 0;}
+    .bx-p{background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(240,147,251,.1));border-left:4px solid var(--a);}
+    .bx-k{background:linear-gradient(135deg,rgba(255,182,193,.12),rgba(221,160,221,.12));border-left:4px solid var(--ap);}
+    .bx-g{background:linear-gradient(135deg,rgba(78,205,196,.1),rgba(129,236,236,.1));border-left:4px solid var(--ag);}
+    .bx-r{background:linear-gradient(135deg,rgba(255,107,107,.1),rgba(255,159,159,.1));border-left:4px solid var(--ar);}
+    .bx-o{background:linear-gradient(135deg,rgba(247,183,49,.1),rgba(255,211,99,.1));border-left:4px solid var(--ao);}
+    .qb{background:linear-gradient(135deg,rgba(255,182,193,.15),rgba(221,160,221,.15));border-radius:16px;padding:26px;margin:20px 0;text-align:center;font-size:1.05rem;font-weight:400;color:#555;font-style:italic;border:1px solid rgba(255,182,193,.3);}
+    ul,ol{padding-left:22px;margin:10px 0;}
+    li{margin-bottom:8px;line-height:1.75;font-size:.93rem;}
+    li::marker{color:var(--a);}
+    .tag{display:inline-block;padding:3px 10px;border-radius:18px;font-size:.73rem;font-weight:400;margin:2px;}
+    .tag-p{background:linear-gradient(135deg,var(--a),#764ba2);color:#fff;}
+    .tag-s{background:rgba(102,126,234,.12);color:var(--a);}
+    .tag-g{background:rgba(78,205,196,.15);color:#2EAD9F;}
+    .tag-r{background:rgba(255,107,107,.15);color:var(--ar);}
+    .sg{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;margin:18px 0;}
+    .sc{background:rgba(255,255,255,.85);border-radius:18px;padding:18px;text-align:center;border:1px solid rgba(255,255,255,.6);}
+    .sn{font-size:1.6rem;font-weight:600;background:linear-gradient(135deg,var(--a),var(--ap));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+    .sl{font-size:.82rem;color:var(--ts);margin-top:3px;}
+    .two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
+    .three{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin:16px 0;}
+    .mc{background:rgba(255,255,255,.85);border-radius:16px;padding:18px;border:1px solid rgba(255,255,255,.6);}
+    .mc h4{font-weight:500;color:var(--a);margin-bottom:6px;font-size:.93rem;}
+    .mc p{font-size:.87rem;margin-bottom:0;}
+    .tbl{width:100%;margin:16px 0;border-collapse:separate;border-spacing:0;border-radius:16px;overflow:hidden;font-size:.88rem;}
+    .tbl th{background:linear-gradient(135deg,var(--a),#764ba2);color:#fff;padding:11px 14px;text-align:left;font-weight:400;}
+    .tbl td{padding:10px 14px;border-bottom:1px solid rgba(0,0,0,.05);background:rgba(255,255,255,.6);}
+    .tbl tr:last-child td{border-bottom:none;}
+    .step{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;font-size:.85rem;font-weight:600;color:#fff;background:linear-gradient(135deg,var(--a),var(--ap));margin-right:10px;flex-shrink:0;}
+    .tool-header{display:flex;align-items:center;margin-bottom:16px;}
+    .tool-header h3{font-size:1.15rem;font-weight:500;}
+    .emoji-big{font-size:2rem;margin-bottom:6px;}
+    .flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;margin:18px 0;}
+    .flow-node{background:rgba(255,255,255,.9);border-radius:14px;padding:10px 16px;font-size:.82rem;border:1px solid rgba(102,126,234,.2);text-align:center;min-width:100px;}
+    .flow-arrow{color:var(--a);font-size:1.2rem;}
+    .checklist{list-style:none;padding-left:0;}
+    .checklist li{padding:6px 0 6px 26px;position:relative;font-size:.9rem;}
+    .checklist li::before{content:'□';position:absolute;left:0;color:var(--a);font-size:1rem;}
+    footer{text-align:center;padding:40px;color:var(--tl);font-size:.85rem;}
+    @media(max-width:768px){.hero{padding:50px 24px;}.hero h1{font-size:1.8rem;}.card{padding:24px 18px;border-radius:20px;}.two,.three{grid-template-columns:1fr;}}
+    @media print{body{background:#fff!important;padding:20px!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}.hero,.card{background:#faf8ff!important;backdrop-filter:none!important;box-shadow:none!important;border:1px solid #ddd!important;}.hero h1,.sn{color:var(--a)!important;-webkit-text-fill-color:var(--a)!important;}.card{page-break-inside:avoid;}}
+  </style>
+</head>
+<body>
+<div class="container">
+
+<header class="hero">
+  <h1>🔧 深刻認識一個人<br>五大實用工具</h1>
+  <p class="sub">《深刻認識一個人》核心方法論完整拆解</p>
+  <p class="meta">David Brooks 著｜覺醒 v2 工具包｜龍龍 🐉 2026.03.06</p>
+</header>
+
+<!-- ===== 工具一 ===== -->
+<section class="card">
+  <div class="tool-header"><span class="step">1</span><h3>削弱者七伎倆自檢</h3></div>
+  <p>每天結束前花 3 分鐘，回想今天的對話，檢查有沒有犯以下任何一種：</p>
+
+  <div class="bx bx-r">
+    <strong>① 自我中心 🪞</strong>
+    <p><strong>症狀：</strong>對話中一直在講自己的事，對方的故事只是你發表意見的跳板</p>
+    <p><strong>自問：</strong>「這段對話中，我問了對方幾個問題？」如果答案是零 → 你就是了</p>
+    <p style="margin-bottom:0;"><strong>修正：</strong>下次對話前，先準備 2 個關於<em>對方</em>的問題</p>
+  </div>
+
+  <div class="bx bx-o">
+    <strong>② 焦慮 😰</strong>
+    <p><strong>症狀：</strong>腦中一直在想「我表現如何？他喜歡我嗎？接下來說什麼才顯得聰明？」</p>
+    <p style="margin-bottom:0;"><strong>修正：</strong>把注意力當「開關」不是「調節器」——打開就是 100% 專注，不要 50% 半聽</p>
+  </div>
+
+  <div class="bx bx-p">
+    <strong>③ 無知的現實主義 🌍</strong>
+    <p><strong>症狀：</strong>認為自己看到的世界就是「客觀事實」，別人不同意 = 別人錯了</p>
+    <p style="margin-bottom:0;"><strong>修正：</strong>把「你錯了」換成「<strong>你看到了什麼我沒看到的？</strong>」</p>
+  </div>
+
+  <div class="bx bx-k">
+    <strong>④ 自命不凡 👑</strong>
+    <p><strong>症狀：</strong>你覺得自己從商是為了「做有價值的事」，但覺得別人是「為了賺錢」</p>
+    <p style="margin-bottom:0;"><strong>修正：</strong>假設對方的動機跟你一樣複雜</p>
+  </div>
+
+  <div class="bx bx-g">
+    <strong>⑤ 客觀主義 📊</strong>
+    <p><strong>症狀：</strong>用標籤「理解」人（「他就是 INTJ」「她是典型 XX 世代」）</p>
+    <p style="margin-bottom:0;"><strong>修正：</strong>在任何標籤後面加上「但這不能說明他的全部」</p>
+  </div>
+
+  <div class="bx bx-r">
+    <strong>⑥ 本質主義 🏷️</strong>
+    <p><strong>症狀：</strong>對一個人有了一點了解，就做出一連串假設（「堆疊」）</p>
+    <p style="margin-bottom:0;"><strong>修正：</strong>問自己「這個結論有證據嗎，還是我在堆疊？」</p>
+  </div>
+
+  <div class="bx bx-o">
+    <strong>⑦ 停滯心態 ⏸️</strong>
+    <p><strong>症狀：</strong>對一個人的印象停留在過去（回家過年，父母還把你當小孩）</p>
+    <p style="margin-bottom:0;"><strong>修正：</strong>每次見到老朋友，問一個「最近有什麼改變」的問題</p>
+  </div>
+
+  <div class="bx bx-p" style="margin-top:20px;">
+    <strong>📋 每日自檢格式</strong>
+    <p style="margin-bottom:0;font-size:.9rem;">
+      今天的三次重要對話：<br>
+      對話 1：跟＿＿＿ → 犯了 ＿＿＿ 伎倆 → 下次可以 ＿＿＿<br>
+      對話 2：跟＿＿＿ → 犯了 ＿＿＿ 伎倆 → 下次可以 ＿＿＿<br>
+      對話 3：跟＿＿＿ → 沒犯！✅ / 犯了 ＿＿＿
+    </p>
+  </div>
+</section>
+
+<!-- ===== 工具二 ===== -->
+<section class="card">
+  <div class="tool-header"><span class="step">2</span><h3>SLANT + 迴圈傾聽法</h3></div>
+
+  <p style="text-align:center;font-size:.9rem;color:var(--ts);margin-bottom:8px;">🦴 身體層：SLANT 五字訣</p>
+  <div class="sg" style="grid-template-columns:repeat(5,1fr);">
+    <div class="sc"><div class="emoji-big">🪑</div><div style="font-weight:500;color:var(--a);">S</div><div class="sl">Sit up<br>坐直前傾 15°</div></div>
+    <div class="sc"><div class="emoji-big">↗️</div><div style="font-weight:500;color:var(--a);">L</div><div class="sl">Lean forward<br>重點時前傾</div></div>
+    <div class="sc"><div class="emoji-big">❓</div><div style="font-weight:500;color:var(--a);">A</div><div class="sl">Ask questions<br>問具體感受</div></div>
+    <div class="sc"><div class="emoji-big">👍</div><div style="font-weight:500;color:var(--a);">N</div><div class="sl">Nod<br>有節奏點頭</div></div>
+    <div class="sc"><div class="emoji-big">👁️</div><div style="font-weight:500;color:var(--a);">T</div><div class="sl">Track speaker<br>柔和目光跟隨</div></div>
+  </div>
+
+  <p style="text-align:center;font-size:.9rem;color:var(--ts);margin-top:24px;margin-bottom:8px;">🗣️ 語言層：三段式迴圈</p>
+
+  <div class="flow">
+    <div class="flow-node"><strong>第一段</strong><br>出聲傾聽<br><span style="font-size:.78rem;">「哇～」「嗯…」</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node"><strong>第二段</strong><br>迴圈確認<br><span style="font-size:.78rem;">「所以你是說…？」</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node"><strong>第三段</strong><br>深入探問<br><span style="font-size:.78rem;">「最不舒服的部分是？」</span></div>
+  </div>
+
+  <div class="bx bx-p">
+    <strong>迴圈示範</strong>
+    <p>對方：「我老闆又在會議上忽略我的提案了」</p>
+    <p>你：「聽起來你覺得自己的貢獻一直沒被看見？」</p>
+    <p>對方：「不只是沒被看見，是被當空氣」</p>
+    <p style="margin-bottom:0;">👆 這個<strong>修正</strong>就是迴圈的價值——你發現了更精確的情緒</p>
+  </div>
+
+  <div class="bx bx-g">
+    <strong>深入探問好句型</strong>
+    <ul style="margin-bottom:0;">
+      <li>「這種感覺是最近才有的，還是已經持續很久了？」</li>
+      <li>「這件事讓你最不舒服的部分是什麼？」</li>
+      <li>「如果可以改變一件事，你會改變什麼？」</li>
+    </ul>
+  </div>
+
+  <div class="bx bx-o">
+    <strong>⚠️ 注意</strong>
+    <ul style="margin-bottom:0;">
+      <li>迴圈不要超過 20 分鐘內 3 次，否則像心理分析師</li>
+      <li>用自然隨意的語氣，不要像在做診斷</li>
+      <li>對方說「對，就是這樣！」= 成功 ✅</li>
+      <li>對方說「不是，其實是…」= 更好！你幫他釐清了 ✅✅</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== 工具三 ===== -->
+<section class="card">
+  <div class="tool-header"><span class="step">3</span><h3>助產士模式</h3></div>
+
+  <div class="qb">你不負責生產，你負責協助分娩。<br>幫助對方形成<strong>自己的</strong>見解，而不是提供你的見解。</div>
+
+  <div class="two">
+    <div class="bx bx-g" style="margin:0;">
+      <strong>🟢 什麼時候用</strong>
+      <ul style="margin-bottom:0;">
+        <li>對方面臨重大人生決定</li>
+        <li>對方在痛苦中需要被理解</li>
+        <li>對方已經有答案，需要有人幫他聽見</li>
+      </ul>
+    </div>
+    <div class="bx bx-r" style="margin:0;">
+      <strong>🔴 什麼時候不用</strong>
+      <ul style="margin-bottom:0;">
+        <li>事實問題（「高鐵幾點？」）</li>
+        <li>緊急危險（「快跑！」）</li>
+        <li>對方明確要求你的意見</li>
+      </ul>
+    </div>
+  </div>
+
+  <p style="font-weight:500;margin-top:20px;color:var(--a);">📋 助產士五步流程</p>
+
+  <div class="mc" style="margin-bottom:12px;border-left:3px solid var(--a);">
+    <h4>Step 1：營造安全感</h4>
+    <p>「沒有對錯，我只是想了解你怎麼想的」「慢慢來，不急」</p>
+  </div>
+  <div class="mc" style="margin-bottom:12px;border-left:3px solid var(--ag);">
+    <h4 style="color:var(--ag);">Step 2：問開放式問題</h4>
+    <p>✅「你現在最大的感受是什麼？」<br>✅「如果沒有任何限制，你最想怎麼做？」<br>❌「你不覺得應該＿＿嗎？」（誘導）</p>
+  </div>
+  <div class="mc" style="margin-bottom:12px;border-left:3px solid var(--ap);">
+    <h4 style="color:#D4699B;">Step 3：讓對方聽見自己</h4>
+    <p>當對方說出關鍵句，安靜地重複那句話，然後<strong>沉默</strong>。讓沉默做工。</p>
+  </div>
+  <div class="mc" style="margin-bottom:12px;border-left:3px solid var(--ao);">
+    <h4 style="color:var(--ao);">Step 4：追問不一致</h4>
+    <p>「你說了五個不喜歡的，但覺得應該接受。這兩者之間，是什麼在拉扯你？」</p>
+  </div>
+  <div class="mc" style="margin-bottom:12px;border-left:3px solid var(--ar);">
+    <h4 style="color:var(--ar);">Step 5：讓對方自己下結論</h4>
+    <p>「聽你說了這麼多，你現在心裡比較傾向哪個方向？」</p>
+  </div>
+
+  <div class="bx bx-k">
+    <strong>🔑 黃金句型</strong>
+    <ul style="margin-bottom:0;">
+      <li>「你剛才說的那個部分，能多說一點嗎？」</li>
+      <li>「如果是你最好的朋友遇到這件事，你會怎麼建議他？」← 繞開自我防禦</li>
+      <li>「在你說的這些裡面，哪一個是你最不想面對的？」← 通常這就是答案</li>
+    </ul>
+  </div>
+
+  <div class="bx bx-p">
+    <strong>💡 經典案例：帕克・巴默爾</strong>
+    <p>被問「當校長有你喜歡的點嗎？」→ 他回答：「我喜歡一張擺了『校長』頭銜名牌的辦公桌。」</p>
+    <p style="margin-bottom:0;">有人問：「如果你要讓照片見報，還有更簡單的辦法嗎？」→ 他笑了，才發現自己其實不想當校長。<br><strong>助產士沒有告訴他答案。只是問了好問題。</strong></p>
+  </div>
+</section>
+
+<!-- ===== 工具四 ===== -->
+<section class="card">
+  <div class="tool-header"><span class="step">4</span><h3>五大人格特質實戰指南</h3></div>
+
+  <div class="bx bx-r" style="text-align:center;">
+    <p style="margin-bottom:0;"><strong>MBTI 50% 的人做兩次得到不同結果。</strong>應該用五大人格特質（Big Five）——有數十年嚴謹研究支撐。</p>
+  </div>
+
+  <table class="tbl">
+    <tr><th>特質</th><th>高分特徵</th><th>天賦</th><th>陷阱</th><th>相處之道</th></tr>
+    <tr>
+      <td><strong>🎉 外向性</strong></td>
+      <td>熱情、愛社交、追求刺激</td>
+      <td>炒熱氣氛、人脈廣、行動力強</td>
+      <td>易怒、衝動、冒太大的險</td>
+      <td>給舞台和刺激，不要叫他安靜</td>
+    </tr>
+    <tr>
+      <td><strong>📋 責任感</strong></td>
+      <td>有紀律、有毅力、組織力強</td>
+      <td>學業好、事業成功、活得久</td>
+      <td>完美主義、強迫症、適應力差</td>
+      <td>尊重他的流程，不要亂改行程</td>
+    </tr>
+    <tr>
+      <td><strong>😰 神經質</strong></td>
+      <td>對負面情緒敏感、容易擔心</td>
+      <td>預見危險、深刻感受能力</td>
+      <td>憂鬱、飲食失調、往壞處想</td>
+      <td>小批評 = 暴力攻擊。先肯定再建議</td>
+    </tr>
+    <tr>
+      <td><strong>🤝 親和力</strong></td>
+      <td>善良、有同理心、合作包容</td>
+      <td>離婚率低、EQ 高、維繫團隊</td>
+      <td>討好、不敢拒絕、升遷困難</td>
+      <td>他不會主動說需求，你要主動問</td>
+    </tr>
+    <tr>
+      <td><strong>🎨 開放性</strong></td>
+      <td>好奇、創新、想像力強</td>
+      <td>創造力、在不確定中找到機會</td>
+      <td>容易無聊、可能活在幻想</td>
+      <td>帶他去新地方，不要困住他</td>
+    </tr>
+  </table>
+
+  <div class="bx bx-g">
+    <strong>📋 三人盤點練習</strong>
+    <p>選你最親近的三個人，用直覺打分（1-10）：</p>
+    <p style="font-size:.88rem;">
+      <strong>[人名]：</strong>外向性＿/10 ｜ 責任感＿/10 ｜ 神經質＿/10 ｜ 親和力＿/10 ｜ 開放性＿/10
+    </p>
+    <p style="margin-bottom:0;">→ 你跟他相處時，有沒有用符合他特質的方式？<br>→ 你們最常起衝突的點，是不是因為某個特質的差異？</p>
+  </div>
+</section>
+
+<!-- ===== 工具五 ===== -->
+<section class="card">
+  <div class="tool-header"><span class="step">5</span><h3>人生任務盤點</h3></div>
+
+  <p>要了解一個人，先問他正在完成什麼「人生任務」——這決定了他的意識模式、價值觀、衝突方式。</p>
+
+  <div class="flow">
+    <div class="flow-node" style="border-color:rgba(255,107,107,.3);"><strong>👑 以我為尊</strong><br><span style="font-size:.75rem;">我要贏、被讚美</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="border-color:rgba(102,126,234,.3);"><strong>👥 人際任務</strong><br><span style="font-size:.75rem;">我要被喜歡</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="border-color:rgba(247,183,49,.3);"><strong>🏔️ 職涯鞏固</strong><br><span style="font-size:.75rem;">專業出類拔萃</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="border-color:rgba(78,205,196,.3);"><strong>🌱 傳承</strong><br><span style="font-size:.75rem;">回饋下一代</span></div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="border-color:rgba(240,147,251,.3);"><strong>🌅 圓滿</strong><br><span style="font-size:.75rem;">不負此生</span></div>
+  </div>
+
+  <!-- 各任務 -->
+  <div class="mc" style="margin-bottom:12px;border-left:3px solid var(--ar);">
+    <h4 style="color:var(--ar);">👑 任務一：以我為尊</h4>
+    <p><strong>核心：</strong>我要證明自己厲害｜<strong>恐懼：</strong>被看不起</p>
+    <p><strong>辨識句：</strong>「你知道我有多厲害嗎？」</p>
+    <p><strong>健康版：</strong>有自信有企圖心｜<strong>卡住版：</strong>自戀、無法接受批評</p>
+    <p><strong>相處：</strong>先給尊重和認可，他才聽得進其他東西</p>
+  </div>
+  <div class="mc" style="margin-bottom:12px;border-left:3px solid var(--a);">
+    <h4>👥 任務二：人際任務</h4>
+    <p><strong>核心：</strong>我要被群體接受｜<strong>恐懼：</strong>被孤立、不被喜歡</p>
+    <p><strong>辨識句：</strong>「你覺得他們怎麼看我？」</p>
+    <p><strong>健康版：</strong>有同理心、好伴侶｜<strong>卡住版：</strong>沒有獨立自我、失戀就崩潰</p>
+    <p><strong>相處：</strong>讓他知道你的接受是無條件的</p>
+  </div>
+  <div class="mc" style="margin-bottom:12px;border-left:3px solid var(--ao);">
+    <h4 style="color:var(--ao);">🏔️ 任務三：職涯鞏固</h4>
+    <p><strong>核心：</strong>專業上出類拔萃｜<strong>恐懼：</strong>失敗、平庸</p>
+    <p><strong>辨識句：</strong>「我沒時間」「先把事業做起來再說」</p>
+    <p><strong>健康版：</strong>專注有毅力｜<strong>卡住版：</strong>工作狂、情感疏離、中年危機</p>
+    <p><strong>相處：</strong>尊重他的專注，溫柔提醒：你不只是你的成就</p>
+  </div>
+  <div class="mc" style="margin-bottom:12px;border-left:3px solid var(--ag);">
+    <h4 style="color:var(--ag);">🌱 任務四：傳承</h4>
+    <p><strong>核心：</strong>回饋、培育下一代｜<strong>恐懼：</strong>沒有留下什麼</p>
+    <p><strong>辨識句：</strong>「我希望能幫助年輕人」</p>
+    <p><strong>健康版：</strong>好父母好領導｜<strong>卡住版：</strong>過度犧牲、燃燒殆盡</p>
+    <p><strong>相處：</strong>接受他的給予，也提醒他照顧自己</p>
+  </div>
+  <div class="mc" style="margin-bottom:12px;border-left:3px solid var(--ap);">
+    <h4 style="color:#D4699B;">🌅 任務五：圓滿 vs 失落</h4>
+    <p><strong>核心：</strong>我的人生有意義嗎？｜<strong>恐懼：</strong>白活了、來不及了</p>
+    <p><strong>圓滿：</strong>平靜、接受、感恩｜<strong>失落：</strong>遺憾、怨恨、對世界憤怒</p>
+    <p><strong>相處：</strong>問他人生故事，陪他回憶，讓他知道他的人生被看見了</p>
+  </div>
+
+  <div class="bx bx-p">
+    <strong>📋 快速自我盤點</strong>
+    <p><strong>你現在最在意的是什麼？</strong><br>
+    a) 贏、被認可 → 以我為尊<br>
+    b) 被喜歡、有歸屬感 → 人際<br>
+    c) 事業成功 → 職涯鞏固<br>
+    d) 幫助他人 → 傳承<br>
+    e) 人生的意義 → 圓滿</p>
+    <p><strong>你跟伴侶最常吵什麼？</strong><br>
+    很多夫妻的衝突是因為<strong>在不同的人生任務階段</strong>——一個在「職涯鞏固」，另一個在「傳承」。</p>
+  </div>
+
+  <div class="qb" style="font-style:normal;">
+    「人生下午不能用上午的計畫。<br>上午的大事，到了晚上可能變成小事。」<br>
+    <span style="font-size:.85rem;color:var(--tl);">— 榮格</span>
+  </div>
+</section>
+
+<footer>
+  <p>✧ 深刻認識一個人｜五大實用工具 ✧</p>
+  <p>🐉 龍龍 · 2026.03.06</p>
+</footer>
+
+</div>
+</body>
+</html>
