@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOC 十步深度實戰分析 — The Brain at Rest</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --indigo-light: #EBF5FB;
+    --indigo-mid: #AED6F1;
+    --indigo-deep: #2E86C1;
+    --violet: #E8DAEF;
+    --violet-deep: #8E44AD;
+    --sage: #E8F8F5;
+    --sage-deep: #1ABC9C;
+    --amber: #FEF9E7;
+    --amber-deep: #F39C12;
+    --rose: #FDEDEC;
+    --rose-deep: #E74C3C;
+    --cloud: #F8F9FA;
+    --lavender: #F4ECF7;
+    --mint: #D5F5E3;
+    --mint-deep: #27AE60;
+    --peach: #FDEBD0;
+    --peach-deep: #E67E22;
+    --sky: #D6EAF8;
+    --sky-deep: #3498DB;
+    --cream: #FFFDF7;
+    --text-primary: #2C3E50;
+    --text-secondary: #5D6D7E;
+    --text-accent: #1A5276;
+    --shadow-soft: 0 4px 24px rgba(0,0,0,0.06);
+    --shadow-hover: 0 8px 36px rgba(0,0,0,0.10);
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(160deg, #EBF5FB 0%, #F4ECF7 25%, #FEF9E7 50%, #E8F8F5 75%, #EBF5FB 100%);
+    color: var(--text-primary);
+    line-height: 1.8;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .hero {
+    max-width: 920px;
+    margin: 40px auto 50px;
+    text-align: center;
+    padding: 64px 44px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.92), rgba(235,245,251,0.85));
+    backdrop-filter: blur(20px);
+    border-radius: 32px;
+    border: 1px solid rgba(255,255,255,0.7);
+    box-shadow: var(--shadow-soft), 0 0 80px rgba(46,134,193,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60%;
+    left: -40%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 25% 35%, rgba(46,134,193,0.08) 0%, transparent 50%),
+                radial-gradient(circle at 75% 65%, rgba(142,68,173,0.06) 0%, transparent 50%),
+                radial-gradient(circle at 50% 90%, rgba(26,188,156,0.06) 0%, transparent 40%);
+    animation: drift 16s ease-in-out infinite;
+  }
+
+  @keyframes drift {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(-15px, -8px) rotate(1deg); }
+    66% { transform: translate(10px, -5px) rotate(-1deg); }
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--indigo-deep), var(--violet-deep));
+    color: white;
+    padding: 6px 22px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-bottom: 22px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2.3rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 14px;
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, #1A5276, #8E44AD);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero .subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 10px;
+  }
+
+  .hero .author {
+    font-size: 0.95rem;
+    color: var(--text-accent);
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+  }
+
+  .meta-info {
+    max-width: 920px;
+    margin: 0 auto 44px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .meta-card {
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .meta-card .label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+
+  .meta-card .value {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .step-card {
+    max-width: 920px;
+    margin: 0 auto 38px;
+    background: rgba(255,255,255,0.90);
+    backdrop-filter: blur(15px);
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .step-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .step-header {
+    padding: 30px 38px 22px;
+    position: relative;
+  }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: white;
+    margin-bottom: 12px;
+  }
+
+  .step-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .step-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .step-body {
+    padding: 0 38px 34px;
+  }
+
+  .step-body h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 26px 0 12px;
+    color: var(--text-primary);
+    padding-left: 14px;
+    border-left: 3px solid var(--indigo-deep);
+  }
+
+  .step-body h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 18px 0 8px;
+    color: var(--text-accent);
+  }
+
+  .step-body p {
+    margin-bottom: 14px;
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--text-primary);
+  }
+
+  .step-body ul, .step-body ol {
+    margin: 10px 0 16px 22px;
+    font-size: 0.93rem;
+  }
+
+  .step-body li {
+    margin-bottom: 8px;
+    line-height: 1.75;
+  }
+
+  .highlight-box {
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    margin: 16px 0;
+    border-left: 4px solid var(--indigo-deep);
+    background: linear-gradient(135deg, rgba(235,245,251,0.5), rgba(214,234,248,0.4));
+  }
+
+  .highlight-box.violet {
+    background: linear-gradient(135deg, rgba(232,218,239,0.5), rgba(244,236,247,0.5));
+    border-left-color: var(--violet-deep);
+  }
+
+  .highlight-box.sage {
+    background: linear-gradient(135deg, rgba(232,248,245,0.5), rgba(213,245,227,0.5));
+    border-left-color: var(--sage-deep);
+  }
+
+  .highlight-box.amber {
+    background: linear-gradient(135deg, rgba(254,249,231,0.6), rgba(253,235,208,0.5));
+    border-left-color: var(--amber-deep);
+  }
+
+  .highlight-box.rose {
+    background: linear-gradient(135deg, rgba(253,237,236,0.5), rgba(245,183,177,0.3));
+    border-left-color: var(--rose-deep);
+  }
+
+  .highlight-box.mint {
+    background: linear-gradient(135deg, rgba(213,245,227,0.5), rgba(232,248,232,0.5));
+    border-left-color: var(--mint-deep);
+  }
+
+  .highlight-box.sky {
+    background: linear-gradient(135deg, rgba(214,234,248,0.5), rgba(235,245,255,0.5));
+    border-left-color: var(--sky-deep);
+  }
+
+  .conflict-cloud {
+    background: rgba(255,255,255,0.75);
+    border-radius: var(--radius);
+    padding: 30px;
+    margin: 20px 0;
+    border: 2px dashed var(--violet-deep);
+    text-align: center;
+  }
+
+  .conflict-cloud .goal {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-accent);
+    margin-bottom: 22px;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--indigo-light), var(--lavender));
+    border-radius: var(--radius-sm);
+  }
+
+  .conflict-sides {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .conflict-side {
+    padding: 18px;
+    border-radius: var(--radius-sm);
+    text-align: center;
+  }
+
+  .conflict-side.left {
+    background: linear-gradient(135deg, var(--sky), rgba(174,214,241,0.4));
+  }
+
+  .conflict-side.right {
+    background: linear-gradient(135deg, var(--peach), rgba(253,235,208,0.5));
+  }
+
+  .conflict-vs {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--rose-deep);
+  }
+
+  .injection-card {
+    background: linear-gradient(135deg, rgba(232,248,245,0.6), rgba(214,234,248,0.4));
+    border-radius: var(--radius-sm);
+    padding: 18px 22px;
+    margin: 14px 0;
+    border: 1px solid rgba(26,188,156,0.25);
+  }
+
+  .injection-card .label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--sage-deep);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .crt-chain {
+    padding: 16px 0;
+  }
+
+  .crt-node {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    padding: 12px 18px;
+    border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.65);
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .crt-arrow {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    margin: 4px 0;
+  }
+
+  .crt-node .marker {
+    min-width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    margin-right: 14px;
+    flex-shrink: 0;
+  }
+
+  .marker.ude { background: var(--rose-deep); }
+  .marker.cause { background: var(--indigo-deep); }
+  .marker.root { background: var(--violet-deep); }
+
+  .if-then {
+    background: linear-gradient(135deg, var(--cream), rgba(254,249,231,0.6));
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    margin: 10px 0;
+    font-size: 0.9rem;
+    border: 1px solid rgba(243,156,18,0.25);
+  }
+
+  .if-then .if { color: var(--rose-deep); font-weight: 600; }
+  .if-then .then { color: var(--mint-deep); font-weight: 600; }
+
+  .week-plan {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 16px;
+    margin: 22px 0;
+  }
+
+  .week-block {
+    background: rgba(255,255,255,0.82);
+    border-radius: var(--radius-sm);
+    padding: 22px;
+    border-top: 4px solid;
+    text-align: center;
+  }
+
+  .week-block:nth-child(1) { border-color: var(--indigo-deep); }
+  .week-block:nth-child(2) { border-color: var(--violet-deep); }
+  .week-block:nth-child(3) { border-color: var(--sage-deep); }
+  .week-block:nth-child(4) { border-color: var(--amber-deep); }
+
+  .week-block h5 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+  }
+
+  .week-block ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    font-size: 0.88rem;
+  }
+
+  .week-block li {
+    padding: 5px 0;
+    border-bottom: 1px dotted rgba(0,0,0,0.07);
+  }
+
+  .week-block li:last-child { border-bottom: none; }
+
+  .throughput-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin: 22px 0;
+  }
+
+  .throughput-item {
+    background: rgba(255,255,255,0.75);
+    border-radius: var(--radius-sm);
+    padding: 22px;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .throughput-item .metric {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .throughput-item .metric.high { color: var(--mint-deep); }
+  .throughput-item .metric.medium { color: var(--amber-deep); }
+  .throughput-item .metric.low { color: var(--rose-deep); }
+
+  .poogi-cycle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 22px 0;
+  }
+
+  .poogi-step {
+    background: rgba(255,255,255,0.82);
+    border-radius: 50px;
+    padding: 12px 26px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    border: 2px solid;
+    transition: transform 0.2s;
+  }
+
+  .poogi-step:hover { transform: scale(1.05); }
+  .poogi-step:nth-child(1) { border-color: var(--indigo-deep); }
+  .poogi-step:nth-child(2) { border-color: var(--violet-deep); }
+  .poogi-step:nth-child(3) { border-color: var(--sage-deep); }
+  .poogi-step:nth-child(4) { border-color: var(--amber-deep); }
+  .poogi-step:nth-child(5) { border-color: var(--rose-deep); }
+
+  .quote-block {
+    font-family: 'Noto Serif TC', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    padding: 18px 26px;
+    margin: 18px 0;
+    border-left: 3px solid var(--indigo-deep);
+    background: rgba(235,245,251,0.35);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .quote-block .author {
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--text-accent);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .brain-network {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin: 18px 0;
+  }
+
+  .brain-node {
+    background: rgba(255,255,255,0.7);
+    border-radius: var(--radius-sm);
+    padding: 18px;
+    text-align: center;
+    border: 1px solid rgba(46,134,193,0.2);
+  }
+
+  .brain-node .icon {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+
+  .brain-node .name {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 600;
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+  }
+
+  .brain-node .desc {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .rest-method {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+    margin: 10px 0;
+    border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .rest-method .emoji {
+    font-size: 2rem;
+    flex-shrink: 0;
+    line-height: 1;
+  }
+
+  .rest-method .content h4 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+  }
+
+  .rest-method .content p {
+    font-size: 0.88rem;
+    margin: 0;
+    color: var(--text-secondary);
+  }
+
+  .footer {
+    max-width: 920px;
+    margin: 50px auto 30px;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    padding: 26px;
+    background: rgba(255,255,255,0.55);
+    border-radius: var(--radius);
+    backdrop-filter: blur(10px);
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 12px; }
+    .hero { padding: 36px 20px; }
+    .hero h1 { font-size: 1.6rem; }
+    .step-header, .step-body { padding-left: 20px; padding-right: 20px; }
+    .conflict-sides { grid-template-columns: 1fr; }
+    .week-plan { grid-template-columns: 1fr; }
+    .brain-network { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-badge">TOC 限制理論 × 深度書籍分析</div>
+  <h1>The Brain at Rest</h1>
+  <p class="subtitle">Why Doing Nothing Is the Key to Happiness, Health and Productivity</p>
+  <p class="author">Joseph Jebelli ── 神經科學家・UCL 博士</p>
+</div>
+
+<div class="meta-info">
+  <div class="meta-card">
+    <div class="label">核心主題</div>
+    <div class="value">預設模式網路 × 休息的科學</div>
+  </div>
+  <div class="meta-card">
+    <div class="label">TOC 分析框架</div>
+    <div class="value">十步深度實戰分析</div>
+  </div>
+  <div class="meta-card">
+    <div class="label">關鍵概念</div>
+    <div class="value">Default Network・Niksen</div>
+  </div>
+  <div class="meta-card">
+    <div class="label">分析日期</div>
+    <div class="value">2026 年 3 月</div>
+  </div>
+</div>
+
+<!-- ===== STEP 1: 系統界定 ===== -->
+<div class="step-card" style="border-top: 4px solid var(--indigo-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, var(--indigo-deep), #1A5276);">1</div>
+    <div class="step-title">系統界定 ── 大腦休息系統的邊界與目標</div>
+    <div class="step-subtitle">System Identification</div>
+  </div>
+  <div class="step-body">
+    <h3>🎯 系統目標</h3>
+    <p>重新定義「休息」在人類健康與生產力中的角色：休息不是工作的對立面，而是<strong>大腦最重要的運作模式之一</strong>。系統的終極目標是讓讀者理解並啟動「預設模式網路」（Default Mode Network, DMN），從而在健康、創造力、長期生產力三個維度獲得根本性提升。</p>
+
+    <div class="quote-block">
+      「Rest, not work, is the secret to sustained productivity.」── 休息，而非工作，才是持續生產力的秘密。
+      <span class="author">── Joseph Jebelli</span>
+    </div>
+
+    <h3>🔲 系統邊界</h3>
+    <ul>
+      <li><strong>核心系統：</strong>人類大腦的兩大網路 ── 執行網路（Executive Network，工作模式）與預設模式網路（Default Network，休息模式）</li>
+      <li><strong>輸入端：</strong>外界刺激（工作任務、手機通知、社交壓力、文化期望）、身體狀態（睡眠、運動、飲食）、環境（自然 vs 都市、噪音 vs 安靜）</li>
+      <li><strong>轉換過程：</strong>突觸抑制（Synaptic Inhibition）── 執行網路與預設網路之間的此消彼長；DMN 啟動帶來的心智漫遊、自我反思、創意孵化</li>
+      <li><strong>輸出端：</strong>創造力提升、問題解決能力、情緒健康、神經再生、免疫系統修復、長期認知功能保護</li>
+      <li><strong>系統外部：</strong>資本主義生產力崇拜、科技成癮生態、社會對「忙碌」的道德化</li>
+    </ul>
+
+    <h3>🧠 預設模式網路（DMN）── 系統的核心引擎</h3>
+    <div class="brain-network">
+      <div class="brain-node">
+        <div class="icon">🎭</div>
+        <div class="name">內側前額葉皮質</div>
+        <div class="desc">決策、未來規劃、自我感知、長期記憶。休息時代謝率最高的區域之一。</div>
+      </div>
+      <div class="brain-node">
+        <div class="icon">🧭</div>
+        <div class="name">後扣帶迴皮質</div>
+        <div class="desc">導航、自傳式記憶、心智漫遊、想像未來。你的大腦衛星導航＋回憶錄＋水晶球。</div>
+      </div>
+      <div class="brain-node">
+        <div class="icon">🔮</div>
+        <div class="name">楔前葉</div>
+        <div class="desc">情節記憶、視覺空間想像。記住朋友的請求，然後精確地將信投入郵筒。</div>
+      </div>
+      <div class="brain-node">
+        <div class="icon">📖</div>
+        <div class="name">角回</div>
+        <div class="desc">複雜語言功能：閱讀、寫作、文本詮釋。你正在使用它閱讀這段文字。</div>
+      </div>
+    </div>
+
+    <h3>👥 利害關係人分析</h3>
+    <div class="highlight-box">
+      <h4>主要利害關係人</h4>
+      <ul>
+        <li><strong>過勞工作者</strong> ── Jebelli 父親（IT 工程師，過勞導致重度抑鬱症）、母親（託兒所經營者，過勞導致視網膜脫離和危險性高血壓）、Jens Foell 醫師（過勞導致工傷）</li>
+        <li><strong>「短期生產力」文化的受害者</strong> ── Jessica（倫敦管理顧問）、Ella Brooks（ADHD 患者）、Terri Keeley（ADHD 患者）</li>
+        <li><strong>日本過勞死（Karoshi）受害者</strong> ── 每年官方 400 人、實際估計 20,000 人</li>
+        <li><strong>所有現代人</strong> ── 平均每天花 4.8 小時在手機上，90% 時間待在室內</li>
+      </ul>
+    </div>
+
+    <div class="highlight-box sage">
+      <h4>關鍵科學人物</h4>
+      <ul>
+        <li><strong>Marcus Raichle</strong> ── 2001 年發現預設模式網路的神經學家，現年 85 歲。「大腦是管弦樂隊，DMN 是指揮家」</li>
+        <li><strong>Henri Poincaré</strong> ── 19 世紀法國數學家，發現「突然的啟示」（Sudden Illumination）── 休息時解決方案突然浮現</li>
+        <li><strong>Russell Hurlburt</strong> ── 描述性經驗取樣（DES）發明者，捕捉心智漫遊的真實面貌</li>
+        <li><strong>Dr Qing Li</strong> ── 森林浴科學研究先驅</li>
+      </ul>
+    </div>
+
+    <h3>📐 系統的度量標準</h3>
+    <p>Jebelli 在書中提供了明確的科學度量：</p>
+    <ol>
+      <li><strong>DMN 啟動度</strong> ── 透過 fMRI 可觀察到休息時大腦活動反而增加</li>
+      <li><strong>皮質醇水準</strong> ── 休息降低壓力荷爾蒙，可透過血液檢測追蹤</li>
+      <li><strong>BDNF 水準</strong> ── 腦源性神經營養因子，運動和自然接觸都能提升</li>
+      <li><strong>問題解決效能</strong> ── 73% 的研究顯示 30 分鐘至 24 小時的休息能顯著提升問題解決能力</li>
+      <li><strong>創造力測試分數</strong> ── 猶他大學研究：森林中度過時間可提升 50% 的創造力</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ===== STEP 2: 現況實境樹 CRT ===== -->
+<div class="step-card" style="border-top: 4px solid var(--violet-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, var(--violet-deep), #6C3483);">2</div>
+    <div class="step-title">現況實境樹（CRT）── 為什麼我們不敢休息？</div>
+    <div class="step-subtitle">Current Reality Tree</div>
+  </div>
+  <div class="step-body">
+    <p>Jebelli 用他的家族故事和全球數據，揭示了一個令人心碎的因果鏈。以下是書中識別出的五個核心不良效應及其根因：</p>
+
+    <h3>🔴 UDE #1：過勞正在殺死我們 ── 字面意義上的</h3>
+    <div class="crt-chain">
+      <div class="crt-node"><div class="marker root">根</div><span>16 世紀新教工作倫理將「忙碌」道德化 → 工業革命固化了長工時 → 資本主義將「投入時間」等同於「產出價值」</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker cause">因</div><span>全球 9% 人口（含兒童）每週工作超過 55 小時。千禧世代 59% 過勞。每年 745,000 人因長工時死亡。</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker ude">UDE</div><span>日本過勞死（Karoshi）：Moritz Erhardt（21歲，連續三夜工作後死亡）、Chae Soo-hong（辦公室倒地）、Sarvshreshth Gupta（每週工作100小時後死亡）── 全球性的「工作瘟疫」</span></div>
+    </div>
+
+    <h3>🔴 UDE #2：過勞讓大腦加速老化</h3>
+    <div class="crt-chain">
+      <div class="crt-node"><div class="marker root">根</div><span>執行網路被長期過度使用，DMN 長期被突觸抑制壓制</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker cause">因</div><span>前額葉皮質變薄（如同加速老化）、海馬迴萎縮（記憶力下降）、杏仁核肥大（恐懼反應增強）。糖皮質激素直接攻擊神經元。</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker ude">UDE</div><span>即使年輕人也出現「記不住、想不清、做不好」的認知退化，Jessica（管理顧問）的中風風險增加 33%，冠心病風險增加 13%</span></div>
+    </div>
+
+    <h3>🔴 UDE #3：休息被視為懶惰 ── 罪惡感的詛咒</h3>
+    <div class="crt-chain">
+      <div class="crt-node"><div class="marker root">根</div><span>社會將「忙碌」等同於「價值」和「地位」── Alain de Botton 的「地位焦慮」理論。伏隔核被觸發，對「不工作」產生失落感。</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker cause">因</div><span>即使知道應該休息，Jebelli 本人躺在沙發上時仍「焦慮像潮水般湧起」。他的母親在視力喪失後仍無法停止工作：「我不知道除了工作還能做什麼。」</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker ude">UDE</div><span>「生產力罪惡感」（Productivity Guilt）── 人們即使在休息時也無法真正休息，因為內心的罪惡感讓 DMN 無法啟動。研究顯示「過度泛化的罪惡感」會激活前扣帶迴，持續干擾休息。</span></div>
+    </div>
+
+    <h3>🔴 UDE #4：手機偽裝成休息 ── 多巴胺陷阱</h3>
+    <div class="crt-chain">
+      <div class="crt-node"><div class="marker root">根</div><span>大腦的「新奇偏見」（Novelty Bias）：每個通知都釋放多巴胺，讓我們誤以為在「休息」</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker cause">因</div><span>平均每人每天花 4.8 小時在手機上（清醒時間的三分之一），在 TikTok → Instagram → Facebook → BBC → 新聞 → 回到 TikTok 的無限循環中</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker ude">UDE</div><span>「用手機時是轉換了活動，但執行網路仍然在線上。」它是「偽裝成胡蘿蔔的棍子」── 大腦被多巴胺訓練為持續工作，DMN 完全無法啟動</span></div>
+    </div>
+
+    <h3>🔴 UDE #5：與自然的斷裂 ── 人類歷史上前所未有</h3>
+    <div class="crt-chain">
+      <div class="crt-node"><div class="marker root">根</div><span>都市化進程：2050 年預計 68% 的地球人口將居住在城市。美國人 90% 的時間在室內。英國兒童戶外時間少於監獄囚犯。</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker cause">因</div><span>大腦 99.9% 的演化時間是在自然中度過的。城市的「硬性注意力刺激」（手機提醒、LED 看板、截止日期）持續消耗認知資源</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker ude">UDE</div><span>焦慮症每年耗費歐盟 1,700 億歐元、美國 2,100 億美元。人類與自然的斷裂被視為主要原因之一。DMN 失去了最天然的啟動環境。</span></div>
+    </div>
+
+    <div class="highlight-box rose">
+      <h4>🔍 根因收斂</h4>
+      <p>五個 UDE 收斂到<strong>一個終極根因</strong>：</p>
+      <p><strong>我們殺死了大腦的指揮家。</strong></p>
+      <p>Marcus Raichle 的比喻：大腦是管弦樂隊，DMN 是指揮家。當我們工作時，音樂是 pianissimo（極弱）；當我們休息時，音樂是 fortissimo（極強）。現代社會的過勞文化，本質上就是<strong>讓樂隊不斷演奏卻不讓指揮家上台</strong>，導致整個樂隊逐漸走調、崩潰。</p>
+      <p>Jebelli 問 Raichle：「如果我們因為太多工作而殺死了指揮家呢？」<br>
+      Raichle 停頓了一下，回答：<strong>「是的。這確實讓我們很難有創造力。」</strong></p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP 3: 核心衝突雲 EC ===== -->
+<div class="step-card" style="border-top: 4px solid var(--sage-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, var(--sage-deep), #148F77);">3</div>
+    <div class="step-title">核心衝突雲（EC）── 休息的根本兩難</div>
+    <div class="step-subtitle">Evaporating Cloud</div>
+  </div>
+  <div class="step-body">
+    <div class="conflict-cloud">
+      <div class="goal">
+        🎯 共同目標（A）：在健康、創造力和長期生產力之間取得最佳平衡，活出有意義的人生
+      </div>
+      <div class="conflict-sides">
+        <div class="conflict-side left">
+          <h4>需求 B：短期生存與社會認同</h4>
+          <p style="font-size:0.88rem;">為了在現代社會中生存，我需要被視為「有用的」、「勤奮的」，我需要收入、晉升和地位認可。</p>
+          <br>
+          <h4>行動 D：持續高強度工作</h4>
+          <p style="font-size:0.88rem;">因此我必須長時間工作、多任務處理、隨時回覆訊息、用「忙碌」證明自己的價值。</p>
+        </div>
+        <div class="conflict-vs">⚡<br>衝突</div>
+        <div class="conflict-side right">
+          <h4>需求 C：健康、創造力與認知功能</h4>
+          <p style="font-size:0.88rem;">為了長期健康和創造力，我的大腦需要啟動 DMN，需要真正的休息、自然接觸和心智漫遊。</p>
+          <br>
+          <h4>行動 D'：花大量時間「什麼都不做」</h4>
+          <p style="font-size:0.88rem;">因此我需要每天留出時間發呆、散步、睡午覺、森林浴、放棄手機 ── 看起來「像在偷懶」。</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>衝突的本質</h3>
+    <p>這個衝突的核心在於<strong>一個被社會深植的錯誤假設</strong>：「更多的工作投入 = 更多的有價值產出」。</p>
+
+    <div class="highlight-box violet">
+      <h4>被科學證偽的假設清單</h4>
+      <ul>
+        <li>❌ 假設：更多工時 = 更高生產力<br>
+        → <strong>反證：</strong>研究發現管理者無法區分真正工作 80 小時和假裝工作 80 小時的顧問</li>
+        <li>❌ 假設：休息是生產力的敵人<br>
+        → <strong>反證：</strong>73% 的問題解決研究顯示，30 分鐘到 24 小時的休息後表現更好</li>
+        <li>❌ 假設：大腦休息時「什麼都沒做」<br>
+        → <strong>反證：</strong>大腦使用身體 20% 的能量（僅佔體重 2%），且休息時前額葉血流量反而最高</li>
+        <li>❌ 假設：只要換個活動就算休息<br>
+        → <strong>反證：</strong>滑手機讓執行網路持續在線，DMN 無法啟動。這不是休息。</li>
+        <li>❌ 假設：心智漫遊是浪費時間<br>
+        → <strong>反證：</strong>Poincaré 的突然啟示、Shelley 的《科學怪人》（來自夢境）、Rowling 的哈利波特（來自火車旅程）、Mendeleev 的元素週期表（來自玩牌）</li>
+        <li>❌ 假設：忙碌 = 重要性<br>
+        → <strong>反證：</strong>地位焦慮激活伏隔核，長期暴露導致抑鬱和心臟病。「忙碌崇拜」最終摧毀大腦處理忙碌的能力本身。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP 4: 注入解萃取 ===== -->
+<div class="step-card" style="border-top: 4px solid var(--amber-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, var(--amber-deep), #D68910);">4</div>
+    <div class="step-title">注入解萃取 ── 七種啟動 DMN 的科學方法</div>
+    <div class="step-subtitle">Injection Extraction</div>
+  </div>
+  <div class="step-body">
+    <p>Jebelli 在書的下半部（Part Two: REST）提供了七大類經過科學驗證的 DMN 啟動方法，每一種都是打破衝突雲的注入解：</p>
+
+    <div class="injection-card">
+      <div class="label">💉 注入解 #1</div>
+      <h4>🌊 心智漫遊（Mind Wandering）── 大腦的野生老虎</h4>
+      <p>人類清醒時間的 25-50% 花在心智漫遊上，這不是缺陷，而是演化賦予的超能力。Russell Hurlburt 的 DES（描述性經驗取樣）方法揭示了心智漫遊的驚人豐富性 ── 包括「無符號思考」（Unsymbolized Thinking），一種不需要語言或圖像的純粹思維形式。</p>
+      <p><strong>科學機制：</strong>心智漫遊觸發海馬迴中的「尖波漣漪」（Sharp Wave-ripples），啟動整個 DMN。它提供「新鮮起點」效應 ── 讓神經元的粒線體重新分配能量，修復認知疲勞。</p>
+      <p><strong>操作方式：</strong>每天花 20 分鐘凝視天空或窗外，不想任何特定事物。嘗試「正面建設性白日夢」（PCD）── 想像一年後理想的生活。聽悲傷的音樂（科學證實能增強心智漫遊和 DMN 活動）。</p>
+    </div>
+
+    <div class="injection-card">
+      <div class="label">💉 注入解 #2</div>
+      <h4>🌲 森林浴（Shinrin-yoku）── 自然中的 DMN 加速器</h4>
+      <p>日本政府 1982 年正式提出的健康實踐。不是健行、不是運動，而是純粹地「沐浴在森林的氛圍中」── 觸摸樹皮、聞花香、聽鳥鳴、看光影。</p>
+      <p><strong>科學機制：</strong></p>
+      <ul>
+        <li>植物揮發的<strong>植物精油（Phytoncides）</strong>提升自然殺手細胞數量，強化免疫系統</li>
+        <li>呼吸土壤中的<strong>牛分枝桿菌（M. vaccae）</strong>觸發血清素分泌，天然抗抑鬱</li>
+        <li>擁抱樹木釋放<strong>催產素</strong>，降低皮質醇和血壓</li>
+        <li>自然的「柔性注意力」（Soft Fascination）讓大腦進入 alpha 波和 theta 波狀態</li>
+        <li>前額葉皮質活動降低 → 進入心流狀態 → DMN 啟動</li>
+      </ul>
+      <p>猶他大學研究：在森林中度過時間能提升 50% 的創造力和問題解決能力。</p>
+    </div>
+
+    <div class="injection-card">
+      <div class="label">💉 注入解 #3</div>
+      <h4>🧘 獨處（Solitude）── 存在的頓悟時刻</h4>
+      <p>Jebelli 獨自前往小木屋的體驗揭示了「選擇性獨處」的力量。Professor Jack Fong 稱之為「存在化時刻」（Existentializing Moments）── 在獨處中，我們重新面對自己是誰的根本問題。</p>
+      <p><strong>科學機制：</strong>獨處啟動 DMN 中與自我反思和未來規劃相關的區域，增強認知功能、創造力和情緒調節。與「被迫孤獨」不同，「選擇性獨處」帶來正面的神經化學效應。</p>
+      <p><strong>重要區分：</strong>社群媒體的「被動社交」不等於真正的連結。獨處並非孤立，而是與自己的內在對話。</p>
+    </div>
+
+    <div class="injection-card">
+      <div class="label">💉 注入解 #4</div>
+      <h4>😴 睡眠 ── DMN 的夜間指揮棒</h4>
+      <p>睡眠不是大腦的關機，而是 DMN 最強大的啟動時段。入睡前的「半睡半醒」狀態（Hypnagogic State）是靈感爆發的黃金時刻 ── Poincaré、Edison、Dalí 都利用過這個狀態。</p>
+      <p><strong>科學機制：</strong>REM 階段 DMN 高度活躍，夢境是大腦重組記憶和產生洞見的過程。Victoria Garfield 的研究：午睡 20-30 分鐘能降低皮質醇、提升記憶、增強認知表現。Roger Federer 每天睡 12 小時。</p>
+      <p><strong>操作建議：</strong>睡前泡澡、避免藍光、限制咖啡因（下午 2 點後）、養成 20 分鐘午睡習慣。</p>
+    </div>
+
+    <div class="injection-card">
+      <div class="label">💉 注入解 #5</div>
+      <h4>🏃 主動休息（Active Rest）── 運動改變大腦結構</h4>
+      <p>運動不只是身體鍛鍊，更是大腦結構的重建工程。Jebelli 稱之為「主動休息」── 身體在動，但 DMN 被啟動。</p>
+      <p><strong>科學機制：</strong></p>
+      <ul>
+        <li>運動產生<strong>內源性大麻素（Endocannabinoids）</strong>── 比「跑者愉悅感」更準確的解釋</li>
+        <li>提升 <strong>BDNF（腦源性神經營養因子）</strong>── 大腦的「肥料」，促進神經再生</li>
+        <li>增加大腦灰質和白質體積 ── 運動字面意義上讓大腦變大</li>
+        <li>運動員的大腦在「待機」時 DMN 活動更強（Professor Del Percio 的研究）</li>
+      </ul>
+      <p><strong>推薦：</strong>游泳、騎車、跑步、瑜伽、網球。關鍵是「規律」而非「強度」。</p>
+    </div>
+
+    <div class="injection-card">
+      <div class="label">💉 注入解 #6</div>
+      <h4>🎮 遊戲（Play）── 被低估的認知增強器</h4>
+      <p>Stuart Brown 的遊戲研究和 Simone Kühn 的電玩研究揭示：遊戲啟動 DMN，增強空間記憶、決策能力和創造力。陶藝（Pottery）特別有效 ── 結合觸覺、視覺和正念，強力啟動 DMN。</p>
+      <p><strong>遊戲的本質：</strong>「遊戲性格」（Play Personalities）包括收集者、創造者、競爭者、探險者等。每個人都有最適合自己的遊戲方式。</p>
+    </div>
+
+    <div class="injection-card">
+      <div class="label">💉 注入解 #7</div>
+      <h4>🇳🇱 Niksen ── 荷蘭式「什麼都不做」</h4>
+      <p>Olga Mecking 研究的荷蘭生活哲學：niksen = 刻意地什麼都不做。不是冥想（那需要專注），不是正念（那有目標），而是純粹的無所事事。</p>
+      <p><strong>表現形式：</strong>在咖啡館發呆（café-niksen）、看人（people-watching）、賞鳥（birdwatching）、凝視窗外、在事物之間的「間隙時刻」什麼都不做。</p>
+      <p><strong>科學支持：</strong>Professor Veenhoven 的研究：niksen 能提升創造力和問題解決能力。甚至「假裝工作」（pretending to work）── 坐在辦公桌前但實際上在放空 ── 也能啟動 DMN，效果與真正休息類似。</p>
+    </div>
+
+    <h3>🧬 注入解的整合框架</h3>
+    <div class="highlight-box sage">
+      <p>七種注入解並非互斥，而是一個<strong>「DMN 啟動光譜」</strong>：</p>
+      <ul>
+        <li>🟢 <strong>被動休息</strong>（低能量）：Niksen → 心智漫遊 → 獨處 → 睡眠</li>
+        <li>🔵 <strong>主動休息</strong>（中能量）：森林浴 → 散步 → 遊戲 → 陶藝</li>
+        <li>🟣 <strong>高能量休息</strong>（高能量）：運動 → 性愛 → 攀樹</li>
+      </ul>
+      <p>關鍵不是選擇「最好」的方法，而是在日常生活中<strong>輪換使用</strong>，讓 DMN 有多種啟動管道。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP 5: 未來實境樹 FRT ===== -->
+<div class="step-card" style="border-top: 4px solid var(--mint-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, var(--mint-deep), #1E8449);">5</div>
+    <div class="step-title">未來實境樹（FRT）── DMN 啟動後的正面因果鏈</div>
+    <div class="step-subtitle">Future Reality Tree</div>
+  </div>
+  <div class="step-body">
+    <h3>🌱 因果鏈 1：從認知退化到認知增強</h3>
+    <div class="if-then">
+      <span class="if">If</span> 我每天花 20-30 分鐘進行真正的「什麼都不做」（不是滑手機），<br>
+      <span class="then">Then</span> DMN 啟動，前額葉血流量增加，突觸抑制解除，執行網路獲得「新鮮起點」。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> 執行網路定期獲得恢復，<br>
+      <span class="then">Then</span> 決策品質提升、專注力增強、工作記憶改善。就像阿姆斯特丹大學的汽車選擇實驗：休息組的表現遠超專注組。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> 認知功能全面提升，<br>
+      <span class="then">Then</span> 我的長期生產力實際增加 ── 不是工作更多，而是工作得更好。Jebelli 自己的經歷就是最佳證明：「我現在比以前任何時候都更有生產力和效率。」
+    </div>
+
+    <h3>🌱 因果鏈 2：從心理崩潰到情緒韌性</h3>
+    <div class="if-then">
+      <span class="if">If</span> 我每週進行 2 小時的森林浴或自然接觸，<br>
+      <span class="then">Then</span> 皮質醇水準下降、血清素和催產素上升、自然殺手細胞增加、免疫系統強化。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> 壓力荷爾蒙持續降低 + DMN 中與自我反思相關的區域活躍，<br>
+      <span class="then">Then</span> 焦慮和抑鬱風險顯著下降。Roger Ulrich 的經典研究：看到樹木的病患恢復更快、用藥更少、負面情緒更少。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> 情緒韌性增強 + 自我認同穩固，<br>
+      <span class="then">Then</span> 面對工作壓力時有更強的心理緩衝，不再是「一個壓力就崩潰」的脆弱狀態。
+    </div>
+
+    <h3>🌱 因果鏈 3：從創意枯竭到靈感湧現</h3>
+    <div class="if-then">
+      <span class="if">If</span> 我在遇到困難問題時「走開休息」而非「更用力想」，<br>
+      <span class="then">Then</span> DMN 的孵化效應（Incubation Effect）啟動 ── 潛意識在背景中以新穎方式探索資訊。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> 孵化效應持續 30 分鐘到 24 小時，<br>
+      <span class="then">Then</span> 解決方案「突然出現」── 如同 Poincaré 踏上公車的瞬間、Martin Amis「不強迫靈感」的體悟。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> 創造力飛輪啟動（定期休息 → 更多洞見 → 更好的工作成果 → 更有信心休息），<br>
+      <span class="then">Then</span> 「休息罪惡感」被「休息實證」取代 ── 你親身體驗了「做得更少，成就更多」的悖論。
+    </div>
+
+    <h3>🌱 因果鏈 4：從大腦萎縮到神經再生</h3>
+    <div class="if-then">
+      <span class="if">If</span> 我養成規律運動習慣（每週 3-4 次，每次 30 分鐘），<br>
+      <span class="then">Then</span> BDNF 水準上升 → 海馬迴神經再生 → 灰質和白質增加 → 大腦字面意義上變大。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> 大腦結構改善 + DMN 在運動後更加活躍，<br>
+      <span class="then">Then</span> 長期認知衰退風險降低，包括阿茲海默症風險。Ruth Bader Ginsburg（87歲）和 Nora Langdon（76歲，舉重世界紀錄保持者）的案例證明了終身運動對大腦的保護。
+    </div>
+
+    <div class="highlight-box mint">
+      <h4>🌟 系統整體效果</h4>
+      <p>當 DMN 被定期啟動，整個「人類作業系統」升級：</p>
+      <ul>
+        <li><strong>短期：</strong>今天的問題解決能力更強，今晚的睡眠品質更好</li>
+        <li><strong>中期：</strong>數週內感受到創造力和情緒的顯著提升</li>
+        <li><strong>長期：</strong>數年來的大腦結構改善和認知退化防護</li>
+      </ul>
+      <p>正如 Raichle 所說：「大腦沒有關機開關。休息是一個誤導性的詞。管弦樂隊仍在那裡，仍在演奏。如果你仔細聽，那聲音是壯麗的。」</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP 6: 瓶頸深度定位 ===== -->
+<div class="step-card" style="border-top: 4px solid var(--rose-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, var(--rose-deep), #C0392B);">6</div>
+    <div class="step-title">瓶頸深度定位 ── 讀者面臨的最大瓶頸</div>
+    <div class="step-subtitle">Constraint Identification</div>
+  </div>
+  <div class="step-body">
+    <h3>🔍 瓶頸矩陣分析</h3>
+
+    <div class="highlight-box rose">
+      <h4>🏆 主瓶頸：「生產力罪惡感」── 內化的過勞信仰</h4>
+      <p>Jebelli 本人在書中坦承：即使他知道所有的科學、寫了整本關於休息的書，<strong>躺在沙發上時仍然感到罪惡</strong>。「The guilt gnaws at me a little. Anxiety rises like a slow tide.」</p>
+      <p>這不是知識問題，而是<strong>信仰問題</strong>。數百年的工作倫理、資本主義的價值觀、社群媒體的「忙碌展演」── 所有這些都在你的大腦中植入了一個根深蒂固的信念：<strong>「如果我不在工作，我就是在浪費生命。」</strong></p>
+      <p>神經科學的解釋：罪惡感激活前扣帶迴和前島葉，這些區域與疼痛感知共用神經迴路。換言之，<strong>休息時的罪惡感在神經層面上類似於身體疼痛</strong>。這就是為什麼即使你「知道應該休息」，你的大腦仍然在懲罰你。</p>
+    </div>
+
+    <div class="highlight-box violet">
+      <h4>次瓶頸 #1：手機成癮 ── 多巴胺劫持</h4>
+      <p>Jebelli 自己也承認「在丟掉 iPhone 上倒退了」── 已經收到抽屜裡，但還是會不自覺地去拿。平均每人每天 4.8 小時的手機使用時間，是 DMN 啟動的最大物理障礙。問題不在於手機本身，而在於大腦的新奇偏見被科技精準利用。</p>
+    </div>
+
+    <div class="highlight-box amber">
+      <h4>次瓶頸 #2：工作環境的結構性限制</h4>
+      <p>即使個人想休息，如果你的老闆期望你隨時在線、你的公司文化視午睡為懶惰、你的 KPI 以工時而非成果衡量 ── 那麼個人的休息意願就被組織結構壓制。日本的 shuudan ishiki（集團意識）是極端案例，但全球都存在類似問題。</p>
+    </div>
+
+    <div class="highlight-box">
+      <h4>次瓶頸 #3：缺乏自然接觸的環境</h4>
+      <p>90% 的時間在室內 + 城市化 + 綠地不足 = DMN 最天然的啟動環境被系統性剝奪。英國兒童的戶外時間少於監獄囚犯，這本身就是一個瘋狂的事實。</p>
+    </div>
+
+    <h3>瓶頸的 TOC 分析</h3>
+    <p>在限制理論中，整個系統的吞吐量取決於瓶頸的產能：</p>
+    <ul>
+      <li><strong>系統吞吐量</strong> = 你每天實際啟動 DMN 的時間（分鐘）</li>
+      <li><strong>瓶頸產能</strong> = 你在「不感到罪惡」的情況下能休息的最長時間</li>
+      <li><strong>核心矛盾</strong> = 你的認知（「我應該休息」）與你的情緒（「休息讓我焦慮」）之間的戰爭</li>
+      <li><strong>提升策略</strong> = 不是「多休息」，而是「改變對休息的信念」── 從罪惡到理直氣壯</li>
+    </ul>
+
+    <div class="quote-block">
+      Jebelli 的母親在一隻眼睛失明、血壓 240/180 的情況下，仍然堅持工作。當被問到能不能至少週五休息時，她說：「I'm needed at work. It's all I know now.」
+      <span class="author">── 這就是瓶頸的最極端表現：當過勞的信念已經成為身份認同的一部分</span>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP 7: 障礙拆解 PrT ===== -->
+<div class="step-card" style="border-top: 4px solid var(--indigo-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, #1A5276, #154360);">7</div>
+    <div class="step-title">障礙拆解（前提樹 PrT）── 實施障礙與中間目標</div>
+    <div class="step-subtitle">Prerequisite Tree</div>
+  </div>
+  <div class="step-body">
+    <p>從「現在的你（過勞 + 罪惡感 + 手機成癮）」到「每天 60 分鐘有效 DMN 啟動時間」之間的障礙與中間目標：</p>
+
+    <h3>障礙 1：「休息 = 偷懶」的內化信念</h3>
+    <div class="highlight-box">
+      <p><strong>障礙描述：</strong>即使閱讀了所有科學證據，情緒上仍然將休息與罪惡感綁定。</p>
+      <p><strong>中間目標：</strong>建立「休息 = 投資」的新框架。</p>
+      <ul>
+        <li>將本書的關鍵數據列印出來貼在辦公桌上：「73% 的研究證實休息提升問題解決能力」「大腦使用身體 20% 的能量，休息時血流量更高」</li>
+        <li>記錄自己的「休息實驗日記」── 記下休息前後的工作表現差異，用自己的數據說服自己</li>
+        <li>使用 Jebelli 的重構語言：「我不是在偷懶，我正在啟動我的預設模式網路。」</li>
+      </ul>
+      <p><strong>克服指標：</strong>連續 7 天在休息時，罪惡感從「強烈」降到「輕微」或「不存在」。</p>
+    </div>
+
+    <h3>障礙 2：手機的多巴胺劫持</h3>
+    <div class="highlight-box violet">
+      <p><strong>障礙描述：</strong>每次嘗試「什麼都不做」，手不自覺地伸向手機。</p>
+      <p><strong>中間目標：</strong>漸進式數位斷食。</p>
+      <ul>
+        <li>第一週：休息時將手機放在另一個房間（物理距離 > 意志力）</li>
+        <li>第二週：設定「無手機時段」── 例如早上起床後 30 分鐘、晚上睡前 1 小時</li>
+        <li>第三週：刪除「無意識滑動」的 App（TikTok、Instagram 動態），只保留主動搜尋的功能</li>
+        <li>第四週：像 Jebelli 一樣，嘗試設定每天只在固定時段使用電腦查看 Email 和新聞</li>
+      </ul>
+      <p><strong>克服指標：</strong>每日手機使用時間從 4.8 小時降到 2 小時以下。</p>
+    </div>
+
+    <h3>障礙 3：沒有時間休息 ── 行程被塞滿</h3>
+    <div class="highlight-box sage">
+      <p><strong>障礙描述：</strong>工作日的每個時段都被會議、郵件、任務佔滿。</p>
+      <p><strong>中間目標：</strong>用 Pomodoro 技巧 + 會議審計創造休息空間。</p>
+      <ul>
+        <li>Pomodoro：25 分鐘工作 + 5 分鐘真正休息（不是滑手機）── 每天至少 8 個循環 = 40 分鐘休息</li>
+        <li>會議審計：對每個會議問「Is this meeting relevant? How long is it? Do I really need to be there?」── Jebelli 的建議</li>
+        <li>Email 斷食：設定固定的 Email 查看時段（例如每天 3 次），而非持續打開收件匣</li>
+        <li>時間阻塞（Time-blocking）：在日曆上封鎖「DMN 啟動時段」，如同封鎖會議一樣不可侵犯</li>
+      </ul>
+      <p><strong>克服指標：</strong>每個工作日至少創造出 30 分鐘的「不可談判的休息時間」。</p>
+    </div>
+
+    <h3>障礙 4：缺乏自然接觸</h3>
+    <div class="highlight-box amber">
+      <p><strong>障礙描述：</strong>住在都市裡，附近沒有森林，沒有條件進行森林浴。</p>
+      <p><strong>中間目標：</strong>尋找「城市中的微型自然」。</p>
+      <ul>
+        <li>Dr Jenny Roe 的研究：即使是城市中的小型綠地也能產生顯著的神經效應（beta 波降低、alpha 波增加）</li>
+        <li>Ulrich 的經典研究：即使只是「看到窗外的一棵樹」就能改善健康指標</li>
+        <li>賞鳥（Birdwatching）：城市中也可以進行，研究證實能啟動 DMN</li>
+        <li>室內植物、自然聲音的播放、陽台上的 5 分鐘──都是「微型森林浴」</li>
+        <li>每週安排一次 2 小時的綠地漫步 ── Dr Mathew White 的研究基準</li>
+      </ul>
+      <p><strong>克服指標：</strong>每週累計至少 2 小時的自然接觸時間。</p>
+    </div>
+
+    <h3>障礙 5：職場文化的結構性壓力</h3>
+    <div class="highlight-box">
+      <p><strong>障礙描述：</strong>公司文化不允許「看起來在偷懶」。</p>
+      <p><strong>中間目標：</strong>用「科學語言」重新包裝休息，從個人實踐逐步影響團隊。</p>
+      <ul>
+        <li>向主管分享本書的關鍵數據：過勞實際上摧毀公司底線（多項研究證實）</li>
+        <li>像 Terri Keeley 一樣，主動告知同事自己需要休息，並展示休息後工作品質的提升</li>
+        <li>在團隊中推動「散步會議」── Jenny Roe 的研究支持在綠地中步行會議的認知效益</li>
+        <li>Ella Brooks 的智慧：「ADHD isn't the problem, the way we work is the problem.」── 推動彈性工作制</li>
+        <li>荷蘭的策略：將 niksen 正當化為工作文化的一部分</li>
+      </ul>
+      <p><strong>克服指標：</strong>在不影響績效評估的前提下，每天增加 15 分鐘的公開休息時間。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP 8: 轉變樹 TT ===== -->
+<div class="step-card" style="border-top: 4px solid var(--violet-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, var(--violet-deep), #6C3483);">8</div>
+    <div class="step-title">轉變樹（TT）── 四週 DMN 啟動行動計畫</div>
+    <div class="step-subtitle">Transition Tree · 4-Week Action Plan</div>
+  </div>
+  <div class="step-body">
+    <p>Jebelli 在書中描述了自己的轉變過程：從每天額外 30 分鐘開始，逐步增加到 1 小時。以下是基於他的框架設計的四週計畫：</p>
+
+    <div class="week-plan">
+      <div class="week-block">
+        <h5>🧠 Week 1<br>「覺察與斷裂」</h5>
+        <ul>
+          <li>✦ 每天記錄自己的「無休息時段」── 意識到有多少時間執行網路在線上</li>
+          <li>✦ 手機放到另一個房間，每天練習 20 分鐘「凝視」（窗外、天花板、植物）</li>
+          <li>✦ 安裝一次午睡：20 分鐘，設好鬧鐘</li>
+          <li>✦ 用 Pomodoro 法，每個 5 分鐘休息時真正放空</li>
+          <li>✦ 記錄「休息日記」：休息前後的心情和工作表現</li>
+        </ul>
+      </div>
+      <div class="week-block">
+        <h5>🌲 Week 2<br>「自然與漫遊」</h5>
+        <ul>
+          <li>✦ 每天下午 3 點的 20 分鐘散步（效法 Jebelli）</li>
+          <li>✦ 安排 1 次 2 小時的綠地/公園探訪</li>
+          <li>✦ 嘗試「正面建設性白日夢」（PCD）── 10 分鐘想像理想生活</li>
+          <li>✦ 試一次泡澡（Jebelli 推薦，加浴鹽）</li>
+          <li>✦ 晚上聽悲傷音樂 15 分鐘（科學證實增強 DMN）</li>
+        </ul>
+      </div>
+      <div class="week-block">
+        <h5>🎮 Week 3<br>「遊戲與運動」</h5>
+        <ul>
+          <li>✦ 開始規律運動：每次 30 分鐘，每週 3 次</li>
+          <li>✦ 嘗試一項「遊戲」── 陶藝、攀樹、電玩、拼圖</li>
+          <li>✦ 練習獨處：1 次 2 小時的獨自時間（不帶手機）</li>
+          <li>✦ 休息時間增加到每天 45 分鐘</li>
+          <li>✦ 向 1 位同事分享你的休息實驗結果</li>
+        </ul>
+      </div>
+      <div class="week-block">
+        <h5>🧘 Week 4<br>「Niksen 與整合」</h5>
+        <ul>
+          <li>✦ 嘗試 Niksen：1 次在咖啡館什麼都不做 30 分鐘</li>
+          <li>✦ 嘗試賞鳥或觀察人群</li>
+          <li>✦ 休息時間增加到每天 60 分鐘</li>
+          <li>✦ 統計四週的「休息日記」數據，量化改善</li>
+          <li>✦ 設定長期 DMN 啟動策略，整合到日常行程</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>🔍 每週 If-Then 驗證</h3>
+    <div class="if-then">
+      <span class="if">If</span> Week 1 成功每天 20 分鐘凝視 + 1 次午睡 + 手機隔離，<br>
+      <span class="then">Then</span> 你會發現「什麼都不做」比想像中更令人滿足 ── 就像書中大學生的實驗，他們嚴重低估了「只是思考」的愉悅感。<br>
+      <strong>驗證指標：</strong>休息日記中記錄到至少 3 次「意料之外的平靜或洞見」。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> Week 2 成功建立每日散步習慣 + 1 次綠地探訪，<br>
+      <span class="then">Then</span> 你會體驗到 Jebelli 描述的「仿佛迷霧散去」的感覺 ── 思維更清晰、心情更輕盈。<br>
+      <strong>驗證指標：</strong>工作效率自我評分提升至少 15%（與 Week 0 基線比較）。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> Week 3 成功啟動運動 + 遊戲 + 獨處，<br>
+      <span class="then">Then</span> DMN 在多種啟動管道下被持續滋養。你可能開始在散步中突然想到問題的解決方案（Poincaré 效應）。<br>
+      <strong>驗證指標：</strong>至少記錄到 1 次「孵化效應」── 在休息時突然浮現的洞見。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> Week 4 成功增加到每天 60 分鐘 DMN 時間 + 完成四週覆盤，<br>
+      <span class="then">Then</span> 「休息罪惡感」大幅消退，因為你有四週的個人數據證明：休息確實讓你變得更好。<br>
+      <strong>驗證指標：</strong>整體生活滿意度、工作品質和睡眠品質都有可感知的改善。
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP 9: 吞吐量審計 ===== -->
+<div class="step-card" style="border-top: 4px solid var(--amber-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, var(--amber-deep), #D68910);">9</div>
+    <div class="step-title">吞吐量審計 ── 這本書的投資報酬分析</div>
+    <div class="step-subtitle">Throughput Audit</div>
+  </div>
+  <div class="step-body">
+    <p>用 TOC 的吞吐量會計（Throughput Accounting），我們從三個維度評估閱讀並實踐本書的 ROI：</p>
+
+    <div class="throughput-grid">
+      <div class="throughput-item">
+        <div class="metric high">★★★★★</div>
+        <div class="label" style="font-size:0.8rem;color:var(--text-secondary);">吞吐量（T）</div>
+        <p style="font-size:0.88rem;">健康、創造力、長期生產力的全面提升</p>
+      </div>
+      <div class="throughput-item">
+        <div class="metric high">極低</div>
+        <div class="label" style="font-size:0.8rem;color:var(--text-secondary);">營運費用（OE）</div>
+        <p style="font-size:0.88rem;">休息本身不花錢，甚至節省醫療費用</p>
+      </div>
+      <div class="throughput-item">
+        <div class="metric medium">中高</div>
+        <div class="label" style="font-size:0.8rem;color:var(--text-secondary);">投資（I）</div>
+        <p style="font-size:0.88rem;">克服根深蒂固的文化信念需要心理能量</p>
+      </div>
+    </div>
+
+    <h3>📊 吞吐量詳細分析</h3>
+
+    <div class="highlight-box">
+      <h4>T（吞吐量）── 核心價值產出</h4>
+      <ul>
+        <li><strong>認知功能提升：</strong>書中引用的阿姆斯特丹大學研究（休息組選車任務表現遠超專注組）、史丹佛大學研究（午睡組護士在模擬手術中表現更好）── 這些都是可量化的認知吞吐量提升</li>
+        <li><strong>創造力倍增：</strong>猶他大學的 50% 創造力提升、73% 問題解決研究的正面結果、Poincaré 效應 ── 創造力不是天賦，而是休息的產物</li>
+        <li><strong>壽命延長：</strong>每年 745,000 人因過勞死亡。每多休息一天，字面意義上就是多活一天。全球每年因精神健康問題損失 1 兆美元，預計 2030 年達到 16 兆 ── 休息是最便宜的預防投資</li>
+        <li><strong>關係品質提升：</strong>DMN 的自我反思功能增強同理心和社交認知。Jebelli 在書中描述休息後「工作更有意義、更有焦點」── 這也反映在人際關係上</li>
+        <li><strong>神經保護：</strong>運動提升 BDNF、增加大腦體積、降低阿茲海默症風險 ── 這是跨越數十年的長期吞吐量</li>
+      </ul>
+    </div>
+
+    <div class="highlight-box sage">
+      <h4>OE（營運費用）── 持續成本</h4>
+      <ul>
+        <li><strong>時間「成本」：</strong>每天 30-60 分鐘 ── 但這不是成本，而是投資。Jebelli 的實證：「我現在比以前更有生產力」</li>
+        <li><strong>金錢成本：</strong>幾乎為零。森林浴免費、午睡免費、凝視窗外免費、心智漫遊免費。唯一的費用可能是一雙散步的好鞋和偶爾的泡澡用品</li>
+        <li><strong>社交成本：</strong>可能需要向不理解的同事解釋為什麼你在「發呆」── 但 Jebelli 提供了完整的科學論證工具包</li>
+        <li><strong>實際節省：</strong>減少醫療費用、減少因病缺勤、減少因認知退化導致的工作失誤 ── 休息的 OE 可能是負數（也就是它在節省你的錢）</li>
+      </ul>
+    </div>
+
+    <div class="highlight-box amber">
+      <h4>I（投資）── 初期投資需求</h4>
+      <ul>
+        <li><strong>信念重建：</strong>這是最大的投資。你需要推翻數十年的「忙碌 = 價值」信條。所需的不是資訊（書中已提供充足科學證據），而是<strong>勇氣</strong></li>
+        <li><strong>習慣養成：</strong>21 天到 66 天不等（根據不同研究），需要在日常行程中「硬編碼」DMN 時段</li>
+        <li><strong>環境調整：</strong>可能需要改變通勤路線（經過綠地）、調整工作區佈局（面向窗戶）、建立手機存放點</li>
+        <li><strong>社會資本：</strong>在某些高壓職場中，公開休息需要一定的社會資本 ── 但 Jebelli 的策略是「先自己做，用成果說話」</li>
+      </ul>
+    </div>
+
+    <h3>📈 ROI 結論</h3>
+    <div class="highlight-box sky">
+      <p><strong>T / (OE + I) = 人生中最高回報率的投資之一</strong></p>
+      <p>這本書提出的核心論點 ── <strong>「做得更少，成就更多」的科學悖論</strong> ── 在 TOC 吞吐量分析下得到完美驗證。原因如下：</p>
+      <ol>
+        <li><strong>OE 趨近於零甚至為負</strong> ── 休息本身不花錢，還能節省醫療和效率損失的費用</li>
+        <li><strong>T 是全維度的</strong> ── 同時提升健康、創造力、生產力、關係品質和壽命</li>
+        <li><strong>唯一的 I 是心理投資</strong> ── 但這是一次性的信念轉換，一旦完成，後續自動複利</li>
+      </ol>
+      <p><strong>最關鍵的洞見：</strong>與幾乎所有其他自我提升方法不同，本書的方法論要求你<strong>做更少</strong>而不是做更多。這意味著它不會消耗你已經枯竭的認知資源 ── 它是唯一一個「越累越適合開始」的改善策略。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP 10: 持續改善循環 POOGI ===== -->
+<div class="step-card" style="border-top: 4px solid var(--sage-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, var(--sage-deep), #148F77);">10</div>
+    <div class="step-title">持續改善循環（POOGI）── 長期 DMN 進化機制</div>
+    <div class="step-subtitle">Process of Ongoing Improvement</div>
+  </div>
+  <div class="step-body">
+    <p>Jebelli 的書不只是教你「休息」── 他描述了一個持續進化的過程。以下是 DMN 啟動的 POOGI 循環：</p>
+
+    <div class="poogi-cycle">
+      <div class="poogi-step">① 識別瓶頸</div>
+      <div class="poogi-step">② 利用瓶頸</div>
+      <div class="poogi-step">③ 全力配合</div>
+      <div class="poogi-step">④ 提升瓶頸</div>
+      <div class="poogi-step">⑤ 回到第①步</div>
+    </div>
+
+    <h3>🔄 第一輪 POOGI（月度 1-2）：克服罪惡感</h3>
+    <div class="highlight-box">
+      <ul>
+        <li><strong>識別：</strong>瓶頸 = 生產力罪惡感阻止 DMN 啟動</li>
+        <li><strong>利用：</strong>用「最小可行休息」── 每天 20 分鐘凝視窗外。Jebelli 的起點也是 30 分鐘。不追求完美，只要「開始」</li>
+        <li><strong>配合：</strong>記錄「休息日記」，用個人數據代替文化信念。每次休息後寫一句話：「休息後我感覺/注意到＿＿」</li>
+        <li><strong>提升：</strong>當你有 2 週的正面數據後，罪惡感自然消退。逐步將休息時間從 20 分鐘增加到 30 分鐘</li>
+        <li><strong>回到第①步：</strong>當罪惡感不再是主瓶頸時，下一個瓶頸可能是「手機干擾」</li>
+      </ul>
+    </div>
+
+    <h3>🔄 第二輪 POOGI（月度 3-4）：建立多管道 DMN 啟動</h3>
+    <div class="highlight-box violet">
+      <ul>
+        <li><strong>識別：</strong>瓶頸 = 只有一種休息方式（例如只會凝視），容易厭倦或受環境限制</li>
+        <li><strong>利用：</strong>每週輪換嘗試不同的 DMN 啟動方式：散步（週一、三）、午睡（週二、四）、自然接觸（週末）、遊戲（週末）</li>
+        <li><strong>配合：</strong>開始規律運動（每週 3 次），產生內源性大麻素和 BDNF 的生化效應</li>
+        <li><strong>提升：</strong>找到最適合自己的 2-3 種核心 DMN 啟動方式，將其制度化到日常行程中</li>
+        <li><strong>回到第①步：</strong>新瓶頸可能是「深度 DMN 啟動不足」── 短暫的發呆已不夠，需要更長時間的獨處或森林浴</li>
+      </ul>
+    </div>
+
+    <h3>🔄 第三輪 POOGI（月度 5-8）：深度 DMN 實踐</h3>
+    <div class="highlight-box sage">
+      <ul>
+        <li><strong>識別：</strong>瓶頸 = 日常微休息已養成，但缺乏「深度 DMN 啟動」── 長時間獨處、深度森林浴、無目的的旅行</li>
+        <li><strong>利用：</strong>每月安排 1 次半天的「獨處日」── 效法 Jebelli 的獨自小木屋體驗。每季 1 次全天的自然沉浸</li>
+        <li><strong>配合：</strong>探索 DES（描述性經驗取樣）技巧 ── 用 Hurlburt 的方法，更深入觀察自己的心智漫遊</li>
+        <li><strong>提升：</strong>從「被動休息」進化到「主動心智探索」── 你開始有意識地利用 DMN 產出的洞見</li>
+        <li><strong>回到第①步：</strong>新瓶頸可能是「環境影響他人」── 如何將 DMN 思維推廣到家庭和團隊</li>
+      </ul>
+    </div>
+
+    <h3>🔄 第四輪 POOGI（月度 9-12+）：系統性影響擴散</h3>
+    <div class="highlight-box amber">
+      <ul>
+        <li><strong>識別：</strong>瓶頸 = 個人已轉變，但所處的系統（公司、家庭、社會）仍在推動過勞文化</li>
+        <li><strong>利用：</strong>用自己的成功案例影響團隊 ── 分享數據、推動散步會議、建議彈性工作制</li>
+        <li><strong>配合：</strong>在家庭中以身作則 ── 讓孩子看到父母「什麼都不做」是正常的、健康的。教孩子 Niksen</li>
+        <li><strong>提升：</strong>成為所在組織的「休息文化大使」── 推動制度性變革，例如午睡室、自然接觸政策、會議上限</li>
+        <li><strong>回到第①步：</strong>持續評估 ── 「我的 DMN 今天被照顧了嗎？」像檢查飲水量一樣自然</li>
+      </ul>
+    </div>
+
+    <h3>📋 長期 POOGI 檢查清單</h3>
+    <ul>
+      <li>☐ 每日問：「今天我的 DMN 啟動了多少分鐘？」（目標：30-60 分鐘）</li>
+      <li>☐ 每週問：「我有多少種不同的休息方式？」（目標：至少 3 種輪換）</li>
+      <li>☐ 每月問：「我的創造力、情緒和認知功能相比上月如何？」</li>
+      <li>☐ 每季問：「我有安排深度 DMN 時段嗎？」（半天獨處、全天自然沉浸）</li>
+      <li>☐ 每年問：「我周圍的人也開始重視休息了嗎？」</li>
+      <li>☐ 隨時問：「我現在是在真正休息，還是只是換了一種工作？」（手機 ≠ 休息）</li>
+    </ul>
+
+    <div class="quote-block">
+      「Esterāhat kherad ast」── 休息是智慧。
+      <span class="author">── Jebelli 祖母的波斯語教誨，也是本書的核心精神</span>
+    </div>
+
+    <div class="highlight-box mint">
+      <h4>🌟 終極洞見</h4>
+      <p>Joseph Jebelli 的這本書完成了一個驚人的論證迴路：</p>
+      <ol>
+        <li>現代社會告訴我們：<strong>「工作越多，成就越大。」</strong></li>
+        <li>神經科學告訴我們：<strong>「工作越多，大腦越小。」</strong>（字面意義 ── 前額葉變薄、海馬迴萎縮）</li>
+        <li>DMN 科學告訴我們：<strong>「什麼都不做時，大腦最忙碌。」</strong>（血流量最高、活動最強）</li>
+        <li>因此：<strong>「休息不是不工作，而是讓大腦做它最擅長的工作。」</strong></li>
+      </ol>
+      <p>你不需要更努力地工作。你需要更勇敢地休息。</p>
+      <p>放下皇冠（kār tāj ast），擁抱智慧（esterāhat kherad ast）。</p>
+      <p>你的大腦 ── 那個擁有 850 億神經元、100 兆連結、使用身體 20% 能量的壯麗管弦樂隊 ── 正在等待你讓指揮家上台。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <p>TOC 限制理論 × 深度書籍分析 ── The Brain at Rest</p>
+  <p>分析框架：Goldratt 限制理論十步實戰法 | 分析日期：2026 年 3 月</p>
+  <p style="margin-top:8px;font-size:0.75rem;">本報告基於原書內容進行 TOC 框架分析，旨在深化理解與實踐應用。</p>
+  <p style="font-size:0.75rem;">「Kār tāj ast, esterāhat kherad ast.」── 工作是皇冠，休息是智慧。</p>
+</div>
+
+</body>
+</html>

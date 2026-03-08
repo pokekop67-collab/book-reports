@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOC 深度實戰分析 ｜ The Motive — Patrick Lencioni</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink-light: #FFF0F5;
+    --pink-mid: #FFD6E8;
+    --pink-deep: #FF8FAB;
+    --lavender-light: #F3E8FF;
+    --lavender-mid: #DDD6FE;
+    --lavender-deep: #A78BFA;
+    --mint-light: #ECFDF5;
+    --mint-mid: #A7F3D0;
+    --mint-deep: #34D399;
+    --peach-light: #FFF7ED;
+    --peach-mid: #FED7AA;
+    --peach-deep: #FB923C;
+    --sky-light: #F0F9FF;
+    --sky-mid: #BAE6FD;
+    --sky-deep: #38BDF8;
+    --rose-light: #FFF1F2;
+    --rose-mid: #FECDD3;
+    --rose-deep: #FB7185;
+    --cream: #FFFBF0;
+    --text-dark: #1E293B;
+    --text-mid: #475569;
+    --text-light: #94A3B8;
+    --card-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    --card-shadow-hover: 0 8px 40px rgba(0,0,0,0.10);
+    --glass-bg: rgba(255,255,255,0.72);
+    --glass-border: rgba(255,255,255,0.5);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #FFF0F5 0%, #F3E8FF 30%, #F0F9FF 60%, #ECFDF5 100%);
+    color: var(--text-dark);
+    line-height: 1.85;
+    min-height: 100vh;
+    padding: 0;
+  }
+
+  /* ===== Hero ===== */
+  .hero {
+    position: relative;
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 24px 60px;
+    background: linear-gradient(135deg, #FF8FAB 0%, #A78BFA 50%, #38BDF8 100%);
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 40%, rgba(255,255,255,0.18) 0%, transparent 60%),
+                radial-gradient(circle at 70% 60%, rgba(255,255,255,0.12) 0%, transparent 50%);
+    animation: float 20s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(30px, -20px) rotate(2deg); }
+    66% { transform: translate(-20px, 15px) rotate(-1deg); }
+  }
+  .hero-badge {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.4);
+    padding: 6px 28px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+  .hero h1 {
+    position: relative;
+    z-index: 1;
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.12);
+  }
+  .hero .subtitle {
+    position: relative;
+    z-index: 1;
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.92);
+    max-width: 680px;
+    font-weight: 300;
+    line-height: 1.8;
+  }
+  .hero .author-line {
+    position: relative;
+    z-index: 1;
+    margin-top: 20px;
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.8);
+    font-weight: 400;
+  }
+
+  /* ===== Container ===== */
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  /* ===== TOC Nav ===== */
+  .toc-nav {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 32px 36px;
+    margin-bottom: 48px;
+    box-shadow: var(--card-shadow);
+  }
+  .toc-nav h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--lavender-deep);
+    margin-bottom: 16px;
+  }
+  .toc-nav ol {
+    list-style: none;
+    counter-reset: toc-counter;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 24px;
+  }
+  .toc-nav li {
+    counter-increment: toc-counter;
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    padding: 6px 0;
+    transition: color 0.2s;
+  }
+  .toc-nav li::before {
+    content: counter(toc-counter, decimal-leading-zero) ".";
+    font-weight: 700;
+    color: var(--pink-deep);
+    margin-right: 8px;
+  }
+  .toc-nav li a {
+    text-decoration: none;
+    color: inherit;
+  }
+  .toc-nav li a:hover { color: var(--lavender-deep); }
+
+  /* ===== Step Card ===== */
+  .step-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 44px 40px 40px;
+    margin-bottom: 40px;
+    box-shadow: var(--card-shadow);
+    transition: box-shadow 0.3s, transform 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+  .step-card:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-2px);
+  }
+  .step-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    border-radius: 24px 24px 0 0;
+  }
+  .step-card:nth-child(1)::before { background: linear-gradient(90deg, #FF8FAB, #FFB3C6); }
+  .step-card:nth-child(2)::before { background: linear-gradient(90deg, #A78BFA, #C4B5FD); }
+  .step-card:nth-child(3)::before { background: linear-gradient(90deg, #38BDF8, #7DD3FC); }
+  .step-card:nth-child(4)::before { background: linear-gradient(90deg, #34D399, #6EE7B7); }
+  .step-card:nth-child(5)::before { background: linear-gradient(90deg, #FB923C, #FDBA74); }
+  .step-card:nth-child(6)::before { background: linear-gradient(90deg, #FB7185, #FDA4AF); }
+  .step-card:nth-child(7)::before { background: linear-gradient(90deg, #A78BFA, #DDD6FE); }
+  .step-card:nth-child(8)::before { background: linear-gradient(90deg, #38BDF8, #BAE6FD); }
+  .step-card:nth-child(9)::before { background: linear-gradient(90deg, #34D399, #A7F3D0); }
+  .step-card:nth-child(10)::before { background: linear-gradient(90deg, #FF8FAB, #A78BFA); }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+  .step-card:nth-child(1) .step-number { background: linear-gradient(135deg, #FF8FAB, #FFB3C6); }
+  .step-card:nth-child(2) .step-number { background: linear-gradient(135deg, #A78BFA, #C4B5FD); }
+  .step-card:nth-child(3) .step-number { background: linear-gradient(135deg, #38BDF8, #7DD3FC); }
+  .step-card:nth-child(4) .step-number { background: linear-gradient(135deg, #34D399, #6EE7B7); }
+  .step-card:nth-child(5) .step-number { background: linear-gradient(135deg, #FB923C, #FDBA74); }
+  .step-card:nth-child(6) .step-number { background: linear-gradient(135deg, #FB7185, #FDA4AF); }
+  .step-card:nth-child(7) .step-number { background: linear-gradient(135deg, #A78BFA, #DDD6FE); }
+  .step-card:nth-child(8) .step-number { background: linear-gradient(135deg, #38BDF8, #BAE6FD); }
+  .step-card:nth-child(9) .step-number { background: linear-gradient(135deg, #34D399, #A7F3D0); }
+  .step-card:nth-child(10) .step-number { background: linear-gradient(135deg, #FF8FAB, #A78BFA); }
+
+  .step-card h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .step-card .step-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    font-weight: 400;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .step-card h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 28px 0 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--pink-mid);
+    display: inline-block;
+  }
+  .step-card h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--lavender-deep);
+    margin: 20px 0 8px;
+  }
+  .step-card p {
+    font-size: 0.98rem;
+    color: var(--text-mid);
+    margin-bottom: 14px;
+    text-align: justify;
+  }
+  .step-card ul, .step-card ol {
+    padding-left: 24px;
+    margin-bottom: 14px;
+  }
+  .step-card li {
+    font-size: 0.95rem;
+    color: var(--text-mid);
+    margin-bottom: 8px;
+    line-height: 1.75;
+  }
+  .step-card li strong { color: var(--text-dark); }
+
+  /* ===== Highlight boxes ===== */
+  .highlight-box {
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-size: 0.95rem;
+    line-height: 1.8;
+  }
+  .highlight-pink { background: var(--pink-light); border-left: 4px solid var(--pink-deep); }
+  .highlight-lavender { background: var(--lavender-light); border-left: 4px solid var(--lavender-deep); }
+  .highlight-mint { background: var(--mint-light); border-left: 4px solid var(--mint-deep); }
+  .highlight-peach { background: var(--peach-light); border-left: 4px solid var(--peach-deep); }
+  .highlight-sky { background: var(--sky-light); border-left: 4px solid var(--sky-deep); }
+  .highlight-rose { background: var(--rose-light); border-left: 4px solid var(--rose-deep); }
+
+  /* ===== Quote ===== */
+  .quote-block {
+    position: relative;
+    padding: 24px 28px 24px 40px;
+    margin: 24px 0;
+    background: linear-gradient(135deg, var(--lavender-light), var(--pink-light));
+    border-radius: 16px;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.05rem;
+    color: var(--text-dark);
+    font-weight: 400;
+    line-height: 1.9;
+  }
+  .quote-block::before {
+    content: '"';
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    font-size: 3rem;
+    color: var(--lavender-deep);
+    opacity: 0.3;
+    font-family: Georgia, serif;
+  }
+  .quote-block .quote-source {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-family: 'Noto Sans TC', sans-serif;
+    text-align: right;
+  }
+
+  /* ===== Conflict Cloud ===== */
+  .conflict-cloud {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .cc-goal {
+    background: linear-gradient(135deg, var(--lavender-deep), var(--pink-deep));
+    color: #fff;
+    padding: 16px 32px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(167,139,250,0.3);
+  }
+  .cc-row {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .cc-need, .cc-want {
+    flex: 1;
+    min-width: 260px;
+    max-width: 380px;
+    padding: 20px 24px;
+    border-radius: 20px;
+    text-align: center;
+  }
+  .cc-need {
+    background: var(--sky-light);
+    border: 2px solid var(--sky-mid);
+  }
+  .cc-want {
+    background: var(--peach-light);
+    border: 2px solid var(--peach-mid);
+  }
+  .cc-label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .cc-need .cc-label { color: var(--sky-deep); }
+  .cc-want .cc-label { color: var(--peach-deep); }
+  .cc-text { font-size: 0.95rem; color: var(--text-mid); }
+  .cc-vs {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--rose-deep);
+    text-shadow: 0 2px 8px rgba(251,113,133,0.2);
+  }
+  .cc-injection {
+    background: linear-gradient(135deg, var(--mint-light), #D1FAE5);
+    border: 2px dashed var(--mint-deep);
+    padding: 16px 28px;
+    border-radius: 16px;
+    text-align: center;
+    font-weight: 600;
+    color: #065F46;
+    font-size: 0.95rem;
+    max-width: 500px;
+  }
+
+  /* ===== If-Then Chain ===== */
+  .if-then-chain {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 20px 0;
+  }
+  .if-then-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+  }
+  .if-then-arrow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 32px;
+  }
+  .if-then-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--lavender-deep);
+    flex-shrink: 0;
+  }
+  .if-then-line {
+    width: 2px;
+    flex: 1;
+    min-height: 20px;
+    background: var(--lavender-mid);
+  }
+  .if-then-content {
+    font-size: 0.93rem;
+    color: var(--text-mid);
+    padding-top: 0;
+  }
+  .if-then-content strong { color: var(--text-dark); }
+
+  /* ===== Table-like grid ===== */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .info-cell {
+    padding: 16px 20px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .info-cell .cell-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+  .info-cell .cell-value {
+    font-size: 0.93rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  /* ===== Week Plan ===== */
+  .week-plan {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .week-block {
+    border-radius: 16px;
+    padding: 20px;
+    text-align: left;
+  }
+  .week-block:nth-child(1) { background: var(--pink-light); border-top: 3px solid var(--pink-deep); }
+  .week-block:nth-child(2) { background: var(--lavender-light); border-top: 3px solid var(--lavender-deep); }
+  .week-block:nth-child(3) { background: var(--mint-light); border-top: 3px solid var(--mint-deep); }
+  .week-block:nth-child(4) { background: var(--peach-light); border-top: 3px solid var(--peach-deep); }
+  .week-label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .week-block:nth-child(1) .week-label { color: var(--pink-deep); }
+  .week-block:nth-child(2) .week-label { color: var(--lavender-deep); }
+  .week-block:nth-child(3) .week-label { color: var(--mint-deep); }
+  .week-block:nth-child(4) .week-label { color: var(--peach-deep); }
+  .week-block ul { padding-left: 16px; }
+  .week-block li {
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    margin-bottom: 6px;
+    line-height: 1.65;
+  }
+
+  /* ===== Metric Bar ===== */
+  .metric-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .metric-label {
+    min-width: 120px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--text-mid);
+    text-align: right;
+  }
+  .metric-bar-bg {
+    flex: 1;
+    height: 12px;
+    background: rgba(0,0,0,0.06);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .metric-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 1s ease;
+  }
+  .metric-value {
+    min-width: 40px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+
+  /* ===== Footer ===== */
+  .report-footer {
+    text-align: center;
+    padding: 40px 20px;
+    font-size: 0.82rem;
+    color: var(--text-light);
+    border-top: 1px solid rgba(0,0,0,0.06);
+    margin-top: 40px;
+  }
+
+  /* ===== Responsive ===== */
+  @media (max-width: 640px) {
+    .step-card { padding: 28px 20px; }
+    .toc-nav ol { grid-template-columns: 1fr; }
+    .info-grid { grid-template-columns: 1fr; }
+    .cc-row { flex-direction: column; align-items: center; }
+    .week-plan { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<header class="hero">
+  <div class="hero-badge">TOC 限制理論 · 深度實戰分析</div>
+  <h1>The Motive<br>動機：為什麼領導者逃避最重要的責任</h1>
+  <p class="subtitle">Patrick Lencioni 的領導力寓言 × Goldratt 限制理論十步深度解構<br>責任型領導 vs 獎勵型領導——一場關於「為何而領導」的系統性拷問</p>
+  <p class="author-line">原著：Patrick Lencioni ／ 分析框架：TOC Thinking Process ／ 2026</p>
+</header>
+
+<!-- ==================== CONTAINER ==================== -->
+<div class="container">
+
+<!-- TOC NAV -->
+<nav class="toc-nav">
+  <h2>📋 分析導覽</h2>
+  <ol>
+    <li><a href="#step1">系統界定 — 領導動機系統</a></li>
+    <li><a href="#step2">現況實境樹 CRT — 五大不良效應</a></li>
+    <li><a href="#step3">核心衝突雲 EC — 責任 vs 獎勵</a></li>
+    <li><a href="#step4">注入解萃取 — 打破動機困境</a></li>
+    <li><a href="#step5">未來實境樹 FRT — 正向因果鏈</a></li>
+    <li><a href="#step6">瓶頸深度定位 — 讀者最大瓶頸</a></li>
+    <li><a href="#step7">障礙拆解 PrT — 實施障礙清單</a></li>
+    <li><a href="#step8">轉變樹 TT — 四週行動計畫</a></li>
+    <li><a href="#step9">吞吐量審計 — 投資報酬分析</a></li>
+    <li><a href="#step10">持續改善 POOGI — 長期機制</a></li>
+  </ol>
+</nav>
+
+<!-- ==================== STEP 1 ==================== -->
+<div class="step-card" id="step1">
+  <div class="step-number">01</div>
+  <p class="step-subtitle">System Identification</p>
+  <h2>系統界定 —— 領導動機的系統邊界</h2>
+
+  <h3>📐 系統邊界定義</h3>
+  <p>Lencioni 在《The Motive》中構建了一個精確的系統：<strong>組織領導力運作系統</strong>。這個系統的核心不在於領導者做了什麼（What），而在於領導者<strong>為何而做</strong>（Why）。系統的邊界涵蓋從 CEO 到基層主管的整條管理鏈，但聚焦點在最高層——因為「上行下效」是這個系統最強的擴大機制。</p>
+
+  <div class="highlight-box highlight-lavender">
+    <strong>📌 系統核心命題：</strong>領導者的動機（Motive）決定了他們是否願意承擔領導的「髒活累活」。動機不對，能力再強也無濟於事。這不是技能問題，是態度問題；不是方法論問題，是存在論問題。
+  </div>
+
+  <h3>🎯 系統目標</h3>
+  <p>本書系統的目標可以用 TOC 語言精確表述：</p>
+  <ul>
+    <li><strong>終極目標（Goal）：</strong>建立「責任型領導」（Responsibility-centered Leadership）作為組織的預設模式，使領導者視職位為服務義務而非個人獎賞</li>
+    <li><strong>必要條件一：</strong>領導者必須認清自己的動機——是為了服務他人（責任型），還是為了享受地位、權力與便利（獎勵型）</li>
+    <li><strong>必要條件二：</strong>領導者必須願意執行五項「不舒服但不可或缺」的核心職責</li>
+    <li><strong>必要條件三：</strong>組織文化必須支持對獎勵型領導行為的辨識與糾正</li>
+  </ul>
+
+  <h3>👥 利害關係人分析</h3>
+  <div class="info-grid">
+    <div class="info-cell">
+      <div class="cell-label" style="color: var(--pink-deep);">CEO / 高階主管</div>
+      <div class="cell-value">系統的核心節點。動機的轉變必須從這裡開始。書中 Shay（獎勵型）和 Liam（責任型）兩位 CEO 的對照，正是系統兩種狀態的鮮明展示。</div>
+    </div>
+    <div class="info-cell">
+      <div class="cell-label" style="color: var(--lavender-deep);">中階管理者</div>
+      <div class="cell-value">承上啟下的傳導者。CEO 的動機直接決定他們是否被要求「也去管理自己的人」。當 CEO 放棄管理責任，整條管理鏈就會斷裂。</div>
+    </div>
+    <div class="info-cell">
+      <div class="cell-label" style="color: var(--mint-deep);">基層員工</div>
+      <div class="cell-value">系統末端的承受者。獎勵型領導的後果——缺乏方向、缺乏溝通、缺乏指導——全部由他們買單。他們是組織健康度最敏感的指標。</div>
+    </div>
+    <div class="info-cell">
+      <div class="cell-label" style="color: var(--peach-deep);">董事會 / 投資人</div>
+      <div class="cell-value">外部約束力量。書中 Joey（Shay 的投資人）和 Kathryn（Liam 的董事）代表了對 CEO 動機的外部審視機制。</div>
+    </div>
+  </div>
+
+  <h3>📖 寓言結構作為系統模型</h3>
+  <p>Lencioni 用商業寓言的方式構建了一個「實驗對照組」——Shay Davis（Golden Gate Security CEO，獎勵型）vs Liam Alcott（Del Mar Alarm CEO，責任型）。兩人經營同行業、同規模的公司，唯一的自變量就是<strong>領導動機</strong>。Liam 的公司在客戶滿意度、員工留存率、獲利能力上全面超越 Shay 的公司。</p>
+
+  <div class="quote-block">
+    我是 CEO，因為我認為這是對一生努力工作的獎賞。Liam 是 CEO，因為他認為這是一種責任和犧牲。這就是為什麼他的公司在每一個指標上都超越了我的公司。
+    <span class="quote-source">— Shay Davis 的頓悟時刻</span>
+  </div>
+
+  <h3>🔬 系統核心變量</h3>
+  <ul>
+    <li><strong>輸入變量：</strong>領導者的初始動機（責任 vs 獎勵光譜上的位置）</li>
+    <li><strong>過程變量：</strong>五項核心領導職責的執行程度</li>
+    <li><strong>輸出變量：</strong>組織健康度（決策品質、員工投入、文化凝聚力、績效表現）</li>
+    <li><strong>反饋迴路：</strong>責任型領導 → 組織健康 → 正向反饋強化動機；獎勵型領導 → 組織退化 → 更多逃避 → 惡性循環</li>
+  </ul>
+</div>
+
+<!-- ==================== STEP 2 ==================== -->
+<div class="step-card" id="step2">
+  <div class="step-number">02</div>
+  <p class="step-subtitle">Current Reality Tree</p>
+  <h2>現況實境樹（CRT）—— 獎勵型領導的因果鏈</h2>
+
+  <h3>🔍 五大不良效應（UDE）追溯</h3>
+  <p>透過對書中 Shay 案例及 Lencioni 二十餘年顧問經驗的分析，以下 If-Then 因果鏈揭示了獎勵型領導如何系統性地摧毀組織：</p>
+
+  <h4>UDE 1：團隊建設虛有其表，決策品質低落</h4>
+  <div class="if-then-chain">
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>If</strong> 領導者將職位視為獎賞，認為自己有權選擇做什麼、不做什麼</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 他會避開「軟性」但令人不舒服的團隊建設工作，認為這是 HR 的事</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 高管團隊缺乏真正的信任和坦誠，政治角力取代了健康辯論</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 會議中沒有真正的衝突和深度討論，決策流於表面</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--rose-deep);"></div></div>
+      <div class="if-then-content"><strong>UDE → 組織決策品質持續低落</strong>，戰略失焦，資源錯配</div>
+    </div>
+  </div>
+
+  <h4>UDE 2：管理真空，下屬各自為政</h4>
+  <div class="if-then-chain">
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>If</strong> 領導者認為「管理下屬」是降格以求，或用「我信任我的團隊」來合理化不作為</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 他不會花時間了解下屬的工作方向、進度和障礙</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 下屬之間缺乏協調，目標不一致，小問題在無人關注中變成大問題</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 更關鍵的是，CEO 不會要求下屬也去管理「他們的下屬」——管理鏈全面斷裂</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--rose-deep);"></div></div>
+      <div class="if-then-content"><strong>UDE → 組織成為各自為政的穀倉</strong>，協作崩解，執行力低下</div>
+    </div>
+  </div>
+
+  <h4>UDE 3：「困難對話」的系統性逃避</h4>
+  <div class="if-then-chain">
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>If</strong> 領導者追求個人舒適，避免一切令人尷尬的人際互動</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 他不會及時指出下屬的行為問題——無論是惱人的壞習慣還是有毒的人際政治</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 小問題演變成大問題（如書中 CEO 假裝睡著以避免與被裁 CIO 面對面的荒謬案例）</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--rose-deep);"></div></div>
+      <div class="if-then-content"><strong>UDE → 組織充斥政治、士氣低迷</strong>，優秀人才流失，留下的是懂得「順從」的人</div>
+    </div>
+  </div>
+
+  <h4>UDE 4：會議淪為例行公事</h4>
+  <div class="if-then-chain">
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>If</strong> CEO 視會議為一種「懲罰」（penance），而非領導力的核心舞台</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 他容忍（甚至製造）無聊、無焦點、無張力的會議——如書中 CEO 在會議中偷看體育版</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 高管團隊跟著降低會議標準，整個組織的會議品質都在 CEO 的天花板之下</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--rose-deep);"></div></div>
+      <div class="if-then-content"><strong>UDE → 最重要的組織決策場域失能</strong>，錯誤決策的代價無法估量</div>
+    </div>
+  </div>
+
+  <h4>UDE 5：溝通斷裂——員工不知道組織在做什麼</h4>
+  <div class="if-then-chain">
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>If</strong> CEO 把重複溝通視為「無聊」的事，或覺得「說一次就夠了」</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 員工聽到訊息的次數不足以讓他們相信這是真的（研究顯示需要 7 次以上）</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot"></div><div class="if-then-line"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 策略、價值觀、優先順序無法在組織中扎根，淪為「企業空話」</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--rose-deep);"></div></div>
+      <div class="if-then-content"><strong>UDE → 員工困惑、冷漠、各行其是</strong>，組織像一艘沒有指南針的船</div>
+    </div>
+  </div>
+
+  <h3>🌳 根因追溯</h3>
+  <div class="highlight-box highlight-rose">
+    <strong>所有五大 UDE 的共同根因：</strong>領導者持有<strong>獎勵型動機</strong>（Reward-centered Motive）——他們相信成為 CEO 是對多年努力的獎賞，因此有權選擇只做自己喜歡的事（如做交易、出席光鮮場合），而逃避一切不舒服、不有趣、不光鮮的責任。這個根因不是技能缺陷，而是<strong>身份認同的錯位</strong>。
+  </div>
+
+  <div class="quote-block">
+    我不是在做我手下人的工作。我只是在教練他們，確保他們有好的計畫，確保我在任何大問題為時已晚之前就知道。這不是微觀管理。唯一把這叫微觀管理的人，是不想被問責的員工——以及不想管理任何人的 CEO。
+    <span class="quote-source">— Liam Alcott 對 Shay 的直接挑戰</span>
+  </div>
+</div>
+
+<!-- ==================== STEP 3 ==================== -->
+<div class="step-card" id="step3">
+  <div class="step-number">03</div>
+  <p class="step-subtitle">Evaporating Cloud</p>
+  <h2>核心衝突雲（EC）—— 領導者的根本兩難</h2>
+
+  <h3>⚡ 衝突雲結構</h3>
+  <p>這本書的核心張力可以用一朵精確的衝突雲來呈現。Shay 在書的結尾做出了抉擇，但大多數領導者終其職業生涯都被困在這朵雲裡：</p>
+
+  <div class="conflict-cloud">
+    <div class="cc-goal">🎯 共同目標 A：成為一位成功且有成就感的領導者</div>
+    <div class="cc-row">
+      <div class="cc-need">
+        <div class="cc-label">需求 B</div>
+        <div class="cc-text">享受領導帶來的成就感和個人滿足<br><em>（讓這份工作「值得」）</em></div>
+      </div>
+      <div class="cc-need">
+        <div class="cc-label">需求 C</div>
+        <div class="cc-text">使組織真正健康、員工真正受到服務<br><em>（讓領導「有效」）</em></div>
+      </div>
+    </div>
+    <div class="cc-vs">VS</div>
+    <div class="cc-row">
+      <div class="cc-want">
+        <div class="cc-label">行動 D（獎勵型）</div>
+        <div class="cc-text">選擇做自己喜歡的事，避開不舒服的責任：不管團隊、不開好會議、不做困難對話、不重複溝通</div>
+      </div>
+      <div class="cc-want">
+        <div class="cc-label">行動 D'（責任型）</div>
+        <div class="cc-text">主動擁抱所有不舒服的領導職責：建設團隊、管理下屬、進行困難對話、主持好會議、不斷重複溝通</div>
+      </div>
+    </div>
+    <div class="cc-injection">
+      💡 注入解：重新定義「成就感」——真正的成就感不來自逃避，而來自「做了只有我能做的事」的使命感。如 Alan Mulally 所說：「領導是一種特權。」
+    </div>
+  </div>
+
+  <h3>📊 衝突的深層結構</h3>
+  <p>這朵衝突雲之所以如此頑固，是因為它觸及了人類最深層的需求衝突：</p>
+
+  <div class="highlight-box highlight-sky">
+    <strong>B → D 的隱藏假設：</strong>
+    <ul style="margin-top: 8px; margin-bottom: 0;">
+      <li>「成為 CEO 是我努力的獎賞，所以我有權享受它」</li>
+      <li>「有經驗的高管不需要被管理，那是對他們的侮辱」</li>
+      <li>「困難的人際對話不是我的工作，HR 應該處理」</li>
+      <li>「會議就是無聊的，每個人都這樣覺得」</li>
+      <li>「我說一次就夠了，聰明人應該聽得懂」</li>
+    </ul>
+  </div>
+
+  <div class="highlight-box highlight-mint">
+    <strong>C → D' 的隱藏假設：</strong>
+    <ul style="margin-top: 8px; margin-bottom: 0;">
+      <li>「領導力的本質是服務，不是被服務」</li>
+      <li>「管理不是懲罰——就像最好的運動員也需要教練一樣」</li>
+      <li>「如果領導者不做，沒有人會做」</li>
+      <li>「會議是組織的手術室——最重要的決策在這裡發生」</li>
+      <li>「員工需要聽到 7 次以上才會相信你是認真的」</li>
+    </ul>
+  </div>
+
+  <h3>🎭 寓言中的衝突展演</h3>
+  <p>書中最精彩的衝突展演發生在 Shay 與 Dani（他的妻子）共進晚餐的場景。Dani 問了與 Amy 顧問同樣的問題：<em>「你真的想做 CEO 所做的事嗎？」</em> 這個問題將衝突雲中 D 和 D' 的矛盾完美呈現——Shay 想要的是 CEO 的「頭銜」（D），而不是 CEO 的「工作內容」（D'）。</p>
+
+  <div class="quote-block">
+    自從你成為 CEO 以來，你抱怨工作的次數比過去十年都多。你在享受嗎？⋯⋯你這麼興奮是因為你在做一筆大交易。但你會興奮地去做這筆交易所需要的一切嗎？還是你只會繼續尋找下一次併購？
+    <span class="quote-source">— Dani Davis，Shay 的妻子</span>
+  </div>
+
+  <p>Dani 的類比更是一針見血：她曾經以為自己想當校長，直到她意識到她愛的是「教學」而不是「管理老師和開會」。這正是 Lencioni 所說的——重要的不是你想不想「成為」CEO，而是你想不想「做」CEO 做的事。</p>
+</div>
+
+<!-- ==================== STEP 4 ==================== -->
+<div class="step-card" id="step4">
+  <div class="step-number">04</div>
+  <p class="step-subtitle">Injection Extraction</p>
+  <h2>注入解萃取 —— 打破衝突雲的創新假設</h2>
+
+  <h3>💉 核心注入解：動機轉換（Motive Shift）</h3>
+  <p>Lencioni 提出的注入解並非新方法或新工具，而是一次<strong>存在層次的典範轉移</strong>：從「領導是獎賞」轉變為「領導是責任」。這是打破衝突雲最有力的槓桿點。</p>
+
+  <div class="highlight-box highlight-mint">
+    <strong>注入解的核心邏輯：</strong>衝突雲假設「個人滿足」（B）和「組織服務」（C）必然衝突。但 Alan Mulally 的證詞打破了這個假設——當你真心將領導視為服務的特權，那些「不舒服的職責」反而<strong>成為</strong>成就感的來源。犧牲和滿足不是零和關係。
+  </div>
+
+  <h4>注入解 1：重新定義 CEO 的 "E"</h4>
+  <p>書中最精妙的語言學注入解：CEO 不應是 Chief <em>Executive</em> Officer（首席「執行官」——名詞，靜態身份），而應是 Chief <em>Executing</em> Officer（首席「執行中的」官——現在分詞，動態行動）。Dani 在餐廳的頓悟完美捕捉了這一點：「它應該是關於做這份工作，而不只是擁有這份工作。」</p>
+
+  <h4>注入解 2：「快樂問責」（Joyful Accountability）</h4>
+  <p>Alan Mulally 在福特和波音的實踐證明了困難對話<strong>可以</strong>是令人愉快的。他會微笑著告訴下屬：「你完全可以選擇是否改變行為。如果不能改變，我仍然會是你的朋友，但你不能繼續在福特工作。」這不是被動攻擊，不是居高臨下——而是一種真正的關愛和尊重。</p>
+
+  <h4>注入解 3：CRO —— 首席提醒官</h4>
+  <p>Amy Stirling（Lighthouse 顧問）提出的概念：CEO 不只是 CEO，更是 CRO（Chief Reminding Officer）。你的工作不是傳播新訊息來取悅自己，而是<strong>不斷、不斷、不斷重複</strong>最基本的訊息——使命、策略、價值觀——直到每一位員工都內化它。Southwest Airlines 的 Gary Kelly 和 Ford 的 Alan Mulally 都是 CRO 的典範。</p>
+
+  <h4>注入解 4：以行動回應——Shay 的自我降職</h4>
+  <p>書中最驚人的注入解是 Shay 的最終決定：在併購 Liam 的公司後，他沒有讓自己繼續擔任合併後的 CEO，而是<strong>主動將 CEO 位置讓給 Liam</strong>，自己退居行銷/策略主管。這是「動機轉換」注入解的最極端體現——當你真正理解了領導是責任而非獎賞，你甚至願意放棄頭銜來確保組織得到最好的領導。</p>
+
+  <div class="quote-block">
+    你不想再當 CEO 了嗎？——不想。<br>但我開始覺得，再過幾年，我可能準備好去<strong>做</strong> CEO 做的事了。
+    <span class="quote-source">— Shay Davis 在搬到聖地牙哥後，對 Dani 的回答</span>
+  </div>
+
+  <h4>注入解 5：「好到不能忽視」的親身示範</h4>
+  <p>Liam 用自己的行為作為最強的注入解。他沒有給 Shay 一份理論清單，而是讓 Shay 親眼看到：一個責任型 CEO 如何管理自己的團隊、如何開有效的會議、如何進行困難對話。行為的感染力遠大於理論的說服力。</p>
+</div>
+
+<!-- ==================== STEP 5 ==================== -->
+<div class="step-card" id="step5">
+  <div class="step-number">05</div>
+  <p class="step-subtitle">Future Reality Tree</p>
+  <h2>未來實境樹（FRT）—— 注入解實施後的正面因果鏈</h2>
+
+  <h3>🌱 正向連鎖效應</h3>
+  <p>當領導者完成動機轉換——從獎勵型轉為責任型——以下正面因果鏈將逐步展開：</p>
+
+  <h4>因果鏈 A：團隊層面的轉化</h4>
+  <div class="if-then-chain">
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--mint-deep);"></div><div class="if-then-line" style="background: var(--mint-mid);"></div></div>
+      <div class="if-then-content"><strong>If</strong> CEO 將團隊建設視為自己最核心的責任之一，親自投入而非委託 HR</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--mint-deep);"></div><div class="if-then-line" style="background: var(--mint-mid);"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 高管團隊開始建立真正的信任，敢於在彼此面前展示脆弱</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--mint-deep);"></div><div class="if-then-line" style="background: var(--mint-mid);"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 會議中出現真正的健康衝突——觀點碰撞取代虛假和諧</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--mint-deep);"></div><div class="if-then-line" style="background: var(--mint-mid);"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 決策品質大幅提升，因為所有重要觀點都被充分辯論</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--mint-deep);"></div></div>
+      <div class="if-then-content"><strong>正面效應 →</strong> 組織在戰略、執行、創新上全面升級</div>
+    </div>
+  </div>
+
+  <h4>因果鏈 B：管理鏈的修復</h4>
+  <div class="if-then-chain">
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--sky-deep);"></div><div class="if-then-line" style="background: var(--sky-mid);"></div></div>
+      <div class="if-then-content"><strong>If</strong> CEO 開始主動管理直屬下屬——設定方向、了解進度、提早發現問題</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--sky-deep);"></div><div class="if-then-line" style="background: var(--sky-mid);"></div></div>
+      <div class="if-then-content"><strong>And</strong> CEO 同時要求下屬也用同樣方式管理「他們的」下屬</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--sky-deep);"></div><div class="if-then-line" style="background: var(--sky-mid);"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 管理的連鎖反應逐層向下傳導——每一層都有人在教練、在對齊、在監測</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--sky-deep);"></div></div>
+      <div class="if-then-content"><strong>正面效應 →</strong> 整個組織的對齊度和執行力系統性提升，小問題不會長成大災難</div>
+    </div>
+  </div>
+
+  <h4>因果鏈 C：文化的連鎖反應</h4>
+  <div class="if-then-chain">
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--peach-deep);"></div><div class="if-then-line" style="background: var(--peach-mid);"></div></div>
+      <div class="if-then-content"><strong>If</strong> CEO 擁抱困難對話、主持高品質會議、不斷重複核心訊息</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--peach-deep);"></div><div class="if-then-line" style="background: var(--peach-mid);"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 高管開始模仿這些行為——因為 CEO 設定了天花板也設定了地板</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--peach-deep);"></div><div class="if-then-line" style="background: var(--peach-mid);"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 組織文化從「逃避不適」轉變為「擁抱必要的不適」</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--peach-deep);"></div></div>
+      <div class="if-then-content"><strong>正面效應 →</strong> 員工感到被看見、被引導、被關心——投入度飆升，離職率下降</div>
+    </div>
+  </div>
+
+  <h4>因果鏈 D：個人層面的轉化（Shay 的蛻變）</h4>
+  <div class="if-then-chain">
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--lavender-deep);"></div><div class="if-then-line" style="background: var(--lavender-mid);"></div></div>
+      <div class="if-then-content"><strong>If</strong> Shay 接受自己的動機有問題，願意放下 CEO 頭銜，從行銷/策略主管做起</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--lavender-deep);"></div><div class="if-then-line" style="background: var(--lavender-mid);"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 他在 Liam 的責任型領導下學到了真正的管理和領導</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--lavender-deep);"></div><div class="if-then-line" style="background: var(--lavender-mid);"></div></div>
+      <div class="if-then-content"><strong>Then</strong> 他開始比過去任何時候都更享受工作——因為他不再假裝</div>
+    </div>
+    <div class="if-then-item">
+      <div class="if-then-arrow"><div class="if-then-dot" style="background: var(--lavender-deep);"></div></div>
+      <div class="if-then-content"><strong>正面效應 →</strong> 三個月後 Dani 說：「自我降職是他做過的最好決定。」Shay 不再想「成為」CEO，但開始準備好「做」CEO 做的事</div>
+    </div>
+  </div>
+
+  <div class="highlight-box highlight-peach">
+    <strong>FRT 的終極正面效應：</strong>當足夠多的領導者完成動機轉換，「僕人式領導」（Servant Leadership）將不再是一個特殊標籤——因為每個人都理解，這是唯一合法的領導形式。如 Lencioni 所說：「或許人們將不再使用『僕人式領導』這個詞，因為所有人都知道，這是唯一有效的那一種。」
+  </div>
+</div>
+
+<!-- ==================== STEP 6 ==================== -->
+<div class="step-card" id="step6">
+  <div class="step-number">06</div>
+  <p class="step-subtitle">Bottleneck Deep Positioning</p>
+  <h2>瓶頸深度定位 —— 讀者面臨的最大瓶頸</h2>
+
+  <h3>🔒 瓶頸一：「我不知道自己是獎勵型」的盲點</h3>
+  <p>這是整個系統中最致命的瓶頸——也是 Lencioni 反覆強調的：<strong>大多數獎勵型領導者並不知道自己是獎勵型的</strong>。他們甚至以此為傲！Shay 在故事的大部分時間裡都認為自己做得不錯——直到 Dani 和 Amy 的問題像一面鏡子照出了他的盲點。</p>
+
+  <div class="highlight-box highlight-pink">
+    <strong>為什麼這是瓶頸：</strong>如果你不知道自己有問題，你就不會去解決它。而領導者的周圍充斥著奉承——「每收到一條建設性反饋，就會有十二條讚美，其中很多是不必要的」。當你長期浸泡在這種環境中，你的自我形象必然是扭曲的。
+  </div>
+
+  <h3>🔒 瓶頸二：「舒適成癮」——改變的機會成本太高</h3>
+  <p>即使領導者<em>知道</em>自己是獎勵型的，改變的成本仍然巨大。因為獎勵型領導的本質就是追求舒適——而動機轉換意味著要<strong>主動選擇不舒服</strong>。這就像告訴一個人：「你之所以會失敗，正是因為你一直在做讓自己舒服的事。」你的整個身份認同都建立在「我有資格享受」之上，要放棄它就像要求你放棄自我。</p>
+
+  <h3>🔒 瓶頸三：「樂趣陷阱」——看起來無害的獎勵型</h3>
+  <p>Lencioni 特別指出了一種特別危險的瓶頸：不是追求地位和權力的獎勵型，而是追求「樂趣」的獎勵型。這些領導者不是典型的自大狂——他們只是想做有趣的事。因為這看起來「無害」，所以更難被識別和糾正。但他們留下的管理真空同樣致命。</p>
+
+  <h3>🔒 瓶頸四：組織慣性——「我們的 CEO 就是這樣」</h3>
+  <p>即使領導者個人完成了動機轉換，組織已經適應了他/她之前的獎勵型模式。員工已經「認命」（resigned to）——他們不再期待 CEO 會做困難的事。要逆轉這種組織層面的學習性無助，需要持續的、反直覺的行動。</p>
+
+  <h3>🔒 瓶頸五：「滑坡效應」——即使好的領導者也會倒退</h3>
+  <p>Lencioni 在書的最後特別警告：即使已經成為責任型領導的人，也可能因為持續的讚美和疲勞而<strong>不知不覺滑回獎勵型</strong>。因為人類容易被奉承麻痺，被疲勞擊倒。這不是一次性的轉變，而是需要持續警覺的修行。</p>
+
+  <div class="highlight-box highlight-lavender">
+    <strong>TOC 瓶頸定位結論：</strong>系統的主要瓶頸不在方法（how），而在動機（why）。所有五項被逃避的職責都是症狀；動機錯位才是制約。因此，任何試圖教導「怎麼開好會議」或「怎麼做困難對話」的努力，如果不先處理動機問題，都是在制約外施力——TOC 告訴我們，這只會增加庫存和營運費用，不會增加吞吐量。
+  </div>
+</div>
+
+<!-- ==================== STEP 7 ==================== -->
+<div class="step-card" id="step7">
+  <div class="step-number">07</div>
+  <p class="step-subtitle">Prerequisite Tree</p>
+  <h2>障礙拆解（前提樹 PrT）—— 從獎勵型到責任型的路障</h2>
+
+  <h3>🚧 障礙與中間目標清單</h3>
+
+  <h4>障礙 1：缺乏自我覺察——「我不覺得自己有問題」</h4>
+  <div class="highlight-box highlight-sky">
+    <strong>中間目標：</strong>建立外部鏡子機制。找到你的「Amy Stirling」或你的「Dani」——一個敢對你說真話的人。書中 Amy 問 Shay 的那個問題「你為什麼想成為 CEO？」就是最強的覺察催化劑。在組織層面，可以引入 360 度匿名反饋或外部顧問評估。
+  </div>
+
+  <h4>障礙 2：身份威脅——「如果我不是為了獎賞而領導，那我是誰？」</h4>
+  <div class="highlight-box highlight-peach">
+    <strong>中間目標：</strong>重建身份敘事。Shay 的解法是極端但有效的——他直接放棄了 CEO 頭銜。但大多數人不需要這麼激烈。中間目標是學會在「做 CEO 做的事」中找到新的身份認同。Lencioni 說：「隨著時間推移，那些選擇擁抱責任型領導的人，會開始把他們曾經視為無聊和不愉快的事，看作一位無私領導者的真正工作。最終，他們會開始享受這些事。」
+  </div>
+
+  <h4>障礙 3：技能缺口——「我不知道怎麼開好會議/做困難對話」</h4>
+  <div class="highlight-box highlight-mint">
+    <strong>中間目標：</strong>技能跟動機是兩回事，但它們互相強化。一旦動機對了，技能的學習會快得多。具體技能可以通過：閱讀 Lencioni 的其他著作（特別是《Death by Meeting》和《The Five Dysfunctions of a Team》）、觀察責任型領導的行為模式（如 Liam 的示範效應）、刻意練習（如 Alan Mulally 的「快樂問責」模式）來獲得。
+  </div>
+
+  <h4>障礙 4：組織阻力——「我的團隊已經習慣了我之前的風格」</h4>
+  <div class="highlight-box highlight-rose">
+    <strong>中間目標：</strong>從一件事開始，而非全面改造。先選擇五項責任中最容易切入的一項——通常是「會議」，因為它最頻繁且影響最可見。當團隊看到 CEO 開始認真對待會議時，他們會注意到變化。然後逐步擴展到其他領域。
+  </div>
+
+  <h4>障礙 5：持續性挑戰——「我改了一陣子但又滑回去了」</h4>
+  <div class="highlight-box highlight-lavender">
+    <strong>中間目標：</strong>建立問責機制。正如 Lencioni 警告的，即使責任型領導也會滑坡。你需要：(1) 一個敢對你說真話的內部顧問或教練；(2) 定期的自我反思（用書末的反思問題）；(3) 降低對讚美的敏感度——提醒自己「每收到一條建設性反饋，就有十二條讚美，其中很多是不必要的」。
+  </div>
+</div>
+
+<!-- ==================== STEP 8 ==================== -->
+<div class="step-card" id="step8">
+  <div class="step-number">08</div>
+  <p class="step-subtitle">Transition Tree</p>
+  <h2>轉變樹（TT）—— 四週行動計畫</h2>
+
+  <div class="week-plan">
+    <div class="week-block">
+      <div class="week-label">Week 1 · 覺察</div>
+      <ul>
+        <li><strong>誠實回答 Amy 的問題：</strong>「你為什麼想成為/繼續擔任 CEO？」寫下答案，不要修飾</li>
+        <li><strong>做「五大逃避」自檢：</strong>對每項職責（團隊建設、管理下屬、困難對話、會議、溝通）誠實評分 1-10</li>
+        <li><strong>找到你的鏡子：</strong>邀請一位你信任且敢說真話的人（配偶、教練、同儕）共進晚餐，分享你的反思</li>
+        <li><strong>If-Then 驗證：</strong>If 我誠實回答了這些問題 → Then 我應該對自己是「獎勵型」還是「責任型」有了初步認知</li>
+      </ul>
+    </div>
+    <div class="week-block">
+      <div class="week-label">Week 2 · 會議</div>
+      <ul>
+        <li><strong>重新設計你的主管會議：</strong>確保有明確的議題、必要的衝突、聚焦的討論——不再容忍「熬過去就好」</li>
+        <li><strong>禁止分心：</strong>會議中不看手機、不看電子郵件——你做到了，你的團隊才會做到</li>
+        <li><strong>親自主持：</strong>不再委託 HR 或其他人設計和引導會議</li>
+        <li><strong>If-Then 驗證：</strong>If 我開始主動改善會議 → Then 我的團隊應該會注意到變化，可能會感到驚訝甚至不安——這是好的信號</li>
+      </ul>
+    </div>
+    <div class="week-block">
+      <div class="week-label">Week 3 · 對話</div>
+      <ul>
+        <li><strong>進行一次困難對話：</strong>選擇一個你一直逃避的行為問題，直接面對。用 Alan Mulally 的模式：清晰、溫暖、不留退路</li>
+        <li><strong>開始主動管理：</strong>與每位直屬下屬進行 1-on-1，了解他們的工作方向和挑戰</li>
+        <li><strong>並要求他們也這樣做：</strong>「你多久跟你的下屬做一次 1-on-1？告訴我進展如何」</li>
+        <li><strong>If-Then 驗證：</strong>If 我完成了一次困難對話 → Then 我應該感到短暫的不適，但隨後是一種「做了正確的事」的滿足感</li>
+      </ul>
+    </div>
+    <div class="week-block">
+      <div class="week-label">Week 4 · 溝通</div>
+      <ul>
+        <li><strong>成為 CRO：</strong>重新撰寫你的核心訊息（使命、策略、價值觀），準備在每一個場合重複它</li>
+        <li><strong>做一次全員溝通：</strong>不是數據報告（CFO 可以做），而是關於「我們為什麼在這裡」和「每個人如何影響成功」</li>
+        <li><strong>不要因為團隊說「我們已經聽過了」就停止：</strong>他們聽到了不等於他們相信了</li>
+        <li><strong>If-Then 驗證：</strong>If 我持續重複核心訊息 → Then 我應該看到員工開始在日常對話中引用這些訊息——這是內化的信號</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="highlight-box highlight-pink">
+    <strong>四週計畫的設計原則（TOC 聚焦法）：</strong>不是同時改變一切，而是每週聚焦一個瓶頸。先打通「覺察」，再改善「會議」（最頻繁的可見動作），然後是「困難對話」（最需要勇氣的動作），最後是「持續溝通」（需要最長時間建立慣性的動作）。這符合 TOC 的「逐步提升制約」原則。
+  </div>
+</div>
+
+<!-- ==================== STEP 9 ==================== -->
+<div class="step-card" id="step9">
+  <div class="step-number">09</div>
+  <p class="step-subtitle">Throughput Audit</p>
+  <h2>吞吐量審計 —— 這本書的投資報酬</h2>
+
+  <h3>📊 TOC 吞吐量思維評估</h3>
+  <p>用 TOC 的 T（吞吐量）、I（庫存/投資）、OE（營運費用）三維度來評估這本書的投資報酬：</p>
+
+  <h4>T（吞吐量）—— 這本書能帶來的核心價值</h4>
+  <div class="metric-row">
+    <div class="metric-label">動機覺察力</div>
+    <div class="metric-bar-bg"><div class="metric-bar-fill" style="width: 95%; background: linear-gradient(90deg, var(--pink-deep), var(--lavender-deep));"></div></div>
+    <div class="metric-value">9.5</div>
+  </div>
+  <div class="metric-row">
+    <div class="metric-label">行為改變力</div>
+    <div class="metric-bar-bg"><div class="metric-bar-fill" style="width: 75%; background: linear-gradient(90deg, var(--sky-deep), var(--mint-deep));"></div></div>
+    <div class="metric-value">7.5</div>
+  </div>
+  <div class="metric-row">
+    <div class="metric-label">組織影響力</div>
+    <div class="metric-bar-bg"><div class="metric-bar-fill" style="width: 85%; background: linear-gradient(90deg, var(--peach-deep), var(--rose-deep));"></div></div>
+    <div class="metric-value">8.5</div>
+  </div>
+  <div class="metric-row">
+    <div class="metric-label">可操作性</div>
+    <div class="metric-bar-bg"><div class="metric-bar-fill" style="width: 70%; background: linear-gradient(90deg, var(--mint-deep), var(--sky-deep));"></div></div>
+    <div class="metric-value">7.0</div>
+  </div>
+  <div class="metric-row">
+    <div class="metric-label">文化漣漪效應</div>
+    <div class="metric-bar-bg"><div class="metric-bar-fill" style="width: 90%; background: linear-gradient(90deg, var(--lavender-deep), var(--pink-deep));"></div></div>
+    <div class="metric-value">9.0</div>
+  </div>
+
+  <h4>吞吐量分析細節</h4>
+  <ul>
+    <li><strong>動機覺察力（9.5/10）：</strong>這是本書最強的吞吐量貢獻。「為什麼你想成為 CEO？」這個問題的穿透力極強——它能在瞬間撕開一個領導者精心建造的自我敘事。Shay 花了 45 秒思考然後說「我不知道」——這個誠實的回答本身就是覺察的開始。</li>
+    <li><strong>行為改變力（7.5/10）：</strong>書中提供了清晰的五項職責清單和自檢問題，但具體的「怎麼做」需要參考 Lencioni 的其他著作。這是刻意的設計——Lencioni 認為「如果動機不對，方法再好也沒用」。</li>
+    <li><strong>組織影響力（8.5/10）：</strong>因為聚焦在 CEO 和高階領導者，一個人的改變可以撬動整個組織的改變。這符合 TOC 的槓桿思維——找到系統中影響力最大的節點施力。</li>
+    <li><strong>可操作性（7.0/10）：</strong>寓言形式讓概念非常容易理解和記住，但部分讀者可能需要更結構化的實施框架。每章末的反思問題是很好的起點，但缺乏時間線和里程碑。</li>
+    <li><strong>文化漣漪效應（9.0/10）：</strong>Lencioni 在結語中的願景——讓「僕人式領導」成為多餘的詞——是一個文化層面的遠大目標。如果這本書的訊息傳播開來，它可以改變整個社會對領導力的期待。</li>
+  </ul>
+
+  <h4>I（庫存/投資）—— 讀者需要投入什麼</h4>
+  <ul>
+    <li><strong>時間投資：</strong>約 3-4 小時閱讀（Lencioni 自稱這是他最短的書），但真正的投資是之後每天的實踐</li>
+    <li><strong>心理投資：</strong>極高——需要面對自己可能一直逃避的真相。這比讀任何技術性管理書都更困難</li>
+    <li><strong>社會投資：</strong>需要找到一個「鏡子」——一個敢對你說真話的人。這本身就需要脆弱和勇氣</li>
+  </ul>
+
+  <h4>OE（營運費用）—— 改變動機的持續成本</h4>
+  <ul>
+    <li><strong>持續的不適：</strong>責任型領導意味著每天都要做不舒服的事——困難對話、重複溝通、深度管理。這不是一次性成本，是持續的營運費用</li>
+    <li><strong>社會成本：</strong>當你開始改變，你的團隊、你的同儕、甚至你的家人可能會感到不安。Shay 的團隊一開始就對 Liam 的方式感到抗拒</li>
+    <li><strong>警覺成本：</strong>因為滑坡效應的存在，你必須永遠保持對獎勵型動機回歸的警覺</li>
+  </ul>
+
+  <h3>💰 投資報酬率結論</h3>
+  <div class="highlight-box highlight-mint">
+    <strong>ROI 評估：極高。</strong>這是一本用最少的頁數撬動最大改變的書。它不教你「怎麼做」——它挑戰你「為什麼做」。在 TOC 思維中，這相當於直接攻擊了系統的核心制約（動機），而不是在非制約處浪費資源。一個 CEO 的動機轉換，可以影響成千上萬人的工作體驗。這是最高效率的槓桿操作。
+  </div>
+</div>
+
+<!-- ==================== STEP 10 ==================== -->
+<div class="step-card" id="step10">
+  <div class="step-number">10</div>
+  <p class="step-subtitle">POOGI — Process of Ongoing Improvement</p>
+  <h2>持續改善循環（POOGI）—— 長期機制設計</h2>
+
+  <h3>♻️ POOGI 五步聚焦法應用</h3>
+
+  <h4>Step 1：辨識制約（Identify）</h4>
+  <p>每季度進行一次「動機審計」——誠實回答書末的所有反思問題：</p>
+  <ul>
+    <li>我是否在逃避團隊建設中的不舒服對話？</li>
+    <li>我是否用「信任」作為不管理下屬的藉口？</li>
+    <li>上一次我做困難對話是什麼時候？</li>
+    <li>我的會議是否令人投入？我自己是否投入？</li>
+    <li>我上一次對全體員工重複核心訊息是什麼時候？</li>
+  </ul>
+  <p>哪一項得分最低，就是你當前的制約所在。</p>
+
+  <h4>Step 2：充分利用制約（Exploit）</h4>
+  <p>不要試圖同時改善所有五項。選擇<strong>得分最低的一項</strong>，在接下來的 30 天內全力攻克：</p>
+  <ul>
+    <li>如果是「會議」→ 重新設計下一次主管會議的議程和規則</li>
+    <li>如果是「困難對話」→ 列出三個你一直逃避的人或議題，安排本週處理第一個</li>
+    <li>如果是「溝通」→ 準備一份 5 分鐘的核心訊息演講，在本月的每一次全員場合都講它</li>
+  </ul>
+
+  <h4>Step 3：全力配合制約（Subordinate）</h4>
+  <p>讓其他所有事情為你的改善焦點讓路：</p>
+  <ul>
+    <li>行程安排上優先保護改善活動的時間</li>
+    <li>告訴你的「鏡子」（配偶、教練、可信任的同僚）你的焦點，請他們觀察並反饋</li>
+    <li>拒絕用「太忙」作為不做這件事的藉口——Lencioni 說：「如果一個領導者用沒有時間或精力來為逃避困難對話辯護，這是荒謬的，因為它建立在一個可笑的假設之上：被忽略的問題不會最終降低組織的績效。」</li>
+  </ul>
+
+  <h4>Step 4：提升制約（Elevate）</h4>
+  <p>如果充分利用後仍不夠，考慮投入更多資源：</p>
+  <ul>
+    <li>聘請外部教練或顧問（如書中 Amy Stirling 的角色）</li>
+    <li>加入 CEO 同儕小組，在安全環境中練習困難對話和接受反饋</li>
+    <li>閱讀 Lencioni 的系列著作來補充具體方法論</li>
+    <li>建立組織層面的問責機制——不只是你個人的改變，而是確保你的團隊也在改變</li>
+  </ul>
+
+  <h4>Step 5：回到 Step 1，不要讓惰性成為新的制約（Inertia Prevention）</h4>
+  <div class="highlight-box highlight-rose">
+    <strong>⚠️ Lencioni 的終極警告：</strong>「即使那些似乎已經掌握了責任型領導的人，也不能免於滑坡。因為我們人類是脆弱的，容易被奉承和疲勞影響。即使是最好的人也可能幾乎無意識地滑入獎勵型領導。」POOGI 循環的關鍵就在這裡——制約會移動，惰性會回歸。每次你「突破」一個瓶頸後，要立刻警覺：新的瓶頸在哪裡？我是否在某個不知不覺的角落又開始逃避了？
+  </div>
+
+  <h3>🔄 長期持續改善機制</h3>
+
+  <div class="info-grid">
+    <div class="info-cell">
+      <div class="cell-label" style="color: var(--pink-deep);">每週</div>
+      <div class="cell-value">
+        <ul style="padding-left: 16px; margin: 0;">
+          <li>至少一次 1-on-1 與每位直屬下屬</li>
+          <li>至少一次有「建設性衝突」的團隊會議</li>
+          <li>檢視：本週我逃避了什麼？</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-cell">
+      <div class="cell-label" style="color: var(--lavender-deep);">每月</div>
+      <div class="cell-value">
+        <ul style="padding-left: 16px; margin: 0;">
+          <li>一次全員溝通（CRO 模式）</li>
+          <li>與你的「鏡子」進行動機檢查</li>
+          <li>回顧：我是否正在滑向獎勵型？</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-cell">
+      <div class="cell-label" style="color: var(--mint-deep);">每季</div>
+      <div class="cell-value">
+        <ul style="padding-left: 16px; margin: 0;">
+          <li>完整的「五大職責」自評</li>
+          <li>向團隊徵求匿名反饋</li>
+          <li>辨識新的制約在哪裡</li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-cell">
+      <div class="cell-label" style="color: var(--peach-deep);">每年</div>
+      <div class="cell-value">
+        <ul style="padding-left: 16px; margin: 0;">
+          <li>重讀本書</li>
+          <li>問自己 Amy 的問題：「為什麼我還想做這份工作？」</li>
+          <li>如果答案偏向獎勵型 → 重新啟動四週計畫</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    如果我們能恢復「領導是一種令人喜悅但艱難且無私的責任」的集體態度，我相信我們將看到企業更成功、員工更投入和充實、社會更樂觀和充滿希望。或許人們將不再使用「僕人式領導」這個詞——因為所有人都將理解，這是唯一合法的那一種。
+    <span class="quote-source">— Patrick Lencioni，《The Motive》結語</span>
+  </div>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="report-footer">
+  <p>📖 TOC 限制理論深度實戰分析 ｜ The Motive — Patrick Lencioni</p>
+  <p>分析框架：Goldratt TOC Thinking Process ｜ 視覺設計：韓系清新風格 ｜ 2026</p>
+  <p style="margin-top: 8px; font-size: 0.78rem;">此報告為讀書分析用途，書籍版權歸原作者及出版社所有。</p>
+</footer>
+
+</div><!-- .container -->
+</body>
+</html>

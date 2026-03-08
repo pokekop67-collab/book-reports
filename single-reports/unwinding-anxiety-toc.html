@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOC 深度分析 — Unwinding Anxiety (Judson Brewer)</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink-light: #FFF0F5;
+    --pink-mid: #FFB6C1;
+    --pink-dark: #FF69B4;
+    --lavender-light: #F5F0FF;
+    --lavender-mid: #D8BFD8;
+    --lavender-dark: #9370DB;
+    --mint-light: #F0FFF4;
+    --mint-mid: #98D8C8;
+    --mint-dark: #3CB371;
+    --peach-light: #FFF5EE;
+    --peach-mid: #FFDAB9;
+    --peach-dark: #FF8C69;
+    --sky-light: #F0F8FF;
+    --sky-mid: #87CEEB;
+    --sky-dark: #4682B4;
+    --cream: #FFFAF0;
+    --warm-gray: #F8F6F3;
+    --text-primary: #2D2B3D;
+    --text-secondary: #5A5770;
+    --text-muted: #8E8BA3;
+    --card-shadow: 0 8px 32px rgba(147, 112, 219, 0.08);
+    --card-shadow-hover: 0 12px 48px rgba(147, 112, 219, 0.15);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #FFF0F5 0%, #F5F0FF 30%, #F0F8FF 60%, #F0FFF4 100%);
+    color: var(--text-primary);
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #FF69B4 0%, #9370DB 50%, #4682B4 100%);
+    padding: 80px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: float 15s infinite ease-in-out;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2.8rem;
+    color: white;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.15);
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero .subtitle {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.9);
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero .meta-info {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero .meta-tag {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    padding: 8px 20px;
+    border-radius: 20px;
+    color: white;
+    font-size: 0.9rem;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+
+  .section-intro {
+    background: white;
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 40px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(147,112,219,0.08);
+  }
+
+  .section-intro h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.6rem;
+    color: var(--lavender-dark);
+    margin-bottom: 16px;
+  }
+
+  .section-intro p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 2;
+  }
+
+  .step-card {
+    background: white;
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 36px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(147,112,219,0.06);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .step-card:hover {
+    box-shadow: var(--card-shadow-hover);
+    transform: translateY(-2px);
+  }
+
+  .step-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+  }
+
+  .step-card:nth-child(1)::before { background: linear-gradient(90deg, #FF69B4, #FFB6C1); }
+  .step-card:nth-child(2)::before { background: linear-gradient(90deg, #9370DB, #D8BFD8); }
+  .step-card:nth-child(3)::before { background: linear-gradient(90deg, #4682B4, #87CEEB); }
+  .step-card:nth-child(4)::before { background: linear-gradient(90deg, #3CB371, #98D8C8); }
+  .step-card:nth-child(5)::before { background: linear-gradient(90deg, #FF8C69, #FFDAB9); }
+  .step-card:nth-child(6)::before { background: linear-gradient(90deg, #FF69B4, #9370DB); }
+  .step-card:nth-child(7)::before { background: linear-gradient(90deg, #4682B4, #3CB371); }
+  .step-card:nth-child(8)::before { background: linear-gradient(90deg, #FF8C69, #FF69B4); }
+  .step-card:nth-child(9)::before { background: linear-gradient(90deg, #9370DB, #4682B4); }
+  .step-card:nth-child(10)::before { background: linear-gradient(90deg, #3CB371, #FF69B4); }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 16px;
+  }
+
+  .step-card:nth-child(1) .step-number { background: linear-gradient(135deg, #FF69B4, #FF1493); }
+  .step-card:nth-child(2) .step-number { background: linear-gradient(135deg, #9370DB, #7B68EE); }
+  .step-card:nth-child(3) .step-number { background: linear-gradient(135deg, #4682B4, #5F9EA0); }
+  .step-card:nth-child(4) .step-number { background: linear-gradient(135deg, #3CB371, #2E8B57); }
+  .step-card:nth-child(5) .step-number { background: linear-gradient(135deg, #FF8C69, #FF6347); }
+  .step-card:nth-child(6) .step-number { background: linear-gradient(135deg, #FF69B4, #9370DB); }
+  .step-card:nth-child(7) .step-number { background: linear-gradient(135deg, #4682B4, #3CB371); }
+  .step-card:nth-child(8) .step-number { background: linear-gradient(135deg, #FF8C69, #FF69B4); }
+  .step-card:nth-child(9) .step-number { background: linear-gradient(135deg, #9370DB, #4682B4); }
+  .step-card:nth-child(10) .step-number { background: linear-gradient(135deg, #3CB371, #FF69B4); }
+
+  .step-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-primary);
+  }
+
+  .step-content h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.15rem;
+    color: var(--lavender-dark);
+    margin: 24px 0 12px;
+    padding-left: 16px;
+    border-left: 3px solid var(--lavender-mid);
+  }
+
+  .step-content h4 {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin: 16px 0 8px;
+    font-weight: 600;
+  }
+
+  .step-content p {
+    color: var(--text-secondary);
+    margin-bottom: 12px;
+    line-height: 2;
+    font-size: 0.98rem;
+  }
+
+  .step-content ul, .step-content ol {
+    padding-left: 24px;
+    margin-bottom: 16px;
+  }
+
+  .step-content li {
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    line-height: 1.9;
+    font-size: 0.95rem;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, var(--lavender-light), var(--pink-light));
+    border-radius: 16px;
+    padding: 24px;
+    margin: 20px 0;
+    border-left: 4px solid var(--lavender-dark);
+  }
+
+  .highlight-box.mint {
+    background: linear-gradient(135deg, var(--mint-light), var(--sky-light));
+    border-left-color: var(--mint-dark);
+  }
+
+  .highlight-box.peach {
+    background: linear-gradient(135deg, var(--peach-light), var(--pink-light));
+    border-left-color: var(--peach-dark);
+  }
+
+  .highlight-box.sky {
+    background: linear-gradient(135deg, var(--sky-light), var(--lavender-light));
+    border-left-color: var(--sky-dark);
+  }
+
+  .highlight-box p {
+    color: var(--text-primary) !important;
+    font-size: 0.95rem;
+  }
+
+  .highlight-box strong {
+    color: var(--lavender-dark);
+  }
+
+  .causal-chain {
+    background: var(--warm-gray);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 20px 0;
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+
+  .causal-chain .arrow {
+    display: block;
+    text-align: center;
+    color: var(--lavender-dark);
+    font-size: 1.4rem;
+    margin: 8px 0;
+  }
+
+  .causal-chain .node {
+    background: white;
+    border-radius: 12px;
+    padding: 12px 20px;
+    text-align: center;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    margin: 4px 0;
+  }
+
+  .conflict-cloud {
+    background: linear-gradient(135deg, #FFF5EE, #FFF0F5, #F5F0FF);
+    border-radius: 20px;
+    padding: 32px;
+    margin: 24px 0;
+    text-align: center;
+    position: relative;
+  }
+
+  .conflict-cloud .goal {
+    background: linear-gradient(135deg, var(--pink-dark), var(--lavender-dark));
+    color: white;
+    border-radius: 16px;
+    padding: 16px 24px;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 1.05rem;
+  }
+
+  .conflict-cloud .needs {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+
+  .conflict-cloud .need-box {
+    background: white;
+    border-radius: 16px;
+    padding: 20px 24px;
+    min-width: 200px;
+    max-width: 360px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+    text-align: left;
+  }
+
+  .conflict-cloud .need-box h4 {
+    color: var(--lavender-dark);
+    margin-bottom: 8px;
+    font-size: 1rem;
+  }
+
+  .conflict-cloud .vs {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.4rem;
+    color: var(--pink-dark);
+    font-weight: 700;
+    margin: 16px 0;
+  }
+
+  .week-plan {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  @media (max-width: 640px) {
+    .week-plan { grid-template-columns: 1fr; }
+    .conflict-cloud .needs { flex-direction: column; align-items: center; }
+    .hero h1 { font-size: 2rem; }
+  }
+
+  .week-card {
+    background: linear-gradient(135deg, white, var(--cream));
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(147,112,219,0.1);
+  }
+
+  .week-card h4 {
+    font-family: 'Noto Serif TC', serif;
+    color: var(--lavender-dark);
+    margin-bottom: 10px;
+  }
+
+  .week-card ul {
+    padding-left: 18px;
+  }
+
+  .week-card li {
+    font-size: 0.9rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  @media (max-width: 640px) {
+    .metric-grid { grid-template-columns: 1fr; }
+  }
+
+  .metric-card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    border: 1px solid rgba(147,112,219,0.08);
+  }
+
+  .metric-card .value {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--pink-dark), var(--lavender-dark));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .metric-card .label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .quote-box {
+    background: linear-gradient(135deg, var(--lavender-light), white);
+    border-radius: 16px;
+    padding: 24px 32px;
+    margin: 20px 0;
+    font-family: 'Noto Serif TC', serif;
+    font-style: italic;
+    color: var(--text-secondary);
+    border-left: 4px solid var(--pink-mid);
+    font-size: 1rem;
+    line-height: 2;
+  }
+
+  .quote-box .author {
+    display: block;
+    font-style: normal;
+    font-family: 'Noto Sans TC', sans-serif;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-top: 8px;
+    text-align: right;
+  }
+
+  .tag {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--lavender-light), var(--pink-light));
+    color: var(--lavender-dark);
+    padding: 4px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin: 4px;
+    font-weight: 500;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  .footer .brand {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem;
+    color: var(--lavender-dark);
+    margin-bottom: 8px;
+  }
+
+  .toc-nav {
+    background: white;
+    border-radius: 24px;
+    padding: 32px;
+    margin-bottom: 40px;
+    box-shadow: var(--card-shadow);
+  }
+
+  .toc-nav h3 {
+    font-family: 'Noto Serif TC', serif;
+    color: var(--lavender-dark);
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+  }
+
+  .toc-nav ol {
+    padding-left: 24px;
+  }
+
+  .toc-nav li {
+    color: var(--text-secondary);
+    margin-bottom: 6px;
+    font-size: 0.92rem;
+  }
+
+  .toc-nav li a {
+    color: var(--lavender-dark);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .toc-nav li a:hover {
+    color: var(--pink-dark);
+  }
+
+  .loop-box {
+    background: var(--warm-gray);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    text-align: center;
+  }
+
+  .loop-box .loop-item {
+    display: inline-block;
+    background: white;
+    border-radius: 12px;
+    padding: 8px 18px;
+    margin: 4px 8px;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  .loop-box .loop-arrow {
+    display: inline-block;
+    color: var(--pink-dark);
+    font-size: 1.2rem;
+    margin: 0 4px;
+    vertical-align: middle;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 16px 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+
+  th {
+    background: linear-gradient(135deg, var(--lavender-light), var(--pink-light));
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 600;
+    color: var(--lavender-dark);
+    font-size: 0.9rem;
+  }
+
+  td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(147,112,219,0.06);
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    background: white;
+  }
+
+  tr:last-child td {
+    border-bottom: none;
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero">
+  <h1>🧠 Unwinding Anxiety</h1>
+  <p class="subtitle">TOC 限制理論十步深度實戰分析</p>
+  <p class="subtitle" style="font-size:1rem; margin-top:8px; opacity:0.85;">Judson Brewer 著｜含 Workbook 練習本整合分析</p>
+  <div class="meta-info">
+    <span class="meta-tag">📘 正念科學</span>
+    <span class="meta-tag">🔄 習慣迴路</span>
+    <span class="meta-tag">💡 獎勵學習</span>
+    <span class="meta-tag">🧘 BBO 策略</span>
+  </div>
+</section>
+
+<div class="container">
+
+  <!-- ==================== 概覽 ==================== -->
+  <div class="section-intro">
+    <h2>📖 分析概覽</h2>
+    <p>《Unwinding Anxiety》（含配套練習本）由神經科學家暨精神科醫師 Judson Brewer 所著，核心主張：<strong>焦慮不是性格缺陷，而是一組可辨識、可拆解、可更新的習慣迴路</strong>。Brewer 結合獎勵式學習理論（Reward-Based Learning）與正念科學，提出三檔變速模型——第一檔（覺察映射）、第二檔（幻滅更新）、第三檔（BBO 替代）——引導讀者從「被焦慮驅動」轉向「以好奇心引領」。本分析運用 TOC（限制理論）的完整思考流程工具，對書中系統進行深度剖析，從不良效應追溯根因、建構衝突雲、萃取注入解，到設計四週轉變計畫與持續改善循環。</p>
+    <div style="margin-top:20px;">
+      <span class="tag">焦慮習慣迴路</span>
+      <span class="tag">DMN 默認模式網路</span>
+      <span class="tag">PCC 後扣帶皮質</span>
+      <span class="tag">OFC 眶額皮質</span>
+      <span class="tag">RAIN 練習</span>
+      <span class="tag">慈愛冥想</span>
+      <span class="tag">Rescorla-Wagner 模型</span>
+    </div>
+  </div>
+
+  <!-- ==================== 導覽 ==================== -->
+  <nav class="toc-nav">
+    <h3>🗺️ 分析導覽</h3>
+    <ol>
+      <li><a href="#step1">系統界定 — 焦慮習慣迴路的系統邊界</a></li>
+      <li><a href="#step2">現況實境樹（CRT）— 五大不良效應與根因</a></li>
+      <li><a href="#step3">核心衝突雲（EC）— 控制 vs. 放下的兩難</a></li>
+      <li><a href="#step4">注入解萃取 — 打破衝突的三檔模型</a></li>
+      <li><a href="#step5">未來實境樹（FRT）— 正面效應因果鏈</a></li>
+      <li><a href="#step6">瓶頸深度定位 — 讀者的真正卡點</a></li>
+      <li><a href="#step7">障礙拆解（前提樹 PrT）— 實施障礙與中間目標</a></li>
+      <li><a href="#step8">轉變樹（TT）四週行動計畫</a></li>
+      <li><a href="#step9">吞吐量審計 — 投資報酬分析</a></li>
+      <li><a href="#step10">持續改善循環（POOGI）</a></li>
+    </ol>
+  </nav>
+
+  <!-- ==================== STEP 1 ==================== -->
+  <div class="step-card" id="step1">
+    <div class="step-number">01</div>
+    <h2 class="step-title">系統界定 — 焦慮習慣迴路的系統邊界</h2>
+    <div class="step-content">
+
+      <h3>1.1 系統目標（Goal）</h3>
+      <p>本書的系統目標是：<strong>幫助讀者理解焦慮的習慣迴路機制，並透過正念訓練打破這些迴路，從「被焦慮驅動的反應模式」轉變為「以好奇心引領的覺察模式」，從而實現焦慮的持續降低與生活品質的全面提升。</strong></p>
+      <p>Brewer 在書中開宗明義：焦慮不是你的敵人，它是你大腦的生存機制被劫持後產生的副產品。系統的核心目標並非「消滅焦慮」，而是「解除焦慮對行為的自動化控制權」。</p>
+
+      <h3>1.2 系統邊界（System Boundary）</h3>
+      <div class="highlight-box">
+        <p><strong>系統範圍：</strong>個人的「觸發→行為→獎勵」習慣迴路運作機制，涵蓋焦慮、擔憂、拖延、暴食、成癮等行為模式。</p>
+        <p><strong>系統核心引擎：</strong>獎勵式學習（Reward-Based Learning）— 大腦的 OFC（眶額皮質）根據過去經驗設定行為的獎勵值，驅動自動化習慣。</p>
+        <p><strong>系統邊界內：</strong>個人的神經迴路、情緒反應、認知模式、行為習慣、正念練習能力。</p>
+        <p><strong>系統邊界外：</strong>制度性壓力源（醫療體制、工作制度）、遺傳因素、嚴重精神疾病的生理病因。</p>
+      </div>
+
+      <h3>1.3 利害關係人分析</h3>
+      <table>
+        <thead>
+          <tr><th>利害關係人</th><th>角色</th><th>核心需求</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>焦慮患者（讀者）</td><td>系統的主要用戶</td><td>降低焦慮、恢復日常功能、找回生活掌控感</td></tr>
+          <tr><td>「舊腦」（邊緣系統）</td><td>系統的自動化引擎</td><td>確保生存安全、快速反應威脅、維持熟悉模式</td></tr>
+          <tr><td>「新腦」（前額葉皮質）</td><td>理性控制中心</td><td>規劃、判斷、抑制衝動——但在壓力下會被關閉</td></tr>
+          <tr><td>DMN（默認模式網路）</td><td>反芻思維的溫床</td><td>處理自我相關資訊——但過度活躍導致擔憂迴路</td></tr>
+          <tr><td>醫療專業者</td><td>治療提供者</td><td>有效的循證工具、可量測的療效指標</td></tr>
+          <tr><td>家人與社交圈</td><td>環境因素</td><td>理解焦慮機制、提供適當支持而非施壓</td></tr>
+          <tr><td>科技平台（社群媒體）</td><td>外部觸發源</td><td>最大化用戶參與（常加劇焦慮迴路）</td></tr>
+        </tbody>
+      </table>
+
+      <h3>1.4 系統的必要條件（Necessary Conditions）</h3>
+      <ul>
+        <li><strong>覺察能力：</strong>能夠在習慣迴路發生時「覺醒」，而非全程自動駕駛。Brewer 引用哈佛研究：人類 50% 的清醒時間處於心智漫遊（自動駕駛）模式。</li>
+        <li><strong>獎勵值更新能力：</strong>OFC 需要接收到「準確的當下體驗回饋」來更新行為的獎勵值。若持續在無覺察下重複行為，大腦永遠不會更新。</li>
+        <li><strong>替代性獎勵源：</strong>放下舊習慣需要有「更大更好的選項」（BBO）取代，而非純粹依賴意志力壓制。</li>
+        <li><strong>持續練習：</strong>Rescorla-Wagner 模型顯示，約需 10-15 次的覺察練習，行為的獎勵值才會趨近於零。</li>
+      </ul>
+
+      <h3>1.5 關鍵量測指標</h3>
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="value">63%</div>
+          <div class="label">GAD 患者焦慮分數<br>降低幅度</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">57%</div>
+          <div class="label">醫師焦慮分數<br>降低幅度</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">1.6</div>
+          <div class="label">NNT 值<br>（vs 藥物 5.15）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 2 ==================== -->
+  <div class="step-card" id="step2">
+    <div class="step-number">02</div>
+    <h2 class="step-title">現況實境樹（CRT）— 五大不良效應與根因追溯</h2>
+    <div class="step-content">
+
+      <h3>2.1 五大不良效應（UDE）識別</h3>
+      <p>透過 If-Then 因果邏輯，從書中原文提取五個核心不良效應，追溯其共同根因：</p>
+
+      <h4>UDE 1：焦慮的自我強化循環</h4>
+      <div class="highlight-box peach">
+        <p>「焦慮觸發擔憂，擔憂又觸發更多焦慮」——Brewer 稱之為焦慮的「永動機」。患者早上醒來就焦慮，卻找不到具體原因，於是開始擔憂「任何可能的事情」，形成廣泛性焦慮症（GAD）。</p>
+      </div>
+      <div class="loop-box">
+        <span class="loop-item">😰 焦慮感</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-item">🤔 擔憂行為</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-item">😫 更焦慮</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-item">🔄 重複</span>
+      </div>
+
+      <h4>UDE 2：迴避行為導致生活萎縮</h4>
+      <div class="highlight-box mint">
+        <p>案例 Dave：恐慌發作使他完全不敢上高速公路、在壽司店恐慌到必須離開、嚴重到無法下床。每次迴避成功後，大腦將「迴避=安全=獎勵」的連結更加強化，導致生活範圍持續縮小。</p>
+      </div>
+
+      <h4>UDE 3：代償行為的惡性循環（暴食、酗酒、拖延）</h4>
+      <div class="highlight-box sky">
+        <p>案例 John：焦慮→看到未完成工作→看電視拖延→一天結束什麼也沒做→更焦慮→每晚喝 6-8 杯酒麻痺→隔天宿醉→更焦慮。案例暴食患者：8 歲起因情感虐待學會用食物麻痺情緒→每月 20 天暴食整個大披薩→BMI > 40→高血壓、脂肪肝、睡眠呼吸中止症。</p>
+      </div>
+
+      <h4>UDE 4：自我批判迴路吞噬心理能量</h4>
+      <div class="highlight-box">
+        <p>犯錯→自我鞭笞→傷口不斷被揭開→更羞恥→更退縮。Brewer 以自己大學餐廳的霸凌事件為例：二十五年後仍心跳加速、胃部抽搐，因為他把「手榴彈」埋在心裡，不斷拔除保險栓。</p>
+      </div>
+
+      <h4>UDE 5：「為什麼」迴路的認知陷阱</h4>
+      <div class="highlight-box peach">
+        <p>案例 Amy：「如果我能弄清楚『為什麼』我焦慮，就能修好它」——這種機械式思維把大腦當成壞掉的家電。結果：越追問「為什麼」→越找不到答案→越焦慮→越追問，形成無解的螺旋。丈夫和朋友問「你不是在看精神科嗎？」更加強了「我該被修好」的錯誤預期。</p>
+      </div>
+
+      <h3>2.2 If-Then 因果鏈：追溯根因</h3>
+      <div class="causal-chain">
+        <div class="node"><strong>根因：</strong>大腦的獎勵式學習系統在不確定環境中被劫持</div>
+        <div class="arrow">⬇️ If 大腦將不確定性視為威脅 Then</div>
+        <div class="node">觸發焦慮感作為「行動衝動」（搔癢感）</div>
+        <div class="arrow">⬇️ If 焦慮觸發舊腦反應 Then</div>
+        <div class="node">啟動自動化行為：擔憂、迴避、代償（吃/喝/刷手機）</div>
+        <div class="arrow">⬇️ If 行為暫時降低焦慮 Then</div>
+        <div class="node">OFC 將此行為標記為「有獎勵」→ 強化迴路</div>
+        <div class="arrow">⬇️ If 迴路被強化 + 無覺察 Then</div>
+        <div class="node">行為自動化 → 壓力下前額葉離線 → 無法用意志力阻止</div>
+        <div class="arrow">⬇️ If 意志力策略反覆失敗 Then</div>
+        <div class="node"><strong>五大 UDE 同時出現：</strong>焦慮循環、生活萎縮、代償惡化、自我批判、認知陷阱</div>
+      </div>
+
+      <h3>2.3 根因總結</h3>
+      <div class="highlight-box mint">
+        <p><strong>核心根因：</strong>人類大腦的獎勵式學習系統（設計用於覓食生存）在現代不確定環境中被錯誤啟動，將焦慮本身當作「需要解決的問題」，並將任何暫時降低焦慮的行為（擔憂、迴避、暴食、酗酒）錯誤標記為「有獎勵」，形成自我強化的習慣迴路。同時，<strong>現代社會（科技平台、競爭文化、「焦慮=勤奮」的迷思）</strong>持續提供觸發源，而<strong>傳統治療策略（意志力、替代、環境控制）</strong>因未觸及獎勵學習機制的核心而反覆失敗。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 3 ==================== -->
+  <div class="step-card" id="step3">
+    <div class="step-number">03</div>
+    <h2 class="step-title">核心衝突雲（EC）— 控制 vs. 放下的兩難</h2>
+    <div class="step-content">
+
+      <h3>3.1 衝突雲建構</h3>
+      <p>Brewer 的書揭露了一個深層的兩難困境：面對焦慮時，我們的大腦有兩套相互矛盾的需求。</p>
+
+      <div class="conflict-cloud">
+        <div class="goal">🎯 共同目標（A）：解除焦慮的控制，恢復內在自由</div>
+        <div class="needs">
+          <div class="need-box">
+            <h4>需求 B：安全感</h4>
+            <p>我需要感覺自己在「做些什麼」來對抗焦慮——控制感本身就是生存本能的核心需求。</p>
+            <br>
+            <h4>⬇️ 前提 D：控制/對抗焦慮</h4>
+            <p>使用意志力壓制焦慮、分析原因、替代行為、迴避觸發源——這些都是「做些什麼」的體現。正如書中所述：「擔憂是做些什麼，畢竟。即使你觀察不到它是一個行為，它正在發生。」</p>
+          </div>
+          <div class="need-box">
+            <h4>需求 C：真正的解脫</h4>
+            <p>我需要從根本上改變與焦慮的關係，而不是永遠困在與它的戰爭中。</p>
+            <br>
+            <h4>⬇️ 前提 D'：放下控制，允許焦慮存在</h4>
+            <p>不對抗、不分析、不迴避，而是帶著好奇心觀察焦慮。這意味著放棄「做些什麼」的衝動——但這會讓舊腦發出「危險！」的警報。</p>
+          </div>
+        </div>
+        <div class="vs">D ⚡ 衝突 ⚡ D'</div>
+        <p style="font-size:0.9rem; color: var(--text-secondary); margin-top:16px;">
+          <strong>衝突核心：</strong>「做些什麼」（D）讓我感覺安全但長期加劇焦慮；「允許它存在」（D'）能真正解脫但短期感覺更不安全。
+        </p>
+      </div>
+
+      <h3>3.2 隱藏假設拆解</h3>
+      <table>
+        <thead>
+          <tr><th>假設位置</th><th>隱藏假設內容</th><th>有效性</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>B → D</td>
+            <td>「對抗焦慮是唯一能給我安全感的方式」</td>
+            <td>❌ 無效。Brewer 的研究顯示：好奇心和正念同樣能啟動安全感，且不會觸發焦慮循環。</td>
+          </tr>
+          <tr>
+            <td>D → ¬D'</td>
+            <td>「如果我不積極對抗，焦慮會失控並吞噬我」</td>
+            <td>❌ 無效。研究顯示焦慮是波浪，有其自然的上升與消退。不餵養它，它會自行減弱。</td>
+          </tr>
+          <tr>
+            <td>C → D'</td>
+            <td>「要真正改變關係就必須完全被動、什麼都不做」</td>
+            <td>❌ 無效。正念不是「什麼都不做」，而是「帶著好奇心觀察」——這本身是一種主動行為。</td>
+          </tr>
+          <tr>
+            <td>隱藏假設</td>
+            <td>「焦慮是有害的/異常的，需要被消滅」</td>
+            <td>❌ 無效。焦慮是正常的人類情緒。問題不在焦慮本身，而在我們對焦慮的習慣性反應。</td>
+          </tr>
+          <tr>
+            <td>文化假設</td>
+            <td>「一定程度的焦慮對表現有益」（Yerkes-Dodson「定律」）</td>
+            <td>❌ 無效。46% 的研究發現壓力與表現呈負線性關係，僅 4% 支持倒U曲線。</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>3.3 衝突的日常呈現</h3>
+      <ul>
+        <li><strong>學生：</strong>「如果我不焦慮就不會努力讀書」vs.「焦慮讓我完全無法專注」</li>
+        <li><strong>醫師：</strong>「武裝自己對抗壓力」vs.「這種武裝正在導致 60% 的人中重度焦慮和倦怠」</li>
+        <li><strong>職場人士：</strong>「壓力大=有貢獻；不壓力=廢物」vs.「壓力正在吸光我的能量」</li>
+        <li><strong>家長：</strong>Amy 試圖弄清楚「為什麼」焦慮→越追問越焦慮→丈夫問「你不是在看醫生嗎？」→更焦慮</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 4 ==================== -->
+  <div class="step-card" id="step4">
+    <div class="step-number">04</div>
+    <h2 class="step-title">注入解萃取 — 打破衝突的三檔模型</h2>
+    <div class="step-content">
+
+      <h3>4.1 核心注入解：三檔變速模型</h3>
+      <p>Brewer 的注入解並非外部強加的新規則，而是<strong>利用大腦自身的獎勵學習機制來破解舊迴路</strong>——這是真正的「以子之矛攻子之盾」。</p>
+
+      <div class="highlight-box">
+        <p><strong>注入解的本質：</strong>不是對抗馬（衝動），也不是強化騎手（意志力），而是<strong>讓馬自己發現前方的路不好走，自動轉向更好的路</strong>。</p>
+      </div>
+
+      <h4>第一檔：覺察映射（Mapping）—「蠟上蠟下」</h4>
+      <ul>
+        <li><strong>操作：</strong>識別並寫下習慣迴路的三個元素：觸發（T）→ 行為（B）→ 結果（R）</li>
+        <li><strong>原理：</strong>從自動駕駛模式中醒來。「如果你不知道某件事是習慣性的，你就會繼續習慣性地做它。」</li>
+        <li><strong>注意：</strong>映射不等於修復。就像「空手道小子」中 Mr. Miyagi 的訓練，不能跳過基礎直接嘗試修復。</li>
+        <li><strong>練習本工具：</strong>TBR 模板——每天記錄至少 3 個習慣迴路。</li>
+      </ul>
+
+      <h4>第二檔：幻滅更新（Disenchantment）—「付出注意力」</h4>
+      <ul>
+        <li><strong>操作：</strong>下次被觸發時，不自動執行行為，而是<strong>帶著覺察去體驗行為的實際結果</strong>。</li>
+        <li><strong>原理：</strong>基於 Rescorla-Wagner 預測誤差模型——當大腦預期的獎勵值與實際體驗不符時，會自動更新獎勵值。</li>
+        <li><strong>關鍵發現：</strong>約 10-15 次覺察練習後，行為的獎勵值趨近於零。「我今天抽的所有煙都令人噁心。」</li>
+        <li><strong>FGO（Fucking Growth Opportunity）：</strong>自我批判的解藥——從「回顧與後悔」轉向「觀察與學習」。</li>
+      </ul>
+
+      <h4>第三檔：BBO（Bigger Better Offer）—「更大更好的選項」</h4>
+      <ul>
+        <li><strong>操作：</strong>用<strong>好奇心</strong>和<strong>慈愛</strong>作為內在獎勵替代外部代償行為。</li>
+        <li><strong>原理：</strong>OFC 的獎勵階層系統——當新行為的獎勵值高於舊行為時，大腦會自動偏好新行為。</li>
+        <li><strong>RAIN 練習：</strong>Recognize（辨識）→ Allow（允許）→ Investigate（探查身體感受）→ Note（標記）</li>
+        <li><strong>慈愛練習：</strong>「願你快樂」「願你健康」——Brewer 的研究顯示慈愛練習能降低 PCC（自我批判中心）的活動。</li>
+        <li><strong>核心區別：</strong>不是「用好的替代壞的」（替代品仍會餵養迴路），而是「用更高獎勵值的內在體驗自然取代」。</li>
+      </ul>
+
+      <h3>4.2 注入解如何打破衝突雲</h3>
+      <div class="highlight-box mint">
+        <p><strong>打破 B→D 假設：</strong>好奇心本身就提供安全感。當你對焦慮感到好奇而非恐懼時，你不需要「做些什麼」就能感覺安全。好奇心啟動了大腦的探索模式，取代了威脅反應模式。</p>
+        <p><strong>打破 D→¬D' 假設：</strong>正念不是被動地什麼都不做，而是主動地用好奇心觀察——這是一種比對抗更有效的「做些什麼」。</p>
+        <p><strong>統一 B 和 C：</strong>好奇心同時滿足「安全感」（B）和「真正解脫」（C），消解了兩者的對立。</p>
+      </div>
+
+      <h3>4.3 練習本中的具體工具</h3>
+      <table>
+        <thead>
+          <tr><th>工具</th><th>對應檔位</th><th>功能</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>TBR 映射模板</td><td>第一檔</td><td>結構化記錄觸發→行為→結果</td></tr>
+          <tr><td>渴望工具（Craving Tool）</td><td>第二檔</td><td>在渴望出現時即時評估行為的實際獎勵值</td></tr>
+          <tr><td>RAIN 卡片</td><td>第三檔</td><td>四步驟隨身練習指南</td></tr>
+          <tr><td>慈愛短語</td><td>第三檔</td><td>「願我快樂 / 願我健康 / 願我免於傷害 / 願我以善意照顧自己」</td></tr>
+          <tr><td>每日覺察日誌</td><td>全檔位</td><td>記錄每日練習心得，追蹤獎勵值變化</td></tr>
+          <tr><td>「為什麼不重要」呼吸練習</td><td>第一檔/第三檔</td><td>三次深呼吸 + 默念「Why doesn't matter」打斷 Why 迴路</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 5 ==================== -->
+  <div class="step-card" id="step5">
+    <div class="step-number">05</div>
+    <h2 class="step-title">未來實境樹（FRT）— 注入解實施後的正面效應</h2>
+    <div class="step-content">
+
+      <h3>5.1 正面效應因果鏈</h3>
+      <div class="causal-chain">
+        <div class="node"><strong>注入解：</strong>學會三檔變速模型 + 每日正念練習</div>
+        <div class="arrow">⬇️ If 能辨識習慣迴路 Then</div>
+        <div class="node">✅ 從自動駕駛中醒來——不再被焦慮「劫持」</div>
+        <div class="arrow">⬇️ If 覺察行為的實際結果 Then</div>
+        <div class="node">✅ OFC 更新獎勵值——舊行為（擔憂/暴食/酗酒）的吸引力自然下降</div>
+        <div class="arrow">⬇️ If 獎勵值下降 + BBO 就位 Then</div>
+        <div class="node">✅ 好奇心取代恐懼成為預設反應——DMN/PCC 活動降低</div>
+        <div class="arrow">⬇️ If 好奇心成為預設反應 Then</div>
+        <div class="node">✅ 前額葉保持在線——能夠理性思考、創造性問題解決</div>
+        <div class="arrow">⬇️ If 前額葉功能恢復 Then</div>
+        <div class="node">✅ 生活範圍重新擴大——不再迴避、不再拖延、不再代償</div>
+        <div class="arrow">⬇️ If 生活功能恢復 Then</div>
+        <div class="node"><strong>系統目標達成：</strong>焦慮不再控制行為，而是成為可觀察的信號</div>
+      </div>
+
+      <h3>5.2 書中實證的正面效應</h3>
+
+      <div class="metric-grid">
+        <div class="metric-card">
+          <div class="value">63%</div>
+          <div class="label">GAD 焦慮分數降低<br>（2 個月 App 訓練）</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">50%</div>
+          <div class="label">醫師犬儒主義<br>降低幅度</div>
+        </div>
+        <div class="metric-card">
+          <div class="value">5x</div>
+          <div class="label">戒菸率優於<br>金標準治療</div>
+        </div>
+      </div>
+
+      <h4>個案正面效應</h4>
+      <ul>
+        <li><strong>John（酗酒+拖延）：</strong>映射出習慣迴路後，自行戒酒；發現妻子說話方式觸發焦慮後，夫妻關係大幅改善。</li>
+        <li><strong>Dave（恐慌症+暴食）：</strong>從無法下床到能夠重新面對日常生活——「他的焦慮泡沫破裂了」。</li>
+        <li><strong>暴食患者（BED）：</strong>慈愛練習打斷自我批判迴路→暴食頻率大幅下降→四個月減重 40 磅→「我感覺我的生命回來了。我可以吃一片披薩並真正享受它。」</li>
+        <li><strong>Amy（Why 迴路）：</strong>「為什麼不重要」練習打斷認知陷阱→焦慮不再像雪崩般擴散。</li>
+      </ul>
+
+      <h3>5.3 潛在負面分支（Negative Branch Reservation）</h3>
+      <table>
+        <thead>
+          <tr><th>潛在風險</th><th>防護措施</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>將正念當成另一種「修復自己」的工具</td><td>Brewer 反覆強調：正念不是清空思緒或達成某種特殊狀態</td></tr>
+          <tr><td>過快跳到「修復」而跳過映射階段</td><td>書中三分之一篇幅用於第一檔，並警告「不要跳過」</td></tr>
+          <tr><td>對嚴重精神疾病不適用</td><td>書中明確界定適用範圍，建議嚴重個案尋求專業協助</td></tr>
+          <tr><td>App 依賴——離開 App 就退步</td><td>三檔模型設計為可內化的技能，非外部工具依賴</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 6 ==================== -->
+  <div class="step-card" id="step6">
+    <div class="step-number">06</div>
+    <h2 class="step-title">瓶頸深度定位 — 讀者的真正卡點</h2>
+    <div class="step-content">
+
+      <h3>6.1 TOC 五聚焦步驟應用於讀者實踐</h3>
+      <p>根據 TOC 的核心邏輯，系統的產出受限於其最薄弱的環節。在「改變焦慮習慣」這個系統中，<strong>瓶頸不在於知識不足，而在於「從概念到體驗」的轉化斷裂</strong>。</p>
+
+      <div class="highlight-box">
+        <p><strong>🎯 瓶頸定位：第二檔的「幻滅體驗」——從「我知道這個行為不好」到「我在身體裡真正感受到這個行為不值得」的轉化。</strong></p>
+      </div>
+
+      <h3>6.2 為什麼是第二檔？</h3>
+
+      <h4>第一檔（映射）的瓶頸性較低</h4>
+      <p>Brewer 觀察到：「大多數人在開始使用我們的 App 或來到我的診所時，能夠非常快速地映射出他們的習慣迴路。」映射是認知層面的，相對容易。</p>
+
+      <h4>第二檔（幻滅）是真正的瓶頸</h4>
+      <ul>
+        <li><strong>認知-體驗鴻溝：</strong>「你無法用思考來擺脫壞習慣或進入好習慣。」知道暴食不好（認知）和在吃下第三塊蛋糕時真正感受到「巧克力炸彈」的不適（體驗）之間有巨大差距。</li>
+        <li><strong>需要反覆練習：</strong>Rescorla-Wagner 模型顯示需要 10-15 次才能更新獎勵值——大多數人在 3-5 次就放棄了。</li>
+        <li><strong>反直覺性：</strong>第二檔要求你在被觸發時<strong>不要立刻避開</strong>，而是帶著覺察去體驗——這與舊腦的「趕快逃跑」本能直接衝突。</li>
+        <li><strong>阻力最大的環節：</strong>Brewer 明確寫道：「大多數人立即掌握第一檔（至少在概念上），但在進入第二檔時常常遇到一些阻力。」</li>
+      </ul>
+
+      <h4>第三檔（BBO）的瓶頸性次之</h4>
+      <p>一旦第二檔的幻滅感建立起來，第三檔（好奇心/慈愛作為 BBO）反而比較容易切入，因為大腦此時自然在尋找替代品。</p>
+
+      <h3>6.3 瓶頸的五個表現型態</h3>
+      <table>
+        <thead>
+          <tr><th>表現</th><th>描述</th><th>書中案例</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>「我知道但我做不到」</td>
+            <td>概念理解到位，但行為不改變</td>
+            <td>很多人看完 TED Talk 後仍無法戒菸</td>
+          </tr>
+          <tr>
+            <td>「修復者陷阱」</td>
+            <td>映射後立刻跳到修復，跳過體驗</td>
+            <td>「就像聽了機械師的解釋就回家自己修車」</td>
+          </tr>
+          <tr>
+            <td>「焦慮認同」</td>
+            <td>將焦慮視為身份的一部分，不願放手</td>
+            <td>「我把成功歸因於焦慮。我害怕如果放下焦慮，就失去驅動力」</td>
+          </tr>
+          <tr>
+            <td>「正念誤解」</td>
+            <td>把正念當成「清空思緒」或「放鬆技巧」</td>
+            <td>「他們越試圖清空思緒，就越焦慮」</td>
+          </tr>
+          <tr>
+            <td>「速效期待」</td>
+            <td>期待像吃藥一樣立竿見影</td>
+            <td>NNT 1.6 優異但仍需 2 個月持續練習</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>6.4 TOC 利用瓶頸策略</h3>
+      <div class="highlight-box sky">
+        <p><strong>步驟一 — 識別瓶頸：</strong>第二檔的「從概念到體驗」轉化。</p>
+        <p><strong>步驟二 — 利用瓶頸：</strong>確保每次被觸發時都練習覺察（不浪費任何一次觸發事件）。渴望工具設計在 App 中，讓用戶在觸發當下即時使用。</p>
+        <p><strong>步驟三 — 遷就瓶頸：</strong>不要在尚未建立第二檔體驗前嘗試第三檔；不要用新的認知框架來替代體驗。</p>
+        <p><strong>步驟四 — 提升瓶頸：</strong>增加觸發事件的利用率——每天至少 3 次覺察練習；使用 App 的每日提醒功能。</p>
+        <p><strong>步驟五 — 回到步驟一：</strong>當第二檔不再是瓶頸時，檢查新的瓶頸可能在哪裡（通常轉移到慈愛練習的持續性）。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 7 ==================== -->
+  <div class="step-card" id="step7">
+    <div class="step-number">07</div>
+    <h2 class="step-title">障礙拆解（前提樹 PrT）— 實施障礙與中間目標</h2>
+    <div class="step-content">
+
+      <h3>7.1 從當前狀態到目標狀態的障礙清單</h3>
+      <p><strong>當前狀態：</strong>被焦慮習慣迴路自動控制的生活。<br>
+         <strong>目標狀態：</strong>能夠覺察、更新、替代焦慮迴路的自由狀態。</p>
+
+      <table>
+        <thead>
+          <tr><th>#</th><th>障礙</th><th>中間目標</th><th>克服策略</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>不了解習慣迴路的 T-B-R 結構</td>
+            <td>能辨識並寫出至少 5 個自己的習慣迴路</td>
+            <td>閱讀 Part 1 + 使用 TBR 模板 + drjud.com 下載映射工具</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>「映射等於修復」的認知陷阱</td>
+            <td>接受「映射只是第一步」，不急於修復</td>
+            <td>記住 Mr. Miyagi 的「蠟上蠟下」故事——映射是基礎功</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>意志力迷思：相信只要「夠努力」就能戒掉</td>
+            <td>理解意志力在壓力下會崩潰的神經科學原理</td>
+            <td>學習前額葉在壓力下離線的機制；放棄「Just do it」策略</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>「焦慮=生產力」的文化信念</td>
+            <td>區分「相關」和「因果」——焦慮與成功是 true-true-unrelated</td>
+            <td>檢視：你有沒有在不焦慮的狀態下也表現很好的經驗？</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>正念的誤解：認為是清空思緒或宗教活動</td>
+            <td>理解正念 = 「在當下帶著好奇心觀察」</td>
+            <td>正念是覺察的大圈，冥想是其中的小圈。你不需要冥想才能正念。</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>第二檔練習時的不適感和退縮</td>
+            <td>能夠在被觸發時「留在不適中」觀察 30 秒</td>
+            <td>從小的觸發開始練習（低強度），逐漸增加；使用 App 引導</td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>自我批判迴路阻礙練習</td>
+            <td>將自我批判本身辨識為一個習慣迴路</td>
+            <td>FGO 框架：從「回顧與後悔」切換到「觀察與學習」</td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>「Why」迴路的認知陷阱</td>
+            <td>從追問「為什麼焦慮」轉向觀察「現在焦慮是什麼感覺」</td>
+            <td>三次深呼吸 +「Why doesn't matter」+ 轉向 What</td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>缺乏持續練習的動力</td>
+            <td>建立每日 10 分鐘的正念練習習慣</td>
+            <td>利用 App 的每日模組（<10 分鐘）；加入線上社群</td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>環境中的持續觸發源（社群媒體、工作壓力）</td>
+            <td>能夠在真實環境中即時使用三檔工具</td>
+            <td>攜帶 RAIN 卡片；在觸發當下練習而非僅在冥想墊上</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>7.2 障礙的優先排序</h3>
+      <div class="highlight-box">
+        <p><strong>關鍵路徑：</strong>障礙 1（理解迴路結構）→ 障礙 3（放棄意志力迷思）→ 障礙 6（第二檔不適感）→ 障礙 7（自我批判）→ 障礙 9（持續練習）。這五個障礙形成一條關鍵路徑，需要依序克服。其他障礙可以並行處理。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 8 ==================== -->
+  <div class="step-card" id="step8">
+    <div class="step-number">08</div>
+    <h2 class="step-title">轉變樹（TT）四週行動計畫</h2>
+    <div class="step-content">
+
+      <h3>8.1 四週循序漸進計畫</h3>
+      <div class="week-plan">
+        <div class="week-card">
+          <h4>📅 第一週：覺醒與映射</h4>
+          <p style="font-size:0.85rem; color:var(--lavender-dark); margin-bottom:8px;">主題：第一檔 — 從自動駕駛中醒來</p>
+          <ul>
+            <li>Day 1-2：閱讀 Part 1（Ch.1-8），理解習慣迴路 T-B-R 結構</li>
+            <li>Day 3：下載 TBR 模板，映射出 3 個最明顯的焦慮習慣迴路</li>
+            <li>Day 4-5：繼續映射，目標累積 5-8 個迴路（含焦慮→擔憂、焦慮→代償、自我批判迴路）</li>
+            <li>Day 6：檢視映射結果——有沒有「迴路中的迴路」（如 John 的酗酒迴路源自拖延迴路源自焦慮迴路）</li>
+            <li>Day 7：反思日——抵抗「立刻修復」的衝動，接受映射只是第一步</li>
+          </ul>
+          <div class="highlight-box" style="margin-top:12px;">
+            <p><strong>If-Then 驗證：</strong>If 我能在日常生活中辨識出至少 5 個習慣迴路 → Then 第一檔啟動成功。<br>
+            <strong>驗證指標：</strong>是否有「啊哈！」的覺醒體驗？是否開始在迴路發生的當下覺察到它？</p>
+          </div>
+        </div>
+
+        <div class="week-card">
+          <h4>📅 第二週：幻滅實驗</h4>
+          <p style="font-size:0.85rem; color:var(--lavender-dark); margin-bottom:8px;">主題：第二檔 — 更新獎勵值</p>
+          <ul>
+            <li>Day 8-9：閱讀 Part 2（Ch.9-14），理解 OFC 獎勵值更新和 Rescorla-Wagner 模型</li>
+            <li>Day 10：選擇 1 個低強度習慣迴路做「幻滅實驗」——下次被觸發時，帶著好奇心體驗行為的實際結果</li>
+            <li>Day 11-12：擴大到 2-3 個迴路，每次練習後記錄：行為前的渴望強度 → 行為後的滿足感</li>
+            <li>Day 13：處理「FGO」——映射出自我批判迴路，練習「觀察與學習」路徑</li>
+            <li>Day 14：回顧一週渴望值記錄，觀察獎勵值是否開始下降</li>
+          </ul>
+          <div class="highlight-box mint" style="margin-top:12px;">
+            <p><strong>If-Then 驗證：</strong>If 覺察練習 5 次以上 → Then 至少 1 個行為的渴望強度開始下降。<br>
+            <strong>驗證指標：</strong>是否開始感受到「原來這個行為沒有我以為的那麼爽」？</p>
+          </div>
+        </div>
+
+        <div class="week-card">
+          <h4>📅 第三週：BBO 啟動</h4>
+          <p style="font-size:0.85rem; color:var(--lavender-dark); margin-bottom:8px;">主題：第三檔 — 好奇心與慈愛</p>
+          <ul>
+            <li>Day 15-16：閱讀 Part 3（Ch.15-21），學習 RAIN 練習和慈愛冥想</li>
+            <li>Day 17：第一次正式 RAIN 練習——在焦慮出現時使用四步驟</li>
+            <li>Day 18-19：每天至少 2 次 RAIN 練習 + 1 次慈愛冥想（5-10 分鐘）</li>
+            <li>Day 20：在日常場景中使用 BBO（如 Brewer 騎車時對按喇叭的人送慈愛）</li>
+            <li>Day 21：整合三檔——觸發時覺察（第一檔）→ 體驗實際感受（第二檔）→ RAIN/慈愛（第三檔）</li>
+          </ul>
+          <div class="highlight-box peach" style="margin-top:12px;">
+            <p><strong>If-Then 驗證：</strong>If 在焦慮觸發時能用好奇心觀察而非恐懼反應 → Then BBO 開始運作。<br>
+            <strong>驗證指標：</strong>是否感受到好奇心/慈愛的體驗比舊行為「更值得」？</p>
+          </div>
+        </div>
+
+        <div class="week-card">
+          <h4>📅 第四週：整合與自動化</h4>
+          <p style="font-size:0.85rem; color:var(--lavender-dark); margin-bottom:8px;">主題：建立新的預設模式</p>
+          <ul>
+            <li>Day 22-23：回顧所有習慣迴路映射——哪些已「幻滅」？哪些還頑固？</li>
+            <li>Day 24-25：對頑固迴路加強第二檔練習（目標累積 10-15 次覺察體驗）</li>
+            <li>Day 26：練習眼部好奇心技巧——張大眼睛 = 好奇心模式 vs. 瞇眼 = 防禦模式</li>
+            <li>Day 27：建立「好奇心即預設反應」的新迴路——把每次焦慮觸發都當成練習機會</li>
+            <li>Day 28：總結回顧——用 GAD-7 量表自我評估焦慮程度變化</li>
+          </ul>
+          <div class="highlight-box sky" style="margin-top:12px;">
+            <p><strong>If-Then 驗證：</strong>If 焦慮觸發時的預設反應從「恐懼/對抗」變成「嗯，有趣」→ Then 新迴路建立中。<br>
+            <strong>驗證指標：</strong>GAD-7 分數是否下降？生活功能是否恢復？</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>8.2 每日最小行動量</h3>
+      <div class="highlight-box mint">
+        <p><strong>10 分鐘法則：</strong>與 Brewer 的 App 設計一致——每日短影片 < 10 分鐘 + 即時練習。最小行動量 = 每天映射 1 個迴路 + 做 1 次 RAIN 或慈愛練習。不需要長時間打坐。不需要特殊環境。焦慮本身就是最好的練習場。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 9 ==================== -->
+  <div class="step-card" id="step9">
+    <div class="step-number">09</div>
+    <h2 class="step-title">吞吐量審計 — 投資報酬分析</h2>
+    <div class="step-content">
+
+      <h3>9.1 TOC 吞吐量思維框架</h3>
+      <p>在 TOC 中，系統績效用三個指標衡量：<strong>吞吐量（T）</strong>= 系統為目標創造的價值；<strong>投入（I）</strong>= 投入的資源；<strong>營運費用（OE）</strong>= 維持系統運作的持續成本。</p>
+
+      <h3>9.2 吞吐量（T）— 本書能為讀者創造的價值</h3>
+      <table>
+        <thead>
+          <tr><th>價值維度</th><th>吞吐量</th><th>量化估算</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>心理健康恢復</td>
+            <td>GAD 焦慮分數降低 63%，從中重度回到正常水平</td>
+            <td>省下的心理治療費用：每年 $3,000-$10,000 USD</td>
+          </tr>
+          <tr>
+            <td>生產力釋放</td>
+            <td>從擔憂/拖延/代償行為中回收的時間和認知資源</td>
+            <td>若每天回收 2 小時自動駕駛時間 = 每年 730 小時</td>
+          </tr>
+          <tr>
+            <td>身體健康改善</td>
+            <td>減少代償行為（暴食、酗酒）帶來的健康成本</td>
+            <td>減少肥胖相關醫療支出：每年 $2,000-$5,000 USD</td>
+          </tr>
+          <tr>
+            <td>人際關係修復</td>
+            <td>打破焦慮→反應→衝突迴路（如 John 與妻子的關係）</td>
+            <td>不可量化但深刻</td>
+          </tr>
+          <tr>
+            <td>專業能力提升</td>
+            <td>前額葉保持在線 → 理性決策和創造性思維恢復</td>
+            <td>職業發展的複合效應</td>
+          </tr>
+          <tr>
+            <td>內在自由</td>
+            <td>從「被焦慮控制」到「能選擇如何回應」</td>
+            <td>無價</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>9.3 投入（I）— 讀者需要投入的資源</h3>
+      <table>
+        <thead>
+          <tr><th>投入項目</th><th>估算</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>閱讀時間</td><td>正本 + 練習本 ≈ 12-16 小時</td></tr>
+          <tr><td>App 費用</td><td>Unwinding Anxiety App（約 $12-15/月或年費方案）</td></tr>
+          <tr><td>每日練習時間</td><td>< 10 分鐘/天 × 30 天 = 5 小時首月</td></tr>
+          <tr><td>認知投入</td><td>需要挑戰既有信念（如「焦慮=生產力」迷思）</td></tr>
+          <tr><td>情緒投入</td><td>第二檔練習需要暫時「留在不適中」——心理成本中等</td></tr>
+        </tbody>
+      </table>
+
+      <h3>9.4 營運費用（OE）— 維持改變的持續成本</h3>
+      <ul>
+        <li><strong>每日維護：</strong>5-10 分鐘正念練習（極低成本）</li>
+        <li><strong>持續覺察：</strong>不需額外時間，在日常生活中即時進行</li>
+        <li><strong>社群連結：</strong>加入 Brewer 的每週線上團體（可選）</li>
+        <li><strong>自我監測：</strong>定期用 GAD-7 量表追蹤進展</li>
+      </ul>
+
+      <h3>9.5 投資報酬率（ROI）計算</h3>
+      <div class="highlight-box">
+        <p><strong>保守估算：</strong></p>
+        <p>投入成本 ≈ 20 小時閱讀和學習 + $150 App 年費 ≈ $350 時間成本 + $150 = <strong>$500</strong></p>
+        <p>年度價值產出 ≈ 心理健康節省 $5,000 + 生產力回收 $7,300（730小時 × $10/hr）+ 健康節省 $3,000 = <strong>$15,300</strong></p>
+        <p><strong>ROI ≈ 30:1（投入 $500，年回報 $15,300）</strong></p>
+        <p>這還不包括人際關係修復和內在自由等無法量化的價值。</p>
+      </div>
+
+      <h3>9.6 與替代方案的比較</h3>
+      <table>
+        <thead>
+          <tr><th>方案</th><th>NNT</th><th>年度成本</th><th>持續性</th><th>根本性</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>本書方法（正念訓練）</strong></td><td><strong>1.6</strong></td><td><strong>$150-500</strong></td><td><strong>可內化為永久技能</strong></td><td><strong>觸及獎勵學習根源</strong></td></tr>
+          <tr><td>抗焦慮藥物</td><td>5.15</td><td>$500-2,000</td><td>停藥可能復發</td><td>症狀管理，非根因</td></tr>
+          <tr><td>傳統 CBT</td><td>2-4</td><td>$3,000-10,000</td><td>需定期回診</td><td>認知層面，未必觸及體驗</td></tr>
+          <tr><td>意志力/自律</td><td>不適用</td><td>$0</td><td>壓力下崩潰</td><td>未觸及機制</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ==================== STEP 10 ==================== -->
+  <div class="step-card" id="step10">
+    <div class="step-number">10</div>
+    <h2 class="step-title">持續改善循環（POOGI）— 長期改善機制</h2>
+    <div class="step-content">
+
+      <h3>10.1 POOGI 框架設計</h3>
+      <p>TOC 的 POOGI（Process Of On-Going Improvement）核心理念：改善是永無止境的循環，瓶頸被打破後會轉移到新的環節。以下設計一個長期持續改善系統：</p>
+
+      <h3>10.2 第一循環（月 1-3）：建立基礎</h3>
+      <div class="highlight-box">
+        <p><strong>焦點：</strong>掌握三檔模型，建立每日練習習慣</p>
+        <p><strong>瓶頸：</strong>第二檔的「概念到體驗」轉化</p>
+        <p><strong>行動：</strong>完成 30 個核心模組 → 累計 10-15 次覺察體驗 → 主要迴路的獎勵值開始下降</p>
+        <p><strong>量測：</strong>GAD-7 分數、每週映射的迴路數量、渴望強度追蹤</p>
+        <p><strong>預期成果：</strong>焦慮分數降低 40-63%（基於臨床數據）</p>
+      </div>
+
+      <h3>10.3 第二循環（月 4-6）：深化與擴展</h3>
+      <div class="highlight-box mint">
+        <p><strong>焦點：</strong>將正念從「刻意練習」轉化為「自然反應」</p>
+        <p><strong>瓶頸轉移：</strong>從「會不會做」轉到「記不記得做」——在高壓情境下自動啟用</p>
+        <p><strong>行動：</strong>擴展 RAIN 到更高強度的觸發情境 → 深化慈愛練習（從自己→親人→困難人物）→ 處理更深層的迴路（如童年創傷相關）</p>
+        <p><strong>量測：</strong>高壓情境下的反應模式變化、人際衝突頻率、睡眠品質</p>
+      </div>
+
+      <h3>10.4 第三循環（月 7-12）：系統整合</h3>
+      <div class="highlight-box peach">
+        <p><strong>焦點：</strong>從「管理焦慮」轉向「以好奇心面對生活」</p>
+        <p><strong>瓶頸轉移：</strong>從「對焦慮的回應」轉到「人生方向和意義感」</p>
+        <p><strong>行動：</strong>將正念整合到工作、關係、創造力等生活各領域 → 建立正念社群連結 → 可能開始支持他人的改變旅程</p>
+        <p><strong>量測：</strong>整體生活滿意度、焦慮復發頻率和恢復速度</p>
+      </div>
+
+      <h3>10.5 長期維護系統</h3>
+      <table>
+        <thead>
+          <tr><th>週期</th><th>行動</th><th>目的</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>每日</td><td>5-10 分鐘正念練習 + 即時覺察</td><td>維持覺察肌肉</td></tr>
+          <tr><td>每週</td><td>回顧本週新出現的習慣迴路</td><td>防止新迴路自動化</td></tr>
+          <tr><td>每月</td><td>GAD-7 自我評估</td><td>量化追蹤進展</td></tr>
+          <tr><td>每季</td><td>回顧 TOC 五聚焦步驟——新的瓶頸在哪？</td><td>持續改善</td></tr>
+          <tr><td>每年</td><td>重讀書中核心章節 + 更新練習方法</td><td>防止概念退化</td></tr>
+        </tbody>
+      </table>
+
+      <h3>10.6 復發預防機制</h3>
+      <ul>
+        <li><strong>早期警訊識別：</strong>注意自動駕駛時間是否增加、是否重新出現代償行為</li>
+        <li><strong>快速回應協議：</strong>一旦發現退步 → 立即回到第一檔映射 → 不批判自己 → 重啟循環</li>
+        <li><strong>環境設計：</strong>將 RAIN 卡片放在顯眼處、設定 App 提醒、建立練習夥伴制度</li>
+        <li><strong>認知防護：</strong>定期提醒自己——「焦慮是正常的人類情緒」「為什麼不重要」「改變是可能的」</li>
+      </ul>
+
+      <div class="quote-box">
+        「我感激這個方法，因為我覺得我的生命回來了。我可以吃一片披薩並真正享受它。」
+        <span class="author">—— 暴食症患者在停止暴食、減重 40 磅後的回診</span>
+      </div>
+
+      <h3>10.7 系統層級的 POOGI</h3>
+      <p>個人層級之外，Brewer 也暗示了系統層級的持續改善需求：</p>
+      <ul>
+        <li><strong>醫療體制：</strong>將正念訓練納入醫學教育，而非僅教「武裝面對壓力」</li>
+        <li><strong>企業文化：</strong>挑戰「壓力=生產力」的迷思，支持員工的心理健康</li>
+        <li><strong>科技設計：</strong>減少 App 和社群媒體的焦慮觸發機制（如無限滾動、點讚按鈕）</li>
+        <li><strong>公共衛生：</strong>推廣基於獎勵學習的焦慮管理，作為藥物和 CBT 的輔助（或替代）</li>
+      </ul>
+
+      <div class="highlight-box sky">
+        <p><strong>POOGI 的終極目標：</strong>不是「永遠不再焦慮」（這是不可能的，也不可取的），而是<strong>「焦慮來了，我能與它同在，從它身上學習，然後讓它自然離去」</strong>。這就是 Brewer 所說的「解開焦慮」——不是剪斷它，而是溫柔地解開它纏繞的結。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FOOTER ==================== -->
+  <div class="footer">
+    <p class="brand">🐉 龍龍 TOC 深度分析引擎</p>
+    <p>TOC 限制理論 × Unwinding Anxiety × 韓系清新風格</p>
+    <p>Generated: 2026-03-08 | Judson Brewer — Unwinding Anxiety + Workbook</p>
+  </div>
+
+</div>
+</body>
+</html>

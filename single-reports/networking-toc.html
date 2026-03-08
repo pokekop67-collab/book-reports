@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOC 十步深度實戰分析 — Taking the Work Out of Networking</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink-light: #FFF0F5;
+    --pink-mid: #FFD6E8;
+    --pink-deep: #FF8FAB;
+    --lavender: #E8DAEF;
+    --lavender-deep: #C39BD3;
+    --mint: #D5F5E3;
+    --mint-deep: #82E0AA;
+    --sky: #D6EAF8;
+    --sky-deep: #85C1E9;
+    --peach: #FDEBD0;
+    --peach-deep: #F5B041;
+    --cream: #FEF9E7;
+    --coral: #F5B7B1;
+    --coral-deep: #E74C3C;
+    --lilac: #F4ECF7;
+    --sage: #E8F8E8;
+    --warm-gray: #F8F6F3;
+    --text-primary: #2C3E50;
+    --text-secondary: #5D6D7E;
+    --text-accent: #8E44AD;
+    --shadow-soft: 0 4px 20px rgba(0,0,0,0.06);
+    --shadow-hover: 0 8px 32px rgba(0,0,0,0.10);
+    --radius: 20px;
+    --radius-sm: 12px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #FFF5F9 0%, #F0E6FF 30%, #E6F2FF 60%, #F0FFF4 100%);
+    color: var(--text-primary);
+    line-height: 1.8;
+    min-height: 100vh;
+    padding: 20px;
+  }
+
+  .hero {
+    max-width: 900px;
+    margin: 40px auto 50px;
+    text-align: center;
+    padding: 60px 40px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(255,240,245,0.8));
+    backdrop-filter: blur(20px);
+    border-radius: 32px;
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: var(--shadow-soft), 0 0 60px rgba(200,150,255,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 40%, rgba(255,182,193,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 60%, rgba(173,216,230,0.15) 0%, transparent 50%);
+    animation: float 12s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-20px, -10px); }
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--pink-deep), var(--lavender-deep));
+    color: white;
+    padding: 6px 20px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, #2C3E50, #8E44AD);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero .subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    position: relative;
+    z-index: 1;
+    margin-bottom: 8px;
+  }
+
+  .hero .author {
+    font-size: 0.95rem;
+    color: var(--text-accent);
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+  }
+
+  .meta-info {
+    max-width: 900px;
+    margin: 0 auto 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+
+  .meta-card {
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .meta-card .label {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+  }
+
+  .meta-card .value {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  .step-card {
+    max-width: 900px;
+    margin: 0 auto 36px;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(15px);
+    border-radius: var(--radius);
+    border: 1px solid rgba(255,255,255,0.5);
+    box-shadow: var(--shadow-soft);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .step-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  .step-header {
+    padding: 28px 36px 20px;
+    position: relative;
+  }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: white;
+    margin-bottom: 12px;
+  }
+
+  .step-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .step-subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+  }
+
+  .step-body {
+    padding: 0 36px 32px;
+  }
+
+  .step-body h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 24px 0 12px;
+    color: var(--text-primary);
+    padding-left: 12px;
+    border-left: 3px solid var(--lavender-deep);
+  }
+
+  .step-body h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 18px 0 8px;
+    color: var(--text-accent);
+  }
+
+  .step-body p {
+    margin-bottom: 14px;
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--text-primary);
+  }
+
+  .step-body ul, .step-body ol {
+    margin: 10px 0 16px 20px;
+    font-size: 0.93rem;
+  }
+
+  .step-body li {
+    margin-bottom: 8px;
+    line-height: 1.7;
+  }
+
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(232,218,239,0.4), rgba(214,234,248,0.4));
+    border-radius: var(--radius-sm);
+    padding: 20px 24px;
+    margin: 16px 0;
+    border-left: 4px solid var(--lavender-deep);
+  }
+
+  .highlight-box.mint {
+    background: linear-gradient(135deg, rgba(213,245,227,0.5), rgba(232,248,232,0.5));
+    border-left-color: var(--mint-deep);
+  }
+
+  .highlight-box.peach {
+    background: linear-gradient(135deg, rgba(253,235,208,0.5), rgba(254,249,231,0.5));
+    border-left-color: var(--peach-deep);
+  }
+
+  .highlight-box.pink {
+    background: linear-gradient(135deg, rgba(255,214,232,0.4), rgba(255,240,245,0.4));
+    border-left-color: var(--pink-deep);
+  }
+
+  .highlight-box.sky {
+    background: linear-gradient(135deg, rgba(214,234,248,0.5), rgba(235,245,255,0.5));
+    border-left-color: var(--sky-deep);
+  }
+
+  .conflict-cloud {
+    background: rgba(255,255,255,0.7);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin: 20px 0;
+    border: 2px dashed var(--lavender-deep);
+    text-align: center;
+  }
+
+  .conflict-cloud .goal {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-accent);
+    margin-bottom: 20px;
+    padding: 12px;
+    background: linear-gradient(135deg, var(--lilac), var(--pink-light));
+    border-radius: var(--radius-sm);
+  }
+
+  .conflict-sides {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .conflict-side {
+    padding: 16px;
+    border-radius: var(--radius-sm);
+    text-align: center;
+  }
+
+  .conflict-side.left {
+    background: linear-gradient(135deg, var(--sky), rgba(214,234,248,0.5));
+  }
+
+  .conflict-side.right {
+    background: linear-gradient(135deg, var(--peach), rgba(253,235,208,0.5));
+  }
+
+  .conflict-vs {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 1.3rem;
+    color: var(--coral-deep);
+  }
+
+  .injection-card {
+    background: linear-gradient(135deg, rgba(213,245,227,0.6), rgba(214,234,248,0.4));
+    border-radius: var(--radius-sm);
+    padding: 18px 22px;
+    margin: 12px 0;
+    border: 1px solid rgba(130,224,170,0.3);
+  }
+
+  .injection-card .label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--mint-deep);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .week-plan {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .week-block {
+    background: rgba(255,255,255,0.8);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    border-top: 4px solid;
+    text-align: center;
+  }
+
+  .week-block:nth-child(1) { border-color: var(--pink-deep); }
+  .week-block:nth-child(2) { border-color: var(--lavender-deep); }
+  .week-block:nth-child(3) { border-color: var(--sky-deep); }
+  .week-block:nth-child(4) { border-color: var(--mint-deep); }
+
+  .week-block h5 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+  }
+
+  .week-block ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    text-align: left;
+    font-size: 0.88rem;
+  }
+
+  .week-block li {
+    padding: 4px 0;
+    border-bottom: 1px dotted rgba(0,0,0,0.08);
+  }
+
+  .week-block li:last-child { border-bottom: none; }
+
+  .if-then {
+    background: linear-gradient(135deg, var(--cream), rgba(254,249,231,0.6));
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    margin: 10px 0;
+    font-size: 0.9rem;
+    border: 1px solid rgba(245,176,65,0.3);
+  }
+
+  .if-then .if { color: var(--coral-deep); font-weight: 600; }
+  .if-then .then { color: #27AE60; font-weight: 600; }
+
+  .throughput-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .throughput-item {
+    background: rgba(255,255,255,0.7);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .throughput-item .metric {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .throughput-item .metric.high { color: #27AE60; }
+  .throughput-item .metric.medium { color: var(--peach-deep); }
+  .throughput-item .metric.low { color: var(--coral-deep); }
+
+  .poogi-cycle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .poogi-step {
+    background: rgba(255,255,255,0.8);
+    border-radius: 50px;
+    padding: 12px 24px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    border: 2px solid;
+    transition: transform 0.2s;
+    position: relative;
+  }
+
+  .poogi-step:hover { transform: scale(1.05); }
+  .poogi-step:nth-child(1) { border-color: var(--pink-deep); }
+  .poogi-step:nth-child(2) { border-color: var(--lavender-deep); }
+  .poogi-step:nth-child(3) { border-color: var(--sky-deep); }
+  .poogi-step:nth-child(4) { border-color: var(--mint-deep); }
+  .poogi-step:nth-child(5) { border-color: var(--peach-deep); }
+
+  .quote-block {
+    font-family: 'Noto Serif TC', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    padding: 16px 24px;
+    margin: 16px 0;
+    border-left: 3px solid var(--pink-deep);
+    background: rgba(255,240,245,0.3);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  }
+
+  .quote-block .author {
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--text-accent);
+    margin-top: 8px;
+    display: block;
+  }
+
+  .crt-chain {
+    padding: 16px 0;
+  }
+
+  .crt-node {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    padding: 12px 18px;
+    border-radius: var(--radius-sm);
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(0,0,0,0.05);
+  }
+
+  .crt-arrow {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    margin: 4px 0;
+  }
+
+  .crt-node .marker {
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: white;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+
+  .marker.ude { background: var(--coral-deep); }
+  .marker.cause { background: var(--sky-deep); }
+  .marker.root { background: var(--text-accent); }
+
+  .footer {
+    max-width: 900px;
+    margin: 50px auto 30px;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    padding: 24px;
+    background: rgba(255,255,255,0.5);
+    border-radius: var(--radius);
+    backdrop-filter: blur(10px);
+  }
+
+  @media (max-width: 768px) {
+    body { padding: 12px; }
+    .hero { padding: 36px 20px; }
+    .hero h1 { font-size: 1.6rem; }
+    .step-header, .step-body { padding-left: 20px; padding-right: 20px; }
+    .conflict-sides { grid-template-columns: 1fr; }
+    .conflict-vs { transform: none; }
+    .week-plan { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-badge">TOC 限制理論 × 深度書籍分析</div>
+  <h1>Taking the Work Out of Networking</h1>
+  <p class="subtitle">An Introvert's Guide to Making Connections That Count</p>
+  <p class="author">Karen Wickre ── Google / Twitter 前高管</p>
+</div>
+
+<div class="meta-info">
+  <div class="meta-card">
+    <div class="label">核心主題</div>
+    <div class="value">弱連結 × 內向者人脈術</div>
+  </div>
+  <div class="meta-card">
+    <div class="label">TOC 分析框架</div>
+    <div class="value">十步深度實戰分析</div>
+  </div>
+  <div class="meta-card">
+    <div class="label">關鍵概念</div>
+    <div class="value">Loose Touch・給予型經營</div>
+  </div>
+  <div class="meta-card">
+    <div class="label">分析日期</div>
+    <div class="value">2026 年 3 月</div>
+  </div>
+</div>
+
+<!-- ===== STEP 1: 系統界定 ===== -->
+<div class="step-card" style="border-top: 4px solid var(--pink-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, var(--pink-deep), #FF6B8A);">1</div>
+    <div class="step-title">系統界定 ── 人脈經營系統的邊界與目標</div>
+    <div class="step-subtitle">System Identification</div>
+  </div>
+  <div class="step-body">
+    <h3>🎯 系統目標</h3>
+    <p>建立一個<strong>可持續、低壓力、高品質</strong>的人際連結系統，讓個人在職涯與人生的各階段都能擁有可信賴的「智囊團」（Brain Trust），在需要幫助時有人可以求助，在不需要時也持續給予價值。</p>
+    
+    <div class="quote-block">
+      "Nurture it before you need it." ── 在你需要之前就開始培養它。
+      <span class="author">── Karen Wickre 的核心人脈哲學</span>
+    </div>
+
+    <h3>🔲 系統邊界</h3>
+    <ul>
+      <li><strong>輸入端：</strong>個人的社交互動能量、時間、數位工具（LinkedIn、Twitter/X、Instagram、Email）、好奇心與觀察力</li>
+      <li><strong>轉換過程：</strong>鬆散接觸（Loose Touch）、有意義的 1:1 連結、給予型互動（推薦、分享、引薦）、非同步溝通</li>
+      <li><strong>輸出端：</strong>高品質人脈網絡、職涯機會、知識獲取、情感支持、問題解決能力</li>
+      <li><strong>系統外部：</strong>硬性銷售型社交、數量導向的「名片收集」、虛假追蹤者購買、過度自我推銷</li>
+    </ul>
+
+    <h3>👥 利害關係人分析</h3>
+    <div class="highlight-box">
+      <h4>主要利害關係人</h4>
+      <ul>
+        <li><strong>內向者 / 不擅社交者</strong> ── 本書最核心受眾。渴望有效連結但害怕「表演式社交」的人</li>
+        <li><strong>職涯轉換者</strong> ── 美國人平均一生換 12 份工作，每次轉換都需要人脈支持</li>
+        <li><strong>自由工作者 / 創業者</strong> ── 零工經濟時代，沒有公司品牌庇護，必須建立個人連結網</li>
+        <li><strong>弱連結持有者</strong> ── 那些「認識但不熟」的人，其實是最有價值的資訊管道</li>
+      </ul>
+    </div>
+
+    <div class="highlight-box mint">
+      <h4>次要利害關係人</h4>
+      <ul>
+        <li><strong>招聘主管</strong> ── 70% 的招聘經理會檢視候選人的社群媒體帳號</li>
+        <li><strong>引薦者 / 連結者</strong> ── 如 Wickre 本人、Judy Wert 等「超級連結者」角色</li>
+        <li><strong>平台生態</strong> ── LinkedIn、Twitter、Instagram 等平台本身的演算法與規則</li>
+      </ul>
+    </div>
+
+    <h3>📐 系統的度量標準</h3>
+    <p>Wickre 明確反對以「數量」衡量人脈成功，她的度量標準是：</p>
+    <ol>
+      <li><strong>連結的品質</strong> ── 「有意義的對話」（Hunter Walk 在一天的會議中只追求 5-10 個有意義的連結）</li>
+      <li><strong>互惠的深度</strong> ── 有時你需要幫助，有時對方需要，有時誰都不需要，但你們依然保持聯繫</li>
+      <li><strong>給予的頻率</strong> ── 你多常主動分享有價值的資訊、引薦、讚美？</li>
+      <li><strong>長期延續性</strong> ── Wickre 會在 20 年後仍然聯繫曾經只見過一面的人</li>
+    </ol>
+  </div>
+</div>
+
+<!-- ===== STEP 2: 現況實境樹 CRT ===== -->
+<div class="step-card" style="border-top: 4px solid var(--lavender-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, var(--lavender-deep), #A569BD);">2</div>
+    <div class="step-title">現況實境樹（CRT）── 為什麼人脈經營如此痛苦？</div>
+    <div class="step-subtitle">Current Reality Tree</div>
+  </div>
+  <div class="step-body">
+    <p>透過 If-Then 因果鏈，我們追溯出書中描述的 5 個核心不良效應（UDE），以及它們共同的根因。</p>
+
+    <h3>🔴 不良效應 #1：人脈焦慮與脆弱感</h3>
+    <div class="crt-chain">
+      <div class="crt-node"><div class="marker root">根</div><span>社會文化將「需要幫助」等同於「軟弱」和「無能」</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker cause">因</div><span>人們將主動尋求人脈支援視為一種「交易行為」和「自我暴露」</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker ude">UDE</div><span>Harvard Business Review 稱人脈經營為「與陌生人交換好處的不愉快任務」，多數人感到焦慮與厭惡</span></div>
+    </div>
+
+    <h3>🔴 不良效應 #2：交易導向的「ATM 思維」</h3>
+    <div class="crt-chain">
+      <div class="crt-node"><div class="marker root">根</div><span>傳統人脈觀強調「數量」和「可提取的價值」</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker cause">因</div><span>人們把聯繫人當作「個人提款機」，只在需要時才聯繫</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker ude">UDE</div><span>人際關係變得功利化，反覆單方面索取導致「透支」，對方感覺被利用，關係斷裂</span></div>
+    </div>
+
+    <h3>🔴 不良效應 #3：內向者的系統性排除</h3>
+    <div class="crt-chain">
+      <div class="crt-node"><div class="marker root">根</div><span>社交文化預設模型是外向者的「工作房間」(Work the Room) 方式</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker cause">因</div><span>內向者被迫模仿外向者的社交風格，感覺虛假，精力快速耗盡</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker ude">UDE</div><span>內向者逃避所有形式的人脈活動，導致職涯關鍵時刻（求職、轉型、危機）缺乏支援網絡</span></div>
+    </div>
+
+    <h3>🔴 不良效應 #4：數位虛假繁榮</h3>
+    <div class="crt-chain">
+      <div class="crt-node"><div class="marker root">根</div><span>社群平台將「追蹤數」和「互動量」遊戲化，製造虛假的社交指標</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker cause">因</div><span>人們購買假追蹤者、追求「影響力指標」而非真實連結</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker ude">UDE</div><span>擁有 5000 個 Facebook 好友但在真正需要時無人可以求助的「社交貧窮」現象</span></div>
+    </div>
+
+    <h3>🔴 不良效應 #5：溝通不足與追蹤失敗</h3>
+    <div class="crt-chain">
+      <div class="crt-node"><div class="marker root">根</div><span>人們對「打擾別人」的恐懼 + 拖延本能</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker cause">因</div><span>引薦後不追蹤、承諾後不兌現、感謝後不持續聯繫</span></div>
+      <div class="crt-arrow">↓ If-Then</div>
+      <div class="crt-node"><div class="marker ude">UDE</div><span>人脈網絡因為「斷裂的承諾」而逐漸萎縮，信任資本流失</span></div>
+    </div>
+
+    <div class="highlight-box pink">
+      <h4>🔍 根因收斂</h4>
+      <p>五個 UDE 收斂到<strong>兩個核心根因</strong>：</p>
+      <ol>
+        <li><strong>錯誤的人脈心智模型</strong> ── 將人脈視為「交易」而非「生態」，視為「提取」而非「給予」</li>
+        <li><strong>外向者偏見的社交範式</strong> ── 整個社會的「人脈成功」定義建立在外向者的行為模式上，系統性排除內向者的優勢</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP 3: 核心衝突雲 EC ===== -->
+<div class="step-card" style="border-top: 4px solid var(--sky-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, var(--sky-deep), #5DADE2);">3</div>
+    <div class="step-title">核心衝突雲（EC）── 人脈經營的根本兩難</div>
+    <div class="step-subtitle">Evaporating Cloud</div>
+  </div>
+  <div class="step-body">
+    <div class="conflict-cloud">
+      <div class="goal">
+        🎯 共同目標（A）：擁有可靠的人際支持網絡，在職涯與人生中能獲得所需的幫助與機會
+      </div>
+      <div class="conflict-sides">
+        <div class="conflict-side left">
+          <h4>需求 B：安全感與真實性</h4>
+          <p style="font-size:0.88rem;">為了維護安全感，我需要保持真實的自我，不假裝成我不是的人，不感到能量耗盡。</p>
+          <br>
+          <h4>行動 D：避免社交活動</h4>
+          <p style="font-size:0.88rem;">因此我傾向避免需要「表演」的社交場合，減少主動出擊，保護自己的內在能量。</p>
+        </div>
+        <div class="conflict-vs">⚡<br>衝突</div>
+        <div class="conflict-side right">
+          <h4>需求 C：職涯發展與機會</h4>
+          <p style="font-size:0.88rem;">為了職涯發展，我需要持續擴展認識的人、建立影響力、被合適的人看見。</p>
+          <br>
+          <h4>行動 D'：積極主動社交</h4>
+          <p style="font-size:0.88rem;">因此我需要參加聚會、發送訊息、做自我介紹、主動追蹤聯繫。</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>衝突的本質</h3>
+    <p>這個衝突的核心在於一個<strong>隱藏的錯誤假設</strong>：我們假設「有效的人脈經營」必然等於「外向式的、高能量的、面對面的社交表演」。D 和 D' 之間的衝突，源自於對「人脈經營」的單一定義。</p>
+
+    <div class="highlight-box">
+      <h4>被挑戰的假設清單</h4>
+      <ul>
+        <li>❌ 假設：人脈經營需要「工作房間」式的高強度互動</li>
+        <li>❌ 假設：內向者在人脈建設上天生處於劣勢</li>
+        <li>❌ 假設：需要大量的聯繫人才能有有效的網絡</li>
+        <li>❌ 假設：人脈互動必須是同步的（即時的）</li>
+        <li>❌ 假設：求助就是示弱，給予只是策略性投資</li>
+        <li>❌ 假設：人脈關係有「保質期」，不用就過期</li>
+      </ul>
+    </div>
+
+    <p>Wickre 用她在 Google 和 Twitter 三十多年的職涯經驗證明：<strong>D 和 D' 的衝突是虛假的</strong>。你完全可以用「內向者的方式」建立比外向者更深、更持久、更有效的人脈網絡。</p>
+  </div>
+</div>
+
+<!-- ===== STEP 4: 注入解萃取 ===== -->
+<div class="step-card" style="border-top: 4px solid var(--mint-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, var(--mint-deep), #58D68D);">4</div>
+    <div class="step-title">注入解萃取 ── 打破衝突雲的創新策略</div>
+    <div class="step-subtitle">Injection Extraction</div>
+  </div>
+  <div class="step-body">
+    <p>Wickre 從書中提供了多個強力注入解，每一個都直接瓦解衝突雲中 D-D' 的對立：</p>
+
+    <div class="injection-card">
+      <div class="label">💉 注入解 #1</div>
+      <h4>鬆散接觸（Loose Touch）── 在你不需要時就開始培養</h4>
+      <p>「Nurture it before you need it.」不要等到需要工作或幫助才聯繫人。每天花幾分鐘發送簡短的「想到你」訊息、轉發有趣文章、點讚朋友的貼文。這些微小的互動持續灌溉關係，讓你在真正需要時不必「冷啟動」。</p>
+      <p><strong>操作方式：</strong>每天在通勤、等待、睡前發送 3-5 則鬆散接觸訊息。內容可以是「看到這篇文章想到你」、「恭喜你的新職位」、「好久沒聊了，最近好嗎」。</p>
+    </div>
+
+    <div class="injection-card">
+      <div class="label">💉 注入解 #2</div>
+      <h4>非同步溝通優先 ── 利用時間差消除社交壓力</h4>
+      <p>Wickre 引用 David Benson 的觀點：放棄即時溝通的迷思，擁抱「你看到就看到」的非同步方式。Email、LinkedIn 訊息、Instagram 留言都是非同步工具。你不需要擔心打擾任何人，因為他們可以在方便時回覆。這對內向者來說是完美的：你有時間組織思路，不必即時反應。</p>
+    </div>
+
+    <div class="injection-card">
+      <div class="label">💉 注入解 #3</div>
+      <h4>給予者心態（Giver Mindset）── 讓自己成為「不讓人空手而歸」的人</h4>
+      <p>Wickre 的核心信念：「I don't like anyone to go away empty-handed.」即使你不能直接幫忙，也可以提供一個建議、一個轉介、一個相關連結。Julie Schlosser 將此比喻為「像捐款一樣，帶來無法解釋的幸福」。Lewis Hyde 的《The Gift》理論：「一份禮物透過不斷地傳遞而保持活力。」</p>
+    </div>
+
+    <div class="injection-card">
+      <div class="label">💉 注入解 #4</div>
+      <h4>內向者的超能力重構 ── 聆聽、觀察、好奇心</h4>
+      <p>Wickre 列舉內向者的三大優勢：</p>
+      <ul>
+        <li><strong>聆聽力</strong> ── 先問問題，讓對方先說。在對方說話時評估信任度，再決定投入多少</li>
+        <li><strong>觀察力</strong> ── 不佔據社交空間，反而能快速「讀人」，記住對方的興趣、家鄉、風格</li>
+        <li><strong>好奇心</strong> ── 感覺自己是局外人，反而對他人如何經營生活更加好奇，這成為連結的催化劑</li>
+      </ul>
+    </div>
+
+    <div class="injection-card">
+      <div class="label">💉 注入解 #5</div>
+      <h4>11 條無壓力人脈原則 ── 系統化的行為框架</h4>
+      <p>Wickre 提供了完整的行為操作系統，包括：保持開放、「沒有理由」本身就是好理由、樂於助人、長線思維、不限制脈絡、做好推薦、守信用、正確引薦（Double Opt-in）、充分溝通、建立 1:1 連結、定期回顧清單。</p>
+    </div>
+
+    <div class="injection-card">
+      <div class="label">💉 注入解 #6</div>
+      <h4>善意潛水（Benevolent Lurking）── 從觀察開始</h4>
+      <p>作家 Jess Zimmerman 的概念：先觀察再參與。在社群上先瀏覽、了解語境和文化，再逐步以小動作（按讚、分享、簡短評論）表達自己。不需要一開始就寫長文或發表強烈意見。這是內向者的完美「入水姿勢」。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP 5: 未來實境樹 FRT ===== -->
+<div class="step-card" style="border-top: 4px solid var(--peach-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, var(--peach-deep), #F39C12);">5</div>
+    <div class="step-title">未來實境樹（FRT）── 注入解生效後的正面因果鏈</div>
+    <div class="step-subtitle">Future Reality Tree</div>
+  </div>
+  <div class="step-body">
+    <p>當上述注入解全面實施後，系統將經歷以下正面連鎖反應：</p>
+
+    <h3>🌱 因果鏈 1：從焦慮到自在</h3>
+    <div class="if-then">
+      <span class="if">If</span> 我每天花 10 分鐘進行鬆散接觸（Loose Touch），發送 3-5 則簡短的關心訊息，<br>
+      <span class="then">Then</span> 我的人脈互動變成日常習慣而非「特殊事件」，焦慮感大幅降低。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> 我使用非同步溝通（Email、LinkedIn 訊息），<br>
+      <span class="then">Then</span> 我有時間組織思路，不再害怕即時互動的壓力，溝通品質反而提升。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> 我的溝通品質提升且持續保持聯繫，<br>
+      <span class="then">Then</span> 對方感受到我的真誠而非功利，信任資本逐步累積。
+    </div>
+
+    <h3>🌱 因果鏈 2：從索取到給予的循環</h3>
+    <div class="if-then">
+      <span class="if">If</span> 我將心態從「我能從中得到什麼」轉為「我能給予什麼」，<br>
+      <span class="then">Then</span> 每次互動都不再有「欠債」壓力，心理負擔消失。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> 我持續給予（引薦、分享資訊、回覆問題），<br>
+      <span class="then">Then</span> 我逐漸被認知為「超級連結者」，人們開始主動找我，形成正向飛輪。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> 人們主動找我 + 我的弱連結網絡持續擴展，<br>
+      <span class="then">Then</span> 在我真正需要幫助時（求職、轉型、危機），我有一個溫暖且願意回饋的網絡。
+    </div>
+
+    <h3>🌱 因果鏈 3：從「表演社交」到「本色連結」</h3>
+    <div class="if-then">
+      <span class="if">If</span> 我運用內向者的聆聽力、觀察力和好奇心作為人脈工具，<br>
+      <span class="then">Then</span> 我不再需要假裝外向，反而因為「真正在聽」而建立更深的連結。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> 像 Judy Wert（內向型獵頭）這樣的人能建立全球頂級的人脈網絡，<br>
+      <span class="then">Then</span> 內向者的方式不是「替代方案」，而是「更優解」。
+    </div>
+
+    <h3>🌱 因果鏈 4：長期飛輪效應</h3>
+    <div class="if-then">
+      <span class="if">If</span> 我持續 Loose Touch + 給予型經營 + 正確引薦，<br>
+      <span class="then">Then</span> 長達數十年的弱連結網絡持續累積複利。Wickre 20 年前見過一面的 Margaret，在 20 年後因為她記住了對方的專長而促成了商業機會。
+    </div>
+
+    <div class="highlight-box mint">
+      <h4>🌟 系統整體效果</h4>
+      <p>整個人脈系統從「恐懼驅動的交易模式」轉變為「好奇心驅動的給予生態」。人脈不再是一個需要「經營」的苦差事，而是日常生活中自然流動的善意與連結。正如 Wickre 在後記中所說：「With an open mind and a sense of curiosity about others, you'll see the benefits of connection throughout your life.」</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP 6: 瓶頸深度定位 ===== -->
+<div class="step-card" style="border-top: 4px solid #E74C3C;">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, #E74C3C, #C0392B);">6</div>
+    <div class="step-title">瓶頸深度定位 ── 讀者面臨的最大瓶頸</div>
+    <div class="step-subtitle">Constraint Identification</div>
+  </div>
+  <div class="step-body">
+    <h3>🔍 瓶頸矩陣分析</h3>
+
+    <div class="highlight-box pink">
+      <h4>🏆 主瓶頸：「第一步的慣性」── 從知道到行動的鴻溝</h4>
+      <p>讀者最大的瓶頸不是「不知道該怎麼做」（書中有大量具體策略），而是<strong>「啟動第一個鬆散接觸」的心理門檻</strong>。具體表現為：</p>
+      <ul>
+        <li>「我不知道要發什麼給那個三年沒聯繫的前同事」</li>
+        <li>「我怕對方覺得我突然聯繫很奇怪」</li>
+        <li>「我今天太累了，明天再說吧」（然後一直推遲）</li>
+        <li>「我覺得我沒什麼值得分享的」</li>
+      </ul>
+      <p>這個瓶頸的本質是<strong>完美主義 + 脆弱恐懼 + 啟動能量不足</strong>的三重疊加。</p>
+    </div>
+
+    <div class="highlight-box">
+      <h4>次瓶頸 #1：持續性維護</h4>
+      <p>即使啟動了 Loose Touch，如何在繁忙的日常中持續維護？多數人會在頭兩週興奮地每天發訊息，然後逐漸遺忘。<strong>缺乏「系統化的觸發機制」</strong>是這個瓶頸的核心。</p>
+    </div>
+
+    <div class="highlight-box peach">
+      <h4>次瓶頸 #2：給予的內容枯竭</h4>
+      <p>「我除了按讚還能給予什麼？」很多人不知道如何創造「可分享的價值」。Wickre 建議的「分享有趣文章、給予具體讚美、寫 LinkedIn 推薦」對某些人來說仍然模糊。需要更具體的「給予目錄」。</p>
+    </div>
+
+    <div class="highlight-box sky">
+      <h4>次瓶頸 #3：線上 vs 線下的整合</h4>
+      <p>書中大量強調數位工具，但許多讀者的工作場景（如醫療、教育、製造業）可能不以 LinkedIn/Twitter 為主要社交場域。如何將 Loose Touch 概念應用到非數位場景？</p>
+    </div>
+
+    <h3>瓶頸的 TOC 分析</h3>
+    <p>在限制理論中，瓶頸決定了系統的最大吞吐量。在人脈經營系統中：</p>
+    <ul>
+      <li><strong>系統容量</strong> = 你每天能發出的「有意義接觸」數量</li>
+      <li><strong>瓶頸產能</strong> = 你在心理舒適區內能啟動的第一步行動數</li>
+      <li><strong>提升策略</strong> = 降低每次接觸的心理成本（模板化、習慣化、最小化）</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===== STEP 7: 障礙拆解 PrT ===== -->
+<div class="step-card" style="border-top: 4px solid var(--lavender-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, #8E44AD, #6C3483);">7</div>
+    <div class="step-title">障礙拆解（前提樹 PrT）── 實施障礙與中間目標</div>
+    <div class="step-subtitle">Prerequisite Tree</div>
+  </div>
+  <div class="step-body">
+    <p>從「現在的你」到「擁有可靠人脈智囊團」之間，存在以下障礙與對應的中間目標：</p>
+
+    <h3>障礙 1：心理恐懼 ── 「聯繫別人好尷尬」</h3>
+    <div class="highlight-box">
+      <p><strong>障礙描述：</strong>長期未聯繫的人，突然發訊息感覺很假。擔心被拒絕或忽略。</p>
+      <p><strong>中間目標：</strong>建立「低門檻重新連結模板庫」。例如：</p>
+      <ul>
+        <li>「看到這篇文章想到你之前說的 XX」── 用內容作為媒介</li>
+        <li>「恭喜你的新角色！」── 用 LinkedIn 動態觸發自然聯繫</li>
+        <li>「我記得你對 XX 很有研究，想請教一個問題」── 用好奇心開場</li>
+      </ul>
+      <p><strong>克服指標：</strong>第一週成功發出 5 則重新連結訊息，且至少 2 則獲得正面回覆。</p>
+    </div>
+
+    <h3>障礙 2：時間不足 ── 「我每天已經忙不過來了」</h3>
+    <div class="highlight-box mint">
+      <p><strong>障礙描述：</strong>工作和生活已經佔滿時間，沒有額外精力做人脈維護。</p>
+      <p><strong>中間目標：</strong>將 Loose Touch 嵌入既有的「間隙時間」（通勤、等待、午餐後）。Wickre 的做法是在手機上保持一個「待聯繫」清單，利用零碎時間完成。目標：每天 10 分鐘，不多不少。</p>
+      <p><strong>克服指標：</strong>連續 14 天每天在間隙時間完成至少 3 則 Loose Touch 互動。</p>
+    </div>
+
+    <h3>障礙 3：不知道說什麼 ── 內容空白恐懼</h3>
+    <div class="highlight-box peach">
+      <p><strong>障礙描述：</strong>除了「嗨，好久不見」之外不知道要說什麼。</p>
+      <p><strong>中間目標：</strong>建立「分享素材管線」── 每天閱讀 2-3 篇行業文章，養成「看到好東西就想到誰可能需要」的習慣。Wickre 的「5 Day Expression Exercise」是很好的起點：每天限自己只表達 5 次（按讚、分享、評論），逼自己精選。</p>
+      <p><strong>克服指標：</strong>建立一個 20 人的「對應分享矩陣」── 列出 20 個常見聯繫人和他們的興趣主題。</p>
+    </div>
+
+    <h3>障礙 4：引薦品質焦慮 ── 怕介紹錯人</h3>
+    <div class="highlight-box sky">
+      <p><strong>障礙描述：</strong>擔心引薦的人不合適，損害自己的信譽。</p>
+      <p><strong>中間目標：</strong>嚴格遵循 Wickre 的「Double Opt-in」引薦流程 ──</p>
+      <ol>
+        <li>先私訊被引薦者，說明背景和原因</li>
+        <li>獲得明確同意後才進行介紹</li>
+        <li>在介紹郵件中提供具體的共同點或價值脈絡</li>
+        <li>引薦後退出對話（移到 BCC）</li>
+      </ol>
+      <p><strong>克服指標：</strong>完成 3 次完整的 Double Opt-in 引薦流程。</p>
+    </div>
+
+    <h3>障礙 5：社群平台選擇困難</h3>
+    <div class="highlight-box">
+      <p><strong>障礙描述：</strong>LinkedIn、Twitter、Instagram、Facebook、Email⋯⋯哪個才是我的主場？</p>
+      <p><strong>中間目標：</strong>選擇 1 個主力平台 + 1 個輔助平台。Wickre 的建議：</p>
+      <ul>
+        <li>職涯導向 → LinkedIn（主力）+ Twitter/X（輔助）</li>
+        <li>創意 / 視覺導向 → Instagram（主力）+ LinkedIn（輔助）</li>
+        <li>所有情境 → Email 永遠是底層工具，「網路的蟑螂」── 意思是它永遠不會死</li>
+      </ul>
+      <p><strong>克服指標：</strong>在選定平台上連續 30 天保持每週至少 5 次有意義的互動。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP 8: 轉變樹 TT ===== -->
+<div class="step-card" style="border-top: 4px solid var(--sky-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, #2E86C1, #1A5276);">8</div>
+    <div class="step-title">轉變樹（TT）── 四週行動計畫</div>
+    <div class="step-subtitle">Transition Tree · 4-Week Action Plan</div>
+  </div>
+  <div class="step-body">
+    <div class="week-plan">
+      <div class="week-block">
+        <h5>📌 Week 1<br>「盤點與啟動」</h5>
+        <ul>
+          <li>✦ 盤點現有聯繫人，分成「核心圈」（10人）、「活躍圈」（30人）、「休眠圈」（50+人）</li>
+          <li>✦ 選定主力社群平台，優化個人檔案</li>
+          <li>✦ 完成 Wickre 的「5 Day Expression Exercise」</li>
+          <li>✦ 每天發出 3 則 Loose Touch 訊息</li>
+          <li>✦ 寫下「我能給予什麼」清單（技能、知識、人脈）</li>
+        </ul>
+      </div>
+      <div class="week-block">
+        <h5>📌 Week 2<br>「重新連結」</h5>
+        <ul>
+          <li>✦ 從「休眠圈」選 5 人發送重新連結訊息</li>
+          <li>✦ 安排 2 場 1:1 咖啡對談（可以線上）</li>
+          <li>✦ 練習「先問問題」的開場技巧</li>
+          <li>✦ 分享 5 篇有價值文章給對應的聯繫人</li>
+          <li>✦ 寫 2 封「Just FYI」郵件</li>
+        </ul>
+      </div>
+      <div class="week-block">
+        <h5>📌 Week 3<br>「給予與引薦」</h5>
+        <ul>
+          <li>✦ 完成 1 次 Double Opt-in 引薦</li>
+          <li>✦ 為 2 位聯繫人寫 LinkedIn 推薦</li>
+          <li>✦ 回應 3 個來自他人的求助或提問</li>
+          <li>✦ 加入 1 個行業 / 興趣社群並開始「善意潛水」</li>
+          <li>✦ 嘗試在社群發表 1 則有觀點的短評</li>
+        </ul>
+      </div>
+      <div class="week-block">
+        <h5>📌 Week 4<br>「系統化與覆盤」</h5>
+        <ul>
+          <li>✦ 建立每週 Loose Touch 清單的固定回顧時間</li>
+          <li>✦ 統計本月的互動數據（發出/收到/回覆率）</li>
+          <li>✦ 評估哪些策略最適合自己的風格</li>
+          <li>✦ 設定下個月的人脈目標（不是數量，是品質）</li>
+          <li>✦ 感恩回顧：寫 3 封感謝信給本月幫助過你的人</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>🔍 每週 If-Then 驗證</h3>
+    <div class="if-then">
+      <span class="if">If</span> Week 1 完成盤點，且成功發出 21 則（7天 × 3則）Loose Touch 訊息，<br>
+      <span class="then">Then</span> 你已建立「微習慣」基礎，心理門檻大幅降低。<br>
+      <strong>驗證指標：</strong>至少 60% 的訊息獲得某種形式的回應（回覆、按讚、感謝）。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> Week 2 成功重新連結 5 位休眠聯繫人，且完成 2 場 1:1 對談，<br>
+      <span class="then">Then</span> 你將發現「重新連結」遠比想像中容易，多數人對收到你的訊息感到高興。<br>
+      <strong>驗證指標：</strong>至少 3/5 的休眠聯繫人回覆，且 2 場對談產生至少 1 個行動項目。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> Week 3 成功完成引薦和推薦，<br>
+      <span class="then">Then</span> 你從「接受者」轉變為「給予者」，開始感受到 Wickre 所說的「不讓人空手而歸的幸福感」。<br>
+      <strong>驗證指標：</strong>至少 1 人因你的引薦而產生有意義的對話或機會。
+    </div>
+    <div class="if-then">
+      <span class="if">If</span> Week 4 完成系統化回顧，<br>
+      <span class="then">Then</span> Loose Touch 不再是「額外的任務」而是「生活的一部分」，如同刷牙一樣自然。<br>
+      <strong>驗證指標：</strong>你能清楚回答「我這個月最有價值的 3 個人脈互動是什麼？為什麼？」
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP 9: 吞吐量審計 ===== -->
+<div class="step-card" style="border-top: 4px solid var(--peach-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, #E67E22, #D35400);">9</div>
+    <div class="step-title">吞吐量審計 ── 這本書的投資報酬分析</div>
+    <div class="step-subtitle">Throughput Audit</div>
+  </div>
+  <div class="step-body">
+    <p>用 TOC 的吞吐量思維（Throughput Accounting），我們從三個維度評估閱讀本書的 ROI：</p>
+
+    <div class="throughput-grid">
+      <div class="throughput-item">
+        <div class="metric high">★★★★★</div>
+        <div class="label" style="font-size:0.8rem;color:var(--text-secondary);">吞吐量（T）</div>
+        <p style="font-size:0.88rem;">實際產出的人脈品質與數量</p>
+      </div>
+      <div class="throughput-item">
+        <div class="metric high">極低</div>
+        <div class="label" style="font-size:0.8rem;color:var(--text-secondary);">營運費用（OE）</div>
+        <p style="font-size:0.88rem;">每天 10 分鐘 + 零金錢成本</p>
+      </div>
+      <div class="throughput-item">
+        <div class="metric medium">中等</div>
+        <div class="label" style="font-size:0.8rem;color:var(--text-secondary);">投資（I）</div>
+        <p style="font-size:0.88rem;">心理能量 + 持續性紀律</p>
+      </div>
+    </div>
+
+    <h3>📊 吞吐量詳細分析</h3>
+
+    <div class="highlight-box">
+      <h4>T（吞吐量）── 核心價值產出</h4>
+      <ul>
+        <li><strong>職涯安全網：</strong>在美國人平均換 12 份工作的時代，一個溫暖的弱連結網絡是最好的職涯保險。書中的 Jenny 從 PR 菜鳥成長為 VC 合夥人後，反過來為 Wickre 帶來客戶案源 ── 這就是長期吞吐量的體現</li>
+        <li><strong>資訊不對稱的打破：</strong>弱連結提供的是你「強連結」圈子裡沒有的資訊。Granovetter 的經典研究「弱連結的力量」在此得到完美的實踐驗證</li>
+        <li><strong>引薦飛輪效應：</strong>你引薦別人 → 別人記住你 → 別人引薦你 → 你得到機會 → 你又引薦別人。這個飛輪一旦啟動，吞吐量呈指數增長</li>
+        <li><strong>心理健康紅利：</strong>Wickre 在書開頭就說「Nothing replaces knowing that your people support you」── 社會支持網絡是心理健康的基石，這是無價的吞吐量</li>
+      </ul>
+    </div>
+
+    <div class="highlight-box mint">
+      <h4>OE（營運費用）── 持續成本極低</h4>
+      <ul>
+        <li><strong>時間成本：</strong>每天 10-15 分鐘的 Loose Touch（利用零碎時間即可）</li>
+        <li><strong>金錢成本：</strong>幾乎為零（偶爾的咖啡錢）</li>
+        <li><strong>能量成本：</strong>對內向者來說，非同步文字溝通的能量消耗極低，遠低於傳統社交</li>
+        <li><strong>風險成本：</strong>幾乎為零。最壞情況是訊息不被回覆，而 Wickre 指出這完全正常</li>
+      </ul>
+    </div>
+
+    <div class="highlight-box peach">
+      <h4>I（投資）── 初期投資需求</h4>
+      <ul>
+        <li><strong>心理投資：</strong>克服「第一步」的恐懼，重新定義人脈觀（從交易到生態）</li>
+        <li><strong>技能投資：</strong>學習非同步溝通的藝術、引薦郵件的撰寫、社群平台的策略性使用</li>
+        <li><strong>紀律投資：</strong>建立每日 Loose Touch 的微習慣（書中估計需要 2-4 週養成）</li>
+      </ul>
+    </div>
+
+    <h3>📈 ROI 結論</h3>
+    <div class="highlight-box sky">
+      <p><strong>T / (OE + I) = 極高回報率</strong></p>
+      <p>這本書的 TOC 吞吐量評估結果是<strong>極高的正向 ROI</strong>。原因很簡單：它要求的投入（每天 10 分鐘 + 心態轉換）與可能獲得的回報（終身的人脈資產、職涯安全網、心理支持）之間存在巨大的不對稱。唯一的風險是「不執行」── 而這恰好是主瓶頸的所在。</p>
+      <p><strong>關鍵洞察：</strong>與其他人脈書籍不同，Wickre 的方法論幾乎不消耗內向者最稀缺的資源（面對面互動能量），反而充分利用了最豐富的資源（好奇心、觀察力、文字溝通能力）。這是一個精準命中瓶頸的高效策略。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ===== STEP 10: 持續改善循環 POOGI ===== -->
+<div class="step-card" style="border-top: 4px solid var(--mint-deep);">
+  <div class="step-header">
+    <div class="step-number" style="background: linear-gradient(135deg, #27AE60, #1E8449);">10</div>
+    <div class="step-title">持續改善循環（POOGI）── 長期進化機制</div>
+    <div class="step-subtitle">Process of Ongoing Improvement</div>
+  </div>
+  <div class="step-body">
+    <p>TOC 的持續改善循環（POOGI）要求我們不斷識別、利用、提升瓶頸，然後回到第一步找出新的瓶頸。以下是應用於人脈經營的 POOGI 循環：</p>
+
+    <div class="poogi-cycle">
+      <div class="poogi-step">① 識別瓶頸</div>
+      <div class="poogi-step">② 利用瓶頸</div>
+      <div class="poogi-step">③ 全力配合</div>
+      <div class="poogi-step">④ 提升瓶頸</div>
+      <div class="poogi-step">⑤ 回到第①步</div>
+    </div>
+
+    <h3>🔄 第一輪 POOGI（月度 1-3）</h3>
+    <div class="highlight-box">
+      <ul>
+        <li><strong>識別：</strong>瓶頸 = 啟動第一步的心理門檻</li>
+        <li><strong>利用：</strong>用「最小可行互動」（一個 emoji、一句轉發評論）來突破門檻，不追求完美</li>
+        <li><strong>配合：</strong>所有日常行為都向 Loose Touch 看齊 ── 看到好文章立刻想「誰會需要？」</li>
+        <li><strong>提升：</strong>建立個人 CRM（可以只是一個 Google Sheet），追蹤互動頻率和品質</li>
+        <li><strong>回到第①步：</strong>當啟動不再困難時，新瓶頸可能是「互動深度不足」── 需要從淺層 Loose Touch 進化到深層 1:1 對話</li>
+      </ul>
+    </div>
+
+    <h3>🔄 第二輪 POOGI（月度 4-6）</h3>
+    <div class="highlight-box mint">
+      <ul>
+        <li><strong>識別：</strong>瓶頸 = 互動深度不足，停留在「點讚」層面</li>
+        <li><strong>利用：</strong>將每月的 1:1 對談從 2 場提升到 4 場，用 Wickre 的「先問問題」策略深化對話</li>
+        <li><strong>配合：</strong>開始提供更有價值的給予 ── 引薦、書面推薦、幫忙審閱文件</li>
+        <li><strong>提升：</strong>培養 2-3 個「深度連結」── 可以在職涯關鍵時刻提供真實建議的人</li>
+        <li><strong>回到第①步：</strong>新瓶頸可能是「網絡同質化」── 你的聯繫人都太像你了</li>
+      </ul>
+    </div>
+
+    <h3>🔄 第三輪 POOGI（月度 7-12）</h3>
+    <div class="highlight-box peach">
+      <ul>
+        <li><strong>識別：</strong>瓶頸 = 網絡同質化，缺乏跨領域、跨代際的弱連結</li>
+        <li><strong>利用：</strong>加入不同領域的社群、參加跨行業的活動、主動接觸「與你不同」的人</li>
+        <li><strong>配合：</strong>成為「橋樑」── 當你跨越不同圈子，你的引薦價值指數級增長</li>
+        <li><strong>提升：</strong>從「參與者」進化為「組織者」── 策劃小型聚會、主題討論或 Newsletter</li>
+        <li><strong>回到第①步：</strong>持續評估系統健康度 ── 每季問自己：「如果我明天需要換工作，我有信心在 3 週內找到 5 個可靠的引薦人嗎？」</li>
+      </ul>
+    </div>
+
+    <h3>📋 長期 POOGI 檢查清單</h3>
+    <ul>
+      <li>☐ 每季回顧：我的人脈網絡是否在「給予」和「接受」之間保持平衡？</li>
+      <li>☐ 每半年回顧：我是否有跨出舒適圈，連結了新的領域或社群？</li>
+      <li>☐ 每年回顧：我的「智囊團」（Brain Trust）是否涵蓋了職涯、生活、健康等多面向的支援？</li>
+      <li>☐ 持續問：下一個瓶頸在哪裡？是技能不足、時間不足、還是心理障礙？</li>
+      <li>☐ 重讀 Wickre 的後記：「With an open mind and a sense of curiosity about others, you'll see the benefits of connection throughout your life.」</li>
+    </ul>
+
+    <div class="quote-block">
+      "The secret to life is to put yourself in the right lighting. For some, it's a Broadway spotlight; for others, a lamplit desk."
+      <span class="author">── Susan Cain（引自本書開篇）</span>
+    </div>
+
+    <p>Karen Wickre 的這本書告訴我們：<strong>你不需要站在聚光燈下才能建立強大的人脈</strong>。一盞書桌燈的光，加上一封真誠的 Email、一則分享的文章、一句「想到你」的訊息 ── 就夠了。人脈經營的終極 POOGI，是讓「好奇心驅動的給予」成為你的第二天性，像呼吸一樣自然，像心跳一樣持續。</p>
+  </div>
+</div>
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <p>TOC 限制理論 × 深度書籍分析 ── Taking the Work Out of Networking</p>
+  <p>分析框架：Goldratt 限制理論十步實戰法 | 分析日期：2026 年 3 月</p>
+  <p style="margin-top:8px;font-size:0.75rem;">本報告基於原書內容進行 TOC 框架分析，旨在深化理解與實踐應用。</p>
+</div>
+
+</body>
+</html>

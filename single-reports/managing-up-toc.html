@@ -1,0 +1,1192 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOC 深度分析 ｜ Managing Up — Melody Wilding</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink-light: #FFF0F5;
+  --pink-mid: #FFD6E8;
+  --pink-accent: #FF85A2;
+  --blue-light: #E8F4FD;
+  --blue-mid: #B8DFF0;
+  --blue-accent: #5BA4CF;
+  --mint-light: #E8FFF5;
+  --mint-mid: #B8F0D8;
+  --mint-accent: #4ECDC4;
+  --lavender-light: #F3E8FF;
+  --lavender-mid: #D4B8F0;
+  --lavender-accent: #9B72CF;
+  --peach-light: #FFF3E8;
+  --peach-mid: #FFD6B8;
+  --peach-accent: #FF8C5A;
+  --yellow-light: #FFFDE8;
+  --yellow-mid: #FFF3B8;
+  --yellow-accent: #FFD93D;
+  --coral-light: #FFF0EE;
+  --coral-mid: #FFD4CC;
+  --coral-accent: #FF6B6B;
+  --sage-light: #F0F5E8;
+  --sage-mid: #D4E8B8;
+  --sage-accent: #8BC34A;
+  --teal-light: #E0F7FA;
+  --teal-accent: #26C6DA;
+  --rose-light: #FCE4EC;
+  --rose-accent: #EC407A;
+  --text-primary: #2D3436;
+  --text-secondary: #636E72;
+  --text-light: #B2BEC3;
+  --white: #FFFFFF;
+  --shadow-soft: 0 4px 20px rgba(0,0,0,0.06);
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.08);
+  --shadow-hover: 0 12px 40px rgba(0,0,0,0.12);
+  --radius: 20px;
+  --radius-sm: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: linear-gradient(135deg, #FFF5F7 0%, #F0F4FF 30%, #E8FFF5 60%, #FFF8F0 100%);
+  color: var(--text-primary);
+  line-height: 1.8;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.container { max-width: 960px; margin: 0 auto; }
+
+.hero {
+  background: linear-gradient(135deg, #9B72CF 0%, #5BA4CF 30%, #4ECDC4 60%, #FF85A2 100%);
+  border-radius: 32px;
+  padding: 60px 48px;
+  margin-bottom: 40px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(155, 114, 207, 0.3);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 300px;
+  height: 300px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+}
+
+.hero h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 2.4em;
+  font-weight: 700;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero .subtitle {
+  font-size: 1.15em;
+  opacity: 0.95;
+  position: relative;
+  z-index: 1;
+  font-weight: 300;
+}
+
+.hero .meta {
+  margin-top: 20px;
+  font-size: 0.9em;
+  opacity: 0.85;
+  position: relative;
+  z-index: 1;
+}
+
+.hero .badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(10px);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  margin-right: 8px;
+  margin-top: 8px;
+}
+
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 40px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card .step-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 30px;
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.card h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.65em;
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.card h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.25em;
+  font-weight: 600;
+  margin: 24px 0 12px;
+  color: var(--text-primary);
+}
+
+.card h4 {
+  font-size: 1.05em;
+  font-weight: 700;
+  margin: 20px 0 8px;
+}
+
+.card p {
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  font-size: 0.98em;
+}
+
+.card-pink { border-top: 4px solid var(--pink-accent); }
+.card-blue { border-top: 4px solid var(--blue-accent); }
+.card-mint { border-top: 4px solid var(--mint-accent); }
+.card-lavender { border-top: 4px solid var(--lavender-accent); }
+.card-peach { border-top: 4px solid var(--peach-accent); }
+.card-yellow { border-top: 4px solid var(--yellow-accent); }
+.card-coral { border-top: 4px solid var(--coral-accent); }
+.card-sage { border-top: 4px solid var(--sage-accent); }
+.card-teal { border-top: 4px solid var(--teal-accent); }
+.card-rose { border-top: 4px solid var(--rose-accent); }
+
+.badge-pink { background: var(--pink-light); color: var(--pink-accent); }
+.badge-blue { background: var(--blue-light); color: var(--blue-accent); }
+.badge-mint { background: var(--mint-light); color: var(--mint-accent); }
+.badge-lavender { background: var(--lavender-light); color: var(--lavender-accent); }
+.badge-peach { background: var(--peach-light); color: var(--peach-accent); }
+.badge-yellow { background: var(--yellow-light); color: var(--yellow-accent); }
+.badge-coral { background: var(--coral-light); color: var(--coral-accent); }
+.badge-sage { background: var(--sage-light); color: var(--sage-accent); }
+.badge-teal { background: var(--teal-light); color: var(--teal-accent); }
+.badge-rose { background: var(--rose-light); color: var(--rose-accent); }
+
+.crt-chain {
+  background: linear-gradient(135deg, var(--coral-light) 0%, var(--peach-light) 100%);
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  margin: 16px 0;
+}
+
+.crt-item {
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--coral-accent);
+  box-shadow: var(--shadow-soft);
+}
+
+.crt-item:last-child { margin-bottom: 0; }
+
+.crt-if { font-weight: 700; color: var(--coral-accent); }
+.crt-then { font-weight: 700; color: var(--peach-accent); }
+
+.crt-arrow {
+  display: block;
+  text-align: center;
+  font-size: 1.4em;
+  color: var(--coral-accent);
+  margin: 4px 0;
+}
+
+.ec-container {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  gap: 16px;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.ec-box {
+  background: linear-gradient(135deg, var(--lavender-light), var(--blue-light));
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  border: 2px solid transparent;
+}
+
+.ec-box.need-d {
+  border-color: var(--blue-accent);
+  background: linear-gradient(135deg, var(--blue-light), var(--mint-light));
+}
+
+.ec-box.need-d-prime {
+  border-color: var(--coral-accent);
+  background: linear-gradient(135deg, var(--coral-light), var(--peach-light));
+}
+
+.ec-vs {
+  text-align: center;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--lavender-accent);
+}
+
+.ec-goal {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, var(--yellow-light), var(--mint-light));
+  border: 2px solid var(--mint-accent);
+  text-align: center;
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  margin-bottom: 8px;
+}
+
+.frt-chain {
+  background: linear-gradient(135deg, var(--mint-light) 0%, var(--blue-light) 100%);
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  margin: 16px 0;
+}
+
+.frt-item {
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--mint-accent);
+  box-shadow: var(--shadow-soft);
+}
+
+.frt-item:last-child { margin-bottom: 0; }
+
+.tt-week {
+  background: linear-gradient(135deg, var(--blue-light) 0%, var(--lavender-light) 100%);
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  margin: 16px 0;
+}
+
+.tt-element {
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.tt-label {
+  font-weight: 700;
+  font-size: 0.8em;
+  padding: 4px 10px;
+  border-radius: 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.tt-label.objective { background: var(--blue-light); color: var(--blue-accent); }
+.tt-label.action { background: var(--mint-light); color: var(--mint-accent); }
+.tt-label.if-then { background: var(--peach-light); color: var(--peach-accent); }
+.tt-label.result { background: var(--pink-light); color: var(--pink-accent); }
+
+.obstacle-list {
+  list-style: none;
+  padding: 0;
+}
+
+.obstacle-list li {
+  background: linear-gradient(135deg, var(--peach-light), var(--yellow-light));
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  box-shadow: var(--shadow-soft);
+}
+
+.obstacle-icon { font-size: 1.4em; }
+
+.obstacle-io {
+  font-size: 0.85em;
+  color: var(--mint-accent);
+  font-weight: 600;
+  text-align: right;
+}
+
+.throughput-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.throughput-item {
+  background: linear-gradient(135deg, var(--mint-light), var(--blue-light));
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+}
+
+.throughput-item .value {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 2em;
+  font-weight: 700;
+  color: var(--blue-accent);
+}
+
+.throughput-item .label {
+  font-size: 0.85em;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+.poogi-cycle {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.poogi-step {
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  border-top: 3px solid;
+  position: relative;
+}
+
+.poogi-step .num {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 2em;
+  font-weight: 700;
+  opacity: 0.15;
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+
+.highlight-box {
+  background: linear-gradient(135deg, var(--yellow-light), var(--peach-light));
+  border-radius: var(--radius-sm);
+  padding: 20px 24px;
+  margin: 16px 0;
+  border-left: 4px solid var(--yellow-accent);
+}
+
+.quote-box {
+  background: linear-gradient(135deg, var(--lavender-light), var(--pink-light));
+  border-radius: var(--radius-sm);
+  padding: 24px 28px;
+  margin: 20px 0;
+  font-family: 'Noto Serif TC', serif;
+  font-style: italic;
+  font-size: 1.05em;
+  color: var(--lavender-accent);
+  border-left: 4px solid var(--lavender-accent);
+}
+
+.injection-box {
+  background: linear-gradient(135deg, var(--sage-light), var(--mint-light));
+  border-radius: var(--radius-sm);
+  padding: 20px 24px;
+  margin: 12px 0;
+  border-left: 4px solid var(--sage-accent);
+}
+
+.injection-box h4 {
+  margin-top: 0;
+  color: var(--sage-accent);
+}
+
+.ude-tag {
+  display: inline-block;
+  background: var(--coral-light);
+  color: var(--coral-accent);
+  padding: 2px 12px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.de-tag {
+  display: inline-block;
+  background: var(--mint-light);
+  color: var(--mint-accent);
+  padding: 2px 12px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.convo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+
+.convo-card {
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 16px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  border-top: 3px solid;
+  transition: transform 0.2s;
+}
+
+.convo-card:hover { transform: translateY(-2px); }
+
+.convo-card .emoji { font-size: 1.6em; margin-bottom: 6px; }
+.convo-card .name { font-weight: 700; font-size: 0.9em; margin-bottom: 4px; }
+.convo-card .desc { font-size: 0.78em; color: var(--text-secondary); }
+
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-light);
+  font-size: 0.85em;
+}
+
+@media (max-width: 768px) {
+  .hero { padding: 36px 24px; }
+  .hero h1 { font-size: 1.8em; }
+  .card { padding: 28px 24px; }
+  .ec-container { grid-template-columns: 1fr; }
+  .ec-vs { font-size: 1.2em; }
+  .tt-element { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ==================== HERO ==================== -->
+<div class="hero">
+  <h1>🎯 Managing Up：向上管理的十場關鍵對話</h1>
+  <div class="subtitle">TOC（限制理論）十步深度實戰分析</div>
+  <div class="meta">
+    <strong>作者：</strong>Melody Wilding, LMSW<br>
+    <span class="badge">💼 職場心理學</span>
+    <span class="badge">🗣️ 向上管理</span>
+    <span class="badge">🧠 情緒智商</span>
+    <span class="badge">🚀 職涯發展</span>
+  </div>
+</div>
+
+<!-- ==================== STEP 1: 系統界定 ==================== -->
+<div class="card card-pink">
+  <div class="step-badge badge-pink">📐 Step 1</div>
+  <h2>系統界定 — 向上管理的職場動力系統</h2>
+
+  <h3>核心系統邊界</h3>
+  <p>Melody Wilding 建構的系統是一個<strong>「職場權力關係動態系統」</strong>——以「你」和「你的主管」之間的關係為核心節點，向外擴展到同事、跨部門夥伴、高層領導、乃至整個組織文化。這個系統的獨特之處在於：它不是傳統的「如何討好老闆」的上下關係模型，而是一個<strong>雙向的、策略性的、以十場關鍵對話為操作介面的影響力系統</strong>。</p>
+
+  <p>Wilding 的核心洞見來自她身為心理治療師、人類行為研究者和高管教練的三重視角：</p>
+
+  <div class="highlight-box">
+    <h4>🔍 系統的三層結構</h4>
+    <p><strong>① 微觀層——你與主管的二元關係</strong>：風格匹配、溝通頻率、信任等級、回饋循環。這是 90% 的職場壓力和挫折的來源，也是最可被改變的變量。</p>
+    <p><strong>② 中觀層——組織政治與權力地圖</strong>：誰有影響力？誰在乎你的專案？skip-level 關係如何建立？能見度如何創造？人脈資本如何累積？</p>
+    <p><strong>③ 宏觀層——職涯軌跡與人生目標</strong>：一年願景、晉升路徑、薪酬談判、離職時機——不只是做好眼前工作，而是在更大的框架中設計你的職業人生。</p>
+  </div>
+
+  <h3>十場關鍵對話——系統的操作介面</h3>
+  <div class="convo-grid">
+    <div class="convo-card" style="border-top-color: var(--blue-accent);">
+      <div class="emoji">🎯</div>
+      <div class="name">對齊對話</div>
+      <div class="desc">確保你的工作方向與老闆和組織的目標一致</div>
+    </div>
+    <div class="convo-card" style="border-top-color: var(--lavender-accent);">
+      <div class="emoji">🎨</div>
+      <div class="name">風格對話</div>
+      <div class="desc">解碼老闆的溝通風格，建立 Me Manual</div>
+    </div>
+    <div class="convo-card" style="border-top-color: var(--mint-accent);">
+      <div class="emoji">🔑</div>
+      <div class="name">擁有權對話</div>
+      <div class="desc">主動解決問題、提案、展現主人翁精神</div>
+    </div>
+    <div class="convo-card" style="border-top-color: var(--coral-accent);">
+      <div class="emoji">🛡️</div>
+      <div class="name">邊界對話</div>
+      <div class="desc">策略性地說不，保護時間和精力</div>
+    </div>
+    <div class="convo-card" style="border-top-color: var(--peach-accent);">
+      <div class="emoji">💬</div>
+      <div class="name">回饋對話</div>
+      <div class="desc">向上給回饋，讓你的聲音被聽見並被執行</div>
+    </div>
+    <div class="convo-card" style="border-top-color: var(--sage-accent);">
+      <div class="emoji">🤝</div>
+      <div class="name">人脈對話</div>
+      <div class="desc">策略性建立關鍵人際網絡</div>
+    </div>
+    <div class="convo-card" style="border-top-color: var(--yellow-accent);">
+      <div class="emoji">👁️</div>
+      <div class="name">能見度對話</div>
+      <div class="desc">讓你的工作成果被看見而非自吹自擂</div>
+    </div>
+    <div class="convo-card" style="border-top-color: var(--pink-accent);">
+      <div class="emoji">📈</div>
+      <div class="name">晉升對話</div>
+      <div class="desc">將自己定位在升遷軌道上</div>
+    </div>
+    <div class="convo-card" style="border-top-color: var(--teal-accent);">
+      <div class="emoji">💰</div>
+      <div class="name">薪資對話</div>
+      <div class="desc">談判薪酬與非金錢福利</div>
+    </div>
+    <div class="convo-card" style="border-top-color: var(--rose-accent);">
+      <div class="emoji">🚪</div>
+      <div class="name">離職對話</div>
+      <div class="desc">優雅離開，維護長期聲譽</div>
+    </div>
+  </div>
+
+  <h3>系統目標</h3>
+  <p>本書的系統目標是一個根本的<strong>身份轉換</strong>：</p>
+  <p>從「為什麼這種事總是發生在我身上？」（受害者心態）<br>
+  → 轉變為「我能搞定」（主導者心態）</p>
+  <p>這不是教你巴結、討好、操控老闆，而是教你<strong>策略性地經營與權力擁有者的關係</strong>，在保有自我尊嚴的前提下，最大化你的影響力、自主權和職涯發展。</p>
+
+  <h3>關鍵利害關係人</h3>
+  <div class="throughput-grid">
+    <div class="throughput-item">
+      <div class="value">🧑‍💼</div>
+      <div class="label"><strong>你（讀者/專業工作者）</strong><br>主角。聰明、努力、但困在「不知道怎麼管理老闆」的困局中</div>
+    </div>
+    <div class="throughput-item">
+      <div class="value">👔</div>
+      <div class="label"><strong>你的直屬主管</strong><br>不是敵人，而是一個有自己壓力和盲點的「人」。需要被解碼和策略性對待</div>
+    </div>
+    <div class="throughput-item">
+      <div class="value">🏢</div>
+      <div class="label"><strong>組織/高層領導</strong><br>定義遊戲規則。你需要理解「未明說的規範」才能在其中勝出</div>
+    </div>
+    <div class="throughput-item">
+      <div class="value">👥</div>
+      <div class="label"><strong>同事/跨部門夥伴</strong><br>你的影響力網絡。能見度、信任、社交資本都從這裡來</div>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    「向上管理不是讓你老闆的生活更輕鬆。而是掌控你自己的工作體驗。」——Melody Wilding
+  </div>
+</div>
+
+<!-- ==================== STEP 2: CRT 現況實境樹 ==================== -->
+<div class="card card-coral">
+  <div class="step-badge badge-coral">🌳 Step 2</div>
+  <h2>現況實境樹（CRT）— 向上管理失敗的五大不良效應</h2>
+  <p>Wilding 透過上萬名調查對象和數千名教練客戶，揭示了職場中向上管理缺失的系統性問題：</p>
+
+  <h3><span class="ude-tag">UDE 1</span> 對齊黑洞 — 你以為你在做對的事，其實方向完全錯誤</h3>
+  <div class="crt-chain">
+    <div class="crt-item">
+      <span class="crt-if">If</span> 大多數主管沒有清楚地傳達他們的優先級和期望（因為他們自己也可能不確定、太忙、或以為你「應該知道」），
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> 員工只能根據自己的假設來決定工作重點，結果經常與老闆和組織的真正目標脫節，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-if">If</span> 如同 Wilding 自身的經歷——她被裁員不是因為能力不足，而是因為她的專案在高層眼中是「燒錢的寵物計畫」，而她從未花時間去理解這一點，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> <strong>UDE：大量的努力投入在「可被替代的」或「不被升職的」工作上。</strong>你越努力，越走偏。最極端的結果是：被裁員時才發現自己一直在做錯誤的事。
+    </div>
+  </div>
+
+  <h3><span class="ude-tag">UDE 2</span> 風格衝突 — 「我的老闆是不是討厭我？」</h3>
+  <div class="crt-chain">
+    <div class="crt-item">
+      <span class="crt-if">If</span> 每個人有不同的溝通風格（Wilding 的 4C 框架：Commander 指揮官 / Cheerleader 啦啦隊 / Caretaker 照顧者 / Controller 控制者），
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> 當你的風格與老闆不匹配時，同樣的行為會被解讀為完全不同的意思——例如，你給 Commander 型老闆一封長長的背景說明郵件，他會覺得你浪費他的時間；你給 Caretaker 型老闆一句簡短的回覆，她會覺得你冷漠不在意，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-if">If</span> Gabe 和 Adrian 面對同一個老闆 Vanessa——Gabe 把她的挑戰當成自己的失敗，Adrian 把它當成需要解的謎題，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> <strong>UDE：風格不匹配造成大量的情緒消耗和錯誤歸因。</strong>你把「風格差異」誤讀為「能力不足」或「老闆不喜歡我」，陷入自我懷疑的惡性循環。
+    </div>
+  </div>
+
+  <h3><span class="ude-tag">UDE 3</span> 邊界崩潰 — 「我不敢說不，所以我只能燃燒殆盡」</h3>
+  <div class="crt-chain">
+    <div class="crt-item">
+      <span class="crt-if">If</span> 研究顯示，長期超額付出的員工不僅有更高的工作壓力、角色超載和工作-家庭衝突，還會感到更加疲憊——研究者稱之為「組織公民疲勞」（organizational citizenship fatigue），
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-if">If</span> 同時，許多人尋求教練是因為被拒絕升遷——原因是「你什麼都答應，不懂得優先排序」。他們從未想過，適度的策略性拒絕反而能展現判斷力，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-if">If</span> 如同 Drew 的案例：他的老闆 Melina 把每個專案都當成緊急，他不敢拒絕，直到快要提交辭呈時才鼓起勇氣設定邊界，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> <strong>UDE：「好人」反而被懲罰。</strong>你越配合，越被當作理所當然；你越不設邊界，越被視為缺乏領導力。最終結果是燃燒殆盡或辭職——而不是升遷。
+    </div>
+  </div>
+
+  <h3><span class="ude-tag">UDE 4</span> 能見度黑洞 — 「我的努力從來不被看見」</h3>
+  <div class="crt-chain">
+    <div class="crt-item">
+      <span class="crt-if">If</span> 許多高成就者相信「好工作會自己說話」——只要我做得好，自然會被注意到和獎勵，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> 他們不主動分享成果、不建立故事庫（story bank）、不在會議中展現自己，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-if">If</span> 同時，研究表明聽眾記住故事的機率是記住數據的 22 倍（神經耦合效應），而「可得性啟發法」意味著老闆會高估經常出現在視線中的人的貢獻，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> <strong>UDE：沉默的實幹者被忽略，善於表現的人獲得機會。</strong>這不是公平不公平的問題——而是系統性地獎勵「被看見」而非「做了什麼」。如果你不主動管理能見度，你的貢獻在決策者的心智地圖中就是不存在的。
+    </div>
+  </div>
+
+  <h3><span class="ude-tag">UDE 5</span> 談判恐懼 — 「我不敢談錢，所以一直被低估」</h3>
+  <div class="crt-chain">
+    <div class="crt-item">
+      <span class="crt-if">If</span> 薪資談判涉及複雜的心理博弈——恐懼被拒絕、擔心關係受損、不確定自己的市場價值、面對看不見的激勵結構和潛在張力，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> 大多數人選擇不談（或只被動接受），結果年復一年累積巨大的收入差距，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> <strong>UDE：薪資低估形成複利效應。</strong>每次不談判，你不只損失當次的差額，而是損失未來所有以這個數字為基數的加薪、獎金和退休金。十年下來，差距可能達到數十萬甚至上百萬。
+    </div>
+  </div>
+
+  <h3>根因收束</h3>
+  <div class="highlight-box">
+    <p><strong>🎯 共同根因：「被動式職涯」心態——等待被賞識而非主動經營</strong></p>
+    <p>五個 UDE 都指向同一個根因：大多數職場工作者持有一個隱含假設——「如果我夠好，系統自然會獎勵我。」這個假設讓人把所有精力放在「做好工作」上，卻忽略了「讓對的人知道你做了什麼」、「理解老闆的真正需求」、「策略性地設定邊界」、「主動談判」等同樣關鍵的技能。Wilding 的 12,000 人調查清楚顯示：大多數人「知道」自己需要向上管理，但「不知道怎麼做好」。</p>
+  </div>
+</div>
+
+<!-- ==================== STEP 3: EC 核心衝突雲 ==================== -->
+<div class="card card-lavender">
+  <div class="step-badge badge-lavender">☁️ Step 3</div>
+  <h2>核心衝突雲（Evaporation Cloud）</h2>
+  <p>Wilding 的書揭示了向上管理中最根本的兩難困境——每個讀者都在這兩極之間拉扯：</p>
+
+  <div class="ec-container">
+    <div class="ec-goal">
+      <h4>🎯 共同目標 A：在職場中同時獲得尊重、自主權和職涯發展</h4>
+      <p>每個人都希望被認可為有價值的專業人士，同時保有工作生活的掌控感</p>
+    </div>
+  </div>
+
+  <div class="ec-container">
+    <div class="ec-box need-d">
+      <h4>D — 順從與配合</h4>
+      <p><strong>「我必須迎合老闆的需求，證明自己是團隊球員」</strong></p>
+      <p>為了 B（維持良好的上下關係），我必須 D（順應老闆的風格、接受他們的優先級、配合他們的時間要求、避免衝突），因為挑戰上位者會危及我的工作和關係。</p>
+      <p><em>驅動力：恐懼（被解雇、被討厭、被邊緣化）</em></p>
+    </div>
+    <div class="ec-vs">⚡<br>衝突</div>
+    <div class="ec-box need-d-prime">
+      <h4>D' — 自主與倡導</h4>
+      <p><strong>「我必須為自己發聲，設定邊界，爭取應得的」</strong></p>
+      <p>為了 C（保護自己的時間、精力和職涯發展），我必須 D'（拒絕不合理要求、主動談判、展現自己的想法、挑戰現狀），因為如果我不為自己爭取，沒有人會。</p>
+      <p><em>驅動力：渴望（成長、自主、影響力、公平對待）</em></p>
+    </div>
+  </div>
+
+  <h3>衝突背後的隱藏假設</h3>
+  <div class="highlight-box">
+    <p><strong>假設 α（支撐 D）：</strong>向上管理 = 討好老闆。如果我設定邊界或表達不同意見，老闆會覺得我「不好用」，甚至會報復。——Wilding 指出這是「舊式向上管理」的遺毒：「在老年代，向上管理等於讓老闆開心，不管代價是什麼。」</p>
+    <p><strong>假設 β（支撐 D'）：</strong>自我倡導 = 對抗。如果我要為自己發聲，就必須是一種「反抗」或「對抗」的姿態。——這個假設把自我倡導二元化為「順從 vs 反叛」，忽略了中間地帶。</p>
+    <p><strong>假設 γ（深層）：</strong>關係是零和遊戲。我得到的就是你失去的。如果我爭取更好的條件，老闆就會「損失」。——Wilding 的整本書就是在打破這個假設：向上管理做得好，是雙贏的。你幫老闆省事、減壓、達標，同時自己也得到想要的。</p>
+  </div>
+
+  <div class="quote-box">
+    「向上管理不是你的責任嗎？老闆不是應該做好自己的工作嗎？」——這是公平的質疑。但 Wilding 的回答是：「向上管理不是為了讓你老闆的生活更輕鬆。而是為了掌控你自己的工作體驗。」不要問「我為什麼要向上管理？」，而要問「我為什麼不想抓住每個讓職涯更好的機會？」
+  </div>
+</div>
+
+<!-- ==================== STEP 4: 注入解萃取 ==================== -->
+<div class="card card-sage">
+  <div class="step-badge badge-sage">💉 Step 4</div>
+  <h2>注入解萃取 — 打破衝突雲的十把鑰匙</h2>
+  <p>Wilding 的天才在於：她不是給你一個單一解方，而是提供<strong>十場對話作為十個注入解</strong>，每一場都在不同維度上打破「順從 vs 對抗」的虛假二元。核心注入解如下：</p>
+
+  <div class="injection-box">
+    <h4>💡 注入解 1：對齊對話 — 挑戰「老闆應該告訴我該做什麼」</h4>
+    <p>打破假設：「我的工作是執行，方向是老闆的責任。」Wilding 指出：你的老闆可能自己也不清楚優先級，或者他們以為你「應該知道」。一年願景 + 策略性提問 + skip-level 會議 = 你主動去弄清楚方向，而不是被動等待。</p>
+    <p><strong>關鍵工具：</strong>一年願景（One-Year Vision）、「進入老闆腦袋」問題集、Chris Voss 的鏡像技巧（mirroring）、Skip-Level 會議、權力地圖（Power Map）。</p>
+    <p><strong>打破效果：</strong>你不再是「等待指示的執行者」，而是「主動理解方向的策略夥伴」。</p>
+  </div>
+
+  <div class="injection-box">
+    <h4>💡 注入解 2：風格對話 — 挑戰「老闆的行為 = 對我的評價」</h4>
+    <p>打破假設：「老闆回覆簡短 = 他不喜歡我」「老闆取消會議 = 她不重視我」。4C 風格框架讓你理解：Commander 的挑剔是壓力測試不是否定；Cheerleader 的取消是因為追逐太多閃亮物件；Caretaker 的猶豫是害怕犯錯不是不信任你；Controller 的冷淡是效率導向不是敵意。</p>
+    <p><strong>關鍵工具：</strong>4C 風格辨識、Me Manual（自我使用說明書）、數位肢體語言解讀、flex don't fawn 原則。</p>
+    <p><strong>打破效果：</strong>從「為什麼他對我這樣？」轉向「他對所有人都這樣，我該如何利用這個知識？」</p>
+  </div>
+
+  <div class="injection-box">
+    <h4>💡 注入解 3：擁有權對話 — 挑戰「我必須等到被授權才能行動」</h4>
+    <p>打破假設：「提出想法 = 越權」「主動解決問題 = 搶功」。Wilding 用醫院技師 Seiko 的案例證明：一個被認為是「低階庶務」的問題（郵件地址），因為她的主動解決而帶來了病患滿意度大幅提升和收入增長。Pre-suasion + SCQA 格式 + operational transparency = 你可以在不踩人腳的情況下主動出擊。</p>
+    <p><strong>關鍵工具：</strong>五種值得解決的問題類型、Pre-suasion（預先說服）、SCQA 格式、操作透明度。</p>
+    <p><strong>打破效果：</strong>從「等待被賦予機會」轉向「自己創造機會」。</p>
+  </div>
+
+  <div class="injection-box">
+    <h4>💡 注入解 4：邊界對話 — 挑戰「說不 = 不合作」</h4>
+    <p>打破假設：「拒絕任務 = 不敬業」「設定邊界 = 製造衝突」。Wilding 引入「推回力評估」（pushback power assessment）框架，讓你根據自己的資歷、與老闆的關係、組織文化等因素，精準校準你可以推回多少。然後用四種策略性讓步（條件式同意、trade-off、延遲、轉介）來展現「有原則的靈活性」。</p>
+    <p><strong>關鍵工具：</strong>推回力評估、邊界盤點（四種感覺測試）、策略性讓步、WII-FM（老闆的利益廣播）。</p>
+    <p><strong>打破效果：</strong>從「什麼都答應」的好人 → 轉為「有判斷力地選擇投入」的策略者。</p>
+  </div>
+
+  <div class="injection-box">
+    <h4>💡 注入解 5：能見度對話 — 挑戰「好工作會自己說話」</h4>
+    <p>打破假設：「分享成就 = 自我吹噓」「只要做得好就會被看見」。Wilding 用神經科學研究支持：故事比數據好記 22 倍（neural coupling），可得性啟發法（availability heuristic）意味著你必須主動讓決策者「容易想起你」。故事庫（story bank）+ before-after-bridge + we-then-me 技巧 = 你可以展現成果而不顯得自大。</p>
+    <p><strong>關鍵工具：</strong>故事庫（story bank）、before-after-bridge、future-focus-forward、we-then-me 表述法。</p>
+    <p><strong>打破效果：</strong>從「沉默的實幹者」轉為「有聲量的專家」。</p>
+  </div>
+
+  <div class="injection-box">
+    <h4>💡 注入解 6（整合性）：十場對話的飛輪效應</h4>
+    <p>Wilding 最深刻的注入解不是任何單一對話，而是<strong>十場對話之間的系統性飛輪</strong>：對齊做好了，你才知道要在什麼方向展現擁有權；風格理解了，你的邊界對話才不會觸雷；回饋做好了，能見度才有真實的素材；人脈建好了，晉升才有倡導者；薪資談好了，離職才有底氣。</p>
+    <p><strong>打破效果：</strong>從「單點突破」轉為「系統性經營」——這是 TOC 中「提升瓶頸→全系統改善」的職場版。</p>
+  </div>
+</div>
+
+<!-- ==================== STEP 5: FRT 未來實境樹 ==================== -->
+<div class="card card-mint">
+  <div class="step-badge badge-mint">🌿 Step 5</div>
+  <h2>未來實境樹（FRT）— 注入解實施後的正面效應鏈</h2>
+  <p>如果你系統性地實施 Wilding 的十場對話，正面效應將如何連鎖展開：</p>
+
+  <div class="frt-chain">
+    <div class="frt-item">
+      <span class="de-tag">DE 1</span> <strong>If</strong> 你完成對齊對話——建立一年願景、理解老闆的優先級、定期做 skip-level，<strong>Then</strong> 你的每一份努力都投入在「可被升職的工作」上，不再浪費時間在死胡同專案中。像 Laura 一樣，從「被質疑能力」轉變為「CEO 最信任的右手」。
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="frt-item">
+      <span class="de-tag">DE 2</span> <strong>If</strong> 你掌握風格對話——能辨識老闆的 4C 類型、建立 Me Manual、用 flex not fawn 原則互動，<strong>Then</strong> 情緒消耗大幅降低。你不再把老闆的簡短回覆當成「他討厭我」，而是理解「這就是 Commander 的風格」。Adrian 與 Vanessa 的關係就是最好的例子。
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="frt-item">
+      <span class="de-tag">DE 3</span> <strong>If</strong> 你實踐擁有權對話——主動識別瓶頸、用 pre-suasion 建立買入、用 SCQA 提案，<strong>Then</strong> 你從「接受指令的執行者」轉變為「創造價值的發起者」。像 Seiko 一樣，一個看似「卑微」的問題解決帶來了收入增長和策略性地位的提升。
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="frt-item">
+      <span class="de-tag">DE 4</span> <strong>If</strong> 你掌握邊界對話——用推回力評估校準、用策略性讓步展現判斷力，<strong>Then</strong> 你既保護了自己的精力，又展現了領導潛力。像 Drew 一樣，一次策略性的邊界設定反而打開了更理性、更可持續的合作模式。
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="frt-item">
+      <span class="de-tag">DE 5</span> <strong>If</strong> 你建立能見度系統——故事庫、one-on-one 主導、會議展現力，<strong>Then</strong> 你的工作成果在決策者的心智地圖中佔有一席之地。可得性啟發法開始為你工作，而不是對你不利。
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="frt-item">
+      <span class="de-tag">DE 6</span> <strong>If</strong> 以上五個正面效應疊加，<strong>Then</strong> 你在晉升對話中有了真實的素材（對齊的成果 + 擁有權的戰績 + 能見度的聲量），在薪資對話中有了談判籌碼（量化貢獻 + 市場資料 + 替代方案），在離職對話中有了充足的底氣和優雅。
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="frt-item">
+      <span class="de-tag">DE 7</span> <strong>If</strong> 十場對話形成飛輪效應，<strong>Then</strong> 你完成了 Wilding 所說的根本轉變：<strong>「你與自己的關係也根本改變了。不管生活丟什麼給你，你都從『為什麼這種事總是發生在我身上？』轉變為『我搞得定』。」</strong>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== STEP 6: 瓶頸深度定位 ==================== -->
+<div class="card card-blue">
+  <div class="step-badge badge-blue">🔧 Step 6</div>
+  <h2>瓶頸深度定位 — 讀者面臨的最大瓶頸</h2>
+
+  <div class="highlight-box">
+    <h4>🎯 核心瓶頸：「情緒化的自我解讀」——你把老闆的行為當成對你的評價</h4>
+    <p>在 TOC 的視角下，這是所有十場對話能否成功的<strong>最大限制</strong>。如果你無法將老闆的行為與你的自我價值脫鉤，那麼：</p>
+    <p>① 對齊對話——你不敢問問題，因為怕顯得「不夠聰明」<br>
+    ② 風格對話——你把每個簡短回覆都當成拒絕，無法客觀分析風格<br>
+    ③ 擁有權對話——你害怕提案被否定等於「我不夠好」<br>
+    ④ 邊界對話——你不敢說不，因為怕「被討厭」<br>
+    ⑤ 回饋對話——你給不出建設性回饋，因為怕關係破裂<br>
+    ⑥ 能見度對話——你不敢展現自己，因為怕被認為「自大」<br>
+    ⑦ 薪資對話——你不敢開口，因為怕被拒絕後的尷尬</p>
+    <p>Wilding 的背景正是針對這個瓶頸而來：她是心理治療師和情緒研究者。她的第一本書就叫做《Trust Yourself: Stop Overthinking and Channel Your Emotions for Success at Work》。這本書是那本書的「實戰升級版」。</p>
+  </div>
+
+  <h3>次級瓶頸</h3>
+  <div class="throughput-grid">
+    <div class="throughput-item" style="background: linear-gradient(135deg, var(--coral-light), var(--pink-light));">
+      <div class="value">⏰</div>
+      <div class="label"><strong>時間與精力稀缺</strong><br>你已經很忙了。十場對話、Me Manual、故事庫、權力地圖——這些「軟技能」的投資成本看似很高。需要學會「用最少的投入撬動最大的改變」。</div>
+    </div>
+    <div class="throughput-item" style="background: linear-gradient(135deg, var(--lavender-light), var(--blue-light));">
+      <div class="value">🏢</div>
+      <div class="label"><strong>組織文化的天花板</strong><br>某些組織文化根本不鼓勵向上回饋或邊界設定。在「996」文化或極度階層化的環境中，書中的某些策略可能需要大幅調整。</div>
+    </div>
+    <div class="throughput-item" style="background: linear-gradient(135deg, var(--peach-light), var(--yellow-light));">
+      <div class="value">🧊</div>
+      <div class="label"><strong>真正有毒的老闆</strong><br>Wilding 明確區分了「挑戰性老闆」和「有毒老闆」。對於後者（人身攻擊、公開羞辱、威脅工作安全），這些策略只是「短期生存術」，真正的解方是離開。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== STEP 7: PrT 障礙拆解 ==================== -->
+<div class="card card-peach">
+  <div class="step-badge badge-peach">🧱 Step 7</div>
+  <h2>障礙拆解（前提樹 PrT）— 從「讀完書」到「改變職場關係」</h2>
+
+  <ul class="obstacle-list">
+    <li>
+      <span class="obstacle-icon">😰</span>
+      <div>
+        <strong>障礙 1：完美主義陷阱 —「等我準備好了再開始」</strong><br>
+        想要把 Me Manual 寫得完美、把對齊問題列得全面、把提案打磨到無懈可擊……結果永遠停在「準備階段」
+      </div>
+      <span class="obstacle-io">IO → 從一個「最小可行對話」開始。下次 1:1 問老闆一個對齊問題就夠了</span>
+    </li>
+    <li>
+      <span class="obstacle-icon">🎭</span>
+      <div>
+        <strong>障礙 2：「這不是真正的我」—— 策略性溝通 = 虛偽？</strong><br>
+        許多人（尤其是 Wilding 所說的「敏感型高成就者」Sensitive Strivers）覺得用策略和腳本來溝通是「不真誠的」
+      </div>
+      <span class="obstacle-io">IO → 重新框架：策略性 ≠ 虛偽。練鋼琴要練音階，職場溝通也要練腳本。熟練後自然內化為你的一部分</span>
+    </li>
+    <li>
+      <span class="obstacle-icon">🔥</span>
+      <div>
+        <strong>障礙 3：第一次嘗試就碰壁 —「我試了，但老闆的反應很差」</strong><br>
+        設邊界被指「不是團隊球員」、提案被否決、ask for feedback 被敷衍
+      </div>
+      <span class="obstacle-io">IO → 這正是 Wilding 準備了大量「應對負面反應腳本」的原因。碰壁不是失敗，是資料收集——你現在知道了老闆的真實風格</span>
+    </li>
+    <li>
+      <span class="obstacle-icon">🌏</span>
+      <div>
+        <strong>障礙 4：文化差異 —「在我的文化/國家/行業，這些根本行不通」</strong><br>
+        亞洲文化中的階層尊重、某些產業的極度保守、年資導向的組織
+      </div>
+      <span class="obstacle-io">IO → 校準力度而非放棄。即使在最保守的文化中，「問好的問題」和「理解老闆風格」都是低風險高回報的</span>
+    </li>
+    <li>
+      <span class="obstacle-icon">📚</span>
+      <div>
+        <strong>障礙 5：資訊超載 —「十場對話太多了，我不知道從哪開始」</strong><br>
+        十個章節、數十個框架、上百個腳本——認知超載風險
+      </div>
+      <span class="obstacle-io">IO → Wilding 自己的建議：按順序從第一場（對齊）開始。但如果你有急迫需求（如薪資談判），直接跳到相關章節也可以</span>
+    </li>
+    <li>
+      <span class="obstacle-icon">🤝</span>
+      <div>
+        <strong>障礙 6：缺乏練習夥伴 —「我不敢直接對老闆試」</strong><br>
+        需要安全的練習環境來測試腳本和策略
+      </div>
+      <span class="obstacle-io">IO → 找一個信任的同事互相練習（Wilding 建議觀察同事的成功策略）。或用日記模擬對話場景</span>
+    </li>
+  </ul>
+</div>
+
+<!-- ==================== STEP 8: TT 轉變樹 ==================== -->
+<div class="card card-blue">
+  <div class="step-badge badge-blue">🗓️ Step 8</div>
+  <h2>轉變樹（TT）四週行動計畫 — 從「被動工作者」到「策略性向上管理者」</h2>
+
+  <h3>📅 第一週：建立基礎 —「了解你自己，了解你的老闆」</h3>
+  <div class="tt-week">
+    <div class="tt-element">
+      <span class="tt-label objective">目標</span>
+      <span>完成自我評估和老闆評估，建立向上管理的認知地圖</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label action">行動</span>
+      <span>① 寫下你的「一年願景」——365 天後你想要的最佳工作日是什麼樣的？<br>
+      ② 用 4C 框架評估你的老闆屬於哪種類型（Commander / Cheerleader / Caretaker / Controller）。列出至少 3 個行為證據<br>
+      ③ 開始你的 Me Manual——至少完成「資訊處理」和「回饋與衝突」兩個區塊<br>
+      ④ 畫出你的權力地圖（Power Map）——標註四個象限的關鍵人物<br>
+      ⑤ 做「四種感覺測試」一週——記錄每次感到怨恨、挫折、緊張或不適的場景</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label if-then">If-Then 驗證</span>
+      <span><strong>If</strong> 我能清楚說出「我的老闆是 [4C 類型]，他最在乎的三件事是 [X, Y, Z]，我最大的工作挫折來自 [具體場景]」，<strong>Then</strong> 我已經具備了向上管理的基本認知地圖</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label result">預期成果</span>
+      <span>從「我不知道怎麼跟老闆相處」轉變為「我對老闆和我自己有了清晰的認知框架」</span>
+    </div>
+  </div>
+
+  <h3>📅 第二週：啟動對話 —「第一次策略性互動」</h3>
+  <div class="tt-week">
+    <div class="tt-element">
+      <span class="tt-label objective">目標</span>
+      <span>實踐第一場對齊對話，並開始風格調適</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label action">行動</span>
+      <span>① 在下一次 1:1 中，用 Wilding 的問題集問老闆至少 2 個對齊問題（如「什麼目標對你來說最重要？為什麼現在是優先？」）<br>
+      ② 用 Chris Voss 的鏡像技巧（mirroring）來挖掘更深的資訊——重複老闆最後幾個字<br>
+      ③ 根據第一週的 4C 評估，做一個風格調適實驗：如果老闆是 Commander，把下一封郵件改成 BLUF（Bottom Line Up Front）+ 要點格式；如果是 Caretaker，先寒暄再進入正題<br>
+      ④ 發出你的第一份「share-out」——用 3-5 個要點總結一次會議的關鍵決定和行動項目<br>
+      ⑤ 在一次互動中練習一個 Me Manual 偏好的分享（選低風險的）</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label if-then">If-Then 驗證</span>
+      <span><strong>If</strong> 我在 1:1 中問了對齊問題並得到了至少一個我之前不知道的資訊，<strong>Then</strong> 對齊對話已經開始產生價值。<strong>If</strong> 我調適風格後老闆的回應更積極（更快回覆、更多互動、語氣更好），<strong>Then</strong> 風格對話正在起效</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label result">預期成果</span>
+      <span>建立「主動對話」的肌肉記憶。你不再等老闆來找你，而是有策略地創造對話機會</span>
+    </div>
+  </div>
+
+  <h3>📅 第三週：深化影響 —「擁有權與邊界」</h3>
+  <div class="tt-week">
+    <div class="tt-element">
+      <span class="tt-label objective">目標</span>
+      <span>實踐擁有權對話（主動提案）和邊界對話（策略性說不）</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label action">行動</span>
+      <span>① 從五種值得解決的問題中選一個，用 SCQA 格式準備一個簡短提案<br>
+      ② 在提案前，用至少一個 pre-suasion 技巧（如 seek feedback 或 tease your thoughts）來暖場<br>
+      ③ 從你的「四種感覺測試」日記中選一個邊界議題，用推回力評估來校準力度<br>
+      ④ 準備一個策略性讓步腳本（conditional yes / trade-off / deferral / referral）<br>
+      ⑤ 在需要時實施。如果本週沒有自然機會，模擬一次練習<br>
+      ⑥ 開始建立你的故事庫（story bank）——寫下 3 個你最近的工作成就故事</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label if-then">If-Then 驗證</span>
+      <span><strong>If</strong> 我用 SCQA 格式提了一個建議，而老闆願意花時間聽（即使最終沒被採納），<strong>Then</strong> 擁有權對話正在建立你的策略貢獻者形象。<strong>If</strong> 我用策略性讓步說了一次「不」而關係沒有惡化，<strong>Then</strong> 邊界對話的恐懼是過度的</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label result">預期成果</span>
+      <span>從「被動接受工作」轉為「主動塑造工作」。你開始感受到「掌控感」——這是 Wilding 所說的根本轉變的開端</span>
+    </div>
+  </div>
+
+  <h3>📅 第四週：系統整合 —「飛輪啟動」</h3>
+  <div class="tt-week">
+    <div class="tt-element">
+      <span class="tt-label objective">目標</span>
+      <span>整合前三週的學習，啟動能見度、回饋和長期職涯規劃</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label action">行動</span>
+      <span>① 用你的故事庫，在下一次 1:1 或會議中用 before-after-bridge 或 we-then-me 分享一個成就故事<br>
+      ② 給老闆一次建設性回饋（選低風險議題）——用 Wilding 的「micro-yes」開場（「我可以分享一個觀察嗎？」）<br>
+      ③ 識別一個「高影響力、高興趣」象限的跨部門人物，主動建立一次 15-30 分鐘的連結<br>
+      ④ 回顧你的一年願景——根據過去三週的學習，更新它<br>
+      ⑤ 用 Wilding 的晉升問題自問：「我現在離下一個職涯里程碑有多遠？缺少什麼？」<br>
+      ⑥ 撰寫一份個人反思：過去四週的向上管理實踐中，什麼有效？什麼需要調整？</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label if-then">If-Then 驗證</span>
+      <span><strong>If</strong> 我能自然地在對話中展現成果、給出回饋、連結跨部門夥伴，而不覺得「假」或「不自在」，<strong>Then</strong> 向上管理正在從「刻意練習」轉變為「第二天性」。Wilding 的飛輪效應已經開始轉動</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label result">預期成果</span>
+      <span>四週結束時，你已經實踐了至少 5 場對話中的核心元素。你有了一年願景、4C 風格評估、Me Manual、權力地圖、故事庫、至少一次成功的邊界設定和一次提案經驗。<strong>你不再是「不知道怎麼管理老闆」的人。</strong></span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== STEP 9: 吞吐量審計 ==================== -->
+<div class="card card-yellow">
+  <div class="step-badge badge-yellow">📊 Step 9</div>
+  <h2>吞吐量審計 — 這本書的投資報酬率</h2>
+
+  <div class="throughput-grid">
+    <div class="throughput-item">
+      <div class="value">⏱️</div>
+      <div class="label"><strong>投入成本</strong><br>閱讀時間約 8-10 小時<br>工具建構（Me Manual、權力地圖等）約 4-6 小時<br>每週對話實踐約 2-3 小時</div>
+    </div>
+    <div class="throughput-item">
+      <div class="value">🧠</div>
+      <div class="label"><strong>認知吞吐量</strong><br>職場關係從「黑箱」→「可解碼的系統」<br>溝通從「隨機」→「策略性」<br>自我認知從「模糊」→「Me Manual 級清晰」</div>
+    </div>
+    <div class="throughput-item">
+      <div class="value">💰</div>
+      <div class="label"><strong>財務吞吐量</strong><br>薪資談判能力（書中第九章完整框架）<br>Laura 的案例：六位數獎金<br>避免「被低估的複利效應」</div>
+    </div>
+    <div class="throughput-item">
+      <div class="value">❤️</div>
+      <div class="label"><strong>情緒吞吐量</strong><br>減少 overthinking 和自我懷疑<br>邊界設定帶來的能量回收<br>從「為什麼」到「我搞得定」的心態轉變</div>
+    </div>
+  </div>
+
+  <h3>吞吐量 vs 營運費用 vs 庫存</h3>
+  <div class="highlight-box">
+    <p><strong>🟢 吞吐量（T）——你真正獲得的新能力：</strong></p>
+    <p>• 4C 風格辨識——秒速解讀老闆行為的底層邏輯<br>
+    • 策略性對話能力——不是「說什麼」而是「何時、如何、對誰說」<br>
+    • 推回力評估——精準校準「我可以推回多少」的判斷力<br>
+    • Pre-suasion 技巧——在正式提案前就已經贏了一半<br>
+    • 故事庫——隨時可調用的「成就展現彈藥庫」<br>
+    • 薪資談判框架——從「不敢開口」到「有數據、有策略、有底氣」<br>
+    • 離職的優雅——知道何時走、怎麼走、走後怎麼維護聲譽</p>
+
+    <p><strong>🔴 營運費用（OE）——持續維護的成本：</strong></p>
+    <p>• 需要持續觀察和調適——老闆可能換人、組織可能重組、你的角色可能改變<br>
+    • 需要定期更新 Me Manual、一年願景、權力地圖（Wilding 建議每年至少一次）<br>
+    • 需要持續的情緒管理——不是學了就永遠不會 overthinking<br>
+    • 某些腳本需要文化在地化——不能直接照搬美式職場文化到亞洲或歐洲情境</p>
+
+    <p><strong>🟡 庫存（I）——你「積壓」但尚未轉化的知識：</strong></p>
+    <p>• 十場對話中你目前用不到的（如離職對話——除非你正在考慮離開）<br>
+    • 大量的腳本和模板——需要時再回頭查閱即可<br>
+    • 4C 框架中你老闆不屬於的那幾種類型的詳細攻略——作為「備用知識」</p>
+  </div>
+
+  <h3>ROI 總評</h3>
+  <div class="throughput-grid">
+    <div class="throughput-item" style="background: linear-gradient(135deg, #D4EDDA, #C3E6CB);">
+      <div class="value" style="color: #28a745;">★★★★★</div>
+      <div class="label"><strong>實操 ROI</strong><br>極高。這可能是市面上最「可操作」的向上管理書籍。每個策略都有腳本、案例和步驟。</div>
+    </div>
+    <div class="throughput-item" style="background: linear-gradient(135deg, #FFF3CD, #FFEEBA);">
+      <div class="value" style="color: #856404;">★★★★☆</div>
+      <div class="label"><strong>認知 ROI</strong><br>高。4C 框架和十場對話的系統性思維是真正的「思維升級」。但深度不如學術著作。</div>
+    </div>
+    <div class="throughput-item" style="background: linear-gradient(135deg, #D6D8FB, #C4C7F5);">
+      <div class="value" style="color: #4A4E9C;">★★★★★</div>
+      <div class="label"><strong>長期價值</strong><br>極高。向上管理是一項終身技能——每次換工作、換老闆、換角色時，這些工具都可以重新啟動。</div>
+    </div>
+  </div>
+
+  <h3>與其他書的比較</h3>
+  <div class="highlight-box">
+    <p><strong>vs《How to Win Friends and Influence People》（Dale Carnegie）：</strong>Carnegie 的經典著重「讓人喜歡你」，但缺乏職場權力動態的分析。Wilding 更加策略性、更有深度、更適合現代職場。</p>
+    <p><strong>vs《Radical Candor》（Kim Scott）：</strong>Scott 聚焦在管理者如何給回饋，Wilding 聚焦在被管理者如何「向上」給回饋和經營關係。兩者互補。</p>
+    <p><strong>vs《Never Split the Difference》（Chris Voss）：</strong>Voss 的談判技巧被 Wilding 直接引用（mirroring）。但 Voss 是談判專書，Wilding 是全方位的職場關係經營。</p>
+    <p><strong>vs《Trust Yourself》（Melody Wilding 自己的第一本書）：</strong>《Trust Yourself》聚焦在個人情緒管理，《Managing Up》是外部關係經營。前者是內功，後者是外功。兩者合起來才是完整的。</p>
+  </div>
+</div>
+
+<!-- ==================== STEP 10: POOGI ==================== -->
+<div class="card card-sage">
+  <div class="step-badge badge-sage">🔄 Step 10</div>
+  <h2>持續改善循環（POOGI）— 長期向上管理的持續精進</h2>
+
+  <div class="poogi-cycle">
+    <div class="poogi-step" style="border-top-color: var(--pink-accent);">
+      <div class="num">1</div>
+      <h4>🔍 識別瓶頸</h4>
+      <p>每月自問：「我目前與老闆的關係中，最大的摩擦點是什麼？」用 Wilding 的十場對話框架定位——它屬於哪場對話的範疇？</p>
+    </div>
+    <div class="poogi-step" style="border-top-color: var(--blue-accent);">
+      <div class="num">2</div>
+      <h4>🎯 充分利用</h4>
+      <p>用該章節的腳本和策略處理這個摩擦點。不需要完美——一個小的改善就是進步。記錄結果：老闆的反應如何？你的感受如何？</p>
+    </div>
+    <div class="poogi-step" style="border-top-color: var(--mint-accent);">
+      <div class="num">3</div>
+      <h4>🔗 遷就</h4>
+      <p>讓其他工作習慣「遷就」你的向上管理實踐。例如：如果你決定每週寫 share-out，就把它排進你的固定流程，而不是「有空再做」</p>
+    </div>
+    <div class="poogi-step" style="border-top-color: var(--lavender-accent);">
+      <div class="num">4</div>
+      <h4>⬆️ 提升</h4>
+      <p>當一場對話熟練後，啟動下一場。飛輪效應：對齊 → 風格 → 擁有權 → 邊界 → 回饋 → 人脈 → 能見度 → 晉升 → 薪資。循環往復，每次都在更高的層次</p>
+    </div>
+    <div class="poogi-step" style="border-top-color: var(--peach-accent);">
+      <div class="num">5</div>
+      <h4>🔄 回到步驟一</h4>
+      <p>新瓶頸會不斷出現：換了新老闆、升遷到新角色、面臨裁員壓力、想要跳槽……每一個新情境都是重新啟動十場對話的機會</p>
+    </div>
+  </div>
+
+  <h3>POOGI 長期實踐清單</h3>
+  <div class="highlight-box">
+    <p><strong>📅 每週：</strong>在 1:1 中至少使用一個 Wilding 的策略性問題或腳本。保持「對話肌肉」的活躍</p>
+    <p><strong>📅 每月：</strong>更新你的故事庫——添加一個新的成就故事。回顧你的邊界日記——有什麼新的模式出現？</p>
+    <p><strong>📅 每季：</strong>回顧你的一年願景和權力地圖。重新評估你的 4C 風格匹配策略（老闆可能在不同壓力下表現不同的風格）</p>
+    <p><strong>📅 每半年：</strong>做一次完整的「推回力評估」——你的資歷、關係、組織文化有變化嗎？你的推回力是上升還是下降了？</p>
+    <p><strong>📅 每年：</strong>重新做 Me Manual 和一年願景。考慮：是時候啟動晉升對話了嗎？薪資對話呢？甚至——離職對話？</p>
+    <p><strong>📅 每次換老闆/換工作：</strong>完整重啟——從對齊對話和風格對話開始。新老闆 = 新系統 = 新瓶頸 = 新循環</p>
+  </div>
+
+  <h3>Wilding 的終極洞見</h3>
+  <div class="quote-box">
+    「最重要的是，這本書裡你學到的一切，將根本改變你與自己的關係。不管生活丟什麼給你，你都會從『為什麼這種事總是發生在我身上？』的心態轉變為『我搞得定』的態度。」——Melody Wilding
+  </div>
+
+  <div class="highlight-box">
+    <h4>⚡ 本書的 TOC 終極洞見</h4>
+    <p>在 TOC 的語言中，Wilding 的《Managing Up》做了一件極其精妙的事：<strong>她將系統的瓶頸從「外部」（老闆、組織、文化）重新定位到「內部」（你的認知、情緒和行為模式）</strong>。</p>
+    <p>這不是「怪自己」——而是一個深刻的 TOC 洞見：<strong>在你無法控制的系統中（你不能選擇老闆，通常也不能改變組織文化），唯一可以直接提升的瓶頸就是你自己</strong>。十場對話就是十個「注入解」，每一場都在提升你作為系統瓶頸的處理能力。</p>
+    <p>當你的向上管理能力提升了，整個系統（你與老闆的關係、你在組織中的位置、你的職涯軌跡）都會因為瓶頸的提升而改善。這就是 Wilding 所說的「飛輪效應」的 TOC 本質：<strong>提升瓶頸 → 全系統改善 → 發現新瓶頸 → 持續提升</strong>。</p>
+    <p>永不停止。永遠有下一場對話要練習。這就是持續改善——POOGI——的職場版。</p>
+  </div>
+</div>
+
+<footer>
+  <p>TOC 十步深度分析 ｜ 《Managing Up: The 10 Conversations You Need to Have with Your Boss》 — Melody Wilding</p>
+  <p>分析框架：限制理論（Theory of Constraints） ｜ 報告產出時間：2026-03-08</p>
+  <p>🐉 Powered by 龍龍 TOC Analysis Engine</p>
+</footer>
+
+</div>
+</body>
+</html>

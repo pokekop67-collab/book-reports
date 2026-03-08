@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOC 深度分析 ｜ Inflation — Mark Blyth & Nicolò Fraccaroli</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink-light: #FFF0F5;
+  --pink-mid: #FFD6E8;
+  --pink-accent: #FF85A2;
+  --blue-light: #E8F4FD;
+  --blue-mid: #B8DFF0;
+  --blue-accent: #5BA4CF;
+  --mint-light: #E8FFF5;
+  --mint-mid: #B8F0D8;
+  --mint-accent: #4ECDC4;
+  --lavender-light: #F3E8FF;
+  --lavender-mid: #D4B8F0;
+  --lavender-accent: #9B72CF;
+  --peach-light: #FFF3E8;
+  --peach-mid: #FFD6B8;
+  --peach-accent: #FF8C5A;
+  --yellow-light: #FFFDE8;
+  --yellow-mid: #FFF3B8;
+  --yellow-accent: #FFD93D;
+  --coral-light: #FFF0EE;
+  --coral-mid: #FFD4CC;
+  --coral-accent: #FF6B6B;
+  --sage-light: #F0F5E8;
+  --sage-mid: #D4E8B8;
+  --sage-accent: #8BC34A;
+  --text-primary: #2D3436;
+  --text-secondary: #636E72;
+  --text-light: #B2BEC3;
+  --white: #FFFFFF;
+  --shadow-soft: 0 4px 20px rgba(0,0,0,0.06);
+  --shadow-card: 0 8px 32px rgba(0,0,0,0.08);
+  --shadow-hover: 0 12px 40px rgba(0,0,0,0.12);
+  --radius: 20px;
+  --radius-sm: 12px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: linear-gradient(135deg, #FFF5F7 0%, #F0F4FF 30%, #E8FFF5 60%, #FFF8F0 100%);
+  color: var(--text-primary);
+  line-height: 1.8;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+/* Header */
+.hero {
+  background: linear-gradient(135deg, #FF85A2 0%, #FF6B6B 30%, #FF8C5A 60%, #FFD93D 100%);
+  border-radius: 32px;
+  padding: 60px 48px;
+  margin-bottom: 40px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 16px 48px rgba(255, 107, 107, 0.3);
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -20%;
+  width: 400px;
+  height: 400px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -10%;
+  width: 300px;
+  height: 300px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 50%;
+}
+
+.hero h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 2.4em;
+  font-weight: 700;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero .subtitle {
+  font-size: 1.15em;
+  opacity: 0.95;
+  position: relative;
+  z-index: 1;
+  font-weight: 300;
+}
+
+.hero .meta {
+  margin-top: 20px;
+  font-size: 0.9em;
+  opacity: 0.85;
+  position: relative;
+  z-index: 1;
+}
+
+.hero .badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.25);
+  backdrop-filter: blur(10px);
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.85em;
+  margin-right: 8px;
+  margin-top: 8px;
+}
+
+/* Card System */
+.card {
+  background: var(--white);
+  border-radius: var(--radius);
+  padding: 40px;
+  margin-bottom: 32px;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.card .step-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 30px;
+  font-size: 0.8em;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.card h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.65em;
+  font-weight: 700;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.card h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.25em;
+  font-weight: 600;
+  margin: 24px 0 12px;
+  color: var(--text-primary);
+}
+
+.card h4 {
+  font-size: 1.05em;
+  font-weight: 700;
+  margin: 20px 0 8px;
+}
+
+.card p {
+  color: var(--text-secondary);
+  margin-bottom: 14px;
+  font-size: 0.98em;
+}
+
+/* Accent tops */
+.card-pink { border-top: 4px solid var(--pink-accent); }
+.card-blue { border-top: 4px solid var(--blue-accent); }
+.card-mint { border-top: 4px solid var(--mint-accent); }
+.card-lavender { border-top: 4px solid var(--lavender-accent); }
+.card-peach { border-top: 4px solid var(--peach-accent); }
+.card-yellow { border-top: 4px solid var(--yellow-accent); }
+.card-coral { border-top: 4px solid var(--coral-accent); }
+.card-sage { border-top: 4px solid var(--sage-accent); }
+
+.badge-pink { background: var(--pink-light); color: var(--pink-accent); }
+.badge-blue { background: var(--blue-light); color: var(--blue-accent); }
+.badge-mint { background: var(--mint-light); color: var(--mint-accent); }
+.badge-lavender { background: var(--lavender-light); color: var(--lavender-accent); }
+.badge-peach { background: var(--peach-light); color: var(--peach-accent); }
+.badge-yellow { background: var(--yellow-light); color: var(--yellow-accent); }
+.badge-coral { background: var(--coral-light); color: var(--coral-accent); }
+.badge-sage { background: var(--sage-light); color: var(--sage-accent); }
+
+/* If-Then CRT */
+.crt-chain {
+  background: linear-gradient(135deg, var(--coral-light) 0%, var(--peach-light) 100%);
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  margin: 16px 0;
+}
+
+.crt-item {
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--coral-accent);
+  box-shadow: var(--shadow-soft);
+}
+
+.crt-item:last-child { margin-bottom: 0; }
+
+.crt-if {
+  font-weight: 700;
+  color: var(--coral-accent);
+}
+
+.crt-then {
+  font-weight: 700;
+  color: var(--peach-accent);
+}
+
+.crt-arrow {
+  display: block;
+  text-align: center;
+  font-size: 1.4em;
+  color: var(--coral-accent);
+  margin: 4px 0;
+}
+
+/* Evaporation Cloud / Conflict */
+.ec-container {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  gap: 16px;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.ec-box {
+  background: linear-gradient(135deg, var(--lavender-light), var(--blue-light));
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  border: 2px solid transparent;
+}
+
+.ec-box.need-d {
+  border-color: var(--blue-accent);
+  background: linear-gradient(135deg, var(--blue-light), var(--mint-light));
+}
+
+.ec-box.need-d-prime {
+  border-color: var(--coral-accent);
+  background: linear-gradient(135deg, var(--coral-light), var(--peach-light));
+}
+
+.ec-vs {
+  text-align: center;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.8em;
+  font-weight: 700;
+  color: var(--lavender-accent);
+}
+
+.ec-goal {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, var(--yellow-light), var(--mint-light));
+  border: 2px solid var(--mint-accent);
+  text-align: center;
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  margin-bottom: 8px;
+}
+
+/* FRT positive chain */
+.frt-chain {
+  background: linear-gradient(135deg, var(--mint-light) 0%, var(--blue-light) 100%);
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  margin: 16px 0;
+}
+
+.frt-item {
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  border-left: 4px solid var(--mint-accent);
+  box-shadow: var(--shadow-soft);
+}
+
+.frt-item:last-child { margin-bottom: 0; }
+
+/* Transition Tree */
+.tt-week {
+  background: linear-gradient(135deg, var(--blue-light) 0%, var(--lavender-light) 100%);
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  margin: 16px 0;
+}
+
+.tt-element {
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 14px 18px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow-soft);
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 12px;
+  align-items: start;
+}
+
+.tt-label {
+  font-weight: 700;
+  font-size: 0.8em;
+  padding: 4px 10px;
+  border-radius: 8px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.tt-label.objective { background: var(--blue-light); color: var(--blue-accent); }
+.tt-label.action { background: var(--mint-light); color: var(--mint-accent); }
+.tt-label.if-then { background: var(--peach-light); color: var(--peach-accent); }
+.tt-label.result { background: var(--pink-light); color: var(--pink-accent); }
+
+/* Obstacle list */
+.obstacle-list {
+  list-style: none;
+  padding: 0;
+}
+
+.obstacle-list li {
+  background: linear-gradient(135deg, var(--peach-light), var(--yellow-light));
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 12px;
+  align-items: center;
+  box-shadow: var(--shadow-soft);
+}
+
+.obstacle-icon {
+  font-size: 1.4em;
+}
+
+.obstacle-io {
+  font-size: 0.85em;
+  color: var(--mint-accent);
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Throughput audit */
+.throughput-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.throughput-item {
+  background: linear-gradient(135deg, var(--mint-light), var(--blue-light));
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+}
+
+.throughput-item .value {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 2em;
+  font-weight: 700;
+  color: var(--blue-accent);
+}
+
+.throughput-item .label {
+  font-size: 0.85em;
+  color: var(--text-secondary);
+  margin-top: 4px;
+}
+
+/* POOGI cycle */
+.poogi-cycle {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.poogi-step {
+  background: white;
+  border-radius: var(--radius-sm);
+  padding: 20px;
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  border-top: 3px solid;
+  position: relative;
+}
+
+.poogi-step .num {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 2em;
+  font-weight: 700;
+  opacity: 0.15;
+  position: absolute;
+  top: 8px;
+  right: 16px;
+}
+
+.highlight-box {
+  background: linear-gradient(135deg, var(--yellow-light), var(--peach-light));
+  border-radius: var(--radius-sm);
+  padding: 20px 24px;
+  margin: 16px 0;
+  border-left: 4px solid var(--yellow-accent);
+}
+
+.quote-box {
+  background: linear-gradient(135deg, var(--lavender-light), var(--pink-light));
+  border-radius: var(--radius-sm);
+  padding: 24px 28px;
+  margin: 20px 0;
+  font-family: 'Noto Serif TC', serif;
+  font-style: italic;
+  font-size: 1.05em;
+  color: var(--lavender-accent);
+  border-left: 4px solid var(--lavender-accent);
+}
+
+.injection-box {
+  background: linear-gradient(135deg, var(--sage-light), var(--mint-light));
+  border-radius: var(--radius-sm);
+  padding: 20px 24px;
+  margin: 12px 0;
+  border-left: 4px solid var(--sage-accent);
+}
+
+.injection-box h4 {
+  margin-top: 0;
+  color: var(--sage-accent);
+}
+
+.ude-tag {
+  display: inline-block;
+  background: var(--coral-light);
+  color: var(--coral-accent);
+  padding: 2px 12px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.de-tag {
+  display: inline-block;
+  background: var(--mint-light);
+  color: var(--mint-accent);
+  padding: 2px 12px;
+  border-radius: 12px;
+  font-size: 0.8em;
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-light);
+  font-size: 0.85em;
+}
+
+footer a { color: var(--blue-accent); text-decoration: none; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero { padding: 36px 24px; }
+  .hero h1 { font-size: 1.8em; }
+  .card { padding: 28px 24px; }
+  .ec-container { grid-template-columns: 1fr; }
+  .ec-vs { font-size: 1.2em; }
+  .tt-element { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ==================== HERO ==================== -->
+<div class="hero">
+  <h1>🔥 Inflation: A Guide for Users and Losers</h1>
+  <div class="subtitle">TOC（限制理論）十步深度實戰分析</div>
+  <div class="meta">
+    <strong>作者：</strong>Mark Blyth & Nicolò Fraccaroli<br>
+    <span class="badge">📊 政治經濟學</span>
+    <span class="badge">💰 通膨理論</span>
+    <span class="badge">🏛️ 新自由主義批判</span>
+    <span class="badge">⚡ 能源轉型</span>
+  </div>
+</div>
+
+<!-- ==================== STEP 1: 系統界定 ==================== -->
+<div class="card card-pink">
+  <div class="step-badge badge-pink">📐 Step 1</div>
+  <h2>系統界定 — 通膨的政治經濟全景</h2>
+
+  <h3>核心系統邊界</h3>
+  <p>Blyth 與 Fraccaroli 建構的系統不是一個純經濟學模型，而是一個<strong>政治經濟學的「大象遊戲」系統</strong>。他們用盲人摸象的比喻，指出每個人摸到的只是通膨大象的一部分——有人抓到蛇（貨幣供給過多），有人摸到樹（供應鏈衝擊），有人覺得是牆壁（企業暴利哄抬價格），但沒有人看到完整的大象。</p>
+
+  <p>系統邊界涵蓋<strong>四千年的貨幣歷史</strong>，從古代到當代。但核心焦點鎖定在三個時代：</p>
+
+  <div class="highlight-box">
+    <h4>🔍 三大核心時代</h4>
+    <p><strong>① 1970 年代通膨</strong>——被建構為「官方歷史」的基礎，所有當代政策劇本的源頭。越戰支出、石油危機、工會力量、尼克森物價管制的複雜交織。</p>
+    <p><strong>② 1980-2007 大穩定時期</strong>——通膨目標制與央行獨立性的「福音」時代，被視為政策成功的證明，但 Blyth 質疑是「好運氣」而非「好政策」。</p>
+    <p><strong>③ 2021-2024 後疫情通膨</strong>——COVID 刺激支出、供應鏈斷裂、俄烏戰爭能源衝擊、企業貪婪哄抬（greedflation）的多重因素疊加。</p>
+  </div>
+
+  <h3>系統目標</h3>
+  <p>本書的系統目標不是「教你如何降低通膨」，而是<strong>揭露通膨敘事背後的權力遊戲</strong>：</p>
+  <p>① 讓讀者看見通膨不是中性的自然現象，而是有贏家、輸家、使用者和濫用者的分配鬥爭<br>
+  ② 拆解 1970 年代「官方歷史」如何被建構為唯一的政策劇本，並指出這個劇本的根本缺陷<br>
+  ③ 證明升息造成衰退並非對抗通膨的唯一選擇——物價管制、緩衝庫存、暴利稅等替代工具都有實證支持<br>
+  ④ 指出當前的通膨戰爭實質上是一場「階級戰爭」（class war），受害者主要是低收入族群</p>
+
+  <h3>關鍵利害關係人</h3>
+  <div class="throughput-grid">
+    <div class="throughput-item">
+      <div class="value">🏦</div>
+      <div class="label"><strong>央行</strong><br>通膨目標制的守護者<br>工具只有利率和資產購買</div>
+    </div>
+    <div class="throughput-item">
+      <div class="value">🏭</div>
+      <div class="label"><strong>企業/金融資本</strong><br>通膨的贏家與濫用者<br>利用敘事轉嫁成本</div>
+    </div>
+    <div class="throughput-item">
+      <div class="value">👷</div>
+      <div class="label"><strong>勞工/消費者</strong><br>通膨的主要輸家<br>購買力侵蝕最嚴重</div>
+    </div>
+    <div class="throughput-item">
+      <div class="value">🏛️</div>
+      <div class="label"><strong>政治人物/經濟學家</strong><br>敘事的使用者<br>利用通膨故事推動議程</div>
+    </div>
+  </div>
+
+  <div class="quote-box">
+    「射擊顯然是彈道學現象——你不可能在沒有子彈的情況下開槍。但這並不能告訴你為什麼會發生射擊，或者誰最可能中彈。」——Mark Blyth 論佛里曼的「通膨永遠是貨幣現象」
+  </div>
+</div>
+
+<!-- ==================== STEP 2: CRT 現況實境樹 ==================== -->
+<div class="card card-coral">
+  <div class="step-badge badge-coral">🌳 Step 2</div>
+  <h2>現況實境樹（CRT）— 通膨認知的五大不良效應</h2>
+  <p>Blyth 在書中揭露了當代通膨理解的多重系統性失敗。以下用 If-Then 因果鏈追溯根因：</p>
+
+  <h3><span class="ude-tag">UDE 1</span> 政策工具極度狹窄 — 只有利率這把鐵鎚</h3>
+  <div class="crt-chain">
+    <div class="crt-item">
+      <span class="crt-if">If</span> 1970 年代的「官方歷史」將通膨完全歸因於「預期失錨」（de-anchoring of expectations），
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> 唯一的政策解方就是建立「錨定預期」的制度——獨立央行 + 通膨目標制，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-if">If</span> 央行的操作工具只有調整利率和買賣資產（量化寬鬆），
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> 面對供給面衝擊（能源危機、供應鏈斷裂）時，央行只能用需求面工具（升息壓抑消費）來回應，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> <strong>UDE：政策錯配——用鐵鎚對付螺絲釘。</strong>升息無法修復斷裂的供應鏈或降低天然氣價格，但會造成失業和經濟衰退。如 Blyth 所言：「在路燈下找鑰匙，因為那裡才有光。」
+    </div>
+  </div>
+
+  <h3><span class="ude-tag">UDE 2</span> 通膨成本分配極度不平等</h3>
+  <div class="crt-chain">
+    <div class="crt-item">
+      <span class="crt-if">If</span> 通膨的「所得效應」（income effect）使低收入者的購買力被侵蝕最多——因為他們將更高比例的收入花在食物和能源等必需品上，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> 同樣 10% 的通膨率對窮人和富人的實際衝擊截然不同。西班牙的數據顯示，低收入家庭面臨的有效通膨率比高收入家庭高出數個百分點，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-if">If</span> 同時，升息作為「解方」進一步懲罰了最依賴信用的群體（房貸、消費貸款），
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> <strong>UDE：通膨戰爭本質上是階級戰爭。</strong>如 Warren Buffett 所言：「階級戰爭確實存在，但是我的階級——富人階級——正在打這場戰爭，而且我們正在贏。」
+    </div>
+  </div>
+
+  <h3><span class="ude-tag">UDE 3</span> 菲利普斯曲線——一個「統計幽靈」支撐整個政策體系</h3>
+  <div class="crt-chain">
+    <div class="crt-item">
+      <span class="crt-if">If</span> 整個通膨政策框架建立在菲利普斯曲線（失業率與通膨率的反比關係）之上，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> 央行相信可以透過製造失業來降低通膨——交換一個「壞」來消除另一個「壞」，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-if">If</span> 但過去二十年的研究顯示，菲利普斯曲線已經「消失或變成水平」——各國在差異巨大的就業率下經歷幾乎相同的低通膨率，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-if">If</span> 且 NAIRU（不加速通膨的失業率）在各國之間跳動幅度過大、時間過短，根本不能被視為「真實的」經濟速限，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> <strong>UDE：整個政策大廈建立在一個已被證偽的統計關係之上。</strong>用一個不存在的「權衡」來指導數十億人的經濟命運，是系統性的智識失敗。
+    </div>
+  </div>
+
+  <h3><span class="ude-tag">UDE 4</span> 「預期」理論的經驗基礎極其薄弱</h3>
+  <div class="crt-chain">
+    <div class="crt-item">
+      <span class="crt-if">If</span> 整套央行獨立性的合法性建立在「管理預期」的能力上——央行透過「可信度」讓公眾相信通膨會被控制，從而自我實現，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-if">If</span> 但研究顯示，企業主更可能去看小狗影片而不是央行政策聲明——人們的通膨預期「混亂、矛盾，如果它們真的存在的話」，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> <strong>UDE：央行號稱在「管理」的東西（預期），可能根本不存在或不按他們想像的方式運作。</strong>整個制度的合法性建立在一個「旁觀者假說」之上。
+    </div>
+  </div>
+
+  <h3><span class="ude-tag">UDE 5</span> 替代方案被系統性地排除在「可接受」的政策選單之外</h3>
+  <div class="crt-chain">
+    <div class="crt-item">
+      <span class="crt-if">If</span> 尼克森的強制物價管制（Phase II）實際上成功地將核心通膨從 6% 降至 2.8%——但這段歷史被「官方敘事」抹除，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-if">If</span> 承認物價管制可能有效，就會動搖整個「預期為基礎」的政策框架的合法性，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-if">If</span> Isabella Weber 在 2021 年提出策略性物價管制時遭到主流經濟學界的猛烈攻擊（Twitter 風暴），儘管後來多國政府確實實施了類似政策，
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="crt-item">
+      <span class="crt-then">Then</span> <strong>UDE：知識壟斷——勝利者書寫歷史。</strong>替代政策工具（物價管制、緩衝庫存、暴利稅、所得政策）被意識形態性地排除，而非基於實證。
+    </div>
+  </div>
+
+  <h3>根因收束</h3>
+  <div class="highlight-box">
+    <p><strong>🎯 共同根因：1970 年代「官方歷史」的建構</strong></p>
+    <p>五個 UDE 都指向同一個根因：1970 年代的通膨經驗被建構成一個特定敘事——「通膨 = 預期失錨 → 解方 = 央行獨立性 + 利率調控」。這個敘事服務了特定利益（金融資本、去管制化的意識形態），並排除了所有不符合此框架的替代解釋和替代工具。結果是一個自我強化的「醉漢路燈」系統：我們只看得到路燈照到的地方（預期），卻忽略了暗處的真實原因（供給衝擊、企業定價權、能源地緣政治）。</p>
+  </div>
+</div>
+
+<!-- ==================== STEP 3: EC 核心衝突雲 ==================== -->
+<div class="card card-lavender">
+  <div class="step-badge badge-lavender">☁️ Step 3</div>
+  <h2>核心衝突雲（Evaporation Cloud）</h2>
+  <p>Blyth 的書揭示了通膨政策中最根本的兩難困境：</p>
+
+  <div class="ec-container">
+    <div class="ec-goal">
+      <h4>🎯 共同目標 A：維持經濟穩定與社會福祉</h4>
+      <p>所有利害關係人（理論上）都希望物價穩定、充分就業、公平分配</p>
+    </div>
+  </div>
+
+  <div class="ec-container">
+    <div class="ec-box need-d">
+      <h4>D — 需求面控制</h4>
+      <p><strong>「必須透過升息製造衰退來錨定預期」</strong></p>
+      <p>為了 B（控制通膨），我們必須 D（升息壓抑需求），因為通膨的根源是預期失錨和過度需求。</p>
+      <p><em>支持者：央行、主流經濟學家、金融資本</em></p>
+    </div>
+    <div class="ec-vs">⚡<br>衝突</div>
+    <div class="ec-box need-d-prime">
+      <h4>D' — 供給面與結構性回應</h4>
+      <p><strong>「必須用物價管制、暴利稅、緩衝庫存等工具處理供給衝擊」</strong></p>
+      <p>為了 C（保護就業與弱勢群體），我們必須 D'（不製造衰退，而是直接處理成本推動的通膨源頭），因為通膨的真正原因是供給衝擊和企業哄抬定價。</p>
+      <p><em>支持者：Isabella Weber、異端經濟學家、勞工組織、受害消費者</em></p>
+    </div>
+  </div>
+
+  <h3>衝突背後的隱藏假設</h3>
+  <div class="highlight-box">
+    <p><strong>假設 α（支撐 D）：</strong>通膨永遠且處處是貨幣現象——只要控制貨幣供給和需求，通膨就會消退。預期是通膨的傳導機制，央行的可信度是錨定預期的唯一工具。</p>
+    <p><strong>假設 β（支撐 D）：</strong>物價管制「從不有效」——尼克森的經驗「證明」了這一點（但 Blyth 指出強制管制實際上有效，是自願性管制失敗了）。</p>
+    <p><strong>假設 γ（深層）：</strong>通膨對「所有人」一樣壞——因此犧牲就業來壓低通膨是「為了公共利益」。但數據顯示通膨對窮人衝擊遠大於富人，而升息的代價也主要由窮人承擔。這個「中性」假設掩蓋了通膨政策的階級本質。</p>
+  </div>
+
+  <div class="quote-box">
+    「如果你是反對黨政客，把通膨歸咎於執政黨的『魯莽支出』很方便。如果你是大型超市連鎖，把漲價歸咎於電力和運輸成本很方便。而央行援引失控的工資—物價螺旋的幽靈來主張控制工資，而不是控制價格——控制價格才是央行的工作。」——Mark Blyth
+  </div>
+</div>
+
+<!-- ==================== STEP 4: 注入解萃取 ==================== -->
+<div class="card card-sage">
+  <div class="step-badge badge-sage">💉 Step 4</div>
+  <h2>注入解萃取 — 打破衝突雲的創新假設</h2>
+  <p>Blyth 從書中提出了多個打破核心衝突的「注入解」——不需要在 D 和 D' 之間二選一，而是挑戰支撐衝突的錯誤假設：</p>
+
+  <div class="injection-box">
+    <h4>💡 注入解 1：挑戰假設 α — 「通膨不只是貨幣現象」</h4>
+    <p>Blyth 引用 Alan Blinder 的研究：1970 年代通膨的主要原因是三個暫時性衝擊——食品價格上漲、能源價格上漲、尼克森物價管制的取消——而非貨幣過多或預期失錨。這些「特殊因素」解釋了超過 100% 的通膨變化（即過度解釋）。「許多人至今仍將打敗雙位數通膨歸功於衰退，但實際上是特殊因素的消退做到的。」</p>
+    <p><strong>打破效果：</strong>如果通膨主要由供給衝擊驅動，那麼升息（需求面工具）就不是最有效的回應。政策空間被重新打開。</p>
+  </div>
+
+  <div class="injection-box">
+    <h4>💡 注入解 2：挑戰假設 β — 「強制性物價管制實際上有效」</h4>
+    <p>尼克森 Phase II 的強制管制將核心通膨從 6% 降至 2.8%。失敗的是 Phase III 的自願性管制。Blyth 引用 Blinder 的估計：「管制的取消使 1974 年通膨額外增加了 1.7 至 3.1 個百分點。」歐洲國家在 2022-2023 年實施的能源價格上限（如德國的 Gaspreisbremse、西班牙的利潤上限）也證明了策略性價格干預的可行性。</p>
+    <p><strong>打破效果：</strong>物價管制不是全有或全無。精準的、時限性的、針對特定部門的管制可以作為升息的補充或替代。</p>
+  </div>
+
+  <div class="injection-box">
+    <h4>💡 注入解 3：挑戰假設 γ — 「通膨政策必須正視分配後果」</h4>
+    <p>義大利的暴利稅（windfall tax）對銀行的超額利潤徵收 40%，將收入用於減稅和房貸減免。法國 Carrefour 超市與供應商的價格協議（價格管控）證明了市場力量可以被引導。美國的戰略石油儲備釋放（buffer stock）有效壓低了汽油價格。</p>
+    <p><strong>打破效果：</strong>揭穿「通膨對所有人一樣壞」的迷思。不同的政策工具對不同群體有不同影響——選擇哪種工具本身就是一個分配決策，不應該被偽裝為「技術中性」。</p>
+  </div>
+
+  <div class="injection-box">
+    <h4>💡 注入解 4：丹麥模式 — 轉危為機的結構性回應</h4>
+    <p>1970 年代石油危機後，丹麥沒有像美國一樣發動「鐵鎚」式升息，而是推動結構轉型：大幅投資公共交通和自行車基礎設施、提高汽車稅、發展風力發電。結果是丹麥成為領先的去碳化國家，且通膨在 2023 年只有約 2%。</p>
+    <p><strong>打破效果：</strong>通膨危機可以成為結構轉型的催化劑，而不是只能用衰退來「懲罰」所有人。</p>
+  </div>
+
+  <div class="injection-box">
+    <h4>💡 注入解 5：多元工具的乘數效應</h4>
+    <p>Blyth 引用義大利央行 Corsello 和 Riggi 的研究指出，多種干預措施的組合會產生「乘數效應」——單一政策的效果可能有限，但物價管制 + 緩衝庫存 + 暴利稅 + 精準補貼的組合，效果遠超各自的加總。</p>
+    <p><strong>打破效果：</strong>不需要依賴單一「銀色子彈」。政策組合拳比單一利率工具更能應對多源性通膨。</p>
+  </div>
+</div>
+
+<!-- ==================== STEP 5: FRT 未來實境樹 ==================== -->
+<div class="card card-mint">
+  <div class="step-badge badge-mint">🌿 Step 5</div>
+  <h2>未來實境樹（FRT）— 注入解實施後的正面效應鏈</h2>
+  <p>如果 Blyth 的注入解被廣泛採納，政策世界將發生以下連鎖正面效應：</p>
+
+  <div class="frt-chain">
+    <div class="frt-item">
+      <span class="de-tag">DE 1</span> <strong>If</strong> 政策制定者接受通膨是多源性的（供給衝擊 + 企業定價權 + 需求因素 + 能源地緣政治），<strong>Then</strong> 政策工具箱從「只有利率」擴展到包含物價管制、緩衝庫存、暴利稅、所得政策、結構轉型投資等多元工具。
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="frt-item">
+      <span class="de-tag">DE 2</span> <strong>If</strong> 政策工具多元化，<strong>Then</strong> 央行不再需要透過製造衰退和失業來「唯一地」對抗通膨。就業保護和物價穩定不再是零和遊戲。
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="frt-item">
+      <span class="de-tag">DE 3</span> <strong>If</strong> 暴利稅和企業定價權監管到位，<strong>Then</strong> 企業無法利用供給衝擊的「掩護」進行機會主義漲價（greedflation 被壓制）。超額利潤被重新分配給受害群體。
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="frt-item">
+      <span class="de-tag">DE 4</span> <strong>If</strong> 通膨政策的分配後果被透明化，<strong>Then</strong> 政策辯論從偽技術性的「錨定預期」轉向真正的民主討論：「誰該承擔通膨的成本？」公共利益重新進入政策議程。
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="frt-item">
+      <span class="de-tag">DE 5</span> <strong>If</strong> 通膨危機被視為結構轉型的機會（如丹麥模式），<strong>Then</strong> 能源轉型、去碳化、勞動市場改革等長期議題獲得政治動能，而非被通膨焦慮所阻擋。
+    </div>
+    <span class="crt-arrow">⬇</span>
+    <div class="frt-item">
+      <span class="de-tag">DE 6</span> <strong>If</strong> 「1970 年代官方歷史」被修正，<strong>Then</strong> 經濟學教育和政策培訓將培養出更有工具多元性和歷史感的下一代經濟學家和政策制定者，減少未來「沒看到它來了」的風險。
+    </div>
+  </div>
+</div>
+
+<!-- ==================== STEP 6: 瓶頸深度定位 ==================== -->
+<div class="card card-blue">
+  <div class="step-badge badge-blue">🔧 Step 6</div>
+  <h2>瓶頸深度定位 — 讀者面臨的最大瓶頸</h2>
+
+  <p>根據 TOC 的五大聚焦步驟（識別瓶頸 → 決定如何充分利用瓶頸 → 讓其他一切遷就瓶頸 → 提升瓶頸 → 回到步驟一），本書讀者面臨的核心瓶頸是：</p>
+
+  <div class="highlight-box">
+    <h4>🎯 瓶頸：「認知框架的壟斷」— 你被困在一個看不見替代方案的世界觀裡</h4>
+    <p>絕大多數讀者——無論是普通公民、學生、政策從業者——都在一個特定的通膨認知框架中被教育和熏陶。這個框架告訴他們：</p>
+    <p>① 通膨 = 政府花太多錢 / 央行印太多鈔票<br>
+    ② 解方 = 升息 → 讓經濟冷卻 → 忍受失業<br>
+    ③ 物價管制 = 永遠失敗<br>
+    ④ 沒有替代方案（TINA: There Is No Alternative）</p>
+    <p>這個認知瓶頸不是智力問題，而是<strong>結構性的知識壟斷</strong>——「官方歷史」被嵌入教科書、媒體敘事、政策制度和專業培訓中。要突破這個瓶頸，需要的不是更多經濟學知識，而是<strong>政治經濟學的批判性思維</strong>。</p>
+  </div>
+
+  <h3>次級瓶頸</h3>
+  <div class="throughput-grid">
+    <div class="throughput-item" style="background: linear-gradient(135deg, var(--coral-light), var(--pink-light));">
+      <div class="value">🔒</div>
+      <div class="label"><strong>制度慣性</strong><br>央行獨立性已被寫入法律（如歐央行條約），改變需要政治意志和跨國協調，極為困難</div>
+    </div>
+    <div class="throughput-item" style="background: linear-gradient(135deg, var(--lavender-light), var(--blue-light));">
+      <div class="value">📢</div>
+      <div class="label"><strong>媒體敘事壟斷</strong><br>主流財經媒體傾向簡化通膨為「政府花太多」或「工資漲太快」，供給面和分配面分析被邊緣化</div>
+    </div>
+    <div class="throughput-item" style="background: linear-gradient(135deg, var(--peach-light), var(--yellow-light));">
+      <div class="value">🎓</div>
+      <div class="label"><strong>學術門檻</strong><br>Blyth 的論證需要跨越總經、政治學、歷史學的知識邊界，對一般讀者有認知負擔</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== STEP 7: PrT 障礙拆解 ==================== -->
+<div class="card card-peach">
+  <div class="step-badge badge-peach">🧱 Step 7</div>
+  <h2>障礙拆解（前提樹 PrT）— 從「讀完書」到「改變認知與行動」</h2>
+
+  <p>要將 Blyth 的洞見從書本知識轉化為實際的認知改變和公共行動，需要克服以下障礙：</p>
+
+  <ul class="obstacle-list">
+    <li>
+      <span class="obstacle-icon">🧠</span>
+      <div>
+        <strong>障礙 1：確認偏誤 —「我已經知道通膨是什麼了」</strong><br>
+        讀者可能帶著既有框架閱讀，選擇性地接受符合自己立場的論點
+      </div>
+      <span class="obstacle-io">IO → 先做「通膨知識自測」，暴露自己的盲點</span>
+    </li>
+    <li>
+      <span class="obstacle-icon">📊</span>
+      <div>
+        <strong>障礙 2：數據密度過高 —「看不懂那些圖表和統計」</strong><br>
+        書中大量引用學術研究和歷史數據，對非經濟學背景讀者可能造成認知超載
+      </div>
+      <span class="obstacle-io">IO → 聚焦「大象遊戲」框架，用故事而非數據建立直覺</span>
+    </li>
+    <li>
+      <span class="obstacle-icon">🌍</span>
+      <div>
+        <strong>障礙 3：地理距離 —「這跟我的國家有什麼關係？」</strong><br>
+        書中案例以美國、歐洲、阿根廷、辛巴威等為主，台灣或亞洲讀者可能覺得距離遙遠
+      </div>
+      <span class="obstacle-io">IO → 連結在地經驗：台灣的房價通膨、進口能源依賴、央行政策</span>
+    </li>
+    <li>
+      <span class="obstacle-icon">🤷</span>
+      <div>
+        <strong>障礙 4：無力感 —「就算我理解了，我能做什麼？」</strong><br>
+        通膨是宏觀政策問題，個人讀者可能覺得無法影響
+      </div>
+      <span class="obstacle-io">IO → 具體化：投票選擇、消費決策、公共討論參與、個人資產配置</span>
+    </li>
+    <li>
+      <span class="obstacle-icon">⚔️</span>
+      <div>
+        <strong>障礙 5：意識形態對抗 —「你只是想搞社會主義/大政府」</strong><br>
+        替代方案（物價管制、暴利稅）容易被扣上「反市場」的帽子
+      </div>
+      <span class="obstacle-io">IO → 強調這些工具已被「非異端」政府使用（德國、西班牙、義大利），且 Blyth 自己不是馬克思主義者</span>
+    </li>
+    <li>
+      <span class="obstacle-icon">🔄</span>
+      <div>
+        <strong>障礙 6：「那然後呢？」—「批判很好，但具體的替代框架是什麼？」</strong><br>
+        Blyth 長於解構和批判，但新框架的建構相對薄弱
+      </div>
+      <span class="obstacle-io">IO → 將丹麥模式和政策組合拳具體化為可操作的框架</span>
+    </li>
+  </ul>
+</div>
+
+<!-- ==================== STEP 8: TT 轉變樹 ==================== -->
+<div class="card card-blue">
+  <div class="step-badge badge-blue">🗓️ Step 8</div>
+  <h2>轉變樹（TT）四週行動計畫 — 從讀者到「通膨素養公民」</h2>
+
+  <h3>📅 第一週：認知解構 —「看見大象」</h3>
+  <div class="tt-week">
+    <div class="tt-element">
+      <span class="tt-label objective">目標</span>
+      <span>打破「通膨 = 央行沒做好工作」的單一因果框架，建立多源性通膨的認知地圖</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label action">行動</span>
+      <span>① 閱讀本書第 1-2 章：五件沒人告訴你的通膨真相 + 我們為什麼做了我們做的事<br>② 做「大象遊戲」練習：列出你目前相信的通膨成因，標註每一個屬於哪個「盲人」的視角<br>③ 追蹤一週的個人消費記錄，計算你自己的「個人通膨率」——哪些品項漲了、漲了多少、是供給面還是需求面驅動的</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label if-then">If-Then 驗證</span>
+      <span><strong>If</strong> 我能列出至少 3 個不同的通膨成因並識別其背後的利害關係人，<strong>Then</strong> 我已經開始看見「大象」的全貌，而非只摸到一個部位</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label result">預期成果</span>
+      <span>從「通膨是 [某個單一原因]」轉變為「通膨是多個互相強化的因素的結果，不同的因果敘事服務不同的利益」</span>
+    </div>
+  </div>
+
+  <h3>📅 第二週：歷史重建 —「解碼官方歷史」</h3>
+  <div class="tt-week">
+    <div class="tt-element">
+      <span class="tt-label objective">目標</span>
+      <span>理解 1970 年代「官方歷史」如何被建構，並識別其中的盲點和替代敘事</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label action">行動</span>
+      <span>① 閱讀本書第 3 章和第 5 章：通膨故事與歸咎政治 + 為什麼我們沒看到它來<br>② 製作一張「官方歷史 vs 替代歷史」對比表：佛里曼 vs Blinder、預期論 vs 特殊因素論、Volcker 英雄敘事 vs 「衝擊自行消退」論<br>③ 搜尋你所在地區的央行最近一次利率決策聲明，用 Blyth 的分析框架重新解讀</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label if-then">If-Then 驗證</span>
+      <span><strong>If</strong> 我能向朋友清楚解釋「為什麼 Volcker 的功績可能被高估了」，且不被反駁到無法回應，<strong>Then</strong> 我已經具備了通膨歷史的批判性重建能力</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label result">預期成果</span>
+      <span>建立「官方歷史不等於唯一歷史」的認知。理解為什麼勝利者書寫歷史，以及這如何限制了我們的政策想像力</span>
+    </div>
+  </div>
+
+  <h3>📅 第三週：分配透視 —「誰贏誰輸？」</h3>
+  <div class="tt-week">
+    <div class="tt-element">
+      <span class="tt-label objective">目標</span>
+      <span>建立「通膨 = 分配問題」的核心直覺，學會用階級分析的視角看待通膨政策</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label action">行動</span>
+      <span>① 閱讀本書第 4 章和第 6 章：超級通膨 + 通膨戰爭是階級戰爭嗎？<br>② 用 Fisher 效應分析你的個人財務狀況：你是通膨的贏家還是輸家？（有房貸？有存款？有投資？）<br>③ 計算你所在城市不同收入群體面臨的「有效通膨率」差異<br>④ 追蹤三家你常消費的品牌的利潤率變化——它們的漲價真的反映了成本增加嗎？</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label if-then">If-Then 驗證</span>
+      <span><strong>If</strong> 我能列出通膨的 3 個贏家和 3 個輸家，並解釋「為什麼某些群體的處境會因升息而更惡化」，<strong>Then</strong> 我已經超越了「通膨對所有人都壞」的偽中性框架</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label result">預期成果</span>
+      <span>能用分配語言討論通膨政策，不再被「為了所有人好」的修辭所欺騙</span>
+    </div>
+  </div>
+
+  <h3>📅 第四週：行動轉化 —「從知道到做到」</h3>
+  <div class="tt-week">
+    <div class="tt-element">
+      <span class="tt-label objective">目標</span>
+      <span>將認知轉化為個人行動和公共參與</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label action">行動</span>
+      <span>① 閱讀結語：我們看到最後一次通膨了嗎？<br>② 撰寫一篇 500 字的個人通膨反思——你對通膨的看法在這四週如何改變了？<br>③ 制定個人「通膨防禦計畫」：資產配置調整、消費模式最佳化、能源使用減碳<br>④ 選擇一個公共參與管道：寫一篇讀書心得、在社群媒體分享 Blyth 的關鍵論點、與朋友進行一次「大象遊戲」討論<br>⑤ 追蹤下一次你所在地區的央行利率決議，用多源性框架解讀媒體報導</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label if-then">If-Then 驗證</span>
+      <span><strong>If</strong> 我能在聽到「通膨是因為政府花太多錢」時，不急著同意或反對，而是問「這是大象的哪個部位？」，<strong>Then</strong> Blyth 的框架已經內化為我的思維工具</span>
+    </div>
+    <div class="tt-element">
+      <span class="tt-label result">預期成果</span>
+      <span>成為一個「通膨素養公民」——能看穿通膨敘事背後的利益結構，做出更明智的投票、消費和投資決策</span>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== STEP 9: 吞吐量審計 ==================== -->
+<div class="card card-yellow">
+  <div class="step-badge badge-yellow">📊 Step 9</div>
+  <h2>吞吐量審計 — 這本書的投資報酬率</h2>
+
+  <p>用 TOC 的吞吐量思維（Throughput = Revenue − Totally Variable Cost）來評估閱讀這本書的 ROI：</p>
+
+  <div class="throughput-grid">
+    <div class="throughput-item">
+      <div class="value">⏱️</div>
+      <div class="label"><strong>投入成本</strong><br>閱讀時間約 12-15 小時<br>書價約 30 美元<br>認知重構的心理成本：中等</div>
+    </div>
+    <div class="throughput-item">
+      <div class="value">📈</div>
+      <div class="label"><strong>知識吞吐量</strong><br>通膨認知從單一因果 → 多源性框架<br>歷史深度：4000 年 → 聚焦 1970s-2020s<br>政策工具箱：從 1 種 → 至少 6 種</div>
+    </div>
+    <div class="throughput-item">
+      <div class="value">💰</div>
+      <div class="label"><strong>財務吞吐量</strong><br>更明智的投資/資產配置決策<br>識別「greedflation」避免多付冤枉錢<br>理解利率週期對個人財務的影響</div>
+    </div>
+    <div class="throughput-item">
+      <div class="value">🗳️</div>
+      <div class="label"><strong>公民吞吐量</strong><br>能看穿選舉中的通膨敘事操作<br>參與公共政策討論的知識基礎<br>對央行獨立性的批判性監督能力</div>
+    </div>
+  </div>
+
+  <h3>吞吐量 vs 營運費用 vs 庫存</h3>
+  <div class="highlight-box">
+    <p><strong>🟢 吞吐量（T）—— 你真正獲得的新能力：</strong></p>
+    <p>• 能識別至少 4 種通膨敘事及其背後的利益結構<br>
+    • 能質疑「沒有替代方案」（TINA）的修辭<br>
+    • 能用 Fisher 效應和階級分析框架評估通膨對自己的實際影響<br>
+    • 能區分「官方歷史」和「替代歷史」——具備批判歷史學的基本能力<br>
+    • 理解「好運氣 vs 好政策 vs 結構變遷」的三元分析框架</p>
+
+    <p><strong>🔴 營運費用（OE）—— 持續維護的成本：</strong></p>
+    <p>• 需要持續追蹤通膨新聞，否則分析框架會「生鏽」<br>
+    • 需要與「常識性」通膨認知（朋友、媒體、社群）持續進行認知防禦<br>
+    • 書中有些論點需要後續研究驗證（如 Blyth 對 greedflation 的重視程度是否過高？）</p>
+
+    <p><strong>🟡 庫存（I）—— 你「積壓」但尚未轉化的知識：</strong></p>
+    <p>• 超級通膨章節的細節（阿根廷、辛巴威、委內瑞拉）——除非你研究發展經濟學，否則可能用不到<br>
+    • 央行獨立性指數的技術細節——de jure vs de facto 的學術爭論<br>
+    • 大量的學術引用和統計——需要時再回頭查閱即可</p>
+  </div>
+
+  <h3>損害比較：通膨 vs 失業</h3>
+  <div class="quote-box">
+    Blyth 引用研究指出：「如果你估算通膨對人們生活機會的傷害，以及失業對人們生活機會的傷害，失業的傷害是通膨的六倍。」我們是否在用自我強制的衰退來達成一個遠不如此的「善」？
+  </div>
+
+  <h3>ROI 總評</h3>
+  <div class="throughput-grid">
+    <div class="throughput-item" style="background: linear-gradient(135deg, #D4EDDA, #C3E6CB);">
+      <div class="value" style="color: #28a745;">★★★★☆</div>
+      <div class="label"><strong>認知 ROI</strong><br>極高。這是當代最清晰的通膨政治經濟學入門，沒有之一。</div>
+    </div>
+    <div class="throughput-item" style="background: linear-gradient(135deg, #FFF3CD, #FFEEBA);">
+      <div class="value" style="color: #856404;">★★★☆☆</div>
+      <div class="label"><strong>實操 ROI</strong><br>中等。書長於解構而短於建構。讀者需要自行將批判轉化為行動。</div>
+    </div>
+    <div class="throughput-item" style="background: linear-gradient(135deg, #D6D8FB, #C4C7F5);">
+      <div class="value" style="color: #4A4E9C;">★★★★★</div>
+      <div class="label"><strong>長期價值</strong><br>極高。在民粹主義崛起和氣候通膨的時代，這本書的框架會越來越重要。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== STEP 10: POOGI ==================== -->
+<div class="card card-sage">
+  <div class="step-badge badge-sage">🔄 Step 10</div>
+  <h2>持續改善循環（POOGI）— 長期通膨素養的維護機制</h2>
+
+  <p>TOC 的核心精神是「永遠有瓶頸，永遠在改善」。讀完 Blyth 的書只是起點。以下是長期維護和深化通膨素養的 POOGI 循環：</p>
+
+  <div class="poogi-cycle">
+    <div class="poogi-step" style="border-top-color: var(--pink-accent);">
+      <div class="num">1</div>
+      <h4>🔍 識別</h4>
+      <p>每季檢視：我對通膨的理解有沒有「退化」回單一因果框架？有沒有新的通膨事件挑戰了我的框架？</p>
+    </div>
+    <div class="poogi-step" style="border-top-color: var(--blue-accent);">
+      <div class="num">2</div>
+      <h4>🎯 充分利用</h4>
+      <p>用 Blyth 的框架分析每一次重大通膨新聞：識別敘事（誰在說？服務誰的利益？）、識別「大象」的哪個部位、識別被忽略的面向</p>
+    </div>
+    <div class="poogi-step" style="border-top-color: var(--mint-accent);">
+      <div class="num">3</div>
+      <h4>🔗 遷就</h4>
+      <p>讓其他知識體系遷就這個分析框架：將通膨分析整合到你的投資決策、政治判斷、消費行為中</p>
+    </div>
+    <div class="poogi-step" style="border-top-color: var(--lavender-accent);">
+      <div class="num">4</div>
+      <h4>⬆️ 提升</h4>
+      <p>深化閱讀：Isabella Weber 的《How China Escaped Shock Therapy》、Goodhart & Pradhan 的《The Great Demographic Reversal》、Klein & Pettis 的《Trade Wars Are Class Wars》</p>
+    </div>
+    <div class="poogi-step" style="border-top-color: var(--peach-accent);">
+      <div class="num">5</div>
+      <h4>🔄 不要讓惰性成為新瓶頸</h4>
+      <p>回到步驟 1。新的瓶頸可能是：能源轉型通膨、AI 取代勞動力的通縮效應、地緣政治碎片化的供應鏈影響——持續更新框架</p>
+    </div>
+  </div>
+
+  <h3>POOGI 長期實踐清單</h3>
+  <div class="highlight-box">
+    <p><strong>📅 每月：</strong>追蹤你所在地區的通膨數據，用多源性框架解讀（不只看 CPI 總數，分解各品項）</p>
+    <p><strong>📅 每季：</strong>閱讀一篇非主流的通膨分析（Isabella Weber、Blyth 的新文章、ECB 的異議報告），與主流敘事對比</p>
+    <p><strong>📅 每半年：</strong>重新計算你的「個人通膨率」和「通膨階級位置」（Fisher 效應分析）</p>
+    <p><strong>📅 每年：</strong>回顧本書的核心論點，看看哪些被事實驗證、哪些被事實挑戰，更新你的認知地圖</p>
+    <p><strong>📅 每次選舉：</strong>用 Blyth 的「通膨敘事辨識」框架分析候選人的經濟政策主張——他們在用哪個「盲人」的故事？</p>
+  </div>
+
+  <h3>Blyth 未來情境矩陣</h3>
+  <div class="throughput-grid">
+    <div class="throughput-item" style="background: linear-gradient(135deg, var(--coral-light), var(--pink-light));">
+      <div class="value">🌡️</div>
+      <div class="label"><strong>氣候通膨情境</strong><br>全球暖化導致極端天氣頻率增加，食品價格波動加劇。波茨坦研究所估計，熱浪每增加1°C，食品通膨增加0.5-1個百分點。央行的利率工具對天氣無能為力。<br><br><strong>TOC 瓶頸：</strong>化石燃料依賴鎖定了高碳排放的經濟結構。丹麥模式（結構轉型）是唯一的長期解方。</div>
+    </div>
+    <div class="throughput-item" style="background: linear-gradient(135deg, var(--blue-light), var(--lavender-light));">
+      <div class="value">👴</div>
+      <div class="label"><strong>人口結構通膨情境</strong><br>Goodhart & Pradhan 指出：中國人口紅利消退 + 全球老齡化 → 勞動力供給減少 → 工資上升壓力 → 成本推動通膨回歸。過去30年的「中國通縮出口」將逆轉。<br><br><strong>TOC 瓶頸：</strong>移民政策的政治阻力。經濟上需要更多勞動力，但民粹主義使開放移民政治上不可行。</div>
+    </div>
+    <div class="throughput-item" style="background: linear-gradient(135deg, var(--peach-light), var(--yellow-light));">
+      <div class="value">🌐</div>
+      <div class="label"><strong>地緣碎片化通膨情境</strong><br>美中脫鉤、關稅壁壘、供應鏈重組（friend-shoring）→ 全球化紅利消退 → 生產成本上升 → 結構性通膨。新民族主義的關稅牆將取代自由貿易的通縮紅利。<br><br><strong>TOC 瓶頸：</strong>國際合作的信任崩潰。沒有全球協調，每個國家都在「以鄰為壑」。</div>
+    </div>
+    <div class="throughput-item" style="background: linear-gradient(135deg, var(--mint-light), var(--sage-light));">
+      <div class="value">🤖</div>
+      <div class="label"><strong>AI 通縮 vs 轉型通膨情境</strong><br>AI 和自動化可能帶來 Schwartz 所描述的生產力飛躍，產生通縮壓力。但轉型期的投資需求、能源消耗（數據中心）、以及勞動市場重組可能先帶來通膨衝擊。<br><br><strong>TOC 瓶頸：</strong>生產力收益是否會像過去一樣只流向資本，而非勞動者？分配問題再次成為關鍵。</div>
+    </div>
+  </div>
+
+  <h3>跨書連結：與其他通膨思想的對話</h3>
+  <div class="highlight-box">
+    <p><strong>與 Klein & Pettis《Trade Wars Are Class Wars》的對話：</strong>Blyth 直接引用這本書，並將其論點延伸——貿易戰是階級戰，通膨戰也是階級戰。兩者的共同根源是全球經濟中資本與勞動力的權力不對稱。</p>
+    <p><strong>與 Goodhart & Pradhan《The Great Demographic Reversal》的對話：</strong>Blyth 認為這本書的「人口結構通膨」論點值得重視——中國勞動力紅利的消退可能逆轉過去30年的通縮趨勢，帶來結構性通膨回歸。</p>
+    <p><strong>與 Isabella Weber《How China Escaped Shock Therapy》的對話：</strong>Weber 的策略性物價管制論點是 Blyth 最重要的「盟友」。Weber 被 Twitter 攻擊的經歷本身就是 Blyth 所描述的「知識壟斷」的生動案例。</p>
+    <p><strong>與 Ha-Joon Chang 的對話：</strong>Blyth 引用 Chang 指出，關於超級通膨的恐懼故事被用來嚇阻任何偏離新自由主義正統的政策嘗試——「這是一種修辭武器，不是經濟分析。」</p>
+  </div>
+
+  <h3>Blyth 的終極提醒</h3>
+  <div class="quote-box">
+    「我們是否真的看到了最後一次通膨？答案取決於我們是否繼續把醉漢的路燈當作唯一的光源。氣候通膨正在來臨。人口結構正在轉變。地緣政治正在碎片化。如果我們繼續用 1970 年代的劇本面對 2030 年代的挑戰，我們不是沒看到它來——我們是選擇了不看。」
+  </div>
+
+  <div class="highlight-box">
+    <h4>⚡ 本書的 TOC 終極洞見</h4>
+    <p>Blyth 的《Inflation》本身就是一個 TOC 的「注入解」——它挑戰的不是任何單一政策，而是<strong>限制我們看到替代方案的認知框架本身</strong>。在 TOC 的語言中，這本書的目標是<strong>提升系統的「瓶頸」——也就是我們的集體思維</strong>。</p>
+    <p>正如 Blyth 用大象遊戲所展示的：問題不在於盲人們不夠聰明，而在於他們被告知房間裡只有蛇。當你摘下眼罩，你看到的是一頭大象——多源性的、複雜的、充滿權力鬥爭的通膨現實。這本書的價值不在於告訴你「正確答案」，而在於讓你開始問<strong>「我是不是被困在某個故事裡了？」</strong></p>
+  </div>
+</div>
+
+<footer>
+  <p>TOC 十步深度分析 ｜ 《Inflation: A Guide for Users and Losers》 — Mark Blyth & Nicolò Fraccaroli</p>
+  <p>分析框架：限制理論（Theory of Constraints） ｜ 報告產出時間：2026-03-08</p>
+  <p>🐉 Powered by 龍龍 TOC Analysis Engine</p>
+</footer>
+
+</div>
+</body>
+</html>
