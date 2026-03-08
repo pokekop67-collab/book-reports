@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>覺醒分析 ✦ Unwinding Anxiety — 焦慮解套</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gradient-start: #E8F4FD;
+      --gradient-mid: #FFF0F5;
+      --gradient-end: #F5F0FF;
+      --accent-pink: #FFB6C1;
+      --accent-blue: #87CEEB;
+      --accent-purple: #DDA0DD;
+      --text-primary: #2D3436;
+      --text-secondary: #636E72;
+      --text-light: #B2BEC3;
+      --card-bg: rgba(255, 255, 255, 0.7);
+      --card-border: rgba(255, 255, 255, 0.5);
+      --card-shadow: rgba(0, 0, 0, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans TC', -apple-system, sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text-primary);
+      background: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container { max-width: 900px; margin: 0 auto; }
+
+    .hero {
+      text-align: center;
+      padding: 80px 40px;
+      margin-bottom: 40px;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.8);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+    }
+
+    .hero h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 8px;
+    }
+
+    .hero .meta {
+      font-size: 0.95rem;
+      color: var(--text-light);
+      margin-top: 12px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+      padding: 40px 36px;
+      margin-bottom: 24px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0, 0, 0, 0.12);
+    }
+
+    .step-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+    }
+
+    .section-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid rgba(102, 126, 234, 0.2);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 24px;
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    p { margin-bottom: 16px; font-size: 1rem; line-height: 1.9; }
+
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(240, 147, 251, 0.1));
+      border-radius: 16px;
+      padding: 24px;
+      margin: 20px 0;
+      border-left: 4px solid #667eea;
+    }
+
+    .highlight-box strong { color: #667eea; }
+
+    .warning-box {
+      background: linear-gradient(135deg, rgba(255, 182, 193, 0.15), rgba(255, 218, 185, 0.15));
+      border-radius: 16px;
+      padding: 24px;
+      margin: 20px 0;
+      border-left: 4px solid #FFB6C1;
+    }
+
+    .insight-box {
+      background: linear-gradient(135deg, rgba(221, 160, 221, 0.12), rgba(135, 206, 235, 0.12));
+      border-radius: 16px;
+      padding: 24px;
+      margin: 20px 0;
+      border-left: 4px solid #DDA0DD;
+    }
+
+    ul, ol { padding-left: 24px; margin: 16px 0; }
+    li { margin-bottom: 12px; line-height: 1.7; }
+    li::marker { color: #667eea; }
+
+    .tag {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 400;
+      margin: 4px;
+    }
+
+    .tag-soft {
+      display: inline-block;
+      background: rgba(102, 126, 234, 0.1);
+      color: #667eea;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 400;
+      margin: 4px;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin: 24px 0;
+    }
+
+    .stat-card {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 20px;
+      padding: 24px;
+      text-align: center;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 8px;
+    }
+
+    .loop-diagram {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 20px;
+      padding: 28px;
+      margin: 20px 0;
+      text-align: center;
+      border: 1px solid rgba(102, 126, 234, 0.15);
+    }
+
+    .loop-diagram .loop-step {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 16px;
+      margin: 6px;
+      font-size: 0.95rem;
+      font-weight: 400;
+    }
+
+    .loop-diagram .loop-arrow {
+      display: inline-block;
+      color: #667eea;
+      font-size: 1.3rem;
+      margin: 0 4px;
+      vertical-align: middle;
+    }
+
+    .theme-header {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #764ba2;
+      margin: 24px 0 12px 0;
+    }
+
+    .layer-item {
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+    }
+
+    .layer-item:last-child { border-bottom: none; }
+
+    .layer-label {
+      font-weight: 500;
+      color: #667eea;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 20px 0;
+      background: rgba(255, 255, 255, 0.6);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    th {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 16px;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(102, 126, 234, 0.05); }
+
+    .quote-block {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.1rem;
+      font-style: italic;
+      color: #636E72;
+      padding: 20px 24px;
+      margin: 20px 0;
+      border-left: 3px solid #DDA0DD;
+      background: rgba(221, 160, 221, 0.06);
+      border-radius: 0 16px 16px 0;
+    }
+
+    .chapter-ref {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-top: 16px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(0,0,0,0.05);
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 50px 24px; }
+      .hero h1 { font-size: 2rem; }
+      .card { padding: 28px 20px; border-radius: 20px; }
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .card { box-shadow: none; border: 1px solid #eee; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- ==================== HERO ==================== -->
+    <header class="hero">
+      <div style="font-size: 3rem; margin-bottom: 16px;">🌀</div>
+      <h1>Unwinding Anxiety</h1>
+      <p class="subtitle">焦慮解套——用神經科學與正念打破焦慮的習慣迴路</p>
+      <p class="meta">Judson Brewer, MD PhD ・ 覺醒 v2 深度分析</p>
+      <div style="margin-top: 20px;">
+        <span class="tag">行為神經科學</span>
+        <span class="tag">正念訓練</span>
+        <span class="tag">習慣迴路</span>
+        <span class="tag">臨床實證</span>
+      </div>
+    </header>
+
+    <!-- ==================== STEP 1: 資料卡 ==================== -->
+    <section class="card">
+      <span class="step-badge">STEP 1</span>
+      <h2 class="section-title">📋 資料卡</h2>
+
+      <table>
+        <tr><th style="width:30%;">欄位</th><th>內容</th></tr>
+        <tr><td><strong>書名</strong></td><td>Unwinding Anxiety: New Science Shows How to Break the Cycles of Worry and Fear to Heal Your Mind</td></tr>
+        <tr><td><strong>作者</strong></td><td>Judson Brewer, MD PhD</td></tr>
+        <tr><td><strong>作者背景</strong></td><td>耶魯大學醫學院精神科住院醫師訓練、行為神經科學家、Brown University 正念中心研究主任、麻州大學醫學院副教授。TED 演講「打破壞習慣的簡單方法」超過 1900 萬觀看次數</td></tr>
+        <tr><td><strong>出版資訊</strong></td><td>Avery / Penguin Random House，2021</td></tr>
+        <tr><td><strong>頁數 / 字數</strong></td><td>約 300 頁（正本）＋練習本（Workbook）</td></tr>
+        <tr><td><strong>核心學科</strong></td><td>精神醫學、行為神經科學、正念（Mindfulness）、獎勵型學習（Reward-based Learning）</td></tr>
+        <tr><td><strong>關鍵詞</strong></td><td>習慣迴路（Habit Loop）、前額葉皮質（PFC）、後扣帶皮質（PCC）、預設模式網路（DMN）、BBO（Bigger Better Offer）、好奇心、慈愛冥想</td></tr>
+        <tr><td><strong>目標讀者</strong></td><td>焦慮症患者、醫療從業者、想了解習慣機制的一般讀者、正念練習者</td></tr>
+        <tr><td><strong>配套資源</strong></td><td>Unwinding Anxiety App（臨床實證 app）、行為傾向問卷（BTQ）、練習本含大量日誌提示與習慣迴路模板</td></tr>
+        <tr><td><strong>臨床數據</strong></td><td>App 使用者焦慮減少 57%（醫師研究）/ 63%（GAD 隨機對照試驗）；NNT = 1.6（優於抗焦慮藥物 NNT = 5.15）</td></tr>
+      </table>
+
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-number">57%</div>
+          <div class="stat-label">醫師焦慮下降</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">63%</div>
+          <div class="stat-label">GAD 患者焦慮下降</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1.6</div>
+          <div class="stat-label">NNT（需治療人數）</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">3</div>
+          <div class="stat-label">核心檔位</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== STEP 2: 核心命題 ==================== -->
+    <section class="card">
+      <span class="step-badge">STEP 2</span>
+      <h2 class="section-title">🎯 核心命題</h2>
+
+      <div class="highlight-box">
+        <strong>一句話命題：</strong>
+        <p style="margin-bottom:0;">焦慮不是性格缺陷、不是化學失衡——焦慮是一個<strong>習慣迴路</strong>。而習慣迴路可以透過「覺察→更新獎勵值→引入更好的替代方案」三步驟被系統性拆解。</p>
+      </div>
+
+      <p>Brewer 的革命性洞見是：焦慮與擔憂運作的神經機制，與抽菸、暴食、購物成癮<strong>完全相同</strong>——都是獎勵型學習（reward-based learning）的產物。大腦不區分「好的」或「壞的」習慣，它只認一件事：<strong>這個行為帶來的結果感覺夠好嗎？</strong></p>
+
+      <p>傳統治療焦慮的三種策略——意志力（willpower）、替代行為（substitution）、環境改造（environment priming）——都有其根本缺陷。意志力依賴前額葉皮質（PFC），而焦慮恰恰會讓 PFC 離線。替代行為不處理底層迴路。環境改造需要先建立新習慣，而這本身就是最難的部分。</p>
+
+      <p>Brewer 提出的第四條路：<strong>正念覺察</strong>（mindfulness）——不是清空腦袋，不是達到某種特殊狀態，而是帶著好奇心覺察當下正在發生什麼。這恰好是最古老的生存機制（覺察型學習）與最前沿的神經科學的交匯點。</p>
+
+      <div class="loop-diagram">
+        <p style="font-weight:500; margin-bottom:12px; color:#764ba2;">焦慮的習慣迴路</p>
+        <span class="loop-step">觸發 Trigger</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-step">行為 Behavior</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-step">結果/獎勵 Result</span>
+        <span class="loop-arrow">→</span>
+        <span class="loop-step">迴路強化 🔄</span>
+      </div>
+
+      <div class="quote-block">
+        「成癮的定義是：儘管有不良後果，仍然持續使用。這個定義不僅適用於海洛因和酒精——它適用於一切。持續擔憂，儘管有不良後果。持續查看社群媒體，儘管有不良後果。持續暴食，儘管有不良後果。」
+      </div>
+    </section>
+
+    <!-- ==================== STEP 3: 主題分析 ==================== -->
+    <section class="card">
+      <span class="step-badge">STEP 3</span>
+      <h2 class="section-title">🔬 主題深度分析</h2>
+      <p>本書可提煉為 7 個核心主題，每個主題透過 7 層分析逐步深入。</p>
+
+      <!-- 主題一 -->
+      <div class="theme-header">🧠 主題一：焦慮的演化起源——恐懼的副產品</div>
+      <div class="layer-item"><span class="layer-label">表層論點：</span> 焦慮源自人類的恐懼生存機制。恐懼讓我們遠離危險，但當前額葉皮質（PFC）缺乏足夠資訊時，恐懼就演變成焦慮。</div>
+      <div class="layer-item"><span class="layer-label">支撐證據：</span> 海蛞蝓（僅 20,000 神經元）就具備獎勵型學習能力——Eric Kandel 因此獲得諾貝爾獎。人類大腦約 1000 億神經元，但底層學習機制完全相同。</div>
+      <div class="layer-item"><span class="layer-label">方法論：</span> 將焦慮分解為三個時間尺度——即時反應（毫秒級戰鬥/逃跑/凍結）、急性學習（秒到分鐘）、慢性焦慮（月到年）。只有第三層是「焦慮的誕生」。</div>
+      <div class="layer-item"><span class="layer-label">隱含假設：</span> PFC 沒有「低資訊待機模式」——當資訊不足時，它不會休眠，反而瘋狂運轉，製造出各種最壞情境的模擬。</div>
+      <div class="layer-item"><span class="layer-label">作者立場：</span> 恐懼 ≠ 焦慮。恐懼是適應性的，焦慮是失調的。公式：恐懼 + 不確定性 = 焦慮。這是一個演化的「附加功能」，而非 bug。</div>
+      <div class="layer-item"><span class="layer-label">學科對話：</span> 回應 Jefferson 1816 年致 Adams 的信（「那些未曾發生的惡事讓我們付出了多少痛苦！」），連結演化心理學、認知神經科學與公共衛生統計。</div>
+      <div class="layer-item"><span class="layer-label">讀者轉化：</span> 下次焦慮來臨時，你可以對自己說：「這是我的 PFC 在資訊不足時過度運轉，不是我有什麼問題。」光是這個理解就能減少焦慮的力量。</div>
+
+      <!-- 主題二 -->
+      <div class="theme-header">🔄 主題二：習慣迴路——一切成癮的統一框架</div>
+      <div class="layer-item"><span class="layer-label">表層論點：</span> 習慣迴路由三要素構成：觸發（Trigger）→ 行為（Behavior）→ 結果/獎勵（Result/Reward）。焦慮、暴食、購物、滑手機都是同一個機制。</div>
+      <div class="layer-item"><span class="layer-label">支撐證據：</span> Borkovec（1983）的研究證明擔憂是「一連串負面情感的思維鏈」，作為逃避不愉快情緒的心理行為被強化。擔憂觸發更多焦慮，形成自我增強的螺旋。</div>
+      <div class="layer-item"><span class="layer-label">方法論：</span> 「三檔位」系統——第一檔：辨識迴路（Map）→ 第二檔：評估結果的獎勵值（Update）→ 第三檔：引入更好的替代方案（BBO）。</div>
+      <div class="layer-item"><span class="layer-label">隱含假設：</span> 成癮不在於物質本身，而在於大腦的獎勵學習系統。「持續使用，儘管有不良後果」的定義適用於一切——從海洛因到擔憂到查看社群媒體。</div>
+      <div class="layer-item"><span class="layer-label">作者立場：</span> 現代世界透過兩個「成癮放大器」讓情況惡化：(1) 間歇強化（如賭場老虎機、社群通知的不規律出現）和 (2) 即時可得性（Amazon 兩天到貨 vs. 1800 年代騎馬去城裡訂鞋）。</div>
+      <div class="layer-item"><span class="layer-label">學科對話：</span> 連結 Kandel 的獎勵學習、Rescorla-Wagner 強化學習模型、多巴胺神經科學、Carol Dweck 的成長型思維，以及古代冥想手冊中的戰鬥/逃跑/凍結分類。</div>
+      <div class="layer-item"><span class="layer-label">讀者轉化：</span> 練習本要求讀者用紙筆畫出自己的三角形迴路（T-B-R），像《乘風破浪的小子》的「上蠟下蠟」——不急著修理，先精準地看見。</div>
+
+      <!-- 主題三 -->
+      <div class="theme-header">⚙️ 主題三：第一檔——辨識與映射你的心智</div>
+      <div class="layer-item"><span class="layer-label">表層論點：</span> 改變的第一步不是行動，而是精確地「看見」自己的習慣迴路。大多數人從未意識到焦慮是一個習慣迴路。</div>
+      <div class="layer-item"><span class="layer-label">支撐證據：</span> 練習本提供完整的 T-B-R 三角圖模板，要求讀者花一整週紀錄每次焦慮發作的觸發因素、行為反應、結果。</div>
+      <div class="layer-item"><span class="layer-label">方法論：</span> Brewer 特別警告「修理陷阱」（Fix-It Trap）：看見迴路後立刻想修理它，本身就是另一個習慣迴路——觸發：清楚看見迴路 → 行為：用舊方法試圖修理 → 結果：無效且更挫折。</div>
+      <div class="layer-item"><span class="layer-label">隱含假設：</span> 觀察本身就是轉化的開始。你不需要「理解為什麼」就能開始改變。事實上，「為什麼」的追問本身就是一個陷阱迴路。</div>
+      <div class="layer-item"><span class="layer-label">作者立場：</span> 用《乘風破浪的小子》（The Karate Kid）的「上蠟下蠟」做比喻：概念性理解 ≠ 行為改變。你必須透過體驗式學習，逐步走過映射過程。</div>
+      <div class="layer-item"><span class="layer-label">學科對話：</span> 與認知行為治療（CBT）對話——CBT 也強調觸發辨識，但 Brewer 的方法更強調「體感覺察」而非「認知重構」。</div>
+      <div class="layer-item"><span class="layer-label">讀者轉化：</span> 一位讀者回饋：「我終於看到焦慮是一個心智習慣、一個故事——而不是我。」光是這個辨識就讓焦慮的力量減弱了。</div>
+
+      <!-- 主題四 -->
+      <div class="theme-header">📉 主題四：第二檔——更新獎勵值與失魅</div>
+      <div class="layer-item"><span class="layer-label">表層論點：</span> 問自己一個簡單的問題：「我從這個行為中得到了什麼？」——認真地、用身體去感受結果。這就是第二檔。</div>
+      <div class="layer-item"><span class="layer-label">支撐證據：</span> Dana Small 的巧克力實驗：讓受試者在腦掃描中不斷吃最愛的巧克力，從 +10（我超想要更多）到 -10（我快吐了）。後扣帶皮質（PCC）在渴望和厭惡時都被激活——共同點是「被抓住」的狀態。</div>
+      <div class="layer-item"><span class="layer-label">方法論：</span> 眶額皮質（OFC）是大腦的「獎勵值排行榜」，它整合情感、感官和行為記憶來設定優先順序。第二檔的核心就是讓 OFC 接收到更精確的體感數據，自動更新獎勵排序。</div>
+      <div class="layer-item"><span class="layer-label">隱含假設：</span> 你不需要意志力來壓制壞習慣——你只需要讓大腦「真正看到」它的獎勵值有多低。失魅（disenchantment）是自然發生的，不是強迫的。</div>
+      <div class="layer-item"><span class="layer-label">作者立場：</span> 「回顧式第二檔」同樣有效——事後回想迴路的結果，只要體感記憶還夠「鮮活」（有汁液/juice），就能持續學習。關鍵是不要道德說教，而是單純地重新體驗。</div>
+      <div class="layer-item"><span class="layer-label">學科對話：</span> Rescorla-Wagner 強化學習模型（Vt+1 = Vt + αδt）——預測誤差（prediction error）越大，學習信號越強。當你「真正注意到」擔憂有多不好受，預測誤差就產生了。</div>
+      <div class="layer-item"><span class="layer-label">讀者轉化：</span> 一位每晚喝一品脫伏特加的患者，透過第二檔在幾個月內從每天八杯減到能連續六天不喝。她最初認為這是「失敗」，直到 Brewer 幫她看見這是成長型思維下的學習。</div>
+
+      <!-- 主題五 -->
+      <div class="theme-header">🌟 主題五：第三檔——好奇心與 BBO（更大更好的替代方案）</div>
+      <div class="layer-item"><span class="layer-label">表層論點：</span> 第三檔不是用新習慣「替代」舊習慣（那是 substitution），而是找到一個內在可得的、天然更有獎勵值的行為——BBO（Bigger Better Offer）。最強大的 BBO 是好奇心。</div>
+      <div class="layer-item"><span class="layer-label">支撐證據：</span> Brewer 的臨床研究顯示正念訓練使 PCC 活性降低——PCC 正是「被抓住」（getting caught up）時最活躍的腦區。好奇心是 PCC 的天然解藥。</div>
+      <div class="layer-item"><span class="layer-label">方法論：</span> RAIN 技巧——Recognize（辨識當下）→ Allow/Accept（允許，不推開）→ Investigate（調查身體感受：「嗯，我身體現在怎麼了？」）→ Note（標記經驗）。</div>
+      <div class="layer-item"><span class="layer-label">隱含假設：</span> 好奇心和焦慮在神經層面是互斥的——你無法同時好奇又焦慮。好奇心本身就是獎勵（它感覺很好），所以大腦會自然選擇它。</div>
+      <div class="layer-item"><span class="layer-label">作者立場：</span> BBO 必須是「內在可得的」（internally available）——不依賴外在環境或物質。好奇心、慈愛冥想（loving kindness）、覺察本身都符合這個條件。吃蛋糕來分散焦慮不算 BBO，因為它只是餵養另一個迴路。</div>
+      <div class="layer-item"><span class="layer-label">學科對話：</span> RAIN 源自佛教心理學，但 Brewer 用 fMRI 數據證明它確實改變了 PCC 和 DMN 的活動模式。五世紀冥想手冊已有戰鬥/逃跑/凍結的分類，與現代行為傾向問卷（BTQ）驚人吻合。</div>
+      <div class="layer-item"><span class="layer-label">讀者轉化：</span> 一位職場女性用 RAIN 在會議中標記「心跳加速」、「收緊」，發現標記只需一瞬間，反而幫助她留在當下、主持討論——而非掉入自我批判的迴路。</div>
+
+      <!-- 主題六 -->
+      <div class="theme-header">💗 主題六：慈愛冥想——從自我批判到自我慈悲</div>
+      <div class="layer-item"><span class="layer-label">表層論點：</span> 自我批判本身是一個習慣迴路，而慈愛冥想（Metta / Loving Kindness）是打破它的 BBO。</div>
+      <div class="layer-item"><span class="layer-label">支撐證據：</span> Brewer 的實驗室發現慈愛冥想可降低 PCC（後扣帶皮質）的活動——這正是自我批判習慣迴路最活躍的腦區。</div>
+      <div class="layer-item"><span class="layer-label">方法論：</span> 三個錨點：(1) 慈愛短語（May you be happy / May I be happy）、(2) 對象的形象、(3) 胸口的溫暖擴展感。從親近的人開始，延伸到自己、陌生人、甚至困難的人。</div>
+      <div class="layer-item"><span class="layer-label">隱含假設：</span> 自我批判的收縮感（contraction）vs. 慈愛的擴展感（expansion）——大腦會自然選擇感覺更好的那個。這不是正向自我對話，而是喚醒一種本有的能力。</div>
+      <div class="layer-item"><span class="layer-label">作者立場：</span> Brewer 坦承自己最初覺得慈愛冥想太「矯情」（kumbaya meter off the charts），花了多年才看到它的價值。他的轉折點是騎自行車被按喇叭時，用慈愛取代自以為是（self-righteousness），到達醫院時心情完全不同。</div>
+      <div class="layer-item"><span class="layer-label">學科對話：</span> 連結 Leonard Cohen 的〈Anthem〉——「別擔心不完美。我們以為是缺陷的裂縫，其實是力量。」與正念認知治療（MBCT）和慈悲聚焦治療（CFT）對話。</div>
+      <div class="layer-item"><span class="layer-label">讀者轉化：</span> 暴食症患者透過三檔整合——第一檔映射迴路、第二檔看見暴食多不值得、第三檔引入慈愛——四個月後減重 40 磅，更重要的是「我覺得我拿回了自己的人生。我可以吃一片披薩然後真正享受它。」</div>
+
+      <!-- 主題七 -->
+      <div class="theme-header">📊 主題七：臨床實證——從實驗室到 App 的科學驗證</div>
+      <div class="layer-item"><span class="layer-label">表層論點：</span> 這不只是理論——Unwinding Anxiety App 經過多個隨機對照試驗驗證，效果顯著優於傳統藥物治療。</div>
+      <div class="layer-item"><span class="layer-label">支撐證據：</span> 醫師研究：60% 治療前有中重度焦慮，使用 app 三個月後焦慮降低 57%，職業倦怠的譏諷分量（cynicism）降低 50%。GAD RCT：焦慮降低 63%，NNT = 1.6（黃金標準藥物 NNT = 5.15）。</div>
+      <div class="layer-item"><span class="layer-label">方法論：</span> App 包含 30 個核心模組、每日短影片（＜10 分鐘）、動畫、即時練習。設計為「融入日常」而非「抽離生活去治療」。</div>
+      <div class="layer-item"><span class="layer-label">隱含假設：</span> 焦慮的根源在「個體層面」（cynicism 降低 50%）而非「制度層面」（emotional exhaustion 僅降低 20%）——app 能處理前者但不能修理整個醫療系統。</div>
+      <div class="layer-item"><span class="layer-label">作者立場：</span> 數學建模證實機制：正念 → 減少擔憂 → 減少焦慮。21 天養成習慣的說法是迷思（來自一位整形外科醫師觀察鼻子手術病人適應新面孔的非正式觀察）；Lally 研究顯示 18-254 天不等。</div>
+      <div class="layer-item"><span class="layer-label">學科對話：</span> 直接挑戰 Yerkes-Dodson「適度焦慮有益表現」的迷思——原始研究用的是日本跳舞老鼠，無法問牠們是否焦慮。「沒有科學證據支持所謂的『好焦慮』。」</div>
+      <div class="layer-item"><span class="layer-label">讀者轉化：</span> 練習本引導讀者進行「意志力現實檢查」、「習慣替代分析」、「環境調整評估」，然後自然導向正念作為第四種、也是最有效的策略。</div>
+    </section>
+
+    <!-- ==================== STEP 4: 敘事弧線 ==================== -->
+    <section class="card">
+      <span class="step-badge">STEP 4</span>
+      <h2 class="section-title">📐 敘事弧線</h2>
+
+      <p>Brewer 的敘事結構是精心設計的三幕劇，呼應他的「三檔位」系統：</p>
+
+      <table>
+        <tr><th>階段</th><th>章節</th><th>功能</th><th>情感弧</th></tr>
+        <tr><td><strong>第一幕：看見</strong></td><td>Ch 1-9（Part I）</td><td>建立問題意識、教導習慣迴路機制、引入第一檔</td><td>「原來如此！」——辨識的驚喜</td></tr>
+        <tr><td><strong>第二幕：失魅</strong></td><td>Ch 10-14（Part II）</td><td>第二檔——OFC 決策機制、Dana Small 巧克力實驗、態度的力量</td><td>「我真的不需要這個」——自然的放手</td></tr>
+        <tr><td><strong>第三幕：替代</strong></td><td>Ch 15-30（Part III）</td><td>第三檔——好奇心、RAIN、慈愛冥想、Why 迴路的陷阱、愛的力量</td><td>「這感覺好多了」——內在獎勵的發現</td></tr>
+      </table>
+
+      <div class="highlight-box">
+        <strong>敘事策略：</strong>
+        <p style="margin-bottom:0;">Brewer 大量使用第一人稱臨床故事（Emily 的恐慌症、Amy 的 Why 迴路、暴食患者的慈愛轉化）與自我揭露（自己騎單車的自以為是迴路），建立信任與共鳴。他不是在「教」你——他是在與你「一起」走過這條路。</p>
+      </div>
+
+      <p><strong>練習本的敘事層次：</strong>練習本不只是「附加練習」——它是完整的體驗式學習路徑。每章包含：(1) 概念摘要 (2) 結構化練習（T-B-R 圖、表格、量表）(3) 日誌提示（4-5 個開放式反思問題）(4) 關鍵字卡（如 RAIN 隨身卡）。這讓「上蠟下蠟」的體驗式學習真正落地。</p>
+    </section>
+
+    <!-- ==================== STEP 5: 整合洞見 ==================== -->
+    <section class="card">
+      <span class="step-badge">STEP 5</span>
+      <h2 class="section-title">💎 整合洞見</h2>
+
+      <div class="insight-box">
+        <strong>洞見 1：擔憂是「有毒的安慰劑」</strong>
+        <p style="margin-bottom:0;">擔憂讓人「感覺自己在做事」——但它既不是問題解決，也不是創造力。它是一個吃角子老虎機，你不斷拉桿，偶爾中獎（想到一個半吊子的解決方案），但長期下來你輸光一切（心理健康、睡眠、人際關係）。Brewer 揭露了擔憂最狡猾的地方：它偽裝成「負責任」。</p>
+      </div>
+
+      <div class="insight-box">
+        <strong>洞見 2：好奇心是焦慮的結構性對立面</strong>
+        <p style="margin-bottom:0;">這不是比喻——它是神經科學事實。焦慮激活 PCC（被抓住），好奇心降低 PCC 活性。你不能同時好奇又焦慮，就像你不能同時吸氣和呼氣。好奇心不只是「感覺好」——它從神經機制上瓦解焦慮的迴路。</p>
+      </div>
+
+      <div class="insight-box">
+        <strong>洞見 3：眼睛是情緒的生理指標</strong>
+        <p style="margin-bottom:0;">Darwin 假設、Lee/Susskind/Anderson 2013 實驗證實：恐懼時眼睛自然張大（收集更多資訊），厭惡時眼睛縮小。有趣的是，當我們對某事真正好奇時，眼睛也會張大——好奇心和恐懼共享同一個生理通道，但方向相反。你可以利用這個「身體駭客」：故意微微張大眼睛，啟動好奇心的身體姿態。</p>
+      </div>
+
+      <div class="insight-box">
+        <strong>洞見 4：正本 × 練習本 = 知行合一的完整系統</strong>
+        <p style="margin-bottom:0;">正本提供「為什麼」和「是什麼」的神經科學基礎；練習本提供「怎麼做」的體驗式學習框架。兩者合併形成一個完整的自我治療系統：理論 → 映射 → 更新 → 替代 → 整合。這不是一般的「看完就忘」的自助書，而是一套需要持續練習的技能訓練。</p>
+      </div>
+
+      <div class="insight-box">
+        <strong>洞見 5：「為什麼」的追問本身就是焦慮的燃料</strong>
+        <p style="margin-bottom:0;">Amy 的案例揭示了最隱蔽的焦慮迴路：焦慮 → 試圖找出「為什麼我焦慮」→ 找不到 → 更焦慮。Brewer 的革命性建議：「如果 why 不重要呢？」不需要修理過去的觸發因素，只需要處理此刻的迴路。這與 ACT（接納與承諾療法）的「去融合」高度呼應。</p>
+      </div>
+    </section>
+
+    <!-- ==================== STEP 6: 缺席分析 ==================== -->
+    <section class="card">
+      <span class="step-badge">STEP 6</span>
+      <h2 class="section-title">👻 缺席分析——書中沒說的</h2>
+
+      <div class="warning-box">
+        <strong>缺席 1：社會結構性焦慮的處理不足</strong>
+        <p>Brewer 承認制度性因素（emotional exhaustion 僅降低 20%），但全書的解決方案幾乎完全聚焦在「個體覺察」。對於來自貧窮、種族歧視、性別暴力、資本主義壓迫的焦慮，「對它好奇」是否足夠？書中幾乎沒有討論何時焦慮不是「習慣迴路」而是「合理的社會反應」。</p>
+      </div>
+
+      <div class="warning-box">
+        <strong>缺席 2：藥物治療的角色被最小化</strong>
+        <p>全書幾乎不討論抗焦慮藥物或抗憂鬱藥物的適當使用，僅在 NNT 比較中提及（且是為了凸顯正念的優越性）。對中重度 GAD 患者，藥物常是必要的穩定基礎，而非正念的「對手」。</p>
+      </div>
+
+      <div class="warning-box">
+        <strong>缺席 3：複雜性創傷（Complex PTSD）的邊界</strong>
+        <p>暴食症患者的案例涉及童年情感虐待，但 Brewer 的處理框架（三檔位 + 慈愛冥想）是否適用於所有創傷倖存者？對深度解離、身體記憶、閃回（flashback）的患者，正念練習有時反而會重新觸發創傷。書中缺少「何時需要專業治療師介入」的明確邊界。</p>
+      </div>
+
+      <div class="warning-box">
+        <strong>缺席 4：文化差異與正念的去脈絡化</strong>
+        <p>正念源自巴利文佛教傳統，但書中將其呈現為「純科學工具」。對於非西方讀者（或本身就在佛教文化中的讀者），這種去脈絡化可能產生不同的共鳴。東亞文化中的「忍耐」傳統與正念覺察的微妙區別也未被討論。</p>
+      </div>
+
+      <div class="warning-box">
+        <strong>缺席 5：數位焦慮的深層批判</strong>
+        <p>Brewer 指出社群媒體和智慧手機是「口袋裡的廣告看板」和成癮放大器，但沒有進一步討論數位排毒（digital detox）策略，也沒有討論科技公司的倫理責任。焦慮被框架為「個人習慣問題」，而非「系統設計問題」。</p>
+      </div>
+    </section>
+
+    <!-- ==================== STEP 7: AI N+1 章 ==================== -->
+    <section class="card">
+      <span class="step-badge">STEP 7</span>
+      <h2 class="section-title">🤖 AI 撰寫的 N+1 章</h2>
+
+      <div class="highlight-box">
+        <strong>第 31 章：焦慮的集體迴路——當整個社會被困在第一檔</strong>
+      </div>
+
+      <p>Brewer 教了我們如何在個體層面拆解焦慮迴路。但如果我們把同樣的框架放大到社會層面呢？</p>
+
+      <p><strong>社會的觸發→行為→獎勵迴路：</strong></p>
+      <ul>
+        <li><strong>觸發：</strong>集體不確定性（疫情、氣候危機、AI 取代就業的恐懼）</li>
+        <li><strong>行為：</strong>社群媒體上的末日滾動（doomscrolling）、陰謀論傳播、政治極化</li>
+        <li><strong>獎勵：</strong>短暫的控制感（「至少我知道事情有多糟」）或歸屬感（「我的陣營是對的」）</li>
+      </ul>
+
+      <p>Brewer 提到了「社會傳染」——焦慮像病毒一樣在人際間傳播。華爾街的恐懼指數（VIX）就是集體焦慮的溫度計。但他沒有進一步探討：<strong>如果整個新聞產業、社群平台、政治體系都是建立在焦慮迴路之上的商業模式呢？</strong></p>
+
+      <p>想像一個「社會第二檔」的介入：如果每個新聞網站在報導聳動標題前，都必須加上一個「焦慮迴路警示」——就像香菸盒上的警語——告訴你：「點擊這篇文章可能會激活你的焦慮習慣迴路。你從這個行為中真正得到了什麼？」</p>
+
+      <p>或者一個「社會第三檔」：用好奇心取代恐懼。與其問「這個世界要完了嗎？」不如問「什麼樣的實驗可以告訴我們更多？」將末日滾動轉化為「好奇心滾動」——不是消費恐懼，而是追蹤解決方案。</p>
+
+      <p>這不是烏托邦幻想——Brewer 的數據已經證明，在個體層面，好奇心可以在幾週內重塑焦慮迴路。問題是：我們有沒有勇氣在集體層面做同樣的事？當焦慮產業（注意力經濟、恐懼行銷、末日新聞）每年創造數千億美元收入時，誰有動機去「解套」？</p>
+
+      <div class="quote-block">
+        也許下一場革命不是政治的、不是技術的——而是神經科學的：一場讓整個社會從第一檔（無意識的焦慮迴路）升到第三檔（集體好奇心）的認知升級。
+      </div>
+    </section>
+
+    <!-- ==================== STEP 8: 跨領域連結 ==================== -->
+    <section class="card">
+      <span class="step-badge">STEP 8</span>
+      <h2 class="section-title">🔗 跨領域連結</h2>
+
+      <table>
+        <tr><th>領域</th><th>連結點</th><th>對話方向</th></tr>
+        <tr><td>🧬 演化生物學</td><td>恐懼→焦慮的演化路徑</td><td>Sapolsky《Why Zebras Don't Get Ulcers》——斑馬的壓力釋放機制 vs. 人類的慢性焦慮。Brewer 提到動物在危險後會「抖動身體」釋放能量，人類卻把壓力「存起來」。</td></tr>
+        <tr><td>🎰 行為經濟學</td><td>間歇強化 × 即時可得性</td><td>Kahneman 的「系統一/系統二」——焦慮迴路是系統一的自動反應，第二檔嘗試啟動系統二的反思。Thaler 的「推力」（Nudge）——BBO 是正向的自我推力。</td></tr>
+        <tr><td>💻 UX 設計</td><td>成癮性設計模式</td><td>Nir Eyal《Hooked》的 Hook Model（觸發→行動→變動獎勵→投入）與 Brewer 的習慣迴路幾乎是同一個框架——只是 Eyal 在教企業如何「上鉤」，而 Brewer 在教個人如何「脫鉤」。</td></tr>
+        <tr><td>🧘 冥想科學</td><td>DMN / PCC 的角色</td><td>與 Sam Harris《Waking Up》、Ricard/Singer/Lutz 的冥想腦掃描研究對話。Brewer 的貢獻是把冥想從「宗教修行」拉到「臨床介入」。</td></tr>
+        <tr><td>🏥 精神醫學</td><td>GAD 的非藥物治療</td><td>與 CBT（認知行為治療）、ACT（接納與承諾療法）、DBT（辯證行為治療）對話。Brewer 的方法更像 ACT 的「去融合」而非 CBT 的「認知重構」。</td></tr>
+        <tr><td>📱 數位健康</td><td>App-based 介入</td><td>與 Headspace、Calm 等正念 app 對話——但 Brewer 的 Unwinding Anxiety 是少數有 RCT 級臨床證據的 app。</td></tr>
+        <tr><td>🏢 組織行為學</td><td>職業倦怠的習慣迴路</td><td>與 Maslach 的倦怠三維度（情感耗竭、去人格化、低成就感）對話——Brewer 的介入對「去人格化」（≈ cynicism）效果最好。</td></tr>
+      </table>
+    </section>
+
+    <!-- ==================== STEP 9: 文化轉譯 ==================== -->
+    <section class="card">
+      <span class="step-badge">STEP 9</span>
+      <h2 class="section-title">🌏 文化轉譯</h2>
+
+      <p><strong>對台灣讀者的特殊共鳴：</strong></p>
+
+      <div class="highlight-box">
+        <strong>1. 「拼命文化」中的焦慮正常化</strong>
+        <p style="margin-bottom:0;">台灣社會有強烈的「不焦慮就不夠努力」信念。Brewer 直接挑戰這個迷思：沒有科學證據支持「好焦慮」的存在。他拆解了 Yerkes-Dodson 法則的「民間傳說」地位——用日本跳舞老鼠的實驗來論證焦慮有益表現，這本身就是一個笑話。對台灣的過勞文化來說，這是一記當頭棒喝。</p>
+      </div>
+
+      <div class="highlight-box">
+        <strong>2. 東亞「忍耐」文化 vs. 正念覺察</strong>
+        <p style="margin-bottom:0;">台灣文化中的「忍」（grit/endurance）容易與正念混淆。但 Brewer 強調：正念不是壓抑，不是忍耐——是帶著好奇心去感受。「忍」是收縮的（contraction），正念是開放的（expansion）。這個區別對東亞讀者尤其重要。</p>
+      </div>
+
+      <div class="highlight-box">
+        <strong>3. 佛教正念的「回歸」</strong>
+        <p style="margin-bottom:0;">台灣有深厚的佛教傳統（慈濟、法鼓山、佛光山），正念（sati）和慈悲（karuna/metta）的概念並不陌生。但 Brewer 用 fMRI 和 RCT 數據重新「驗證」這些古老修行，對於在傳統佛教和現代科學之間尋找橋梁的台灣讀者，這是一個獨特的入口。</p>
+      </div>
+
+      <div class="highlight-box">
+        <strong>4. 社群媒體焦慮的在地化</strong>
+        <p style="margin-bottom:0;">台灣是全球社群媒體使用率最高的地區之一。Brewer 對「手機是口袋裡的廣告看板」的批判，在 LINE 群組焦慮、Facebook 政治對立、Instagram 比較心態的台灣脈絡中格外尖銳。</p>
+      </div>
+
+      <div class="highlight-box">
+        <strong>5. 醫療文化的反思</strong>
+        <p style="margin-bottom:0;">台灣的健保制度讓就醫方便，但也可能造成「焦慮→看醫生→拿藥→暫時好→停藥→復發」的醫療習慣迴路。Brewer 的自助式 app 介入模式，對台灣「看醫生才算治療」的文化習慣提出了溫和的挑戰。</p>
+      </div>
+    </section>
+
+    <!-- ==================== STEP 10: 一個比喻 ==================== -->
+    <section class="card">
+      <span class="step-badge">STEP 10</span>
+      <h2 class="section-title">🎨 一個比喻</h2>
+
+      <div class="quote-block" style="font-size: 1.15rem; border-left-color: #667eea;">
+        焦慮就像一台開在深夜的洗衣機——你不記得什麼時候按下開始鍵，但它就是在那裡不停地轉。衣服早就洗完了，但機器仍然轟轟作響，攪動著空氣和殘留的水。
+        <br><br>
+        Brewer 教你的不是「關掉洗衣機」（你做不到，它沒有你想像中的那個開關），而是走過去、打開蓋子、好奇地看一眼裡面在轉什麼。
+        <br><br>
+        當你看見裡面什麼都沒有——只是空轉——洗衣機並沒有停，但你不再害怕它的聲音了。然後，慢慢地，沒有了你的恐懼作為燃料，它自己就安靜了下來。
+        <br><br>
+        那個走過去看一眼的動作，就是好奇心。<br>
+        那個「原來裡面什麼都沒有」的瞬間，就是失魅。<br>
+        那個安靜下來的沉默，就是解套。
+      </div>
+    </section>
+
+    <!-- ==================== STEP 11: 行動轉化 ==================== -->
+    <section class="card">
+      <span class="step-badge">STEP 11</span>
+      <h2 class="section-title">🚀 行動轉化</h2>
+
+      <p><strong>從理解到實踐的 5 個具體行動：</strong></p>
+
+      <div class="highlight-box">
+        <strong>行動 1：本週映射 3 個習慣迴路（第一檔）</strong>
+        <p>拿一張紙，畫三個三角形。標記 T（觸發）、B（行為）、R（結果）。每天記錄至少一個焦慮迴路。注意：不要試圖改變它——只是看見它。特別注意那些你以為「正常」的行為：查看手機、吃零食、深夜滾動新聞。</p>
+      </div>
+
+      <div class="highlight-box">
+        <strong>行動 2：每天問自己 3 次「我從這個行為中得到了什麼？」（第二檔）</strong>
+        <p>設三個鬧鐘（早上、中午、晚上）。鬧鐘響時，觀察自己正在做什麼，問：這個行為帶給我什麼感受？是真正的滿足，還是暫時的逃避？不要用頭腦回答——用身體感受回答。</p>
+      </div>
+
+      <div class="highlight-box">
+        <strong>行動 3：用 RAIN 練習處理一個焦慮時刻（第三檔）</strong>
+        <p>下次感到焦慮時，試試：R（辨識：「啊，焦慮來了」）→ A（允許：不推開它）→ I（調查：「我的身體哪裡有感覺？胸口？肩膀？胃？」）→ N（標記：「收緊」、「加速」、「熱」）。把 RAIN 字卡拍照存在手機裡。</p>
+      </div>
+
+      <div class="highlight-box">
+        <strong>行動 4：建立「好奇心 BBO」清單</strong>
+        <p>列出 5 個你可以在焦慮來臨時立即使用的好奇心練習：微微張大眼睛、注意呼吸的溫度變化、數腳趾的觸地感、聽最遠處的聲音、觀察焦慮的「形狀」。這些不是分散注意力——而是用好奇心「取代」焦慮在你的獎勵排行榜上的位置。</p>
+      </div>
+
+      <div class="highlight-box">
+        <strong>行動 5：每晚 2 分鐘慈愛冥想</strong>
+        <p>睡前、躺在床上時：想一個你關心的人 →「願你幸福」（吸氣）→「願你平安」（呼氣）。然後轉向自己：「願我幸福」（吸氣）→「願我對自己溫柔」（呼氣）。如果感覺矯情？很好——Brewer 花了十年才克服這個感覺，但他說這是他學過最有價值的技能之一。</p>
+      </div>
+
+      <div class="insight-box">
+        <strong>進階行動：社群解套</strong>
+        <p>找一個朋友，一起進行「習慣迴路映射挑戰」——每天互相分享一個映射出的迴路。社會學習會強化個人練習的效果，而且你們可以互相指出對方看不見的盲點迴路。Brewer 的研究顯示，社會支持是持續改變的關鍵催化劑。</p>
+      </div>
+
+      <div class="chapter-ref">
+        整合分析來源：正本全文 + 練習本全文 ・ 覺醒 v2 完整 11 步分析框架
+      </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer>
+      <p>由 🐉 龍龍 精心製作 ・ 覺醒 v2 深度書籍分析 ・ 2026</p>
+      <p style="margin-top: 8px; font-size: 0.8rem;">Unwinding Anxiety © Judson Brewer ・ 本報告為讀書分析，非商業用途</p>
+    </footer>
+
+  </div>
+</body>
+</html>
