@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我是誰？「我」根本不存在｜TOC 十步深度實戰分析</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+:root{--bg:#F5F3EF;--card:#fff;--accent:#5B2C6F;--accent-light:#F4ECF7;--warm:#8E44AD;--warm-light:#F5EEF8;--text:#2C2C2C;--text-light:#6B6B6B;--border:#E8E2DA;--shadow:rgba(91,44,111,.06);--green:#1E8449;--green-light:#EAFAF1;--red:#C0392B;--red-light:#FDEDEC;--blue:#2874A6;--blue-light:#D6EAF8;--orange:#CA6F1E;--orange-light:#FEF5E7}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);line-height:1.85;padding:2rem 1rem;max-width:880px;margin:0 auto}
+.hero{text-align:center;padding:3.5rem 2rem;background:linear-gradient(135deg,#F4ECF7,#EDE7F6,#D5F5E3);border-radius:24px;margin-bottom:2rem;border:1px solid var(--border);position:relative;overflow:hidden}
+.hero::before{content:'🧘';position:absolute;top:10px;right:20px;font-size:3rem;opacity:.15}
+.hero h1{font-family:'Noto Serif TC',serif;font-size:1.9rem;font-weight:900;background:linear-gradient(135deg,#5B2C6F,#8E44AD);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.5rem}
+.hero .sub{font-size:1rem;color:var(--warm);font-weight:500;margin-bottom:1rem}
+.hero .meta{font-size:.82rem;color:var(--text-light)}
+.card{background:var(--card);border-radius:18px;padding:2rem;margin-bottom:1.5rem;border:1px solid var(--border);box-shadow:0 2px 14px var(--shadow)}
+.card h2{font-family:'Noto Serif TC',serif;font-size:1.3rem;font-weight:700;margin-bottom:1rem;padding-bottom:.6rem;border-bottom:2px solid var(--accent-light);display:flex;align-items:center;gap:8px}
+.card h3{font-size:1.05rem;font-weight:700;margin:1.2rem 0 .6rem;color:var(--accent)}
+.card h4{font-size:.95rem;font-weight:600;margin:1rem 0 .4rem;color:var(--warm)}
+p{margin-bottom:.8rem;font-size:.92rem}
+.hl{border-left:4px solid var(--warm);padding:1rem 1.2rem;border-radius:0 12px 12px 0;margin:1rem 0;font-size:.9rem}
+.hl.green{background:var(--green-light);border-left-color:var(--green)}
+.hl.red{background:var(--red-light);border-left-color:var(--red)}
+.hl.blue{background:var(--blue-light);border-left-color:var(--blue)}
+.hl.orange{background:var(--orange-light);border-left-color:var(--orange)}
+.hl.purple{background:var(--warm-light);border-left-color:var(--warm)}
+.quote{font-family:'Noto Serif TC',serif;font-style:italic;color:var(--text-light);border-left:3px solid var(--warm);padding:.8rem 1rem;margin:1rem 0;background:var(--warm-light);border-radius:0 8px 8px 0;font-size:.9rem}
+ul,ol{margin:.5rem 0 1rem 1.5rem}li{margin-bottom:.5rem;font-size:.9rem}
+.it{background:rgba(91,44,111,.04);border-radius:12px;padding:14px 16px;margin:10px 0;font-size:.88rem;line-height:1.75}
+.it .if{color:var(--accent);font-weight:600}.it .then{color:var(--warm);font-weight:600}.it .root{color:var(--red);font-weight:700}
+.ec{background:rgba(255,255,255,.5);border-radius:18px;padding:22px;margin:14px 0;border:2px dashed rgba(91,44,111,.3)}
+.ec-row{display:flex;gap:12px;align-items:stretch;margin:10px 0;flex-wrap:wrap}
+.ec-box{flex:1;min-width:200px;background:rgba(91,44,111,.06);border-radius:12px;padding:14px;font-size:.88rem}
+.ec-vs{display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:var(--red);font-weight:900;min-width:40px}
+.tt{background:rgba(255,255,255,.5);border-radius:14px;padding:18px;margin-bottom:14px;border:1px solid var(--border)}
+.tt h4{font-weight:600;color:var(--accent);margin-bottom:10px;font-size:.92rem}
+.tt-row{display:grid;grid-template-columns:80px 1fr;gap:6px 10px;font-size:.86rem;margin-bottom:6px}
+.tt-label{font-weight:600;color:var(--text-light);font-size:.78rem}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
+.grid-item{background:#F8F6F3;padding:1rem;border-radius:12px;font-size:.86rem;border:1px solid var(--border)}
+.tag{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.72rem;font-weight:600;margin:2px}
+.tag-ude{background:var(--red-light);color:var(--red)}
+.tag-de{background:var(--green-light);color:var(--green)}
+.tag-inj{background:var(--blue-light);color:var(--blue)}
+footer{text-align:center;padding:2rem;color:var(--text-light);font-size:.8rem}
+@media(max-width:600px){.hero h1{font-size:1.4rem}.card{padding:1.5rem}.grid{grid-template-columns:1fr}.ec-row{flex-direction:column}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+<h1>🧘 我是誰？「我」根本不存在</h1>
+<div class="sub">東方哲學 × TOC 限制理論｜十步深度實戰分析</div>
+<p class="meta">原著：飯田一史 著｜監修：鎌田東二（京都大學名譽教授）<br>分析框架：TOC 十步深度實戰系統<br>🐉 龍龍 · 2026.03</p>
+</div>
+
+<!-- Step 1 -->
+<div class="card">
+<h2>📍 Step 1｜系統界定</h2>
+<h3>系統名稱：人類的「自我認知」系統</h3>
+
+<h4>系統目標（Goal）</h4>
+<p>讓人從「虛無感」和「我執」的牢籠中解脫，活得輕鬆自在。用書中作者的話：從「躲在被窩裡走不出來」到「恢復元氣寫出一本書」。</p>
+
+<h4>系統邊界</h4>
+<ul>
+<li><strong>輸入：</strong>現代人的存在焦慮——「我是誰？工作是為了什麼？活著的意義是什麼？」</li>
+<li><strong>處理引擎：</strong>七位東方哲學家的智慧——佛陀（無我）、龍樹（空）、老子（道）、莊子（齊物）、達摩（禪）、親鸞（他力）、空海（曼陀羅）</li>
+<li><strong>輸出：</strong>「虛無感消除」→ 活出不執著但充實的人生</li>
+<li><strong>邊界：</strong>不涉及西方哲學（作者試過，發現會「更虛無」）、不涉及勵志學（「找到你的熱情！」讓他生理性排斥）</li>
+</ul>
+
+<h4>利害關係人</h4>
+<ul>
+<li><strong>核心受眾：</strong>和作者一樣的現代「虛無人」——有能力但提不起勁、知道「應該」要什麼但不想要、覺得人生沒意義</li>
+<li><strong>擴展受眾：</strong>任何對「我是誰」有困惑的人——中年危機者、失業者、宗教質疑者、哲學愛好者</li>
+<li><strong>隱性受眾：</strong>「太努力」的人——他們最需要「空」和「無為」的智慧，卻最排斥它</li>
+</ul>
+
+<h4>系統度量</h4>
+<ul>
+<li><strong>吞吐量（T）：</strong>從「我執」中解放的程度——能多自在地面對不確定性</li>
+<li><strong>營運費用（OE）：</strong>維持「我」這個幻覺所消耗的心理能量</li>
+<li><strong>庫存（I）：</strong>累積的執念、身分標籤、對「成功」的定義</li>
+</ul>
+</div>
+
+<!-- Step 2 -->
+<div class="card">
+<h2>🌲 Step 2｜現況實境樹（CRT）</h2>
+<p class="hl purple">核心問題：為什麼現代人明明物質豐裕，卻深陷虛無感和我執？</p>
+
+<h3>不良效應清單（UDE）</h3>
+<ul>
+<li><span class="tag tag-ude">UDE-1</span> 存在性虛無感——「工作是為了什麼」「活著有什麼意義」</li>
+<li><span class="tag tag-ude">UDE-2</span> 勵志書反胃症——聽到「找到你的熱情」就生理性排斥</li>
+<li><span class="tag tag-ude">UDE-3</span> 身分焦慮——從「鄉下神童」到「家族恥辱」，自我價值完全綁定社會標籤</li>
+<li><span class="tag tag-ude">UDE-4</span> 無法停止比較——「明明應該想要業績、錢、成功，卻又不想要」</li>
+<li><span class="tag tag-ude">UDE-5</span> 過度自我批判——像親鸞一樣「心如蛇蠍般狠毒」「必墮地獄」</li>
+<li><span class="tag tag-ude">UDE-6</span> 躲避現實——「鑽進父母家的被窩裡打算一輩子不出來」</li>
+</ul>
+
+<h3>因果鏈</h3>
+
+<div class="it">
+<span class="if">如果</span> 社會教導我們「你 = 你的成就」（學歷、工作、收入）<br>
+<span class="then">那麼</span> 我們的自我價值完全綁定在外在成果上<br>
+<span class="if">如果</span> 自我價值綁定在外在成果，<span class="then">而</span>外在成果消失（失業、離婚）<br>
+<span class="then">那麼</span> 自我價值歸零 → <span class="tag tag-ude">UDE-3 身分焦慮</span> <span class="tag tag-ude">UDE-6 躲避現實</span>
+</div>
+
+<div class="it">
+<span class="if">如果</span> 我們相信有一個「真正的自己」需要被找到<br>
+<span class="then">那麼</span> 我們會不斷尋找「熱情」「天賦」「使命」<br>
+<span class="if">如果</span> 找不到（因為根本不存在固定的「真正的自己」）<br>
+<span class="then">那麼</span> 越找越焦慮 → <span class="tag tag-ude">UDE-1 虛無感</span> <span class="tag tag-ude">UDE-2 勵志書反胃</span>
+</div>
+
+<div class="it">
+<span class="if">如果</span> 我們用「我」這個框架來解讀一切經驗<br>
+<span class="then">那麼</span> 好事 = 「我」的功勞，壞事 = 「我」的失敗<br>
+<span class="if">如果</span> 壞事發生，<span class="then">而</span>「我」被定義為失敗者<br>
+<span class="then">那麼</span> 自我攻擊啟動 → <span class="tag tag-ude">UDE-5 過度自我批判</span>
+</div>
+
+<div class="it">
+<span class="if">如果</span> 大腦的預設模式是「比較」（我 vs 別人、現在的我 vs 應該的我）<br>
+<span class="then">那麼</span> 永遠不夠好 → <span class="tag tag-ude">UDE-4 無法停止比較</span>
+</div>
+
+<div class="it">
+<span class="root">根因：</span>「我執」（ātman-grāha）——相信有一個固定不變的「我」存在<br>
+佛陀兩千五百年前就指出：這是一切苦（dukkha）的根源。<br>
+用書中的話：「所謂的『我』不過是暫時的集合體，像河水一樣不斷在流動。」
+</div>
+</div>
+
+<!-- Step 3 -->
+<div class="card">
+<h2>☁️ Step 3｜核心衝突雲（EC）</h2>
+
+<div class="ec">
+<h4 style="text-align:center;color:var(--accent);margin-bottom:14px">「自我認知」的核心兩難</h4>
+
+<div class="hl purple" style="text-align:center;margin-bottom:14px">
+<strong>共同目標 A：</strong>活得輕鬆自在、不被虛無感困住
+</div>
+
+<div class="ec-row">
+<div class="ec-box">
+<strong>需求 B：安全感</strong><br>
+我需要一個穩定的自我認同，才能在社會中立足、做出決策、維持人際關係
+</div>
+<div class="ec-vs">⚡</div>
+<div class="ec-box">
+<strong>需求 C：自由感</strong><br>
+我需要接受「一切皆無常」的真相，才能不被執著和恐懼綁架
+</div>
+</div>
+
+<div class="ec-row">
+<div class="ec-box" style="background:var(--red-light)">
+<strong>行動 D：抓緊「我」</strong><br>
+維護自我形象、追求社會認可、用成就定義自己、害怕改變
+</div>
+<div class="ec-vs">🔥</div>
+<div class="ec-box" style="background:var(--green-light)">
+<strong>行動 D'：放下「我」</strong><br>
+接受無我、承認一切都在變、不執著於任何身分標籤
+</div>
+</div>
+
+<h4>衝突背後的錯誤假設</h4>
+<ul>
+<li><strong>假設 1：</strong>「如果我放下自我認同，我就不知道自己是誰了」→ <strong>佛陀的反駁：</strong>你從來就不是一個固定的「誰」，你是五蘊（色受想行識）暫時的組合</li>
+<li><strong>假設 2：</strong>「如果我不追求成功，我就沒有價值」→ <strong>老子的反駁：</strong>「以無事取天下」——不刻意追求，反而最強大</li>
+<li><strong>假設 3：</strong>「接受無常 = 消極放棄」→ <strong>莊子的反駁：</strong>這位一輩子沒工作的人，氣場「百分之一萬的自信，臉上寫著『老子活著天經地義！』」</li>
+<li><strong>假設 4：</strong>「自力修行才能覺醒」→ <strong>親鸞的反駁：</strong>「越差勁的人，越能得到救贖」——放棄自力，交給他力</li>
+</ul>
+</div>
+</div>
+
+<!-- Step 4 -->
+<div class="card">
+<h2>💉 Step 4｜注入解萃取</h2>
+<p>從七位東方哲學家中萃取四大注入解，每個都直接打破衝突雲的錯誤假設：</p>
+
+<h3><span class="tag tag-inj">注入解 1</span> 佛陀的「無我」（Anattā）</h3>
+<div class="hl blue">
+<strong>打破假設：</strong>「我需要一個固定的自我才能存在」<br>
+<strong>注入：</strong>「我」不是實體，是五蘊（色受想行識）的暫時集合。就像河水——你叫它「淡水河」，但裡面的水每秒都在換。名字不變，內容全變了。<br>
+<strong>書中原文核心：</strong>佛陀發現「諸行無常」——一切都在變化。既然一切都在變，「我」這個概念就是幻覺。幻覺消除，苦就消除。
+</div>
+
+<h3><span class="tag tag-inj">注入解 2</span> 龍樹的「空」（Śūnyatā）</h3>
+<div class="hl blue">
+<strong>打破假設：</strong>「事物要嘛存在要嘛不存在」<br>
+<strong>注入：</strong>龍樹用邏輯證明：一切事物都沒有「自性」（固有的本質）。不是「有」也不是「無」——是「空」。空不是虛無，是<strong>無限可能性</strong>。<br>
+<strong>書中比喻：</strong>「在『空』看來，這世界是幻」——不是世界不存在，而是世界不是你以為的那個樣子。
+</div>
+
+<h3><span class="tag tag-inj">注入解 3</span> 老莊的「道」與「無為」</h3>
+<div class="hl blue">
+<strong>打破假設：</strong>「不努力就不會成功」<br>
+<strong>注入：</strong>老子說「以無事取天下」——不是不做事，是不<strong>刻意</strong>做事。莊子的「莊周夢蝶」告訴你：你以為的現實可能只是一場夢，那你還在執著什麼？<br>
+<strong>書中金句：</strong>「在萬物之母『道』的面前，『現實』與『夢』其實差不多。」
+</div>
+
+<h3><span class="tag tag-inj">注入解 4</span> 親鸞的「他力」</h3>
+<div class="hl blue">
+<strong>打破假設：</strong>「我必須靠自己的力量覺醒」<br>
+<strong>注入：</strong>親鸞說：你越努力靠自己（自力），離覺醒越遠。<strong>承認自己是廢柴，然後交出去</strong>——這就是他力。不是「我合上雙手」，而是「雙手合十」。在這裡，「我」消失了。<br>
+<strong>書中故事：</strong>親鸞公開結婚（和尚的絕對禁忌）、自稱「愚禿」（傻乎乎的禿子），徹底實踐「越差勁越能得救」。
+</div>
+</div>
+
+<!-- Step 5 -->
+<div class="card">
+<h2>🌳 Step 5｜未來實境樹（FRT）</h2>
+<p class="hl green">前提：讀者真正理解並開始實踐「無我」的智慧</p>
+
+<div class="it">
+<span class="tag tag-de">DE-1</span> <span class="if">如果</span> 理解「我」是五蘊的暫時集合，不是固定實體<br>
+<span class="then">那麼</span> 失業、離婚、失敗不再等於「我的價值歸零」<br>
+→ <strong>身分焦慮消除</strong>
+</div>
+
+<div class="it">
+<span class="tag tag-de">DE-2</span> <span class="if">如果</span> 接受「諸行無常」——一切都在變化<br>
+<span class="then">那麼</span> 不再執著於「現在的狀態必須永遠持續」<br>
+→ <strong>對變化的恐懼降低</strong> → 適應力提升
+</div>
+
+<div class="it">
+<span class="tag tag-de">DE-3</span> <span class="if">如果</span> 實踐「無為」——不刻意追求，順其自然<br>
+<span class="then">那麼</span> 行動不再被「應該」驅動，而是被「自然」驅動<br>
+→ <strong>虛無感消除</strong>（因為不再有「應該做但不想做」的落差）
+</div>
+
+<div class="it">
+<span class="tag tag-de">DE-4</span> <span class="if">如果</span> 接受「他力」——不是所有事都需要靠自己<br>
+<span class="then">那麼</span> 可以在脆弱時向外求助，不再自我攻擊<br>
+→ <strong>過度自我批判停止</strong>
+</div>
+
+<div class="it">
+<span class="tag tag-de">DE-5</span> <span class="if">如果</span> DE-1 到 DE-4 同時發生<br>
+<span class="then">那麼</span> 人從「被窩裡走不出來」變成「恢復元氣，開始創作」<br>
+→ <strong>系統目標達成：活得輕鬆自在</strong>（就像作者本人的經歷）
+</div>
+</div>
+
+<!-- Step 6 -->
+<div class="card">
+<h2>🎯 Step 6｜瓶頸深度定位</h2>
+<p>讀者在「從我執到放下」路上的三層瓶頸：</p>
+
+<h3>🧠 認知瓶頸（最表層）</h3>
+<div class="hl orange">
+<strong>瓶頸：</strong>「無我」聽起來很反直覺。大腦的預設模式就是建構「自我敘事」——每天醒來，大腦自動說「我是 XXX，我要做 YYY」。要理解「這個『我』是幻覺」，就像要魚理解「水是什麼」。<br>
+<strong>書中證據：</strong>作者自己也經歷了——先讀西方哲學（更虛無）、再讀勵志書（生理排斥）、最後才在東方哲學中找到答案。認知轉換不是一步到位的。
+</div>
+
+<h3>💔 情感瓶頸（中層，最關鍵）</h3>
+<div class="hl red">
+<strong>瓶頸：</strong>就算理智上接受「無我」，情感上還是會害怕。「如果我不是任何人，那活著有什麼意義？」——這是一種存在性恐懼，比理性論證更強大。<br>
+<strong>書中證據：</strong>親鸞被剝奪和尚身分、流放、失去一切時的心路歷程。情感上的放下需要「觸底」——親鸞是真的失去了所有，才在新潟的海邊完成覺醒。<br>
+<strong>TOC 判定：</strong>這是系統的<strong>主瓶頸</strong>。認知可以靠閱讀，實踐可以靠方法，但情感的放下需要<strong>經驗</strong>和<strong>時間</strong>。
+</div>
+
+<h3>🔧 實踐瓶頸（最深層）</h3>
+<div class="hl orange">
+<strong>瓶頸：</strong>日常生活中如何「不執著」？你知道「無我」，但老闆罵你的時候，你還是會生氣。你知道「無為」，但房貸還是要繳。哲學和現實之間的鴻溝。<br>
+<strong>書中解法：</strong>「妙好人」的存在——他們是「近乎開悟的普通人」，生活中一樣工作、吃飯、交朋友，但內在狀態不同。說明「無我」不需要出家，可以在日常中實踐。
+</div>
+</div>
+
+<!-- Step 7 -->
+<div class="card">
+<h2>🧱 Step 7｜障礙拆解（前提樹 PrT）</h2>
+
+<h4>障礙 1：「無我聽起來像虛無主義」</h4>
+<div class="tt">
+<div class="tt-row"><span class="tt-label">障礙</span><span class="tt-val">把「無我」誤解為「什麼都不重要」→ 導致消極</span></div>
+<div class="tt-row"><span class="tt-label">中間目標</span><span class="tt-val">區分「空」和「虛無」——空 = 無限可能性，虛無 = 什麼都沒有</span></div>
+<div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">讀龍樹的「空」哲學：空不是否定存在，而是否定「固定不變的本質」</span></div>
+</div>
+
+<h4>障礙 2：「東方哲學 = 宗教，我不信教」</h4>
+<div class="tt">
+<div class="tt-row"><span class="tt-label">障礙</span><span class="tt-val">把佛陀、老子的智慧和「宗教信仰」混為一談 → 心理抗拒</span></div>
+<div class="tt-row"><span class="tt-label">中間目標</span><span class="tt-val">理解佛陀是「人類」不是「神」——「是爸媽生的，而且大概吃過咖哩」</span></div>
+<div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">用作者的態度：「我不是和尚也不是學者，只是一個無業遊民的個人感悟」</span></div>
+</div>
+
+<h4>障礙 3：「理論懂了但做不到」</h4>
+<div class="tt">
+<div class="tt-row"><span class="tt-label">障礙</span><span class="tt-val">知道「無我」但日常中還是被情緒帶著走</span></div>
+<div class="tt-row"><span class="tt-label">中間目標</span><span class="tt-val">建立「觀照」的日常練習——不是消除情緒，而是觀察情緒</span></div>
+<div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">達摩的「壁觀」簡化版：每天 5 分鐘靜坐，觀察念頭來去</span></div>
+</div>
+
+<h4>障礙 4：「社會不允許我放下」</h4>
+<div class="tt">
+<div class="tt-row"><span class="tt-label">障礙</span><span class="tt-val">工作要績效、社會要成就、家人有期望 → 「無為」在現實中不可行</span></div>
+<div class="tt-row"><span class="tt-label">中間目標</span><span class="tt-val">區分「內在無為」和「外在行動」——外面照常做事，裡面不執著結果</span></div>
+<div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">學莊子：「無業遊民，但氣場百分之一萬自信」——重點是內在狀態，不是外在條件</span></div>
+</div>
+
+<h4>障礙 5：「孤獨感」</h4>
+<div class="tt">
+<div class="tt-row"><span class="tt-label">障礙</span><span class="tt-val">身邊沒人理解你在探索什麼 → 覺得自己很奇怪</span></div>
+<div class="tt-row"><span class="tt-label">中間目標</span><span class="tt-val">找到「妙好人」社群——和你一樣在日常中實踐的普通人</span></div>
+<div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">記住「榎本桑」的詩：「我是梅花，你是桃花，花的生命在不知何處融為一體」</span></div>
+</div>
+</div>
+
+<!-- Step 8 -->
+<div class="card">
+<h2>🪜 Step 8｜轉變樹（TT）— 四週行動計畫</h2>
+
+<div class="tt">
+<h4>Week 1：覺察「我執」</h4>
+<div class="tt-row"><span class="tt-label">注入</span><span class="tt-val">佛陀的「五蘊觀」：開始注意「我」這個概念在日常中如何運作</span></div>
+<div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">每天記錄 3 次「我執啟動」的瞬間：什麼情境觸發了「我被冒犯/我不夠好/我必須證明自己」？</span></div>
+<div class="tt-row"><span class="tt-label">驗證</span><span class="tt-val"><span class="if">如果</span> 一週後你能辨識出自己的「我執模式」，<span class="then">那麼</span> 你已經開始「觀照」</span></div>
+<div class="tt-row"><span class="tt-label">指標</span><span class="tt-val">記錄至少 15 次「我執啟動」（每天 2-3 次）</span></div>
+</div>
+
+<div class="tt">
+<h4>Week 2：體驗「無常」</h4>
+<div class="tt-row"><span class="tt-label">注入</span><span class="tt-val">莊子的「莊周夢蝶」：開始觀察事物的變化</span></div>
+<div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">① 每天 5 分鐘靜坐觀察呼吸（每一口氣都不同 = 無常的體驗）② 記錄「蝴蝶夢時刻」——你在什麼時候感覺到「這是現實嗎？」</span></div>
+<div class="tt-row"><span class="tt-label">驗證</span><span class="tt-val"><span class="if">如果</span> 你開始自然地注意到事物在變化，<span class="then">那麼</span>「諸行無常」不再只是概念</span></div>
+<div class="tt-row"><span class="tt-label">指標</span><span class="tt-val">靜坐 7 天（不需要完美，做了就算）</span></div>
+</div>
+
+<div class="tt">
+<h4>Week 3：實驗「無為」</h4>
+<div class="tt-row"><span class="tt-label">注入</span><span class="tt-val">老子的「以無事取天下」：在一件事上放棄控制</span></div>
+<div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">① 選一件你一直很焦慮的事，這週刻意「不做任何事」，觀察結果 ② 每天問自己：「如果我是一株草，我現在會怎麼做？」（老子 style）</span></div>
+<div class="tt-row"><span class="tt-label">驗證</span><span class="tt-val"><span class="if">如果</span> 事情沒有因為你的「不做」而崩壞，<span class="then">那麼</span> 你的控制欲可能一直在浪費能量</span></div>
+<div class="tt-row"><span class="tt-label">指標</span><span class="tt-val">至少一件「放手」的實驗 + 記錄結果</span></div>
+</div>
+
+<div class="tt">
+<h4>Week 4：擁抱「他力」</h4>
+<div class="tt-row"><span class="tt-label">注入</span><span class="tt-val">親鸞的「愚禿」精神：承認自己的不完美，交出控制權</span></div>
+<div class="tt-row"><span class="tt-label">行動</span><span class="tt-val">① 寫一封「愚禿信」給自己——列出你所有的「不好」，然後在最後寫「這樣的我，也值得活著」② 找一個人，告訴他你的脆弱（不是求助，是分享）</span></div>
+<div class="tt-row"><span class="tt-label">驗證</span><span class="tt-val"><span class="if">如果</span> 你能不帶羞恥地看著自己的「爛」，<span class="then">那麼</span> 你已經開始體驗「他力」的力量</span></div>
+<div class="tt-row"><span class="tt-label">指標</span><span class="tt-val">完成「愚禿信」+ 至少一次脆弱分享</span></div>
+</div>
+</div>
+
+<!-- Step 9 -->
+<div class="card">
+<h2>📊 Step 9｜吞吐量審計</h2>
+
+<h3>吞吐量（T）：從我執中解放的心理自由度</h3>
+<div class="grid">
+<div class="grid-item">
+<h4>高 T 狀態</h4>
+<ul>
+<li>失業了但不覺得自己「沒價值」</li>
+<li>被批評但不觸發「我被攻擊」的防禦</li>
+<li>不確定未來但不焦慮</li>
+<li>像作者一樣：從被窩裡爬出來寫書</li>
+</ul>
+</div>
+<div class="grid-item">
+<h4>低 T 狀態</h4>
+<ul>
+<li>一切順利但莫名虛無</li>
+<li>不斷需要外在肯定</li>
+<li>小事就觸發情緒風暴</li>
+<li>「半夜一點出門散步怕被鄰居看到」</li>
+</ul>
+</div>
+</div>
+
+<h3>營運費用（OE）：維持「我」這個幻覺的成本</h3>
+<ul>
+<li><strong>心理能量：</strong>每天花在「我夠好嗎」「別人怎麼看我」的腦力 → 估計佔用 40-60% 的日常心理頻寬</li>
+<li><strong>社交成本：</strong>為了維護形象而做的事——加班表現、社群媒體經營、不敢說不</li>
+<li><strong>健康成本：</strong>焦慮→失眠→免疫下降→身體問題（karoshi 是極端案例）</li>
+<li><strong>機會成本：</strong>花在「維護自我形象」的時間，本可以用來創造、連結、體驗</li>
+</ul>
+
+<h3>庫存（I）：累積的執念</h3>
+<ul>
+<li>「我是東京大學畢業的」（身分標籤庫存）</li>
+<li>「我應該年薪百萬」（期望庫存）</li>
+<li>「我不能讓父母失望」（責任庫存）</li>
+<li>「我過去很成功」（過去庫存）</li>
+</ul>
+
+<h3>ROI 評估</h3>
+<div class="hl green">
+<strong>投資：</strong>每天 15 分鐘的觀照練習 + 閱讀東方哲學 + 偶爾的「不舒服」（面對自己的我執）<br>
+<strong>回報：</strong>心理自由度大幅提升 → OE 減少 40% 以上 → 庫存逐步清零 → 人生從「維護模式」切換到「創造模式」<br>
+<strong>回收期：</strong>認知層面 1-3 個月，情感層面 6-12 個月，存在層面是終身的旅程<br>
+<strong>作者實證：</strong>從「被窩廢人」到「出書作家」，大約 2-3 年
+</div>
+</div>
+
+<!-- Step 10 -->
+<div class="card">
+<h2>🔄 Step 10｜持續改善循環（POOGI）</h2>
+
+<h3>季度檢查點</h3>
+
+<h4>Q1：覺察期</h4>
+<ul>
+<li>完成四週行動計畫</li>
+<li>建立每日觀照習慣（5 分鐘靜坐）</li>
+<li>讀完本書 + 至少一本延伸閱讀（《心經》推薦）</li>
+<li>檢查指標：你能在情緒啟動的當下「看到」自己在執著嗎？</li>
+</ul>
+
+<h4>Q2：深化期</h4>
+<ul>
+<li>靜坐時間增加到 15 分鐘</li>
+<li>開始記錄「蝴蝶夢日記」——每天一個「原來這不是固定的」的發現</li>
+<li>嘗試一次「小型放手」——在一件重要的事上不控制結果</li>
+<li>檢查指標：你的「我執啟動」頻率有下降嗎？</li>
+</ul>
+
+<h4>Q3：整合期</h4>
+<ul>
+<li>開始把「無我」融入人際關係——聽別人說話時，放下「我的看法」</li>
+<li>重讀本書，你會發現第一次沒讀懂的東西</li>
+<li>找到你的「妙好人」社群</li>
+<li>檢查指標：你能在逆境中保持平靜多久？</li>
+</ul>
+
+<h4>Q4：回顧期</h4>
+<ul>
+<li>寫一封信給一年前的自己：你改變了什麼？</li>
+<li>重新做「我執審計」——你的 OE 下降了多少？庫存清了多少？</li>
+<li>設定下一年的「持續改善」方向</li>
+<li>終極問題：你還需要問「我是誰」嗎？如果不需要了，那就是最大的進步。</li>
+</ul>
+
+<h3>長期 POOGI 原則</h3>
+<div class="quote">
+「這是一個沒有終點的旅程——但正因為沒有終點，每一步都是目的地。」<br><br>
+就像書中的「妙好人」榎本桑寫的：<br>
+「我是梅花，你是桃花，花的生命在不知何處融為一體。」<br><br>
+你不需要成為佛陀。你只需要成為你自己的「妙好人」。
+</div>
+</div>
+
+<footer>
+✧ TOC 十步深度實戰系統 ✧ 🐉 龍龍 · 2026.03<br>
+「『我』根本不存在——而這不是壞消息，這是最好的消息。」
+</footer>
+
+</body>
+</html>
