@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TOC 瓶頸突破分析 — 大腦就是你的超能力</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gradient-start: #E8F4FD;
+      --gradient-mid: #FFF0F5;
+      --gradient-end: #F5F0FF;
+      --accent-pink: #FFB6C1;
+      --accent-blue: #87CEEB;
+      --accent-purple: #DDA0DD;
+      --accent-main: #667eea;
+      --accent-secondary: #f093fb;
+      --text-primary: #2D3436;
+      --text-secondary: #636E72;
+      --text-light: #B2BEC3;
+      --card-bg: rgba(255, 255, 255, 0.7);
+      --card-border: rgba(255, 255, 255, 0.5);
+      --card-shadow: rgba(0, 0, 0, 0.08);
+      --red: #e74c3c;
+      --orange: #e67e22;
+      --green: #27ae60;
+      --blue: #3498db;
+      --purple: #9b59b6;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans TC', -apple-system, sans-serif;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--text-primary);
+      background: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container { max-width: 920px; margin: 0 auto; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 80px 40px;
+      margin-bottom: 40px;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent-main), var(--accent-secondary));
+      color: white;
+      padding: 8px 24px;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero .subtitle {
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      margin-bottom: 12px;
+    }
+
+    .hero .bottleneck-diagnosis {
+      display: inline-block;
+      background: linear-gradient(135deg, rgba(231,76,60,0.1), rgba(230,126,34,0.1));
+      border: 1px solid rgba(231,76,60,0.2);
+      border-radius: 16px;
+      padding: 12px 28px;
+      font-size: 1rem;
+      color: var(--red);
+      font-weight: 400;
+      margin-top: 16px;
+    }
+
+    /* Cards */
+    .card {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      padding: 40px 36px;
+      margin-bottom: 24px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+    }
+
+    /* Section Headers */
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    .step-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .step-num.diag { background: linear-gradient(135deg, #667eea, #764ba2); }
+    .step-num.rx { background: linear-gradient(135deg, #f093fb, #f5576c); }
+    .step-num.bottle { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    .step-num.break { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+
+    .step-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+    }
+
+    .step-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    /* Section Title */
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid rgba(102,126,234,0.2);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title::before {
+      content: '';
+      width: 4px;
+      height: 24px;
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      border-radius: 2px;
+    }
+
+    /* Highlight Box */
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+      border-radius: 16px;
+      padding: 24px;
+      margin: 20px 0;
+      border-left: 4px solid #667eea;
+    }
+
+    .highlight-box.red {
+      background: linear-gradient(135deg, rgba(231,76,60,0.08), rgba(230,126,34,0.08));
+      border-left-color: var(--red);
+    }
+
+    .highlight-box.green {
+      background: linear-gradient(135deg, rgba(39,174,96,0.08), rgba(46,204,113,0.08));
+      border-left-color: var(--green);
+    }
+
+    .highlight-box.orange {
+      background: linear-gradient(135deg, rgba(230,126,34,0.08), rgba(241,196,15,0.08));
+      border-left-color: var(--orange);
+    }
+
+    /* Layer Banner */
+    .layer-banner {
+      text-align: center;
+      padding: 32px;
+      margin: 40px 0 24px;
+      border-radius: 24px;
+      color: white;
+    }
+
+    .layer-banner.diag { background: linear-gradient(135deg, #667eea, #764ba2); }
+    .layer-banner.rx { background: linear-gradient(135deg, #f093fb, #f5576c); }
+    .layer-banner.bottle { background: linear-gradient(135deg, #e74c3c, #c0392b); }
+    .layer-banner.break { background: linear-gradient(135deg, #27ae60, #2ecc71); }
+
+    .layer-banner h2 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+    }
+
+    .layer-banner p { opacity: 0.9; font-weight: 300; }
+
+    /* Tree diagram */
+    .tree-box {
+      background: rgba(255,255,255,0.9);
+      border-radius: 16px;
+      padding: 24px;
+      margin: 16px 0;
+      font-family: 'Noto Sans TC', monospace;
+      font-size: 0.95rem;
+      line-height: 2;
+      overflow-x: auto;
+      white-space: pre-wrap;
+      border: 1px solid rgba(102,126,234,0.15);
+    }
+
+    /* EC Cloud */
+    .ec-cloud {
+      background: rgba(255,255,255,0.9);
+      border-radius: 20px;
+      padding: 32px;
+      margin: 20px 0;
+      border: 2px dashed rgba(102,126,234,0.3);
+      text-align: center;
+    }
+
+    .ec-cloud .goal {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 12px 28px;
+      border-radius: 20px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+
+    .ec-row {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin: 16px 0;
+      flex-wrap: wrap;
+    }
+
+    .ec-item {
+      background: rgba(102,126,234,0.08);
+      border-radius: 16px;
+      padding: 16px 24px;
+      max-width: 380px;
+      text-align: left;
+      border: 1px solid rgba(102,126,234,0.15);
+    }
+
+    .ec-item.conflict {
+      background: rgba(231,76,60,0.08);
+      border-color: rgba(231,76,60,0.2);
+    }
+
+    .ec-item strong { color: var(--accent-main); }
+    .ec-item.conflict strong { color: var(--red); }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      margin: 20px 0;
+      background: rgba(255,255,255,0.6);
+      border-radius: 16px;
+      overflow: hidden;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 14px 16px;
+      text-align: left;
+      font-weight: 500;
+    }
+
+    td {
+      padding: 12px 16px;
+      border-bottom: 1px solid rgba(0,0,0,0.05);
+    }
+
+    tr:last-child td { border-bottom: none; }
+    tr:hover td { background: rgba(102,126,234,0.03); }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin: 2px;
+    }
+
+    .tag.green { background: rgba(39,174,96,0.15); color: var(--green); }
+    .tag.yellow { background: rgba(241,196,15,0.2); color: #d4ac0d; }
+    .tag.red { background: rgba(231,76,60,0.15); color: var(--red); }
+    .tag.blue { background: rgba(52,152,219,0.15); color: var(--blue); }
+    .tag.purple { background: rgba(155,89,182,0.15); color: var(--purple); }
+
+    /* Stat grid */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .stat-card {
+      background: rgba(255,255,255,0.8);
+      border-radius: 20px;
+      padding: 24px 16px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-top: 6px;
+    }
+
+    /* Action cards */
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .action-card {
+      background: rgba(255,255,255,0.8);
+      border-radius: 20px;
+      padding: 24px;
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+
+    .action-card h4 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+      color: var(--accent-main);
+    }
+
+    .week-label {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 4px 16px;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    p { margin-bottom: 14px; font-size: 1rem; line-height: 1.9; }
+
+    ul, ol { padding-left: 24px; margin: 12px 0; }
+    li { margin-bottom: 10px; line-height: 1.7; }
+    li::marker { color: #667eea; }
+
+    strong { font-weight: 500; }
+
+    .arrow { color: var(--accent-main); font-weight: 700; }
+    .red-text { color: var(--red); }
+    .green-text { color: var(--green); }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .hero { padding: 50px 24px; }
+      .hero h1 { font-size: 2rem; }
+      .card { padding: 28px 20px; border-radius: 20px; }
+      .ec-row { flex-direction: column; align-items: center; }
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .card { box-shadow: none; border: 1px solid #eee; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-badge">🔗 TOC 瓶頸突破讀書法</div>
+  <h1>大腦就是你的超能力</h1>
+  <p class="subtitle">輕鬆理解大腦真相，讓大腦脫胎換骨的十四堂課</p>
+  <p style="color: var(--text-light); font-size: 0.95rem;">克里斯蒂安．乞爾（Christian Grüner-Groh）著・意志力、思考力、記憶力全面提升</p>
+  <div class="bottleneck-diagnosis">🔴 一句話瓶頸診斷：你知道 100 件該做的事，但同時做 100 件 = 一件也做不好</div>
+</header>
+
+<!-- ============ 書籍概要 ============ -->
+<section class="card">
+  <h2 class="section-title">📚 書籍概要</h2>
+  <div class="stat-grid">
+    <div class="stat-card">
+      <div class="stat-number">14</div>
+      <div class="stat-label">堂課</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">215</div>
+      <div class="stat-label">頁數</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">7</div>
+      <div class="stat-label">大腦特性</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">2</div>
+      <div class="stat-label">智力類型</div>
+    </div>
+  </div>
+  <p>本書由德國記憶冠軍暨腦科學研究者撰寫，以第一人稱的研究旅程串連十四個主題：從大腦基礎結構、思考機制、資訊氾濫、多工處理、覺察冥想、壓力管理、時間管理、動力紀律、決策、創意、專注力、身體健康（睡眠/運動/飲食）、學習記憶，到最終的系統整合。每章提供神經科學原理 + 實踐練習的組合。</p>
+</section>
+
+<!-- ============================================================ -->
+<!-- 🏥 診斷層 -->
+<!-- ============================================================ -->
+
+<div class="layer-banner diag">
+  <h2>🏥 診斷層（Step 1-3）</h2>
+  <p>這本書在治什麼病？</p>
+</div>
+
+<!-- Step 1 -->
+<section class="card">
+  <div class="step-header">
+    <div class="step-num diag">01</div>
+    <div>
+      <div class="step-title">📍 系統界定</div>
+      <div class="step-subtitle">書對應的「系統」是什麼？</div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>系統名稱：個人大腦效能運作系統</strong>
+    <p style="margin-top:8px;">一個以大腦為核心處理器，將「輸入」（資訊、刺激、經驗）轉化為「產出」（決策品質、工作效率、創意表現、身心健康）的個人認知系統。</p>
+  </div>
+
+  <p><strong>系統邊界：</strong></p>
+  <ul>
+    <li><strong>輸入：</strong>外部資訊流（媒體、社交、工作任務）、感官刺激、過往記憶、睡眠/運動/飲食的生理資源</li>
+    <li><strong>產出：</strong>思考品質、專注力持續時間、決策正確率、創意產出、壓力耐受度、記憶效能、整體生活品質</li>
+    <li><strong>組成要素：</strong>前額葉皮質（決策/計畫）、海馬迴（記憶）、杏仁核（情緒/壓力）、多巴胺系統（動力）、注意力過濾系統、工作記憶</li>
+    <li><strong>系統目標：</strong>作者認為終極目標是「成為自己人生電影的導演」——主動掌控大腦，而非被大腦的原始衝動驅使</li>
+  </ul>
+
+  <div class="highlight-box orange">
+    <strong>⚠️ 作者對系統的三個關鍵假設：</strong>
+    <ol>
+      <li><strong>假設 1：</strong>大腦是可塑的——透過正確的訓練，任何人都能提升大腦效能（神經可塑性）</li>
+      <li><strong>假設 2：</strong>讀者的大腦目前處於「被動反應模式」——被習慣、分心、壓力牽著走</li>
+      <li><strong>假設 3：</strong>改善的方向是「從了解到實踐」——先理解大腦運作原理，再針對性訓練</li>
+    </ol>
+  </div>
+</section>
+
+<!-- Step 2 -->
+<section class="card">
+  <div class="step-header">
+    <div class="step-num diag">02</div>
+    <div>
+      <div class="step-title">🌲 現況實境樹（CRT）</div>
+      <div class="step-subtitle">書診斷的「不良效應」和根因</div>
+    </div>
+  </div>
+
+  <p><strong>不良效應清單（UDE）——作者認為「不應該如此」的現象：</strong></p>
+
+  <table>
+    <thead>
+      <tr><th>UDE</th><th>現象描述</th><th>對應章節</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="tag red">UDE1</span></td><td>注意力碎片化——被資訊洪流淹沒，無法深度思考</td><td>Ch3, Ch4</td></tr>
+      <tr><td><span class="tag red">UDE2</span></td><td>多工幻覺——以為同時處理多事能提高效率，實際品質大幅下降</td><td>Ch4</td></tr>
+      <tr><td><span class="tag red">UDE3</span></td><td>壓力失控——壓力過大時前額葉下線，退化為原始反應模式</td><td>Ch6</td></tr>
+      <tr><td><span class="tag red">UDE4</span></td><td>拖延循環——知道該做卻不做，在舒適區打轉</td><td>Ch7, Ch8</td></tr>
+      <tr><td><span class="tag red">UDE5</span></td><td>決策疲勞——面對太多選項反而無法做決定</td><td>Ch9</td></tr>
+      <tr><td><span class="tag red">UDE6</span></td><td>創意枯竭——固著在既有思維模式，無法跳脫框架</td><td>Ch10</td></tr>
+      <tr><td><span class="tag red">UDE7</span></td><td>記不住學到的東西——學習無法轉化為長期記憶</td><td>Ch13</td></tr>
+      <tr><td><span class="tag red">UDE8</span></td><td>身體拖累大腦——睡眠不足、缺乏運動、飲食不當削弱認知</td><td>Ch12</td></tr>
+    </tbody>
+  </table>
+
+  <p><strong>CRT 因果追溯圖：</strong></p>
+  <div class="tree-box">
+                    [UDE 總效應：知道很多卻做不到，大腦「脫胎換骨」遙遙無期]
+                              ↑                          ↑
+              [UDE4：拖延循環]              [UDE7：記不住]
+              ↑            ↑                      ↑
+    [UDE2：多工幻覺]  [UDE3：壓力失控]    [UDE1：注意力碎片化]
+              ↑            ↑                      ↑
+         [中間效應：前額葉超載]         [中間效應：缺乏覺察力]
+              ↑            ↑                      ↑
+    🔴 根因 A：                        🔴 根因 B：
+    大腦的「懶惰+好奇」天性            從未學過「如何使用大腦」
+    讓我們選最省力路徑                  ——缺少大腦使用說明書
+              ↑
+    🔴 根因 C：
+    身體基礎設施不足
+    （睡眠/運動/飲食）
+  </div>
+
+  <div class="highlight-box red">
+    <strong>🔴 三大根因驗證：</strong>
+    <ul>
+      <li><strong>根因 A「大腦天性」</strong>→ 導致 UDE 1,2,4,5,6（佔 5/8）→ 在控制範圍內（可通過訓練改變）→ 書的主要解法對象</li>
+      <li><strong>根因 B「缺乏使用說明」</strong>→ 導致 UDE 1,3,6,7（佔 4/8）→ 在控制範圍內 → 本書的存在意義</li>
+      <li><strong>根因 C「身體基礎不足」</strong>→ 導致 UDE 3,4,8（佔 3/8）→ 在控制範圍內 → 第 12 章專門處理</li>
+    </ul>
+  </div>
+</section>
+
+<!-- Step 3 -->
+<section class="card">
+  <div class="step-header">
+    <div class="step-num diag">03</div>
+    <div>
+      <div class="step-title">☁️ 核心衝突雲（EC）</div>
+      <div class="step-subtitle">書要解決的根本兩難</div>
+    </div>
+  </div>
+
+  <div class="ec-cloud">
+    <div class="goal">A：共同目標——有效運用大腦，讓人生「脫胎換骨」</div>
+
+    <div class="ec-row">
+      <div class="ec-item">
+        <strong>B：需求 1 — 效率</strong>
+        <p>為了達成目標，需要快速處理大量資訊和任務，保持高產出</p>
+      </div>
+      <div class="ec-item">
+        <strong>C：需求 2 — 深度</strong>
+        <p>為了達成目標，需要深度思考、專注學習、形成長期記憶</p>
+      </div>
+    </div>
+
+    <div class="ec-row">
+      <div class="ec-item">
+        <strong>D：行動 1 — 多工快速切換</strong>
+        <p>為了效率，同時處理多個任務，用速度換取產量</p>
+      </div>
+      <div class="ec-item conflict">
+        <strong>⚡ 衝突 ⚡</strong>
+        <p>D 和 D' 在時間和注意力上互相排斥——你不可能同時快速切換又深度專注</p>
+      </div>
+      <div class="ec-item">
+        <strong>D'：行動 2 — 單工深度沉浸</strong>
+        <p>為了深度，一次只做一件事，排除所有干擾</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>🔑 衝突背後的錯誤假設（書的核心突破）：</strong>
+    <ul>
+      <li><strong>假設 α（已被書推翻）：</strong>「多工 = 高效率」→ 事實：多工讓反應力下降到等同酒駕水準，依序完成才是最快的方法</li>
+      <li><strong>假設 β（已被書推翻）：</strong>「深度思考需要特殊天賦」→ 事實：任何人透過覺察練習和專注力訓練都能達到深度狀態</li>
+      <li><strong>假設 γ（已被書推翻）：</strong>「效率和深度只能二選一」→ 事實：透過正確的大腦管理（時間管理+覺察+身體基礎），可以在不同時段分配效率模式和深度模式</li>
+    </ul>
+    <p style="margin-top:12px;"><strong>書的核心突破：</strong>效率和深度不是二選一，而是需要「元技能」——理解大腦運作後，為不同任務分配正確的認知模式。大腦的使用說明書，就是這個元技能。</p>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 💊 處方層 -->
+<!-- ============================================================ -->
+
+<div class="layer-banner rx">
+  <h2>💊 處方層（Step 4-5）</h2>
+  <p>書開了什麼藥方？</p>
+</div>
+
+<!-- Step 4 -->
+<section class="card">
+  <div class="step-header">
+    <div class="step-num rx">04</div>
+    <div>
+      <div class="step-title">💉 注入解萃取</div>
+      <div class="step-subtitle">書提出的突破性解法</div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>注入</th><th>一句話描述</th><th>類型</th><th>打破假設</th><th>槓桿度</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>注入 1</strong></td>
+        <td>理解大腦七大特性（自私、懶惰、好奇、習慣、控制、易騙、渴望和諧）——不再和自己的天性對抗</td>
+        <td><span class="tag green">🟢 認知</span></td>
+        <td>α β</td>
+        <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><strong>注入 2</strong></td>
+        <td>停止多工，改為「依序單工」——一次一件事，完成再下一件</td>
+        <td><span class="tag yellow">🟡 行為</span></td>
+        <td>α</td>
+        <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><strong>注入 3</strong></td>
+        <td>建立每日覺察/冥想練習——訓練前額葉皮質的控制力</td>
+        <td><span class="tag yellow">🟡 行為</span></td>
+        <td>β γ</td>
+        <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><strong>注入 4</strong></td>
+        <td>使用「正向壓力弧線」——適度壓力提升表現，過度壓力讓前額葉當機</td>
+        <td><span class="tag green">🟢 認知</span></td>
+        <td>β</td>
+        <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><strong>注入 5</strong></td>
+        <td>建立具體計畫和時間區塊——把模糊目標轉為「何時+何地+做什麼」</td>
+        <td><span class="tag red">🔴 結構</span></td>
+        <td>γ</td>
+        <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><strong>注入 6</strong></td>
+        <td>用多巴胺系統驅動自己——把大目標拆成小獎勵，利用大腦的獎賞機制</td>
+        <td><span class="tag yellow">🟡 行為</span></td>
+        <td>α</td>
+        <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><strong>注入 7</strong></td>
+        <td>用圖像化記憶取代死記硬背——利用大腦擅長圖像處理的天性</td>
+        <td><span class="tag yellow">🟡 行為</span></td>
+        <td>β</td>
+        <td>⭐⭐⭐</td>
+      </tr>
+      <tr>
+        <td><strong>注入 8</strong></td>
+        <td>重建身體基礎：睡眠 > 運動 > 飲食——這是所有其他注入生效的前提</td>
+        <td><span class="tag red">🔴 結構</span></td>
+        <td>γ</td>
+        <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- Step 5 -->
+<section class="card">
+  <div class="step-header">
+    <div class="step-num rx">05</div>
+    <div>
+      <div class="step-title">🌳 未來實境樹（FRT）</div>
+      <div class="step-subtitle">如果照做，未來會怎樣？</div>
+    </div>
+  </div>
+
+  <div class="tree-box">如果 [注入8：建立睡眠/運動/飲食基礎]
+  → 大腦有充足能量供應，前額葉功能恢復正常
+
+  加上 [注入1：理解大腦七大特性]
+  加上 [注入3：開始每日覺察練習]
+  → 正面效應 1：能覺察到自己何時「被大腦的懶惰天性帶走」
+  → 正面效應 2：壓力來臨時，有工具讓前額葉重新上線
+
+  加上 [注入2：停止多工] + [注入5：時間區塊計畫]
+  → 正面效應 3：單位時間產出大幅提升
+  → 正面效應 4：深度工作成為可能，創意和記憶力同步改善
+
+  加上 [注入6：多巴胺獎勵設計] + [注入7：圖像記憶]
+  → 正面效應 5：學習效率提升，拖延減少
+
+  最終 → 🎯 目標狀態：成為「自己人生電影的導演」</div>
+
+  <div class="highlight-box orange">
+    <strong>⚠️ 負面分支檢查：</strong>
+    <ul>
+      <li><strong>注入 2（停止多工）</strong>可能導致 → 短期內感覺「做得更少」，產生焦慮 → 預防措施：先從低風險任務開始練習單工</li>
+      <li><strong>注入 3（每日冥想）</strong>可能導致 → 前兩週感覺「浪費時間」，想放棄 → 預防措施：從 2 分鐘開始，不追求完美</li>
+      <li><strong>注入 5（時間區塊）</strong>可能導致 → 計畫排太滿，反而增加壓力 → 預防措施：每天只排 3 個最重要任務</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 🔍 瓶頸層 -->
+<!-- ============================================================ -->
+
+<div class="layer-banner bottle">
+  <h2>🔍 瓶頸層（Step 6-7）</h2>
+  <p>Rex，你為什麼做不到？← 最核心</p>
+</div>
+
+<!-- Step 6 -->
+<section class="card">
+  <div class="step-header">
+    <div class="step-num bottle">06</div>
+    <div>
+      <div class="step-title">🎯 讀者瓶頸定位</div>
+      <div class="step-subtitle">卡在哪？為什麼卡？</div>
+    </div>
+  </div>
+
+  <p><strong>瓶頸診斷矩陣（Rex 個人化）：</strong></p>
+
+  <table>
+    <thead>
+      <tr><th>注入</th><th>認知</th><th>技能</th><th>環境</th><th>慣性</th><th>恐懼</th><th>主瓶頸</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>注入1 理解大腦</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td>✅</td><td><span class="tag green">無卡</span></td></tr>
+      <tr><td>注入2 停止多工</td><td>✅</td><td>✅</td><td>⚠️</td><td><span class="tag red">🔴</span></td><td>⚠️</td><td><strong>慣性瓶頸</strong></td></tr>
+      <tr><td>注入3 每日覺察</td><td>✅</td><td>⚠️</td><td>✅</td><td><span class="tag red">🔴</span></td><td>✅</td><td><strong>慣性瓶頸</strong></td></tr>
+      <tr><td>注入5 時間區塊</td><td>✅</td><td>✅</td><td>⚠️</td><td><span class="tag red">🔴</span></td><td><span class="tag red">🔴</span></td><td><strong>慣性+恐懼</strong></td></tr>
+      <tr><td>注入8 身體基礎</td><td>✅</td><td>✅</td><td>⚠️</td><td><span class="tag red">🔴</span></td><td>✅</td><td><strong>慣性瓶頸</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="highlight-box red">
+    <strong>🔴 Rex 的主瓶頸：D 類——慣性瓶頸（舊習太強）</strong>
+    <p><strong>症狀：</strong>「我知道該一次做一件事，但不知不覺就同時開了五個視窗、回了三封訊息、還在構思兩個新專案。」</p>
+    <p><strong>根因：</strong>同時追多條線（影像製作、保險、AI 系統、紫微斗數、社群經營）本身就是「多工」的生活型態——這不是某個時段的問題，而是整個人生架構的問題。</p>
+    <p><strong>舊模式的即時滿足：</strong>每切換一次任務，大腦的好奇心都能獲得一次多巴胺小獎勵。新模式（單工深度）的回饋要數週甚至數月才看得到。</p>
+  </div>
+
+  <div class="highlight-box orange">
+    <strong>⚠️ 潛伏的 E 類恐懼瓶頸：</strong>
+    <p>如果真的聚焦在一件事上，就意味著必須「選擇」——而選擇意味著放棄其他可能性。Rex 的多線並行模式可能不只是慣性，更是「用行動替代選擇」——用忙碌來迴避「我到底要以什麼為主業」的根本決策。</p>
+    <p>這與書中 Ch9（決策）的洞見完全吻合：大腦害怕做錯決定，所以乾脆不做，用保持多選項的幻覺來逃避。</p>
+  </div>
+</section>
+
+<!-- Step 7 -->
+<section class="card">
+  <div class="step-header">
+    <div class="step-num bottle">07</div>
+    <div>
+      <div class="step-title">🧱 障礙拆解（前提樹 PrT）</div>
+      <div class="step-subtitle">障礙 → 中間目標</div>
+    </div>
+  </div>
+
+  <div class="tree-box">🎯 目標：從「反射性多工」轉變為「有意識的單工深度模式」
+
+🧱 障礙 1：環境充滿觸發器（手機通知、多個通訊軟體、多條業務線同時進行）
+  └─ 🏁 中間目標 1：建立「深度工作時段」的物理環境
+     └─ 行動：每天設定 2 小時「飛航模式」，只處理一個專案
+
+🧱 障礙 2：沒有「已證明有效」的替代滿足感（舊模式的多巴胺來源太方便）
+  └─ 🏁 中間目標 2：建立單工完成後的即時獎勵機制
+     └─ 行動：完成一個深度工作區塊後，用 5 分鐘做自己喜歡的事
+
+🧱 障礙 3：從未體驗過「真正單工深度」帶來的產出差異，所以不相信
+  └─ 🏁 中間目標 3：完成一次「安全實驗」——體驗到差異
+     └─ 行動：選一個小型影片專案，全程單工完成，記錄時間和品質
+
+🧱 障礙 4：多線並行的生活結構本身就是障礙（不是某個時段的問題）
+  └─ 🏁 中間目標 4：在不改變生活結構的前提下，先在「某一條線」內實現單工
+     └─ 行動：先只在叡思影像的工作中實踐，其他業務暫不強制改變
+
+執行順序：中間目標 1 → 3 → 2 → 4（先建環境，做實驗，再擴展）</div>
+</section>
+
+<!-- ============================================================ -->
+<!-- 🚀 突破層 -->
+<!-- ============================================================ -->
+
+<div class="layer-banner break">
+  <h2>🚀 突破層（Step 8-10）</h2>
+  <p>怎麼打破瓶頸？</p>
+</div>
+
+<!-- Step 8 -->
+<section class="card">
+  <div class="step-header">
+    <div class="step-num break">08</div>
+    <div>
+      <div class="step-title">🪜 轉變樹（TT）——四週突破計畫</div>
+      <div class="step-subtitle">逐步行動，有因果邏輯</div>
+    </div>
+  </div>
+
+  <div class="action-grid">
+    <div class="action-card">
+      <div class="week-label">📅 第一週：覺察基礎</div>
+      <h4>行動 1：2 分鐘晨間覺察</h4>
+      <p>現狀：沒有冥想習慣</p>
+      <p>行動：每天早上起床後，閉眼 2 分鐘，只觀察自己的呼吸</p>
+      <p>預期效果：開始覺察「自動駕駛模式」的存在</p>
+      <p>✅ 驗證：連續做 5 天以上</p>
+
+      <h4 style="margin-top:16px;">行動 2：記錄多工時刻</h4>
+      <p>行動：準備一張紙，每次發現自己在多工時，畫一個正字</p>
+      <p>預期效果：量化自己的多工頻率（通常會震驚）</p>
+      <p>✅ 驗證：一週後統計數字</p>
+    </div>
+
+    <div class="action-card">
+      <div class="week-label">📅 第二週：單工實驗</div>
+      <h4>行動 3：一個「深度 90 分鐘」</h4>
+      <p>現狀：已覺察自己的多工頻率</p>
+      <p>行動：每天選一個 90 分鐘時段，手機飛航，只做叡思影像的一個任務</p>
+      <p>預期效果：體驗單工與多工的產出差異</p>
+      <p>✅ 驗證：完成的工作量 vs 同等時間的多工產出</p>
+
+      <h4 style="margin-top:16px;">行動 4：覺察升級到 5 分鐘</h4>
+      <p>行動：晨間冥想從 2 分鐘延長到 5 分鐘</p>
+      <p>✅ 驗證：能穩定做 5 分鐘不放棄</p>
+    </div>
+
+    <div class="action-card">
+      <div class="week-label">📅 第三週：實戰應用</div>
+      <h4>行動 5：為整天設計時間區塊</h4>
+      <p>行動：前一天晚上，把明天的三個最重要任務寫在紙上，分配固定時段</p>
+      <p>預期效果：從「反應式工作」轉為「主動導演式工作」</p>
+      <p>✅ 驗證：三個任務完成率 > 60%</p>
+
+      <h4 style="margin-top:16px;">行動 6：壓力覺察實驗</h4>
+      <p>行動：當感覺壓力上升時，用書中的「暫停—呼吸—重新定義」三步驟</p>
+      <p>✅ 驗證：至少使用 3 次，記錄效果</p>
+    </div>
+
+    <div class="action-card">
+      <div class="week-label">📅 第四週：系統化</div>
+      <h4>行動 7：建立「每日大腦儀式」</h4>
+      <p>行動：固定程序——5 分鐘冥想 → 3 件事計畫 → 深度工作 90 分鐘 → 回顧</p>
+      <p>預期效果：從刻意練習變成自動習慣</p>
+      <p>✅ 最終驗證：<br>
+        ① 單工完成率是否明顯高於多工？<br>
+        ② 每天是否有至少 90 分鐘不被打斷的深度工作？<br>
+        ③ 壓力來臨時，是否能覺察並使用工具？</p>
+    </div>
+  </div>
+</section>
+
+<!-- Step 9 -->
+<section class="card">
+  <div class="step-header">
+    <div class="step-num break">09</div>
+    <div>
+      <div class="step-title">📊 吞吐量審計</div>
+      <div class="step-subtitle">哪些行動 ROI 最高？</div>
+    </div>
+  </div>
+
+  <table>
+    <thead>
+      <tr><th>行動</th><th>T（貢獻度）</th><th>I（前期投入）</th><th>OE（持續成本）</th><th>ROI</th><th>優先序</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>停止多工 → 單工模式</td><td>🔥 極高</td><td>零</td><td>低（需意志力）</td><td>⭐⭐⭐⭐⭐</td><td><strong>1</strong></td></tr>
+      <tr><td>每日 3 任務計畫</td><td>高</td><td>零</td><td>極低（5 分鐘/天）</td><td>⭐⭐⭐⭐⭐</td><td><strong>2</strong></td></tr>
+      <tr><td>2-5 分鐘晨間覺察</td><td>高</td><td>零</td><td>極低</td><td>⭐⭐⭐⭐</td><td><strong>3</strong></td></tr>
+      <tr><td>改善睡眠品質</td><td>🔥 極高</td><td>中（需調整作息）</td><td>中</td><td>⭐⭐⭐⭐</td><td><strong>4</strong></td></tr>
+      <tr><td>圖像記憶法</td><td>中</td><td>中（需學習技巧）</td><td>低</td><td>⭐⭐⭐</td><td>5</td></tr>
+      <tr><td>固定運動習慣</td><td>高</td><td>高（需時間）</td><td>高</td><td>⭐⭐⭐</td><td>6</td></tr>
+    </tbody>
+  </table>
+
+  <div class="highlight-box green">
+    <strong>🎯 決策規則應用結果：</strong>
+    <p>前三個行動（停止多工、三任務計畫、晨間覺察）前期投入為零、持續成本極低、對系統產出貢獻最大 → 這三個先做，而且<strong>只做這三個</strong>。</p>
+    <p>TOC 核心紀律：<strong>不做非瓶頸的改善。</strong>在慣性瓶頸被打破之前，圖像記憶法、營養調整等全都是浪費——因為你連一件事都還沒能持續做好，添加更多好習慣只會分散注意力。</p>
+  </div>
+</section>
+
+<!-- Step 10 -->
+<section class="card">
+  <div class="step-header">
+    <div class="step-num break">10</div>
+    <div>
+      <div class="step-title">🔄 持續改善循環（POOGI）</div>
+      <div class="step-subtitle">打破後，下一個瓶頸是什麼？</div>
+    </div>
+  </div>
+
+  <div class="tree-box">[瓶頸 1：慣性瓶頸 — 無法停止多工] 
+    ──打破──→ [瓶頸 2：恐懼瓶頸 — 必須面對「聚焦選擇」的決策]
+                  ──打破──→ [瓶頸 3：技能瓶頸 — 需要學習深度工作的具體方法論]
+                                ──打破──→ [瓶頸 4：環境瓶頸 — 業務結構需要重整]
+                                              ──打破──→ 🎯 系統升級完成</div>
+
+  <div class="highlight-box">
+    <strong>📚 瓶頸遷移預測與對應書籍：</strong>
+    <ul>
+      <li><strong>瓶頸 2（聚焦決策）</strong>→ 推薦：《一件事》(The ONE Thing) by Gary Keller —— 訓練極致聚焦的決策能力</li>
+      <li><strong>瓶頸 3（深度工作方法）</strong>→ 推薦：《深度工作力》(Deep Work) by Cal Newport —— 從概念到系統的完整方法論</li>
+      <li><strong>瓶頸 4（業務結構重整）</strong>→ 推薦：《企業目標》(The Goal) by Eliyahu Goldratt —— TOC 原典，用在事業系統上</li>
+    </ul>
+  </div>
+
+  <div class="highlight-box green">
+    <strong>📝 瓶頸遷移日誌模板：</strong>
+    <table>
+      <thead><tr><th>日期</th><th>舊瓶頸</th><th>打破方式</th><th>新瓶頸</th><th>對應資源</th></tr></thead>
+      <tbody>
+        <tr><td>Week 4</td><td>慣性多工</td><td>單工實驗成功</td><td>？</td><td>觀察中</td></tr>
+        <tr><td>Month 2</td><td>待觀察</td><td>—</td><td>—</td><td>—</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 完整章節 ↔ TOC 映射 ============ -->
+<section class="card">
+  <h2 class="section-title">📋 14 堂課 ↔ TOC 映射速覽</h2>
+  <table>
+    <thead>
+      <tr><th>Ch</th><th>標題</th><th>TOC 角色</th><th>對 Rex 的瓶頸相關度</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>簡單認識大腦與智力</td><td>Step 1 系統界定</td><td>⬜ 基礎知識</td></tr>
+      <tr><td>2</td><td>思考「思考」這件事</td><td>Step 2 CRT 素材</td><td>⬜ 基礎知識</td></tr>
+      <tr><td>3</td><td>如何處理資訊氾濫</td><td>UDE 1 根因</td><td>🟨 中度相關</td></tr>
+      <tr><td>4</td><td>一心多用到底好不好</td><td>注入 2 核心來源</td><td>🟥 <strong>高度相關</strong></td></tr>
+      <tr><td>5</td><td>意識與覺察</td><td>注入 3 核心來源</td><td>🟥 <strong>高度相關</strong></td></tr>
+      <tr><td>6</td><td>壓力和最佳表現</td><td>注入 4 來源</td><td>🟨 中度相關</td></tr>
+      <tr><td>7</td><td>時間管理</td><td>注入 5 核心來源</td><td>🟥 <strong>高度相關</strong></td></tr>
+      <tr><td>8</td><td>動力與紀律</td><td>注入 6 來源</td><td>🟥 <strong>高度相關</strong></td></tr>
+      <tr><td>9</td><td>做決定</td><td>恐懼瓶頸關鍵</td><td>🟥 <strong>高度相關</strong></td></tr>
+      <tr><td>10</td><td>創意和生產力</td><td>FRT 正面效應</td><td>🟨 中度相關</td></tr>
+      <tr><td>11</td><td>專注與覺察</td><td>注入 3 強化版</td><td>🟥 <strong>高度相關</strong></td></tr>
+      <tr><td>12</td><td>睡眠、運動和健腦食物</td><td>注入 8 來源</td><td>🟨 中度相關</td></tr>
+      <tr><td>13</td><td>學習和記憶</td><td>注入 7 來源</td><td>⬜ 次要</td></tr>
+      <tr><td>14</td><td>快速總結</td><td>整合</td><td>⬜ 總結</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ 核心洞見 ============ -->
+<section class="card">
+  <h2 class="section-title">💎 TOC 分析的三個核心洞見</h2>
+
+  <div class="highlight-box">
+    <strong>洞見 1：這本書的真正價值不在 14 章的「知識」，而在它揭示的一個系統性矛盾</strong>
+    <p>效率 vs. 深度的假衝突。大多數人（包括 Rex）解決「做不完」的策略是「同時做更多」，但這恰恰是讓大腦效能崩潰的原因。書的核心突破是：減少同時做的事，反而能做完更多。</p>
+  </div>
+
+  <div class="highlight-box red">
+    <strong>洞見 2：Rex 的瓶頸不在「不知道」，而在「同時做太多」</strong>
+    <p>書提供了 8 個注入解，但 Rex 如果同時嘗試 8 個，就重蹈「多工」覆轍。TOC 的核心紀律是：只聚焦在瓶頸上。現在的瓶頸是慣性多工，所以只做三件事：停止多工、三任務計畫、晨間覺察。其他的全部暫緩。</p>
+  </div>
+
+  <div class="highlight-box green">
+    <strong>洞見 3：「行動替代選擇」是更深層的恐懼瓶頸</strong>
+    <p>當慣性瓶頸被打破後，Rex 會面對一個更根本的問題：影像製作、保險、AI 系統、紫微斗數——到底哪一個才是主軸？這個決策一旦做出，所有的「大腦超能力」才能被聚焦在一個方向上。這本書沒有直接回答這個問題，但它提供了做出這個決策所需的大腦能力。</p>
+  </div>
+</section>
+
+<footer>
+  <p>🔗 TOC 瓶頸突破讀書法</p>
+  <p style="margin-top:8px;">分析日期：2026-03-09</p>
+  <p style="margin-top:4px; font-size:0.85rem;">「讀書的目的不是知道更多，而是打破你卡住的那個點。」</p>
+</footer>
+
+</div>
+</body>
+</html>
