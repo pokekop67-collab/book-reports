@@ -1,0 +1,2479 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒報告 ｜ 思考中醫：對自然與生命的時間解讀</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   韓系清新風格 — 書醒 Awakening v2
+   思考中醫：對自然與生命的時間解讀
+   ============================================================ */
+
+:root {
+  --bg-primary: #F7F3EE;
+  --bg-secondary: #FFFBF5;
+  --accent-herb: #5B8C5A;
+  --accent-herb-light: #7BAF7A;
+  --accent-herb-pale: #E8F0E8;
+  --accent-warm: #C9956B;
+  --accent-warm-light: #E8C9A8;
+  --accent-warm-pale: #FFF5EB;
+  --accent-deep: #4A6741;
+  --accent-ink: #3D3024;
+  --accent-fire: #C75B39;
+  --accent-fire-light: #E89B7F;
+  --accent-water: #5B7E8C;
+  --accent-water-light: #A8C9D4;
+  --accent-water-pale: #EBF5F8;
+  --accent-earth: #8C7B5B;
+  --accent-earth-light: #D4C9A8;
+  --accent-wood: #6B8C5B;
+  --accent-metal: #8C8C8C;
+  --accent-purple: #7B5B8C;
+  --accent-purple-light: #C9A8D4;
+  --text-primary: #2C2416;
+  --text-secondary: #5C4F3D;
+  --text-tertiary: #8C7F6D;
+  --text-light: #B3A898;
+  --card-shadow: 0 4px 24px rgba(91, 140, 90, 0.08), 0 1px 4px rgba(0,0,0,0.04);
+  --card-shadow-hover: 0 8px 40px rgba(91, 140, 90, 0.14), 0 2px 8px rgba(0,0,0,0.06);
+  --card-radius: 20px;
+  --border-subtle: 1px solid rgba(91, 140, 90, 0.12);
+  --glass-bg: rgba(255, 251, 245, 0.72);
+  --glass-border: 1px solid rgba(91, 140, 90, 0.15);
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.8;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Hero Section ── */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(165deg, #F0EBE3 0%, #E8F0E8 30%, #F7F3EE 60%, #FFF5EB 100%);
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(91,140,90,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatSlow 20s ease-in-out infinite;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -15%;
+  left: -5%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(201,149,107,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  animation: floatSlow 25s ease-in-out infinite reverse;
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 15px) scale(0.95); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.92); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@keyframes brushStroke {
+  0% { width: 0; }
+  100% { width: 100%; }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  padding: 2rem;
+  max-width: 800px;
+  animation: fadeInUp 1.2s ease-out;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: var(--glass-border);
+  border-radius: 50px;
+  font-size: 0.85rem;
+  color: var(--accent-herb);
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  margin-bottom: 2rem;
+  animation: fadeInScale 0.8s ease-out 0.3s both;
+}
+
+.hero-badge .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent-herb);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.hero-icon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+  animation: fadeInScale 0.8s ease-out 0.5s both;
+  filter: drop-shadow(0 4px 12px rgba(91,140,90,0.15));
+}
+
+.hero-title {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+  font-size: 3.2rem;
+  line-height: 1.3;
+  color: var(--text-primary);
+  margin-bottom: 0.8rem;
+  animation: fadeInUp 1s ease-out 0.6s both;
+  letter-spacing: 0.02em;
+}
+
+.hero-subtitle {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: var(--text-secondary);
+  margin-bottom: 2rem;
+  animation: fadeInUp 1s ease-out 0.8s both;
+  letter-spacing: 0.08em;
+}
+
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  animation: fadeInUp 1s ease-out 1s both;
+}
+
+.hero-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+  background: rgba(255,255,255,0.5);
+  backdrop-filter: blur(6px);
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  border: 1px solid rgba(91,140,90,0.08);
+}
+
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.8rem;
+  color: var(--text-light);
+  letter-spacing: 0.15em;
+  animation: fadeInUp 1s ease-out 1.4s both;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.hero-scroll-hint .arrow {
+  width: 1px;
+  height: 30px;
+  background: linear-gradient(to bottom, var(--text-light), transparent);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* ── Main Container ── */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+}
+
+/* ── Step Navigation ── */
+.step-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(247, 243, 238, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 1rem 0;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid rgba(91,140,90,0.08);
+}
+
+.step-nav-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.step-nav-inner::-webkit-scrollbar { display: none; }
+
+.step-nav-dot {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-tertiary);
+  background: transparent;
+  border: 1.5px solid rgba(91,140,90,0.15);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  text-decoration: none;
+}
+
+.step-nav-dot:hover {
+  background: var(--accent-herb-pale);
+  color: var(--accent-herb);
+  border-color: var(--accent-herb-light);
+  transform: translateY(-2px);
+}
+
+.step-nav-label {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  flex-shrink: 0;
+  margin-right: 0.5rem;
+}
+
+/* ── Card Base ── */
+.card {
+  background: var(--bg-secondary);
+  border-radius: var(--card-radius);
+  border: var(--border-subtle);
+  box-shadow: var(--card-shadow);
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+  position: relative;
+}
+
+.card:hover {
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.card-header {
+  padding: 2rem 2.5rem 1.2rem;
+  position: relative;
+}
+
+.card-body {
+  padding: 0 2.5rem 2.5rem;
+}
+
+/* ── Step Number Badge ── */
+.step-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 50px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 1rem;
+}
+
+.step-badge.green {
+  background: linear-gradient(135deg, var(--accent-herb-pale), rgba(123,175,122,0.15));
+  color: var(--accent-herb);
+}
+
+.step-badge.warm {
+  background: linear-gradient(135deg, var(--accent-warm-pale), rgba(201,149,107,0.15));
+  color: var(--accent-warm);
+}
+
+.step-badge.water {
+  background: linear-gradient(135deg, var(--accent-water-pale), rgba(91,126,140,0.15));
+  color: var(--accent-water);
+}
+
+.step-badge.fire {
+  background: linear-gradient(135deg, #FEF0EB, rgba(199,91,57,0.10));
+  color: var(--accent-fire);
+}
+
+.step-badge.purple {
+  background: linear-gradient(135deg, #F5EBF8, rgba(123,91,140,0.10));
+  color: var(--accent-purple);
+}
+
+.step-badge.earth {
+  background: linear-gradient(135deg, #F5F0E8, rgba(140,123,91,0.10));
+  color: var(--accent-earth);
+}
+
+/* ── Card Title ── */
+.card-title {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  line-height: 1.4;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+}
+
+.card-title-sub {
+  font-size: 0.92rem;
+  color: var(--text-tertiary);
+  font-weight: 400;
+  margin-bottom: 0.5rem;
+}
+
+/* ── Decorative Top Bar ── */
+.card-topbar {
+  height: 4px;
+  border-radius: var(--card-radius) var(--card-radius) 0 0;
+}
+
+.card-topbar.gradient-herb {
+  background: linear-gradient(90deg, var(--accent-herb), var(--accent-herb-light), var(--accent-warm-light));
+}
+
+.card-topbar.gradient-warm {
+  background: linear-gradient(90deg, var(--accent-warm), var(--accent-warm-light), var(--accent-herb-light));
+}
+
+.card-topbar.gradient-water {
+  background: linear-gradient(90deg, var(--accent-water), var(--accent-water-light), var(--accent-herb-light));
+}
+
+.card-topbar.gradient-fire {
+  background: linear-gradient(90deg, var(--accent-fire), var(--accent-fire-light), var(--accent-warm-light));
+}
+
+.card-topbar.gradient-purple {
+  background: linear-gradient(90deg, var(--accent-purple), var(--accent-purple-light), var(--accent-water-light));
+}
+
+.card-topbar.gradient-earth {
+  background: linear-gradient(90deg, var(--accent-earth), var(--accent-earth-light), var(--accent-warm-light));
+}
+
+.card-topbar.gradient-mixed {
+  background: linear-gradient(90deg, var(--accent-herb), var(--accent-warm), var(--accent-water), var(--accent-fire));
+}
+
+/* ── Section Headers ── */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 1.8rem 0 1rem;
+}
+
+.section-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.section-icon.green { background: var(--accent-herb-pale); }
+.section-icon.warm { background: var(--accent-warm-pale); }
+.section-icon.water { background: var(--accent-water-pale); }
+.section-icon.fire { background: #FEF0EB; }
+
+.section-title {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 600;
+  font-size: 1.15rem;
+  color: var(--text-primary);
+}
+
+/* ── Text Styles ── */
+p {
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.9;
+}
+
+.lead-text {
+  font-size: 1.05rem;
+  color: var(--text-primary);
+  font-weight: 400;
+  line-height: 2;
+}
+
+.highlight {
+  background: linear-gradient(to bottom, transparent 55%, rgba(91,140,90,0.12) 55%);
+  padding: 0 2px;
+  font-weight: 500;
+}
+
+.highlight-warm {
+  background: linear-gradient(to bottom, transparent 55%, rgba(201,149,107,0.15) 55%);
+  padding: 0 2px;
+  font-weight: 500;
+}
+
+.highlight-fire {
+  background: linear-gradient(to bottom, transparent 55%, rgba(199,91,57,0.12) 55%);
+  padding: 0 2px;
+  font-weight: 500;
+}
+
+strong {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* ── Quote Box ── */
+.quote-box {
+  position: relative;
+  padding: 1.5rem 1.8rem;
+  margin: 1.2rem 0;
+  background: linear-gradient(135deg, rgba(91,140,90,0.04), rgba(201,149,107,0.04));
+  border-radius: 16px;
+  border-left: 3px solid var(--accent-herb-light);
+}
+
+.quote-box.warm {
+  border-left-color: var(--accent-warm);
+  background: linear-gradient(135deg, rgba(201,149,107,0.05), rgba(91,140,90,0.03));
+}
+
+.quote-box.fire {
+  border-left-color: var(--accent-fire);
+  background: linear-gradient(135deg, rgba(199,91,57,0.04), rgba(201,149,107,0.03));
+}
+
+.quote-box.water {
+  border-left-color: var(--accent-water);
+  background: linear-gradient(135deg, rgba(91,126,140,0.05), rgba(91,140,90,0.03));
+}
+
+.quote-box.purple {
+  border-left-color: var(--accent-purple);
+  background: linear-gradient(135deg, rgba(123,91,140,0.05), rgba(91,126,140,0.03));
+}
+
+.quote-text {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.8;
+  margin-bottom: 0.5rem;
+}
+
+.quote-source {
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  font-style: italic;
+}
+
+/* ── Info Grid ── */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.info-item {
+  padding: 1.2rem;
+  background: var(--glass-bg);
+  border-radius: 14px;
+  border: var(--glass-border);
+  transition: var(--transition-smooth);
+}
+
+.info-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(91,140,90,0.08);
+}
+
+.info-label {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.info-value {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* ── Tag ── */
+.tag-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0.8rem 0;
+}
+
+.tag {
+  padding: 4px 14px;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.tag.green { background: var(--accent-herb-pale); color: var(--accent-herb); }
+.tag.warm { background: var(--accent-warm-pale); color: var(--accent-warm); }
+.tag.water { background: var(--accent-water-pale); color: var(--accent-water); }
+.tag.fire { background: #FEF0EB; color: var(--accent-fire); }
+.tag.earth { background: #F5F0E8; color: var(--accent-earth); }
+.tag.purple { background: #F5EBF8; color: var(--accent-purple); }
+
+/* ── Insight Box ── */
+.insight-box {
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin: 1.2rem 0;
+  position: relative;
+}
+
+.insight-box.green {
+  background: linear-gradient(135deg, var(--accent-herb-pale), rgba(255,255,255,0.5));
+  border: 1px solid rgba(91,140,90,0.15);
+}
+
+.insight-box.warm {
+  background: linear-gradient(135deg, var(--accent-warm-pale), rgba(255,255,255,0.5));
+  border: 1px solid rgba(201,149,107,0.15);
+}
+
+.insight-box.water {
+  background: linear-gradient(135deg, var(--accent-water-pale), rgba(255,255,255,0.5));
+  border: 1px solid rgba(91,126,140,0.15);
+}
+
+.insight-box.fire {
+  background: linear-gradient(135deg, #FEF0EB, rgba(255,255,255,0.5));
+  border: 1px solid rgba(199,91,57,0.12);
+}
+
+.insight-box.purple {
+  background: linear-gradient(135deg, #F5EBF8, rgba(255,255,255,0.5));
+  border: 1px solid rgba(123,91,140,0.12);
+}
+
+.insight-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.6rem;
+}
+
+.insight-label.green { color: var(--accent-herb); }
+.insight-label.warm { color: var(--accent-warm); }
+.insight-label.water { color: var(--accent-water); }
+.insight-label.fire { color: var(--accent-fire); }
+.insight-label.purple { color: var(--accent-purple); }
+
+/* ── Case Study Box ── */
+.case-box {
+  padding: 1.5rem;
+  border-radius: 16px;
+  margin: 1.2rem 0;
+  background: linear-gradient(135deg, rgba(201,149,107,0.06), rgba(91,140,90,0.04));
+  border: 1px solid rgba(201,149,107,0.12);
+  position: relative;
+}
+
+.case-box::before {
+  content: '📋';
+  position: absolute;
+  top: -10px;
+  left: 20px;
+  font-size: 1.2rem;
+  background: var(--bg-secondary);
+  padding: 0 8px;
+  border-radius: 8px;
+}
+
+.case-title {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--accent-warm);
+  margin-bottom: 0.8rem;
+  padding-top: 0.3rem;
+}
+
+.case-detail {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.case-result {
+  margin-top: 0.8rem;
+  padding: 0.8rem 1rem;
+  background: rgba(91,140,90,0.06);
+  border-radius: 10px;
+  font-size: 0.88rem;
+  color: var(--accent-deep);
+  font-weight: 500;
+}
+
+/* ── Compare Table ── */
+.compare-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.2rem 0;
+}
+
+.compare-card {
+  padding: 1.5rem;
+  border-radius: 16px;
+  text-align: center;
+}
+
+.compare-card.positive {
+  background: linear-gradient(135deg, var(--accent-herb-pale), rgba(255,255,255,0.6));
+  border: 1px solid rgba(91,140,90,0.15);
+}
+
+.compare-card.negative {
+  background: linear-gradient(135deg, #FEF0EB, rgba(255,255,255,0.6));
+  border: 1px solid rgba(199,91,57,0.12);
+}
+
+.compare-emoji {
+  font-size: 2rem;
+  margin-bottom: 0.8rem;
+}
+
+.compare-title {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.compare-card.positive .compare-title { color: var(--accent-herb); }
+.compare-card.negative .compare-title { color: var(--accent-fire); }
+
+.compare-list {
+  list-style: none;
+  text-align: left;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+}
+
+.compare-list li {
+  padding: 4px 0;
+  padding-left: 1.2rem;
+  position: relative;
+}
+
+.compare-list li::before {
+  position: absolute;
+  left: 0;
+  font-size: 0.8rem;
+}
+
+.compare-card.positive .compare-list li::before { content: '✦'; color: var(--accent-herb); }
+.compare-card.negative .compare-list li::before { content: '✗'; color: var(--accent-fire); }
+
+/* ── Six Meridian Diagram ── */
+.meridian-flow {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 1.5rem 0;
+  position: relative;
+}
+
+.meridian-row {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  align-items: stretch;
+  min-height: 80px;
+}
+
+.meridian-connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.meridian-dot {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: white;
+  z-index: 2;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.meridian-dot.yang { background: linear-gradient(135deg, var(--accent-fire), var(--accent-warm)); }
+.meridian-dot.yin { background: linear-gradient(135deg, var(--accent-water), var(--accent-purple)); }
+.meridian-dot.pivot { background: linear-gradient(135deg, var(--accent-herb), var(--accent-deep)); }
+
+.meridian-line {
+  width: 2px;
+  flex: 1;
+  min-height: 10px;
+}
+
+.meridian-line.yang { background: linear-gradient(to bottom, rgba(199,91,57,0.3), rgba(91,140,90,0.2)); }
+.meridian-line.yin { background: linear-gradient(to bottom, rgba(91,126,140,0.3), rgba(123,91,140,0.2)); }
+
+.meridian-content {
+  padding: 0.8rem 1.2rem;
+  margin: 4px 0;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(91,140,90,0.08);
+}
+
+.meridian-name {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+
+.meridian-desc {
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+}
+
+.meridian-rx {
+  font-size: 0.82rem;
+  color: var(--accent-herb);
+  font-weight: 500;
+  margin-top: 2px;
+}
+
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(91,140,90,0.15), transparent);
+  margin: 1.5rem 0;
+}
+
+/* ── Score/Rating ── */
+.rating-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.rating-item {
+  flex: 1;
+  min-width: 140px;
+  padding: 1.2rem;
+  background: var(--glass-bg);
+  border-radius: 14px;
+  border: var(--glass-border);
+  text-align: center;
+}
+
+.rating-score {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 2rem;
+  font-weight: 900;
+  margin-bottom: 0.3rem;
+}
+
+.rating-score.green { color: var(--accent-herb); }
+.rating-score.warm { color: var(--accent-warm); }
+.rating-score.fire { color: var(--accent-fire); }
+
+.rating-label {
+  font-size: 0.78rem;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.rating-bar {
+  height: 4px;
+  background: rgba(91,140,90,0.1);
+  border-radius: 2px;
+  margin-top: 0.5rem;
+  overflow: hidden;
+}
+
+.rating-fill {
+  height: 100%;
+  border-radius: 2px;
+  transition: width 1s ease;
+}
+
+.rating-fill.green { background: linear-gradient(90deg, var(--accent-herb), var(--accent-herb-light)); }
+.rating-fill.warm { background: linear-gradient(90deg, var(--accent-warm), var(--accent-warm-light)); }
+
+/* ── Bullet List ── */
+.bullet-list {
+  list-style: none;
+  margin: 0.8rem 0;
+}
+
+.bullet-list li {
+  padding: 0.5rem 0 0.5rem 1.5rem;
+  position: relative;
+  font-size: 0.93rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.bullet-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent-herb-light);
+}
+
+.bullet-list.warm li::before { background: var(--accent-warm); }
+.bullet-list.fire li::before { background: var(--accent-fire-light); }
+
+/* ── Numbered List ── */
+.numbered-list {
+  counter-reset: item;
+  list-style: none;
+  margin: 0.8rem 0;
+}
+
+.numbered-list li {
+  counter-increment: item;
+  padding: 0.6rem 0 0.6rem 2.5rem;
+  position: relative;
+  font-size: 0.93rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+.numbered-list li::before {
+  content: counter(item);
+  position: absolute;
+  left: 0;
+  top: 0.5rem;
+  width: 24px;
+  height: 24px;
+  border-radius: 8px;
+  background: var(--accent-herb-pale);
+  color: var(--accent-herb);
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Chapter Flow ── */
+.chapter-flow {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.chapter-item {
+  padding: 1.2rem;
+  border-radius: 14px;
+  background: var(--glass-bg);
+  border: var(--glass-border);
+  transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.chapter-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(91,140,90,0.1);
+}
+
+.chapter-num {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-light);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+
+.chapter-name {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  margin-bottom: 0.4rem;
+}
+
+.chapter-brief {
+  font-size: 0.82rem;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+
+.chapter-item::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+}
+
+.chapter-item.yang::after { background: linear-gradient(90deg, var(--accent-fire-light), var(--accent-warm-light)); }
+.chapter-item.yin::after { background: linear-gradient(90deg, var(--accent-water-light), var(--accent-purple-light)); }
+.chapter-item.base::after { background: linear-gradient(90deg, var(--accent-herb-light), var(--accent-earth-light)); }
+
+/* ── Timeline ── */
+.timeline {
+  position: relative;
+  padding-left: 2rem;
+  margin: 1.5rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent-herb-light), var(--accent-warm-light), var(--accent-water-light));
+}
+
+.timeline-item {
+  position: relative;
+  padding: 0.8rem 0 1.5rem 1.5rem;
+}
+
+.timeline-item::before {
+  content: '';
+  position: absolute;
+  left: -1.95rem;
+  top: 1.1rem;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-herb);
+  border: 2px solid var(--bg-secondary);
+  box-shadow: 0 0 0 3px rgba(91,140,90,0.15);
+}
+
+.timeline-title {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  margin-bottom: 0.3rem;
+}
+
+.timeline-desc {
+  font-size: 0.88rem;
+  color: var(--text-tertiary);
+  line-height: 1.7;
+}
+
+/* ── Golden Rule Box ── */
+.golden-box {
+  padding: 2rem;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #FFF5EB, #FFFBF5, #F7F3EE);
+  border: 1px solid rgba(201,149,107,0.2);
+  text-align: center;
+  margin: 1.5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.golden-box::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 70% 30%, rgba(201,149,107,0.05), transparent 50%);
+}
+
+.golden-text {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--accent-warm);
+  position: relative;
+  line-height: 1.7;
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding: 3rem 1.5rem 2rem;
+  color: var(--text-light);
+  font-size: 0.82rem;
+}
+
+.footer-brand {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--text-tertiary);
+  margin-bottom: 0.3rem;
+}
+
+.footer-line {
+  width: 40px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent-herb-light), var(--accent-warm-light));
+  margin: 1rem auto;
+  border-radius: 1px;
+}
+
+/* ── Five Elements Color Blocks ── */
+.five-elements {
+  display: flex;
+  gap: 0;
+  margin: 1.5rem 0;
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.element-block {
+  flex: 1;
+  padding: 1.2rem 0.8rem;
+  text-align: center;
+  color: white;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.element-block.wood { background: linear-gradient(135deg, #5B8C5A, #7BAF7A); }
+.element-block.fire-el { background: linear-gradient(135deg, #C75B39, #E89B7F); }
+.element-block.earth-el { background: linear-gradient(135deg, #8C7B5B, #D4C9A8); color: var(--text-primary); }
+.element-block.metal { background: linear-gradient(135deg, #8C8C8C, #B3B3B3); }
+.element-block.water-el { background: linear-gradient(135deg, #5B7E8C, #A8C9D4); }
+
+.element-name {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+  font-size: 1.3rem;
+  margin-bottom: 0.2rem;
+}
+
+.element-desc {
+  font-size: 0.72rem;
+  opacity: 0.85;
+}
+
+/* ── Yin-Yang Comparison Cards ── */
+.yinyang-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin: 1.5rem 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+}
+
+.yinyang-side {
+  padding: 1.8rem;
+}
+
+.yinyang-side.yang-side {
+  background: linear-gradient(135deg, #FFFBF5, #FFF5EB);
+  border-right: 1px solid rgba(201,149,107,0.15);
+}
+
+.yinyang-side.yin-side {
+  background: linear-gradient(135deg, #EBF5F8, #F5EBF8);
+}
+
+.yinyang-label {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.yang-side .yinyang-label { color: var(--accent-fire); }
+.yin-side .yinyang-label { color: var(--accent-water); }
+
+.yinyang-text {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ── Prescription Card ── */
+.rx-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.2rem;
+  border-radius: 14px;
+  background: var(--glass-bg);
+  border: var(--glass-border);
+  margin: 0.8rem 0;
+  transition: var(--transition-smooth);
+}
+
+.rx-card:hover {
+  transform: translateX(4px);
+  box-shadow: 0 3px 12px rgba(91,140,90,0.08);
+}
+
+.rx-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, var(--accent-herb-pale), rgba(123,175,122,0.2));
+}
+
+.rx-name {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+
+.rx-desc {
+  font-size: 0.85rem;
+  color: var(--text-tertiary);
+  line-height: 1.6;
+}
+
+/* ── Final CTA ── */
+.cta-section {
+  text-align: center;
+  padding: 3rem 2rem;
+  background: linear-gradient(135deg, var(--accent-herb-pale), rgba(201,149,107,0.08), var(--accent-water-pale));
+  border-radius: var(--card-radius);
+  margin: 2rem 0;
+  border: 1px solid rgba(91,140,90,0.1);
+}
+
+.cta-icon { font-size: 3rem; margin-bottom: 1rem; }
+
+.cta-title {
+  font-family: 'Noto Serif TC', serif;
+  font-weight: 900;
+  font-size: 1.6rem;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.cta-subtitle {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  max-width: 500px;
+  margin: 0 auto;
+  line-height: 1.8;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .hero-title { font-size: 2.2rem; }
+  .hero-subtitle { font-size: 1.1rem; }
+  .card-header { padding: 1.5rem 1.5rem 1rem; }
+  .card-body { padding: 0 1.5rem 1.5rem; }
+  .card-title { font-size: 1.3rem; }
+  .compare-container { grid-template-columns: 1fr; }
+  .yinyang-grid { grid-template-columns: 1fr; }
+  .yinyang-side.yang-side { border-right: none; border-bottom: 1px solid rgba(201,149,107,0.15); }
+  .five-elements { flex-wrap: wrap; }
+  .element-block { min-width: 33%; }
+  .info-grid { grid-template-columns: 1fr; }
+  .chapter-flow { grid-template-columns: 1fr; }
+  .meridian-row { grid-template-columns: 60px 1fr; }
+}
+
+/* ── Print ── */
+@media print {
+  .step-nav { display: none; }
+  .hero { min-height: auto; padding: 3rem 0; }
+  .card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      書醒 AWAKENING v2 — 深度解讀報告
+    </div>
+    <div class="hero-icon">🌿</div>
+    <h1 class="hero-title">思考中醫</h1>
+    <p class="hero-subtitle">對自然與生命的時間解讀</p>
+    <div class="hero-meta">
+      <span class="hero-meta-item">👤 劉力紅</span>
+      <span class="hero-meta-item">🏛️ 廣西中醫學院</span>
+      <span class="hero-meta-item">📖 中醫哲學</span>
+      <span class="hero-meta-item">🔥 六經辨證</span>
+    </div>
+  </div>
+  <div class="hero-scroll-hint">
+    向下探索
+    <span class="arrow"></span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     STEP NAVIGATION
+     ═══════════════════════════════════════════ -->
+<nav class="step-nav">
+  <div class="step-nav-inner">
+    <span class="step-nav-label">書醒</span>
+    <a href="#step1" class="step-nav-dot">01</a>
+    <a href="#step2" class="step-nav-dot">02</a>
+    <a href="#step3" class="step-nav-dot">03</a>
+    <a href="#step4" class="step-nav-dot">04</a>
+    <a href="#step5" class="step-nav-dot">05</a>
+    <a href="#step6" class="step-nav-dot">06</a>
+    <a href="#step7" class="step-nav-dot">07</a>
+    <a href="#step8" class="step-nav-dot">08</a>
+    <a href="#step9" class="step-nav-dot">09</a>
+    <a href="#step10" class="step-nav-dot">10</a>
+    <a href="#step11" class="step-nav-dot">11</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ═══════════════════════════════════════════
+     STEP 01 — 這本書在說什麼
+     ═══════════════════════════════════════════ -->
+<article class="card" id="step1">
+  <div class="card-topbar gradient-herb"></div>
+  <div class="card-header">
+    <div class="step-badge green">STEP 01 ── 這本書在說什麼</div>
+    <h2 class="card-title">一位中醫教授的「信仰告白」</h2>
+    <p class="card-title-sub">用一千八百年前的經典，回答現代醫學不敢問的問題</p>
+  </div>
+  <div class="card-body">
+    <p class="lead-text">
+      劉力紅是廣西中醫學院的教授，師承三位名師——陳治恆、李陽波、盧崇漢。這本書不是教科書，也不是養生指南，而是一個在中醫低谷時代<span class="highlight">為經典辯護的知識分子的深度反思</span>。
+    </p>
+    <p>
+      他的核心論點驚人地簡單，卻又振聾發聵：中醫理論不是落後的遺產，而是一個<span class="highlight-warm">「早熟品」</span>——借梁漱溟的說法，中國文化是「早熟」的文化，中醫理論在很多領域不但沒有滯後，反而<strong>大大地超前</strong>。問題不在理論過時，而在我們沒學懂。
+    </p>
+
+    <div class="quote-box">
+      <p class="quote-text">「中醫的理論不但沒有落後，在很多領域還大大地超前。」</p>
+      <p class="quote-source">── 劉力紅</p>
+    </div>
+
+    <p>
+      全書以張仲景《傷寒論》的六經辨證體系為主線，從太陽到厥陰，一經一經地解讀人體與自然的時間關係。這不是學術論文的冰冷分析，而是一位親身用經方治好重症的醫者，在向你說：<strong>「你看，這套東西是真的能用的。」</strong>
+    </p>
+
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-label">核心主張</div>
+        <div class="info-value">回歸經典，拒絕盲目西化</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">理論框架</div>
+        <div class="info-value">《傷寒論》六經辨證</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">方法論</div>
+        <div class="info-value">陰陽離合 × 開闔樞機制</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">師承脈絡</div>
+        <div class="info-value">陳治恆 → 李陽波 → 盧崇漢</div>
+      </div>
+    </div>
+
+    <div class="tag-group">
+      <span class="tag green">中醫哲學</span>
+      <span class="tag warm">傷寒論</span>
+      <span class="tag water">六經辨證</span>
+      <span class="tag fire">扶陽學派</span>
+      <span class="tag earth">經典回歸</span>
+      <span class="tag purple">文化反思</span>
+    </div>
+  </div>
+</article>
+
+<!-- ═══════════════════════════════════════════
+     STEP 02 — 作者為什麼寫這本書
+     ═══════════════════════════════════════════ -->
+<article class="card" id="step2">
+  <div class="card-topbar gradient-fire"></div>
+  <div class="card-header">
+    <div class="step-badge fire">STEP 02 ── 作者為什麼寫這本書</div>
+    <h2 class="card-title">中醫的至暗時刻</h2>
+    <p class="card-title-sub">當博士不讀經典、中醫院開西藥，誰來為岐黃之術辯護？</p>
+  </div>
+  <div class="card-body">
+    <p class="lead-text">
+      劉力紅寫這本書的動機，源於他在中醫界親眼目睹的<span class="highlight-fire">荒謬現實</span>——一個讓人心寒的行業生態。
+    </p>
+
+    <div class="section-header">
+      <div class="section-icon fire">🚨</div>
+      <h3 class="section-title">令人窒息的現狀</h3>
+    </div>
+
+    <div class="case-box">
+      <div class="case-title">場景一：中醫學博士的書桌</div>
+      <p class="case-detail">
+        案頭全是分子生物學的書籍。如果放一本《黃帝內經》或《傷寒論》，會被同行<strong>笑話</strong>——「你一個博士還看這些？」中醫學的最高學歷持有者，恥於閱讀本學科的經典著作。這不是個別現象，而是普遍的學術文化。
+      </p>
+    </div>
+
+    <div class="case-box">
+      <div class="case-title">場景二：中醫院的「三天規定」</div>
+      <p class="case-detail">
+        許多中醫院有一條不成文的規定：<span class="highlight-fire">發燒三天不退，必須上西藥</span>。劉力紅尖銳地質問：「為什麼不反過來規定——西藥三天不退，必須上中藥？」這條規定的潛台詞是：連中醫院自己都不相信中醫。
+      </p>
+    </div>
+
+    <div class="quote-box fire">
+      <p class="quote-text">「做醫生只有兩條路，要麼做蒼生大醫，要麼做含靈巨賊。」</p>
+      <p class="quote-source">── 徐靈胎（清代醫家）｜劉力紅引用</p>
+    </div>
+
+    <div class="section-header">
+      <div class="section-icon green">💡</div>
+      <h3 class="section-title">信心的轉折點</h3>
+    </div>
+
+    <p>
+      劉力紅並不是在空談理想。他寫這本書的底氣，來自<span class="highlight">三位師父的真傳</span>和自己的臨床驗證。最關鍵的轉折，是他親治一例重症肺炎的經歷——
+    </p>
+
+    <div class="case-box">
+      <div class="case-title">🔥 親治重症肺炎：一夜退燒</div>
+      <p class="case-detail">
+        60歲女性患者，重症肺炎，高燒不退。其他醫師用清肺熱的藥方，患者<strong>服後即瀉</strong>——寒涼藥傷了脾胃。劉力紅的師父陳治恆一針見血地指出：這是<span class="highlight-warm">太陰陽明標本同病</span>。
+      </p>
+      <p class="case-detail" style="margin-top: 0.8rem;">
+        治法：<strong>內服清陽明（處理肺熱）+ 外敷溫太陰（神闕穴敷理中湯，溫補脾土）</strong>。一個治標，一個治本；一個清上，一個溫下。表面矛盾，實則精妙。
+      </p>
+      <div class="case-result">
+        ✦ 結果：一夜退燒。這不是神話，而是精準辨證的勝利。
+      </div>
+    </div>
+
+    <p>
+      這個案例讓劉力紅徹底確信：<strong>中醫的問題不在理論，在於我們沒有真正讀懂經典</strong>。於是他決定寫一本書，把自己對《傷寒論》的理解系統化——不是為了學術升等，而是為了讓更多人看見中醫的真實力量。
+    </p>
+
+    <div class="insight-box fire">
+      <div class="insight-label fire">🔑 寫作動機的本質</div>
+      <p style="margin-bottom: 0; font-size: 0.93rem;">
+        這不是一本「中醫好棒棒」的自嗨之作。劉力紅面對的是整個行業的信心崩塌——從學生到教授，從醫院到管理層，沒有人真正相信中醫的理論體系。他要做的，是<strong>用臨床實證和理論解析，重建信仰</strong>。
+      </p>
+    </div>
+  </div>
+</article>
+
+<!-- ═══════════════════════════════════════════
+     STEP 03 — 全書結構拆解
+     ═══════════════════════════════════════════ -->
+<article class="card" id="step3">
+  <div class="card-topbar gradient-water"></div>
+  <div class="card-header">
+    <div class="step-badge water">STEP 03 ── 全書結構拆解</div>
+    <h2 class="card-title">從哲學到臨床的完整地圖</h2>
+    <p class="card-title-sub">十章結構：2 章建立世界觀 → 1 章方法論 → 1 章總論治法 → 6 章逐經解讀</p>
+  </div>
+  <div class="card-body">
+    <p class="lead-text">
+      劉力紅的章節安排非常有邏輯：先讓你<span class="highlight">相信</span>（Ch1-2），再讓你<span class="highlight">理解</span>（Ch3-4），最後讓你<span class="highlight">會用</span>（Ch5-10）。這是一個從信仰到知識到技能的完整路徑。
+    </p>
+
+    <div class="chapter-flow">
+      <div class="chapter-item base">
+        <div class="chapter-num">CHAPTER 01</div>
+        <div class="chapter-name">略說中醫的學習與研究</div>
+        <div class="chapter-brief">中醫的困境與出路。為何理論不是滯後，而是「早熟品」。重症肺炎案例建立信心。</div>
+      </div>
+      <div class="chapter-item base">
+        <div class="chapter-num">CHAPTER 02</div>
+        <div class="chapter-name">傷寒之意義</div>
+        <div class="chapter-brief">「寒」是生命的本源狀態，陽氣是生命的根本動力。傷寒不只是感冒。</div>
+      </div>
+      <div class="chapter-item base">
+        <div class="chapter-num">CHAPTER 03</div>
+        <div class="chapter-name">陰陽的工作機制</div>
+        <div class="chapter-brief">道生一一生二二生三三生萬物。陰陽不是對立，而是離合。氣的概念解讀。</div>
+      </div>
+      <div class="chapter-item base">
+        <div class="chapter-num">CHAPTER 04</div>
+        <div class="chapter-name">治病法要</div>
+        <div class="chapter-brief">上工 vs 下工。臨證察機 vs 對病執方。十九病機。抓主證的藝術。</div>
+      </div>
+      <div class="chapter-item yang">
+        <div class="chapter-num">CHAPTER 05</div>
+        <div class="chapter-name">太陽病綱要</div>
+        <div class="chapter-brief">人體最外層防線。主「開」。桂枝湯 vs 麻黃湯。</div>
+      </div>
+      <div class="chapter-item yang">
+        <div class="chapter-num">CHAPTER 06</div>
+        <div class="chapter-name">陽明病綱要</div>
+        <div class="chapter-brief">主「闔」，胃家實。收斂內化的過程。</div>
+      </div>
+      <div class="chapter-item yang">
+        <div class="chapter-num">CHAPTER 07</div>
+        <div class="chapter-name">少陽病綱要</div>
+        <div class="chapter-brief">主「樞」，如門軸。半表半裡。小柴胡湯和解。</div>
+      </div>
+      <div class="chapter-item yin">
+        <div class="chapter-num">CHAPTER 08</div>
+        <div class="chapter-name">太陰病綱要</div>
+        <div class="chapter-brief">入三陰，裡之「開」。腹滿而吐，食不下。理中湯。</div>
+      </div>
+      <div class="chapter-item yin">
+        <div class="chapter-num">CHAPTER 09</div>
+        <div class="chapter-name">少陰病綱要</div>
+        <div class="chapter-brief">裡之「樞」，生命的根本。脈微細，但欲寐。四逆湯。思考 AD 病。</div>
+      </div>
+      <div class="chapter-item yin">
+        <div class="chapter-num">CHAPTER 10</div>
+        <div class="chapter-name">厥陰病綱要</div>
+        <div class="chapter-brief">裡之「闔」，陰盡陽生的轉折點。寒熱錯雜。烏梅丸。</div>
+      </div>
+    </div>
+
+    <div class="insight-box water">
+      <div class="insight-label water">📐 結構特色</div>
+      <p style="margin-bottom: 0.5rem; font-size: 0.93rem;">
+        <strong>三陽從外到內：</strong>太陽（開）→ 陽明（闔）→ 少陽（樞）——這是人體防禦的三層機制<br>
+        <strong>三陰從外到內：</strong>太陰（開）→ 少陰（樞）→ 厥陰（闔）——這是生命內核的三層結構<br>
+        <strong>六經不是六個病：</strong>而是六個「時間-空間」座標，標定了疾病在人體中的位置與階段
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-header">
+      <div class="section-icon green">🗺️</div>
+      <h3 class="section-title">六經辨證全景圖</h3>
+    </div>
+
+    <div class="meridian-flow">
+      <!-- 三陽 -->
+      <div class="meridian-row">
+        <div class="meridian-connector">
+          <div class="meridian-dot yang">太陽</div>
+          <div class="meridian-line yang"></div>
+        </div>
+        <div class="meridian-content">
+          <div class="meridian-name" style="color: var(--accent-fire);">太陽病 ── 主開</div>
+          <div class="meridian-desc">人體最外層屏障。邪氣入侵的第一道防線。「頭項強痛而惡寒」</div>
+          <div class="meridian-rx">桂枝湯（中風）｜ 麻黃湯（傷寒）</div>
+        </div>
+      </div>
+      <div class="meridian-row">
+        <div class="meridian-connector">
+          <div class="meridian-dot yang">陽明</div>
+          <div class="meridian-line yang"></div>
+        </div>
+        <div class="meridian-content">
+          <div class="meridian-name" style="color: var(--accent-warm);">陽明病 ── 主闔</div>
+          <div class="meridian-desc">收斂內化之經。「胃家實」。當陽氣過亢，不能正常收斂時發病</div>
+          <div class="meridian-rx">白虎湯（經證）｜ 承氣湯（腑證）</div>
+        </div>
+      </div>
+      <div class="meridian-row">
+        <div class="meridian-connector">
+          <div class="meridian-dot pivot">少陽</div>
+          <div class="meridian-line yin"></div>
+        </div>
+        <div class="meridian-content">
+          <div class="meridian-name" style="color: var(--accent-herb);">少陽病 ── 主樞</div>
+          <div class="meridian-desc">門軸之經，半表半裡。「往來寒熱，胸脇苦滿」</div>
+          <div class="meridian-rx">小柴胡湯（和解少陽）</div>
+        </div>
+      </div>
+      <!-- 三陰 -->
+      <div class="meridian-row">
+        <div class="meridian-connector">
+          <div class="meridian-dot yin">太陰</div>
+          <div class="meridian-line yin"></div>
+        </div>
+        <div class="meridian-content">
+          <div class="meridian-name" style="color: var(--accent-water);">太陰病 ── 裡之開</div>
+          <div class="meridian-desc">脾土之經。進入三陰層面。「腹滿而吐，食不下，自利益甚」</div>
+          <div class="meridian-rx">理中湯（溫中健脾）</div>
+        </div>
+      </div>
+      <div class="meridian-row">
+        <div class="meridian-connector">
+          <div class="meridian-dot yin">少陰</div>
+          <div class="meridian-line yin"></div>
+        </div>
+        <div class="meridian-content">
+          <div class="meridian-name" style="color: var(--accent-purple);">少陰病 ── 裡之樞</div>
+          <div class="meridian-desc">生命的根本所在，心腎之經。「脈微細，但欲寐」——元陽將絕之兆</div>
+          <div class="meridian-rx">四逆湯（回陽救逆）</div>
+        </div>
+      </div>
+      <div class="meridian-row">
+        <div class="meridian-connector">
+          <div class="meridian-dot yin">厥陰</div>
+        </div>
+        <div class="meridian-content">
+          <div class="meridian-name" style="color: var(--accent-deep);">厥陰病 ── 裡之闔</div>
+          <div class="meridian-desc">陰盡陽生的轉折點。寒熱錯雜，上熱下寒。「消渴，氣上撞心」</div>
+          <div class="meridian-rx">烏梅丸（寒熱並用）</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- ═══════════════════════════════════════════
+     STEP 04 — 核心論點深掘
+     ═══════════════════════════════════════════ -->
+<article class="card" id="step4">
+  <div class="card-topbar gradient-warm"></div>
+  <div class="card-header">
+    <div class="step-badge warm">STEP 04 ── 核心論點深掘</div>
+    <h2 class="card-title">三個改變你認知的核心觀點</h2>
+    <p class="card-title-sub">從「中醫落後論」到「中醫超前論」的認知翻轉</p>
+  </div>
+  <div class="card-body">
+
+    <!-- 論點一 -->
+    <div class="section-header">
+      <div class="section-icon warm">🔑</div>
+      <h3 class="section-title">論點一：中醫理論是「早熟品」，不是「過期品」</h3>
+    </div>
+    <p>
+      劉力紅借用梁漱溟對中國文化的評價：中國文化是人類文化的「早熟品」——不是發育不良，而是<span class="highlight-warm">超前發展</span>。中醫理論同理：它描述的規律，現代科學還沒有工具去驗證，但這不等於它是錯的。
+    </p>
+    <p>
+      舉個類比：牛頓力學描述宏觀世界，量子力學描述微觀世界，兩者不矛盾。中醫的陰陽五行，描述的是<strong>生命系統的整體動態規律</strong>——這個維度，現代醫學至今沒有對應的理論框架。
+    </p>
+    <div class="quote-box warm">
+      <p class="quote-text">「樸素才是最高的境界，因為返璞才能歸真。」</p>
+      <p class="quote-source">── 劉力紅</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 論點二 -->
+    <div class="section-header">
+      <div class="section-icon green">🔑</div>
+      <h3 class="section-title">論點二：上工「臨證察機」vs 下工「對病執方」</h3>
+    </div>
+    <p>
+      這是劉力紅反覆強調的治病哲學。他引用《黃帝內經》將醫者分為兩級：
+    </p>
+
+    <div class="compare-container">
+      <div class="compare-card positive">
+        <div class="compare-emoji">🏆</div>
+        <div class="compare-title">上工</div>
+        <ul class="compare-list">
+          <li>臨證察機，使藥要和</li>
+          <li>面對病人，觀察病機</li>
+          <li>因時因地因人制宜</li>
+          <li>抓主證，四兩撥千斤</li>
+          <li>看似繞遠，實則最捷</li>
+        </ul>
+      </div>
+      <div class="compare-card negative">
+        <div class="compare-emoji">⚠️</div>
+        <div class="compare-title">下工</div>
+        <ul class="compare-list">
+          <li>對病欲愈，執方欲加</li>
+          <li>對著病名，套用方子</li>
+          <li>千人一方，機械套用</li>
+          <li>藥越加越多，效越來越差</li>
+          <li>看似直接，實則繞遠</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quote-box">
+      <p class="quote-text">「似迂而反捷，此賢者之所得，愚者之所失也。」</p>
+      <p class="quote-source">── 劉力紅引古語</p>
+    </div>
+
+    <p>
+      劉力紅用「咽喉痛用麻黃湯」的案例，完美地展示了什麼叫「臨證察機」——明明喉嚨紅腫充血（看起來是熱證），但脈浮緊、苔白膩（實際是表寒束住了），所以用溫散的麻黃湯而不是清熱藥。<span class="highlight">看病機，不看病名</span>。
+    </p>
+
+    <div class="divider"></div>
+
+    <!-- 論點三 -->
+    <div class="section-header">
+      <div class="section-icon water">🔑</div>
+      <h3 class="section-title">論點三：陽氣是生命的根本，「傷寒」是最根本的傷害</h3>
+    </div>
+    <p>
+      「傷寒」二字，劉力紅做了深刻的重新詮釋。「寒」不只是溫度低，而是<span class="highlight">生命的本源狀態</span>——生命從寒（無序、靜止）中來，靠陽氣（有序、運動）維持。所以「傷寒」就是傷害陽氣，<strong>就是傷害生命本身</strong>。
+    </p>
+    <p>
+      這解釋了為什麼《傷寒論》以「傷寒」為名，而不是「傷熱」「傷風」。在中醫的世界觀裡，<span class="highlight-warm">保護陽氣是一切治療的第一原則</span>。這也是為什麼劉力紅的師父盧崇漢一脈，主張「扶陽」為先。
+    </p>
+
+    <div class="yinyang-grid">
+      <div class="yinyang-side yang-side">
+        <div class="yinyang-label">陽</div>
+        <p class="yinyang-text">
+          ☀️ 溫暖、運動、生發、功能<br>
+          🔥 生命的動力來源<br>
+          💪 陽氣充足 = 生機旺盛<br>
+          🌱 春夏之氣，向上向外
+        </p>
+      </div>
+      <div class="yinyang-side yin-side">
+        <div class="yinyang-label">陰</div>
+        <p class="yinyang-text">
+          🌙 寒涼、靜止、收藏、物質<br>
+          💧 生命的物質基礎<br>
+          🏔️ 陰精充足 = 形體堅固<br>
+          ❄️ 秋冬之氣，向下向內
+        </p>
+      </div>
+    </div>
+
+    <div class="insight-box warm">
+      <div class="insight-label warm">⚡ 認知翻轉</div>
+      <p style="margin-bottom: 0; font-size: 0.93rem;">
+        現代人怕上火、愛清熱、動不動喝涼茶——劉力紅認為這恰恰是最大的誤區。真正的「上火」多半是<strong>陽氣不足導致的虛火上浮</strong>，用清熱藥只會雪上加霜。這個觀點直接挑戰了大眾的「清熱排毒」信仰。
+      </p>
+    </div>
+  </div>
+</article>
+
+<!-- ═══════════════════════════════════════════
+     STEP 05 — 關鍵案例解析
+     ═══════════════════════════════════════════ -->
+<article class="card" id="step5">
+  <div class="card-topbar gradient-herb"></div>
+  <div class="card-header">
+    <div class="step-badge green">STEP 05 ── 關鍵案例解析</div>
+    <h2 class="card-title">四個讓人拍案叫絕的臨床故事</h2>
+    <p class="card-title-sub">每一個案例都在證明：辨證論治不是玄學，是精密的臨床推理</p>
+  </div>
+  <div class="card-body">
+    <p class="lead-text">
+      劉力紅最厲害的地方，不是他的理論有多深奧，而是他能用<span class="highlight">真實的臨床案例</span>把理論講活。以下四個案例，每一個都值得反覆咀嚼。
+    </p>
+
+    <!-- 案例一 -->
+    <div class="case-box" style="margin-top: 1.5rem;">
+      <div class="case-title">🔥 案例一：咽喉痛用麻黃湯——「反直覺」的精準辨證</div>
+      <p class="case-detail">
+        <strong>患者症狀：</strong>咽喉疼痛，咽部充血紅腫。按照「頭痛醫頭」的邏輯，應該用清熱利咽的藥。
+      </p>
+      <p class="case-detail">
+        <strong>劉力紅的觀察：</strong>脈浮緊，舌苔白膩。這些是典型的<span class="highlight">表寒</span>指標——身體表面被寒邪束住了，導致內部的陽氣鬱而化熱，表現在咽喉。問題不在喉嚨，在體表。
+      </p>
+      <p class="case-detail">
+        <strong>處方：</strong>麻黃湯（溫散表寒的方子，完全不含清熱藥）。
+      </p>
+      <div class="case-result">
+        ✦ 表寒一散，陽氣通暢，咽喉的「假熱」自然消退。這就是「臨證察機」的威力。
+      </div>
+    </div>
+
+    <!-- 案例二 -->
+    <div class="case-box">
+      <div class="case-title">💊 案例二：反覆咽喉腫痛——吊針數年不如中藥一月</div>
+      <p class="case-detail">
+        <strong>病史：</strong>患者反覆咽喉腫痛，每次發作就去醫院打吊針（抗生素），打了<strong>好幾年</strong>，好一陣犯一陣，永遠斷不了根。
+      </p>
+      <p class="case-detail">
+        <strong>劉力紅的分析：</strong>反覆發作本身就說明問題不在「熱」——如果真是熱毒，清掉就不該再來。反覆說明是<span class="highlight-warm">正氣（陽氣）不足</span>，身體沒有力量把邪氣徹底清出去。
+      </p>
+      <p class="case-detail">
+        <strong>處方：</strong>先用歸芪建中湯（補中氣），再轉附子理中湯（溫腎陽）。從頭到尾<strong>沒有用一味清熱藥</strong>。
+      </p>
+      <div class="case-result">
+        ✦ 一個月，徹底解決。幾年的抗生素打不好的問題，用「扶正」的思路一個月搞定。
+      </div>
+    </div>
+
+    <!-- 案例三 -->
+    <div class="case-box">
+      <div class="case-title">🪨 案例三：豬苓湯治腎結石——不排石，石自消</div>
+      <p class="case-detail">
+        <strong>常規做法：</strong>腎結石通常用排石藥（如金錢草、海金沙等），或者碎石術。
+      </p>
+      <p class="case-detail">
+        <strong>劉力紅的做法：</strong>患者的主證指向少陰病（水液代謝的樞紐層面出了問題），他直接開<strong>豬苓湯</strong>——一個利水的方子，不含任何排石藥。
+      </p>
+      <p class="case-detail">
+        <strong>邏輯：</strong>結石是結果，不是原因。水液代謝的機制恢復正常了，結石失去了形成的條件，<span class="highlight">自然會被身體消化吸收</span>。
+      </p>
+      <div class="case-result">
+        ✦ 半年後複查，結石消失。不是排出來的，是被身體自己「化掉」的。
+      </div>
+    </div>
+
+    <!-- 案例四 -->
+    <div class="case-box">
+      <div class="case-title">🫁 案例四：重症肺炎——太陰陽明標本同治</div>
+      <p class="case-detail">
+        （Step 02 已詳述）這個案例的精妙在於：同一個病人身上，<strong>表面的熱證（陽明）和深層的寒證（太陰）同時存在</strong>。如果只清熱——病人腹瀉加重；如果只溫補——肺熱更盛。劉力紅的師父用「內清外溫」的方法，一夜解決。
+      </p>
+      <div class="case-result">
+        ✦ 這個案例的教學意義：真實的疾病往往不是單純的寒或熱，而是寒熱夾雜、表裡同病。只有精準辨證，才能同時處理矛盾的兩面。
+      </div>
+    </div>
+
+    <div class="golden-box">
+      <div class="golden-text">
+        四個案例的共同啟示：<br>
+        <span style="font-size: 1.4rem;">病名不等於病機</span><br>
+        <span style="font-size: 0.95rem; font-weight: 400; color: var(--text-secondary);">
+          咽喉痛 ≠ 喉嚨有熱 ｜ 腎結石 ≠ 需要排石 ｜ 肺炎 ≠ 只需清肺<br>
+          真正的中醫，看的不是病名，而是<strong>這個人此刻的身體狀態</strong>
+        </span>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- ═══════════════════════════════════════════
+     STEP 06 — 金句與思想精華
+     ═══════════════════════════════════════════ -->
+<article class="card" id="step6">
+  <div class="card-topbar gradient-purple"></div>
+  <div class="card-header">
+    <div class="step-badge purple">STEP 06 ── 金句與思想精華</div>
+    <h2 class="card-title">值得抄在牆上的句子</h2>
+    <p class="card-title-sub">每一句背後都有臨床的血與淚</p>
+  </div>
+  <div class="card-body">
+    <p class="lead-text">
+      劉力紅不是文學家，但他的文字有一種<span class="highlight">木訥的真誠</span>——不漂亮，但字字有重量。以下是最值得反覆品味的段落：
+    </p>
+
+    <div class="quote-box" style="margin-top: 1.5rem;">
+      <p class="quote-text">「樸素才是最高的境界，因為返璞才能歸真。」</p>
+      <p class="quote-source">── 論中醫理論為何看似「簡單」</p>
+    </div>
+    <div class="insight-box green" style="margin-top: 0;">
+      <p style="margin-bottom: 0; font-size: 0.88rem; color: var(--text-secondary);">
+        <strong>解讀：</strong>陰陽五行看起來「太簡單了」，所以被嫌棄。但牛頓三大定律也很簡單，F=ma 就三個字母，能解釋整個宏觀力學。真正的大道，從來不需要複雜。追求複雜，往往是因為沒看懂簡單。
+      </p>
+    </div>
+
+    <div class="quote-box fire">
+      <p class="quote-text">「做醫生只有兩條路，要麼做蒼生大醫，要麼做含靈巨賊。」</p>
+      <p class="quote-source">── 引徐靈胎（清代醫家）</p>
+    </div>
+    <div class="insight-box fire" style="margin-top: 0;">
+      <p style="margin-bottom: 0; font-size: 0.88rem; color: var(--text-secondary);">
+        <strong>解讀：</strong>「含靈」指有靈性的生命。醫生手裡掌握的是生死，沒有中間地帶——你要麼是救人的大醫，要麼是害人的巨賊。不懂裝懂、糊里糊塗地開藥，不是「一般般的醫生」，而是在害人。這句話的重量，足以讓每個醫學生汗流浹背。
+      </p>
+    </div>
+
+    <div class="quote-box warm">
+      <p class="quote-text">上工：「臨證察機，使藥要和。」<br>下工：「對病欲愈，執方欲加。」</p>
+      <p class="quote-source">── 《黃帝內經》｜劉力紅解讀</p>
+    </div>
+    <div class="insight-box warm" style="margin-top: 0;">
+      <p style="margin-bottom: 0; font-size: 0.88rem; color: var(--text-secondary);">
+        <strong>解讀：</strong>上工面對病人，觀察的是「機」——疾病的動態轉折點。藥要「和」——不是猛攻猛打，而是調和。下工面對疾病名稱，心裡想的是「趕快治好」，越治不好就越加藥。上工像太極拳，四兩撥千斤；下工像蠻力打架，越打越累。
+      </p>
+    </div>
+
+    <div class="quote-box water">
+      <p class="quote-text">「似迂而反捷，此賢者之所得，愚者之所失也。」</p>
+      <p class="quote-source">── 劉力紅引古語</p>
+    </div>
+    <div class="insight-box water" style="margin-top: 0;">
+      <p style="margin-bottom: 0; font-size: 0.88rem; color: var(--text-secondary);">
+        <strong>解讀：</strong>看起來繞遠路的方法，反而是最快的。聰明人懂這個道理，蠢人不懂。用在醫學上：花時間辨證、抓病機、找到根本原因，看起來慢，但一擊必中；不辨證就開藥，看起來快，但越治越遠。
+      </p>
+    </div>
+
+    <div class="quote-box purple">
+      <p class="quote-text">「中醫的理論不但沒有落後，在很多領域還大大地超前。」</p>
+      <p class="quote-source">── 劉力紅的核心宣言</p>
+    </div>
+    <div class="insight-box purple" style="margin-top: 0;">
+      <p style="margin-bottom: 0; font-size: 0.88rem; color: var(--text-secondary);">
+        <strong>解讀：</strong>這是全書最大膽的宣言。他不是在說中醫「也不差」或「有它的道理」——而是直接說「超前」。這個自信不是空穴來風，而是建立在他對經典的深入研讀和臨床驗證之上。不管你是否同意，這個態度本身就值得尊敬。
+      </p>
+    </div>
+  </div>
+</article>
+
+<!-- ═══════════════════════════════════════════
+     STEP 07 — 陰陽離合與六經的哲學基礎
+     ═══════════════════════════════════════════ -->
+<article class="card" id="step7">
+  <div class="card-topbar gradient-earth"></div>
+  <div class="card-header">
+    <div class="step-badge earth">STEP 07 ── 理論深潛：陰陽離合</div>
+    <h2 class="card-title">「開、闔、樞」的宇宙機制</h2>
+    <p class="card-title-sub">為什麼六經不是六個病，而是六個「時空座標」</p>
+  </div>
+  <div class="card-body">
+    <p class="lead-text">
+      這一步我們要深入劉力紅最精彩也最難懂的部分——他用<span class="highlight">「開、闔、樞」三個動態概念</span>重新詮釋了六經的本質。
+    </p>
+
+    <div class="section-header">
+      <div class="section-icon warm">🔄</div>
+      <h3 class="section-title">道生一，一生二，二生三，三生萬物</h3>
+    </div>
+    <p>
+      劉力紅從《道德經》出發，解釋陰陽的產生邏輯：
+    </p>
+    <ul class="numbered-list">
+      <li><strong>道生一：</strong>混沌未分的整體（太極）</li>
+      <li><strong>一生二：</strong>分化為陰陽兩儀</li>
+      <li><strong>二生三：</strong>陰陽的交互作用產生了「第三者」——<span class="highlight-warm">氣</span>（或說是陰陽之間的動態關係）</li>
+      <li><strong>三生萬物：</strong>這個動態關係不斷展開，化生萬象</li>
+    </ul>
+
+    <p>
+      那麼，陰陽不是靜止的對立，而是<strong>不斷地「離」與「合」</strong>。「離」是分化展開，「合」是統一回歸。生命的全部過程，就是陰陽不斷離合的過程。
+    </p>
+
+    <div class="divider"></div>
+
+    <div class="section-header">
+      <div class="section-icon green">🚪</div>
+      <h3 class="section-title">開、闔、樞：一扇門的三個狀態</h3>
+    </div>
+    <p>
+      劉力紅用了一個絕妙的比喻：<span class="highlight">一扇門有三個功能狀態</span>——
+    </p>
+
+    <div class="info-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="info-item" style="text-align: center; background: linear-gradient(135deg, #FEF0EB, #FFFBF5);">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚪→</div>
+        <div class="info-label">開 OPEN</div>
+        <div class="info-value" style="font-size: 0.9rem;">向外敞開<br>展放、發散</div>
+        <div style="margin-top: 0.5rem; font-size: 0.78rem; color: var(--text-tertiary);">
+          三陽之太陽<br>三陰之太陰
+        </div>
+      </div>
+      <div class="info-item" style="text-align: center; background: linear-gradient(135deg, #EBF5F8, #FFFBF5);">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚪←</div>
+        <div class="info-label">闔 CLOSE</div>
+        <div class="info-value" style="font-size: 0.9rem;">向內關閉<br>收斂、內化</div>
+        <div style="margin-top: 0.5rem; font-size: 0.78rem; color: var(--text-tertiary);">
+          三陽之陽明<br>三陰之厥陰
+        </div>
+      </div>
+      <div class="info-item" style="text-align: center; background: linear-gradient(135deg, #E8F0E8, #FFFBF5);">
+        <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔄</div>
+        <div class="info-label">樞 PIVOT</div>
+        <div class="info-value" style="font-size: 0.9rem;">門軸轉動<br>調節、轉樞</div>
+        <div style="margin-top: 0.5rem; font-size: 0.78rem; color: var(--text-tertiary);">
+          三陽之少陽<br>三陰之少陰
+        </div>
+      </div>
+    </div>
+
+    <p>
+      所以六經不是六個「病區」，而是<span class="highlight-warm">生命系統的六個功能狀態</span>：三陽管外部防禦的開闔樞，三陰管內部生機的開闔樞。疾病就是這些開闔樞機制「卡住了」或「過度了」或「不足了」。
+    </p>
+
+    <div class="insight-box green">
+      <div class="insight-label green">💎 核心洞見</div>
+      <p style="margin-bottom: 0; font-size: 0.93rem;">
+        這套「開闔樞」理論，讓六經辨證從「背誦型知識」變成了「推理型框架」。你不需要死記太陽病有哪些症狀——你只需要理解：<strong>太陽主開，如果開不了（表閉），會怎樣？</strong>頭痛、惡寒、身疼、無汗——全都是「門打不開」的表現。這就是理論的力量。
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-header">
+      <div class="section-icon water">🌊</div>
+      <h3 class="section-title">氣：陰陽之間的第三者</h3>
+    </div>
+    <p>
+      劉力紅特別用了一章來講「氣」。氣不是陰，也不是陽，而是<span class="highlight">陰陽交互作用的產物和媒介</span>。如果說陰陽是硬體，氣就是軟體——是讓整個系統運轉起來的動態力量。
+    </p>
+    <p>
+      現代物理學裡，「場」的概念或許最接近「氣」——它不是物質，也不是能量，而是物質和能量之間的<strong>關係性存在</strong>。劉力紅認為，西方科學遲早會發展出對應「氣」的理論，只是時候未到。
+    </p>
+  </div>
+</article>
+
+<!-- ═══════════════════════════════════════════
+     STEP 08 — 六經方藥體系
+     ═══════════════════════════════════════════ -->
+<article class="card" id="step8">
+  <div class="card-topbar gradient-mixed"></div>
+  <div class="card-header">
+    <div class="step-badge green">STEP 08 ── 六經方藥體系</div>
+    <h2 class="card-title">一經一方，精準如鑰匙配鎖</h2>
+    <p class="card-title-sub">劉力紅如何用「開闔樞」的邏輯，讓經方活起來</p>
+  </div>
+  <div class="card-body">
+    <p class="lead-text">
+      理論最終要落地到<span class="highlight">方藥</span>。劉力紅對每一經的代表方，都做了「開闔樞」視角的重新解讀。這讓原本需要死記硬背的方劑，變成了有邏輯可循的處方策略。
+    </p>
+
+    <!-- 三陽方藥 -->
+    <div class="section-header">
+      <div class="section-icon fire">☀️</div>
+      <h3 class="section-title">三陽經方：外部防禦的三把鑰匙</h3>
+    </div>
+
+    <div class="rx-card">
+      <div class="rx-icon">🌿</div>
+      <div>
+        <div class="rx-name">桂枝湯 ── 太陽中風（營衛不和）</div>
+        <div class="rx-desc">
+          「開」門被風吹得太開了（汗出、惡風）。桂枝湯不是關門，而是<strong>調和營衛</strong>——讓門的開闔恢復正常節奏。桂枝溫陽解表，芍藥收斂營陰，一開一合，堪稱完美。
+        </div>
+      </div>
+    </div>
+
+    <div class="rx-card">
+      <div class="rx-icon">🔥</div>
+      <div>
+        <div class="rx-name">麻黃湯 ── 太陽傷寒（表閉無汗）</div>
+        <div class="rx-desc">
+          「開」門被寒邪堵死了（無汗、身疼、脈浮緊）。麻黃湯就是<strong>暴力破門</strong>——麻黃發汗開表，桂枝溫通陽氣，杏仁降逆平喘，甘草調和。猛烈但精準。
+        </div>
+      </div>
+    </div>
+
+    <div class="rx-card">
+      <div class="rx-icon" style="background: linear-gradient(135deg, var(--accent-warm-pale), rgba(201,149,107,0.2));">⚖️</div>
+      <div>
+        <div class="rx-name">白虎湯 / 承氣湯 ── 陽明經證 / 腑證</div>
+        <div class="rx-desc">
+          「闔」門關過頭了（裡熱壅盛、便秘）。白虎湯清經熱（石膏大寒），承氣湯攻腑實（大黃通下）。陽明不怕攻，因為陽明的本質是「多氣多血」，扛得住。
+        </div>
+      </div>
+    </div>
+
+    <div class="rx-card">
+      <div class="rx-icon" style="background: linear-gradient(135deg, #E8F0E8, rgba(91,140,90,0.2));">🔄</div>
+      <div>
+        <div class="rx-name">小柴胡湯 ── 少陽病（半表半裡）</div>
+        <div class="rx-desc">
+          「樞」軸卡住了（往來寒熱、胸脇苦滿）。小柴胡湯的策略是<strong>和解</strong>——不攻不補，而是讓門軸重新轉起來。柴胡疏利氣機，黃芩清少陽之熱，半夏和胃降逆。
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 三陰方藥 -->
+    <div class="section-header">
+      <div class="section-icon water">🌙</div>
+      <h3 class="section-title">三陰經方：生命內核的三道護符</h3>
+    </div>
+
+    <div class="rx-card">
+      <div class="rx-icon" style="background: linear-gradient(135deg, var(--accent-water-pale), rgba(91,126,140,0.2));">🏔️</div>
+      <div>
+        <div class="rx-name">理中湯 ── 太陰病（脾陽虛弱）</div>
+        <div class="rx-desc">
+          裡之「開」失職了——脾土虛寒，運化失常（腹滿而吐、食不下、自利）。理中湯<strong>直接溫補脾陽</strong>：乾薑溫中，人參補氣，白朮健脾，甘草調和。四味藥，直擊中焦。
+        </div>
+      </div>
+    </div>
+
+    <div class="rx-card">
+      <div class="rx-icon" style="background: linear-gradient(135deg, #F5EBF8, rgba(123,91,140,0.2));">❄️</div>
+      <div>
+        <div class="rx-name">四逆湯 ── 少陰病（元陽將絕）</div>
+        <div class="rx-desc">
+          裡之「樞」要停了——「脈微細，但欲寐」，元陽衰微，生命之火將熄。四逆湯是<strong>回陽救逆的急救方</strong>：附子大辛大熱，直入腎命門，回陽於將絕之際。乾薑溫中助附子，甘草緩急護正。
+        </div>
+      </div>
+    </div>
+
+    <div class="rx-card">
+      <div class="rx-icon" style="background: linear-gradient(135deg, #E8F0E8, rgba(74,103,65,0.15));">☯️</div>
+      <div>
+        <div class="rx-name">烏梅丸 ── 厥陰病（寒熱錯雜）</div>
+        <div class="rx-desc">
+          裡之「闔」——陰盡陽生的臨界點。上面有熱（消渴、氣上撞心），下面有寒（下利）。烏梅丸<strong>寒熱並用</strong>：烏梅酸斂生津，黃連黃柏清上熱，附子乾薑溫下寒，人參補正。組方之複雜，正映射厥陰病之複雜。
+        </div>
+      </div>
+    </div>
+
+    <div class="golden-box">
+      <div class="golden-text">
+        六經六方的深層邏輯 ──<br>
+        <span style="font-size: 1rem; font-weight: 400; color: var(--text-secondary);">
+          不是「這個病用這個方」的機械對應<br>
+          而是「這扇門卡在什麼狀態，需要怎樣的力量去恢復」<br>
+          <strong>理解了門的狀態，方就自然浮現</strong>
+        </span>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- ═══════════════════════════════════════════
+     STEP 09 — 對現代醫學的反思
+     ═══════════════════════════════════════════ -->
+<article class="card" id="step9">
+  <div class="card-topbar gradient-fire"></div>
+  <div class="card-header">
+    <div class="step-badge fire">STEP 09 ── 對現代醫學的反思與前瞻</div>
+    <h2 class="card-title">阿茲海默症、慢性病、與失落的整體觀</h2>
+    <p class="card-title-sub">劉力紅的思考不止於過去，更指向未來</p>
+  </div>
+  <div class="card-body">
+    <p class="lead-text">
+      劉力紅在書中不只是回顧經典，他還大膽地把六經理論<span class="highlight">投射到現代疑難雜症</span>上——其中最引人注目的，是他對阿茲海默症（AD）的思考。
+    </p>
+
+    <div class="section-header">
+      <div class="section-icon water">🧠</div>
+      <h3 class="section-title">阿茲海默症：從少陰論治的可能性</h3>
+    </div>
+
+    <p>
+      劉力紅觀察到，AD 患者的核心表現——<span class="highlight-warm">嗜睡、反應遲鈍、精神萎靡、記憶衰退</span>——與少陰病提綱「<strong>脈微細，但欲寐</strong>」驚人地吻合。
+    </p>
+
+    <div class="insight-box water">
+      <div class="insight-label water">🔬 劉力紅的推理鏈</div>
+      <ul class="bullet-list" style="margin-bottom: 0;">
+        <li><strong>少陰主樞（裡之樞）：</strong>是生命最核心的調節機制，心腎之經</li>
+        <li><strong>「脈微細」=</strong> 陽氣衰微，推動力不足</li>
+        <li><strong>「但欲寐」=</strong> 精神功能衰退，與 AD 的認知退化本質相同</li>
+        <li><strong>推論：</strong>AD 可能是少陰陽氣大虛的極端表現</li>
+        <li><strong>治療方向：</strong>回陽救逆（四逆湯一脈的思路），而非補腦益智</li>
+      </ul>
+    </div>
+
+    <p>
+      這個思路在現代中醫界引起了不小的討論。它的價值不在於「是否正確」（畢竟需要大量臨床驗證），而在於<span class="highlight">提供了一個全新的思考角度</span>——從整體的生命能量（陽氣）去理解局部的功能衰退（腦部退化）。
+    </p>
+
+    <div class="divider"></div>
+
+    <div class="section-header">
+      <div class="section-icon fire">🔥</div>
+      <h3 class="section-title">現代醫學的盲點：失落的整體觀</h3>
+    </div>
+
+    <p>
+      劉力紅並不反對現代醫學，但他指出了一個根本性的問題：現代醫學的方法論是<span class="highlight-fire">還原主義</span>——把人體拆成器官、器官拆成組織、組織拆成細胞、細胞拆成分子。每一層都研究得越來越精確，但<strong>層與層之間的關係</strong>卻越來越模糊。
+    </p>
+
+    <div class="compare-container">
+      <div class="compare-card positive">
+        <div class="compare-emoji">🌿</div>
+        <div class="compare-title">中醫的整體觀</div>
+        <ul class="compare-list">
+          <li>人是一個動態整體</li>
+          <li>局部症狀反映整體失衡</li>
+          <li>治療目標是恢復平衡</li>
+          <li>考慮時間（四時）、環境</li>
+          <li>弱項：缺乏微觀精確性</li>
+        </ul>
+      </div>
+      <div class="compare-card negative">
+        <div class="compare-emoji">🔬</div>
+        <div class="compare-title">西醫的還原觀</div>
+        <ul class="compare-list">
+          <li>精確定位病變部位</li>
+          <li>微觀機制研究深入</li>
+          <li>治療目標是消除病灶</li>
+          <li>標準化、可重複驗證</li>
+          <li>弱項：整體關聯性不足</li>
+        </ul>
+      </div>
+    </div>
+
+    <p>
+      劉力紅認為，未來醫學的方向，不是中醫取代西醫或西醫取代中醫，而是<span class="highlight-warm">兩種認知維度的整合</span>。中醫提供「宏觀動態規律」的框架，西醫提供「微觀精確機制」的工具。但前提是：<strong>我們先把中醫自己的經典讀懂</strong>。
+    </p>
+
+    <div class="divider"></div>
+
+    <div class="section-header">
+      <div class="section-icon warm">⚡</div>
+      <h3 class="section-title">劉力紅的「扶陽」立場</h3>
+    </div>
+
+    <p>
+      作為盧崇漢（火神派傳人）的弟子，劉力紅在書中隱約但堅定地表達了<span class="highlight">扶陽學派</span>的立場：在現代生活環境下（冷飲、空調、久坐、熬夜），大多數人的問題不是陽氣過亢，而是<strong>陽氣不足</strong>。
+    </p>
+
+    <ul class="bullet-list warm">
+      <li>冷飲和空調直接損傷脾胃陽氣（太陰受損）</li>
+      <li>熬夜消耗腎陽（少陰受損）</li>
+      <li>久坐不動導致氣機壅滯（開闔樞失常）</li>
+      <li>濫用抗生素 = 寒涼藥攻伐正氣</li>
+      <li>所以現代人的慢性病，多數應該從「扶陽」入手，而非「清熱」</li>
+    </ul>
+
+    <div class="quote-box warm">
+      <p class="quote-text">很多人覺得自己「上火」了，其實是陽氣虛弱、虛火上浮。用清熱藥就像往將熄的火上潑水——不是滅火，是滅命。</p>
+      <p class="quote-source">── 劉力紅扶陽觀點的通俗解讀</p>
+    </div>
+  </div>
+</article>
+
+<!-- ═══════════════════════════════════════════
+     STEP 10 — 讀者指南與適用人群
+     ═══════════════════════════════════════════ -->
+<article class="card" id="step10">
+  <div class="card-topbar gradient-herb"></div>
+  <div class="card-header">
+    <div class="step-badge green">STEP 10 ── 讀者指南與適用人群</div>
+    <h2 class="card-title">這本書適合誰？怎麼讀最有效？</h2>
+    <p class="card-title-sub">不同背景的讀者，有不同的打開方式</p>
+  </div>
+  <div class="card-body">
+
+    <div class="section-header">
+      <div class="section-icon green">👥</div>
+      <h3 class="section-title">三類理想讀者</h3>
+    </div>
+
+    <div class="info-grid" style="grid-template-columns: repeat(3, 1fr);">
+      <div class="info-item" style="background: linear-gradient(135deg, var(--accent-herb-pale), #FFFBF5);">
+        <div style="font-size: 1.5rem; text-align: center; margin-bottom: 0.5rem;">🎓</div>
+        <div class="info-label" style="text-align: center;">中醫學生 / 從業者</div>
+        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem; line-height: 1.7;">
+          如果你正在學中醫或行醫卻對經典缺乏信心，這本書是一劑<strong>強心針</strong>。它會讓你重新審視自己忽略的經典智慧。
+        </div>
+      </div>
+      <div class="info-item" style="background: linear-gradient(135deg, var(--accent-warm-pale), #FFFBF5);">
+        <div style="font-size: 1.5rem; text-align: center; margin-bottom: 0.5rem;">🤔</div>
+        <div class="info-label" style="text-align: center;">對中醫好奇的知識分子</div>
+        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem; line-height: 1.7;">
+          你可能學過西方科學，對中醫半信半疑。劉力紅用<strong>邏輯而非玄學</strong>來講中醫，這種進路你會比較舒服。
+        </div>
+      </div>
+      <div class="info-item" style="background: linear-gradient(135deg, var(--accent-water-pale), #FFFBF5);">
+        <div style="font-size: 1.5rem; text-align: center; margin-bottom: 0.5rem;">🏥</div>
+        <div class="info-label" style="text-align: center;">慢性病患者 / 養生愛好者</div>
+        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-top: 0.5rem; line-height: 1.7;">
+          如果你長期受慢性病困擾，這本書能讓你<strong>理解中醫的思維方式</strong>，幫助你更好地與中醫師溝通。
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-header">
+      <div class="section-icon warm">📖</div>
+      <h3 class="section-title">推薦閱讀順序</h3>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-title">第一遍：建立信仰（Ch1-2）</div>
+        <div class="timeline-desc">先讀前兩章，感受劉力紅的誠意和中醫的困境。如果你被案例打動了、對「早熟品」的說法產生了共鳴，再往下讀。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title">第二遍：理解框架（Ch3-4）</div>
+        <div class="timeline-desc">陰陽離合和治病法要是全書的理論骨架。這兩章比較抽象，建議慢讀，必要時做筆記。「上工 vs 下工」那段尤其重要。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title">第三遍：逐經學習（Ch5-10）</div>
+        <div class="timeline-desc">六經部分建議「一經一天」的節奏。每讀完一經，嘗試用「開闔樞」的框架自己推理一次。能推得出來，說明你真的懂了。</div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-title">第四遍：回頭重讀（全書）</div>
+        <div class="timeline-desc">讀完六經再回頭看 Ch1-4，你會發現完全不同的東西。這本書值得至少讀三遍。</div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-header">
+      <div class="section-icon fire">⚠️</div>
+      <h3 class="section-title">閱讀提醒：這本書的局限</h3>
+    </div>
+
+    <ul class="bullet-list fire">
+      <li><strong>學術性較強：</strong>沒有中醫基礎的讀者，Ch3（陰陽離合）和 Ch5-10（六經）會比較吃力。建議搭配一本中醫入門書（如《中醫基礎理論》教材）同步閱讀。</li>
+      <li><strong>立場偏扶陽：</strong>劉力紅師承盧崇漢，屬於扶陽學派。書中對「寒涼派」和「清熱法」的批評，代表的是一家之言，不是中醫界的共識。讀者應保持批判性閱讀。</li>
+      <li><strong>缺乏對照實驗：</strong>書中的臨床案例都是個案報告，沒有隨機對照試驗的數據支持。這不意味著無效，但在證據層級上確實有限。</li>
+      <li><strong>理想化傾向：</strong>劉力紅對經典的推崇有時近乎「信仰」，對經典中可能存在的局限性討論不足。但這或許正是他在信心崩塌的時代，有意為之的矯枉過正。</li>
+    </ul>
+
+    <div class="rating-container">
+      <div class="rating-item">
+        <div class="rating-score green">9.2</div>
+        <div class="rating-label">理論深度</div>
+        <div class="rating-bar"><div class="rating-fill green" style="width: 92%;"></div></div>
+      </div>
+      <div class="rating-item">
+        <div class="rating-score warm">8.5</div>
+        <div class="rating-label">臨床實用性</div>
+        <div class="rating-bar"><div class="rating-fill warm" style="width: 85%;"></div></div>
+      </div>
+      <div class="rating-item">
+        <div class="rating-score green">8.8</div>
+        <div class="rating-label">可讀性</div>
+        <div class="rating-bar"><div class="rating-fill green" style="width: 88%;"></div></div>
+      </div>
+      <div class="rating-item">
+        <div class="rating-score fire">7.0</div>
+        <div class="rating-label">客觀平衡性</div>
+        <div class="rating-bar"><div class="rating-fill warm" style="width: 70%;"></div></div>
+      </div>
+    </div>
+  </div>
+</article>
+
+<!-- ═══════════════════════════════════════════
+     STEP 11 — 最終覺醒：這本書改變了什麼
+     ═══════════════════════════════════════════ -->
+<article class="card" id="step11">
+  <div class="card-topbar gradient-mixed"></div>
+  <div class="card-header">
+    <div class="step-badge warm">STEP 11 ── 最終覺醒</div>
+    <h2 class="card-title">讀完這本書，你的世界觀會發生什麼變化？</h2>
+    <p class="card-title-sub">從「中醫是不是科學」到「科學的邊界在哪裡」</p>
+  </div>
+  <div class="card-body">
+    <p class="lead-text">
+      《思考中醫》最深刻的影響，不是讓你學會了幾個方劑或幾條辨證規則——而是<span class="highlight">動搖了你對「什麼是知識」的預設</span>。
+    </p>
+
+    <div class="section-header">
+      <div class="section-icon warm">🌅</div>
+      <h3 class="section-title">認知轉變一：從「中醫 vs 西醫」到「兩種認知維度」</h3>
+    </div>
+    <p>
+      讀這本書之前，大多數人的預設是：科學 = 西醫的方法論，中醫要麼「被科學證明」，要麼「不科學」。讀完之後，你可能會意識到：<span class="highlight-warm">科學本身也有邊界</span>。
+    </p>
+    <p>
+      還原主義（拆分到最小單位去研究）是一種認知策略，但不是唯一的策略。中醫的整體觀（從動態關係去理解系統）是另一種策略。兩者不矛盾，而是<strong>互補</strong>。就像望遠鏡和顯微鏡，看到的是不同尺度的真實。
+    </p>
+
+    <div class="divider"></div>
+
+    <div class="section-header">
+      <div class="section-icon green">🌱</div>
+      <h3 class="section-title">認知轉變二：從「對症下藥」到「察機論治」</h3>
+    </div>
+    <p>
+      這個轉變不只適用於醫學。「對症下藥」是我們處理一切問題的預設模式——孩子成績差就補課、公司業績差就裁員、身體不舒服就吃藥。但劉力紅告訴你：<span class="highlight">症狀不等於問題</span>。
+    </p>
+    <p>
+      咽喉痛不一定是喉嚨的問題（可能是表寒），腎結石不一定要排石（可能是水液代謝的問題），反覆發炎不一定要消炎（可能是正氣不足）。<strong>找到「機」——問題的動態轉折點——比治療症狀重要一百倍。</strong>
+    </p>
+
+    <div class="insight-box warm">
+      <div class="insight-label warm">🔮 延伸到生活</div>
+      <p style="margin-bottom: 0; font-size: 0.93rem;">
+        這套思維方式可以遷移到任何領域：<br>
+        • <strong>管理：</strong>員工離職率高 → 不是「加薪」的問題，可能是「文化」的問題（病機不在表面）<br>
+        • <strong>教育：</strong>孩子不愛學習 → 不是「不夠努力」，可能是「信心」的問題（陽氣不足）<br>
+        • <strong>關係：</strong>反覆吵架 → 不是「溝通技巧」的問題，可能是「安全感」的問題（少陰虛寒）<br>
+        • <strong>創業：</strong>產品賣不動 → 不是「行銷」的問題，可能是「產品本身」的問題（標本同治）
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-header">
+      <div class="section-icon water">💧</div>
+      <h3 class="section-title">認知轉變三：對「樸素」的重新理解</h3>
+    </div>
+    <p>
+      我們活在一個崇拜複雜性的時代——越複雜的理論越「高級」，越多的數據越「科學」，越精密的工具越「先進」。劉力紅提醒我們：<span class="highlight">樸素才是最高的境界</span>。
+    </p>
+    <p>
+      陰陽五行看似簡單，卻能解釋生命系統的動態規律。《傷寒論》只有 398 條，卻涵蓋了疾病演變的所有基本模式。好的理論不是越複雜越好，而是<strong>用最少的概念，覆蓋最多的現象</strong>——這不就是科學追求的「簡潔之美」嗎？
+    </p>
+
+    <div class="golden-box" style="margin-top: 1.5rem;">
+      <div class="golden-text">
+        「返璞歸真」不是倒退<br>
+        而是穿越了複雜之後的<br>
+        <span style="font-size: 1.8rem; color: var(--accent-deep);">更高層次的簡潔</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="section-header">
+      <div class="section-icon fire">🔥</div>
+      <h3 class="section-title">最終叩問</h3>
+    </div>
+
+    <p>
+      劉力紅在書的結尾，沒有做任何總結。他只是一經一經地講完了厥陰，然後停筆。這種「不做結論」的寫法本身，就是一個態度：<span class="highlight-fire">我把路指給你看了，走不走是你的事</span>。
+    </p>
+
+    <p>
+      他的核心訊息其實只有一個——
+    </p>
+
+    <div class="cta-section">
+      <div class="cta-icon">🌿</div>
+      <div class="cta-title">回到經典去讀</div>
+      <p class="cta-subtitle">
+        不要相信任何人告訴你「中醫過時了」，<br>
+        也不要相信任何人告訴你「中醫萬能」。<br>
+        自己去讀《傷寒論》、《黃帝內經》，<br>
+        自己去辨、自己去悟。<br><br>
+        <strong style="color: var(--accent-herb);">「似迂而反捷，此賢者之所得，愚者之所失也。」</strong>
+      </p>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- 五行收尾 -->
+    <div class="five-elements">
+      <div class="element-block wood">
+        <div class="element-name">木</div>
+        <div class="element-desc">生發・厥陰</div>
+      </div>
+      <div class="element-block fire-el">
+        <div class="element-name">火</div>
+        <div class="element-desc">溫煦・少陰</div>
+      </div>
+      <div class="element-block earth-el">
+        <div class="element-name">土</div>
+        <div class="element-desc">運化・太陰</div>
+      </div>
+      <div class="element-block metal">
+        <div class="element-name">金</div>
+        <div class="element-desc">收斂・陽明</div>
+      </div>
+      <div class="element-block water-el">
+        <div class="element-name">水</div>
+        <div class="element-desc">封藏・太陽</div>
+      </div>
+    </div>
+
+    <div class="rating-container" style="margin-top: 2rem;">
+      <div class="rating-item">
+        <div class="rating-score green" style="font-size: 2.5rem;">9.0</div>
+        <div class="rating-label" style="font-size: 0.9rem; font-weight: 600;">總體評分</div>
+        <div class="rating-bar"><div class="rating-fill green" style="width: 90%;"></div></div>
+      </div>
+    </div>
+
+    <p style="text-align: center; color: var(--text-tertiary); font-size: 0.88rem; margin-top: 1.5rem;">
+      這不是一本「讀完就放下」的書。<br>
+      它更像是一扇門——讀完之後，你才剛站在門口。<br>
+      門裡面是兩千年的中醫經典，等著你自己走進去。
+    </p>
+  </div>
+</article>
+
+<!-- ═══════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-line"></div>
+  <div class="footer-brand">書醒 AWAKENING v2</div>
+  <p>深度書籍分析系統 ── 由 🐉 龍龍 生成</p>
+  <p style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-light);">
+    《思考中醫：對自然與生命的時間解讀》 ── 劉力紅 著<br>
+    本報告為 AI 輔助閱讀分析，不替代原著閱讀體驗
+  </p>
+  <div class="footer-line"></div>
+  <p style="font-size: 0.72rem; color: var(--text-light); letter-spacing: 0.1em;">
+    AWAKENING v2 · 2026
+  </p>
+</footer>
+
+</div><!-- .container -->
+</body>
+</html>
