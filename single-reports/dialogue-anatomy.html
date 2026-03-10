@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>對白的解剖 — 書醒深度分析報告</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gradient-start: #E8F4FD;
+      --gradient-mid: #FFF0F5;
+      --gradient-end: #F5F0FF;
+      --accent-pink: #FFB6C1;
+      --accent-blue: #87CEEB;
+      --accent-purple: #DDA0DD;
+      --accent-coral: #F7A8B8;
+      --accent-sage: #B2DFDB;
+      --text-primary: #2D3436;
+      --text-secondary: #636E72;
+      --text-light: #B2BEC3;
+      --card-bg: rgba(255, 255, 255, 0.7);
+      --card-border: rgba(255, 255, 255, 0.5);
+      --card-shadow: rgba(0, 0, 0, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans TC', -apple-system, sans-serif;
+      font-weight: 300;
+      line-height: 1.9;
+      color: var(--text-primary);
+      background: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container { max-width: 920px; margin: 0 auto; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 80px 40px 60px;
+      margin-bottom: 40px;
+      background: rgba(255,255,255,0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 40%, rgba(102,126,234,0.06) 0%, transparent 60%),
+                  radial-gradient(circle at 70% 60%, rgba(240,147,251,0.06) 0%, transparent 60%);
+      animation: float 20s ease-in-out infinite;
+    }
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-20px, 10px); }
+    }
+    .hero h1 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 2.6rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+      position: relative;
+      z-index: 1;
+    }
+    .hero .subtitle {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      font-weight: 300;
+      position: relative;
+      z-index: 1;
+      margin-bottom: 8px;
+    }
+    .hero .meta {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      position: relative;
+      z-index: 1;
+      margin-top: 16px;
+    }
+    .hero .meta span {
+      display: inline-block;
+      margin: 0 6px;
+    }
+
+    /* Step badge */
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 6px 18px;
+      border-radius: 24px;
+      font-size: 0.82rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      letter-spacing: 0.05em;
+    }
+
+    /* Card */
+    .card {
+      background: rgba(255,255,255,0.72);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      padding: 40px 36px;
+      margin-bottom: 28px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.11);
+    }
+
+    .section-title {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.45rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 24px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid rgba(102,126,234,0.15);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .section-title .icon { font-size: 1.3rem; }
+
+    /* Highlight box */
+    .highlight-box {
+      background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(240,147,251,0.08));
+      border-radius: 16px;
+      padding: 24px 28px;
+      margin: 20px 0;
+      border-left: 4px solid #667eea;
+    }
+    .highlight-box.pink {
+      background: linear-gradient(135deg, rgba(255,182,193,0.12), rgba(240,147,251,0.08));
+      border-left-color: var(--accent-pink);
+    }
+    .highlight-box.sage {
+      background: linear-gradient(135deg, rgba(178,223,219,0.15), rgba(102,126,234,0.06));
+      border-left-color: var(--accent-sage);
+    }
+    .highlight-box.coral {
+      background: linear-gradient(135deg, rgba(247,168,184,0.12), rgba(221,160,221,0.08));
+      border-left-color: var(--accent-coral);
+    }
+
+    /* Tags */
+    .tag {
+      display: inline-block;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 4px 14px;
+      border-radius: 16px;
+      font-size: 0.78rem;
+      font-weight: 400;
+      margin: 3px 3px;
+    }
+    .tag.pink { background: linear-gradient(135deg, #f093fb, #f5576c); }
+    .tag.blue { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+    .tag.sage { background: linear-gradient(135deg, #43e97b, #38f9d7); color: #2D3436; }
+    .tag.warm { background: linear-gradient(135deg, #fa709a, #fee140); color: #2D3436; }
+    .tag.outline {
+      background: transparent;
+      border: 1.5px solid #667eea;
+      color: #667eea;
+    }
+
+    /* Content typography */
+    h3 {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin: 28px 0 12px;
+    }
+    h4 {
+      font-size: 1rem;
+      font-weight: 500;
+      color: #667eea;
+      margin: 20px 0 8px;
+    }
+    p { margin-bottom: 14px; font-size: 0.98rem; }
+    ul, ol { padding-left: 22px; margin: 12px 0; }
+    li { margin-bottom: 10px; line-height: 1.8; font-size: 0.96rem; }
+    li::marker { color: #667eea; }
+    strong { font-weight: 500; }
+    em { color: var(--text-secondary); }
+
+    .depth-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 2px 8px;
+      border-radius: 8px;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+    .depth-tag.l1 { background: #E8F4FD; color: #4facfe; }
+    .depth-tag.l2 { background: #FFF0F5; color: #f093fb; }
+    .depth-tag.l3 { background: #F5F0FF; color: #667eea; }
+
+    blockquote {
+      margin: 16px 0;
+      padding: 16px 24px;
+      background: rgba(102,126,234,0.04);
+      border-left: 3px solid rgba(102,126,234,0.3);
+      border-radius: 0 12px 12px 0;
+      font-style: italic;
+      color: var(--text-secondary);
+    }
+
+    /* Stat grid */
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .stat-card {
+      background: rgba(255,255,255,0.8);
+      border-radius: 18px;
+      padding: 20px 16px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    .stat-number {
+      font-size: 1.4rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .stat-label {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      margin-top: 6px;
+    }
+
+    /* Theme card */
+    .theme-card {
+      background: rgba(255,255,255,0.5);
+      border-radius: 18px;
+      padding: 28px 24px;
+      margin: 20px 0;
+      border: 1px solid rgba(102,126,234,0.1);
+    }
+    .theme-card h3 {
+      margin-top: 0;
+      padding-bottom: 10px;
+      border-bottom: 1px solid rgba(102,126,234,0.1);
+    }
+
+    /* Arc visual */
+    .arc-container {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 8px;
+      margin: 24px 0;
+      padding: 20px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 16px;
+    }
+    .arc-node {
+      flex: 1;
+      text-align: center;
+      padding: 12px 8px;
+      border-radius: 12px;
+      font-size: 0.82rem;
+      font-weight: 400;
+      transition: transform 0.2s;
+    }
+    .arc-node:hover { transform: scale(1.05); }
+    .arc-node.start { background: rgba(102,126,234,0.12); }
+    .arc-node.break { background: rgba(240,147,251,0.12); }
+    .arc-node.rebuild { background: rgba(67,233,123,0.12); }
+    .arc-node.push { background: rgba(250,112,154,0.12); }
+    .arc-node.land { background: rgba(79,172,254,0.12); }
+    .arc-arrow { font-size: 1.2rem; color: var(--text-light); align-self: center; }
+
+    /* Connector line */
+    .connector {
+      text-align: center;
+      padding: 16px 0;
+      color: var(--text-light);
+      font-size: 1.5rem;
+      letter-spacing: 8px;
+    }
+
+    /* Action table */
+    .action-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .action-cell {
+      background: rgba(255,255,255,0.6);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    .action-cell h4 { margin-top: 0; font-size: 0.88rem; }
+    .action-cell p { font-size: 0.88rem; margin-bottom: 8px; }
+    .action-cell ul { padding-left: 16px; }
+    .action-cell li { font-size: 0.85rem; margin-bottom: 6px; }
+
+    /* Metaphor section */
+    .metaphor-box {
+      text-align: center;
+      padding: 48px 36px;
+      background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(240,147,251,0.1));
+      border-radius: 24px;
+      margin: 24px 0;
+    }
+    .metaphor-box .big-text {
+      font-family: 'Noto Serif TC', serif;
+      font-size: 1.6rem;
+      font-weight: 600;
+      line-height: 2;
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .metaphor-box .sub-text {
+      margin-top: 16px;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 48px 20px;
+      color: var(--text-light);
+      font-size: 0.85rem;
+    }
+    footer .heart { color: var(--accent-pink); }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero { padding: 50px 24px 40px; }
+      .hero h1 { font-size: 2rem; }
+      .card { padding: 28px 20px; border-radius: 20px; }
+      .action-grid { grid-template-columns: 1fr; }
+      .arc-container { flex-direction: column; align-items: stretch; }
+      .arc-arrow { transform: rotate(90deg); text-align: center; }
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .card { box-shadow: none; border: 1px solid #eee; page-break-inside: avoid; }
+      .hero { box-shadow: none; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ==================== HERO ==================== -->
+  <header class="hero">
+    <h1>🎭 對白的解剖</h1>
+    <p class="subtitle">跟好萊塢編劇教父學習角色說話的藝術</p>
+    <p class="subtitle" style="font-size:1rem; font-weight:400;">Robert McKee 著</p>
+    <p class="meta">
+      <span>書醒 v2 深度分析</span> · <span>覺醒完整 11 步</span> · <span>2026.03.10</span>
+    </p>
+  </header>
+
+  <!-- ==================== STEP 1: 書籍資料卡 ==================== -->
+  <section class="card">
+    <div class="step-badge">STEP 1</div>
+    <h2 class="section-title"><span class="icon">📚</span> 書籍資料卡</h2>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-number" style="font-size:1rem;">978-986-344-XXX</div>
+        <div class="stat-label">ISBN（繁體中文版）</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="font-size:1rem;">漫遊者文化</div>
+        <div class="stat-label">出版社</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="font-size:1rem;">2017</div>
+        <div class="stat-label">繁中出版年</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="font-size:1rem;">🔧 方法實踐型</div>
+        <div class="stat-label">書籍類型</div>
+      </div>
+    </div>
+
+    <h3>作者背景</h3>
+    <p><strong>Robert McKee</strong>——好萊塢編劇教父，被《華爾街日報》譽為「最受尊敬的說故事導師」。他的「故事」講座自 1984 年起在全球舉辦，超過 10 萬名學員參加，其中 60 位奧斯卡獎得主、200 位艾美獎得主。前作《故事的解剖》（Story, 1997）是編劇界聖經。McKee 早年任教南加大，後專職授課與寫作，文學思想深受 Kenneth Burke（肯尼斯·柏克）影響，重視修辭分析與語言作為行動的力量。</p>
+    <p>本書英文原版 <em>Dialogue: The Art of Verbal Action for the Page, Stage, and Screen</em> 於 2016 年出版。繁中版由黃政淵翻譯，譯注極為豐富，幾乎另成一部西方文藝導覽。</p>
+
+    <h3>版權敏感度</h3>
+    <div class="highlight-box">
+      <p><strong>中度。</strong>書中大量引用莎士比亞、海勒、艾爾比、漢斯貝里等經典劇作原文對白，以及電影、電視影集對白。分析報告以概念闡述為主，不逐字引用大段原文，可安全進行知識性二創。</p>
+    </div>
+  </section>
+
+  <!-- ==================== STEP 2: 核心命題 ==================== -->
+  <section class="card">
+    <div class="step-badge">STEP 2</div>
+    <h2 class="section-title"><span class="icon">🎯</span> 核心命題</h2>
+
+    <div class="highlight-box">
+      <h3 style="margin-top:0;">❓ 問題——要解決什麼？</h3>
+      <p>為什麼大多數故事中的對白「聽起來很假」、「過目就忘」、「人人一個腔調」？角色一開口，為何故事就塌陷了？</p>
+      <p>讀者帶著的痛點：不論是編劇、小說家、劇場創作者，都困在「寫得出情節，寫不好對白」的窘境。更深層的困惑是——對白不僅是「角色說了什麼」的技術問題，而是「角色是誰」的存在問題。</p>
+    </div>
+
+    <div class="highlight-box pink">
+      <h3 style="margin-top:0;">💡 論點——作者的核心主張</h3>
+      <p style="font-size:1.1rem; font-weight:500;"><strong>「對白等於行動」（Dialogue-as-Action）。</strong></p>
+      <p>角色說出的每一句話都是一種行動——不是描述世界，而是改變世界。對白不是語言表面的裝飾品，而是故事底層結構的動力引擎。對白有三層同心圓：<strong>已說</strong>（文本）→ <strong>未說</strong>（潛文本，角色刻意壓下的）→ <strong>不可說</strong>（潛意識驅力，連角色自己都不知道的）。寫出好對白的前提不是語感好，而是故事好、角色好——<strong>對白有問題，就是故事有問題。</strong></p>
+    </div>
+
+    <div class="highlight-box sage">
+      <h3 style="margin-top:0;">🔧 方法——用什麼路徑論證？</h3>
+      <p>McKee 採用<strong>案例歸納法 + 解構分析法</strong>。全書四大部分以「定義→診斷→寫作→設計」的臨床思維推進：</p>
+      <ul>
+        <li><strong>第一部</strong>（Ch.1-5）：擴張對白定義，建立「三軌道 × 三同心圓 × 四衝突層面」的分析框架</li>
+        <li><strong>第二部</strong>（Ch.6-9）：診斷對白的六大病灶（不可信、陳腔濫調、淺白露骨、嘮叨反覆等）</li>
+        <li><strong>第三部</strong>（Ch.10-11）：用莎士比亞、李奧納、蒂娜·費、亞歷山大·佩恩四則案例示範「角色專屬對白」</li>
+        <li><strong>第四部</strong>（Ch.12-19）：六種衝突類型的場景設計全拆解（平衡式、喜趣式、非對稱、間接式、反身式、極簡式）</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ==================== STEP 3: 主題式分析 ==================== -->
+  <section class="card">
+    <div class="step-badge">STEP 3</div>
+    <h2 class="section-title"><span class="icon">📖</span> 主題式分析（核心引擎）</h2>
+    <p style="color:var(--text-secondary); margin-bottom:24px;">六大主題，每主題七層深挖。這是整份分析最核心的部分。</p>
+
+    <!-- Theme 1 -->
+    <div class="theme-card">
+      <h3>🎭 主題一：對白即行動——語言不是裝飾，是武器</h3>
+
+      <h4>💡 三層洞見</h4>
+      <p><span class="depth-tag l1">L1 表層</span> <strong>角色說話就是在做事。</strong>McKee 引用語言學家 J.L. Austin 的「行為話語」（performative）理論，指出每句台詞都是一次行動——安慰、收買、威脅、引誘、拒絕……說了話就等於做了事。</p>
+      <p><span class="depth-tag l2">L2 中層</span> <strong>活動（activity）≠ 行動（action）。</strong>書中未充分強調但極重要的隱含推論：吃冰淇淋的「活動」下可能是「壓抑悲傷」的行動，講話的「活動」下可能是「勒索」的行動。這意味著：讀者不應該聽角色「說了什麼」，而應該問「他在用話語做什麼」。這顛覆了一般讀者/觀眾的接收模式。</p>
+      <p><span class="depth-tag l3">L3 深層</span> <strong>「對白即行動」本質上是一種權力理論。</strong><span class="tag outline">[AI 原創洞見]</span> McKee 從未使用「權力」一詞，但他的整套框架暗示：每一句對白都是一次微型的權力操作——誰在主導對話？誰被迫回應？誰在用語言改變力量平衡？這與社會學家 Pierre Bourdieu 的「語言交換經濟學」（symbolic power through language）高度同構。</p>
+
+      <h4>🔬 批判性評論</h4>
+      <p>McKee 的框架在「有衝突的場景」中極其有效，但面對「日常閒聊」式的對白（如侯孝賢、是枝裕和電影中大量的生活碎語），「每句話都是行動」的預設會顯得過於功能主義。有些對白的力量恰恰來自它「什麼也不做」的沉默重量——McKee 承認了沉默的力量，但沒有為「反行動對白」建立系統框架。</p>
+
+      <h4>🔗 跨書連結</h4>
+      <p><span class="tag outline">[AI 跨書連結]</span> Austin《如何以言行事》是本書的哲學地基。延伸到 Searle 的言語行為理論（illocutionary acts），會發現 McKee 的「潛文本行動」近似 Searle 所說的「間接言語行為」（indirect speech acts）——表面是問句，實際是命令。另一個平行概念：Erving Goffman《日常生活的自我呈現》中的「印象管理」——角色的對白就是一場精心編排的印象管理表演。</p>
+
+      <h4>🔧 立即可用</h4>
+      <div class="highlight-box">
+        <p><strong>🎬「潛文本翻譯」練習</strong>（10分鐘）：挑一段你喜歡的電影/劇場對白，在每句台詞旁邊寫下「他/她真正在做什麼」。用動名詞表示：安慰ing、威脅ing、引誘ing、逃避ing……你會發現，精采的對白永遠「做」的比「說」的多。</p>
+      </div>
+
+      <h4>❓ 自我檢核</h4>
+      <p>回想你最近一次跟人爭吵：你嘴上說的話，和你「真正在做的事」是同一件嗎？你有沒有一句表面上是「關心」、實際上是「控制」的話？如果有——恭喜，你已經具備寫潛文本的直覺。</p>
+
+      <h4>📖 延伸提示</h4>
+      <p>原書第三章「已說／未說／不可說」三同心圓模型是全書理論的精華段落。第十二章「劇情／場景／對白」用節拍（beat）分析法將理論落地，是練功的最佳入口。建議精讀兩遍以上。</p>
+    </div>
+
+    <!-- Theme 2 -->
+    <div class="theme-card">
+      <h3>🪞 主題二：三層同心圓——已說、未說、不可說</h3>
+
+      <h4>💡 三層洞見</h4>
+      <p><span class="depth-tag l1">L1 表層</span> <strong>對白的表達分三圈：</strong>最外圈「已說」是角色選擇講出來的；中圈「未說」是角色知道但壓下不說的；最內圈「不可說」是潛意識裡連角色自己都覺察不到的驅力。好的對白讓讀者／觀眾「看穿」外圈，「感應」中圈，「直覺」到最內圈。</p>
+      <p><span class="depth-tag l2">L2 中層</span> <strong>「潛文本」不只是「沒說的話」，它是有方向性的沉默。</strong>McKee 用冰淇淋的比喻暗示：潛文本不是隨機的沉默，而是有目的地「不說」。角色選擇不說什麼，和他選擇說什麼一樣具有戲劇力量。這意味著：作者在寫每句台詞時，同時也在設計「這句話遮掩了什麼」。</p>
+      <p><span class="depth-tag l3">L3 深層</span> <strong>三同心圓本質上是一個「自我考古學」模型。</strong><span class="tag outline">[AI 原創洞見]</span> McKee 的框架與精神分析的拓撲學驚人地同構：「已說」≈ 意識（ego 的社會面具）；「未說」≈ 前意識（ego 知道但壓抑的）；「不可說」≈ 無意識（id 的驅力）。但 McKee 超越佛洛伊德之處在於：他認為「不可說」不只是壓抑的慾望，更是角色深層的「本色」——只有在極端壓力下才會被行動揭露的真實自我。</p>
+
+      <h4>🔬 批判性評論</h4>
+      <p>三圈模型假設了一種「洋蔥式」的人格結構：表面之下一定有更「真」的東西。但後結構主義（如 Deleuze）會質疑：也許根本沒有一個「最內核的真我」，人格更像是一張摺疊的紙——不同角度會露出不同的面。McKee 的框架對「統一自我」的預設，在面對後現代角色（如 Charlie Kaufman 電影中的角色）時可能力有未逮。</p>
+
+      <h4>🔗 跨書連結</h4>
+      <p><span class="tag outline">[AI 跨書連結]</span> Harold Pinter 的「威脅喜劇」（comedy of menace）是三同心圓的極致實踐——角色說的每句話都像浮在深海上的冰塊。McKee 的恩師 Kenneth Burke 在《動機的修辭》中提出的「認同」（identification）策略，正是角色用「已說」來操控他人的核心機制。日本作家向田邦子的電視劇本則展現了東方版的「不可說」——沉默本身就是最強烈的台詞。</p>
+
+      <h4>🔧 立即可用</h4>
+      <div class="highlight-box pink">
+        <p><strong>🎪「三圈日記」</strong>（15分鐘）：回想今天一段讓你有情緒的對話。寫下三欄：(1) 你說了什麼 (2) 你想說但沒說的 (3) 你為什麼沒說——第三欄的答案，就是你的「不可說」。連續做一週，你會對自己的潛文本模式驚訝不已。</p>
+      </div>
+
+      <h4>❓ 自我檢核</h4>
+      <p>你生命中是否有一句「一直想說但永遠沒說出口」的話？它為什麼卡在第二圈出不去？是社會規範？是害怕後果？還是——你其實害怕一旦說出口，就必須面對自己「不可說」的第三圈？</p>
+
+      <h4>📖 延伸提示</h4>
+      <p>第三章全文值得反覆精讀。Ian McEwan《愛無可忍》開篇的男主角內心獨白（書中有引用）是「已說」與「不可說」交錯的絕佳文學範例。</p>
+    </div>
+
+    <!-- Theme 3 -->
+    <div class="theme-card">
+      <h3>🏗️ 主題三：場景是對白的建築——沒有結構就沒有好對白</h3>
+
+      <h4>💡 三層洞見</h4>
+      <p><span class="depth-tag l1">L1 表層</span> <strong>對白有問題，就是故事有問題。</strong>McKee 反覆強調：不要以為改寫台詞就能修好對白。場景沒有衝突、沒有轉捩點，再華麗的文字也救不了。對白是果，故事結構是因。</p>
+      <p><span class="depth-tag l2">L2 中層</span> <strong>節拍（beat）是對白的原子單位。</strong>每一拍由「行動→反應」構成，而非由「一句台詞」構成。同一句話可能包含多個節拍，同一個節拍也可能橫跨多句話。這打破了「一句話＝一個單位」的直覺認知，意味著分析對白時要用「動機切換」而非「標點符號」來斷句。</p>
+      <p><span class="depth-tag l3">L3 深層</span> <strong>場景的「價值進程」是一種隱形的情緒樂譜。</strong><span class="tag outline">[AI 原創洞見]</span> McKee 在分析《愛情，不用翻譯》時，為每一拍標注正值（+）或負值（–）。這種做法近似音樂作曲中的「情緒動態標記」（dynamic markings）。最精妙之處：好的場景不是線性地從正到負，而是像心電圖一般起伏——每次短暫的正值回升，都是為了讓接下來的負值跌得更痛。</p>
+
+      <h4>🔬 批判性評論</h4>
+      <p>McKee 的場景分析法極度精密（《太陽底下的葡萄》被他拆成 16 拍，《歡樂一家親》拆成 14 拍），但這種「逐拍解剖」的方法更像「事後驗屍」而非「事前設計」。創作者在實際寫作時很難先規劃好每一拍的行動/反應再下筆。McKee 自己在最後一章也承認了這一點，建議「由內而外」的直覺寫作與「由外而內」的結構分析要交替進行。</p>
+
+      <h4>🔗 跨書連結</h4>
+      <p><span class="tag outline">[AI 跨書連結]</span> McKee 的場景結構理論與他自己的《故事的解剖》一脈相承，但本書更聚焦於「場景內部」的微觀動力學。可對照 David Mamet《論導演》中的極簡場景觀（每場戲只問「主角想要什麼？」），以及 Aaron Sorkin 的訪談中提到的「意圖與阻礙」法則。三者構成光譜：Mamet 極簡 → McKee 系統 → Sorkin 直覺。</p>
+
+      <h4>🔧 立即可用</h4>
+      <div class="highlight-box sage">
+        <p><strong>⚡「節拍地圖」練習</strong>（15分鐘）：找一段你覺得精采的影劇場景（3-5分鐘的片段即可）。逐拍標注：(1) 行動者做了什麼？ (2) 反應者做了什麼？ (3) 價值取向朝正或負移動了？畫完之後，你會看到一條情緒的折線圖——這就是場景的隱形骨架。</p>
+      </div>
+
+      <h4>❓ 自我檢核</h4>
+      <p>你上一次跟人的對話中，有沒有一個「轉捩點」——某句話說完之後，整個對話的氣氛就變了？你能定位那一刻嗎？</p>
+
+      <h4>📖 延伸提示</h4>
+      <p>第十二章是全書技術含量最高的章節。第十三至十八章的六個場景全拆解是寶藏——建議每讀一章就找對應的影劇作品實際看一遍，然後自己嘗試拆解節拍。</p>
+    </div>
+
+    <!-- Theme 4 -->
+    <div class="theme-card">
+      <h3>🗣️ 主題四：角色專屬對白——每個角色是一本活字典</h3>
+
+      <h4>💡 三層洞見</h4>
+      <p><span class="depth-tag l1">L1 表層</span> <strong>辭彙是對白設計的核心。</strong>名詞和動詞透露角色的知識領域；形容詞、副詞、語態、情態助動詞透露角色的個性和世界觀。角色說「大釘子」還是「鉛錘」，差別不只是用字，而是整個人的呈現。</p>
+      <p><span class="depth-tag l2">L2 中層</span> <strong>文化是角色對白的隱形基因庫。</strong>McKee 在分析莎士比亞時指出：卡席歐斯用「小小的世界」而非「廣大的世界」，是因為莎士比亞鑽進了一個羅馬貴族的主觀視野。角色的童年教育、階級背景、通俗文化浸淫，都會決定他開口時選擇的比喻、意象、節奏。</p>
+      <p><span class="depth-tag l3">L3 深層</span> <strong>「角色專屬對白」的終極追求是：語言本身就是性格的化身。</strong><span class="tag outline">[AI 原創洞見]</span> McKee 在分析《無間警探》時展示了一個驚人的洞見：羅斯汀用拉丁化多音節抽象詞（observation, propensity），馬丁用日耳曼式短促具象詞（alone, empty, murder）。兩人的詞源分佈就是他們人格的X光片——這不只是「風格不同」，而是「存在方式不同」。語言就是人格的身體。</p>
+
+      <h4>🔬 批判性評論</h4>
+      <p>McKee 的辭彙分析在英語語境中極為有力（英語有日耳曼語族與拉丁語族的雙層詞源系統，天然適合這種分析），但直接移植到中文語境會有困難——中文沒有拉丁/日耳曼的對比，但有文言/白話、書面/口語、南方方言/北方方言等平行軸線可以替代。適用邊界在於：原則通用，具體的語言工具需要在地化。</p>
+
+      <h4>🔗 跨書連結</h4>
+      <p><span class="tag outline">[AI 跨書連結]</span> Mikhail Bakhtin 的「複調小說」（polyphony）理論與 McKee 的「角色專屬對白」高度共振——Bakhtin 認為杜斯妥也夫斯基的偉大之處在於每個角色都有獨立的「意識聲音」（voice of consciousness），作者不是上帝，而是指揮家。McKee 把這個文學理論具象化為可操作的技術：去控制每個角色的名詞庫、動詞庫、修飾語庫。</p>
+
+      <h4>🔧 立即可用</h4>
+      <div class="highlight-box coral">
+        <p><strong>📔「角色辭典」練習</strong>（10分鐘）：為你正在寫的一個角色建立一份專屬詞庫——列出10個只有這個角色會用的名詞、5個他的動詞偏好、3個他的口頭禪。如果你發現兩個角色的詞庫重疊率超過50%，他們的對白就會撞聲。</p>
+      </div>
+
+      <h4>❓ 自我檢核</h4>
+      <p>你和你最親近的人（伴侶、摯友、父母），說話時有哪些詞彙的使用是完全不同的？這些差異背後，藏著什麼樣的人格差異？</p>
+
+      <h4>📖 延伸提示</h4>
+      <p>第十章「角色專屬的對白」是理論框架，第十一章的四則作品研究是實戰示範。建議交叉閱讀：先讀理論，再看案例，再回頭重讀理論。莎士比亞《凱撒大帝》的分析段落（卡席歐斯的台詞）是全書最精彩的微觀語言分析。</p>
+    </div>
+
+    <!-- Theme 5 -->
+    <div class="theme-card">
+      <h3>⚔️ 主題五：六種衝突模型——對白的動力學光譜</h3>
+
+      <h4>💡 三層洞見</h4>
+      <p><span class="depth-tag l1">L1 表層</span> <strong>McKee 歸納出六種場景衝突類型：</strong>平衡式（《黑道家族》）、喜趣式（《歡樂一家親》）、非對稱（《太陽底下的葡萄》）、間接式（《大亨小傳》）、反身式（《伊瑟小姐》《純真博物館》）、極簡式（《愛情，不用翻譯》）。每種類型產生不同質地的對白。</p>
+      <p><span class="depth-tag l2">L2 中層</span> <strong>衝突類型決定了「潛文本的深度」。</strong>平衡式衝突中，潛文本相對淺——雙方都在正面交鋒。極簡式衝突中，潛文本極深——角色幾乎什麼都沒說，但情感暗流洶湧。從平衡到極簡，是一條「文本遞減、潛文本遞增」的光譜。</p>
+      <p><span class="depth-tag l3">L3 深層</span> <strong>六種衝突模型背後是一個關於「人際距離」的哲學。</strong><span class="tag outline">[AI 原創洞見]</span> 平衡式＝零距離（正面交鋒），非對稱＝錯位距離（一方追一方逃），間接＝折射距離（透過第三方傳導），反身式＝自我與自我的距離，極簡式＝靈魂與靈魂之間可能永遠無法跨越的距離。McKee 的六種模型，本質上是一張「親密關係的拓撲地圖」。</p>
+
+      <h4>🔬 批判性評論</h4>
+      <p>McKee 以西方經典為案例，六種模型幾乎涵蓋了所有常見的衝突形態。但他忽略了一種東方（尤其華語世界）常見的衝突類型：<strong>「迴避式衝突」</strong>——雙方都知道問題在哪，但都選擇不觸碰，用表面的和諧覆蓋深層的裂痕。李安的電影《飲食男女》和《喜宴》中大量出現這種模式。McKee 的「極簡式」最接近，但「極簡」強調的是「不知道問題在哪」的迷失，而「迴避式」是「知道但不敢面對」的壓抑，動力結構不同。</p>
+
+      <h4>🔗 跨書連結</h4>
+      <p><span class="tag outline">[AI 跨書連結]</span> John Gottman 在婚姻研究中提出的「四騎士」（批評、蔑視、防禦、冷戰）模型，與 McKee 的衝突類型有趣的互映：批評≈平衡式，蔑視≈非對稱，防禦≈反身式，冷戰≈極簡式。Gottman 是從心理學角度分析真實夫妻，McKee 是從戲劇角度分析虛構角色，兩者殊途同歸。</p>
+
+      <h4>🔧 立即可用</h4>
+      <div class="highlight-box">
+        <p><strong>🔍「衝突分類」練習</strong>（5分鐘）：回想你最近看的一部電影或劇集，挑出一場你印象最深的對話場景，判斷它屬於六種衝突類型中的哪一種。如果你能判斷出來，你就掌握了場景分析的入門鑰匙。</p>
+      </div>
+
+      <h4>❓ 自我檢核</h4>
+      <p>在你的親密關係中（家人、伴侶、摯友），你最常身處哪一種衝突模式？你的預設反應模式是「正面交鋒」還是「迂迴迴避」？你有沒有發現，同一段關係在不同時期會切換到不同的衝突模型？</p>
+
+      <h4>📖 延伸提示</h4>
+      <p>第十三至十八章是全書實戰含量最高的部分。建議按照自己最弱的衝突類型優先閱讀——如果你寫正劇擅長但喜劇苦手，先讀第十四章；如果你寫不好沉默與暗湧，先讀第十八章。</p>
+    </div>
+
+    <!-- Theme 6 -->
+    <div class="theme-card">
+      <h3>🎪 主題六：進入角色寫作——作者是角色的第一個演員</h3>
+
+      <h4>💡 三層洞見</h4>
+      <p><span class="depth-tag l1">L1 表層</span> <strong>McKee 倡導「進入角色寫作」（writing in-character）。</strong>引用 Stanislavski 的「魔力假使」（Magic If）——不是問「如果我遇到這狀況會怎樣」，而是問「如果我<em>是</em>這個角色，遇到這狀況會怎樣」。作者必須成為角色的第一個演員，用角色的眼睛看世界，用角色的嘴巴說話。</p>
+      <p><span class="depth-tag l2">L2 中層</span> <strong>「進入角色」不是共情，而是變形。</strong>McKee 引用狄更斯的女兒 Mary 的記述：狄更斯寫作時會衝到鏡子前作鬼臉、壓低聲音快速說話，完全變成了他筆下的角色。這不是「想像角色會怎樣」的智力活動，而是「讓角色佔據你的身體」的體驗性實踐。</p>
+      <p><span class="depth-tag l3">L3 深層</span> <strong>「進入角色寫作」的最深層是一種自我解離的技術。</strong><span class="tag outline">[AI 原創洞見]</span> McKee 在書末說「你所寫的角色，終究要在你自身裡去尋找」，但這裡有一個悖論：如果每個角色都來自作者自身，那麼作者的「自我」必須是足夠碎裂的、多重的——你要能成為殺人犯、聖徒、懦夫、英雄。這不是心理學所說的病態解離，而是一種<strong>創造性的多重性</strong>。契訶夫說「我對人性所知，悉數來自自知」——前提是你的「自知」要深到觸及你所有潛在的自我，包括你最不願意承認的那些。</p>
+
+      <h4>🔬 批判性評論</h4>
+      <p>McKee 對「進入角色」的描述偏重直覺與體驗，缺乏系統化的步驟。他建議「去上即興演出的課」，但對於不擅長即興表演的作者（許多小說家是高度內向型人格），這條路未必可行。書中也沒有處理「進入角色」的倫理邊界——當你要寫一個與你身分完全不同的角色（不同性別、種族、階級），「進入角色」和「文化挪用」的界線在哪裡？這是當代創作者必須面對的議題。</p>
+
+      <h4>🔗 跨書連結</h4>
+      <p><span class="tag outline">[AI 跨書連結]</span> Keith Johnstone《即興》中的「面具工作」與 McKee 的「進入角色」互為表裡——Johnstone 讓演員戴上面具，身體自然會產生「不屬於自己的」行為和語言，這就是「變形」的實體版本。心理學家 James Hillman 在《靈魂密碼》中提出的「原型想像」（imaginal approach）也是同一脈絡：你不是在「扮演」角色，而是讓角色的原型「降臨」到你身上。</p>
+
+      <h4>🔧 立即可用</h4>
+      <div class="highlight-box pink">
+        <p><strong>🪞「鏡子獨白」練習</strong>（10分鐘）：站在鏡子前，選一個你正在寫（或想寫）的角色。用他/她的語氣、節奏、用字，對鏡子說 3 分鐘的獨白——主題是「我今天過得怎樣」。不要準備稿子，讓角色自己說。說完之後立刻記錄下來。你會發現，身體比大腦更懂你的角色。</p>
+      </div>
+
+      <h4>❓ 自我檢核</h4>
+      <p>你生命中是否有某個時刻，你覺得「那個做出那件事的人不像我」？那個「不像你」的自我，就是你寫角色的礦脈。你願意重訪那個自我嗎？</p>
+
+      <h4>📖 延伸提示</h4>
+      <p>第十九章「練功祕笈」是 McKee 罕見地卸下理論架子、以前輩身分傳授手藝的段落。他引用的 Mary Dickens 記述是全書最動人的一頁。建議在寫作卡關時重讀此章作為精神補給。</p>
+    </div>
+  </section>
+
+  <!-- ==================== STEP 4: 敘事弧線 ==================== -->
+  <section class="card">
+    <div class="step-badge">STEP 4</div>
+    <h2 class="section-title"><span class="icon">📐</span> 敘事弧線</h2>
+
+    <div class="arc-container">
+      <div class="arc-node start">
+        <strong>🚪 起點</strong><br>
+        讀者帶著「對白就是角色在說話」的素樸認知進場
+      </div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-node break">
+        <strong>💥 破壞</strong><br>
+        McKee 顛覆定義：對白不是說話，是行動。潛文本比文本更重要
+      </div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-node rebuild">
+        <strong>🔧 重建</strong><br>
+        三同心圓、六種衝突模型、節拍分析法——全新工具箱
+      </div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-node push">
+        <strong>🔥 推力</strong><br>
+        六個大師級場景全拆解，讀者親眼見證「好對白」的建築藍圖
+      </div>
+      <div class="arc-arrow">→</div>
+      <div class="arc-node land">
+        <strong>🎯 著陸</strong><br>
+        「進入角色寫作」——從技術回到本能，從分析回到創造
+      </div>
+    </div>
+
+    <h3>作者的情緒設計</h3>
+    <p>McKee 採用的是<strong>「先打地基，再蓋高樓，最後開窗透氣」</strong>的上揚曲線。前五章像是在打一個極深的理論地基（密度高、抽象、需要反覆咀嚼），讀者可能會覺得「這跟寫對白有什麼關係」。但從第六章「診斷」開始，前面的理論突然全部有了用武之地——你能<em>聽出</em>哪些對白生病了，也能<em>說出</em>病因。第十三至十八章的場景拆解是全書的情緒高潮——McKee 像一位外科醫生，當著你的面把六顆心臟打開給你看，每一根血管都標上名字。最後一章「進入角色寫作」是突然的語調轉換——從精密的學者變成溫暖的前輩，告訴你：工具歸工具，最後還是要靠你自己的心。</p>
+    <p>這個情緒弧線本身就是一次「對白示範」——McKee 用整本書的結構，演出了他所教的「場景設計」原則。</p>
+  </section>
+
+  <!-- ==================== STEP 5: 整合洞見 ==================== -->
+  <section class="card">
+    <div class="step-badge">STEP 5</div>
+    <h2 class="section-title"><span class="icon">💡</span> 整合洞見</h2>
+
+    <h3>🔗 隱藏邏輯線</h3>
+    <p>全書的章節看似按照「定義→功能→表達→形式→技巧→診斷→寫作→設計」的線性順序排列，但底層有一條<strong>「由外而內的考古路徑」</strong>暗暗貫穿：</p>
+    <div class="highlight-box">
+      <p>表層行為（對白的定義與功能）→ 中層結構（場景的形式與技巧）→ 深層心理（角色的內心衝突與潛文本）→ 最深層的創造（進入角色寫作的存在性體驗）</p>
+      <p>用一個比喻串聯：<strong>像一位考古學家帶你挖掘一座古城。</strong>第一部是測量地表遺跡（對白的外在形式），第二部是清除覆土和碎石（診斷對白的瑕疵），第三部是進入墓室（角色的語言DNA），第四部是破譯壁畫上的密碼（場景的潛文本結構），最後一章是你突然發現——這座古城不在別處，就在你自己心裡。</p>
+    </div>
+
+    <h3>🎭 作者的潛台詞</h3>
+    <ul>
+      <li><strong>預設讀者是誰？</strong>有一定寫作經驗的中高階創作者。McKee 不解釋什麼是「場景」、「衝突」、「角色弧線」等基本概念，預設你已經讀過《故事的解剖》或有同等水平的敘事學基礎。純粹的文學讀者或入門寫作者可能會覺得吃力。</li>
+      <li><strong>隱含假設讀者具備什麼條件？</strong>大量的西方文學與影視閱歷。書中引用的作品橫跨莎士比亞到《絕命毒師》，讀者若沒看過這些作品，分析段落的精妙之處會大打折扣。</li>
+      <li><strong>迴避了什麼族群？</strong>非西方語言的創作者。全書案例幾乎全部是英語（或翻譯成英語的）作品，沒有一個來自中文、日文、韓文、阿拉伯文的對白案例。</li>
+    </ul>
+
+    <h3>⚖️ 批判與邊界</h3>
+    <ul>
+      <li><strong>Goodreads 上最常見的批評：</strong>「太多理論，太少實戰步驟。」「案例引文太長，打斷閱讀節奏。」——這些批評有其道理，McKee 的確在某些章節過度引用（第十五章《太陽底下的葡萄》的逐行分析長達數千字），但這恰恰也是他最有價值的地方：他捨得慢下來，把一場戲拆到原子層級。</li>
+      <li><strong>真實的適用邊界：</strong>McKee 的框架最適用於「以衝突驅動的戲劇性敘事」。對於實驗文學（如 Beckett 後期作品）、詩性電影（如 Tarkovsky）、或純粹以氛圍/質地取勝的作品，他的方法論會顯得過於「功能主義」。他承認劇場有「活像」的空間可以容納超現實，但他的分析工具仍然是亞里斯多德式的因果邏輯。</li>
+    </ul>
+
+    <h3>🧬 知識的對話（血緣追溯）</h3>
+    <ul>
+      <li><strong>精神血緣：</strong>亞里斯多德《詩學》（悲劇結構理論的源頭）→ Kenneth Burke（語言作為行動的修辭學）→ Stanislavski（進入角色的方法演技）</li>
+      <li><strong>同源分支：</strong>McKee 自己的《故事的解剖》是本書的「母文本」。Lajos Egri《戲劇寫作的藝術》是結構面的近親。David Mamet《論導演》是精簡版的同路人。</li>
+      <li><strong>對立觀點：</strong>Brecht 的「疏離效果」（Verfremdungseffekt）直接挑戰 McKee 重視的「共情入戲」。後現代戲劇（如 Sarah Kane）則質疑「角色必須有統一的心理深度」這一前提。</li>
+    </ul>
+  </section>
+
+  <!-- ==================== STEP 6: 缺席分析 ==================== -->
+  <section class="card">
+    <div class="step-badge">STEP 6</div>
+    <h2 class="section-title"><span class="icon">🔇</span> 缺席分析</h2>
+
+    <h3>1. 刻意迴避——作者知道但選擇不談</h3>
+    <ul>
+      <li><strong>商業寫作的對白。</strong>McKee 完全不談廣告文案、品牌敘事、商業簡報中的「對白」技巧——這顯然是刻意的邊界劃定，因為他認為那些不屬於「說故事」的範疇。但在今天這個「一切皆敘事」的時代，商業對白與戲劇對白的交界愈來愈模糊。</li>
+      <li><strong>AI 與對白。</strong>2016 年出版時 ChatGPT 尚未誕生，但 McKee 也沒有討論當時已有的「互動式敘事」（interactive narrative）和電玩對白——那是對白理論的一個巨大新疆域（玩家作為角色，對白不再是單向的）。</li>
+    </ul>
+
+    <h3>2. 盲點缺席——作者可能沒意識到的盲區</h3>
+    <ul>
+      <li><strong>沉默作為對白的極端形式。</strong>McKee 承認「不說話也是行動」，但始終沒有為「沉默」建立一套系統的分析框架。在東方美學中（能劇、水墨畫、侯孝賢電影），沉默不是「對白的缺席」，而是「對白的最高形式」。McKee 的框架在這裡有結構性的盲區。</li>
+      <li><strong>翻譯中的對白損耗。</strong>全書討論的都是原語言（英語）中的對白設計，從未觸碰「對白翻譯」的問題——但對於全世界的創作者來說，他們接觸到的大量對白都是翻譯版本。原語言中精妙的節奏、押韻、雙關、情態差異，在翻譯中幾乎全部消失。</li>
+      <li><strong>身體作為對白。</strong>McKee 提到了「姿態」和「肢體語言」，但始終將它們視為對白的輔助，而非對白本身。在當代表演藝術中（如 Pina Bausch 的舞蹈劇場），身體的動作就是對白，不需要任何文字。</li>
+    </ul>
+
+    <h3>3. 時代缺席——超出作者時代框架的新問題</h3>
+    <ul>
+      <li><strong>社群媒體時代的對白。</strong>Twitter/Threads/IG 上的對話、短影音的旁白、直播主與觀眾的即時互動——這些新的「對白媒介」在 2016 年時尚在萌芽期。McKee 的四大媒介（舞台、電影、電視、小說）已經不足以涵蓋 2026 年的對白生態。</li>
+      <li><strong>AI 生成對白的創作倫理。</strong>當大語言模型可以即時生成「角色專屬對白」時，McKee 所強調的「進入角色寫作」——那種必須用身體和靈魂去體驗的過程——還重要嗎？或者它反而變得更加不可替代？</li>
+      <li><strong>多語言/混語對白。</strong>全球化時代，越來越多的對白是混語的（如《乩身》中的泰語/中文混用、《乩身》中的方言/普通話交替）。McKee 的「角色專屬對白」理論預設角色使用單一語言，沒有為語碼轉換（code-switching）建立框架。</li>
+    </ul>
+  </section>
+
+  <!-- ==================== STEP 7: AI 第 N+1 章 ==================== -->
+  <section class="card">
+    <div class="step-badge">STEP 7</div>
+    <h2 class="section-title"><span class="icon">🤖</span> AI 第 N+1 章：沉默的解剖</h2>
+
+    <div class="highlight-box">
+      <p style="font-style:italic; color:var(--text-secondary);">如果 McKee 要寫續章，他最應該寫的就是——</p>
+    </div>
+
+    <h3>第二十章：沉默的解剖——當角色選擇不說話</h3>
+
+    <p>McKee 以「對白等於行動」貫穿全書，但他留下了一個未被充分探索的反面：<strong>「沉默也等於行動」</strong>。不是「沒說話所以沒有行動」，而是「選擇不說話本身就是最強烈的行動」。</p>
+
+    <p>我將沉默分為四種類型，作為 McKee 六種衝突模型的補充：</p>
+
+    <h4>🤐 壓制性沉默（Suppressive Silence）</h4>
+    <p>角色知道該說什麼，也想說，但選擇不說。這是「未說」圈層最極端的表現。代表案例：李安《喜宴》中父親在餐桌上的沉默——他什麼都知道，但選擇用沉默來保全家庭的表面和諧。這種沉默的戲劇力量，來自於觀眾知道角色在壓制什麼。</p>
+
+    <h4>😶 空洞性沉默（Void Silence）</h4>
+    <p>角色不知道該說什麼，也沒有什麼想說的。這是《愛情，不用翻譯》中鮑伯和夏綠蒂失眠夜的狀態——不是壓抑，而是真正的空。這種沉默的力量來自存在主義的恐懼：如果一個人連「想對世界說什麼」都找不到，他還存在嗎？</p>
+
+    <h4>🫣 共謀性沉默（Complicit Silence）</h4>
+    <p>兩個或更多角色共同維持的沉默——大家都知道真相，但默契地不提。這是華語家庭劇場中最常見的沉默形式。代表案例：楊德昌《一一》中洋洋對奶奶的獨白——他能對沉睡（近乎死亡）的奶奶說出對所有清醒的人都說不出的話。</p>
+
+    <h4>🌊 超越性沉默（Transcendent Silence）</h4>
+    <p>角色之間達到了語言無法表達的理解層次——不需要說話，因為說話反而會破壞那份連結。代表案例：《愛情，不用翻譯》結尾鮑伯在東京街頭對夏綠蒂的耳語——觀眾永遠聽不到他說了什麼，但那個聽不到的瞬間，比任何台詞都更有力。</p>
+
+    <div class="highlight-box sage">
+      <p>McKee 的框架是一座精密的機器，但他遺漏了一個零件：<strong>最好的對白，是讓觀眾自己填入的那句話。</strong>沉默不是對白的失敗，是對白的最高段位——它把「不可說」的第三圈直接交給觀眾的潛意識去完成。這或許是 McKee 下一本書最值得探索的領域。</p>
+    </div>
+  </section>
+
+  <!-- ==================== STEP 8: 跨領域連結 ==================== -->
+  <section class="card">
+    <div class="step-badge">STEP 8</div>
+    <h2 class="section-title"><span class="icon">🔬</span> 跨領域連結</h2>
+
+    <h3>🧠 連結一：認知語言學 × 對白設計</h3>
+    <p><span class="tag outline">[AI 跨領域連結]</span></p>
+
+    <p>McKee 的「角色專屬辭彙」原則，在認知語言學中有一個更精確的對應概念：<strong>「概念隱喻」（Conceptual Metaphor）</strong>。Lakoff & Johnson 在《我們賴以生存的隱喻》中證明：人類的思維不是先有邏輯再有語言，而是先有隱喻再有思維。例如，「時間就是金錢」不只是一種修辭，而是一種認知框架——使用這個隱喻的人，真的會把時間當作可以「花費」、「投資」、「浪費」的資源。</p>
+
+    <p>這對對白設計的啟示是革命性的：<strong>一個角色慣用的隱喻系統，就是他認知世界的方式。</strong>如果你的角色是一個前軍人，他可能會用「戰場」隱喻來描述一切——工作是「前線」，會議是「作戰會議」，同事是「戰友」或「敵軍」。這不是風格的選擇，而是角色認知結構的直接反映。McKee 的「辭彙決定角色」原則，在認知語言學中得到了科學基礎：語言不只是表達思想的工具，語言<em>就是</em>思想的形狀。</p>
+
+    <h3>🎮 連結二：遊戲設計 × 互動式對白</h3>
+    <p><span class="tag outline">[AI 跨領域連結]</span></p>
+
+    <p>McKee 的對白理論建立在「作者完全控制」的前提上——作者決定角色說什麼、什麼時候說、對誰說。但在遊戲設計中，對白必須面對一個 McKee 從未處理的變數：<strong>玩家的自由意志</strong>。</p>
+
+    <p>RPG 遊戲（如 <em>Disco Elysium</em>）中的對白系統，實際上是 McKee「三同心圓」模型的互動化版本：玩家看到的對話選項是「已說」的文本層，但每個選項背後都隱藏著角色的心理狀態（「未說」層），而整個遊戲的隱藏數值系統則對應「不可說」的潛意識層。更激進的是，<em>Disco Elysium</em> 中角色的不同「技能」（邏輯、共情、體能）會在對話中以「內心聲音」的形式插嘴，直接把 McKee 的「三同心圓」視覺化、可玩化了。</p>
+
+    <p>這對未來的敘事理論有深遠的啟示：當「讀者」變成「玩家」，對白不再是單向的表演，而是雙向的博弈。McKee 的「行動/反應」節拍模型，在互動敘事中會變成一棵分支樹——每個節拍都有多個可能的反應路徑。</p>
+
+    <h3>🏥 連結三：心理治療 × 潛文本傾聽</h3>
+    <p><span class="tag outline">[AI 跨領域連結]</span></p>
+
+    <p>McKee 教作者「傾聽」的方法——「在文本中聽出潛文本，在潛文本中聽出不可說」——與心理治療師的「第三隻耳」（Theodor Reik 的概念）幾乎完全一致。精神分析師被訓練去聽個案「沒說出口」的東西：語調的微變、突然的沉默、反覆出現的詞彙、刻意迴避的話題……這些都是通往潛意識的線索。</p>
+
+    <p>反過來看，McKee 的對白理論也可以成為心理治療師的訓練工具——學會像劇作家一樣「拆解節拍」，治療師可以更精準地辨識個案在對話中的「行動/反應」模式，找到心理問題的轉捩點。</p>
+  </section>
+
+  <!-- ==================== STEP 9: 文化轉譯 ==================== -->
+  <section class="card">
+    <div class="step-badge">STEP 9</div>
+    <h2 class="section-title"><span class="icon">🌏</span> 文化轉譯</h2>
+    <p><span class="tag outline">[AI 文化轉譯]</span></p>
+
+    <h3>西方 vs 東方：對白的文化預設</h3>
+
+    <div class="highlight-box">
+      <p>McKee 的整套理論建立在一個<strong>西方文化預設</strong>之上：<strong>人應該表達自己</strong>。在西方戲劇傳統中（從古希臘到莎士比亞到當代百老匯），角色「說出來」是正常的，「不說」是需要解釋的。但在東方文化中，尤其是華人文化圈，<strong>「不說」才是常態，「說出來」才需要勇氣</strong>。</p>
+    </div>
+
+    <p>這個差異造成的後果：</p>
+    <ul>
+      <li><strong>McKee 的「潛文本」在西方偏向「個人心理」</strong>——角色不說，是因為害怕、羞恥、策略。</li>
+      <li><strong>在東方，「潛文本」更常源自「社會結構」</strong>——角色不說，是因為倫理位階（晚輩不能對長輩說真話）、面子文化（說出來會傷害關係）、集體和諧（個人感受不如團體穩定重要）。</li>
+    </ul>
+
+    <h3>台灣在地化：「拜託，不要說」的對白美學</h3>
+
+    <p>台灣的影視與文學中，有一種 McKee 框架中沒有名字、但台灣觀眾一聽就懂的對白模式：<strong>「講別的」（Talking-Around）</strong>。</p>
+
+    <p>什麼是「講別的」？就是角色明明有一件重要的事要說，但他不直說，而是繞著那件事講一大堆不相干的事——講天氣、講吃飯、講隔壁王太太最近怎樣——直到對方（和觀眾）自己聽出來他真正想說的是什麼。</p>
+
+    <p>經典案例：</p>
+    <ul>
+      <li><strong>楊德昌《一一》中 NJ 與初戀情人在東京的對話</strong>——他們講工作、講旅行、講過去，但從頭到尾沒有人說出「我後悔當年沒選你」這句話。那句沒說出口的話，是整場戲的引力中心。</li>
+      <li><strong>李安《飲食男女》的開場</strong>——父親用做菜的動作代替了所有他說不出口的話：對女兒的愛、對妻子的思念、對自己衰老的不甘。菜就是對白。</li>
+      <li><strong>台灣日常對話</strong>——媽媽打電話來不說「我想你」，而是說「你有沒有吃飯？天氣冷要穿外套。那個什麼，你爸血壓又高了……」每一句看似嘮叨的話，潛文本都是「我擔心你，但我說不出口。」</li>
+    </ul>
+
+    <div class="highlight-box pink">
+      <p><strong>McKee 的理論可以這樣在地化：</strong>他的「三同心圓」在台灣語境中，「未說」那一圈會異常肥厚——不是因為角色在搞策略，而是因為整個文化訓練你「把最重要的話放在最不重要的句子裡」。對台灣創作者來說，挑戰不是「怎麼讓角色說出有意義的話」（McKee 的預設），而是<strong>「怎麼讓角色不說話的方式本身就充滿意義」</strong>。</p>
+    </div>
+
+    <h3>儒道佛三重濾鏡</h3>
+    <ul>
+      <li><strong>儒家：</strong>「言之有物，行之有禮」——對白受到倫理位階的層層過濾，晚輩對長輩、臣對君、妻對夫，每一層關係都有一套「可說/不可說」的規則。這創造了 McKee 框架中不存在的「制度性潛文本」。</li>
+      <li><strong>道家：</strong>「道可道，非常道」——最深刻的真理是語言無法觸及的。這與 McKee 的「不可說」同心圓遙相呼應，但道家走得更遠：McKee 認為「不可說」只是潛意識的限制，道家認為「不可說」是存在本身的性質。</li>
+      <li><strong>佛家：</strong>「不立文字，教外別傳」——禪宗公案的核心就是用語言打破語言、用對白消滅對白。趙州和尚的「庭前柏樹子」，是對白史上最極端的「反對白」——你問我佛法大義，我跟你講一棵樹。McKee 的框架無法處理這種「意義的故意脫軌」。</li>
+    </ul>
+  </section>
+
+  <!-- ==================== STEP 10: 一個比喻 ==================== -->
+  <section class="card">
+    <div class="step-badge">STEP 10</div>
+    <h2 class="section-title"><span class="icon">🎨</span> 一個比喻說完整本書</h2>
+
+    <div class="metaphor-box">
+      <p class="big-text">
+        對白是冰山。<br>
+        McKee 教你潛水。
+      </p>
+      <p class="sub-text" style="max-width:640px; margin:20px auto 0; text-align:left; line-height:2;">
+        大多數人只看見冰山露出水面的八分之一——角色「說了什麼」。McKee 先帶你潛到水面下，看見第二層：角色「沒說什麼」。再潛到更深處，看見第三層：角色「自己也不知道」的暗流。然後他教你用六種探測器（六種衝突模型）去測量冰山的形狀，用節拍分析法去切開冰山的剖面，用辭彙學去辨認冰山的晶體結構。<br><br>
+        但最後一章，McKee 把你推出潛水艇，讓你自己漂浮在深海裡——<strong>「假使我是這塊冰山，我會長成什麼形狀？」</strong><br><br>
+        你聽見了嗎？在你心底最深處，有一句話一直想說出來。<br>
+        <em>那句話是什麼，只有你自己知道。</em>
+      </p>
+    </div>
+  </section>
+
+  <!-- ==================== STEP 11: 行動轉化 ==================== -->
+  <section class="card">
+    <div class="step-badge">STEP 11</div>
+    <h2 class="section-title"><span class="icon">✅</span> 行動轉化</h2>
+
+    <div class="action-grid">
+      <div class="action-cell">
+        <h4>📅 本週啟動</h4>
+        <ul>
+          <li><strong>🎬「潛文本翻譯」</strong>：挑一段喜歡的影劇對白（3-5句即可），逐句標注角色「真正在做什麼」（用動名詞）。每天一段，連續五天。</li>
+          <li><strong>🪞「三圈日記」</strong>：每晚花5分鐘，記錄今天一段讓你有感覺的對話：(1)你說了什麼 (2)你沒說什麼 (3)你為什麼沒說。</li>
+          <li><strong>👂「偷聽練習」</strong>：在咖啡廳或捷運上，安靜聽身旁陌生人的對話2分鐘。不記內容，只記「你覺得他們真正在做什麼」。</li>
+        </ul>
+      </div>
+      <div class="action-cell">
+        <h4>📆 本月實驗</h4>
+        <ul>
+          <li><strong>⚡「節拍拆解」習慣</strong>：每週挑一個場景（電影、影集、小說皆可），完整拆解其節拍結構。追蹤方式：建一個筆記本，每週累積一個拆解。預期效果：四週後你會開始在日常對話中自動辨識「行動/反應」模式。</li>
+          <li><strong>🗣️「鏡子角色」實驗</strong>：如果你正在寫作，每週選一個角色，站在鏡子前用他的語氣說3分鐘的獨白。允許尷尬，允許失敗。記錄每次練習後有沒有「聽到」角色的聲音變得更清晰。</li>
+        </ul>
+      </div>
+      <div class="action-cell">
+        <h4>🎯 長期追蹤</h4>
+        <ul>
+          <li><strong>核心指標：「撞聲率」</strong>——每個月回顧你寫的對白（或你拆解的場景），問自己：你筆下的不同角色，有多少比例的台詞可以互換而不違和？</li>
+          <li>如果撞聲率 &gt; 50%，表示角色的辭彙庫還沒有分化。</li>
+          <li>如果撞聲率 &lt; 20%，表示你已經開始掌握「角色專屬對白」的核心。</li>
+          <li><strong>為什麼這個指標有效？</strong>因為 McKee 全書的核心論點就是：好的對白，只有這個角色在這個時刻才說得出來。撞聲率直接測量的就是這件事。</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BONUS: 書庫卡片 ==================== -->
+  <section class="card">
+    <div class="step-badge">📋 書庫卡片</div>
+    <h2 class="section-title"><span class="icon">🏷️</span> 書庫速查</h2>
+
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-number" style="font-size:1.3rem;">⭐ 9.0/10</div>
+        <div class="stat-label">推薦度</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="font-size:1.3rem;">📚 中高</div>
+        <div class="stat-label">閱讀難度</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="font-size:1.3rem;">🔧 實踐型</div>
+        <div class="stat-label">書籍類型</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" style="font-size:1.3rem;">2026.03</div>
+        <div class="stat-label">分析日期</div>
+      </div>
+    </div>
+
+    <h3>核心論點（一句話）</h3>
+    <p style="font-size:1.05rem; font-weight:400;">角色說出的每句話都是一次行動——對白不是裝飾性的語言，而是驅動故事、揭露人性的動力引擎。</p>
+
+    <h3>關鍵概念列表</h3>
+    <div style="margin:12px 0;">
+      <span class="tag">對白即行動</span>
+      <span class="tag pink">三同心圓</span>
+      <span class="tag blue">文本/潛文本</span>
+      <span class="tag">節拍分析</span>
+      <span class="tag pink">六種衝突模型</span>
+      <span class="tag blue">角色專屬對白</span>
+      <span class="tag">進入角色寫作</span>
+      <span class="tag pink">解說彈藥</span>
+      <span class="tag blue">魔力假使</span>
+      <span class="tag">已說/未說/不可說</span>
+      <span class="tag pink">轉捩點</span>
+      <span class="tag blue">懸疑句式</span>
+      <span class="tag">欲求叢集</span>
+      <span class="tag pink">背景故事</span>
+      <span class="tag blue">高/低語境文化</span>
+    </div>
+
+    <h3>AI 原創洞見摘要</h3>
+    <ul>
+      <li>「對白即行動」本質上是一種<strong>微觀權力理論</strong>，與 Bourdieu 的語言符號權力同構</li>
+      <li>三同心圓是<strong>精神分析拓撲學的戲劇化版本</strong>，但超越佛洛伊德——「不可說」不只是壓抑，是本色</li>
+      <li>場景的價值進程是一種<strong>隱形的情緒樂譜</strong>，好場景的節拍像心電圖而非直線</li>
+      <li>六種衝突模型本質是一張<strong>人際距離的拓撲地圖</strong>——從零距離到不可跨越的距離</li>
+      <li>「進入角色寫作」的最深層是一種<strong>創造性的自我解離技術</strong>——要求作者的自我足夠碎裂、多重</li>
+      <li>McKee 遺漏的第七種衝突：<strong>沉默——對白的最高段位</strong></li>
+    </ul>
+
+    <h3>潛在交叉書籍</h3>
+    <ul>
+      <li>📖 McKee《故事的解剖》——本書的母文本，結構面的前傳</li>
+      <li>📖 Stanislavski《演員自我修養》——「進入角色」的表演理論源頭</li>
+      <li>📖 Kenneth Burke《動機的修辭》——McKee 語言哲學的精神導師</li>
+      <li>📖 Bakhtin《杜斯妥也夫斯基詩學問題》——「複調小說」與角色專屬對白的學術對應</li>
+      <li>📖 Harold Pinter《背叛》——「未說」的戲劇實踐巔峰</li>
+      <li>📖 David Mamet《論導演》——極簡版的場景意圖理論</li>
+      <li>📖 Keith Johnstone《即興》——「進入角色」的身體實踐版</li>
+      <li>📖 Lakoff & Johnson《我們賴以生存的隱喻》——認知語言學對角色專屬辭彙的科學支撐</li>
+    </ul>
+
+    <h3>標籤</h3>
+    <div style="margin:12px 0;">
+      <span class="tag outline">編劇方法論</span>
+      <span class="tag outline">對白設計</span>
+      <span class="tag outline">敘事學</span>
+      <span class="tag outline">角色心理學</span>
+      <span class="tag outline">場景結構</span>
+      <span class="tag outline">語言與權力</span>
+      <span class="tag outline">潛文本</span>
+      <span class="tag outline">跨媒介敘事</span>
+    </div>
+  </section>
+
+  <!-- ==================== BONUS: 帶問題回去讀 ==================== -->
+  <section class="card">
+    <div class="step-badge">📖 帶問題回去讀</div>
+    <h2 class="section-title"><span class="icon">🔍</span> 焦點問題與重讀建議</h2>
+
+    <h3>帶著這三個問題回去讀原書</h3>
+    <div class="highlight-box">
+      <p><strong>問題一：McKee 自己的對白符合他教的原則嗎？</strong></p>
+      <p>注意 McKee 在書中引用案例時的「話術」——他怎樣鋪陳、怎樣揭曉、怎樣在你以為他只是在解說的時候偷偷把你帶入潛文本。他的書寫本身就是一場精心設計的「場景」。</p>
+    </div>
+    <div class="highlight-box pink">
+      <p><strong>問題二：當你讀到書中的場景拆解時，你是先「感受到」還是先「分析出」轉捩點？</strong></p>
+      <p>這個問題的答案會告訴你，你目前是更偏向「直覺型」還是「分析型」的創作者。兩種都好，但知道自己的傾向，才知道需要練哪一邊。</p>
+    </div>
+    <div class="highlight-box sage">
+      <p><strong>問題三：在 McKee 所有的案例中，哪一個角色的對白讓你覺得「這就是我」？</strong></p>
+      <p>這不是文學分析題，而是自我認識題。你被哪個角色的說話方式吸引，可能透露了你自己「未說」的部分。</p>
+    </div>
+
+    <h3>重點翻閱建議</h3>
+    <ul>
+      <li><strong>第三章（表達：內容）p.65-82</strong>：三同心圓的完整論述，值得慢讀至少兩遍。這是全書理論核心。</li>
+      <li><strong>第五章（表達：技巧）p.95-130</strong>：句式設計（懸疑句/累進句/平衡句）的技術含量極高。適合邊讀邊拿自己的對白對照修改。</li>
+      <li><strong>第十章（角色專屬的對白）p.195-210</strong>：辭彙×角色塑造的關係框架。這一章讀完，你看電影/讀小說時聽角色說話的方式會永遠改變。</li>
+      <li><strong>第十一章（四則作品研究）p.211-250</strong>：莎士比亞《凱撒大帝》的微觀語言分析是全書最精彩的段落之一。</li>
+      <li><strong>第十五章（非對稱衝突：《太陽底下的葡萄》）p.300-330</strong>：漢斯貝里場景的逐拍拆解是學習節拍分析法的最佳入門素材。</li>
+      <li><strong>第十八章（極簡衝突：《愛情，不用翻譯》）p.380-400</strong>：柯波拉場景的價值進程分析，展示了對白如何在「幾乎什麼都沒說」的情況下達到最大的情感衝擊。</li>
+      <li><strong>第十九章（練功祕笈）p.401-420</strong>：McKee 最私密的創作建議。Mary Dickens 記述狄更斯寫作的段落是全書最動人的一頁。</li>
+    </ul>
+
+    <div class="highlight-box coral">
+      <p><strong>💡 讀完原書後回來看這份分析，你會發現新的層次。</strong>特別是 Step 3 的「L3 深層洞見」和 Step 6 的「缺席分析」——第一遍可能覺得是 AI 在過度解讀，但讀完原書後再看，你會發現它們指向的都是 McKee 刻意留下的空白。那些空白不是遺漏，是邀請——邀請你用自己的經驗去填滿。</p>
+    </div>
+  </section>
+
+  <!-- ==================== BONUS: 延伸資源 ==================== -->
+  <section class="card">
+    <div class="step-badge">🎬 延伸資源</div>
+    <h2 class="section-title"><span class="icon">📹</span> 延伸閱讀與觀看</h2>
+
+    <h3>📹 相關影片</h3>
+    <ul>
+      <li><strong>Robert McKee 的 Story Seminar 官方片段</strong>（YouTube）——看 McKee 本人如何用對白的方式「教」對白。注意他的節奏、停頓、和「笑點壓到句尾」的習慣。</li>
+      <li><strong>Aaron Sorkin 的 MasterClass</strong>——Sorkin 是 McKee 理論的天然實踐者，他的場景設計和對白節奏是 McKee 框架的活教材。</li>
+      <li><strong>《愛情，不用翻譯》全片</strong>——看完 McKee 第十八章的分析後重看此片，你會聽到每一秒沉默都在說話。</li>
+    </ul>
+
+    <h3>📖 深化同主題的書</h3>
+    <ul>
+      <li><strong>McKee《故事的解剖》</strong>——本書的前傳與基底。沒讀過這本就讀《對白的解剖》，等於跳過地基直接蓋三樓。</li>
+      <li><strong>David Mamet《論導演》</strong>——極簡版的場景意圖理論。Mamet 和 McKee 的觀點有張力但互補。</li>
+      <li><strong>Lajos Egri《戲劇寫作的藝術》</strong>——結構面的經典，聚焦於「前提」（premise）如何驅動整個故事。</li>
+    </ul>
+
+    <h3>📖 不同觀點/對立觀點的書</h3>
+    <ul>
+      <li><strong>Keith Johnstone《即興》</strong>——Johnstone 主張「別想，直接做」，與 McKee 的精密分析形成有趣的對極。兩者結合是最強大的對白訓練。</li>
+      <li><strong>Anne Bogart《導演的準備》</strong>——Viewpoints 理論將身體動作視為對白的起源，補足 McKee 對「非語言對白」的盲區。</li>
+      <li><strong>Sarah Kane 劇本集</strong>——Kane 的作品直接挑戰 McKee 關於「角色必須有統一心理深度」的前提。讀完 McKee 再讀 Kane，會感受到戲劇可能性的光譜有多寬。</li>
+    </ul>
+
+    <h3>📖 源頭經典（追溯思想源頭）</h3>
+    <ul>
+      <li><strong>亞里斯多德《詩學》</strong>——悲劇結構理論的絕對源頭。McKee 的「轉捩點」、「行動骨幹」、「角色弧線」全部可以回溯到這本兩千三百年前的小書。</li>
+      <li><strong>Kenneth Burke《動機的修辭》</strong>——McKee 的語言哲學導師。Burke 的「認同」（identification）概念是理解「對白如何操控人心」的鑰匙。</li>
+      <li><strong>Stanislavski《演員自我修養》</strong>——「魔力假使」的出處。McKee 的「進入角色寫作」直接繼承 Stanislavski 的方法演技傳統。</li>
+      <li><strong>J.L. Austin《如何以言行事》</strong>——「行為話語」（performative）的哲學原點。McKee 的「對白即行動」是 Austin 理論的戲劇化版本。</li>
+    </ul>
+  </section>
+
+  <!-- ==================== BONUS: 對白病灶速查 ==================== -->
+  <section class="card">
+    <div class="step-badge">🩺 速查表</div>
+    <h2 class="section-title"><span class="icon">💊</span> 對白六大病灶速查表</h2>
+    <p style="color:var(--text-secondary); margin-bottom:20px;">McKee 在第二部（Ch.6-9）診斷的對白常見毛病，以下精簡整理為速查格式：</p>
+
+    <div class="theme-card">
+      <h3>🔴 病灶一：不可信（Credibility Flaws）</h3>
+      <p><strong>症狀：</strong>角色說的話讓觀眾覺得「假」——不是角色在說謊（那是設計），而是作者寫得不像真的。</p>
+      <p><strong>病因：</strong>作者沒有深入角色的心理，用自己的聲音替角色說話。</p>
+      <p><strong>處方：</strong>問自己「魔力假使」——假使我是這個角色，在這種處境下，我真的會這樣說嗎？</p>
+    </div>
+
+    <div class="theme-card">
+      <h3>🟠 病灶二：陳腔濫調（Clichés）</h3>
+      <p><strong>症狀：</strong>角色的對白聽起來像是從「對白自動生成器」吐出來的——全是見過一萬次的套路句型。</p>
+      <p><strong>病因：</strong>作者在用「第一個跳進腦子裡的說法」寫作，沒有繼續往深處挖。</p>
+      <p><strong>處方：</strong>寫下第一稿後，把每個「聽起來很順」的句子標記出來——它們很可能就是俗套。重寫時問：這個角色自己會怎麼說這件事？</p>
+    </div>
+
+    <div class="theme-card">
+      <h3>🟡 病灶三：淺白露骨（On-the-Nose）</h3>
+      <p><strong>症狀：</strong>角色把心裡想的直接說出來，沒有潛文本。文本＝潛文本，透明到底。</p>
+      <p><strong>病因：</strong>作者害怕觀眾「聽不懂」，所以把一切都講白了。</p>
+      <p><strong>處方：</strong>刪掉任何「解釋自己在想什麼」的台詞。相信觀眾。讓行動和潛文本去傳達意義。</p>
+    </div>
+
+    <div class="theme-card">
+      <h3>🟢 病灶四：嘮叨反覆（Repetition）</h3>
+      <p><strong>症狀：</strong>角色一直在說同樣的事，只是換了不同的說法。場景原地踏步。</p>
+      <p><strong>病因：</strong>節拍沒有推進——角色的對策沒有變化，所以反應也不會變。</p>
+      <p><strong>處方：</strong>逐拍檢查：每一拍的行動/反應是否和前一拍不同？如果相同，合併或刪除。</p>
+    </div>
+
+    <div class="theme-card">
+      <h3>🔵 病灶五：強行解說（Forced Exposition）</h3>
+      <p><strong>症狀：</strong>角色突然開始對另一個角色「報告」彼此都知道的事，目的只是讓觀眾知道背景資訊。</p>
+      <p><strong>病因：</strong>作者找不到方法把解說融入衝突和行動中。</p>
+      <p><strong>處方：</strong>把解說變成彈藥——讓角色在衝突中利用資訊作為攻擊或防禦的武器，解說就會自然滲透。</p>
+    </div>
+
+    <div class="theme-card">
+      <h3>🟣 病灶六：提示失準（Misplaced Cues）</h3>
+      <p><strong>症狀：</strong>對話的節奏不對——演員之間搶話、等待、或顯得不自然。</p>
+      <p><strong>病因：</strong>核心字詞（提示對方反應的關鍵詞）放在句子中間而非句尾。</p>
+      <p><strong>處方：</strong>大聲唸出每段對話。用螢光筆標記核心字詞的位置。把它們移到句尾。</p>
+    </div>
+  </section>
+
+  <div class="connector">· · ·</div>
+
+  <!-- ==================== Footer ==================== -->
+  <footer>
+    <p>
+      <span class="heart">🐉</span> 由龍龍深度分析 · 書醒系統 v2 · 覺醒 11 步完整框架<br>
+      <span style="font-size:0.8rem;">分析對象：《對白的解剖》Robert McKee 著 · 黃政淵 譯 · 漫遊者文化出版</span><br>
+      <span style="font-size:0.78rem; color:#B2BEC3;">本報告為 AI 輔助的知識性二次創作，不代替原書閱讀。建議搭配原書使用。</span>
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
