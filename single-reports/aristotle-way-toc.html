@@ -1,0 +1,2008 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOC 十步深度分析｜Aristotle's Way — Edith Hall</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --pink-light: #FFF0F5;
+  --pink-mid: #FFD6E8;
+  --pink-accent: #FF6B9D;
+  --lavender-light: #F3EEFF;
+  --lavender-mid: #D8C8F5;
+  --lavender-accent: #9B72CF;
+  --mint-light: #E8FFF5;
+  --mint-mid: #B8F0D8;
+  --mint-accent: #4ECBA0;
+  --sky-light: #EBF5FF;
+  --sky-mid: #B3D9FF;
+  --sky-accent: #4A9FE5;
+  --peach-light: #FFF5EB;
+  --peach-mid: #FFD8B0;
+  --peach-accent: #FF9248;
+  --cream: #FFFDF7;
+  --warm-gray: #6B6572;
+  --dark: #2D2235;
+  --red-ude: #E74C3C;
+  --red-ude-bg: #FDEDEC;
+  --green-de: #27AE60;
+  --green-de-bg: #E8F8F0;
+  --blue-inject: #3498DB;
+  --blue-inject-bg: #EBF5FB;
+  --gold: #F4C542;
+  --gold-bg: #FEF9E7;
+  --card-shadow: 0 8px 32px rgba(155, 114, 207, 0.10), 0 2px 8px rgba(0,0,0,0.04);
+  --card-radius: 24px;
+  --glass-bg: rgba(255,255,255,0.72);
+  --glass-border: rgba(255,255,255,0.5);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: linear-gradient(135deg, #FFF0F5 0%, #F3EEFF 30%, #EBF5FF 60%, #E8FFF5 100%);
+  color: var(--dark);
+  line-height: 1.8;
+  min-height: 100vh;
+  font-size: 16px;
+}
+
+/* Floating decorative shapes */
+body::before {
+  content: '';
+  position: fixed;
+  top: -120px;
+  right: -120px;
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,107,157,0.08) 0%, transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -150px;
+  left: -150px;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(155,114,207,0.07) 0%, transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Hero ── */
+.hero {
+  text-align: center;
+  padding: 80px 40px 60px;
+  background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(243,238,255,0.85) 100%);
+  border-radius: 32px;
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--card-shadow);
+  margin-bottom: 48px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '🏛️';
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  font-size: 48px;
+  opacity: 0.15;
+}
+.hero::after {
+  content: '🫒';
+  position: absolute;
+  bottom: 20px;
+  right: 30px;
+  font-size: 42px;
+  opacity: 0.15;
+}
+.hero-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--lavender-accent), var(--pink-accent));
+  color: #fff;
+  padding: 6px 20px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 2.6em;
+  font-weight: 900;
+  line-height: 1.3;
+  background: linear-gradient(135deg, var(--dark) 0%, var(--lavender-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+}
+.hero .subtitle {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.15em;
+  color: var(--warm-gray);
+  margin-bottom: 20px;
+  font-style: italic;
+}
+.hero .author {
+  font-size: 1em;
+  color: var(--lavender-accent);
+  font-weight: 500;
+}
+.hero .meta-row {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+.hero .meta-tag {
+  background: rgba(155,114,207,0.08);
+  padding: 6px 16px;
+  border-radius: 12px;
+  font-size: 0.85em;
+  color: var(--lavender-accent);
+  font-weight: 500;
+}
+
+/* ── Overview Card ── */
+.overview-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  border-radius: var(--card-radius);
+  padding: 40px;
+  margin-bottom: 48px;
+  box-shadow: var(--card-shadow);
+}
+.overview-card h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.5em;
+  color: var(--lavender-accent);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.overview-card p {
+  font-size: 1.02em;
+  color: #444;
+  margin-bottom: 14px;
+}
+.overview-card .quote-block {
+  background: linear-gradient(135deg, var(--lavender-light), var(--pink-light));
+  border-left: 4px solid var(--lavender-accent);
+  padding: 20px 24px;
+  border-radius: 0 16px 16px 0;
+  margin: 20px 0;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.05em;
+  color: var(--dark);
+  font-style: italic;
+  line-height: 1.9;
+}
+.overview-card .quote-block .quote-src {
+  display: block;
+  text-align: right;
+  font-size: 0.85em;
+  color: var(--warm-gray);
+  margin-top: 8px;
+  font-style: normal;
+}
+
+/* ── Chapter Grid ── */
+.chapter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin-bottom: 48px;
+}
+.chapter-chip {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 18px 20px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.chapter-chip:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(155,114,207,0.15);
+}
+.chapter-chip .ch-num {
+  font-size: 0.75em;
+  font-weight: 700;
+  color: var(--pink-accent);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.chapter-chip .ch-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.05em;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 6px;
+}
+.chapter-chip .ch-key {
+  font-size: 0.88em;
+  color: var(--warm-gray);
+  line-height: 1.6;
+}
+.chapter-chip .ch-greek {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--lavender-light), var(--sky-light));
+  padding: 2px 10px;
+  border-radius: 8px;
+  font-size: 0.82em;
+  color: var(--lavender-accent);
+  font-weight: 500;
+  margin-top: 6px;
+}
+
+/* ── Step Cards ── */
+.step-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  border-radius: var(--card-radius);
+  padding: 0;
+  margin-bottom: 40px;
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+}
+.step-header {
+  padding: 28px 36px 20px;
+  position: relative;
+}
+.step-header .step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.2em;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 12px;
+}
+.step-header h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.55em;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 4px;
+}
+.step-header .step-subtitle {
+  font-size: 0.92em;
+  color: var(--warm-gray);
+  font-weight: 400;
+}
+.step-body {
+  padding: 0 36px 36px;
+}
+
+/* Step color themes */
+.step-1 .step-header { background: linear-gradient(135deg, var(--lavender-light), rgba(255,255,255,0.5)); }
+.step-1 .step-number { background: linear-gradient(135deg, var(--lavender-accent), #7C5BBF); }
+.step-2 .step-header { background: linear-gradient(135deg, var(--pink-light), rgba(255,255,255,0.5)); }
+.step-2 .step-number { background: linear-gradient(135deg, var(--red-ude), #C0392B); }
+.step-3 .step-header { background: linear-gradient(135deg, var(--peach-light), rgba(255,255,255,0.5)); }
+.step-3 .step-number { background: linear-gradient(135deg, var(--peach-accent), #E67E22); }
+.step-4 .step-header { background: linear-gradient(135deg, var(--sky-light), rgba(255,255,255,0.5)); }
+.step-4 .step-number { background: linear-gradient(135deg, var(--blue-inject), #2980B9); }
+.step-5 .step-header { background: linear-gradient(135deg, var(--mint-light), rgba(255,255,255,0.5)); }
+.step-5 .step-number { background: linear-gradient(135deg, var(--green-de), #1E8449); }
+.step-6 .step-header { background: linear-gradient(135deg, #FFF5EB, rgba(255,255,255,0.5)); }
+.step-6 .step-number { background: linear-gradient(135deg, #E67E22, #D35400); }
+.step-7 .step-header { background: linear-gradient(135deg, var(--pink-light), rgba(255,255,255,0.5)); }
+.step-7 .step-number { background: linear-gradient(135deg, var(--pink-accent), #E84393); }
+.step-8 .step-header { background: linear-gradient(135deg, var(--sky-light), rgba(255,255,255,0.5)); }
+.step-8 .step-number { background: linear-gradient(135deg, #2980B9, #1A5276); }
+.step-9 .step-header { background: linear-gradient(135deg, var(--gold-bg), rgba(255,255,255,0.5)); }
+.step-9 .step-number { background: linear-gradient(135deg, #D4AC0D, #B7950B); }
+.step-10 .step-header { background: linear-gradient(135deg, var(--mint-light), rgba(255,255,255,0.5)); }
+.step-10 .step-number { background: linear-gradient(135deg, var(--mint-accent), #1ABC9C); }
+
+/* ── Sub-sections ── */
+.sub-section {
+  margin-top: 24px;
+}
+.sub-section h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.15em;
+  font-weight: 700;
+  color: var(--dark);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sub-section h4 {
+  font-size: 1em;
+  font-weight: 700;
+  color: var(--warm-gray);
+  margin: 16px 0 8px;
+}
+.sub-section p, .sub-section li {
+  font-size: 0.98em;
+  color: #444;
+  line-height: 1.85;
+}
+.sub-section ul, .sub-section ol {
+  padding-left: 20px;
+  margin: 8px 0 12px;
+}
+.sub-section li {
+  margin-bottom: 6px;
+}
+
+/* ── Info Boxes ── */
+.info-box {
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin: 16px 0;
+  font-size: 0.95em;
+  line-height: 1.8;
+}
+.info-box.system {
+  background: linear-gradient(135deg, var(--lavender-light), #F0EBFF);
+  border-left: 4px solid var(--lavender-accent);
+}
+.info-box.warning {
+  background: linear-gradient(135deg, var(--red-ude-bg), #FDE8E8);
+  border-left: 4px solid var(--red-ude);
+}
+.info-box.success {
+  background: linear-gradient(135deg, var(--green-de-bg), #D5F5E3);
+  border-left: 4px solid var(--green-de);
+}
+.info-box.inject {
+  background: linear-gradient(135deg, var(--blue-inject-bg), #D6EAF8);
+  border-left: 4px solid var(--blue-inject);
+}
+.info-box.gold {
+  background: linear-gradient(135deg, var(--gold-bg), #FDF2C5);
+  border-left: 4px solid var(--gold);
+}
+.info-box strong {
+  color: var(--dark);
+}
+
+/* ── Tags / Badges ── */
+.tag {
+  display: inline-block;
+  padding: 3px 12px;
+  border-radius: 8px;
+  font-size: 0.82em;
+  font-weight: 600;
+  margin: 2px 4px 2px 0;
+}
+.tag-ude { background: var(--red-ude-bg); color: var(--red-ude); border: 1px solid rgba(231,76,60,0.2); }
+.tag-de { background: var(--green-de-bg); color: var(--green-de); border: 1px solid rgba(39,174,96,0.2); }
+.tag-inject { background: var(--blue-inject-bg); color: var(--blue-inject); border: 1px solid rgba(52,152,219,0.2); }
+.tag-gold { background: var(--gold-bg); color: #9A7D0A; border: 1px solid rgba(244,197,66,0.3); }
+
+/* ── CRT Visual ── */
+.crt-chain {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 20px 0;
+}
+.crt-node {
+  background: #fff;
+  border: 2px solid #E8E0F0;
+  border-radius: 14px;
+  padding: 14px 20px;
+  position: relative;
+  font-size: 0.93em;
+  line-height: 1.7;
+}
+.crt-node.root {
+  border-color: var(--red-ude);
+  background: var(--red-ude-bg);
+}
+.crt-node.root::before {
+  content: '🔴 根因';
+  display: block;
+  font-size: 0.78em;
+  font-weight: 700;
+  color: var(--red-ude);
+  margin-bottom: 4px;
+}
+.crt-node.ude {
+  border-color: var(--red-ude);
+  background: rgba(253,237,236,0.5);
+}
+.crt-node.ude::before {
+  content: '⛔ UDE';
+  display: block;
+  font-size: 0.78em;
+  font-weight: 700;
+  color: var(--red-ude);
+  margin-bottom: 4px;
+}
+.crt-arrow {
+  text-align: center;
+  font-size: 1.5em;
+  color: var(--warm-gray);
+  padding: 4px 0;
+  line-height: 1;
+}
+
+/* ── EC (Evaporating Cloud) ── */
+.ec-cloud {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  margin: 20px 0;
+  position: relative;
+}
+.ec-goal {
+  grid-column: 1 / -1;
+  text-align: center;
+  background: linear-gradient(135deg, var(--lavender-light), var(--sky-light));
+  border: 2px solid var(--lavender-mid);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+  font-weight: 700;
+  font-family: 'Noto Serif TC', serif;
+}
+.ec-need {
+  background: linear-gradient(135deg, var(--sky-light), #fff);
+  border: 2px solid var(--sky-mid);
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin: 0 8px 12px;
+}
+.ec-need h4 { color: var(--sky-accent); margin-bottom: 6px; }
+.ec-action {
+  border-radius: 16px;
+  padding: 16px 20px;
+  margin: 0 8px;
+}
+.ec-action.d {
+  background: linear-gradient(135deg, var(--mint-light), #fff);
+  border: 2px solid var(--mint-mid);
+}
+.ec-action.d-prime {
+  background: linear-gradient(135deg, var(--pink-light), #fff);
+  border: 2px solid var(--pink-mid);
+}
+.ec-action h4 { margin-bottom: 6px; }
+.ec-action.d h4 { color: var(--mint-accent); }
+.ec-action.d-prime h4 { color: var(--pink-accent); }
+.ec-conflict {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 12px;
+  font-size: 1.6em;
+  color: var(--red-ude);
+  font-weight: 900;
+  letter-spacing: 4px;
+}
+.ec-arrows {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: var(--warm-gray);
+  font-size: 1.2em;
+  padding: 4px 0;
+}
+
+/* ── Assumption Cards ── */
+.assumption-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  margin: 16px 0;
+}
+@media (max-width: 640px) {
+  .assumption-grid { grid-template-columns: 1fr; }
+}
+.assumption-card {
+  background: #fff;
+  border: 1px solid #E8E0F0;
+  border-radius: 14px;
+  padding: 16px 20px;
+  font-size: 0.92em;
+}
+.assumption-card .label {
+  display: inline-block;
+  background: var(--peach-light);
+  color: var(--peach-accent);
+  padding: 2px 10px;
+  border-radius: 6px;
+  font-size: 0.78em;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.assumption-card .rebuttal {
+  color: var(--blue-inject);
+  font-weight: 500;
+  margin-top: 6px;
+  font-size: 0.9em;
+}
+
+/* ── Inject Cards ── */
+.inject-card {
+  background: var(--blue-inject-bg);
+  border: 1px solid rgba(52,152,219,0.2);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin: 14px 0;
+}
+.inject-card h4 {
+  color: var(--blue-inject);
+  font-size: 1em;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.inject-card .meta {
+  font-size: 0.88em;
+  color: var(--warm-gray);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px dashed rgba(52,152,219,0.2);
+}
+
+/* ── FRT (Future Reality Tree) ── */
+.frt-node {
+  background: var(--green-de-bg);
+  border: 2px solid var(--green-de);
+  border-radius: 14px;
+  padding: 14px 20px;
+  font-size: 0.93em;
+  line-height: 1.7;
+}
+.frt-node::before {
+  content: '✅ DE';
+  display: block;
+  font-size: 0.78em;
+  font-weight: 700;
+  color: var(--green-de);
+  margin-bottom: 4px;
+}
+
+/* ── Bottleneck ── */
+.bottleneck-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 16px 0;
+}
+.bottleneck-layer {
+  background: #fff;
+  border-radius: 16px;
+  padding: 18px 22px;
+  border-left: 4px solid;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.bottleneck-layer.cognitive { border-color: var(--lavender-accent); }
+.bottleneck-layer.emotional { border-color: var(--pink-accent); }
+.bottleneck-layer.practical { border-color: var(--peach-accent); }
+.bottleneck-layer.social { border-color: var(--sky-accent); }
+.bottleneck-layer .layer-tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 6px;
+  font-size: 0.78em;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.bottleneck-layer.cognitive .layer-tag { background: var(--lavender-light); color: var(--lavender-accent); }
+.bottleneck-layer.emotional .layer-tag { background: var(--pink-light); color: var(--pink-accent); }
+.bottleneck-layer.practical .layer-tag { background: var(--peach-light); color: var(--peach-accent); }
+.bottleneck-layer.social .layer-tag { background: var(--sky-light); color: var(--sky-accent); }
+.bottleneck-layer.primary {
+  background: linear-gradient(135deg, #FFF5EB, #FDE8E8);
+  border-width: 4px;
+  border-color: var(--red-ude);
+  box-shadow: 0 4px 16px rgba(231,76,60,0.1);
+}
+.bottleneck-layer.primary .layer-tag { background: var(--red-ude-bg); color: var(--red-ude); }
+
+/* ── Obstacle Table ── */
+.obstacle-card {
+  background: #fff;
+  border: 1px solid #E8E0F0;
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin: 14px 0;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+}
+@media (max-width: 640px) {
+  .obstacle-card {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+.obstacle-card .ob-box {
+  background: var(--pink-light);
+  border: 1px solid var(--pink-mid);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 0.9em;
+}
+.obstacle-card .ob-mid {
+  background: var(--sky-light);
+  border: 1px solid var(--sky-mid);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 0.9em;
+}
+.obstacle-card .ob-act {
+  background: var(--mint-light);
+  border: 1px solid var(--mint-mid);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 0.9em;
+}
+.obstacle-card .ob-arrow {
+  font-size: 1.3em;
+  color: var(--warm-gray);
+}
+
+/* ── TT Grid (Week Plan) ── */
+.tt-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+.tt-week {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #E8E0F0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+.tt-week-header {
+  padding: 14px 20px;
+  font-weight: 700;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.05em;
+  color: #fff;
+}
+.tt-week:nth-child(1) .tt-week-header { background: linear-gradient(135deg, var(--lavender-accent), #7C5BBF); }
+.tt-week:nth-child(2) .tt-week-header { background: linear-gradient(135deg, var(--sky-accent), #2471A3); }
+.tt-week:nth-child(3) .tt-week-header { background: linear-gradient(135deg, var(--mint-accent), #1E8449); }
+.tt-week:nth-child(4) .tt-week-header { background: linear-gradient(135deg, var(--pink-accent), #C0392B); }
+.tt-week-body {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+}
+@media (max-width: 640px) {
+  .tt-week-body { grid-template-columns: repeat(2, 1fr); }
+}
+.tt-cell {
+  padding: 14px 16px;
+  border-right: 1px solid #F0EBF5;
+  border-bottom: 1px solid #F0EBF5;
+  font-size: 0.88em;
+  line-height: 1.7;
+}
+.tt-cell:last-child { border-right: none; }
+.tt-cell .cell-label {
+  font-size: 0.75em;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+.tt-cell:nth-child(1) .cell-label { color: var(--blue-inject); }
+.tt-cell:nth-child(2) .cell-label { color: var(--green-de); }
+.tt-cell:nth-child(3) .cell-label { color: var(--peach-accent); }
+.tt-cell:nth-child(4) .cell-label { color: var(--lavender-accent); }
+
+/* ── Throughput Table ── */
+.tp-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  margin: 16px 0;
+  font-size: 0.92em;
+}
+.tp-table thead th {
+  background: linear-gradient(135deg, var(--lavender-accent), #7C5BBF);
+  color: #fff;
+  padding: 14px 18px;
+  font-weight: 600;
+  text-align: left;
+}
+.tp-table tbody td {
+  padding: 14px 18px;
+  border-bottom: 1px solid #F0EBF5;
+  background: #fff;
+}
+.tp-table tbody tr:last-child td { border-bottom: none; }
+.tp-table tbody tr:hover td { background: var(--lavender-light); }
+
+/* ── POOGI Timeline ── */
+.poogi-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin: 20px 0;
+}
+@media (max-width: 640px) {
+  .poogi-timeline { grid-template-columns: repeat(2, 1fr); }
+}
+.poogi-q {
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  border-top: 4px solid;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.poogi-q:nth-child(1) { border-color: var(--lavender-accent); }
+.poogi-q:nth-child(2) { border-color: var(--sky-accent); }
+.poogi-q:nth-child(3) { border-color: var(--mint-accent); }
+.poogi-q:nth-child(4) { border-color: var(--pink-accent); }
+.poogi-q .q-label {
+  font-weight: 900;
+  font-size: 1.3em;
+  font-family: 'Noto Serif TC', serif;
+  margin-bottom: 8px;
+}
+.poogi-q:nth-child(1) .q-label { color: var(--lavender-accent); }
+.poogi-q:nth-child(2) .q-label { color: var(--sky-accent); }
+.poogi-q:nth-child(3) .q-label { color: var(--mint-accent); }
+.poogi-q:nth-child(4) .q-label { color: var(--pink-accent); }
+.poogi-q ul {
+  padding-left: 16px;
+  font-size: 0.9em;
+}
+.poogi-q li {
+  margin-bottom: 4px;
+  line-height: 1.7;
+}
+
+/* ── Divider ── */
+.section-divider {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--lavender-mid), var(--pink-mid), transparent);
+  margin: 48px 0;
+  border: none;
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--warm-gray);
+  font-size: 0.85em;
+}
+.footer .footer-brand {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.1em;
+  color: var(--lavender-accent);
+  margin-bottom: 8px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .hero { padding: 48px 20px 40px; }
+  .hero h1 { font-size: 1.8em; }
+  .step-header { padding: 20px 20px 16px; }
+  .step-body { padding: 0 20px 24px; }
+  .overview-card { padding: 24px; }
+  .ec-cloud { grid-template-columns: 1fr; }
+  .assumption-grid { grid-template-columns: 1fr; }
+  .obstacle-card { grid-template-columns: 1fr; }
+  .poogi-timeline { grid-template-columns: 1fr; }
+}
+
+/* Highlight spans */
+.hl-red { color: var(--red-ude); font-weight: 600; }
+.hl-green { color: var(--green-de); font-weight: 600; }
+.hl-blue { color: var(--blue-inject); font-weight: 600; }
+.hl-gold { color: #9A7D0A; font-weight: 600; }
+.hl-purple { color: var(--lavender-accent); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">TOC 限制理論 × 十步深度分析</div>
+  <h1>Aristotle's Way</h1>
+  <div class="subtitle">How Ancient Wisdom Can Change Your Life</div>
+  <div class="author">Edith Hall｜劍橋大學古典學教授</div>
+  <div class="meta-row">
+    <span class="meta-tag">🏛️ 古希臘哲學</span>
+    <span class="meta-tag">🌿 Eudaimonia 幸福論</span>
+    <span class="meta-tag">📐 實踐智慧</span>
+    <span class="meta-tag">🔄 TOC 思考流程</span>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- OVERVIEW -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="overview-card">
+  <h2>📖 全書概覽</h2>
+  <p>亞里斯多德關心的核心問題：<strong>如何幸福（eudaimonia）</strong>。Edith Hall 以十章對應十個人生面向——幸福、潛能、決策、溝通、自知、意圖、愛、社群、休閒、死亡——將 2,400 年前的古希臘智慧轉化為可操作的現代生活指南。</p>
+  <p>幸福不是一種情緒狀態，而是一種<strong>「活動」(energeia)</strong>——持續做出好選擇、發揮潛能、與他人建立良好關係的過程。亞里斯多德告訴我們：美德不是先天的，而是透過反覆實踐養成的習慣；品格不是固定的，而是每一次「深思熟慮的選擇」(proairesis) 所累積的結果。</p>
+  <div class="quote-block">
+    "One swallow does not make a spring, nor does one day; and so too one day, or a short time, does not make a man blessed and happy."<br>
+    「一隻燕子帶不來春天，一天的美好也不等於幸福。幸福需要的是——一整個生命的活動。」
+    <span class="quote-src">—— 亞里斯多德《尼各馬可倫理學》</span>
+  </div>
+  <p>本分析以<strong>TOC 限制理論（Theory of Constraints）</strong>的十步思考流程，對本書進行系統性解構：從界定「幸福系統」的邊界與目標，到追溯阻礙幸福的根因與核心衝突，再到提出注入解、規劃行動方案、建立持續改善循環。目標是將亞里斯多德的哲學智慧，轉化為可驗證、可迭代的個人成長系統。</p>
+</div>
+
+<!-- Chapter Grid -->
+<h2 style="font-family:'Noto Serif TC',serif; font-size:1.4em; color:var(--lavender-accent); margin-bottom:20px; padding-left:8px;">📚 十章速覽</h2>
+<div class="chapter-grid">
+  <div class="chapter-chip">
+    <div class="ch-num">Chapter 1</div>
+    <div class="ch-title">Happiness 幸福</div>
+    <div class="ch-key">eudaimonia ≠ 快樂，是「活得好、做得好」。三條件：道德品格＋外在資源＋有意識選擇。</div>
+    <span class="ch-greek">εὐδαιμονία</span>
+  </div>
+  <div class="chapter-chip">
+    <div class="ch-num">Chapter 2</div>
+    <div class="ch-title">Potential 潛能</div>
+    <div class="ch-key">dunamis → energeia。習慣塑造品格，找到 ergon（天職）是關鍵。</div>
+    <span class="ch-greek">δύναμις → ἐνέργεια</span>
+  </div>
+  <div class="chapter-chip">
+    <div class="ch-num">Chapter 3</div>
+    <div class="ch-title">Decisions 決策</div>
+    <div class="ch-key">phronesis 實踐智慧。中庸之道非平庸，是兩極端之間的「恰到好處」。</div>
+    <span class="ch-greek">φρόνησις</span>
+  </div>
+  <div class="chapter-chip">
+    <div class="ch-num">Chapter 4</div>
+    <div class="ch-title">Communication 溝通</div>
+    <div class="ch-key">ethos × pathos × logos。機智與真誠的中庸。</div>
+    <span class="ch-greek">ῥητορική</span>
+  </div>
+  <div class="chapter-chip">
+    <div class="ch-num">Chapter 5</div>
+    <div class="ch-title">Self-knowledge 自知</div>
+    <div class="ch-key">akrasia 弱意志是最大挑戰。朋友是「另一個自己」。</div>
+    <span class="ch-greek">ἀκρασία</span>
+  </div>
+  <div class="chapter-chip">
+    <div class="ch-num">Chapter 6</div>
+    <div class="ch-title">Intentions 意圖</div>
+    <div class="ch-key">proairesis 深思熟慮的選擇。重複選擇形成品格。</div>
+    <span class="ch-greek">προαίρεσις</span>
+  </div>
+  <div class="chapter-chip">
+    <div class="ch-num">Chapter 7</div>
+    <div class="ch-title">Love 愛</div>
+    <div class="ch-key">三種 philia：利益型、快樂型、美德型。健康的自愛是愛他人的前提。</div>
+    <span class="ch-greek">φιλία</span>
+  </div>
+  <div class="chapter-chip">
+    <div class="ch-num">Chapter 8</div>
+    <div class="ch-title">Community 社群</div>
+    <div class="ch-key">人是 zoon politikon。正義是最重要社會美德。</div>
+    <span class="ch-greek">ζῷον πολιτικόν</span>
+  </div>
+  <div class="chapter-chip">
+    <div class="ch-num">Chapter 9</div>
+    <div class="ch-title">Leisure 休閒</div>
+    <div class="ch-key">schole 比工作更高。自由從事思考、學習、藝術。</div>
+    <span class="ch-greek">σχολή</span>
+  </div>
+  <div class="chapter-chip">
+    <div class="ch-num">Chapter 10</div>
+    <div class="ch-title">Mortality 死亡</div>
+    <div class="ch-key">生命有限才更要活得好。幸福是一整個生命的活動。</div>
+    <span class="ch-greek">κάθαρσις</span>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- STEP 1: System Definition -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="step-card step-1">
+  <div class="step-header">
+    <div class="step-number">01</div>
+    <h2>系統界定 System Definition</h2>
+    <div class="step-subtitle">定義系統邊界、目標與度量指標</div>
+  </div>
+  <div class="step-body">
+
+    <div class="sub-section">
+      <h3>🏛️ 系統名稱</h3>
+      <div class="info-box system">
+        <strong>亞里斯多德式幸福生活系統（Aristotelian Eudaimonia System）</strong><br>
+        一個以實踐智慧為核心引擎，通過持續的美德實踐、深思熟慮的選擇與社群參與，將個人潛能轉化為持久幸福的自我發展系統。
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3>🎯 系統目標（Goal）</h3>
+      <p>實現 <strong>eudaimonia（幸福）</strong>——不是短暫的快樂情緒，而是「活得好、做得好」的持續狀態。具體而言：</p>
+      <ul>
+        <li><strong>終極目標：</strong>成為一個持續發揮潛能（energeia）、擁有穩定美德品格、與他人建立良好關係、能夠自主做出好決策的人</li>
+        <li><strong>判定標準：</strong>不是某一天的感受，而是「回顧一生時，能否稱之為幸福」（一隻燕子不能帶來春天）</li>
+        <li><strong>必要條件：</strong>道德品格（aretē）＋ 外在資源 ＋ 有意識選擇（proairesis）三者缺一不可</li>
+      </ul>
+    </div>
+
+    <div class="sub-section">
+      <h3>🔲 系統邊界</h3>
+      <div class="info-box system">
+        <strong>系統內部（可控因素）：</strong>
+        <ul>
+          <li>個人美德的培養與實踐（勇氣、正義、節制、智慧）</li>
+          <li>認知框架與判斷能力（phronesis 實踐智慧）</li>
+          <li>日常習慣與行為選擇（proairesis）</li>
+          <li>溝通方式（ethos / pathos / logos）</li>
+          <li>自我認知與弱意志管理（akrasia）</li>
+          <li>人際關係的經營（philia 三層次友誼）</li>
+          <li>休閒活動的選擇（schole）</li>
+          <li>對死亡的態度與生命意義的建構</li>
+        </ul>
+        <br>
+        <strong>系統外部（環境因素）：</strong>
+        <ul>
+          <li>外在資源（健康、財富、社會地位）——亞里斯多德承認其必要但不充分</li>
+          <li>政治體制與社會結構（zoon politikon 的外部條件）</li>
+          <li>家庭背景與教育環境</li>
+          <li>運氣與不可控事件</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3>👥 利害關係人</h3>
+      <ul>
+        <li><strong>核心主體：</strong>追求幸福的個人（讀者）</li>
+        <li><strong>直接關係人：</strong>家人、摯友（美德型友誼的對象）、伴侶</li>
+        <li><strong>社群層：</strong>同事、鄰居、社群成員（zoon politikon 的共同體）</li>
+        <li><strong>引導者：</strong>導師、哲學傳統（亞里斯多德本人作為跨時空導師）</li>
+        <li><strong>社會層：</strong>政治體制、文化環境（提供或限制 eudaimonia 的外部條件）</li>
+      </ul>
+    </div>
+
+    <div class="sub-section">
+      <h3>📊 度量指標 T / OE / I</h3>
+      <table class="tp-table">
+        <thead>
+          <tr><th>指標</th><th>定義</th><th>對應書中概念</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>T（吞吐量）<br>Throughput</strong></td>
+            <td>單位時間內將潛能轉化為實現的速率：做出好決策的頻率、美德實踐的質與量、有意義關係的建立與深化</td>
+            <td>dunamis → energeia 的轉化率；proairesis 的品質；philia 的深度</td>
+          </tr>
+          <tr>
+            <td><strong>OE（營運費用）<br>Operating Expense</strong></td>
+            <td>維持系統運作的心理能量與時間成本：對抗 akrasia 的意志力消耗、處理人際衝突的情緒勞動、維持社會義務的時間投入</td>
+            <td>akrasia 弱意志的內耗；利益型/快樂型友誼的維護成本；缺乏 schole 的倦怠</td>
+          </tr>
+          <tr>
+            <td><strong>I（庫存/投資）<br>Investment</strong></td>
+            <td>已投入但尚未產生回報的資源：正在建立中的習慣、尚未成熟的美德、培育中的友誼、累積中的實踐智慧</td>
+            <td>重複選擇形成品格的積累期；「一噸鹽」的友誼考驗期；phronesis 的經驗累積</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- STEP 2: Current Reality Tree (CRT) -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="step-card step-2">
+  <div class="step-header">
+    <div class="step-number">02</div>
+    <h2>現況實境樹 Current Reality Tree</h2>
+    <div class="step-subtitle">識別不良效應（UDE）並追溯因果根因</div>
+  </div>
+  <div class="step-body">
+
+    <div class="sub-section">
+      <h3>⛔ 不良效應清單（UDE）</h3>
+      <p>以下是現代人在追求幸福時普遍遭遇的不良效應，對應書中各章揭露的問題：</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:16px 0;">
+        <div class="info-box warning" style="margin:0;">
+          <span class="tag tag-ude">UDE-1</span><br>
+          <strong>將幸福等同於快樂或財富</strong><br>
+          追求感官享受或物質累積，卻始終感覺不到真正的滿足。社會氛圍強化「快樂＝幸福」的錯誤等式。<br>
+          <em style="font-size:0.88em; color:var(--warm-gray);">→ Ch1: eudaimonia 的誤解</em>
+        </div>
+        <div class="info-box warning" style="margin:0;">
+          <span class="tag tag-ude">UDE-2</span><br>
+          <strong>潛能長期未被開發</strong><br>
+          知道自己「可以更好」，卻停留在舒適圈。dunamis 無法轉化為 energeia，天職模糊不清。<br>
+          <em style="font-size:0.88em; color:var(--warm-gray);">→ Ch2: 潛能的浪費</em>
+        </div>
+        <div class="info-box warning" style="margin:0;">
+          <span class="tag tag-ude">UDE-3</span><br>
+          <strong>決策品質低落：極端化或猶豫不決</strong><br>
+          缺乏 phronesis，不是衝動行事就是無止盡拖延。無法在具體情境中找到中庸的「恰到好處」。<br>
+          <em style="font-size:0.88em; color:var(--warm-gray);">→ Ch3: 缺乏實踐智慧</em>
+        </div>
+        <div class="info-box warning" style="margin:0;">
+          <span class="tag tag-ude">UDE-4</span><br>
+          <strong>弱意志（akrasia）反覆發作</strong><br>
+          明知該運動卻刷手機，明知該專注卻分心。「知道該做什麼卻做不到」成為日常。<br>
+          <em style="font-size:0.88em; color:var(--warm-gray);">→ Ch5: akrasia 的困境</em>
+        </div>
+        <div class="info-box warning" style="margin:0;">
+          <span class="tag tag-ude">UDE-5</span><br>
+          <strong>人際關係停留在表層</strong><br>
+          社交廣泛卻缺乏深度。多數關係停留在利益型或快樂型，缺少真正的美德型友誼。孤獨感上升。<br>
+          <em style="font-size:0.88em; color:var(--warm-gray);">→ Ch7: philia 的缺席</em>
+        </div>
+        <div class="info-box warning" style="margin:0;">
+          <span class="tag tag-ude">UDE-6</span><br>
+          <strong>忙碌卻空虛：缺乏有意義的休閒</strong><br>
+          工作填滿時間，「休息」只是被動消費（追劇、滑手機）。沒有 schole 的空間給思考、學習、藝術。<br>
+          <em style="font-size:0.88em; color:var(--warm-gray);">→ Ch9: schole 的喪失</em>
+        </div>
+        <div class="info-box warning" style="margin:0;">
+          <span class="tag tag-ude">UDE-7</span><br>
+          <strong>對死亡的焦慮導致迴避或虛無</strong><br>
+          要嘛恐懼死亡而焦慮，要嘛否認有限性而揮霍。無法將 mortality 轉化為活好當下的動力。<br>
+          <em style="font-size:0.88em; color:var(--warm-gray);">→ Ch10: 死亡焦慮的失能</em>
+        </div>
+        <div class="info-box warning" style="margin:0;">
+          <span class="tag tag-ude">UDE-8</span><br>
+          <strong>社群參與的退化</strong><br>
+          「政治動物」退化為「原子化個人」。正義感模糊，對公共事務冷漠或極端化。<br>
+          <em style="font-size:0.88em; color:var(--warm-gray);">→ Ch8: zoon politikon 的退化</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3>🔗 因果鏈：If-Then 追溯根因</h3>
+      <p>以下因果鏈從表層 UDE 向下追溯，揭示共同的根本原因：</p>
+
+      <div class="crt-chain">
+        <div class="crt-node ude">
+          <strong>UDE-1：將幸福等同於快樂或財富</strong> → 追求感官刺激與物質累積，卻反覆落空
+        </div>
+        <div class="crt-arrow">⬆ If-Then</div>
+        <div class="crt-node">
+          <strong>If</strong> 社會文化以消費主義定義「好的人生」，<strong>Then</strong> 人們將 happiness 理解為瞬間愉悅而非持久的 eudaimonia
+        </div>
+        <div class="crt-arrow">⬆ If-Then</div>
+        <div class="crt-node ude">
+          <strong>UDE-6：缺乏有意義的休閒</strong> → 休息 = 被動消費，而非 schole 的思考與成長
+        </div>
+        <div class="crt-arrow">⬆ If-Then</div>
+        <div class="crt-node">
+          <strong>If</strong> 人們不理解 schole 的意義，<strong>Then</strong> 工作佔據全部時間，「休息」淪為逃避而非充電
+        </div>
+        <div class="crt-arrow">⬆ If-Then</div>
+        <div class="crt-node ude">
+          <strong>UDE-2：潛能長期未被開發</strong> → dunamis 停滯，ergon 不清
+        </div>
+        <div class="crt-arrow">⬆ If-Then</div>
+        <div class="crt-node">
+          <strong>If</strong> 缺乏自我認知與持續反思的習慣，<strong>Then</strong> 無法識別自己的天職，也不知如何將潛能轉化為行動
+        </div>
+        <div class="crt-arrow">⬆ If-Then</div>
+        <div class="crt-node ude">
+          <strong>UDE-4：弱意志（akrasia）反覆發作</strong> → 知道該做什麼卻做不到
+        </div>
+        <div class="crt-arrow">⬆ If-Then</div>
+        <div class="crt-node">
+          <strong>If</strong> 美德尚未透過習慣內化為品格，<strong>Then</strong> 每次選擇都需要消耗大量意志力，akrasia 必然反覆
+        </div>
+        <div class="crt-arrow">⬆ If-Then</div>
+        <div class="crt-node root">
+          <strong>根因 RC-1：缺乏「什麼是好生活」的正確認知框架</strong><br>
+          沒有建立亞里斯多德式的 eudaimonia 理解——不知道幸福是「活動」而非「狀態」，是「品格」而非「運氣」，需要持續一生而非一時。這個認知缺口導致目標設錯、手段偏離、動力耗散。
+        </div>
+        <div class="crt-arrow" style="font-size:1.8em; color:var(--red-ude);">⬆</div>
+        <div class="crt-node root">
+          <strong>根因 RC-2：美德實踐的習慣迴路尚未建立</strong><br>
+          即使認知到位，「知道」與「做到」之間仍有鴻溝。缺乏系統性的美德練習機制（每日反思、情境判斷、關係維護），品格無法穩定形成，akrasia 持續主宰行為。
+        </div>
+      </div>
+
+      <div class="info-box warning">
+        <strong>🔴 核心診斷：</strong>兩個根因形成惡性循環——<em>認知錯誤（RC-1）</em>導致目標偏移，使<em>習慣建立（RC-2）</em>缺乏方向感；而<em>習慣未建立（RC-2）</em>又使正確認知停留在知識層面，無法轉化為體驗層的確信。亞里斯多德的洞見「We are what we repeatedly do」正是指出：<strong>唯有透過反覆的好行動，才能同時修正認知與建立習慣。</strong>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- STEP 3: Evaporating Cloud (EC) -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="step-card step-3">
+  <div class="step-header">
+    <div class="step-number">03</div>
+    <h2>核心衝突雲 Evaporating Cloud</h2>
+    <div class="step-subtitle">揭示「追求幸福」系統中的根本衝突</div>
+  </div>
+  <div class="step-body">
+
+    <div class="sub-section">
+      <h3>☁️ 衝突結構</h3>
+      <div class="ec-cloud">
+        <div class="ec-goal">
+          <span style="font-size:0.78em; color:var(--warm-gray); display:block; margin-bottom:4px;">共同目標 A</span>
+          🎯 實現 eudaimonia——持久的幸福，活得好、做得好
+        </div>
+        <div class="ec-need">
+          <h4>需求 B</h4>
+          <strong>滿足當下的慾望與舒適</strong><br>
+          為了感覺良好、減少痛苦、獲得即時回饋，需要回應眼前的渴望與情緒需求。
+        </div>
+        <div class="ec-need">
+          <h4>需求 C</h4>
+          <strong>培養長期的美德與品格</strong><br>
+          為了成為真正好的人，需要忍受不適、延遲滿足、持續練習美德直到內化為習慣。
+        </div>
+        <div class="ec-arrows">↕ 支持 ↕</div>
+        <div class="ec-action d">
+          <h4>行動 D</h4>
+          <strong>選擇即時滿足</strong><br>
+          追隨感覺、避免痛苦、選擇容易的路。享受當下、保持舒適、不強迫自己改變。
+        </div>
+        <div class="ec-action d-prime">
+          <h4>行動 D'</h4>
+          <strong>選擇延遲滿足</strong><br>
+          克制慾望、承受不適、做正確但困難的事。投入時間建立習慣、深耕關係、持續學習。
+        </div>
+        <div class="ec-conflict">
+          D ⚡ D'
+        </div>
+      </div>
+      <div class="info-box gold">
+        <strong>⚡ 衝突的本質：</strong>這正是亞里斯多德所說的 <strong>akrasia（弱意志）</strong>的結構性根源。每個人每天都在 D（即時滿足）與 D'（延遲滿足）之間掙扎。表面上看起來不可調和——你不可能同時追隨慾望又克制慾望。但亞里斯多德的解法不是「選一邊」，而是<strong>改變選擇的底層結構</strong>。
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3>❌ 隱藏的錯誤假設</h3>
+      <p>衝突之所以看似無解，是因為背後有未經檢驗的假設。以下是四個關鍵錯誤假設及書中的反駁：</p>
+
+      <div class="assumption-grid">
+        <div class="assumption-card">
+          <span class="label">錯誤假設 #1</span>
+          <p><strong>「幸福是一種感覺狀態」</strong></p>
+          <p>假設幸福 = 感覺快樂，因此必須不斷追求讓自己「感覺良好」的事物。</p>
+          <div class="rebuttal">📖 反駁（Ch1）：eudaimonia 是「活動」(energeia) 而非狀態。是「做得好」而非「感覺好」。一隻燕子不能帶來春天——幸福無法用瞬間感受衡量。</div>
+        </div>
+        <div class="assumption-card">
+          <span class="label">錯誤假設 #2</span>
+          <p><strong>「美德是天生的，或需要苦行」</strong></p>
+          <p>假設好品格是「天性」（有些人就是善良）或必須「犧牲快樂」才能培養。</p>
+          <div class="rebuttal">📖 反駁（Ch2、Ch6）：美德是透過「反覆實踐」形成的習慣。「We are what we repeatedly do」。一旦內化為品格，做好事不再痛苦，反而成為愉悅的來源。</div>
+        </div>
+        <div class="assumption-card">
+          <span class="label">錯誤假設 #3</span>
+          <p><strong>「即時滿足與長期成長必然對立」</strong></p>
+          <p>假設當下的享受必然損害未來的福祉，因此自律 = 壓抑。</p>
+          <div class="rebuttal">📖 反駁（Ch3、Ch9）：中庸之道的核心就是找到「恰到好處」。schole（有意義的休閒）既是當下的享受，也是長期的成長。問題不在於「享受」本身，而在於能否選擇「正確的」享受。</div>
+        </div>
+        <div class="assumption-card">
+          <span class="label">錯誤假設 #4</span>
+          <p><strong>「做好選擇主要靠意志力」</strong></p>
+          <p>假設克服 akrasia 的方法就是「更努力地堅持」，需要英雄式的意志力。</p>
+          <div class="rebuttal">📖 反駁（Ch5、Ch6）：亞里斯多德的解法不是加大意志力，而是<strong>建立習慣系統</strong>——讓好選擇成為自動化的默認行為。proairesis 的品質隨著品格的穩定而自然提升，不需要每次都靠白刃戰。</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- STEP 4: Injection Extraction -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="step-card step-4">
+  <div class="step-header">
+    <div class="step-number">04</div>
+    <h2>注入解萃取 Injection Extraction</h2>
+    <div class="step-subtitle">從書中提煉突破衝突的關鍵策略</div>
+  </div>
+  <div class="step-body">
+
+    <div class="inject-card">
+      <h4><span class="tag tag-inject">注入解 #1</span> 重新定義幸福：從狀態到活動</h4>
+      <p><strong>打破假設 #1：</strong>「幸福是一種感覺狀態」</p>
+      <p>將 eudaimonia 理解為<strong>持續的活動（energeia）</strong>，而非靜態的情緒。幸福不是「達到了就完了」的終點，而是每天在做的事——做出好決策、發揮能力、維護關係。這個認知轉換立刻改變評估標準：不再問「我今天快不快樂？」而是問「我今天活得好嗎？做了好的選擇嗎？」</p>
+      <div class="meta">
+        <strong>📖 書中論據：</strong>Ch1 引用亞里斯多德原話：「沒有人會稱一個沒有勇氣、正義、節制或智慧的人為幸福。」幸福需要三條件同時滿足——道德品格、外在資源、有意識選擇。Hall 以此說明，eudaimonia 是一個動態的、需要主動維護的過程。<br>
+        <strong>🔧 實際應用：</strong>每晚寫「今日三個好選擇」而非「今日三件開心事」。建立以「行動品質」而非「情緒指數」為核心的自我評估系統。當心情低落時，提醒自己：低落不等於不幸福——只要你仍在做正確的事。
+      </div>
+    </div>
+
+    <div class="inject-card">
+      <h4><span class="tag tag-inject">注入解 #2</span> 用習慣系統取代意志力戰爭</h4>
+      <p><strong>打破假設 #4：</strong>「做好選擇主要靠意志力」</p>
+      <p>不再依靠每次都「意志堅定」來對抗 akrasia，而是建立<strong>美德的習慣迴路</strong>——讓好行為成為自動化的默認選項。「We are what we repeatedly do」不是口號，而是神經科學意義上的現實：重複的行為改變大腦迴路，使品格漸趨穩定。</p>
+      <div class="meta">
+        <strong>📖 書中論據：</strong>Ch2 強調 dunamis → energeia 的轉化必須通過<strong>行動</strong>。Ch6 解釋 proairesis（深思熟慮的選擇）如何通過「重複選擇形成品格，品格決定未來選擇」形成正向循環。Hall 以自己 20 歲讀亞里斯多德後改變人生為例，說明第一步的重要性。<br>
+        <strong>🔧 實際應用：</strong>設計「最小美德練習」：每天一個勇敢的小行動（主動開口、誠實表達）、一個節制的小行動（延遲一次衝動消費）、一個正義的小行動（幫助一個人）。三週後評估是否漸趨自然。
+      </div>
+    </div>
+
+    <div class="inject-card">
+      <h4><span class="tag tag-inject">注入解 #3</span> 中庸之道：找到兩極端之間的「恰到好處」</h4>
+      <p><strong>打破假設 #3：</strong>「即時滿足與長期成長必然對立」</p>
+      <p>中庸之道（mesotes）不是妥協或平庸，而是在<strong>具體情境中</strong>找到兩個極端之間的最佳點。勇氣在怯懦與魯莽之間，慷慨在吝嗇與揮霍之間，機智在粗俗與無趣之間。這意味著享受與成長可以共存——關鍵是<strong>phronesis（實踐智慧）</strong>在每個情境中做出精確判斷。</p>
+      <div class="meta">
+        <strong>📖 書中論據：</strong>Ch3 詳細闡述中庸之道不是「取平均值」，而是需要 phronesis 在具體情境中判斷的動態智慧。Ch9 的 schole 概念證明：最高形式的休閒（思考、學習、藝術）既是當下的深度享受，也是長期的靈魂成長。<br>
+        <strong>🔧 實際應用：</strong>對任何重要決策，列出「兩個極端」再找中間立場。例如：社交＝完全孤立 vs 社交過度 → 中庸：有節奏的深度互動。工作＝不努力 vs 過勞 → 中庸：高專注短時段 + 有意義的 schole。
+      </div>
+    </div>
+
+    <div class="inject-card">
+      <h4><span class="tag tag-inject">注入解 #4</span> 深度關係作為幸福的基礎設施</h4>
+      <p><strong>打破假設 #1 的延伸：</strong>幸福不是個人獨享的狀態</p>
+      <p>從利益型/快樂型友誼升級到<strong>美德型友誼（philia of virtue）</strong>。真正的朋友是「另一個自己」——不是為你帶來利益或快樂，而是<strong>彼此促進對方成為更好的人</strong>。同時，健康的自愛（philautia）是愛他人的前提。</p>
+      <div class="meta">
+        <strong>📖 書中論據：</strong>Ch7 引用亞里斯多德的「一噸鹽」測試——真正的友誼需要長時間共處才能驗證。Ch8 論述「人是政治動物」，社群不是可選的附加物，而是 eudaimonia 的必要條件。<br>
+        <strong>🔧 實際應用：</strong>盤點現有關係，分類為利益型/快樂型/美德型。對潛在的美德型友誼增加投入（深度對話、共同學習、誠實回饋）。每月至少一次「一噸鹽」式的深度交流。
+      </div>
+    </div>
+
+    <div class="inject-card">
+      <h4><span class="tag tag-inject">注入解 #5</span> 以有限性為引擎：Memento Mori 作為行動動力</h4>
+      <p><strong>打破隱含假設：</strong>「時間是無限的，改變可以永遠推遲」</p>
+      <p>亞里斯多德不相信靈魂不朽。正因生命有限，每一天的品質才更重要。不是用恐懼驅動，而是用<strong>有限性的清醒認知</strong>來提升每個選擇的重量。「幸福是一整個生命的活動」——但生命是有盡頭的。</p>
+      <div class="meta">
+        <strong>📖 書中論據：</strong>Ch10 論述亞里斯多德以 62 歲離世，他的哲學正是在死亡的確定性中追求活好每一天。悲劇的 catharsis 功能也提醒人：直面痛苦與有限性，反而能淨化靈魂、釐清什麼真正重要。<br>
+        <strong>🔧 實際應用：</strong>每月進行一次「人生審計」：如果只剩 5 年，我會改變什麼？這個問題不是製造焦慮，而是校準優先序——確保把時間花在真正重要的人與事上。
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- STEP 5: Future Reality Tree (FRT) -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="step-card step-5">
+  <div class="step-header">
+    <div class="step-number">05</div>
+    <h2>未來實境樹 Future Reality Tree</h2>
+    <div class="step-subtitle">注入解實施後的正面效應（DE）鏈</div>
+  </div>
+  <div class="step-body">
+
+    <div class="sub-section">
+      <h3>✅ 正面效應（Desirable Effects）</h3>
+      <p>當五個注入解落地實施後，預期產生以下正面效應鏈：</p>
+
+      <div class="crt-chain">
+        <div class="crt-node" style="border-color:var(--blue-inject); background:var(--blue-inject-bg);">
+          <span class="tag tag-inject" style="margin-bottom:6px;">注入解 #1</span> 重新定義幸福：從狀態到活動
+        </div>
+        <div class="crt-arrow" style="color:var(--green-de);">⬇ Then</div>
+        <div class="frt-node">
+          <strong>DE-1：評估標準轉變</strong><br>
+          不再以「今天開不開心」衡量人生品質，而以「今天做了多少好選擇」為座標。日常焦慮與空虛感顯著降低，因為不再追求不可控的情緒狀態，而專注於可控的行動品質。
+        </div>
+        <div class="crt-arrow" style="color:var(--green-de);">⬇ And</div>
+        <div class="crt-node" style="border-color:var(--blue-inject); background:var(--blue-inject-bg);">
+          <span class="tag tag-inject" style="margin-bottom:6px;">注入解 #2</span> 用習慣系統取代意志力戰爭
+        </div>
+        <div class="crt-arrow" style="color:var(--green-de);">⬇ Then</div>
+        <div class="frt-node">
+          <strong>DE-2：akrasia 發作頻率下降</strong><br>
+          隨著「最小美德練習」的日積月累，好行為從「需要掙扎」變成「自然而然」。意志力消耗大幅降低，精力重新分配到更高層次的思考與創造上。proairesis 品質自然提升。
+        </div>
+        <div class="crt-arrow" style="color:var(--green-de);">⬇ Then</div>
+        <div class="frt-node">
+          <strong>DE-3：潛能加速轉化</strong><br>
+          當習慣系統穩定運作後，dunamis → energeia 的轉化不再需要英雄式努力。每日的小行動累積成能力的實質提升，ergon（天職）在持續行動中逐漸清晰化。
+        </div>
+        <div class="crt-arrow" style="color:var(--green-de);">⬇ And</div>
+        <div class="crt-node" style="border-color:var(--blue-inject); background:var(--blue-inject-bg);">
+          <span class="tag tag-inject" style="margin-bottom:6px;">注入解 #3</span> 中庸之道的實踐
+        </div>
+        <div class="crt-arrow" style="color:var(--green-de);">⬇ Then</div>
+        <div class="frt-node">
+          <strong>DE-4：決策品質系統性提升</strong><br>
+          phronesis 透過實踐累積經驗值，在具體情境中找到「恰到好處」的能力增強。極端化決策和拖延都減少，取而代之的是審慎但果斷的判斷。
+        </div>
+        <div class="crt-arrow" style="color:var(--green-de);">⬇ And</div>
+        <div class="crt-node" style="border-color:var(--blue-inject); background:var(--blue-inject-bg);">
+          <span class="tag tag-inject" style="margin-bottom:6px;">注入解 #4</span> 深度關係建設
+        </div>
+        <div class="crt-arrow" style="color:var(--green-de);">⬇ Then</div>
+        <div class="frt-node">
+          <strong>DE-5：關係品質升級</strong><br>
+          從利益型/快樂型友誼向美德型友誼升級。朋友成為「另一個自己」——彼此激勵、誠實回饋、共同成長。孤獨感下降，社群歸屬感上升。
+        </div>
+        <div class="crt-arrow" style="color:var(--green-de);">⬇ And</div>
+        <div class="crt-node" style="border-color:var(--blue-inject); background:var(--blue-inject-bg);">
+          <span class="tag tag-inject" style="margin-bottom:6px;">注入解 #5</span> 有限性作為引擎
+        </div>
+        <div class="crt-arrow" style="color:var(--green-de);">⬇ Then</div>
+        <div class="frt-node">
+          <strong>DE-6：優先序的根本重組</strong><br>
+          死亡的清醒認知使時間分配重新校準——減少無意義的消耗，增加對真正重要的人與事的投入。不再「等以後再說」，而是「現在就開始活得好」。
+        </div>
+        <div class="crt-arrow" style="color:var(--green-de);">⬇ Then</div>
+        <div class="frt-node" style="border-width:3px; background:linear-gradient(135deg, var(--green-de-bg), var(--mint-light));">
+          <strong>DE-7（終極效應）：持續的 Eudaimonia</strong><br>
+          不是「達到幸福」的靜態終點，而是一個自我強化的飛輪——好習慣 → 好品格 → 好決策 → 好關係 → 好生活 → 更容易保持好習慣。「幸福是一整個生命的活動」不再是遙不可及的理想，而是每天可驗證的實踐。
+        </div>
+      </div>
+
+      <div class="info-box success">
+        <strong>🌀 正向飛輪效應：</strong>注入解之間形成相互強化的閉環。重新定義幸福（#1）為習慣系統（#2）提供正確方向；習慣系統使中庸之道的判斷（#3）成為可能；精準判斷提升關係品質（#4）；深度關係提供回饋與支持，進一步強化習慣；而有限性的覺知（#5）則為整個系統提供持續的動力與急迫感。
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- STEP 6: Bottleneck Deep Positioning -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="step-card step-6">
+  <div class="step-header">
+    <div class="step-number">06</div>
+    <h2>瓶頸深度定位 Bottleneck Analysis</h2>
+    <div class="step-subtitle">多層瓶頸分析：認知、情感、實踐、社會</div>
+  </div>
+  <div class="step-body">
+
+    <div class="bottleneck-stack">
+      <div class="bottleneck-layer cognitive">
+        <span class="layer-tag">🧠 認知瓶頸</span>
+        <h4>對「幸福」的定義錯誤</h4>
+        <p>現代人受消費主義與社群媒體影響，將 happiness 等同於瞬間快樂、物質成功或社交認可。這個認知框架使所有後續努力的方向偏移——用錯了地圖，再怎麼努力也到不了目的地。</p>
+        <p><strong>書中案例：</strong>Ch1 中 Hall 指出，亞里斯多德明確區分 eudaimonia 與 hedonia（感官快樂）。他說「沒有人會稱一個沒有勇氣、正義、節制或智慧的人為幸福」——即使這個人擁有所有外在享受。這直接挑戰了現代人「有錢有閒就幸福」的直覺。</p>
+      </div>
+
+      <div class="bottleneck-layer emotional">
+        <span class="layer-tag">💗 情感瓶頸</span>
+        <h4>對不適的本能迴避（akrasia 的情感根源）</h4>
+        <p>美德實踐初期必然伴隨不適——延遲滿足的焦躁、誠實表達的恐懼、面對衝突的壓力。大腦的即時回饋偏好使人自動迴避這些不適，即使理性上知道這是必要的。</p>
+        <p><strong>書中案例：</strong>Ch5 深入分析 akrasia（弱意志）：知道該做什麼卻做不到。亞里斯多德認為這是最常見的人性困境。Hall 指出，解法不是壓制情感，而是透過反覆實踐讓正確行為變得「有快感」——就像訓練有素的運動員享受晨跑一樣。</p>
+      </div>
+
+      <div class="bottleneck-layer practical primary">
+        <span class="layer-tag">⚙️ 實踐瓶頸（主瓶頸）</span>
+        <h4>缺乏將美德內化為習慣的系統性方法</h4>
+        <p><strong>🔴 這是整個系統的主瓶頸。</strong>認知可以透過閱讀修正，情感可以透過經驗調適，社會條件可以主動選擇——但<strong>如果沒有一套具體、可重複、可驗證的每日實踐方法</strong>，所有美好的哲學理念都只是書架上的塵埃。「We are what we repeatedly do」——但現代人缺少「repeatedly do」的結構。</p>
+        <p><strong>書中案例：</strong>Ch2 強調潛能必須透過行動才能實現（dunamis → energeia）。Ch6 論述「重複選擇形成品格」的機制。但書中最生動的案例是 Hall 自己——她 20 歲讀亞里斯多德後，不是只「理解了」就完事，而是<strong>實際改變了生活方式</strong>，從而改變了人生。可見：<em>知識到行動的轉化才是真正的挑戰。</em></p>
+        <p><strong>為什麼是主瓶頸？</strong>因為這個瓶頸的產出限制了整個系統的吞吐量。即使認知正確（知道什麼是好生活）、情感準備好了（願意承受不適）、社會條件到位（有支持性的社群），如果沒有<strong>每天的具體實踐</strong>，品格就不會形成，akrasia 就不會減退，eudaimonia 就不會實現。</p>
+      </div>
+
+      <div class="bottleneck-layer social">
+        <span class="layer-tag">🌐 社會瓶頸</span>
+        <h4>缺乏支持美德實踐的社群環境</h4>
+        <p>亞里斯多德說「人是政治動物」，意味著美德的培養不是獨自完成的。但現代社會的原子化趨勢——獨居、遠距工作、社交媒體取代面對面互動——使得美德型友誼的建立空間被壓縮。沒有「另一個自己」提供鏡像與回饋，自我認知容易偏差。</p>
+        <p><strong>書中案例：</strong>Ch8 論述正義與社群參與的必要性。Ch7 的「一噸鹽」比喻暗示：深度友誼需要<strong>大量共處時間</strong>，這恰恰是現代生活最稀缺的資源。</p>
+      </div>
+    </div>
+
+    <div class="info-box gold">
+      <strong>🎯 瓶頸策略：</strong>聚焦主瓶頸——<strong>建立每日美德實踐的系統性方法</strong>。認知修正（讀書、反思）和社群建設（找同伴）是重要的支援措施，但在主瓶頸未突破前，投入再多資源到其他層面也無法提升系統整體產出。正如 TOC 的核心原則：<em>任何非瓶頸的改善都是幻覺。</em>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- STEP 7: Prerequisite Tree (PrT) -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="step-card step-7">
+  <div class="step-header">
+    <div class="step-number">07</div>
+    <h2>障礙拆解 Prerequisite Tree</h2>
+    <div class="step-subtitle">障礙 → 中間目標 → 具體行動</div>
+  </div>
+  <div class="step-body">
+
+    <div class="sub-section">
+      <h3>🧱 障礙地圖</h3>
+      <p>要從現狀走向「每日美德實踐系統」，必須跨越以下障礙：</p>
+    </div>
+
+    <div class="obstacle-card">
+      <div class="ob-box">
+        <strong>障礙 ①</strong><br>
+        「亞里斯多德太抽象了，不知道具體該做什麼」<br>
+        <em style="font-size:0.82em;">哲學概念與日常行動之間缺乏橋樑</em>
+      </div>
+      <div class="ob-arrow">→</div>
+      <div class="ob-mid">
+        <strong>中間目標</strong><br>
+        建立「美德行為清單」，將 aretē 翻譯為具體的每日行動
+      </div>
+      <div class="ob-arrow">→</div>
+      <div class="ob-act">
+        <strong>具體行動</strong><br>
+        製作「四大美德日曆」：每天各記錄一個勇氣/正義/節制/智慧的具體行動（無論多小）。用手機便條或紙本，30 秒可完成。
+      </div>
+    </div>
+
+    <div class="obstacle-card">
+      <div class="ob-box">
+        <strong>障礙 ②</strong><br>
+        「已經夠忙了，沒時間做自我修養」<br>
+        <em style="font-size:0.82em;">時間稀缺感導致美德實踐被排到最後</em>
+      </div>
+      <div class="ob-arrow">→</div>
+      <div class="ob-mid">
+        <strong>中間目標</strong><br>
+        將美德實踐嵌入既有日常，而非額外增加負擔
+      </div>
+      <div class="ob-arrow">→</div>
+      <div class="ob-act">
+        <strong>具體行動</strong><br>
+        「搭便車策略」：在既有活動中植入美德練習。通勤時思考今日決策（phronesis）、午餐時與同事進行一次真誠對話（aletheia）、睡前回顧三個選擇（proairesis audit）。零額外時間。
+      </div>
+    </div>
+
+    <div class="obstacle-card">
+      <div class="ob-box">
+        <strong>障礙 ③</strong><br>
+        「堅持不了，每次養成好習慣都三分鐘熱度」<br>
+        <em style="font-size:0.82em;">akrasia 在習慣養成期間最為猖獗</em>
+      </div>
+      <div class="ob-arrow">→</div>
+      <div class="ob-mid">
+        <strong>中間目標</strong><br>
+        設計抗 akrasia 的環境結構，降低對意志力的依賴
+      </div>
+      <div class="ob-arrow">→</div>
+      <div class="ob-act">
+        <strong>具體行動</strong><br>
+        ① 最小起步：從「每天記錄一個美德行動」開始，不是四個。降到不可能失敗的程度。② 環境設計：手機首頁放反思 App，移除社群媒體 App。③ 承諾設備：找一個人每週交換「美德週報」——社會壓力替代意志力。
+      </div>
+    </div>
+
+    <div class="obstacle-card">
+      <div class="ob-box">
+        <strong>障礙 ④</strong><br>
+        「身邊沒有人在乎這些，會被當作怪人」<br>
+        <em style="font-size:0.82em;">社會環境不支持哲學實踐</em>
+      </div>
+      <div class="ob-arrow">→</div>
+      <div class="ob-mid">
+        <strong>中間目標</strong><br>
+        找到或建立支持美德實踐的微型社群
+      </div>
+      <div class="ob-arrow">→</div>
+      <div class="ob-act">
+        <strong>具體行動</strong><br>
+        ① 線上搜索「斯多葛/亞里斯多德/美德倫理」讀書會或社群。② 邀請 1-2 位好友一起讀本書，每兩週討論一章。③ 不需要宣告「我在實踐亞里斯多德」——只需要在行動中體現，讓別人看到變化。身教大於言教。
+      </div>
+    </div>
+
+    <div class="obstacle-card">
+      <div class="ob-box">
+        <strong>障礙 ⑤</strong><br>
+        「不確定自己的進步是否真實，缺乏回饋」<br>
+        <em style="font-size:0.82em;">品格成長不像體重減輕那樣容易量測</em>
+      </div>
+      <div class="ob-arrow">→</div>
+      <div class="ob-mid">
+        <strong>中間目標</strong><br>
+        建立品格成長的可見化評估機制
+      </div>
+      <div class="ob-arrow">→</div>
+      <div class="ob-act">
+        <strong>具體行動</strong><br>
+        ① 「中庸之道自評表」：每週對 4 項美德自評（1-10），標記是偏向哪個極端（如勇氣：偏怯懦？偏魯莽？）。② 每月請一位信任的朋友（「另一個自己」）給回饋。③ 每季重讀自己三個月前的日記，觀察思維模式的變化。
+      </div>
+    </div>
+
+    <div class="obstacle-card">
+      <div class="ob-box">
+        <strong>障礙 ⑥</strong><br>
+        「道理都懂但感受不到緊迫感，覺得以後再說」<br>
+        <em style="font-size:0.82em;">死亡意識不足，缺乏有限性的驅動力</em>
+      </div>
+      <div class="ob-arrow">→</div>
+      <div class="ob-mid">
+        <strong>中間目標</strong><br>
+        建立定期的「有限性覺察」儀式
+      </div>
+      <div class="ob-arrow">→</div>
+      <div class="ob-act">
+        <strong>具體行動</strong><br>
+        ① 每月第一天進行「5 年審計」：如果只剩 5 年，我會改變什麼？這個月有沒有朝那個方向走？② 讀一部悲劇作品（亞里斯多德推崇的 catharsis）。③ 寫一封「給 10 年後自己的信」，每半年更新一次。
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- STEP 8: Transition Tree (TT) -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="step-card step-8">
+  <div class="step-header">
+    <div class="step-number">08</div>
+    <h2>轉變樹 Transition Tree</h2>
+    <div class="step-subtitle">四週行動計畫：注入 → 預期 → 行動 → 驗證</div>
+  </div>
+  <div class="step-body">
+
+    <div class="tt-grid">
+
+      <!-- Week 1 -->
+      <div class="tt-week">
+        <div class="tt-week-header">📅 第一週｜認知重設：什麼是真正的幸福？</div>
+        <div class="tt-week-body">
+          <div class="tt-cell">
+            <div class="cell-label">💉 注入</div>
+            注入解 #1：重新定義幸福為「活動」而非「狀態」<br>
+            注入解 #5：啟動有限性覺知
+          </div>
+          <div class="tt-cell">
+            <div class="cell-label">📈 預期效應</div>
+            停止用「我今天開心嗎」衡量一天，開始問「我今天做了好選擇嗎」。初步感受到評估框架轉換帶來的解放感。
+          </div>
+          <div class="tt-cell">
+            <div class="cell-label">🔨 具體行動</div>
+            ① 閱讀 Ch1 & Ch10<br>
+            ② 每晚記錄「今日三個好選擇」<br>
+            ③ 完成第一次「5 年審計」<br>
+            ④ 寫下個人版 eudaimonia 定義（200 字）
+          </div>
+          <div class="tt-cell">
+            <div class="cell-label">✅ 驗證指標</div>
+            ✦ 7 天內完成 5 次晚間記錄<br>
+            ✦ 寫出個人幸福定義<br>
+            ✦ 能用自己的話解釋 eudaimonia ≠ happiness<br>
+            ✦ 情緒波動對自我評價的影響 ↓20%
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 2 -->
+      <div class="tt-week">
+        <div class="tt-week-header">📅 第二週｜習慣啟動：最小美德練習</div>
+        <div class="tt-week-body">
+          <div class="tt-cell">
+            <div class="cell-label">💉 注入</div>
+            注入解 #2：習慣系統取代意志力<br>
+            注入解 #3：中庸之道的判斷框架
+          </div>
+          <div class="tt-cell">
+            <div class="cell-label">📈 預期效應</div>
+            每日美德練習從「額外任務」變成「日常流程的一部分」。開始在決策中自然使用「兩個極端」思維，找到中庸點。
+          </div>
+          <div class="tt-cell">
+            <div class="cell-label">🔨 具體行動</div>
+            ① 閱讀 Ch2, Ch3, Ch5<br>
+            ② 啟動「四大美德日曆」（每天記一項）<br>
+            ③ 選 2 個日常決策用中庸法分析<br>
+            ④ 識別個人 Top 3 akrasia 觸發場景<br>
+            ⑤ 對 #1 觸發場景設計環境干預
+          </div>
+          <div class="tt-cell">
+            <div class="cell-label">✅ 驗證指標</div>
+            ✦ 美德日曆記錄 ≥5 天<br>
+            ✦ 識別出 3 個 akrasia 場景<br>
+            ✦ 至少 1 個場景有環境干預方案<br>
+            ✦ 中庸分析練習 ≥3 次
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 3 -->
+      <div class="tt-week">
+        <div class="tt-week-header">📅 第三週｜關係深化：從表層到美德型友誼</div>
+        <div class="tt-week-body">
+          <div class="tt-cell">
+            <div class="cell-label">💉 注入</div>
+            注入解 #4：深度關係作為幸福基礎設施<br>
+            搭配注入解 #3 的溝通中庸
+          </div>
+          <div class="tt-cell">
+            <div class="cell-label">📈 預期效應</div>
+            至少一段關係從「互利/享樂」升級到「互相促進成長」的層次。溝通品質提升——在 ethos, pathos, logos 三者之間找到平衡。
+          </div>
+          <div class="tt-cell">
+            <div class="cell-label">🔨 具體行動</div>
+            ① 閱讀 Ch4, Ch7, Ch8<br>
+            ② 盤點關係：列出 Top 10 關係，分類為利益/快樂/美德型<br>
+            ③ 選 2 人深化：安排一次 1 小時深度對話<br>
+            ④ 練習 ethos-pathos-logos 表達：在一次重要溝通中刻意應用<br>
+            ⑤ 做一件「正義的小事」：社群層面的貢獻
+          </div>
+          <div class="tt-cell">
+            <div class="cell-label">✅ 驗證指標</div>
+            ✦ 完成關係盤點清單<br>
+            ✦ 至少 1 次 ≥1 小時深度對話<br>
+            ✦ 溝通三要素刻意練習 ≥2 次<br>
+            ✦ 社群貢獻行動 ≥1 次
+          </div>
+        </div>
+      </div>
+
+      <!-- Week 4 -->
+      <div class="tt-week">
+        <div class="tt-week-header">📅 第四週｜整合與回顧：Schole 與生命審計</div>
+        <div class="tt-week-body">
+          <div class="tt-cell">
+            <div class="cell-label">💉 注入</div>
+            全部 5 個注入解的整合<br>
+            特別聚焦注入解 #5（有限性引擎）與 schole
+          </div>
+          <div class="tt-cell">
+            <div class="cell-label">📈 預期效應</div>
+            四週實踐的整合感。schole（有意義的休閒）開始取代被動消費。能夠對自己的品格成長給出初步自評。感受到飛輪開始轉動。
+          </div>
+          <div class="tt-cell">
+            <div class="cell-label">🔨 具體行動</div>
+            ① 閱讀 Ch6, Ch9（意圖＋休閒）<br>
+            ② 安排 2 小時的 schole 時間（思考/學習/藝術）<br>
+            ③ 製作「中庸自評表」（4 美德各評 1-10）<br>
+            ④ 請一位朋友提供品格回饋<br>
+            ⑤ 寫「四週回顧報告」（500 字）<br>
+            ⑥ 設定下一個月的 3 項美德目標
+          </div>
+          <div class="tt-cell">
+            <div class="cell-label">✅ 驗證指標</div>
+            ✦ schole 時間 ≥2 小時/週<br>
+            ✦ 完成中庸自評表<br>
+            ✦ 獲得 ≥1 人的品格回饋<br>
+            ✦ 四週回顧報告完成<br>
+            ✦ 美德日曆累計記錄 ≥20 天
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- STEP 9: Throughput Audit -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="step-card step-9">
+  <div class="step-header">
+    <div class="step-number">09</div>
+    <h2>吞吐量審計 Throughput Audit</h2>
+    <div class="step-subtitle">T / OE / I 詳細定義、高低狀態與 ROI 評估</div>
+  </div>
+  <div class="step-body">
+
+    <div class="sub-section">
+      <h3>📊 指標詳細定義</h3>
+
+      <table class="tp-table">
+        <thead>
+          <tr><th style="width:15%;">指標</th><th style="width:30%;">高表現狀態</th><th style="width:30%;">低表現狀態</th><th style="width:25%;">度量方式</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong class="hl-green">T（吞吐量）</strong></td>
+            <td>
+              <span class="tag tag-de">高 T</span><br>
+              • 每日做出 3+ 有意識的好選擇<br>
+              • 美德行動自然化，不需掙扎<br>
+              • 至少 2 段美德型友誼持續深化<br>
+              • ergon 清晰，潛能持續轉化<br>
+              • 每週有 ≥3 小時有意義的 schole
+            </td>
+            <td>
+              <span class="tag tag-ude">低 T</span><br>
+              • 一天結束時想不起任何有意識的好選擇<br>
+              • akrasia 主導行為，多數選擇是自動反應<br>
+              • 關係停留在表層，缺乏深度連結<br>
+              • 天職模糊，日復一日重複<br>
+              • 休閒 = 被動消費，無 schole
+            </td>
+            <td>
+              ① 每日好選擇記錄數<br>
+              ② akrasia 發作頻率（週平均）<br>
+              ③ 美德型友誼數量/互動頻率<br>
+              ④ 潛能實現自評（季度 1-10）<br>
+              ⑤ 每週 schole 時數
+            </td>
+          </tr>
+          <tr>
+            <td><strong class="hl-red">OE（營運費用）</strong></td>
+            <td>
+              <span class="tag tag-de">低 OE</span><br>
+              • 好行為已習慣化，意志力消耗低<br>
+              • 人際衝突處理順暢，情緒勞動少<br>
+              • 工作/生活節奏穩定，無慢性壓力<br>
+              • 內在批評聲低，自我接納度高
+            </td>
+            <td>
+              <span class="tag tag-ude">高 OE</span><br>
+              • 每個選擇都要內心拔河，精力耗盡<br>
+              • 人際關係維護感覺像負擔<br>
+              • 持續焦慮：不夠好、不夠快、不夠多<br>
+              • 自我批評與比較消耗大量心理能量
+            </td>
+            <td>
+              ① 主觀精力水準（每日 1-10）<br>
+              ② 意志力消耗感（「需要掙扎才能做對的事」的頻率）<br>
+              ③ 壓力指數（月度自評）<br>
+              ④ 情緒勞動日記
+            </td>
+          </tr>
+          <tr>
+            <td><strong class="hl-purple">I（庫存/投資）</strong></td>
+            <td>
+              <span class="tag tag-de">健康 I</span><br>
+              • 習慣穩定積累中，可見進展<br>
+              • 新友誼在培育中，深度增加<br>
+              • phronesis 經驗值持續累積<br>
+              • 知識與反思日記持續產出
+            </td>
+            <td>
+              <span class="tag tag-ude">停滯 I</span><br>
+              • 反覆重啟習慣，無累積效應<br>
+              • 關係停留在認識但不深入<br>
+              • 反思流於形式，無深度洞見<br>
+              • 閱讀多但實踐少，知識堆積不轉化
+            </td>
+            <td>
+              ① 習慣連續天數（streak）<br>
+              ② 友誼深度自評（季度）<br>
+              ③ 反思日記的洞見品質（自評）<br>
+              ④ 「知道 vs 做到」差距（季度評估）
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="sub-section">
+      <h3>💰 ROI 評估</h3>
+      <div class="info-box gold">
+        <strong>投入成本（4 週啟動期）：</strong>
+        <ul>
+          <li>時間：每天 15-20 分鐘（反思記錄 + 閱讀），每週 2-3 小時 schole = 約 <strong>每月 15-20 小時</strong></li>
+          <li>認知資源：初期需要刻意記住框架，約 2 週後漸趨自動化</li>
+          <li>社交投入：每月 2-3 次深度對話，每次 1 小時</li>
+          <li>情感成本：面對 akrasia 的不適、誠實面對自己的痛苦（前 2 週最強）</li>
+        </ul>
+        <br>
+        <strong>預期回報（3-12 個月）：</strong>
+        <ul>
+          <li><span class="hl-green">決策品質 ↑：</span>減少後悔決策 50%+，因為每次都經過 phronesis 的中庸分析</li>
+          <li><span class="hl-green">情緒穩定性 ↑：</span>不被「今天開心嗎」的波動綁架，建立更穩定的自我評價</li>
+          <li><span class="hl-green">關係深度 ↑：</span>至少 2-3 段美德型友誼形成，提供長期的情感支持與成長回饋</li>
+          <li><span class="hl-green">意志力消耗 ↓：</span>隨著習慣內化，OE 大幅降低，釋放精力用於更高層次追求</li>
+          <li><span class="hl-green">時間品質 ↑：</span>schole 取代被動消費，同樣的時間產出更多意義和滿足感</li>
+          <li><span class="hl-green">長期 ROI：</span>品格一旦形成就是「永久資產」——不像技能會過時，美德的價值跨越時代</li>
+        </ul>
+        <br>
+        <strong>📐 投入回報比估算：</strong>每月 15-20 小時的投入，換取「一整個生命的活動品質提升」。亞里斯多德式的 ROI 不是以年計算的——而是以<strong>一生</strong>計算的。如果這套系統能讓你在 62 歲（亞里斯多德離世的年齡）回顧人生時說出「我活得好」，那麼每個月 20 小時的投入，回報率是<strong>無限大</strong>。
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- STEP 10: POOGI -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="step-card step-10">
+  <div class="step-header">
+    <div class="step-number">10</div>
+    <h2>持續改善循環 POOGI</h2>
+    <div class="step-subtitle">Process of Ongoing Improvement — 季度檢查點與長期原則</div>
+  </div>
+  <div class="step-body">
+
+    <div class="sub-section">
+      <h3>📅 季度檢查點</h3>
+    </div>
+
+    <div class="poogi-timeline">
+      <div class="poogi-q">
+        <div class="q-label">Q1</div>
+        <strong>根基：習慣建立期</strong>
+        <ul>
+          <li>評估「四大美德日曆」的連續性：streak ≥ 60 天？</li>
+          <li>akrasia 發作頻率是否較啟動前 ↓30%？</li>
+          <li>「中庸自評表」四項美德是否各 ≥ 5/10？</li>
+          <li>是否找到至少 1 位「美德夥伴」？</li>
+          <li><strong>調整：</strong>若 streak 斷裂 >3 次，降低每日記錄量至 1 項；若 akrasia 未改善，重新設計環境干預</li>
+        </ul>
+      </div>
+      <div class="poogi-q">
+        <div class="q-label">Q2</div>
+        <strong>深化：關係與判斷力</strong>
+        <ul>
+          <li>美德型友誼是否 ≥ 2 段？深度是否增加？</li>
+          <li>phronesis 練習：是否能自然使用「兩極端 → 中庸」框架？</li>
+          <li>schole 時間是否穩定 ≥ 3 小時/週？</li>
+          <li>是否完成了第二次「5 年審計」？與第一次有何不同？</li>
+          <li><strong>調整：</strong>若友誼深化停滯，嘗試「共同學習」模式（一起讀書/運動）；若 schole 被擠壓，設定不可移動的時間塊</li>
+        </ul>
+      </div>
+      <div class="poogi-q">
+        <div class="q-label">Q3</div>
+        <strong>整合：品格穩定化</strong>
+        <ul>
+          <li>「中庸自評表」四項美德是否各 ≥ 7/10？</li>
+          <li>好行為是否開始「自動化」？（不需掙扎就能做到）</li>
+          <li>OE 是否顯著下降？（精力提升、焦慮減少）</li>
+          <li>是否能向他人清楚解釋自己的「好生活」哲學？</li>
+          <li><strong>調整：</strong>若美德自評停滯，嘗試挑戰新情境（公開演講、志工服務）來打破舒適區；若 OE 仍高，檢查是否有未處理的深層恐懼</li>
+        </ul>
+      </div>
+      <div class="poogi-q">
+        <div class="q-label">Q4</div>
+        <strong>飛輪：系統性運作</strong>
+        <ul>
+          <li>回顧這一年：與年初相比，哪些 UDE 已消除？</li>
+          <li>eudaimonia 自評：「我活得好嗎？」（1-10，目標 ≥ 7）</li>
+          <li>品格是否成為「第二天性」？</li>
+          <li>是否有能力成為他人的「另一個自己」——幫助別人成長？</li>
+          <li><strong>調整：</strong>制定下一年度的重點美德（從四大美德擴展到更多面向：機智、友善、慷慨等）；評估是否需要引入新的注入解</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sub-section">
+      <h3>🔄 長期改善原則</h3>
+
+      <div class="info-box system">
+        <strong>原則一：永不停止辨識瓶頸</strong><br>
+        當主瓶頸（習慣系統建立）被突破後，新的瓶頸會浮現——可能是更深層的自我認知、更複雜的關係困境、或更高層次的 ergon 追尋。TOC 的核心精神：<strong>改善永遠在瓶頸處進行</strong>。每季重新問：「現在，什麼限制了我的 eudaimonia？」
+      </div>
+
+      <div class="info-box system">
+        <strong>原則二：慣性是最大的敵人</strong><br>
+        亞里斯多德說「一隻燕子不能帶來春天」，TOC 說「不要讓慣性成為瓶頸」。當某個注入解運作良好時，人會傾向於停止改善。但 eudaimonia 是動態的——環境在變、人在成長、挑戰在升級。<strong>持續改善不是選項，而是幸福的必要條件。</strong>
+      </div>
+
+      <div class="info-box system">
+        <strong>原則三：從個人到社群的擴展</strong><br>
+        亞里斯多德最終的願景不只是個人幸福，而是<strong>整個共同體的繁榮</strong>。當個人的美德品格穩定後，自然要問：「我如何幫助我的社群也活得更好？」這是 zoon politikon 的終極實現——從修身到齊家到治國。
+      </div>
+
+      <div class="info-box system">
+        <strong>原則四：保持哲學的謙卑</strong><br>
+        phronesis（實踐智慧）的核心是承認<strong>每個情境都是獨特的</strong>。沒有萬能公式，沒有一勞永逸的答案。中庸之道在不同情境中有不同的表現。保持學習、保持反思、保持開放——這本身就是亞里斯多德式的美德。
+      </div>
+
+      <div class="info-box system">
+        <strong>原則五：以有限性滋養無限的追求</strong><br>
+        亞里斯多德 62 歲離世。他的學生亞歷山大大帝 32 歲離世。Hall 教授在寫這本書時已年過半百。沒有人知道自己有多少時間。但正是這個有限性，使得每一天的品質——每一個選擇、每一次互動、每一刻思考——變得<strong>無比珍貴</strong>。<br><br>
+        「幸福是一整個生命的活動。」<br>
+        不是「整個生命的長度」，而是「整個生命的<strong>活動品質</strong>」。<br>
+        從今天開始，活得好。
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- CLOSING QUOTE -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="overview-card" style="text-align:center; margin-top:48px;">
+  <div style="font-size:3em; margin-bottom:16px;">🫒</div>
+  <div class="quote-block" style="border-left:none; text-align:center; background:linear-gradient(135deg, var(--mint-light), var(--lavender-light));">
+    "Happiness depends upon ourselves."<br>
+    「幸福取決於我們自己。」
+    <span class="quote-src">—— 亞里斯多德</span>
+  </div>
+  <div class="quote-block" style="border-left:none; text-align:center; margin-top:12px; background:linear-gradient(135deg, var(--sky-light), var(--pink-light));">
+    "We are what we repeatedly do. Excellence, then, is not an act, but a habit."<br>
+    「我們是我們反覆做的事。因此，卓越不是一個行為，而是一種習慣。」
+    <span class="quote-src">—— 亞里斯多德（Will Durant 詮釋）</span>
+  </div>
+  <p style="margin-top:24px; color:var(--warm-gray); font-size:0.95em;">
+    閱讀亞里斯多德不是為了成為哲學家，而是為了<strong>活得更好</strong>。<br>
+    TOC 分析不是為了理論完美，而是為了<strong>找到行動的起點</strong>。<br>
+    改變從下一個選擇開始。
+  </p>
+</div>
+
+<hr class="section-divider">
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- APPENDIX: Key Concepts Glossary -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="overview-card">
+  <h2>📝 附錄：關鍵概念詞彙表</h2>
+  <table class="tp-table">
+    <thead>
+      <tr><th>希臘原文</th><th>英文</th><th>中文</th><th>書中定義</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>εὐδαιμονία</strong><br>eudaimonia</td><td>Happiness / Flourishing</td><td>幸福/繁盛</td><td>持續的「活得好、做得好」，不是情緒而是活動</td></tr>
+      <tr><td><strong>ἐνέργεια</strong><br>energeia</td><td>Actuality / Activity</td><td>實現/活動</td><td>潛能被實現的動態狀態</td></tr>
+      <tr><td><strong>δύναμις</strong><br>dunamis</td><td>Potentiality</td><td>潛能</td><td>每人天生具有但需要開發的能力</td></tr>
+      <tr><td><strong>ἔργον</strong><br>ergon</td><td>Function / Calling</td><td>天職/功能</td><td>每個人獨特的使命與最高功能</td></tr>
+      <tr><td><strong>φρόνησις</strong><br>phronesis</td><td>Practical Wisdom</td><td>實踐智慧</td><td>在具體情境中做出正確判斷的能力</td></tr>
+      <tr><td><strong>ἀρετή</strong><br>aretē</td><td>Virtue / Excellence</td><td>美德/卓越</td><td>品格的卓越狀態，通過習慣養成</td></tr>
+      <tr><td><strong>ἀκρασία</strong><br>akrasia</td><td>Weakness of Will</td><td>弱意志</td><td>知道該做什麼卻做不到的狀態</td></tr>
+      <tr><td><strong>προαίρεσις</strong><br>proairesis</td><td>Deliberate Choice</td><td>深思熟慮的選擇</td><td>道德行動的核心，經過理性思考的決定</td></tr>
+      <tr><td><strong>φιλία</strong><br>philia</td><td>Friendship / Love</td><td>友愛</td><td>比現代友誼更廣的愛的形式，分三層次</td></tr>
+      <tr><td><strong>σχολή</strong><br>schole</td><td>Leisure</td><td>休閒</td><td>自由從事思考、學習、藝術的時間（非被動消費）</td></tr>
+      <tr><td><strong>κάθαρσις</strong><br>catharsis</td><td>Purification</td><td>淨化</td><td>透過悲劇體驗達到的情感淨化</td></tr>
+      <tr><td><strong>μεσότης</strong><br>mesotes</td><td>The Mean</td><td>中庸之道</td><td>兩個極端之間的「恰到好處」</td></tr>
+      <tr><td><strong>ζῷον πολιτικόν</strong><br>zoon politikon</td><td>Political Animal</td><td>政治動物</td><td>人本質上需要社群才能實現幸福</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- APPENDIX: TOC Glossary -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="overview-card">
+  <h2>🔧 附錄：TOC 限制理論工具對照</h2>
+  <table class="tp-table">
+    <thead>
+      <tr><th>TOC 工具</th><th>功能</th><th>本報告對應</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>CRT</strong><br>Current Reality Tree</td><td>用 If-Then 因果邏輯追溯問題根因</td><td>Step 2：從 8 個 UDE 追溯到「認知框架錯誤」與「習慣迴路缺失」兩大根因</td></tr>
+      <tr><td><strong>EC</strong><br>Evaporating Cloud</td><td>暴露衝突的隱藏假設，找到雙贏解</td><td>Step 3：即時滿足 vs 延遲滿足的核心衝突，打破 4 個錯誤假設</td></tr>
+      <tr><td><strong>FRT</strong><br>Future Reality Tree</td><td>驗證注入解是否能產生正面效應</td><td>Step 5：5 個注入解產生 7 個正面效應，形成自我強化飛輪</td></tr>
+      <tr><td><strong>PrT</strong><br>Prerequisite Tree</td><td>識別障礙並設計克服路徑</td><td>Step 7：6 個障礙的完整拆解，每個配有中間目標與具體行動</td></tr>
+      <tr><td><strong>TT</strong><br>Transition Tree</td><td>設計具體的行動計畫</td><td>Step 8：四週行動計畫，每週含注入/預期/行動/驗證四元素</td></tr>
+      <tr><td><strong>POOGI</strong><br>Process of Ongoing Improvement</td><td>確保改善持續而非一次性</td><td>Step 10：Q1-Q4 檢查點＋五大長期改善原則</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ════════════════════════════════════════════════════════ -->
+<!-- FOOTER -->
+<!-- ════════════════════════════════════════════════════════ -->
+<div class="footer">
+  <div class="footer-brand">🐉 龍龍深度分析工作室</div>
+  <p>TOC 限制理論 × 亞里斯多德哲學｜深度書籍分析系統</p>
+  <p style="margin-top:8px; font-size:0.8em; color:#999;">
+    分析對象：<em>Aristotle's Way: How Ancient Wisdom Can Change Your Life</em> by Edith Hall<br>
+    分析方法：TOC 十步思考流程（Goldratt 體系）<br>
+    生成日期：2026 年 3 月 11 日
+  </p>
+</div>
+
+</div><!-- end container -->
+
+</body>
+</html>
