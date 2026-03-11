@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>覺醒報告｜創運思維 — 金度潤</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --clover: #4CAF50;
+  --clover-light: #81C784;
+  --gold: #FFD54F;
+  --gold-deep: #F9A825;
+  --rose: #F48FB1;
+  --lavender: #CE93D8;
+  --sky: #81D4FA;
+  --mint: #80CBC4;
+  --peach: #FFAB91;
+  --cream: #FFF8E1;
+  --card-bg: rgba(255,255,255,0.82);
+  --card-border: rgba(255,255,255,0.45);
+  --text-primary: #2D3436;
+  --text-secondary: #636E72;
+  --text-light: #B2BEC3;
+  --shadow-soft: 0 8px 32px rgba(0,0,0,0.08);
+  --shadow-card: 0 4px 20px rgba(0,0,0,0.06);
+  --radius: 20px;
+  --radius-sm: 12px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: linear-gradient(135deg, #E8F5E9 0%, #FFF8E1 25%, #F3E5F5 50%, #E1F5FE 75%, #FFF3E0 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  line-height: 1.8;
+  min-height: 100vh;
+  padding: 0;
+}
+
+/* 🍀 背景裝飾 */
+body::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  right: -30%;
+  width: 80vw;
+  height: 80vw;
+  background: radial-gradient(circle, rgba(76,175,80,0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -40%;
+  left: -20%;
+  width: 70vw;
+  height: 70vw;
+  background: radial-gradient(circle, rgba(255,213,79,0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ======== HERO ======== */
+.hero {
+  text-align: center;
+  padding: 80px 40px 60px;
+  background: linear-gradient(145deg, rgba(76,175,80,0.12) 0%, rgba(255,213,79,0.15) 50%, rgba(129,212,250,0.12) 100%);
+  border-radius: 32px;
+  margin-bottom: 48px;
+  border: 1px solid rgba(255,255,255,0.5);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '🍀';
+  position: absolute;
+  font-size: 200px;
+  opacity: 0.06;
+  top: -30px;
+  right: -30px;
+  transform: rotate(15deg);
+}
+.hero-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--clover), var(--clover-light));
+  color: #fff;
+  padding: 6px 20px;
+  border-radius: 30px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 3rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, #2E7D32, #F9A825);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+.hero .subtitle {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-bottom: 8px;
+}
+.hero .author {
+  font-size: 0.95rem;
+  color: var(--text-light);
+  margin-top: 8px;
+}
+.hero .tagline {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.05rem;
+  color: #6D4C41;
+  margin-top: 20px;
+  font-style: italic;
+  opacity: 0.85;
+}
+
+/* ======== CARDS ======== */
+.card {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius);
+  padding: 40px 36px;
+  margin-bottom: 36px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 36px rgba(0,0,0,0.10);
+}
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  border-radius: var(--radius) var(--radius) 0 0;
+}
+
+/* Step 色帶 */
+.card.step-1::before { background: linear-gradient(90deg, #4CAF50, #81C784); }
+.card.step-2::before { background: linear-gradient(90deg, #F9A825, #FFD54F); }
+.card.step-3::before { background: linear-gradient(90deg, #42A5F5, #81D4FA); }
+.card.step-4::before { background: linear-gradient(90deg, #AB47BC, #CE93D8); }
+.card.step-5::before { background: linear-gradient(90deg, #EF5350, #EF9A9A); }
+.card.step-6::before { background: linear-gradient(90deg, #78909C, #B0BEC5); }
+.card.step-7::before { background: linear-gradient(90deg, #26A69A, #80CBC4); }
+.card.step-8::before { background: linear-gradient(90deg, #FF7043, #FFAB91); }
+.card.step-9::before { background: linear-gradient(90deg, #EC407A, #F48FB1); }
+.card.step-10::before { background: linear-gradient(90deg, #5C6BC0, #9FA8DA); }
+.card.step-11::before { background: linear-gradient(90deg, #FFA726, #FFCC80); }
+
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  font-size: 14px;
+  font-weight: 900;
+  color: #fff;
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.step-1 .step-number { background: linear-gradient(135deg, #4CAF50, #66BB6A); }
+.step-2 .step-number { background: linear-gradient(135deg, #F9A825, #FBC02D); }
+.step-3 .step-number { background: linear-gradient(135deg, #42A5F5, #64B5F6); }
+.step-4 .step-number { background: linear-gradient(135deg, #AB47BC, #BA68C8); }
+.step-5 .step-number { background: linear-gradient(135deg, #EF5350, #E57373); }
+.step-6 .step-number { background: linear-gradient(135deg, #78909C, #90A4AE); }
+.step-7 .step-number { background: linear-gradient(135deg, #26A69A, #4DB6AC); }
+.step-8 .step-number { background: linear-gradient(135deg, #FF7043, #FF8A65); }
+.step-9 .step-number { background: linear-gradient(135deg, #EC407A, #F06292); }
+.step-10 .step-number { background: linear-gradient(135deg, #5C6BC0, #7986CB); }
+.step-11 .step-number { background: linear-gradient(135deg, #FFA726, #FFB74D); }
+
+.card-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+}
+.card-header h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.card h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 28px 0 12px;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.card h3:first-of-type { margin-top: 0; }
+
+.card h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin: 20px 0 8px;
+  color: #455A64;
+}
+
+.card p {
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+}
+
+/* ======== 特殊元件 ======== */
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+.info-item {
+  background: linear-gradient(135deg, rgba(76,175,80,0.06), rgba(255,213,79,0.06));
+  border-radius: var(--radius-sm);
+  padding: 16px 20px;
+  border: 1px solid rgba(76,175,80,0.1);
+}
+.info-item .label {
+  font-size: 0.78rem;
+  color: var(--text-light);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.info-item .value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.quote-box {
+  background: linear-gradient(135deg, rgba(76,175,80,0.08), rgba(255,213,79,0.08));
+  border-left: 4px solid var(--clover);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 20px 24px;
+  margin: 20px 0;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1rem;
+  color: #4E342E;
+  font-style: italic;
+  line-height: 1.9;
+}
+
+.highlight-box {
+  background: linear-gradient(135deg, rgba(255,213,79,0.12), rgba(255,171,145,0.12));
+  border-radius: var(--radius-sm);
+  padding: 20px 24px;
+  margin: 20px 0;
+  border: 1px solid rgba(255,213,79,0.2);
+}
+.highlight-box.green {
+  background: linear-gradient(135deg, rgba(76,175,80,0.08), rgba(128,203,196,0.08));
+  border-color: rgba(76,175,80,0.15);
+}
+.highlight-box.blue {
+  background: linear-gradient(135deg, rgba(66,165,245,0.08), rgba(129,212,250,0.08));
+  border-color: rgba(66,165,245,0.15);
+}
+.highlight-box.purple {
+  background: linear-gradient(135deg, rgba(171,71,188,0.08), rgba(206,147,216,0.08));
+  border-color: rgba(171,71,188,0.15);
+}
+.highlight-box.rose {
+  background: linear-gradient(135deg, rgba(236,64,122,0.08), rgba(244,143,177,0.08));
+  border-color: rgba(236,64,122,0.15);
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin: 3px 4px 3px 0;
+}
+.tag.green { background: rgba(76,175,80,0.12); color: #2E7D32; }
+.tag.gold { background: rgba(249,168,37,0.15); color: #E65100; }
+.tag.blue { background: rgba(66,165,245,0.12); color: #1565C0; }
+.tag.purple { background: rgba(171,71,188,0.12); color: #6A1B9A; }
+.tag.rose { background: rgba(236,64,122,0.12); color: #AD1457; }
+.tag.mint { background: rgba(38,166,154,0.12); color: #00695C; }
+.tag.peach { background: rgba(255,112,67,0.12); color: #BF360C; }
+
+.theme-card {
+  background: linear-gradient(135deg, rgba(255,255,255,0.7), rgba(255,255,255,0.5));
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: var(--radius-sm);
+  padding: 24px;
+  margin: 20px 0;
+}
+.theme-card h4 {
+  margin-top: 0;
+}
+
+.depth-layer {
+  padding: 8px 0 8px 16px;
+  border-left: 2px solid rgba(76,175,80,0.2);
+  margin: 6px 0 6px 8px;
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+}
+.depth-layer strong {
+  color: var(--text-primary);
+}
+
+.arc-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin: 16px 0;
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.5);
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(0,0,0,0.04);
+}
+.arc-icon {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.arc-content h4 {
+  margin: 0 0 6px;
+  font-size: 0.95rem;
+}
+.arc-content p {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.action-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(76,175,80,0.06), rgba(255,213,79,0.04));
+  border-radius: var(--radius-sm);
+  margin: 12px 0;
+  border: 1px solid rgba(76,175,80,0.1);
+}
+.action-item .action-icon {
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.action-item .action-text h4 {
+  margin: 0 0 4px;
+  font-size: 0.95rem;
+  color: #2E7D32;
+}
+.action-item .action-text p {
+  margin: 0;
+  font-size: 0.88rem;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+@media (max-width: 640px) {
+  .two-col, .info-grid { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2.2rem; }
+  .card { padding: 28px 20px; }
+  .container { padding: 20px 16px 60px; }
+}
+
+.divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(76,175,80,0.2), rgba(255,213,79,0.2), transparent);
+  margin: 24px 0;
+}
+
+.formula-box {
+  text-align: center;
+  padding: 24px;
+  background: linear-gradient(135deg, rgba(76,175,80,0.06), rgba(255,213,79,0.1));
+  border-radius: var(--radius-sm);
+  margin: 20px 0;
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #2E7D32;
+  letter-spacing: 2px;
+}
+
+.metaphor-box {
+  text-align: center;
+  padding: 40px 32px;
+  background: linear-gradient(145deg, rgba(76,175,80,0.08), rgba(255,213,79,0.1), rgba(129,212,250,0.08));
+  border-radius: var(--radius);
+  margin: 20px 0;
+  border: 1px solid rgba(76,175,80,0.12);
+}
+.metaphor-box .metaphor-emoji {
+  font-size: 3.5rem;
+  margin-bottom: 16px;
+}
+.metaphor-box .metaphor-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #2E7D32;
+  margin-bottom: 12px;
+}
+.metaphor-box p {
+  max-width: 600px;
+  margin: 0 auto 12px;
+  font-size: 0.95rem;
+}
+
+.footer {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-light);
+  font-size: 0.82rem;
+}
+.footer .footer-line {
+  margin-bottom: 4px;
+}
+
+ul, ol { margin: 8px 0 12px 20px; }
+li { margin-bottom: 6px; font-size: 0.93rem; color: var(--text-secondary); }
+li strong { color: var(--text-primary); }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- ============================================================ -->
+<!-- HERO -->
+<!-- ============================================================ -->
+<div class="hero">
+  <div class="hero-badge">覺醒 v2 深度分析</div>
+  <h1>創運思維</h1>
+  <p class="subtitle">Lucky → Luck-Key ✦ 幸運不是偶然，是可以被創造的</p>
+  <p class="author">金度潤（김도윤）著 ｜ 游芯歆 譯</p>
+  <p class="tagline">「命，是弱者的藉口；運，是強者的謙辭！」</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 1：書籍資料卡 -->
+<!-- ============================================================ -->
+<div class="card step-1">
+  <div class="card-header">
+    <span class="step-number">1</span>
+    <h2>書籍資料卡</h2>
+  </div>
+
+  <div class="info-grid">
+    <div class="info-item">
+      <div class="label">書名</div>
+      <div class="value">創運思維</div>
+    </div>
+    <div class="info-item">
+      <div class="label">原文書名</div>
+      <div class="value">럭키 (Lucky)</div>
+    </div>
+    <div class="info-item">
+      <div class="label">作者</div>
+      <div class="value">金度潤（김도윤）</div>
+    </div>
+    <div class="info-item">
+      <div class="label">譯者</div>
+      <div class="value">游芯歆</div>
+    </div>
+    <div class="info-item">
+      <div class="label">類型</div>
+      <div class="value">成功學 / 自我成長</div>
+    </div>
+    <div class="info-item">
+      <div class="label">結構</div>
+      <div class="value">7 章（七大鑰匙）</div>
+    </div>
+    <div class="info-item">
+      <div class="label">作者身份</div>
+      <div class="value">韓國暢銷書作家、YouTube「金作家TV」130 萬訂閱</div>
+    </div>
+    <div class="info-item">
+      <div class="label">核心方法論</div>
+      <div class="value">幸運複利 × 七大鑰匙</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>📖 作者背景</h3>
+  <p>金度潤 30 歲才從地方大學畢業——在韓國這個極度重視學歷與「起跑線」的社會裡，他是妥妥的落後者。更殘酷的是家庭變故：父親中年失業改開計程車、哥哥罹患憂鬱症、母親自殺身亡，他自己也深陷憂鬱症泥沼。</p>
+  <p>在人生最低谷，他做了一件看似天真的事——花了十年，採訪超過 1,000 位成功人士（大企業總裁、國會議員、奧運金牌、頂尖網紅），每一次都問同一個問題：<strong>「您是怎麼成功的？」</strong></p>
+  <p>令他驚訝的是，幾乎所有人的答案都一樣：<strong>「我很幸運！」</strong></p>
+
+  <div class="quote-box">
+    為什麼成功的人總把成功「歸於」幸運，失敗的人則說失敗是「因為」運氣不好？——這個矛盾，成為金度潤追問十年的起點。
+  </div>
+
+  <p>他最終發現：<strong>Lucky 不是 Lucky，而是 Luck-Key（幸運之鑰）</strong>——運氣不是天上掉下來的禮物，而是可以像打造鑰匙一樣，一齒一齒地鍛造出來。</p>
+
+  <div class="highlight-box green">
+    <strong>🔑 閱讀價值：</strong>這不是又一本「正能量雞湯」。作者用自己從地獄般的底層爬起的真實經歷，加上 1,000 位成功人士的實證採訪，將「運氣」從玄學拉回到可操作的系統工程。適合所有覺得「自己不夠幸運」的人——因為這本書會告訴你，你不需要幸運，你需要的是打造幸運的工具。
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 2：核心命題 -->
+<!-- ============================================================ -->
+<div class="card step-2">
+  <div class="card-header">
+    <span class="step-number">2</span>
+    <h2>核心命題：問題 → 論點 → 方法</h2>
+  </div>
+
+  <h3>❓ 核心問題</h3>
+  <div class="highlight-box">
+    <p style="margin:0;font-size:1.05rem;">在一個看似由「運氣」主宰成敗的世界裡，<strong>那些起跑線落後的普通人，究竟能不能「製造」自己的運氣？</strong>如果可以，具體該怎麼做？</p>
+  </div>
+
+  <p>這個問題的力量在於它的雙重挑戰：一方面挑戰了東方宿命論（「命裡有時終須有」），另一方面也挑戰了西方純粹努力論（「只要夠努力就能成功」）。金度潤提出的是第三條路——運氣是可以被「工程化」的。</p>
+
+  <h3>💡 核心論點</h3>
+
+  <div class="formula-box">
+    幸運 ＝ 準備 × 機會 × 時間<sup>複利</sup>
+  </div>
+
+  <p><strong>論點一：運氣不是偶然事件，而是複利系統。</strong>如同投資的複利效應，人在製造「幸運之鑰」時也有複利。一開始運氣少得微乎其微，但隨著時間持續累積，終有一天會大到足以改變整個人生。這就是「幸運複利」。</p>
+
+  <p><strong>論點二：不是「運＋技」，而是「運×技」。</strong>技能不是加在運氣上的砝碼，而是放大運氣的乘數。一個有 10 分技能的人，遇到 1 分的運氣可以變成 10 分的成果；但一個 0 分技能的人，再大的運氣乘起來也是 0。</p>
+
+  <p><strong>論點三：運氣有七個可操作的維度。</strong>它不是一個模糊的概念，而是可以被拆解為人、觀察、速度、作息、覆盤、正向、行動七把具體的鑰匙。</p>
+
+  <h3>🔧 方法論架構</h3>
+
+  <div class="highlight-box green">
+    <p style="margin:0;"><strong>七把 Luck-Key（幸運之鑰）：</strong></p>
+    <ol>
+      <li><strong>人</strong> — 建立正確的人際網絡，找到你的「雪巴人」</li>
+      <li><strong>觀察</strong> — 訓練注意力，解讀趨勢與數據</li>
+      <li><strong>速度</strong> — 選對方向，建立效率飛輪</li>
+      <li><strong>作息</strong> — 打造日常系統，讓身體自動接住機會</li>
+      <li><strong>覆盤</strong> — 建立反思迴路，從失敗中萃取運氣</li>
+      <li><strong>正向</strong> — 扭轉受害者心態，在最壞時刻堅持到底</li>
+      <li><strong>行動</strong> — 踏出第一步，避開倖存者偏誤的陷阱</li>
+    </ol>
+  </div>
+
+  <p>這七把鑰匙不是並列的清單，而是一個螺旋上升的系統：從「人」開始打開外部連結，透過「觀察」捕捉機會信號，用「速度」加速執行，以「作息」穩定輸出，靠「覆盤」持續迭代，借「正向」心態撐過低谷，最終以「行動」將一切化為現實。七把鑰匙的複合效果，就是「幸運複利」。</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 3：主題式分析 -->
+<!-- ============================================================ -->
+<div class="card step-3">
+  <div class="card-header">
+    <span class="step-number">3</span>
+    <h2>主題式分析</h2>
+  </div>
+
+  <p style="color:var(--text-light);font-size:0.88rem;margin-bottom:24px;">六大核心主題 × 每主題七層深度解析</p>
+
+  <!-- 主題 1 -->
+  <div class="theme-card">
+    <h3>🍀 主題一：幸運複利——運氣的工程化思維</h3>
+
+    <div class="depth-layer">
+      <strong>Layer 1 表層論述：</strong>金度潤將「幸運」類比為投資的「複利」——一開始微不足道，但隨時間呈指數增長。幸運不是一次性的中獎，而是持續投入後的系統性回報。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 2 概念解構：</strong>「幸運複利」暗含三個假設：(a) 運氣可以被「投入」（即行動＝本金），(b) 時間是放大器（持續性＝複利期數），(c) 七把鑰匙是利率（方法論＝年化報酬率）。這把運氣從「形而上的玄學」拉到了「形而下的工程」。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 3 運作機制：</strong>複利需要三個條件——本金、利率、時間。對應到創運：本金是你的「行動量」，利率是你的「方法品質」（七把鑰匙），時間是你的「堅持長度」。缺任何一項，複利都不會啟動。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 4 隱含張力：</strong>複利的「指數曲線」意味著前期回報極低。這正是大多數人放棄的原因——他們只看到線性的投入，卻看不到指數的未來。金度潤用自己十年採訪的經歷證明：那些看似「突然幸運」的成功人士，其實都經歷了漫長的「複利累積期」。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 5 跨域連結：</strong>這與 James Clear《原子習慣》的「1% 法則」異曲同工——每天進步 1%，一年後你會變強 37 倍。也呼應巴菲特的名言：「人生就像滾雪球，重要的是找到夠濕的雪和夠長的坡。」金度潤的「幸運複利」本質上就是把巴菲特的投資智慧翻譯成了人生策略。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 6 批判反思：</strong>但複利模型有其盲點——它假設環境穩定、利率不變。現實中，人生充滿「黑天鵝」（母親自殺、突發疫情等），這些事件會讓複利歸零。金度潤用第六把鑰匙「正向」來回應這個問題，但「正向心態能否對抗結構性不公」仍是值得質疑的。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 7 終極洞見：</strong>幸運複利最深的啟示不是「堅持就會成功」，而是<strong>「放棄的成本是指數級的」</strong>。因為複利曲線是越到後面越陡峭，你在第九年放棄，損失的不是一年的努力，而是第十年可能爆發的全部回報。這個認知可以從根本上改變一個人對「堅持」的態度。
+    </div>
+  </div>
+
+  <!-- 主題 2 -->
+  <div class="theme-card">
+    <h3>👥 主題二：人際網絡作為運氣的基礎設施</h3>
+
+    <div class="depth-layer">
+      <strong>Layer 1 表層論述：</strong>第一把鑰匙就是「人」。金度潤認為好運的最大來源是人際連結——沒有雪巴人就不可能征服聖母峰，每個成功者背後都有關鍵的引路人。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 2 概念解構：</strong>他把人際關係分成三類：引路人（給你方向）、推力者（給你動力）、拉低者（消耗你的能量）。運氣管理的第一步不是「找貴人」，而是「遠離慣於失敗的人」——這是減法邏輯。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 3 運作機制：</strong>「書中自有貴人在」是最低成本的人際擴展——透過閱讀，你可以跨越時空與最頂尖的人對話。這也是金度潤自己的實踐：當他無法直接接觸成功人士時，先透過閱讀「預習」他們的思維框架，這讓他在真正訪談時能問出更好的問題。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 4 隱含張力：</strong>「沒做好準備就別想遇見貴人」這句話暗含殘酷的真相——社會網絡不是慈善機構，它是價值交換系統。貴人幫你，是因為你展現了值得投資的潛力。這與「無條件互助」的理想主義相矛盾，卻是人脈運作的真實邏輯。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 5 跨域連結：</strong>社會學家格蘭諾維特（Granovetter）的「弱連結理論」指出，帶來最多新機會的往往不是親密好友，而是「認識的人的認識的人」。金度潤的「為我打開另一扇窗的人」正是這種弱連結——轉機來自意想不到的人際連結。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 6 批判反思：</strong>「不同時期需要認識不同的人」暗示人脈是工具性的——你不斷更換圈子以匹配自己的成長階段。這種功利化的人際觀在韓國「關係社會」中可能有效，但在注重情義的華人文化中可能引發不適。問題是：如果每段人際關係都是為了「創運」，那友情的本質在哪裡？
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 7 終極洞見：</strong>金度潤把「人」放在七把鑰匙的第一位，不是因為人脈最重要，而是因為<strong>人是所有其他鑰匙的「倍增器」</strong>。你的觀察力、速度、覆盤能力都會因為身邊的人而被放大或縮小。選擇你的圈子，就是選擇你的命運的基準利率。
+    </div>
+  </div>
+
+  <!-- 主題 3 -->
+  <div class="theme-card">
+    <h3>👁️ 主題三：注意力經濟——觀察力即運氣入口</h3>
+
+    <div class="depth-layer">
+      <strong>Layer 1 表層論述：</strong>第二把鑰匙「觀察」的核心命題是：你關注的事，決定你的未來。注意力是有限資源，把它投在哪裡，運氣就在哪裡萌芽。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 2 概念解構：</strong>金度潤區分了「用直覺看世界」和「用數據看世界」。他舉例，廣播電視廣告市場萎縮 8.5%、報章雜誌也下滑——看到這個數據的人能提前佈局數位內容，看不到的人只能在舊賽道上越跑越辛苦。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 3 運作機制：</strong>作者自己的實踐就是最好的案例——他比別人多看報章雜誌，因此發現更多徵集活動和比賽消息。這不是天賦，而是「有系統地擴大注意力頻寬」。他提出「獲得好運的 4 種途徑」，將觀察力轉化為具體行動。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 4 隱含張力：</strong>「每一次選擇，串連成你的運氣」——這句話既令人振奮又令人恐懼。它意味著你此刻滑手機、看 Netflix 的每一分鐘，都在「選擇」不去觀察那些可能帶來幸運的信號。選擇的複利效應是雙向的：好選擇產生好運的複利，壞選擇也會產生厄運的複利。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 5 跨域連結：</strong>認知心理學中的「雞尾酒會效應」（Cocktail Party Effect）證明：你的大腦會自動篩選出你關注的信息。當你決定「觀察創業機會」，你的潛意識就會開始在日常生活中自動掃描相關信號。這就是觀察力的「RAS 效應」（網狀激活系統）。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 6 批判反思：</strong>在信息過載的時代，「多觀察」的建議可能適得其反——注意力過度分散會導致決策疲勞。金度潤強調的是「有方向的觀察」而非「全面撒網」，但書中對「如何選擇觀察方向」的指引相對薄弱。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 7 終極洞見：</strong>觀察力不只是「看到機會」，更是<strong>「看到別人看不到的模式」</strong>。金度潤自己就是最好的例子——1,000 個人都說「我很幸運」，但只有他看到了這句話背後的模式，並將其轉化成一套方法論。最高級的觀察，是觀察「觀察本身」。
+    </div>
+  </div>
+
+  <!-- 主題 4 -->
+  <div class="theme-card">
+    <h3>⚡ 主題四：乘法效應——技能如何放大運氣</h3>
+
+    <div class="depth-layer">
+      <strong>Layer 1 表層論述：</strong>第三把鑰匙「速度」中最顛覆性的觀點：不是「運＋技」，而是「運×技」。技能不是加法砝碼，而是乘法係數。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 2 概念解構：</strong>如果運氣＝5，技能＝10，加法結果是 15，乘法結果是 50。反過來，如果技能＝0，不管運氣多大，乘起來都是 0。這就是為什麼「準備好的人才能遇見貴人」——不是貴人不存在，是你的技能乘數太低，讓任何運氣都化為烏有。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 3 運作機制：</strong>金度潤提出「效率飛輪」概念——當你的技能足夠高，每一次行動產生的結果都會更好，好結果帶來更多機會，更多機會帶來更多練習，更多練習提升技能。這是一個自我強化的正向循環。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 4 隱含張力：</strong>「方向比速度重要」是對「只顧衝刺」的警示。很多人用 100% 的努力在錯誤的方向上奔跑，結果跑得越快，離目標越遠。「你需要矛？還是盾？」的提問迫使讀者先停下來思考策略，再談速度。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 5 跨域連結：</strong>管理學大師彼得．杜拉克說：「效率是把事情做對，效能是做對的事。」金度潤的「速度」不是單純的快，而是「在對的方向上快」——這是效能導向的速度觀，與矽谷「快速失敗、快速迭代」的理念一脈相承。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 6 批判反思：</strong>「溝通能力是加速器」這一觀點暗示：在韓國社會，表達力往往比實力更重要。這是否在無意中強化了「會說話的人比會做事的人更成功」的不公？金度潤的「說服力」建議可能在某些文化語境中被誤讀為「投機取巧」。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 7 終極洞見：</strong>「運×技」的真正力量不在於公式本身，而在於它改變了你對「運氣不好」的歸因方式。<strong>當你覺得運氣差時，問題可能不是運氣（被乘數），而是你的技能（乘數）。</strong>提升乘數，比等待好運要可控得多。
+    </div>
+  </div>
+
+  <!-- 主題 5 -->
+  <div class="theme-card">
+    <h3>🔄 主題五：覆盤——從失敗中萃取幸運</h3>
+
+    <div class="depth-layer">
+      <strong>Layer 1 表層論述：</strong>第五把鑰匙主張反思是幸運的加速器。建立工作與生活的覆盤習慣，能讓你從每一次經歷（無論成敗）中萃取出更多的「幸運成分」。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 2 概念解構：</strong>金度潤提出「運氣的 3 個悖論」：(a) 越不在意運氣的人越幸運，(b) 越能承受厄運的人越常遇到好運，(c) 越願意分享運氣的人運氣越多。這些反直覺的法則本質上都在說同一件事——<strong>運氣偏愛有覆盤能力的人</strong>。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 3 運作機制：</strong>「化酸民的螃蟹心態為運氣」展示了覆盤的實戰威力。當你被批評時，普通人的反應是憤怒或沮喪；覆盤者的反應是：「這個批評中有 10% 是對的嗎？如果有，我該如何調整？」這種把負能量轉化為改進動力的能力，就是覆盤的核心。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 4 隱含張力：</strong>「說話也能召喚好運」觸及了語言與現實的關係。金度潤相信語言的力量——你說什麼，就會吸引什麼。這介於「自我實現預言」（科學）和「吸引力法則」（玄學）之間，尺度拿捏非常微妙。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 5 跨域連結：</strong>美國軍方的 AAR（After Action Review）系統，矽谷的「事後檢討」（Postmortem）文化，以及日本的「反省」（はんせい）傳統，都是覆盤思維的不同文化變體。金度潤將覆盤與「運氣」掛鉤的做法，是在給一個本來「苦差事」的習慣賦予了更具吸引力的動機。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 6 批判反思：</strong>「禍福總是相倚」是塞翁失馬的現代版，但這個敘事有將苦難浪漫化的風險。不是所有的禍都能轉為福——結構性的不公、系統性的壓迫，不是靠個人覆盤就能翻轉的。金度潤的樂觀主義在面對真正的結構性問題時，可能顯得過於輕巧。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 7 終極洞見：</strong>覆盤的最深價值不是「從失敗中學習」，而是<strong>「改變你與失敗的關係」</strong>。當你把每次失敗都視為「幸運複利的一筆存款」，失敗就不再是終點，而是通往更大幸運的必經之路。這個心態轉換，才是第五把鑰匙真正打開的那扇門。
+    </div>
+  </div>
+
+  <!-- 主題 6 -->
+  <div class="theme-card">
+    <h3>🔥 主題六：逆境煉金——從地獄到 Luck-Key 的英雄之旅</h3>
+
+    <div class="depth-layer">
+      <strong>Layer 1 表層論述：</strong>第六把鑰匙「正向」和第七把鑰匙「行動」合力構成了全書最動人的主題——在最壞的情況下堅持到底，然後踏出改變命運的第一步。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 2 概念解構：</strong>金度潤的「正向」不是「積極思考」的正能量雞湯，而是從自己的地獄（父親失業、母親自殺、自己憂鬱症）中鍛造出的真實韌性。他要求讀者做的第一件事不是「想好事」，而是「放下自卑感和受害者心態」——這是減法，不是加法。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 3 運作機制：</strong>「殭屍習慣」是一個精彩的比喻——那些你無意識中重複的負面行為（刷手機、抱怨、拖延），就像殭屍一樣，雖然已經「死了」（不再帶來任何價值），卻還在無腦地佔據你的時間和能量。告別殭屍習慣，就是為新的幸運騰出空間。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 4 隱含張力：</strong>「倖存者偏誤是運氣殺手」是全書最具批判性的觀點。金度潤一邊講述成功故事，一邊提醒讀者：你聽到的成功案例都是倖存者——那些用同樣方法卻失敗的人，你永遠聽不到他們的聲音。這種自我矛盾的誠實，反而增強了論述的可信度。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 5 跨域連結：</strong>心理學家 Viktor Frankl 在《活出意義來》中寫道：「在刺激與回應之間，有一個空間。在那個空間裡，是我們選擇回應的力量。在我們的回應中，是我們的成長和自由。」金度潤的「化禍為福」與 Frankl 的「意義療法」本質相同——你無法控制發生在你身上的事，但你可以控制你如何回應。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 6 批判反思：</strong>以作者的個人悲劇作為「創運」的起點，既是最有說服力的論證，也是最危險的修辭。它可能被誤讀為「苦難是必要的」或「窮人不夠努力」。金度潤小心地避開了這個陷阱——他強調的是「在苦難中如何回應」，而非「苦難本身有價值」。但讀者是否能捕捉到這個微妙的區別，是個問題。
+    </div>
+    <div class="depth-layer">
+      <strong>Layer 7 終極洞見：</strong>全書最後一句——<strong>「如衝浪高手，等待自己的浪」</strong>——是整本書最高明的比喻。衝浪不是製造浪（你無法控制海洋），而是在浪來之前做好一切準備（體能、技巧、位置），然後在那個瞬間完美地乘上去。這就是「創運思維」的精髓：你創造的不是運氣本身，而是「接住運氣的能力」。
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 4：敘事弧線 -->
+<!-- ============================================================ -->
+<div class="card step-4">
+  <div class="card-header">
+    <span class="step-number">4</span>
+    <h2>敘事弧線</h2>
+  </div>
+
+  <p>金度潤的敘事結構是一個從「黑暗→追問→發現→實踐→超越」的完整英雄之旅，以個人悲劇為起點，以方法論為地圖，最終指向一種全新的人生哲學。</p>
+
+  <div class="arc-step">
+    <div class="arc-icon">🌑</div>
+    <div class="arc-content">
+      <h4>第一幕：深淵——「人生坎坷啊，一點運氣都沒有！」</h4>
+      <p>父親失業開計程車時的這句嘆息，在年幼的金度潤心中種下了一顆種子。後來母親自殺、哥哥憂鬱症、自己也陷入憂鬱⋯⋯他親身經歷了「沒有運氣」的人生是什麼模樣。敘事從地獄開始，讓讀者無法質疑作者談「運氣」的資格。</p>
+    </div>
+  </div>
+
+  <div class="arc-step">
+    <div class="arc-icon">❓</div>
+    <div class="arc-content">
+      <h4>第二幕：追問——「您是怎麼成功的？」</h4>
+      <p>30 歲才畢業的他，沒有選擇自怨自艾，而是做了一件反直覺的事：去問那些「幸運的人」到底是怎麼幸運的。十年、一千人、同一個問題——這種近乎偏執的追問構成了全書的方法論基礎。敘事張力在這裡建立：一個最不幸的人，去研究最幸運的人。</p>
+    </div>
+  </div>
+
+  <div class="arc-step">
+    <div class="arc-icon">🔑</div>
+    <div class="arc-content">
+      <h4>第三幕：頓悟——Lucky 不是 Lucky，是 Luck-Key</h4>
+      <p>所有成功人士都說「我很幸運」，但他們的行為模式卻揭示了完全不同的故事。金度潤發現了「幸運之鑰」的概念——運氣不是天上掉下來的，而是一把一把打造出來的。這個「文字遊戲」（Lucky → Luck-Key）既是修辭上的巧妙，也是認知上的突破。</p>
+    </div>
+  </div>
+
+  <div class="arc-step">
+    <div class="arc-icon">🗝️</div>
+    <div class="arc-content">
+      <h4>第四幕：七把鑰匙——系統性地拆解運氣</h4>
+      <p>從人、觀察、速度、作息、覆盤、正向到行動，七章構成了一個完整的「創運操作手冊」。每一章都有具體案例、可執行的方法、和作者的個人實踐。敘事節奏在這裡從「故事」轉為「教學」，但金度潤透過穿插個人經歷維持了敘事的溫度。</p>
+    </div>
+  </div>
+
+  <div class="arc-step">
+    <div class="arc-icon">🏄</div>
+    <div class="arc-content">
+      <h4>第五幕：超越——如衝浪高手，等待自己的浪</h4>
+      <p>後記中的「衝浪者」意象將全書提升到哲學高度。七把鑰匙不是讓你「製造浪」，而是讓你「準備好乘浪」。這個結尾將金度潤從「成功學作家」提升為「人生哲學家」——他不再教你如何成功，而是教你如何與命運共舞。</p>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>🧭 弧線結構特徵：</strong>整體呈現「V 字型敘事」——從谷底（家庭悲劇）到反彈（十年追問）到登頂（Luck-Key 體系）。這個結構本身就是「幸運複利」的最佳示範：作者的人生就是他自己方法論的活證明。
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 5：整合洞見 -->
+<!-- ============================================================ -->
+<div class="card step-5">
+  <div class="card-header">
+    <span class="step-number">5</span>
+    <h2>整合洞見</h2>
+  </div>
+
+  <h3>🔮 洞見一：運氣的「去魅化」與「再魅化」</h3>
+  <p>金度潤做了一件非常精巧的事：他先「去魅」——把運氣從神秘的天意拆解為可操作的七個變數（人、觀察、速度、作息、覆盤、正向、行動）。然後他又「再魅」——用「幸運複利」這個帶有魔法感的概念重新包裝，讓讀者在理性理解的同時保留了對「幸運」的浪漫想像。</p>
+  <p>這種「去魅→再魅」的雙重操作，讓這本書既能吸引相信科學方法的理性讀者，也能打動需要精神寄託的感性讀者。它是一本罕見的「兩面都押注」的書。</p>
+
+  <div class="divider"></div>
+
+  <h3>🔮 洞見二：韓國「起跑線文化」的反叛宣言</h3>
+  <p>在韓國，「수저론」（湯匙階級論）——金湯匙、銀湯匙、土湯匙——深深定義了年輕人的自我認知。金度潤出身「土湯匙」家庭，卻用十年的實證研究告訴年輕人：你手中的不是湯匙，而是鑰匙。</p>
+  <p>這不只是個人勵志，而是一種文化反叛。在一個被「出身決定命運」的宿命論壓得喘不過氣的社會裡，「創運思維」提供了一個替代敘事：<strong>你的起點不決定你的終點，只要你願意打造自己的鑰匙。</strong></p>
+
+  <div class="divider"></div>
+
+  <h3>🔮 洞見三：「受害者→創造者」的身份轉換</h3>
+  <p>全書最深刻的轉變不是方法論，而是身份認同的轉換。金度潤從一個「被命運虧待的受害者」變成了「主動打造幸運的創造者」。第六把鑰匙「正向」的核心不是「想好事」，而是拒絕「受害者身份」的誘惑。</p>
+  <p>這個洞見對華人讀者尤其重要——因為華文圈的成功學往往在「你要更努力」和「接受命運」之間擺盪，很少觸及「你是誰」這個身份問題。金度潤說的是：<strong>在改變你的做法之前，先改變你對自己的定義。</strong></p>
+
+  <div class="divider"></div>
+
+  <h3>🔮 洞見四：七把鑰匙的「隱藏順序」</h3>
+  <p>表面上看，七把鑰匙是並列的清單。但仔細分析，它們有一個隱藏的邏輯順序：</p>
+
+  <div class="highlight-box blue">
+    <ul>
+      <li><strong>外部擴張（1-2）：</strong>人 → 觀察——先打開外部連結，擴大信息入口</li>
+      <li><strong>內部優化（3-4）：</strong>速度 → 作息——優化個人執行系統</li>
+      <li><strong>元認知提升（5-6）：</strong>覆盤 → 正向——提升思維品質和心態韌性</li>
+      <li><strong>落地實踐（7）：</strong>行動——將一切轉化為現實</li>
+    </ul>
+    <p style="margin-top:12px;margin-bottom:0;">這個順序是「由外而內，再由內而外」的螺旋——先從外部世界獲取資源和信息，再回到內部優化自己，最後帶著更強的自己重返外部世界。</p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 6：缺席分析 -->
+<!-- ============================================================ -->
+<div class="card step-6">
+  <div class="card-header">
+    <span class="step-number">6</span>
+    <h2>缺席分析</h2>
+  </div>
+
+  <p style="color:var(--text-light);font-size:0.88rem;margin-bottom:20px;">書中「沒說的」往往和「說了的」一樣重要。以下是這本書刻意或無意間迴避的主題。</p>
+
+  <h3>🫥 缺席一：結構性不公與系統性障礙</h3>
+  <p>金度潤把運氣拆解為個人可控的七個變數，但完全迴避了「系統」層面的不公——性別歧視、階級固化、種族偏見、制度性腐敗。在韓國，「財閥壟斷」和「學歷歧視」不是個人靠「七把鑰匙」就能突破的。書中將所有問題都歸因於個人，忽略了社會結構對「運氣分配」的巨大影響。</p>
+
+  <h3>🫥 缺席二：失敗者的聲音</h3>
+  <p>作者自豪地採訪了 1,000 位成功人士，卻沒有採訪那些「做了同樣事情卻失敗」的人。這正是他自己在第七章提到的「倖存者偏誤」——諷刺的是，他的整個方法論就建立在倖存者的證詞之上。如果他也採訪 1,000 位「失敗者」，也許會發現他們同樣「有人脈、會觀察、很努力」，只是少了那一份無法被方法論捕捉的「真正的運氣」。</p>
+
+  <h3>🫥 缺席三：心理健康的深度處理</h3>
+  <p>金度潤提到自己和家人的憂鬱症經歷，但處理方式是「克服厄運」和「正向思維」。他沒有深入探討憂鬱症作為一種需要專業治療的疾病，可能給讀者一種「靠意志力就能戰勝心理疾病」的誤導。在心理健康日益受重視的今天，這個缺席尤為可惜。</p>
+
+  <h3>🫥 缺席四：特權的自覺</h3>
+  <p>雖然金度潤的出身確實困難，但他後來能夠「花十年採訪 1,000 位成功人士」本身就需要一定的時間自由和經濟基礎。書中沒有反思這個矛盾——並非所有「土湯匙」都有條件去實踐他所提倡的方法。</p>
+
+  <h3>🫥 缺席五：「不行動」的智慧</h3>
+  <p>七把鑰匙都在鼓勵「做更多」：更多人脈、更多觀察、更多速度、更多覆盤、更多行動。但道家的「無為」、佛教的「放下」、斯多噶學派的「接受」——這些「不行動的智慧」完全缺席。有時候，最大的幸運不是你做了什麼，而是你放下了什麼。</p>
+
+  <h3>🫥 缺席六：運氣的「上限」與「天花板效應」</h3>
+  <p>金度潤的幸運複利暗示運氣可以無限累積，但他沒有討論「邊際效益遞減」——當你已經很幸運時，額外的努力帶來的幸運增量可能越來越小。更深層的問題是：如果每個人都用七把鑰匙創運，那「運氣」是否就不再是運氣了？當所有人都「準備好」的時候，什麼決定了誰能接住機會？這個「零和博弈」的維度完全缺席。</p>
+
+  <h3>🫥 缺席七：科技與 AI 對「創運」的衝擊</h3>
+  <p>在 AI 快速取代重複性工作的時代，「勤奮」和「自律」的回報正在被重新定義。金度潤的七把鑰匙大多基於「人力密集」的假設——多讀報紙、多見人、多做覆盤。但當 AI 可以在幾秒內完成這些任務時，「創運」的遊戲規則可能正在根本性地改變。未來的「幸運之鑰」可能不再是勤奮，而是「與 AI 協作的能力」和「提出好問題的能力」。</p>
+
+  <div class="quote-box">
+    缺席不代表失敗，而是揭示了作者的「預設框架」：這是一本堅定的「個人主義 + 行動主義」之書。它相信個人能改變命運，它相信行動能創造運氣。這個框架既是它的力量來源，也是它的認知邊界。理想的閱讀方式是：帶著這些缺席的意識去讀，把書中的方法論當作「必要但不充分」的工具——個人努力是必要的，但別忘了它無法解決所有問題。
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 7：AI 第 N+1 章 -->
+<!-- ============================================================ -->
+<div class="card step-7">
+  <div class="card-header">
+    <span class="step-number">7</span>
+    <h2>AI 第八章：場——打造幸運的「引力場」</h2>
+  </div>
+
+  <div class="highlight-box green">
+    <p style="margin:0;font-size:0.92rem;">如果金度潤要寫第八把鑰匙，我認為他會寫「場」——不是物理學的場，而是你所營造的、能夠自動吸引幸運的「個人引力場」。</p>
+  </div>
+
+  <h3>💫 為什麼需要第八把鑰匙？</h3>
+  <p>金度潤的七把鑰匙有一個共同特徵：它們都是<strong>主動出擊</strong>的——找人脈、做觀察、提速度、調作息、做覆盤、保正向、採行動。但真正頂級的「幸運者」往往有一種更高級的能力：<strong>他們不需要主動尋找運氣，運氣會自己找上門。</strong></p>
+  <p>這就是「場」的力量。</p>
+
+  <h3>🧲 什麼是「幸運引力場」？</h3>
+  <p>「場」是你存在於這個世界的方式所自然產生的「吸引力半徑」。它包含三個層次：</p>
+
+  <div class="highlight-box">
+    <h4>第一層：聲譽場（Reputation Field）</h4>
+    <p style="margin-bottom:0;">你的名字在別人口中被提及時，他們會說什麼？當有人在背後討論「誰適合做這件事」的時候，你的名字會不會浮現？聲譽場決定了<strong>在你不在場的時候，運氣是否還會找到你</strong>。金度潤的七把鑰匙都假設你「在場」，但真正的幸運往往發生在你「不在場」的時刻——有人在你不知道的地方推薦了你。</p>
+  </div>
+
+  <div class="highlight-box blue">
+    <h4>第二層：作品場（Portfolio Field）</h4>
+    <p style="margin-bottom:0;">你留下了什麼可以被發現的「作品」？一篇文章、一個產品、一段影片、一次演講、甚至一則社群貼文。這些作品在網路上持續存在，像衛星一樣環繞著你，24 小時不間斷地替你吸引機會。金度潤自己就是最好的例子——他的 YouTube 頻道「金作家TV」就是他的作品場，130 萬訂閱就是他的幸運引力。</p>
+  </div>
+
+  <div class="highlight-box purple">
+    <h4>第三層：能量場（Energy Field）</h4>
+    <p style="margin-bottom:0;">你走進一個房間，帶來的是什麼能量？是焦慮、是抱怨、還是好奇和熱情？能量場是最微妙但最強大的吸引力——人們會不自覺地想靠近那些「讓自己感覺更好」的人。這不是玄學，這是神經科學——鏡像神經元讓我們下意識地「同步」周圍人的情緒狀態。</p>
+  </div>
+
+  <h3>🔑 如何打造你的幸運引力場？</h3>
+
+  <ol>
+    <li><strong>持續輸出，建立作品場：</strong>每週至少公開分享一次你的所學、所思、所做。不需要完美，需要持續。作品場的力量來自時間的複利——和「幸運複利」完全一致。</li>
+    <li><strong>慷慨助人，強化聲譽場：</strong>在不期待回報的情況下幫助別人。每一次無私的幫助，都是在別人心中存入一筆「聲譽存款」。這些存款會在你最需要的時候，以「運氣」的形式返還。</li>
+    <li><strong>管理能量，調頻能量場：</strong>注意你在社交場合散發的能量。這不是要你裝開心，而是要你真誠地帶著好奇心和學習意願出現在每一個場合。</li>
+    <li><strong>打造「可被發現」的節點：</strong>讓你的專長、興趣、成就在網路上可被搜索到。在 AI 和演算法的時代，「可被發現」就是「可被幸運找到」。</li>
+  </ol>
+
+  <div class="formula-box">
+    場 ＝ 聲譽 × 作品 × 能量 × 時間
+  </div>
+
+  <p>第八把鑰匙「場」的加入，讓七把鑰匙從「主動出擊系統」升級為「主動＋被動雙引擎系統」。你一邊用七把鑰匙主動創造運氣，一邊用「場」被動吸引運氣——這才是幸運複利的完整形態。</p>
+
+  <div class="quote-box">
+    「如衝浪高手，等待自己的浪」——但頂級衝浪者不只是等，他們讓海洋知道自己在那裡。這就是「場」。
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 8：跨領域連結 -->
+<!-- ============================================================ -->
+<div class="card step-8">
+  <div class="card-header">
+    <span class="step-number">8</span>
+    <h2>跨領域連結</h2>
+  </div>
+
+  <!-- 學科 1 -->
+  <h3>🧬 學科一：複雜系統科學——幸運作為「湧現現象」</h3>
+
+  <div class="highlight-box">
+    <p style="margin:0;"><strong>核心概念：</strong>湧現（Emergence）——當簡單元素以特定方式互動時，會產生任何單一元素都無法預測的全新特性。</p>
+  </div>
+
+  <p>金度潤的「幸運複利」在複雜系統科學中有一個更精確的名字：<strong>湧現（Emergence）</strong>。螞蟻個體智商極低，但螞蟻群體能建造精密的地下城市——這就是湧現。同樣地，人、觀察、速度、作息、覆盤、正向、行動這七個元素，個別看起來都很普通，但當它們以特定方式持續互動時，會「湧現」出一種全新的特性——我們稱之為「幸運」。</p>
+
+  <p><strong>關鍵洞見：</strong>幸運不是七個元素的「加總」，而是它們互動產生的「湧現」。這就是為什麼金度潤說「運×技」而非「運＋技」——乘法是湧現的數學表達，加法只是線性組合。</p>
+
+  <p>複雜系統科學還告訴我們兩件事：</p>
+  <ul>
+    <li><strong>初始條件敏感性（蝴蝶效應）：</strong>微小的行動差異可以導致巨大的結果差異。金度潤「多看一份報紙」這個微小行為，最終引發了他整個職業生涯的連鎖反應。</li>
+    <li><strong>臨界點（Tipping Point）：</strong>複利系統不是線性增長的，而是在累積到某個臨界點後突然爆發。這解釋了為什麼很多人在「即將成功」之前放棄——他們不知道自己離臨界點只差一步。</li>
+  </ul>
+
+  <p><strong>實用啟示：</strong>不要試圖「規劃」你的幸運——湧現是無法被精確預測的。但你可以「培育」湧現的條件：增加元素的多樣性（七把鑰匙）、增加互動的頻率（日常實踐）、增加系統的持續時間（堅持）。幸運會在這些條件成熟時自然湧現。</p>
+
+  <div class="divider"></div>
+
+  <!-- 學科 2 -->
+  <h3>🧠 學科二：行為經濟學——理性有限，但運氣可設計</h3>
+
+  <div class="highlight-box blue">
+    <p style="margin:0;"><strong>核心概念：</strong>選擇架構（Choice Architecture）——透過設計環境來引導決策，而非依賴個人意志力。</p>
+  </div>
+
+  <p>行為經濟學家 Richard Thaler 和 Cass Sunstein 在《推力》（Nudge）中提出：人類不是「理性經濟人」，而是容易受環境影響的「有限理性」生物。<strong>最有效的行為改變不是靠意志力，而是靠改變「選擇架構」</strong>——也就是改變你做決定的環境。</p>
+
+  <p>金度潤的七把鑰匙，本質上就是一套「幸運的選擇架構」：</p>
+  <ul>
+    <li><strong>「人」= 社會環境設計：</strong>選擇你的圈子，就是在設計你的社會選擇架構。遠離失敗者、靠近引路人——你不需要每次都「選擇正確」，你只需要身處一個讓正確選擇更容易的環境。</li>
+    <li><strong>「作息」= 行為預設值設計：</strong>Thaler 發現，把「參加退休金計劃」設為預設選項後，參加率從 40% 飆升到 90%。金度潤的「作息」鑰匙就是同一個邏輯：把有利於幸運的行為（早起、運動、閱讀）設為你每天的「預設值」。</li>
+    <li><strong>「覆盤」= 認知偏誤矯正器：</strong>人類有無數認知偏誤（確認偏誤、可得性偏誤、錨定效應），而覆盤是系統性地修正這些偏誤的工具。</li>
+  </ul>
+
+  <p><strong>關鍵洞見：</strong>金度潤的「自律＝運氣磁鐵」不完全對——光靠意志力，大多數人都會失敗。更精確的說法是：<strong>「系統設計＝運氣磁鐵」</strong>。不是讓自己「更有紀律」，而是讓有紀律的行為變得更容易。</p>
+
+  <p><strong>實用啟示：</strong>與其強迫自己「對自己狠一點」，不如重新設計你的生活環境，讓好的選擇成為阻力最小的選擇。把書放在枕頭旁，把手機放在另一個房間，把運動鞋擺在門口——這些微小的環境設計，比任何「正向思維」都更能持久地改變行為。</p>
+
+  <div class="divider"></div>
+
+  <!-- 學科 3 -->
+  <h3>🎲 學科三：概率論與統計——運氣的數學結構</h3>
+
+  <div class="highlight-box rose">
+    <p style="margin:0;"><strong>核心概念：</strong>貝氏更新（Bayesian Updating）——根據新證據不斷修正你對世界的信念。</p>
+  </div>
+
+  <p>從概率論的角度看，金度潤的方法論可以被翻譯為：<strong>增加有利事件的發生概率，同時減少不利事件的影響。</strong></p>
+
+  <p>具體來說：</p>
+  <ul>
+    <li><strong>增加「試驗次數」（行動）：</strong>如果每次嘗試有 5% 的成功率，嘗試 1 次的總成功率是 5%，嘗試 50 次的總成功率是 92.3%。金度潤的第七把鑰匙「行動」，本質就是增加試驗次數。</li>
+    <li><strong>提高「每次試驗的成功率」（觀察＋速度＋技能）：</strong>如果你能把每次嘗試的成功率從 5% 提升到 15%，只需要 15 次嘗試就能達到 91.2% 的總成功率。這就是「運×技」的數學意義。</li>
+    <li><strong>降低「失敗的代價」（覆盤＋正向）：</strong>即使失敗，也能從中學習（覆盤）並保持行動力（正向），這等於降低了每次失敗的「沉沒成本」。</li>
+    <li><strong>延長「遊戲時間」（作息＋幸運複利）：</strong>只要你還在遊戲中，就有機會贏。作息管理確保你不會因為健康崩潰而退出遊戲。</li>
+  </ul>
+
+  <p><strong>關鍵洞見：</strong>統計學家 Nassim Taleb 的「反脆弱」概念是最精確的補充——<strong>最好的策略不是避免失敗，而是建立一個「失敗時損失有限、成功時回報巨大」的不對稱系統。</strong>金度潤的七把鑰匙，本質上就是在建構這樣一個反脆弱系統。</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 9：文化轉譯 -->
+<!-- ============================================================ -->
+<div class="card step-9">
+  <div class="card-header">
+    <span class="step-number">9</span>
+    <h2>文化轉譯</h2>
+  </div>
+
+  <p>《創運思維》誕生於韓國特有的文化土壤。要真正理解這本書的力量和侷限，必須先理解它所回應的文化語境，然後思考它在華人社會中的適用性。</p>
+
+  <h3>🇰🇷 韓國語境：「起跑線落後者」的逆襲哲學</h3>
+
+  <div class="highlight-box">
+    <h4>湯匙階級論（수저론）</h4>
+    <p>韓國年輕世代發明了「湯匙階級論」來描述社會流動性的僵化：金湯匙（財閥家庭）、銀湯匙（上層中產）、銅湯匙（中產階級）、土湯匙（底層）。在這個框架下，你出生時含的是什麼湯匙，基本就決定了你的人生。</p>
+    <p style="margin-bottom:0;">金度潤用「Luck-Key」挑戰這個敘事：<strong>你手中的不是湯匙（被動接受的命運），而是鑰匙（主動打造的工具）。</strong>這個隱喻轉換在韓國社會是極具顛覆性的，因為它直接對抗了年輕世代的「放棄文化」（N 拋世代——放棄戀愛、結婚、生子、買房等人生大事）。</p>
+  </div>
+
+  <div class="highlight-box blue">
+    <h4>빨리빨리文化（快快快文化）</h4>
+    <p>韓國人以「빨리빨리（ppalli ppalli，快快快）」著稱——什麼都要快。在這個文化中，金度潤的「速度」鑰匙特別有共鳴，但他加了一個關鍵修正：<strong>「方向比速度重要。」</strong></p>
+    <p style="margin-bottom:0;">這是對韓國文化的內部批判：是的，我們擅長快，但我們常常「快錯方向」。빨리빨리帶來了經濟奇蹟，也帶來了世界最高的自殺率和最低的幸福指數。金度潤試圖在「快文化」中注入「方向感」，這是溫和而重要的文化修正。</p>
+  </div>
+
+  <h3>🇹🇼 華人語境轉譯</h3>
+
+  <div class="two-col">
+    <div class="highlight-box">
+      <h4>命 vs 運：東方宿命論的解構</h4>
+      <p style="margin-bottom:0;">華人說「命運」，金度潤把它拆開：「命」是你無法控制的出生條件（推薦序說「命，是弱者的藉口」），「運」是你可以主動創造的（「運，是強者的謙辭」）。在華人文化中，「認命」是一種常見的人生態度，而金度潤的「創運」思維直接挑戰了這個觀念：<strong>你可以不認命，因為運氣是可以被打造的。</strong></p>
+    </div>
+    <div class="highlight-box">
+      <h4>關係 vs 人脈：情義與功利的張力</h4>
+      <p style="margin-bottom:0;">金度潤把「人」當作第一把鑰匙，但韓式「인맥」（人脈）和華人的「關係」有微妙差異。華人「關係」強調「情義」和「長期互惠」，韓式人脈更直接、更功利。華人讀者需要注意：「不同時期認識不同的人」不意味著「用完就丟」，而是<strong>「讓你的社交圈與你一起成長」</strong>。</p>
+    </div>
+  </div>
+
+  <div class="highlight-box green">
+    <h4>🔄 文化翻譯的關鍵詞對照</h4>
+    <div class="two-col">
+      <div>
+        <p><strong>韓國原詞 → 華人理解</strong></p>
+        <ul>
+          <li>수저론（湯匙論）→ 投胎學、階級固化</li>
+          <li>빨리빨리 → 快文化、效率崇拜</li>
+          <li>눈치（nunchi，察言觀色）→ 社交敏感度</li>
+          <li>인맥（人脈）→ 關係、圈子</li>
+        </ul>
+      </div>
+      <div>
+        <p><strong>書中概念 → 華人對應</strong></p>
+        <ul>
+          <li>幸運複利 → 滾雪球、日積月累</li>
+          <li>運×技 → 天時地利人和</li>
+          <li>Luck-Key → 命不由天、事在人為</li>
+          <li>殭屍習慣 → 慣性、溫水煮蛙</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3>⚠️ 文化差異警示</h3>
+  <p><strong>需要調整的部分：</strong>金度潤的「說服力是加速器」在韓國文化中意味著「直接表達你的能力和價值」，但在華人文化中（尤其是台灣），過度自我推銷可能被視為「太會講」而引發反感。華人版本的這把鑰匙應該是<strong>「讓作品替你說話，讓口碑替你背書」</strong>——這與第八章「場」的理念更一致。</p>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 10：一個比喻說完整本書 -->
+<!-- ============================================================ -->
+<div class="card step-10">
+  <div class="card-header">
+    <span class="step-number">10</span>
+    <h2>一個比喻說完整本書</h2>
+  </div>
+
+  <div class="metaphor-box">
+    <div class="metaphor-emoji">🔐</div>
+    <div class="metaphor-title">整本書就像一個鎖匠學徒的故事</div>
+  </div>
+
+  <p>想像一個年輕人，他住在一座城市裡。城市裡到處都是上了鎖的門——機會之門、財富之門、幸福之門。大多數人站在門前嘆氣：「我沒有鑰匙，我不幸運。」</p>
+
+  <p>這個年輕人的父親也是如此。他一輩子站在鎖著的門前，嘆了一輩子的氣，說了一輩子的「人生坎坷啊，一點運氣都沒有」。</p>
+
+  <p>但年輕人做了一件不同的事。他沒有嘆氣，而是<strong>去觀察那些已經走進門裡的人</strong>。他花了十年，敲了一千扇已開的門，問每一個人同一個問題：「你是怎麼開門的？」</p>
+
+  <p>每個人都笑著說：「我很幸運，門就開了。」</p>
+
+  <p>但年輕人注意到一個細節——他們的口袋裡都有一串鑰匙。有的人有一把，有的人有七把。<strong>他們說的「幸運」，其實是鑰匙多到自己都忘了手裡有鑰匙。</strong></p>
+
+  <p>年輕人恍然大悟：</p>
+
+  <div class="quote-box">
+    鑰匙不是天上掉下來的。它是一齒一齒手工打磨出來的。打磨的工具有七種——人（從師傅那裡學手藝）、觀察（看清鎖孔的形狀）、速度（選對銼刀的方向）、作息（每天穩定地打磨）、覆盤（檢查齒是否吻合）、正向（即使斷了重來也不放棄）、行動（把鑰匙插進鎖孔轉動）。
+  </div>
+
+  <p>而最神奇的是<strong>「幸運複利」</strong>——你打造的第一把鑰匙可能很粗糙，只能開一扇小門。但小門裡有新的工具，讓你打造第二把更精準的鑰匙。第二把開的門裡有更好的工具⋯⋯如此循環，直到有一天，你發現自己手中的鑰匙已經精密到可以打開那些你曾以為永遠鎖著的大門。</p>
+
+  <p>而那些站在門外嘆氣的人，不是因為「沒有鑰匙」，而是因為<strong>他們從未拿起銼刀開始打磨</strong>。</p>
+
+  <div class="highlight-box green">
+    <p style="margin:0;text-align:center;font-family:'Noto Serif TC',serif;font-size:1.05rem;">
+      <strong>Lucky 不是「幸運地撿到鑰匙」，<br>而是「幸運地學會了做鑰匙」。<br><br>你不需要好運——你需要的是 Luck-Key。</strong>
+    </p>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- STEP 11：行動轉化 -->
+<!-- ============================================================ -->
+<div class="card step-11">
+  <div class="card-header">
+    <span class="step-number">11</span>
+    <h2>行動轉化</h2>
+  </div>
+
+  <p style="color:var(--text-light);font-size:0.88rem;margin-bottom:24px;">將七把 Luck-Key 轉化為可立即執行的行動計畫，分為「今天就做」「本週啟動」「本月建立」三個時間框架。</p>
+
+  <h3>⚡ 今天就做（30 分鐘內可完成）</h3>
+
+  <div class="action-item">
+    <div class="action-icon">👥</div>
+    <div class="action-text">
+      <h4>鑰匙一「人」：盤點你的五人圈</h4>
+      <p>寫下你最常接觸的 5 個人的名字。問自己：他們讓我變得更好還是更差？哪一個是我的「雪巴人」？如果沒有，我希望在哪個領域找到一位？——在手機備忘錄裡寫下答案。</p>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-icon">👁️</div>
+    <div class="action-text">
+      <h4>鑰匙二「觀察」：設定三個信息雷達</h4>
+      <p>選擇你最想發展的領域，設定 3 個 Google Alert 關鍵字。從今天開始，讓信息主動來找你，而不是你被動刷社群。</p>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-icon">📝</div>
+    <div class="action-text">
+      <h4>鑰匙五「覆盤」：寫今天的「三件事」</h4>
+      <p>睡前花 5 分鐘，寫下今天的「一件做對的事、一件做錯的事、一件明天要做的事」。這是最小版本的覆盤習慣，但它的複利效應驚人。</p>
+    </div>
+  </div>
+
+  <h3>🚀 本週啟動（7 天內建立雛形）</h3>
+
+  <div class="action-item">
+    <div class="action-icon">📚</div>
+    <div class="action-text">
+      <h4>鑰匙一「人」：啟動「書中貴人」計畫</h4>
+      <p>選一本你想發展的領域的經典書籍，本週讀完。讀完後寫 300 字的讀後感並發到社群——這同時啟動了「觀察」（閱讀）、「行動」（分享）和「場」（作品場）三把鑰匙。</p>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-icon">⚡</div>
+    <div class="action-text">
+      <h4>鑰匙三「速度」：找到你的「飛輪第一推」</h4>
+      <p>問自己：在我目前的工作/專案中，哪一個行動可以產生最大的連鎖效應？把 80% 的精力投入那一件事。記住：方向比速度重要。</p>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-icon">🧟</div>
+    <div class="action-text">
+      <h4>鑰匙六「正向」：辨識並消滅一個殭屍習慣</h4>
+      <p>觀察自己一週，找出一個「殭屍習慣」——那個你無意識在做、已經不帶來任何價值的行為（例如：起床先滑 30 分鐘 IG）。本週嘗試用一個「建設性行為」替換它。</p>
+    </div>
+  </div>
+
+  <h3>🏗️ 本月建立（30 天內形成系統）</h3>
+
+  <div class="action-item">
+    <div class="action-icon">🕐</div>
+    <div class="action-text">
+      <h4>鑰匙四「作息」：設計你的「命運之輪」晨間程序</h4>
+      <p>建立一個 60 分鐘的晨間程序：15 分鐘閱讀（觀察）+ 15 分鐘運動（作息）+ 15 分鐘寫作/學習（速度）+ 15 分鐘覆盤昨日。連續做 30 天。前 10 天會很痛苦，第 20 天開始會上癮。</p>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-icon">🤝</div>
+    <div class="action-text">
+      <h4>鑰匙一「人」：主動接觸 3 位「弱連結」</h4>
+      <p>從你的社交網絡中，找出 3 位「認識但不熟」的人，主動約他們咖啡/線上聊天。不帶任何目的，只是好奇地了解他們在做什麼。記住：最大的機會往往來自弱連結。</p>
+    </div>
+  </div>
+
+  <div class="action-item">
+    <div class="action-icon">🏄</div>
+    <div class="action-text">
+      <h4>綜合：啟動你的「幸運複利帳戶」</h4>
+      <p>建立一個文件/筆記本，每週記錄一次「本週的幸運時刻」和「本週用了哪幾把鑰匙」。一個月後回顧，你會驚訝地發現：<strong>當你開始有意識地「觀察」幸運，幸運就開始增多了。</strong>這不是玄學——這是注意力的 RAS 效應。</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>📊 行動追蹤表</h3>
+
+  <div class="highlight-box green">
+    <p><strong>每日最低行動量（「幸運複利」最低存款額）：</strong></p>
+    <ul>
+      <li>✅ 寫「三件事」覆盤（5 分鐘）</li>
+      <li>✅ 閱讀 15 分鐘（書中貴人）</li>
+      <li>✅ 掃一眼信息雷達（3 分鐘）</li>
+    </ul>
+    <p style="margin-bottom:0;"><strong>每日投入：約 25 分鐘。</strong>這就是你每天存入「幸運複利帳戶」的最低本金。23 分鐘改變不了今天，但 365 天 × 23 分鐘的複利，可以改變你的一生。</p>
+  </div>
+
+  <div class="quote-box">
+    「踏出第一步」不是勇氣的問題，而是認知的問題。當你理解了「幸運複利」，你就會知道：<strong>今天不行動的成本，不是損失一天，而是損失了一天的複利——而且是複利曲線最末端、增長最快的那一段。</strong><br><br>所以，現在就開始。不是明天，不是下週一，是現在。<br><br>因為你的浪，可能正在路上。🏄
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- FOOTER -->
+<!-- ============================================================ -->
+<div class="footer">
+  <div class="footer-line">📖 覺醒 v2 深度分析報告｜《創運思維》— 金度潤</div>
+  <div class="footer-line">Lucky → Luck-Key ✦ 幸運之鑰不是撿來的，是打造出來的</div>
+  <div class="footer-line" style="margin-top:8px;">Generated by 🐉 龍龍 · 2026-03-11</div>
+</div>
+
+</div><!-- /container -->
+</body>
+</html>
