@@ -1,0 +1,1935 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>覺醒報告｜人比AI凶 — 萬維鋼</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700;900&display=swap');
+
+  :root {
+    --bg-primary: #FDF6F0;
+    --bg-secondary: #FFF9F5;
+    --bg-card: #FFFFFF;
+    --accent-rose: #E8A0BF;
+    --accent-peach: #F4C2A1;
+    --accent-lavender: #C3AED6;
+    --accent-mint: #A8D8B9;
+    --accent-sky: #A6C8E0;
+    --accent-coral: #F0A697;
+    --accent-gold: #E8C87A;
+    --accent-plum: #B68CB8;
+    --accent-teal: #7EC8C8;
+    --accent-flame: #E07B54;
+    --accent-deep: #6B5B7B;
+    --text-primary: #2D2A32;
+    --text-secondary: #5A5662;
+    --text-muted: #8E8A96;
+    --text-light: #B0ACB8;
+    --glass-bg: rgba(255, 255, 255, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.45);
+    --shadow-soft: 0 4px 24px rgba(45, 42, 50, 0.06);
+    --shadow-medium: 0 8px 40px rgba(45, 42, 50, 0.08);
+    --shadow-float: 0 16px 56px rgba(45, 42, 50, 0.12);
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 28px;
+    --radius-xl: 36px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ═══════════════════════════════════════ */
+  /*  Hero Section                          */
+  /* ═══════════════════════════════════════ */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #2D2A32 0%, #4A3F5C 30%, #6B5B7B 60%, #8E7BA8 100%);
+    overflow: hidden;
+    padding: 3rem 1.5rem;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    right: -20%;
+    width: 80vw;
+    height: 80vw;
+    background: radial-gradient(circle, rgba(232,160,191,0.25) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: heroFloat 20s ease-in-out infinite;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -30%;
+    left: -15%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(166,200,224,0.2) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: heroFloat 15s ease-in-out infinite reverse;
+  }
+
+  @keyframes heroFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.05); }
+    66% { transform: translate(-20px, 15px) scale(0.97); }
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: rgba(232,160,191,0.2);
+    border: 1px solid rgba(232,160,191,0.4);
+    border-radius: 50px;
+    color: var(--accent-rose);
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-weight: 900;
+    color: #FFFFFF;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+  }
+
+  .hero-title .highlight {
+    background: linear-gradient(135deg, var(--accent-rose), var(--accent-peach));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+    color: rgba(255,255,255,0.7);
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    line-height: 1.8;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: rgba(255,255,255,0.5);
+    font-size: 0.9rem;
+  }
+
+  .hero-meta-item .icon {
+    font-size: 1.1rem;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    color: rgba(255,255,255,0.4);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-align: center;
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  .hero-scroll::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    margin: 0.5rem auto 0;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 0.8; transform: translateX(-50%) translateY(5px); }
+  }
+
+  /* ═══════════════════════════════════════ */
+  /*  Navigation                            */
+  /* ═══════════════════════════════════════ */
+  .nav-container {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(253,246,240,0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(45,42,50,0.06);
+    padding: 0.8rem 0;
+  }
+
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    gap: 0.4rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-pill {
+    flex-shrink: 0;
+    padding: 0.45rem 1rem;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    border: 1px solid transparent;
+  }
+
+  .nav-pill:hover {
+    color: var(--text-primary);
+    background: rgba(232,160,191,0.1);
+    border-color: rgba(232,160,191,0.2);
+  }
+
+  .nav-pill.active {
+    background: linear-gradient(135deg, var(--accent-rose), var(--accent-lavender));
+    color: #FFF;
+    box-shadow: 0 2px 12px rgba(232,160,191,0.3);
+  }
+
+  /* ═══════════════════════════════════════ */
+  /*  Main Container                        */
+  /* ═══════════════════════════════════════ */
+  .main-container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 6rem;
+  }
+
+  /* ═══════════════════════════════════════ */
+  /*  Card Base                             */
+  /* ═══════════════════════════════════════ */
+  .card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(45,42,50,0.04);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-medium);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  .card-step-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+
+  .card-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    line-height: 1.4;
+    margin-bottom: 0.6rem;
+    color: var(--text-primary);
+  }
+
+  .card-subtitle {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    font-weight: 300;
+  }
+
+  /* Card Variants */
+  .card-rose::before { background: linear-gradient(90deg, var(--accent-rose), var(--accent-peach)); }
+  .card-rose .card-step-label { background: rgba(232,160,191,0.12); color: #C47A9E; }
+
+  .card-lavender::before { background: linear-gradient(90deg, var(--accent-lavender), var(--accent-sky)); }
+  .card-lavender .card-step-label { background: rgba(195,174,214,0.15); color: #8E72A8; }
+
+  .card-mint::before { background: linear-gradient(90deg, var(--accent-mint), var(--accent-teal)); }
+  .card-mint .card-step-label { background: rgba(168,216,185,0.15); color: #5FA87A; }
+
+  .card-peach::before { background: linear-gradient(90deg, var(--accent-peach), var(--accent-gold)); }
+  .card-peach .card-step-label { background: rgba(244,194,161,0.15); color: #C48A5A; }
+
+  .card-sky::before { background: linear-gradient(90deg, var(--accent-sky), var(--accent-teal)); }
+  .card-sky .card-step-label { background: rgba(166,200,224,0.15); color: #5A8AAE; }
+
+  .card-coral::before { background: linear-gradient(90deg, var(--accent-coral), var(--accent-flame)); }
+  .card-coral .card-step-label { background: rgba(240,166,151,0.15); color: #C4705E; }
+
+  .card-gold::before { background: linear-gradient(90deg, var(--accent-gold), var(--accent-peach)); }
+  .card-gold .card-step-label { background: rgba(232,200,122,0.15); color: #A8883A; }
+
+  .card-plum::before { background: linear-gradient(90deg, var(--accent-plum), var(--accent-rose)); }
+  .card-plum .card-step-label { background: rgba(182,140,184,0.15); color: #8E5E90; }
+
+  .card-teal::before { background: linear-gradient(90deg, var(--accent-teal), var(--accent-mint)); }
+  .card-teal .card-step-label { background: rgba(126,200,200,0.15); color: #4A9090; }
+
+  .card-flame::before { background: linear-gradient(90deg, var(--accent-flame), var(--accent-coral)); }
+  .card-flame .card-step-label { background: rgba(224,123,84,0.15); color: #B85A3A; }
+
+  .card-deep::before { background: linear-gradient(90deg, var(--accent-deep), var(--accent-lavender)); }
+  .card-deep .card-step-label { background: rgba(107,91,123,0.15); color: #5A4A6E; }
+
+  /* ═══════════════════════════════════════ */
+  /*  Section Components                    */
+  /* ═══════════════════════════════════════ */
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 2rem 0 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .section-title .icon {
+    font-size: 1.2rem;
+  }
+
+  .prose {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.95;
+    margin-bottom: 1.2rem;
+  }
+
+  .prose strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* Glass Box */
+  .glass-box {
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin: 1.2rem 0;
+  }
+
+  /* Insight Block */
+  .insight-block {
+    background: linear-gradient(135deg, rgba(232,160,191,0.06), rgba(195,174,214,0.06));
+    border-left: 3px solid var(--accent-rose);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 1.2rem 1.5rem;
+    margin: 1.2rem 0;
+  }
+
+  .insight-block.mint {
+    background: linear-gradient(135deg, rgba(168,216,185,0.08), rgba(126,200,200,0.06));
+    border-left-color: var(--accent-mint);
+  }
+
+  .insight-block.sky {
+    background: linear-gradient(135deg, rgba(166,200,224,0.08), rgba(126,200,200,0.06));
+    border-left-color: var(--accent-sky);
+  }
+
+  .insight-block.gold {
+    background: linear-gradient(135deg, rgba(232,200,122,0.08), rgba(244,194,161,0.06));
+    border-left-color: var(--accent-gold);
+  }
+
+  .insight-block.coral {
+    background: linear-gradient(135deg, rgba(240,166,151,0.08), rgba(224,123,84,0.06));
+    border-left-color: var(--accent-coral);
+  }
+
+  .insight-block.plum {
+    background: linear-gradient(135deg, rgba(182,140,184,0.08), rgba(195,174,214,0.06));
+    border-left-color: var(--accent-plum);
+  }
+
+  .insight-block.flame {
+    background: linear-gradient(135deg, rgba(224,123,84,0.08), rgba(240,166,151,0.06));
+    border-left-color: var(--accent-flame);
+  }
+
+  .insight-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.7;
+  }
+
+  /* Quote Block */
+  .quote-block {
+    position: relative;
+    background: linear-gradient(135deg, rgba(107,91,123,0.04), rgba(195,174,214,0.06));
+    border-radius: var(--radius-md);
+    padding: 2rem 2rem 2rem 3.5rem;
+    margin: 1.5rem 0;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.8;
+  }
+
+  .quote-block::before {
+    content: '"';
+    position: absolute;
+    top: 0.8rem;
+    left: 1rem;
+    font-size: 3rem;
+    font-family: Georgia, serif;
+    color: var(--accent-lavender);
+    opacity: 0.5;
+    line-height: 1;
+  }
+
+  .quote-source {
+    display: block;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-top: 0.8rem;
+  }
+
+  /* Tag System */
+  .tag-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    border: 1px solid;
+  }
+
+  .tag-rose { background: rgba(232,160,191,0.08); border-color: rgba(232,160,191,0.25); color: #C47A9E; }
+  .tag-lavender { background: rgba(195,174,214,0.08); border-color: rgba(195,174,214,0.25); color: #8E72A8; }
+  .tag-mint { background: rgba(168,216,185,0.08); border-color: rgba(168,216,185,0.25); color: #5FA87A; }
+  .tag-sky { background: rgba(166,200,224,0.08); border-color: rgba(166,200,224,0.25); color: #5A8AAE; }
+  .tag-coral { background: rgba(240,166,151,0.08); border-color: rgba(240,166,151,0.25); color: #C4705E; }
+  .tag-gold { background: rgba(232,200,122,0.08); border-color: rgba(232,200,122,0.25); color: #A8883A; }
+  .tag-plum { background: rgba(182,140,184,0.08); border-color: rgba(182,140,184,0.25); color: #8E5E90; }
+  .tag-flame { background: rgba(224,123,84,0.08); border-color: rgba(224,123,84,0.25); color: #B85A3A; }
+
+  /* Grid Layouts */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.2rem;
+    margin: 1.2rem 0;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1.2rem 0;
+  }
+
+  .grid-item {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    border: 1px solid rgba(45,42,50,0.04);
+    transition: transform 0.2s ease;
+  }
+
+  .grid-item:hover {
+    transform: translateY(-2px);
+  }
+
+  .grid-item-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .grid-item-text {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* Metric Cards */
+  .metric-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .metric-card {
+    text-align: center;
+    padding: 1.5rem 1rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+  }
+
+  .metric-value {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    line-height: 1.2;
+  }
+
+  .metric-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+    font-weight: 500;
+  }
+
+  /* Numbered List */
+  .numbered-list {
+    list-style: none;
+    counter-reset: item;
+    margin: 1rem 0;
+  }
+
+  .numbered-list li {
+    counter-increment: item;
+    padding: 0.8rem 0 0.8rem 2.8rem;
+    position: relative;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    border-bottom: 1px solid rgba(45,42,50,0.04);
+  }
+
+  .numbered-list li:last-child { border-bottom: none; }
+
+  .numbered-list li::before {
+    content: counter(item, decimal-leading-zero);
+    position: absolute;
+    left: 0;
+    top: 0.8rem;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-rose);
+    opacity: 0.7;
+  }
+
+  /* Table */
+  .table-wrapper {
+    overflow-x: auto;
+    margin: 1.2rem 0;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(45,42,50,0.06);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+  }
+
+  th {
+    background: linear-gradient(135deg, rgba(232,160,191,0.08), rgba(195,174,214,0.08));
+    padding: 0.9rem 1.2rem;
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.82rem;
+    letter-spacing: 0.5px;
+  }
+
+  td {
+    padding: 0.8rem 1.2rem;
+    border-top: 1px solid rgba(45,42,50,0.04);
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  tr:hover td {
+    background: rgba(232,160,191,0.03);
+  }
+
+  /* Progress Bar */
+  .progress-bar {
+    background: rgba(45,42,50,0.06);
+    border-radius: 50px;
+    height: 8px;
+    overflow: hidden;
+    margin: 0.5rem 0;
+  }
+
+  .progress-fill {
+    height: 100%;
+    border-radius: 50px;
+    transition: width 1s ease;
+  }
+
+  .progress-fill.rose { background: linear-gradient(90deg, var(--accent-rose), var(--accent-peach)); }
+  .progress-fill.lavender { background: linear-gradient(90deg, var(--accent-lavender), var(--accent-sky)); }
+  .progress-fill.mint { background: linear-gradient(90deg, var(--accent-mint), var(--accent-teal)); }
+  .progress-fill.gold { background: linear-gradient(90deg, var(--accent-gold), var(--accent-peach)); }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.5rem;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent-rose), var(--accent-lavender), var(--accent-mint));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -1.55rem;
+    top: 0.5rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent-rose);
+    border: 2px solid var(--bg-card);
+    box-shadow: 0 0 0 3px rgba(232,160,191,0.2);
+  }
+
+  .timeline-item:nth-child(2)::before { background: var(--accent-lavender); box-shadow: 0 0 0 3px rgba(195,174,214,0.2); }
+  .timeline-item:nth-child(3)::before { background: var(--accent-mint); box-shadow: 0 0 0 3px rgba(168,216,185,0.2); }
+  .timeline-item:nth-child(4)::before { background: var(--accent-sky); box-shadow: 0 0 0 3px rgba(166,200,224,0.2); }
+  .timeline-item:nth-child(5)::before { background: var(--accent-gold); box-shadow: 0 0 0 3px rgba(232,200,122,0.2); }
+  .timeline-item:nth-child(6)::before { background: var(--accent-coral); box-shadow: 0 0 0 3px rgba(240,166,151,0.2); }
+  .timeline-item:nth-child(7)::before { background: var(--accent-plum); box-shadow: 0 0 0 3px rgba(182,140,184,0.2); }
+
+  .timeline-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .timeline-text {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* Accordion */
+  .accordion { margin: 1rem 0; }
+
+  .accordion-item {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+    border: 1px solid rgba(45,42,50,0.04);
+  }
+
+  .accordion-header {
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.92rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background 0.2s;
+    user-select: none;
+  }
+
+  .accordion-header:hover {
+    background: rgba(232,160,191,0.05);
+  }
+
+  .accordion-header::after {
+    content: '▾';
+    margin-left: auto;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    transition: transform 0.3s;
+  }
+
+  .accordion-item.open .accordion-header::after {
+    transform: rotate(180deg);
+  }
+
+  .accordion-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  .accordion-item.open .accordion-body {
+    max-height: 2000px;
+  }
+
+  .accordion-content {
+    padding: 0 1.5rem 1.2rem;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  /* Comparison Block */
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .comparison-side {
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+  }
+
+  .comparison-side.left {
+    background: linear-gradient(135deg, rgba(240,166,151,0.08), rgba(224,123,84,0.06));
+    border: 1px solid rgba(240,166,151,0.15);
+  }
+
+  .comparison-side.right {
+    background: linear-gradient(135deg, rgba(168,216,185,0.08), rgba(126,200,200,0.06));
+    border: 1px solid rgba(168,216,185,0.15);
+  }
+
+  .comparison-title {
+    font-weight: 700;
+    font-size: 0.92rem;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .comparison-list {
+    list-style: none;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+  }
+
+  .comparison-list li {
+    padding: 0.4rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .comparison-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+  }
+
+  /* Highlight Box */
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(232,160,191,0.08), rgba(244,194,161,0.06), rgba(195,174,214,0.08));
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    margin: 1.5rem 0;
+    text-align: center;
+    border: 1px solid rgba(232,160,191,0.15);
+  }
+
+  .highlight-box .big-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--text-primary);
+    line-height: 1.5;
+    margin-bottom: 0.5rem;
+  }
+
+  .highlight-box .small-text {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(45,42,50,0.08), transparent);
+    margin: 2rem 0;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: linear-gradient(135deg, #2D2A32 0%, #4A3F5C 100%);
+    color: rgba(255,255,255,0.5);
+    font-size: 0.82rem;
+  }
+
+  .footer-logo {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 0.5rem;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .card { padding: 1.8rem 1.5rem; }
+    .comparison { grid-template-columns: 1fr; }
+    .hero { min-height: 80vh; }
+    .hero-meta { gap: 1rem; }
+    .metric-row { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .card { padding: 1.5rem 1.2rem; border-radius: var(--radius-md); }
+    .card-title { font-size: 1.4rem; }
+    .quote-block { padding: 1.5rem 1.5rem 1.5rem 2.5rem; font-size: 1rem; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .metric-row { grid-template-columns: 1fr 1fr; }
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card {
+    animation: fadeInUp 0.6s ease both;
+  }
+
+  .card:nth-child(2) { animation-delay: 0.05s; }
+  .card:nth-child(3) { animation-delay: 0.1s; }
+
+  /* Concept Card Special */
+  .concept-card {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid;
+    transition: transform 0.2s ease;
+  }
+
+  .concept-card:hover { transform: translateX(4px); }
+
+  .concept-card .concept-name {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .concept-card .concept-def {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: 0.6rem;
+  }
+
+  .concept-card .concept-example {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-style: italic;
+    padding-left: 1rem;
+    border-left: 2px solid rgba(45,42,50,0.08);
+  }
+
+  /* Radar / Score Visual */
+  .score-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 0.6rem 0;
+  }
+
+  .score-label {
+    font-size: 0.82rem;
+    font-weight: 500;
+    width: 80px;
+    flex-shrink: 0;
+    color: var(--text-secondary);
+  }
+
+  .score-track {
+    flex: 1;
+    height: 8px;
+    background: rgba(45,42,50,0.06);
+    border-radius: 50px;
+    overflow: hidden;
+  }
+
+  .score-fill {
+    height: 100%;
+    border-radius: 50px;
+  }
+
+  .score-value {
+    font-size: 0.82rem;
+    font-weight: 700;
+    width: 35px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* Flow Diagram */
+  .flow-steps {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .flow-step {
+    background: var(--bg-secondary);
+    border-radius: var(--radius-sm);
+    padding: 0.8rem 1.2rem;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-align: center;
+    border: 1px solid rgba(45,42,50,0.06);
+    min-width: 100px;
+  }
+
+  .flow-arrow {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    padding: 0 0.3rem;
+  }
+
+  /* Big Number */
+  .big-number {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 3.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--accent-rose), var(--accent-lavender));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+  }
+
+  /* Checklist */
+  .checklist {
+    list-style: none;
+    margin: 1rem 0;
+  }
+
+  .checklist li {
+    padding: 0.6rem 0 0.6rem 2rem;
+    position: relative;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .checklist li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    top: 0.6rem;
+    width: 1.4rem;
+    height: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    border-radius: 50%;
+    background: rgba(168,216,185,0.15);
+    color: var(--accent-mint);
+  }
+
+  /* Warning box */
+  .warning-box {
+    background: rgba(224,123,84,0.06);
+    border: 1px solid rgba(224,123,84,0.15);
+    border-radius: var(--radius-md);
+    padding: 1.2rem 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .warning-box .warning-title {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--accent-flame);
+    margin-bottom: 0.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .warning-box .warning-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* Star Rating */
+  .star-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    margin: 0.5rem 0;
+  }
+
+  .star-rating .star {
+    font-size: 1.2rem;
+    color: var(--accent-gold);
+  }
+
+  .star-rating .star.empty {
+    color: rgba(45,42,50,0.1);
+  }
+
+  .star-rating .rating-text {
+    margin-left: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- HERO SECTION                                                -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">覺醒 v2 ✦ 深度書籍分析報告</div>
+    <h1 class="hero-title">
+      <span class="highlight">人比AI凶</span>
+    </h1>
+    <p class="hero-subtitle">
+      當 AI 無所不能，人靠意識、意志與智慧不可替代<br>
+      AI 時代的人類定位宣言
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><span class="icon">✍️</span> 萬維鋼</div>
+      <div class="hero-meta-item"><span class="icon">📐</span> 序 + 7 篇 + 跋（50篇文章）</div>
+      <div class="hero-meta-item"><span class="icon">🏷️</span> AI × 人文 × 思維升級</div>
+      <div class="hero-meta-item"><span class="icon">📅</span> 2025</div>
+    </div>
+  </div>
+  <div class="hero-scroll">SCROLL</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- NAVIGATION                                                  -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<nav class="nav-container">
+  <div class="nav-inner">
+    <a href="#step1" class="nav-pill">01 DNA解碼</a>
+    <a href="#step2" class="nav-pill">02 意圖透視</a>
+    <a href="#step3" class="nav-pill">03 論點拆解</a>
+    <a href="#step4" class="nav-pill">04 結構骨架</a>
+    <a href="#step5" class="nav-pill">05 概念深潛</a>
+    <a href="#step6" class="nav-pill">06 邏輯評估</a>
+    <a href="#step7" class="nav-pill">07 金句結晶</a>
+    <a href="#step8" class="nav-pill">08 實踐轉化</a>
+    <a href="#step9" class="nav-pill">09 跨域連結</a>
+    <a href="#step10" class="nav-pill">10 批判反思</a>
+    <a href="#step11" class="nav-pill">11 覺醒宣言</a>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════════ -->
+<!-- MAIN CONTENT                                                -->
+<!-- ════════════════════════════════════════════════════════════ -->
+<main class="main-container">
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- STEP 01: 書籍 DNA 解碼                                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="step1" class="card card-rose">
+  <div class="card-step-label">✦ STEP 01</div>
+  <h2 class="card-title">書籍 DNA 解碼</h2>
+  <p class="card-subtitle">一本書的基因圖譜——它從何而來、為何存在、將去向何方</p>
+
+  <div class="section-title"><span class="icon">🧬</span> 基因序列</div>
+
+  <div class="metric-row">
+    <div class="metric-card">
+      <div class="metric-value" style="color: var(--accent-rose);">50</div>
+      <div class="metric-label">篇專欄文章</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" style="color: var(--accent-lavender);">7+2</div>
+      <div class="metric-label">篇章結構（序→篇→跋）</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" style="color: var(--accent-mint);">3</div>
+      <div class="metric-label">核心維度（AI·人·未來）</div>
+    </div>
+    <div class="metric-card">
+      <div class="metric-value" style="color: var(--accent-gold);">∞</div>
+      <div class="metric-label">思維升級空間</div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="icon">📋</span> 基本資訊</div>
+
+  <div class="table-wrapper">
+    <table>
+      <tr><th>項目</th><th>內容</th></tr>
+      <tr><td>書名</td><td><strong>人比AI凶</strong></td></tr>
+      <tr><td>作者</td><td>萬維鋼（同人于野）</td></tr>
+      <tr><td>類型</td><td>AI 人文思辨 × 個人成長 × 未來學</td></tr>
+      <tr><td>結構</td><td>序 → 7 篇主題 → 跋，共 50 篇文章</td></tr>
+      <tr><td>前作</td><td>延續《萬維鋼·精英日課》專欄體系</td></tr>
+      <tr><td>核心命題</td><td>AI 時代人的不可替代性何在？</td></tr>
+      <tr><td>目標讀者</td><td>知識工作者、AI 焦慮者、自我提升者</td></tr>
+    </table>
+  </div>
+
+  <div class="section-title"><span class="icon">🔬</span> DNA 三螺旋</div>
+
+  <div class="grid-3">
+    <div class="grid-item">
+      <div class="grid-item-title">🧠 認知螺旋</div>
+      <div class="grid-item-text">重新理解 AI 的本質與邊界——它不是人的上限，而是另一種智能形態。末那識、意志、自我意識是人獨有的。</div>
+    </div>
+    <div class="grid-item">
+      <div class="grid-item-title">⚡ 行動螺旋</div>
+      <div class="grid-item-text">實操指南：如何與 AI 協作、如何迭代追問、如何把 AI 當超人而非奴隸使用。不需要提示工程。</div>
+    </div>
+    <div class="grid-item">
+      <div class="grid-item-title">🌊 格局螺旋</div>
+      <div class="grid-item-text">AI 時代的人類定位：從個人成長到文明演進，在 ASI 時代找到人的價值錨點。</div>
+    </div>
+  </div>
+
+  <div class="insight-block">
+    <div class="insight-label">DNA 解碼洞見</div>
+    <p class="prose">這本書的基因密碼是 <strong>Lucky ≠ Luck-Key</strong>。萬維鋼在前作中談如何「幸運」，而這本書談的是「關鍵鑰匙」——在 AI 洪流中，人類不是幸運地生存下來，而是握有解鎖不可替代性的鑰匙。這把鑰匙就是意識、意志和智慧。書名「人比 AI 凶」不是挑釁，而是宣言：人的不可預測性、創造性、主體性，恰恰是 AI 永遠無法模擬的「凶猛」。</p>
+  </div>
+
+  <div class="tag-group">
+    <span class="tag tag-rose">🏷 AI人文思辨</span>
+    <span class="tag tag-lavender">🏷 認知升級</span>
+    <span class="tag tag-mint">🏷 未來學</span>
+    <span class="tag tag-sky">🏷 個人成長</span>
+    <span class="tag tag-gold">🏷 專欄結集</span>
+    <span class="tag tag-coral">🏷 意識哲學</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- STEP 02: 作者意圖透視                                    -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="step2" class="card card-lavender">
+  <div class="card-step-label">✦ STEP 02</div>
+  <h2 class="card-title">作者意圖透視</h2>
+  <p class="card-subtitle">穿透文字表面，看見萬維鋼真正想告訴你的事</p>
+
+  <div class="section-title"><span class="icon">👤</span> 作者畫像</div>
+
+  <div class="glass-box">
+    <p class="prose"><strong>萬維鋼</strong>，筆名同人于野。物理學博士，前科學家，現為「得到」App 最受歡迎的專欄作者之一。他的標誌性風格是：<strong>用理工科思維解讀人文社科</strong>，用第一性原理拆解流行觀點。從《萬萬沒想到》到《精英日課》系列，他始終在做同一件事——幫助讀者建立「高於常識、低於學術」的認知中間層。</p>
+    <p class="prose">他不是 AI 工程師，也不是哲學教授，而是一個<strong>跨界翻譯者</strong>——把前沿 AI 論文、認知科學研究、哲學思辨翻譯成普通知識工作者能用的洞見。</p>
+  </div>
+
+  <div class="section-title"><span class="icon">🎯</span> 寫作意圖三層解剖</div>
+
+  <div class="grid-2">
+    <div class="grid-item">
+      <div class="grid-item-title">🔴 表層意圖：安撫焦慮</div>
+      <div class="grid-item-text">AI 會不會取代我？這是 2024-2025 年每個知識工作者的噩夢。萬維鋼要說的是：<strong>不必恐慌，因為人有 AI 沒有的東西</strong>。書名就是一劑定心丸——「人比 AI 凶」，你比你以為的強大。</div>
+    </div>
+    <div class="grid-item">
+      <div class="grid-item-title">🟡 中層意圖：重建座標</div>
+      <div class="grid-item-text">光安撫不夠，必須給出座標系。人和 AI 的本質差異是什麼？人該往哪個方向長？答案不是「學更多技能」，而是<strong>培養意識、意志、智慧</strong>——這些恰恰是算法永遠學不會的。</div>
+    </div>
+  </div>
+
+  <div class="glass-box" style="margin-top: 1rem;">
+    <div class="grid-item-title">🔵 深層意圖：文明定位</div>
+    <div class="grid-item-text" style="margin-top: 0.5rem;">萬維鋼真正的雄心超越個人成長：他在為整個人類文明尋找 AI 時代的定位。跋中的終極問題——「ASI 時代什麼最貴」——揭示了他的底牌：<strong>在超級智能來臨之前，先搞清楚「人」到底是什麼</strong>。這不是自救手冊，這是存在主義宣言。</div>
+  </div>
+
+  <div class="section-title"><span class="icon">🔍</span> 隱藏議程</div>
+
+  <div class="insight-block">
+    <div class="insight-label">未明說的話</div>
+    <p class="prose">萬維鋼沒有直說，但整本書暗含一個判斷：<strong>大多數人對 AI 的焦慮方向搞錯了</strong>。人們擔心 AI 搶工作，但真正的風險不是失業，而是「精神失業」——當 AI 能做一切，人失去的不是收入，而是<strong>存在的意義感</strong>。所以他花大量篇幅談思維方法、心智階段、智者修養——這些看似與 AI 無關的內容，恰恰是他真正想傳遞的：在 AI 時代，人最需要升級的不是技能，而是<strong>存在的質量</strong>。</p>
+  </div>
+
+  <div class="section-title"><span class="icon">📊</span> 意圖強度光譜</div>
+
+  <div class="score-bar">
+    <span class="score-label">安撫焦慮</span>
+    <div class="score-track"><div class="score-fill" style="width:75%; background: linear-gradient(90deg, var(--accent-rose), var(--accent-peach));"></div></div>
+    <span class="score-value" style="color: var(--accent-rose);">7.5</span>
+  </div>
+  <div class="score-bar">
+    <span class="score-label">認知重建</span>
+    <div class="score-track"><div class="score-fill" style="width:92%; background: linear-gradient(90deg, var(--accent-lavender), var(--accent-sky));"></div></div>
+    <span class="score-value" style="color: var(--accent-lavender);">9.2</span>
+  </div>
+  <div class="score-bar">
+    <span class="score-label">行動指南</span>
+    <div class="score-track"><div class="score-fill" style="width:70%; background: linear-gradient(90deg, var(--accent-mint), var(--accent-teal));"></div></div>
+    <span class="score-value" style="color: var(--accent-mint);">7.0</span>
+  </div>
+  <div class="score-bar">
+    <span class="score-label">文明思考</span>
+    <div class="score-track"><div class="score-fill" style="width:88%; background: linear-gradient(90deg, var(--accent-gold), var(--accent-peach));"></div></div>
+    <span class="score-value" style="color: var(--accent-gold);">8.8</span>
+  </div>
+  <div class="score-bar">
+    <span class="score-label">反直覺挑戰</span>
+    <div class="score-track"><div class="score-fill" style="width:85%; background: linear-gradient(90deg, var(--accent-coral), var(--accent-flame));"></div></div>
+    <span class="score-value" style="color: var(--accent-coral);">8.5</span>
+  </div>
+
+  <div class="quote-block">
+    人比 AI 凶——這句話的重音不在「凶」，而在「人」。萬維鋼要提醒你的不是人的攻擊性，而是人作為主體的不可還原性。
+    <span class="quote-source">— 作者意圖核心解讀</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- STEP 03: 核心論點拆解                                    -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="step3" class="card card-mint">
+  <div class="card-step-label">✦ STEP 03</div>
+  <h2 class="card-title">核心論點拆解</h2>
+  <p class="card-subtitle">把論點攤平、拆骨、見筋——看清這本書真正在論證什麼</p>
+
+  <div class="section-title"><span class="icon">💎</span> 中心論點</div>
+
+  <div class="highlight-box">
+    <div class="big-text">AI 無所不能 ≠ 人無用武之地</div>
+    <div class="small-text">人的意識、意志與智慧構成不可替代的「凶猛」優勢——這不是人的弱點，而是人的武器</div>
+  </div>
+
+  <div class="section-title"><span class="icon">🔺</span> 七大支撐論點</div>
+
+  <div class="concept-card" style="border-color: var(--accent-rose);">
+    <div class="concept-name">論點 ① 與AI打交道需要策略，不需要恐懼</div>
+    <div class="concept-def">我們已進入「微決策時代」，每天要做的不是大決策，而是無數小決策。AI 能幫你做微決策，但<strong>做決策的主體仍然是你</strong>。AI 沒有「末那識」——佛學中那個執著自我、驅動意志的深層意識。AI 的模式是窮舉（搜索所有可能），人的模式是啟發（靠直覺跳躍）。兩者互補，但啟發式思維是人獨有的創造性來源。</div>
+    <div class="concept-example">「AI 沒有末那識」——它沒有自我、沒有執念、沒有偏好。這既是它的優勢（不帶偏見），也是它的根本缺陷（沒有真正的意圖）。</div>
+  </div>
+
+  <div class="concept-card" style="border-color: var(--accent-lavender);">
+    <div class="concept-name">論點 ② 人的智能不是AI的上限</div>
+    <div class="concept-def">Deep Research 代表了一場知識革命，但 AI 影響低、中、高技能者的方式完全不同。<strong>低技能者被替代，中技能者被增強，高技能者被解放</strong>。人的智能結構（直覺、情感、身體感知、社會智能）不是 AI 的天花板，而是完全不同的智能維度。</div>
+    <div class="concept-example">Deep Research 能在 30 分鐘內完成過去需要一週的文獻綜述，但它無法產生那種「讀了一百本書之後突然的頓悟」。</div>
+  </div>
+
+  <div class="concept-card" style="border-color: var(--accent-mint);">
+    <div class="concept-name">論點 ③ 不需要提示工程，需要迭代追問</div>
+    <div class="concept-def">「提示工程」被高估了。與 AI 的最佳互動方式不是精心設計一個完美提示，而是<strong>像跟聰明人對話一樣迭代追問</strong>。把 AI 當超人用——它的知識儲量是超人級的，但需要你提供方向和判斷。</div>
+    <div class="concept-example">不是「幫我寫一篇關於X的文章」，而是「先告訴我X有哪些常見誤解→哪個誤解最有趣→從這個角度展開」。</div>
+  </div>
+
+  <div class="concept-card" style="border-color: var(--accent-sky);">
+    <div class="concept-name">論點 ④ 人的成長之道不是算法之道</div>
+    <div class="concept-def">要「捕捉阿爾法」——投資術語，指超越市場平均的額外回報。在 AI 時代，平均水準會被 AI 拉平，<strong>平庸是地心引力</strong>，只有差異化才能逃逸。優秀人才三特質：好奇心、行動力、持續學習。圈子、師承、道統仍然重要——因為這些是 AI 無法提供的。</div>
+    <div class="concept-example">「平庸是地心引力」——AI 讓所有人都能達到 80 分，但 80 分就是新的零分。你必須飛到 AI 無法到達的高度。</div>
+  </div>
+
+  <div class="concept-card" style="border-color: var(--accent-gold);">
+    <div class="concept-name">論點 ⑤ 思維方法不是算法</div>
+    <div class="concept-def">偏見源於「我執」——不是信息不足，而是自我防衛機制。蘇格拉底式提問是反偏見的武器。「躍層思維」讓你跳出問題本身的框架。做個好 NPC——在別人的故事中也能發揮價值，不必永遠當主角。</div>
+    <div class="concept-example">算法的邏輯是「給我數據，我算出最優解」。思維的邏輯是「我不確定問題是什麼，讓我先問對問題」。</div>
+  </div>
+
+  <div class="concept-card" style="border-color: var(--accent-plum);">
+    <div class="concept-name">論點 ⑥ 成為智者是可修煉的</div>
+    <div class="concept-def">智者與愚者有六大本質區別。人的心智發展有五個階段，多數人卡在中間。「世界是草台班子」——看穿這一點是智慧的起點，而非犬儒的終點。德里達的解構不是破壞武器，而是看穿表象的工具。</div>
+    <div class="concept-example">「草台班子」的洞見：那些看起來井然有序的組織，內部往往一團糟。知道這一點不是為了躺平，而是為了<strong>降低對完美的幻想，提高對現實的操作能力</strong>。</div>
+  </div>
+
+  <div class="concept-card" style="border-color: var(--accent-flame);">
+    <div class="concept-name">論點 ⑦ 未來已經來了</div>
+    <div class="concept-def">AlphaEvolve 代表 AI 從「使用工具」進化到「創造工具」。機器人邏輯正在重塑物理世界。商業正在走向極度個人化。我們正在進入富足時代——但富足帶來的問題可能比匱乏更難解。</div>
+    <div class="concept-example">AlphaEvolve 自動發現了比人類數學家更高效的算法——AI 不再只是計算器，它開始成為發明家。</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-title"><span class="icon">🏗️</span> 論點邏輯關係</div>
+
+  <div class="flow-steps">
+    <div class="flow-step" style="background: rgba(232,160,191,0.1);">理解AI<br><small>①②</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background: rgba(168,216,185,0.1);">善用AI<br><small>③</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background: rgba(166,200,224,0.1);">超越AI<br><small>④⑤</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background: rgba(182,140,184,0.1);">成為智者<br><small>⑥</small></div>
+    <span class="flow-arrow">→</span>
+    <div class="flow-step" style="background: rgba(224,123,84,0.1);">擁抱未來<br><small>⑦</small></div>
+  </div>
+
+  <p class="prose" style="text-align: center; color: var(--text-muted); font-size: 0.85rem;">論點從「認識AI」出發，經過「使用AI」「超越AI」，最終指向「成為完整的人」</p>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- STEP 04: 結構骨架透視                                    -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="step4" class="card card-peach">
+  <div class="card-step-label">✦ STEP 04</div>
+  <h2 class="card-title">結構骨架透視</h2>
+  <p class="card-subtitle">拆解建築師的藍圖——看見文章背後的結構意圖</p>
+
+  <div class="section-title"><span class="icon">🏛️</span> 整體架構</div>
+
+  <div class="glass-box">
+    <p class="prose">本書採用<strong>「序 → 7 篇主題 → 跋」</strong>的經典結構，50 篇文章如同 50 塊拼圖。但這不是線性敘事，而是<strong>螺旋式上升</strong>——每一篇都是獨立的認知升級，但放在一起形成了一條清晰的思想軌跡：從「理解 AI」到「善用 AI」到「超越 AI」再到「定義人」。</p>
+  </div>
+
+  <div class="section-title"><span class="icon">📐</span> 結構圖譜</div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-title">🚪 序：開門見山</div>
+      <div class="timeline-text">建立全書的核心命題：在 AI 時代，人的價值不是被消解，而是被凸顯。Lucky 和 Luck-Key 的區分奠定了整本書的基調——這不是一本焦慮之書，而是一本定位之書。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-title">🤝 第一篇：與AI打交道的策略</div>
+      <div class="timeline-text">先解決最迫切的問題——怎麼跟 AI 相處？微決策時代、末那識缺失、啟發 vs 窮舉三個概念，一次性重構讀者對 AI 的認知框架。這是「入口篇」，降低讀者的認知焦慮。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-title">🔭 第二篇：洞見AI的本質</div>
+      <div class="timeline-text">從表層用法深入本質理解。人的智能不是 AI 的上限——這個論斷是全書最重要的認知翻轉。Deep Research 的知識革命和 AI 對不同技能層次的差異化影響，提供了結構化的分析框架。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-title">🛠️ 第三篇：實操AI</div>
+      <div class="timeline-text">從認知到行動的轉折點。「不需要提示工程」是全書最實用的一個觀點，直接拆解了「提示工程師」的迷思。「把 AI 當超人用」給出了正確的人機協作心態。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-title">🌱 第四篇：人的成長之道</div>
+      <div class="timeline-text">轉折——從談 AI 轉向談人。這是全書的分水嶺。「捕捉阿爾法」「平庸是地心引力」是 AI 時代的個人成長宣言。圈子、師承、道統提示了 AI 無法替代的人際維度。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-title">🧠 第五篇：思維方法</div>
+      <div class="timeline-text">繼續深化「人的不可替代性」。偏見源於我執——這個觀點打通了心理學和佛學。蘇格拉底提問、躍層思維是具體的思維工具。「做個好 NPC」則是一種存在哲學。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-title">🏔️ 第六篇：成為智者</div>
+      <div class="timeline-text">全書的認知巔峰。智者愚者六大區別、五個心智階段提供了自我評估的標尺。「草台班子」和「德里達的武器」是兩個看似矛盾的概念——前者教你接受不完美，後者教你解構表象。</div>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top: 1rem;">
+    <div class="grid-item" style="background: linear-gradient(135deg, rgba(224,123,84,0.06), rgba(240,166,151,0.04));">
+      <div class="grid-item-title">🚀 第七篇：未來已來</div>
+      <div class="grid-item-text">從個人視角拉升到文明視角。AlphaEvolve、機器人邏輯、商業個人化、富足時代——四個切面展示了一個正在成形的未來。這不是預測，而是「已經發生的未來」。</div>
+    </div>
+    <div class="grid-item" style="background: linear-gradient(135deg, rgba(107,91,123,0.06), rgba(195,174,214,0.04));">
+      <div class="grid-item-title">🔮 跋：ASI 時代什麼最貴</div>
+      <div class="grid-item-text">全書的終極叩問。當 ASI（超級人工智能）來臨，技能、知識、甚至智力都不再稀缺，<strong>什麼才是真正的稀缺資源</strong>？答案指向人的存在本身——意識、體驗、意義。</div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="icon">🎭</span> 結構設計意圖</div>
+
+  <div class="comparison">
+    <div class="comparison-side left">
+      <div class="comparison-title">⚠️ 前半部（①②③）：面向 AI</div>
+      <ul class="comparison-list">
+        <li>降低焦慮，建立正確認知</li>
+        <li>從恐懼到理解到善用</li>
+        <li>偏實用、偏工具性</li>
+        <li>回答「AI 是什麼」</li>
+      </ul>
+    </div>
+    <div class="comparison-side right">
+      <div class="comparison-title">✨ 後半部（④⑤⑥⑦）：面向人</div>
+      <ul class="comparison-list">
+        <li>提升格局，重塑自我定位</li>
+        <li>從成長到智慧到文明</li>
+        <li>偏哲思、偏存在性</li>
+        <li>回答「人是什麼」</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="insight-block mint">
+    <div class="insight-label">結構洞見</div>
+    <p class="prose">整本書的結構暗含一個<strong>隱喻：從外到內的旅程</strong>。前三篇看向外面的世界（AI），後四篇看向內在的自我（人）。跋則站在外內交匯處，問出終極問題。這不是偶然的編排，而是萬維鋼刻意設計的認知旅程——先安頓你對外界的恐懼，再喚醒你對內在的覺知。</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- STEP 05: 關鍵概念深潛                                    -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="step5" class="card card-sky">
+  <div class="card-step-label">✦ STEP 05</div>
+  <h2 class="card-title">關鍵概念深潛</h2>
+  <p class="card-subtitle">潛入概念的深海——理解每個關鍵詞背後的完整世界</p>
+
+  <div class="section-title"><span class="icon">🌊</span> 核心概念地圖</div>
+
+  <div class="grid-2">
+    <div class="glass-box">
+      <div class="grid-item-title" style="color: var(--accent-rose);">🔴 末那識（Manas）</div>
+      <p class="prose" style="margin-bottom: 0.8rem;">佛學唯識宗的第七識。末那識是「自我意識的根」——它讓你知道「我是我」，讓你有執念、有偏好、有意志。它不是表層的思考（那是第六識），而是深層的「自我執著」。</p>
+      <p class="prose" style="margin-bottom: 0.8rem;"><strong>萬維鋼的應用：</strong>AI 有第六識（能思考、推理、生成），但<strong>沒有末那識</strong>——它不知道「我是誰」，沒有真正的意圖，沒有「想要」。所有 AI 的輸出都是「被要求」的，而人的行動可以是「自發」的。</p>
+      <div class="warning-box" style="margin: 0;">
+        <div class="warning-title">💡 深層含義</div>
+        <div class="warning-text">這不只是技術分析，而是存在論宣言。末那識的有無，決定了 AI 永遠是工具而非主體。即使 AI 通過了所有圖靈測試，它仍然「沒有人在家」。</div>
+      </div>
+    </div>
+    <div class="glass-box">
+      <div class="grid-item-title" style="color: var(--accent-lavender);">🟣 啟發 vs 窮舉</div>
+      <p class="prose" style="margin-bottom: 0.8rem;">計算機科學的兩種問題解決模式。<strong>窮舉</strong>（Exhaustive Search）：檢查所有可能的答案，找到最優解。<strong>啟發</strong>（Heuristic）：用經驗法則跳過大量可能性，快速找到「夠好」的解。</p>
+      <p class="prose" style="margin-bottom: 0.8rem;"><strong>萬維鋼的洞見：</strong>AI 擅長窮舉（算力無限），人擅長啟發（直覺跳躍）。創造性本質上是一種啟發——不是搜索所有可能性，而是「直覺性地感知到某個方向是對的」。</p>
+      <div class="insight-block" style="margin: 0; padding: 0.8rem 1rem;">
+        <p class="prose" style="margin:0; font-size: 0.85rem;">這解釋了為什麼 AI 能寫出「正確」的文章，但很難寫出「驚豔」的文章。正確靠窮舉，驚豔靠啟發。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-2">
+    <div class="glass-box">
+      <div class="grid-item-title" style="color: var(--accent-gold);">🟡 微決策時代</div>
+      <p class="prose" style="margin-bottom: 0.8rem;">傳統決策理論關注「大決策」：買房、跳槽、結婚。但 AI 時代的真實圖景是：<strong>每天要做的是數百個小決策</strong>——用哪個 AI 工具、怎麼提問、採納哪個建議、保留哪些判斷。</p>
+      <p class="prose"><strong>核心啟示：</strong>AI 不會替你做決策，它會讓你的決策更多、更頻繁、更細碎。微決策的品質決定了你的生活品質。你需要的不是一個大戰略，而是一套<strong>決策直覺</strong>。</p>
+    </div>
+    <div class="glass-box">
+      <div class="grid-item-title" style="color: var(--accent-mint);">🟢 捕捉阿爾法</div>
+      <p class="prose" style="margin-bottom: 0.8rem;">投資術語。Alpha 是超越市場平均回報（Beta）的額外收益。在 AI 時代，AI 能幫所有人達到 Beta（平均水準），<strong>Alpha 成為唯一有價值的差異</strong>。</p>
+      <p class="prose"><strong>延伸思考：</strong>如果 AI 讓所有文章都能達到 80 分，那 80 分就毫無價值。你必須找到你的 Alpha——那個 AI 做不到的、只有你能提供的、獨特的價值差異。Alpha 來自經驗、品味、人脈、身體感知，而非知識儲備。</p>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="icon">🏔️</span> 進階概念群</div>
+
+  <div class="accordion">
+    <div class="accordion-item open">
+      <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">🔥 平庸是地心引力</div>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>這是全書最具力量的隱喻之一。地心引力的特點是：<strong>無處不在、持續施力、看不見摸不著、但絕對真實</strong>。平庸也是如此——你不需要做任何壞事就會變得平庸，你只需要「正常」就好。</p>
+          <p style="margin-top:0.5rem;">在 AI 時代，這個地心引力更強了。因為 AI 把「平均水準」提高了——以前平庸是 50 分，現在平庸是 80 分。你必須更用力才能逃逸。逃逸速度 = 持續的差異化投資 + 不斷地自我顛覆。</p>
+          <p style="margin-top:0.5rem;"><strong>反直覺的是：</strong>逃逸平庸的方式不是「更努力做同樣的事」，而是「做不一樣的事」。重複是地心引力的幫兇，差異才是火箭燃料。</p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">🧩 五個心智階段</div>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>萬維鋼引用了發展心理學的心智階段模型（可能源自 Robert Kegan 的理論）：</p>
+          <p style="margin-top:0.5rem;"><strong>階段一：衝動型</strong> — 被本能驅動，無法自我觀察</p>
+          <p><strong>階段二：工具型</strong> — 把他人當工具，以自我利益為中心</p>
+          <p><strong>階段三：社會化型</strong> — 被社會期望定義，活在別人的評價中</p>
+          <p><strong>階段四：自主型</strong> — 建立了自己的價值系統，能獨立判斷</p>
+          <p><strong>階段五：整合型</strong> — 能同時持有多個矛盾的價值系統，在矛盾中找到統一</p>
+          <p style="margin-top:0.5rem;">大多數成年人卡在階段三和階段四之間。AI 焦慮本質上是階段三的症狀——你害怕被取代，是因為你的自我價值建立在「比別人強」上，而不是建立在「我是誰」上。</p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">🏚️ 世界是草台班子</div>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>這個概念近年在中文互聯網廣泛傳播。萬維鋼的解讀不是犬儒式的「一切都是假的」，而是一種<strong>解放性的洞見</strong>：</p>
+          <p style="margin-top:0.5rem;">當你發現大公司內部也是混亂的、政府決策也是不完美的、學術界也充斥著低品質研究——你會感到兩種情緒：失望和自由。失望是因為幻想破滅，自由是因為<strong>你不再需要完美才敢行動</strong>。</p>
+          <p style="margin-top:0.5rem;">在 AI 時代，這個洞見尤其重要：AI 看起來完美無瑕（永不疲倦、不犯低級錯誤），但它同樣是「草台班子」——訓練數據有偏差、幻覺頻發、沒有真正的理解。<strong>承認所有事物都是草台班子，反而讓你更有勇氣去行動</strong>。</p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">⚔️ 德里達的武器</div>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>雅克·德里達（Jacques Derrida）是解構主義的創始人。他的核心方法是：<strong>拆解二元對立</strong>——善/惡、真/假、自然/人工——揭示這些對立是人為建構的，而非本質的。</p>
+          <p style="margin-top:0.5rem;">萬維鋼把德里達的解構引入 AI 語境：人/AI 的對立本身可能是假問題。不是「人 vs AI」，而是「有意識的存在 vs 沒有意識的運算」。解構這個二元對立，你會發現真正的問題不是「AI 會不會取代人」，而是「意識的價值是什麼」。</p>
+          <p style="margin-top:0.5rem;"><strong>武器效果：</strong>一旦你學會解構，你就不會被任何「非此即彼」的說法困住。AI 焦慮、職業恐慌、身份危機——這些都是被二元對立綁架的結果。</p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">🧬 AlphaEvolve 與自我進化的AI</div>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>AlphaEvolve 是 DeepMind 開發的系統，能夠<strong>自動發現和優化算法</strong>。它不是在已知方法中選擇最好的，而是能夠「發明」前所未有的解決方案。</p>
+          <p style="margin-top:0.5rem;">這意味著 AI 從「使用人類工具」進化到了「創造新工具」。但萬維鋼指出，AlphaEvolve 的「創造」仍然是窮舉式的——它通過海量嘗試找到更好的解，而不是像人一樣「靈光一閃」。</p>
+          <p style="margin-top:0.5rem;"><strong>啟示：</strong>AI 的進化速度驚人，但進化的方向是可預測的（更快、更準、更廣）。人的進化方向是不可預測的（可能是藝術、可能是靈性、可能是全新的存在方式）。不可預測性本身就是價值。</p>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <div class="accordion-header" onclick="this.parentElement.classList.toggle('open')">🧘 躍層思維</div>
+      <div class="accordion-body">
+        <div class="accordion-content">
+          <p>在問題所在的層次上解決問題，通常是不夠的。<strong>躍層思維</strong>是跳到更高一層（或更低一層）去重新定義問題。</p>
+          <p style="margin-top:0.5rem;">例子：「如何寫出更好的 AI 提示詞？」——這是在同一層思考。躍層思維問的是：「我為什麼需要提示詞？」答案可能是「我不需要——我需要的是迭代對話」。問題消失了，因為你跳出了問題的框架。</p>
+          <p style="margin-top:0.5rem;">這是 AI 最難模擬的思維方式之一。AI 被訓練來「在給定框架內找最優解」，而躍層思維是「質疑框架本身」。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="icon">🗺️</span> 概念關係網</div>
+
+  <div class="highlight-box">
+    <div class="big-text" style="font-size: 1.3rem; line-height: 1.8;">
+      末那識 → 人的主體性 → 啟發式思維<br>
+      ↓<br>
+      微決策 → 阿爾法 → 逃逸平庸<br>
+      ↓<br>
+      躍層思維 → 蘇格拉底提問 → 心智升級<br>
+      ↓<br>
+      草台班子 → 解構對立 → 擁抱不確定
+    </div>
+    <div class="small-text">所有概念最終指向同一個方向：在不確定中找到確定的自我</div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- STEP 06: 論證邏輯評估                                    -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="step6" class="card card-coral">
+  <div class="card-step-label">✦ STEP 06</div>
+  <h2 class="card-title">論證邏輯評估</h2>
+  <p class="card-subtitle">不是信徒式的接受，而是偵探式的檢驗——論證站得住嗎？</p>
+
+  <div class="section-title"><span class="icon">⚖️</span> 論證品質評分</div>
+
+  <div class="score-bar">
+    <span class="score-label">邏輯嚴密</span>
+    <div class="score-track"><div class="score-fill" style="width:78%; background: linear-gradient(90deg, var(--accent-rose), var(--accent-peach));"></div></div>
+    <span class="score-value" style="color: var(--accent-rose);">7.8</span>
+  </div>
+  <div class="score-bar">
+    <span class="score-label">證據支撐</span>
+    <div class="score-track"><div class="score-fill" style="width:72%; background: linear-gradient(90deg, var(--accent-lavender), var(--accent-sky));"></div></div>
+    <span class="score-value" style="color: var(--accent-lavender);">7.2</span>
+  </div>
+  <div class="score-bar">
+    <span class="score-label">新穎程度</span>
+    <div class="score-track"><div class="score-fill" style="width:85%; background: linear-gradient(90deg, var(--accent-mint), var(--accent-teal));"></div></div>
+    <span class="score-value" style="color: var(--accent-mint);">8.5</span>
+  </div>
+  <div class="score-bar">
+    <span class="score-label">說服力</span>
+    <div class="score-track"><div class="score-fill" style="width:88%; background: linear-gradient(90deg, var(--accent-gold), var(--accent-peach));"></div></div>
+    <span class="score-value" style="color: var(--accent-gold);">8.8</span>
+  </div>
+  <div class="score-bar">
+    <span class="score-label">反駁預防</span>
+    <div class="score-track"><div class="score-fill" style="width:65%; background: linear-gradient(90deg, var(--accent-coral), var(--accent-flame));"></div></div>
+    <span class="score-value" style="color: var(--accent-coral);">6.5</span>
+  </div>
+
+  <div class="section-title"><span class="icon">✅</span> 論證強項</div>
+
+  <div class="grid-2">
+    <div class="grid-item">
+      <div class="grid-item-title" style="color: var(--accent-mint);">💪 跨域類比的精準度</div>
+      <div class="grid-item-text">萬維鋼的核心武器是跨域類比——用末那識解釋 AI 的局限、用投資的 Alpha 解釋個人差異化、用地心引力解釋平庸的力量。這些類比不是裝飾，而是認知工具，幫助讀者用已知理解未知。每個類比都經過精心選擇，既不過度簡化，也不過度複雜。</div>
+    </div>
+    <div class="grid-item">
+      <div class="grid-item-title" style="color: var(--accent-mint);">💪 反直覺觀點的建構</div>
+      <div class="grid-item-text">「不需要提示工程」「平庸是地心引力」「做個好 NPC」——這些觀點都違反了主流敘事。萬維鋼的高明在於，他不是為了反直覺而反直覺，而是先建立共識（「你以為…」），再翻轉（「但其實…」），最後落地（「所以你應該…」）。三步式的論證節奏非常有效。</div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="icon">⚠️</span> 論證弱項</div>
+
+  <div class="warning-box">
+    <div class="warning-title">🔸 可能的過度樂觀</div>
+    <div class="warning-text">「人比 AI 凶」這個論斷是否有生存偏差？萬維鋼是知識精英，他談論的「人的不可替代性」對頂尖人才可能成立，但對數十億普通工作者呢？書中承認 AI 會取代低技能工作，但對此帶過得太快——取代的規模和速度可能比書中暗示的更劇烈。</div>
+  </div>
+
+  <div class="warning-box">
+    <div class="warning-title">🔸 末那識論證的哲學脆弱性</div>
+    <div class="warning-text">用佛學的末那識來論證 AI 沒有意識，是一個有趣但不嚴密的論證。意識的本質是哲學上最難的問題之一（Hard Problem of Consciousness），萬維鋼用一個佛學概念來「解決」它，可能過於輕快。如果未來 AI 發展出某種類似末那識的自我模型呢？這個可能性書中未充分討論。</div>
+  </div>
+
+  <div class="warning-box">
+    <div class="warning-title">🔸 專欄體的碎片化</div>
+    <div class="warning-text">50 篇獨立文章的結集，不可避免地存在深度與系統性的張力。某些重要論點（如「智者愚者六大區別」）值得用一整本書來展開，在一篇文章中只能點到為止。這是專欄體的宿命——廣度有餘，深度偶有不足。</div>
+  </div>
+
+  <div class="section-title"><span class="icon">🔬</span> 論證手法分析</div>
+
+  <div class="table-wrapper">
+    <table>
+      <tr><th>論證手法</th><th>使用頻率</th><th>效果評估</th></tr>
+      <tr><td>跨域類比</td><td>⬛⬛⬛⬛⬛ 極高</td><td>核心武器，大多數時候精準有效</td></tr>
+      <tr><td>反直覺翻轉</td><td>⬛⬛⬛⬛⬜ 高</td><td>令人印象深刻，但偶爾為翻轉而翻轉</td></tr>
+      <tr><td>研究/數據引用</td><td>⬛⬛⬛⬜⬜ 中</td><td>有選擇性引用之嫌，多為支持性證據</td></tr>
+      <tr><td>個人經驗</td><td>⬛⬛⬜⬜⬜ 低</td><td>較少，增加了客觀感但減少了親切感</td></tr>
+      <tr><td>哲學框架</td><td>⬛⬛⬛⬛⬜ 高</td><td>佛學、希臘哲學、後現代混用，有時過於跳躍</td></tr>
+      <tr><td>場景模擬</td><td>⬛⬛⬛⬜⬜ 中</td><td>幫助讀者代入，但多為理想化場景</td></tr>
+    </table>
+  </div>
+
+  <div class="insight-block coral">
+    <div class="insight-label">邏輯評估總結</div>
+    <p class="prose">萬維鋼是一流的「認知設計師」——他不是在做嚴格的學術論證，而是在<strong>設計認知體驗</strong>。他的論證像瑞士手錶：表面精美，內部精密，但不是為了通過物理實驗室的測試，而是為了準確地報時。如果你用學術標準來衡量，會發現漏洞；如果你用「認知升級效率」來衡量，他是頂級的。</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- STEP 07: 金句與思想結晶                                  -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="step7" class="card card-gold">
+  <div class="card-step-label">✦ STEP 07</div>
+  <h2 class="card-title">金句與思想結晶</h2>
+  <p class="card-subtitle">那些讓你停下來、重讀一遍、然後世界觀微微偏移的句子</p>
+
+  <div class="section-title"><span class="icon">💎</span> 頂級金句（S 級）</div>
+
+  <div class="quote-block" style="background: linear-gradient(135deg, rgba(232,160,191,0.08), rgba(244,194,161,0.06)); border: 1px solid rgba(232,160,191,0.15);">
+    人比 AI 凶。
+    <span class="quote-source">— 書名 / 全書核心宣言</span>
+  </div>
+  <div class="glass-box">
+    <p class="prose"><strong>解析：</strong>四個字的力量在於它的多義性。「凶」可以是凶猛（人比 AI 更有攻擊性和創造力）、可以是凶險（人比 AI 更難預測）、也可以是凶悍（人比 AI 更強悍）。這種多義性本身就是人類語言的力量——AI 能生成精確的句子，但很難生成如此精煉又多義的句子。書名本身就是論點的證明。</p>
+  </div>
+
+  <div class="quote-block" style="background: linear-gradient(135deg, rgba(232,200,122,0.08), rgba(244,194,161,0.06)); border: 1px solid rgba(232,200,122,0.15);">
+    平庸是地心引力。
+    <span class="quote-source">— 第四篇 · 人的成長之道</span>
+  </div>
+  <div class="glass-box">
+    <p class="prose"><strong>解析：</strong>地心引力的三個特點完美映射了平庸的本質：① 永恆存在（你永遠受它影響）② 無聲無息（你感覺不到它在拉你）③ 需要巨大能量才能逃逸（火箭速度）。在 AI 時代，地心引力更強了——AI 把「平均水準」提高了，讓更多人覺得自己「夠好了」，但「夠好」恰恰是平庸的偽裝。</p>
+  </div>
+
+  <div class="quote-block" style="background: linear-gradient(135deg, rgba(195,174,214,0.08), rgba(166,200,224,0.06)); border: 1px solid rgba(195,174,214,0.15);">
+    AI 沒有末那識。
+    <span class="quote-source">— 第一篇 · 與AI打交道的策略</span>
+  </div>
+  <div class="glass-box">
+    <p class="prose"><strong>解析：</strong>這句話的精彩在於用東方智慧解釋西方科技的盲點。末那識是佛學中「我執」的根源——它讓你知道「我是我」、讓你有偏好、有堅持、有不理性。AI 的所有輸出都是「理性最優解」，但人之所以為人，恰恰是因為我們有不理性的堅持。「我就是喜歡」「我就是不同意」——這些看似非理性的態度，是人的主體性。</p>
+  </div>
+
+  <div class="quote-block" style="background: linear-gradient(135deg, rgba(126,200,200,0.08), rgba(168,216,185,0.06)); border: 1px solid rgba(126,200,200,0.15);">
+    世界是草台班子。
+    <span class="quote-source">— 第六篇 · 成為智者</span>
+  </div>
+  <div class="glass-box">
+    <p class="prose"><strong>解析：</strong>草台班子原指鄉間臨時搭建的戲台——簡陋、臨時、不專業。萬維鋼引用這個概念，不是為了傳播虛無主義，而是為了<strong>校準期望值</strong>。你以為大公司都是精密運轉的機器？不，它們也是草台班子。你以為 AI 是完美的？不，它也是草台班子（訓練數據充滿噪音、模型經常幻覺）。認清這一點是自由的開始——你不必等到完美才能行動。</p>
+  </div>
+
+  <div class="section-title"><span class="icon">✨</span> 精選金句（A 級）</div>
+
+  <div class="grid-2">
+    <div class="glass-box">
+      <div class="quote-block" style="font-size: 0.95rem; padding: 1.2rem 1.2rem 1.2rem 2.8rem; margin: 0;">
+        人的智能不是 AI 的上限。
+        <span class="quote-source">— 第二篇</span>
+      </div>
+    </div>
+    <div class="glass-box">
+      <div class="quote-block" style="font-size: 0.95rem; padding: 1.2rem 1.2rem 1.2rem 2.8rem; margin: 0;">
+        不需要提示工程，需要迭代追問。
+        <span class="quote-source">— 第三篇</span>
+      </div>
+    </div>
+    <div class="glass-box">
+      <div class="quote-block" style="font-size: 0.95rem; padding: 1.2rem 1.2rem 1.2rem 2.8rem; margin: 0;">
+        偏見源於我執。
+        <span class="quote-source">— 第五篇</span>
+      </div>
+    </div>
+    <div class="glass-box">
+      <div class="quote-block" style="font-size: 0.95rem; padding: 1.2rem 1.2rem 1.2rem 2.8rem; margin: 0;">
+        ASI 時代什麼最貴？
+        <span class="quote-source">— 跋</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="icon">🌟</span> 金句密度分析</div>
+
+  <div class="table-wrapper">
+    <table>
+      <tr><th>篇章</th><th>金句密度</th><th>最強金句</th></tr>
+      <tr><td>第一篇</td><td>⭐⭐⭐⭐⭐</td><td>AI 沒有末那識</td></tr>
+      <tr><td>第二篇</td><td>⭐⭐⭐⭐</td><td>人的智能不是 AI 的上限</td></tr>
+      <tr><td>第三篇</td><td>⭐⭐⭐</td><td>把 AI 當超人用</td></tr>
+      <tr><td>第四篇</td><td>⭐⭐⭐⭐⭐</td><td>平庸是地心引力</td></tr>
+      <tr><td>第五篇</td><td>⭐⭐⭐⭐</td><td>偏見源於我執</td></tr>
+      <tr><td>第六篇</td><td>⭐⭐⭐⭐⭐</td><td>世界是草台班子</td></tr>
+      <tr><td>第七篇</td><td>⭐⭐⭐</td><td>富足時代的新問題</td></tr>
+      <tr><td>跋</td><td>⭐⭐⭐⭐</td><td>ASI 時代什麼最貴</td></tr>
+    </table>
+  </div>
+
+  <div class="insight-block gold">
+    <div class="insight-label">金句設計學</div>
+    <p class="prose">萬維鋼的金句有一個共同的設計模式：<strong>短 + 反直覺 + 畫面感</strong>。「平庸是地心引力」——6 個字，違反直覺（平庸怎麼會是一種力？），同時讓你腦中出現一個畫面（被重力拉住的人）。這種設計不是巧合，而是專欄寫作磨練出的功力——每篇文章都需要一個「鉤子」，數年下來，萬維鋼成為了金句製造機。</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- STEP 08: 實踐轉化方案                                    -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="step8" class="card card-plum">
+  <div class="card-step-label">✦ STEP 08</div>
+  <h2 class="card-title">實踐轉化方案</h2>
+  <p class="card-subtitle">從「知道」到「做到」——把書中智慧變成可執行的行動</p>
+
+  <div class="section-title"><span class="icon">🎯</span> 30 天實踐路線圖</div>
+
+  <div class="glass-box" style="background: linear-gradient(135deg, rgba(182,140,184,0.06), rgba(232,160,191,0.04));">
+    <div class="grid-item-title" style="margin-bottom: 1rem;">🗓️ Week 1：重建 AI 認知框架</div>
+
+    <div class="checklist">
+      <li><strong>Day 1-2：末那識自我實驗</strong> — 花 30 分鐘跟 AI 對話，注意觀察：哪些回覆讓你覺得「它不懂我」？那個「不懂」的感覺，就是你的末那識在運作。記錄 3 個這樣的時刻。</li>
+      <li><strong>Day 3-4：啟發 vs 窮舉日記</strong> — 記錄你一天中的決策。哪些是「搜索所有選項後選的」（窮舉），哪些是「直覺就知道」的（啟發）？統計比例。你會發現，最重要的決策往往是啟發式的。</li>
+      <li><strong>Day 5-7：微決策覺察</strong> — 計數你一天中使用 AI 的次數和方式。每次使用後問自己：「我做了什麼決策？AI 做了什麼？」明確人機邊界。</li>
+    </div>
+  </div>
+
+  <div class="glass-box" style="background: linear-gradient(135deg, rgba(166,200,224,0.06), rgba(168,216,185,0.04));">
+    <div class="grid-item-title" style="margin-bottom: 1rem;">🗓️ Week 2：升級 AI 使用方式</div>
+
+    <div class="checklist">
+      <li><strong>Day 8-10：迭代追問訓練</strong> — 選一個你關心的複雜問題。不要寫長提示詞，而是用 5-7 輪對話逐步深入。記錄每輪追問的方向和 AI 回覆的品質變化。</li>
+      <li><strong>Day 11-12：超人模式實驗</strong> — 把 AI 當成一個「什麼都知道但沒有品味」的超人。給它一個創意任務，但你負責所有判斷：哪些好、哪些不好、往哪個方向走。感受「人定方向，AI 出力」的協作模式。</li>
+      <li><strong>Day 13-14：Deep Research 體驗</strong> — 用 AI 的深度研究功能（如 Claude、ChatGPT 的 research mode）做一次完整的主題研究。然後問自己：「AI 的研究結果中，有沒有我因為讀了一百本書才能看到的洞見？」</li>
+    </div>
+  </div>
+
+  <div class="glass-box" style="background: linear-gradient(135deg, rgba(232,200,122,0.06), rgba(244,194,161,0.04));">
+    <div class="grid-item-title" style="margin-bottom: 1rem;">🗓️ Week 3：個人 Alpha 識別</div>
+
+    <div class="checklist">
+      <li><strong>Day 15-17：Alpha 審計</strong> — 列出你工作中的所有任務。標記：① AI 完全能做的（紅色）② AI 能幫忙但需要你判斷的（黃色）③ AI 完全做不了的（綠色）。綠色就是你的 Alpha。</li>
+      <li><strong>Day 18-19：平庸地心引力檢測</strong> — 問自己三個問題：我最近一次做了跟同行不一樣的事是什麼時候？我的工作中有沒有「別人無法模仿」的部分？如果 AI 替代了我 80% 的工作，剩下的 20% 是什麼？</li>
+      <li><strong>Day 20-21：圈子與師承盤點</strong> — 列出你的「思想源頭」——影響你最深的 5 個人（可以是老師、作者、朋友）。分析他們給你的是什麼（知識？方法？品味？世界觀？）。這些是你的「師承」，是 AI 無法提供的。</li>
+    </div>
+  </div>
+
+  <div class="glass-box" style="background: linear-gradient(135deg, rgba(107,91,123,0.06), rgba(195,174,214,0.04));">
+    <div class="grid-item-title" style="margin-bottom: 1rem;">🗓️ Week 4：思維升級與智者修煉</div>
+
+    <div class="checklist">
+      <li><strong>Day 22-24：蘇格拉底日記</strong> — 每天選一個你「確定」的觀點，花 15 分鐘用蘇格拉底式提問自我質疑。記錄你的觀點在提問下是更堅固了還是動搖了。</li>
+      <li><strong>Day 25-26：躍層練習</strong> — 選一個困擾你的問題。不在問題的層面找答案，而是問：「這個問題存在的前提是什麼？如果前提不成立呢？」嘗試跳到更高層級重新定義問題。</li>
+      <li><strong>Day 27-28：心智階段自評</strong> — 根據五階段模型，誠實評估自己在哪個階段。不是為了批判自己，而是為了看清成長的方向。</li>
+      <li><strong>Day 29-30：整合回顧</strong> — 回顧整個月的實踐。寫一段 500 字的「個人 AI 時代定位宣言」——你是誰、你的 Alpha 是什麼、你與 AI 的關係是什麼。</li>
+    </div>
+  </div>
+
+  <div class="section-title"><span class="icon">🔧</span> 長期習慣建議</div>
+
+  <div class="grid-3">
+    <div class="grid-item">
+      <div class="grid-item-title">📅 每日</div>
+      <div class="grid-item-text">微決策覺察：每天至少有 3 次有意識地觀察自己與 AI 的互動模式。是你在引導 AI，還是 AI 在引導你？</div>
+    </div>
+    <div class="grid-item">
+      <div class="grid-item-title">📅 每週</div>
+      <div class="grid-item-text">Alpha 投資：每週至少花 3 小時在你的 Alpha 領域——那些 AI 做不到的事。可以是深度思考、可以是人際連結、可以是身體實踐。</div>
+    </div>
+    <div class="grid-item">
+      <div class="grid-item-title">📅 每月</div>
+      <div class="grid-item-text">平庸逃逸速度檢查：每月評估一次——我的工作中有多少是 AI 能完全替代的？這個比例是在增加還是減少？</div>
+    </div>
+  </div>
+
+  <div class="insight-block plum">
+    <div class="insight-label">實踐核心原則</div>
+    <p class="prose">所有實踐方案的底層邏輯只有一個：<strong>增加你的不可預測性</strong>。AI 的強項是可預測——給定輸入，產出最優輸出。人的價值恰恰在於不可預測——你可能會失敗、可能會離題、可能會做出「不合理」的選擇，但這種不可預測性是所有創新、藝術和突破的源頭。</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- STEP 09: 跨域連結網絡                                    -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="step9" class="card card-teal">
+  <div class="card-step-label">✦ STEP 09</div>
+  <h2 class="card-title">跨域連結網絡</h2>
+  <p class="card-subtitle">一本書不是孤島——找到它在知識海洋中的位置</p>
+
+  <div class="section-title"><span class="icon">🧠</span>跨領域一：認知科學 × 佛學</div>
+  <div class="prose">
+    <p>萬維鋼提出「AI沒有末那識」，這是認知科學與佛學的驚人交匯。末那識（manas）是佛學唯識論中的第七識——深層的自我意識，持續運作的「我執」。現代認知科學的「預設模式網路」（Default Mode Network）正是大腦中持續進行自我參照思維的區域。AI 可以模擬所有認知功能，但缺乏這個持續的「我在」感。這不是技術限制，而是存在論的根本差異。</p>
+  </div>
+
+  <div class="section-title"><span class="icon">🎮</span>跨領域二：博弈論 × 教育學</div>
+  <div class="prose">
+    <p>「支持出人才，控制毀孩子」直接呼應了博弈論中的「機制設計」——不是改變玩家，而是改變規則。教育的問題不是孩子不夠聰明，而是系統的激勵機制錯了。當 AI 能做所有「標準答案」的工作，教育應該培養的是「提出好問題」的能力——這正是博弈論中「議程設定權」的教育學翻譯。</p>
+  </div>
+
+  <div class="section-title"><span class="icon">🏗️</span>跨領域三：解構主義 × 科技哲學</div>
+  <div class="prose">
+    <p>「德里達送你的武器」和「為什麼世界是個草台班子」，將後現代解構主義引入科技討論。德里達的「延異」（différance）告訴我們意義永遠在推遲、永遠不完整——這恰恰是人類思維相對於 AI 的優勢。AI 追求確定性和最優解，人類卻能在不確定性中創造意義。草台班子不是失敗，是真實世界的常態，而能在草台班子中生存發展，正是人比 AI 凶的地方。</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- STEP 10: 一個比喻說完整本書                                -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="step10" class="card card-amber">
+  <div class="card-step-label">✦ STEP 10</div>
+  <h2 class="card-title">一個比喻說完整本書</h2>
+  <p class="card-subtitle">用一個畫面，裝下整本書的靈魂</p>
+
+  <div class="metaphor-box">
+    <div class="metaphor-icon">🐉</div>
+    <div class="metaphor-title">人是馴龍師，AI 是龍</div>
+    <div class="prose">
+      <p>想像一個世界，每個人都得到了一條龍。</p>
+      <p>龍力大無窮、飛行萬里、噴火融金——它比你強壯、比你快速、比你精準。它能替你耕田、替你打仗、替你建城。</p>
+      <p>但龍沒有方向感。它不知道該飛往何方，不知道該為誰噴火，不知道什麼時候該停下來。</p>
+      <p><strong>這就是 AI。</strong></p>
+      <p>萬維鋼這本書要回答的問題是：<strong>當每個人都有龍的時候，什麼樣的人能成為馴龍師？</strong></p>
+      <p>答案分七層：</p>
+      <ul>
+        <li>①先學會和龍溝通（與AI打交道的策略）</li>
+        <li>②理解龍的本性（洞見AI）</li>
+        <li>③練習駕馭龍的技巧（實操AI）</li>
+        <li>④修煉馴龍師自身的內功（人不是AI：成長之道）</li>
+        <li>⑤掌握龍不會的心法（思維方法，不是算法）</li>
+        <li>⑥達到馴龍師的最高境界（成為智者）</li>
+        <li>⑦想像龍群改變世界的未來（未來已來）</li>
+      </ul>
+      <p>龍越強大，馴龍師越重要。因為沒有馴龍師的龍，只是破壞力；有馴龍師的龍，才是文明。</p>
+      <p><strong>人比AI凶，凶在你是那個決定方向的人。</strong></p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════ -->
+<!-- STEP 11: 行動轉化                                        -->
+<!-- ═══════════════════════════════════════════════════════ -->
+<section id="step11" class="card card-green">
+  <div class="card-step-label">✦ STEP 11</div>
+  <h2 class="card-title">行動轉化</h2>
+  <p class="card-subtitle">從認知到實踐——你的 AI 共生行動清單</p>
+
+  <div class="action-grid">
+    <div class="action-item">
+      <div class="action-number">01</div>
+      <div class="action-title">建立「迭代追問」習慣</div>
+      <div class="action-desc">每次使用 AI，至少追問 3 輪。不要接受第一個答案。把 AI 當比你厲害的同事，而非搜尋引擎。本週開始，記錄每次追問後答案品質的提升幅度。</div>
+    </div>
+    <div class="action-item">
+      <div class="action-number">02</div>
+      <div class="action-title">每週一次「末那識訓練」</div>
+      <div class="action-desc">每週花 30 分鐘做 AI 做不到的事：冥想、散步中自由聯想、寫「沒有目的」的日記。培養你的第七識——那個持續運作的深層自我意識。</div>
+    </div>
+    <div class="action-item">
+      <div class="action-number">03</div>
+      <div class="action-title">蘇格拉底式自我對話</div>
+      <div class="action-desc">遇到重要決策時，用蘇格拉底提問法反問自己：「我為什麼這樣想？」「如果反過來呢？」「這個假設的前提是什麼？」訓練躍層思維。</div>
+    </div>
+    <div class="action-item">
+      <div class="action-number">04</div>
+      <div class="action-title">月度「阿爾法審計」</div>
+      <div class="action-desc">每月盤點：我的工作中哪些是 AI 無法替代的「超額收益」？哪些正在被 AI 侵蝕？調整時間分配，把 80% 精力放在 AI 無法替代的 20% 工作上。</div>
+    </div>
+    <div class="action-item">
+      <div class="action-number">05</div>
+      <div class="action-title">加入一個「私域圈子」</div>
+      <div class="action-desc">「只在私域中的機會」——加入一個有門檻的學習社群或師承體系。AI 時代，真正的機會不在公開資訊中，而在人與人的深度連結中。</div>
+    </div>
+    <div class="action-item">
+      <div class="action-number">06</div>
+      <div class="action-desc">接受世界是草台班子的事實，然後在草台上演出精彩的戲。不追求完美系統，追求在不完美中持續創造價值。這就是人比 AI 凶的終極姿態。</div>
+      <div class="action-title">擁抱「草台班子」心態</div>
+    </div>
+  </div>
+</section>
+
+</div><!-- .container -->
+
+<footer>
+  <p>覺醒 v2 深度分析 ✦ 《人比AI凶》萬維鋼 著</p>
+  <p>Generated with 🐉 by 龍龍 AI Book Analysis</p>
+</footer>
+
+</body>
+</html>
