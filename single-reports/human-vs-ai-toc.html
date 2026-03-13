@@ -1,0 +1,2174 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>《人比AI凶》TOC 十步深度分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink-100: #FFF0F5;
+    --pink-200: #FFE4EF;
+    --pink-300: #FFB8D4;
+    --pink-400: #FF85B3;
+    --pink-500: #FF5290;
+    --pink-600: #E83070;
+    --blue-100: #F0F7FF;
+    --blue-200: #DCEEFF;
+    --blue-300: #A8D4FF;
+    --blue-400: #6BB8FF;
+    --blue-500: #3498FF;
+    --purple-100: #F5F0FF;
+    --purple-200: #E8DEFF;
+    --purple-300: #C9B0FF;
+    --purple-400: #A87CFF;
+    --purple-500: #8B5CF6;
+    --green-100: #F0FFF4;
+    --green-200: #D4FFDF;
+    --green-300: #86EFAC;
+    --green-400: #4ADE80;
+    --green-500: #22C55E;
+    --red-100: #FFF5F5;
+    --red-200: #FFE0E0;
+    --red-300: #FFA8A8;
+    --red-400: #FF6B6B;
+    --red-500: #EF4444;
+    --orange-100: #FFF8F0;
+    --orange-200: #FFEDD5;
+    --orange-300: #FDBA74;
+    --orange-400: #FB923C;
+    --orange-500: #F97316;
+    --teal-100: #F0FDFA;
+    --teal-200: #CCFBF1;
+    --teal-300: #5EEAD4;
+    --teal-400: #2DD4BF;
+    --teal-500: #14B8A6;
+    --gray-50: #FAFAFA;
+    --gray-100: #F5F5F5;
+    --gray-200: #E5E5E5;
+    --gray-300: #D4D4D4;
+    --gray-400: #A3A3A3;
+    --gray-500: #737373;
+    --gray-600: #525252;
+    --gray-700: #404040;
+    --gray-800: #262626;
+    --gray-900: #171717;
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 12px rgba(0,0,0,0.06);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.08);
+    --shadow-xl: 0 20px 60px rgba(0,0,0,0.1);
+    --glass: rgba(255,255,255,0.72);
+    --glass-border: rgba(255,255,255,0.5);
+    --radius-sm: 12px;
+    --radius-md: 18px;
+    --radius-lg: 24px;
+    --radius-xl: 32px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(160deg, #FFF5F9 0%, #F0F4FF 30%, #F5F0FF 60%, #FFF0F5 100%);
+    color: var(--gray-800);
+    line-height: 1.8;
+    min-height: 100vh;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 20% 50%, rgba(255,182,217,0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(164,176,255,0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 80%, rgba(200,170,255,0.08) 0%, transparent 50%);
+    z-index: -1;
+    animation: bgFloat 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes bgFloat {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(-2%, -1%) rotate(1deg); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes pulseGlow {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,82,144,0.15); }
+    50% { box-shadow: 0 0 40px rgba(255,82,144,0.25); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ====== HERO ====== */
+  .hero {
+    text-align: center;
+    padding: 80px 40px 60px;
+    margin-bottom: 48px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.85) 0%, rgba(255,240,245,0.8) 50%, rgba(240,240,255,0.85) 100%);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-xl);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--pink-400), var(--purple-400), var(--blue-400), var(--pink-400));
+    background-size: 300% 100%;
+    animation: shimmer 4s linear infinite;
+  }
+
+  .hero::after {
+    content: '🐉';
+    position: absolute;
+    top: 20px; right: 30px;
+    font-size: 42px;
+    opacity: 0.3;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--pink-400), var(--purple-500));
+    color: white;
+    padding: 6px 20px;
+    border-radius: 50px;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 3.2em;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--gray-900) 0%, var(--pink-600) 50%, var(--purple-500) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .hero .subtitle {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3em;
+    color: var(--gray-500);
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .hero .author {
+    font-size: 1.05em;
+    color: var(--gray-400);
+    margin-bottom: 28px;
+  }
+
+  .hero .core-thesis {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 20px 28px;
+    background: linear-gradient(135deg, var(--pink-100), var(--purple-100));
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--pink-400);
+    font-size: 1.05em;
+    color: var(--gray-700);
+    line-height: 1.9;
+  }
+
+  .hero .core-thesis strong {
+    color: var(--pink-600);
+  }
+
+  /* ====== META INFO ====== */
+  .meta-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 48px;
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
+
+  .meta-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    font-size: 13px;
+    color: var(--gray-600);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .meta-chip .icon { font-size: 15px; }
+
+  /* ====== BOOK STRUCTURE ====== */
+  .book-structure {
+    background: var(--glass);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 36px;
+    margin-bottom: 48px;
+    box-shadow: var(--shadow-lg);
+    animation: fadeInUp 0.8s ease-out 0.3s both;
+  }
+
+  .book-structure h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.5em;
+    color: var(--gray-800);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .structure-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+
+  .structure-item {
+    padding: 14px 18px;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .structure-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .structure-item .num {
+    font-weight: 900;
+    font-size: 0.8em;
+    margin-right: 8px;
+    padding: 2px 8px;
+    border-radius: 6px;
+    color: white;
+  }
+
+  .structure-item:nth-child(1) { background: var(--pink-100); }
+  .structure-item:nth-child(1) .num { background: var(--pink-400); }
+  .structure-item:nth-child(2) { background: var(--blue-100); }
+  .structure-item:nth-child(2) .num { background: var(--blue-400); }
+  .structure-item:nth-child(3) { background: var(--purple-100); }
+  .structure-item:nth-child(3) .num { background: var(--purple-400); }
+  .structure-item:nth-child(4) { background: var(--green-100); }
+  .structure-item:nth-child(4) .num { background: var(--green-500); }
+  .structure-item:nth-child(5) { background: var(--orange-100); }
+  .structure-item:nth-child(5) .num { background: var(--orange-400); }
+  .structure-item:nth-child(6) { background: var(--teal-100); }
+  .structure-item:nth-child(6) .num { background: var(--teal-400); }
+  .structure-item:nth-child(7) { background: var(--red-100); }
+  .structure-item:nth-child(7) .num { background: var(--red-400); }
+
+  /* ====== KEY CONCEPTS ====== */
+  .concepts-section {
+    margin-bottom: 48px;
+    animation: fadeInUp 0.8s ease-out 0.4s both;
+  }
+
+  .concepts-section h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.5em;
+    color: var(--gray-800);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+
+  .concepts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+  }
+
+  .concept-card {
+    background: var(--glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 22px 24px;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .concept-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    border-radius: 3px 3px 0 0;
+  }
+
+  .concept-card:nth-child(odd)::before { background: linear-gradient(90deg, var(--pink-300), var(--purple-300)); }
+  .concept-card:nth-child(even)::before { background: linear-gradient(90deg, var(--blue-300), var(--teal-300)); }
+
+  .concept-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .concept-card .concept-title {
+    font-weight: 700;
+    font-size: 1.05em;
+    color: var(--gray-800);
+    margin-bottom: 8px;
+  }
+
+  .concept-card .concept-desc {
+    font-size: 0.92em;
+    color: var(--gray-600);
+    line-height: 1.7;
+  }
+
+  /* ====== QUOTES ====== */
+  .quotes-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+    margin-bottom: 56px;
+    animation: fadeInUp 0.8s ease-out 0.5s both;
+  }
+
+  .quote-tag {
+    padding: 10px 22px;
+    background: linear-gradient(135deg, var(--pink-200), var(--purple-200));
+    border-radius: 50px;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.95em;
+    font-weight: 600;
+    color: var(--gray-700);
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+    cursor: default;
+  }
+
+  .quote-tag:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* ====== TOC STEP CARDS ====== */
+  .toc-section {
+    margin-bottom: 56px;
+  }
+
+  .toc-section-header {
+    text-align: center;
+    margin-bottom: 48px;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  .toc-section-header h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2em;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--pink-500), var(--purple-500));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+
+  .toc-section-header p {
+    color: var(--gray-500);
+    font-size: 1.05em;
+  }
+
+  .step-card {
+    background: var(--glass);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 0;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    animation: fadeInUp 0.6s ease-out both;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .step-card:hover {
+    box-shadow: var(--shadow-xl);
+  }
+
+  .step-header {
+    padding: 28px 36px 20px;
+    position: relative;
+  }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    font-size: 1.2em;
+    color: white;
+    margin-bottom: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+  }
+
+  .step-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.6em;
+    font-weight: 900;
+    color: var(--gray-900);
+    margin-bottom: 4px;
+  }
+
+  .step-subtitle {
+    font-size: 0.95em;
+    color: var(--gray-500);
+    font-weight: 400;
+  }
+
+  .step-body {
+    padding: 0 36px 32px;
+  }
+
+  .step-body p {
+    margin-bottom: 16px;
+    color: var(--gray-700);
+    line-height: 1.9;
+  }
+
+  /* Step color themes */
+  .step-1 .step-header { background: linear-gradient(135deg, var(--pink-100), var(--pink-200)); }
+  .step-1 .step-number { background: linear-gradient(135deg, var(--pink-400), var(--pink-600)); }
+
+  .step-2 .step-header { background: linear-gradient(135deg, var(--red-100), var(--red-200)); }
+  .step-2 .step-number { background: linear-gradient(135deg, var(--red-400), var(--red-500)); }
+
+  .step-3 .step-header { background: linear-gradient(135deg, var(--orange-100), var(--orange-200)); }
+  .step-3 .step-number { background: linear-gradient(135deg, var(--orange-400), var(--orange-500)); }
+
+  .step-4 .step-header { background: linear-gradient(135deg, var(--blue-100), var(--blue-200)); }
+  .step-4 .step-number { background: linear-gradient(135deg, var(--blue-400), var(--blue-500)); }
+
+  .step-5 .step-header { background: linear-gradient(135deg, var(--green-100), var(--green-200)); }
+  .step-5 .step-number { background: linear-gradient(135deg, var(--green-400), var(--green-500)); }
+
+  .step-6 .step-header { background: linear-gradient(135deg, var(--purple-100), var(--purple-200)); }
+  .step-6 .step-number { background: linear-gradient(135deg, var(--purple-400), var(--purple-500)); }
+
+  .step-7 .step-header { background: linear-gradient(135deg, var(--teal-100), var(--teal-200)); }
+  .step-7 .step-number { background: linear-gradient(135deg, var(--teal-400), var(--teal-500)); }
+
+  .step-8 .step-header { background: linear-gradient(135deg, var(--pink-100), var(--blue-100)); }
+  .step-8 .step-number { background: linear-gradient(135deg, var(--pink-400), var(--blue-500)); }
+
+  .step-9 .step-header { background: linear-gradient(135deg, var(--orange-100), var(--purple-100)); }
+  .step-9 .step-number { background: linear-gradient(135deg, var(--orange-400), var(--purple-500)); }
+
+  .step-10 .step-header { background: linear-gradient(135deg, var(--green-100), var(--pink-100)); }
+  .step-10 .step-number { background: linear-gradient(135deg, var(--green-500), var(--pink-500)); }
+
+  /* ====== TABLES ====== */
+  .info-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .info-table th {
+    background: linear-gradient(135deg, var(--pink-200), var(--purple-200));
+    padding: 12px 18px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.9em;
+    color: var(--gray-700);
+    border-bottom: 2px solid var(--pink-300);
+  }
+
+  .info-table td {
+    padding: 12px 18px;
+    border-bottom: 1px solid var(--gray-200);
+    font-size: 0.93em;
+    color: var(--gray-700);
+    background: white;
+  }
+
+  .info-table tr:last-child td { border-bottom: none; }
+  .info-table tr:hover td { background: var(--pink-100); }
+
+  /* ====== CRT / FRT DIAGRAM BOXES ====== */
+  .diagram-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 24px 0;
+    position: relative;
+  }
+
+  .diagram-flow::before {
+    content: '';
+    position: absolute;
+    left: 24px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--gray-300), var(--gray-200));
+    border-radius: 3px;
+    z-index: 0;
+  }
+
+  .flow-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 12px 0;
+    position: relative;
+    z-index: 1;
+  }
+
+  .flow-connector {
+    width: 48px;
+    min-width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gray-400);
+  }
+
+  .flow-box {
+    flex: 1;
+    padding: 14px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 0.93em;
+    line-height: 1.7;
+    border: 1px solid;
+  }
+
+  /* UDE = red */
+  .flow-box.ude {
+    background: var(--red-100);
+    border-color: var(--red-300);
+    color: var(--red-500);
+    font-weight: 600;
+  }
+
+  .flow-box.ude::before {
+    content: '🔴 UDE';
+    display: inline-block;
+    font-size: 0.8em;
+    font-weight: 700;
+    background: var(--red-400);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 8px;
+  }
+
+  /* Root cause = red bold */
+  .flow-box.root-cause {
+    background: linear-gradient(135deg, var(--red-200), var(--red-100));
+    border-color: var(--red-400);
+    color: var(--red-500);
+    font-weight: 700;
+    box-shadow: 0 0 20px rgba(239,68,68,0.15);
+  }
+
+  .flow-box.root-cause::before {
+    content: '🔥 根因';
+    display: inline-block;
+    font-size: 0.8em;
+    font-weight: 700;
+    background: var(--red-500);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 8px;
+  }
+
+  /* DE = green */
+  .flow-box.de {
+    background: var(--green-100);
+    border-color: var(--green-300);
+    color: var(--green-500);
+    font-weight: 600;
+  }
+
+  .flow-box.de::before {
+    content: '🟢 DE';
+    display: inline-block;
+    font-size: 0.8em;
+    font-weight: 700;
+    background: var(--green-500);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 8px;
+  }
+
+  /* Injection = blue */
+  .flow-box.injection {
+    background: var(--blue-100);
+    border-color: var(--blue-300);
+    color: var(--blue-500);
+    font-weight: 600;
+  }
+
+  .flow-box.injection::before {
+    content: '💉 注入解';
+    display: inline-block;
+    font-size: 0.8em;
+    font-weight: 700;
+    background: var(--blue-500);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 8px;
+  }
+
+  /* If-Then logic */
+  .flow-box.logic {
+    background: var(--gray-50);
+    border-color: var(--gray-200);
+    color: var(--gray-700);
+    font-style: italic;
+  }
+
+  .flow-box.logic::before {
+    content: '➡️ If-Then';
+    display: inline-block;
+    font-size: 0.8em;
+    font-weight: 700;
+    background: var(--gray-400);
+    color: white;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-right: 8px;
+    font-style: normal;
+  }
+
+  /* ====== EC CONFLICT CLOUD ====== */
+  .ec-cloud {
+    margin: 24px 0;
+    padding: 32px;
+    background: linear-gradient(135deg, var(--orange-100), var(--purple-100), var(--pink-100));
+    border-radius: var(--radius-lg);
+    border: 2px solid var(--orange-300);
+    position: relative;
+  }
+
+  .ec-row {
+    display: flex;
+    align-items: stretch;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+
+  .ec-box {
+    flex: 1;
+    padding: 18px 20px;
+    border-radius: var(--radius-sm);
+    text-align: center;
+    font-weight: 600;
+    line-height: 1.6;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .ec-box.goal {
+    background: linear-gradient(135deg, #FFD700, #FFC107);
+    color: var(--gray-800);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.1em;
+    font-weight: 700;
+  }
+
+  .ec-box.need {
+    background: linear-gradient(135deg, var(--blue-200), var(--blue-300));
+    color: var(--gray-800);
+  }
+
+  .ec-box.action {
+    background: var(--green-200);
+    color: var(--gray-800);
+  }
+
+  .ec-box.action-conflict {
+    background: var(--red-200);
+    color: var(--gray-800);
+  }
+
+  .ec-conflict-symbol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    min-width: 48px;
+  }
+
+  .ec-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4em;
+    min-width: 36px;
+    color: var(--gray-400);
+  }
+
+  .assumptions-list {
+    margin: 16px 0;
+    padding: 20px 24px;
+    background: rgba(255,255,255,0.7);
+    border-radius: var(--radius-sm);
+    border: 1px dashed var(--orange-300);
+  }
+
+  .assumptions-list h4 {
+    font-size: 0.95em;
+    color: var(--orange-500);
+    margin-bottom: 12px;
+  }
+
+  .assumptions-list li {
+    margin-bottom: 8px;
+    padding-left: 4px;
+    color: var(--gray-700);
+    font-size: 0.93em;
+    list-style: none;
+    position: relative;
+  }
+
+  .assumptions-list li::before {
+    content: '❌';
+    margin-right: 8px;
+  }
+
+  /* ====== BOTTLENECK LAYERS ====== */
+  .bottleneck-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 24px 0;
+  }
+
+  .bottleneck-layer {
+    padding: 18px 24px;
+    border-left: 5px solid;
+    margin-bottom: 12px;
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    transition: all 0.3s ease;
+  }
+
+  .bottleneck-layer:hover {
+    transform: translateX(8px);
+  }
+
+  .bottleneck-layer.primary {
+    background: linear-gradient(135deg, var(--red-100), var(--red-200));
+    border-left-color: var(--red-500);
+    animation: pulseGlow 3s ease-in-out infinite;
+  }
+
+  .bottleneck-layer.secondary {
+    background: linear-gradient(135deg, var(--orange-100), var(--orange-200));
+    border-left-color: var(--orange-400);
+  }
+
+  .bottleneck-layer.tertiary {
+    background: linear-gradient(135deg, var(--gray-100), var(--gray-200));
+    border-left-color: var(--gray-400);
+  }
+
+  .bottleneck-label {
+    font-weight: 700;
+    font-size: 0.85em;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+
+  .bottleneck-layer.primary .bottleneck-label { color: var(--red-500); }
+  .bottleneck-layer.secondary .bottleneck-label { color: var(--orange-500); }
+  .bottleneck-layer.tertiary .bottleneck-label { color: var(--gray-500); }
+
+  /* ====== OBSTACLE TABLE (PrT) ====== */
+  .prt-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 20px 0;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+  }
+
+  .prt-table th {
+    padding: 14px 18px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 0.88em;
+    color: white;
+  }
+
+  .prt-table th:nth-child(1) { background: var(--red-400); }
+  .prt-table th:nth-child(2) { background: var(--blue-400); }
+  .prt-table th:nth-child(3) { background: var(--green-500); }
+
+  .prt-table td {
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--gray-200);
+    font-size: 0.92em;
+    color: var(--gray-700);
+    background: white;
+    vertical-align: top;
+  }
+
+  .prt-table tr:last-child td { border-bottom: none; }
+  .prt-table tr:hover td { background: var(--gray-50); }
+
+  /* ====== TT WEEKLY PLAN ====== */
+  .tt-weeks {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .tt-week {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 24px 20px;
+    box-shadow: var(--shadow-md);
+    border-top: 4px solid;
+    transition: all 0.3s ease;
+  }
+
+  .tt-week:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .tt-week:nth-child(1) { border-top-color: var(--pink-400); }
+  .tt-week:nth-child(2) { border-top-color: var(--blue-400); }
+  .tt-week:nth-child(3) { border-top-color: var(--purple-400); }
+  .tt-week:nth-child(4) { border-top-color: var(--green-500); }
+
+  .tt-week h4 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.1em;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: var(--gray-800);
+  }
+
+  .tt-week .tt-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    margin-bottom: 10px;
+    font-size: 0.88em;
+    color: var(--gray-600);
+    line-height: 1.6;
+  }
+
+  .tt-week .tt-item .tt-label {
+    min-width: 42px;
+    font-weight: 700;
+    font-size: 0.85em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    text-align: center;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .tt-label.inject { background: var(--blue-400); }
+  .tt-label.expect { background: var(--green-400); }
+  .tt-label.action { background: var(--orange-400); }
+  .tt-label.verify { background: var(--purple-400); }
+  .tt-label.kpi { background: var(--pink-400); }
+
+  /* ====== THROUGHPUT AUDIT ====== */
+  .audit-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .audit-card {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 24px;
+    text-align: center;
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+  }
+
+  .audit-card:hover { transform: scale(1.03); }
+
+  .audit-card .audit-icon { font-size: 2.2em; margin-bottom: 10px; }
+  .audit-card .audit-label {
+    font-weight: 700;
+    font-size: 1.1em;
+    margin-bottom: 4px;
+    color: var(--gray-800);
+  }
+
+  .audit-card .audit-def {
+    font-size: 0.85em;
+    color: var(--gray-500);
+    margin-bottom: 12px;
+  }
+
+  .audit-states {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+  }
+
+  .state-badge {
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.8em;
+    font-weight: 600;
+  }
+
+  .state-badge.high { background: var(--green-200); color: var(--green-500); }
+  .state-badge.low { background: var(--red-200); color: var(--red-500); }
+
+  /* ====== POOGI QUARTERS ====== */
+  .poogi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .poogi-quarter {
+    background: white;
+    border-radius: var(--radius-md);
+    padding: 24px 20px;
+    box-shadow: var(--shadow-md);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .poogi-quarter::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+
+  .poogi-quarter:nth-child(1)::before { background: linear-gradient(90deg, var(--pink-400), var(--orange-400)); }
+  .poogi-quarter:nth-child(2)::before { background: linear-gradient(90deg, var(--blue-400), var(--purple-400)); }
+  .poogi-quarter:nth-child(3)::before { background: linear-gradient(90deg, var(--green-400), var(--teal-400)); }
+  .poogi-quarter:nth-child(4)::before { background: linear-gradient(90deg, var(--purple-400), var(--pink-400)); }
+
+  .poogi-quarter h4 {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 1.05em;
+    color: var(--gray-800);
+    margin-bottom: 14px;
+  }
+
+  .poogi-quarter ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .poogi-quarter li {
+    padding: 6px 0;
+    font-size: 0.9em;
+    color: var(--gray-600);
+    border-bottom: 1px solid var(--gray-100);
+  }
+
+  .poogi-quarter li:last-child { border-bottom: none; }
+
+  .poogi-quarter li::before {
+    content: '◻';
+    margin-right: 8px;
+    color: var(--gray-300);
+  }
+
+  /* ====== SECTION DIVIDER ====== */
+  .section-divider {
+    text-align: center;
+    margin: 56px 0 40px;
+    position: relative;
+  }
+
+  .section-divider::before {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    top: 50%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--pink-300), var(--purple-300), transparent);
+  }
+
+  .section-divider span {
+    position: relative;
+    background: linear-gradient(135deg, #FFF5F9, #F0F4FF);
+    padding: 0 24px;
+    font-size: 1.8em;
+  }
+
+  /* ====== FOOTER ====== */
+  .footer {
+    text-align: center;
+    margin-top: 64px;
+    padding: 40px;
+    background: var(--glass);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+
+  .footer p {
+    color: var(--gray-400);
+    font-size: 0.88em;
+    line-height: 1.8;
+  }
+
+  .footer .footer-brand {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 1.1em;
+    color: var(--gray-600);
+    margin-bottom: 8px;
+  }
+
+  /* ====== UTILITY ====== */
+  .highlight-pink { color: var(--pink-500); font-weight: 700; }
+  .highlight-blue { color: var(--blue-500); font-weight: 700; }
+  .highlight-green { color: var(--green-500); font-weight: 700; }
+  .highlight-purple { color: var(--purple-500); font-weight: 700; }
+  .highlight-red { color: var(--red-500); font-weight: 700; }
+  .highlight-orange { color: var(--orange-500); font-weight: 700; }
+
+  .tag {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 50px;
+    font-size: 0.8em;
+    font-weight: 600;
+  }
+
+  .tag-red { background: var(--red-200); color: var(--red-500); }
+  .tag-green { background: var(--green-200); color: var(--green-500); }
+  .tag-blue { background: var(--blue-200); color: var(--blue-500); }
+  .tag-purple { background: var(--purple-200); color: var(--purple-500); }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 768px) {
+    .container { padding: 20px 16px 60px; }
+    .hero { padding: 48px 24px 40px; }
+    .hero h1 { font-size: 2.2em; }
+    .step-header, .step-body { padding-left: 24px; padding-right: 24px; }
+    .ec-row { flex-direction: column; }
+    .audit-grid { grid-template-columns: 1fr; }
+    .tt-weeks { grid-template-columns: 1fr; }
+    .structure-grid { grid-template-columns: 1fr; }
+    .concepts-grid { grid-template-columns: 1fr; }
+  }
+
+  /* Print styles */
+  @media print {
+    body { background: white; }
+    body::before { display: none; }
+    .step-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+    .hero { box-shadow: none; border: 1px solid #ddd; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ====== HERO ====== -->
+  <header class="hero">
+    <div class="hero-badge">TOC 十步深度分析</div>
+    <h1>人比AI凶</h1>
+    <p class="subtitle">當 AI 無所不能，人靠意識、意志、智慧不可替代</p>
+    <p class="author">萬維鋼 著 ─ 限制理論（TOC）全系統解構</p>
+    <div class="core-thesis">
+      <strong>核心論點：</strong>AI 正以窮舉模式席捲一切可量化的領域，但人類獨有的<strong>末那識</strong>（深層自我意識）、<strong>啟發模式</strong>思維、以及<strong>主動發起方向感</strong>，構成了無法被演算法取代的「超額收益」。在 ASI 時代，最貴的不是算力，而是<strong>人的意識與方向感</strong>。
+    </div>
+  </header>
+
+  <!-- ====== META ====== -->
+  <div class="meta-bar">
+    <div class="meta-chip"><span class="icon">📚</span> 序 + 7篇 + 跋（50篇）</div>
+    <div class="meta-chip"><span class="icon">🧠</span> 認知升級 × AI 策略</div>
+    <div class="meta-chip"><span class="icon">⚙️</span> TOC 限制理論分析</div>
+    <div class="meta-chip"><span class="icon">📅</span> 2026-03-12 分析</div>
+  </div>
+
+  <!-- ====== BOOK STRUCTURE ====== -->
+  <section class="book-structure">
+    <h2>📖 全書結構一覽</h2>
+    <div class="structure-grid">
+      <div class="structure-item">
+        <span class="num">壹</span>
+        <strong>與 AI 打交道的策略</strong><br>
+        <small style="color:var(--gray-500)">不需提示工程，需要迭代追問；把 AI 當超人用</small>
+      </div>
+      <div class="structure-item">
+        <span class="num">貳</span>
+        <strong>洞見 AI</strong><br>
+        <small style="color:var(--gray-500)">窮舉模式 vs 啟發模式；AI 沒有末那識</small>
+      </div>
+      <div class="structure-item">
+        <span class="num">叁</span>
+        <strong>實操 AI</strong><br>
+        <small style="color:var(--gray-500)">AI 的能與不能；實戰層面的工具思維</small>
+      </div>
+      <div class="structure-item">
+        <span class="num">肆</span>
+        <strong>人不是 AI：成長之道</strong><br>
+        <small style="color:var(--gray-500)">人的自我覺察、成長路徑、主動性不可取代</small>
+      </div>
+      <div class="structure-item">
+        <span class="num">伍</span>
+        <strong>思維方法不是算法</strong><br>
+        <small style="color:var(--gray-500)">躍層思維、啟發式推理、非線性創造</small>
+      </div>
+      <div class="structure-item">
+        <span class="num">陸</span>
+        <strong>成為智者</strong><br>
+        <small style="color:var(--gray-500)">智者愚者六大區別；五個心智階段</small>
+      </div>
+      <div class="structure-item">
+        <span class="num">柒</span>
+        <strong>未來已來</strong><br>
+        <small style="color:var(--gray-500)">ASI 時代什麼最貴；捕捉阿爾法</small>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== KEY CONCEPTS ====== -->
+  <section class="concepts-section">
+    <h2>🔑 十大核心概念</h2>
+    <div class="concepts-grid">
+      <div class="concept-card">
+        <div class="concept-title">🧘 AI 沒有末那識</div>
+        <div class="concept-desc">佛學第七識＝深層自我意識。AI 能模擬情緒、生成文本，但缺乏「我是誰、我為何存在」的根本自覺。這是人類最後的護城河。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-title">⚡ 啟發模式 vs 窮舉模式</div>
+        <div class="concept-desc">人用直覺跳躍（啟發），AI 用暴力搜索（窮舉）。兩者互補但本質不同：啟發能突破框架，窮舉只能在框架內最優化。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-title">📈 捕捉阿爾法</div>
+        <div class="concept-desc">金融術語借用：當 AI 把基礎回報（Beta）推平，人的超額收益（Alpha）來自獨特的眼光、判斷與方向選擇。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-title">🌍 平庸是地心引力</div>
+        <div class="concept-desc">系統的默認狀態就是平庸。不刻意對抗這股力量，就會被拉回均值。AI 加速了這個過程——能被複製的能力都將歸零。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-title">🚀 躍層思維</div>
+        <div class="concept-desc">不在當前層級找答案，而是跳到上一層重新定義問題。這是算法無法自行完成的——它需要人指定「該往哪跳」。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-title">🎪 世界是草台班子</div>
+        <div class="concept-desc">解構完美主義。沒有完美系統，所有組織都在「差不多」中運行。認清這點反而能降低行動門檻、快速迭代。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-title">🔄 迭代追問 > 提示工程</div>
+        <div class="concept-desc">與 AI 協作的關鍵不是寫出完美 Prompt，而是在對話中不斷追問、修正、深化。過程比起點更重要。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-title">👤 人是主動發起者</div>
+        <div class="concept-desc">AI 是強大的執行者，但「做什麼」「為什麼做」的方向感必須由人提供。人＝導演，AI＝超級演員。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-title">🎓 智者五階段・六區別</div>
+        <div class="concept-desc">從無知到智慧的心智升級路徑：五個階段層層遞進，六大區別區分智者與愚者的思維模式。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-title">💎 ASI 時代最貴的東西</div>
+        <div class="concept-desc">當超級智慧到來，算力、知識、技能都將極度廉價。唯一稀缺的是：人的意識方向感——知道該用 AI 做什麼。</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====== GOLDEN QUOTES ====== -->
+  <div class="quotes-strip">
+    <span class="quote-tag">「人比 AI 凶」</span>
+    <span class="quote-tag">「平庸是地心引力」</span>
+    <span class="quote-tag">「AI 沒有末那識」</span>
+    <span class="quote-tag">「世界是草台班子」</span>
+    <span class="quote-tag">「把 AI 當比你厲害的超人用」</span>
+  </div>
+
+  <!-- ====== TOC TEN STEPS ====== -->
+  <div class="section-divider"><span>🔟</span></div>
+
+  <section class="toc-section">
+    <div class="toc-section-header">
+      <h2>TOC 限制理論 ─ 十步深度分析</h2>
+      <p>以 Goldratt 限制理論的系統思考框架，全面解構《人比AI凶》的核心洞見</p>
+    </div>
+
+    <!-- ==================== STEP 1 ==================== -->
+    <div class="step-card step-1" style="animation-delay: 0.1s">
+      <div class="step-header">
+        <div class="step-number">1</div>
+        <h3 class="step-title">系統界定</h3>
+        <p class="step-subtitle">System Definition — 定義分析的系統範圍與目標</p>
+      </div>
+      <div class="step-body">
+        <table class="info-table">
+          <tr><th style="width:140px">項目</th><th>說明</th></tr>
+          <tr>
+            <td><strong>系統名稱</strong></td>
+            <td>「AI 時代的人類認知升級系統」——知識工作者在 AI 浪潮中，從被動適應轉為主動駕馭的思維作業系統</td>
+          </tr>
+          <tr>
+            <td><strong>系統目標</strong></td>
+            <td>讓知識工作者在 AI 普及後仍能持續產生<span class="highlight-pink">超額價值（Alpha）</span>，而非被 AI 推平為可替代的「Beta 勞力」</td>
+          </tr>
+          <tr>
+            <td><strong>系統邊界</strong></td>
+            <td>
+              <strong>內部：</strong>個人認知框架、AI 使用策略、思維模式、心智成長階段<br>
+              <strong>外部：</strong>AI 技術發展速度、組織制度、勞動市場結構、社會文化慣性<br>
+              <strong>排除：</strong>AI 硬體研發、基礎模型訓練、政策法規制定
+            </td>
+          </tr>
+          <tr>
+            <td><strong>利害關係人</strong></td>
+            <td>
+              🎯 <strong>核心：</strong>知識工作者（白領、創作者、專業人士）<br>
+              🏢 <strong>組織：</strong>企業管理者、教育機構、人力資源部門<br>
+              🤖 <strong>AI 端：</strong>AI 工具開發商、提示工程師群體<br>
+              🌍 <strong>社會：</strong>下一代教育受眾、AI 政策制定者
+            </td>
+          </tr>
+          <tr>
+            <td><span class="highlight-green"><strong>T（吞吐量）</strong></span></td>
+            <td>個人在 AI 協作下產出的<strong>不可替代價值</strong>——原創洞見、方向決策、跨層級問題重構能力。衡量方式：獨立判斷品質 × 決策影響力 × 創造性輸出頻率</td>
+          </tr>
+          <tr>
+            <td><span class="highlight-orange"><strong>OE（營運費用）</strong></span></td>
+            <td>維持認知升級所需的<strong>持續投入</strong>——學習時間、心智能量、反思與練習成本、AI 工具訂閱與學習曲線。包含對抗「平庸地心引力」的恆常消耗</td>
+          </tr>
+          <tr>
+            <td><span class="highlight-blue"><strong>I（投入資本）</strong></span></td>
+            <td>一次性的<strong>認知基礎設施建設</strong>——建立個人知識體系的初始投入、形成躍層思維習慣的前期努力、從「被動使用 AI」轉向「主動駕馭 AI」的思維轉型成本</td>
+          </tr>
+        </table>
+
+        <p style="margin-top:16px; padding:14px 20px; background:var(--pink-100); border-radius:var(--radius-sm); font-size:0.93em;">
+          <strong>📌 系統核心矛盾：</strong>AI 越強大，「可被 AI 做的事」就越不值錢。系統的目標不是「學會用 AI」（這只是門票），而是「做 AI 做不到的事」——這需要的不是技術訓練，而是<span class="highlight-pink">意識的根本升級</span>。
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 2 ==================== -->
+    <div class="step-card step-2" style="animation-delay: 0.2s">
+      <div class="step-header">
+        <div class="step-number">2</div>
+        <h3 class="step-title">現況實境樹 CRT</h3>
+        <p class="step-subtitle">Current Reality Tree — 以 If-Then 因果鏈找出系統痛點的根因</p>
+      </div>
+      <div class="step-body">
+        <p>以下是知識工作者在 AI 時代面臨的<span class="tag tag-red">不良效應 UDE</span>，透過 If-Then 因果鏈追溯至<span class="highlight-red">根因</span>：</p>
+
+        <div class="diagram-flow">
+          <!-- Root Cause -->
+          <div class="flow-item">
+            <div class="flow-connector">⬆</div>
+            <div class="flow-box root-cause">
+              多數人缺乏<strong>末那識層級的自我覺察</strong>——不知道「我是誰、我要什麼、我為什麼做這件事」，導致在面對 AI 時只會被動模仿，而無法主動定義方向。
+            </div>
+          </div>
+
+          <!-- If-Then chain -->
+          <div class="flow-item">
+            <div class="flow-connector">⬆</div>
+            <div class="flow-box logic">
+              如果人缺乏深層自我意識，<strong>那麼</strong>就無法區分「自己該做什麼」和「AI 能做什麼」，會把時間花在 AI 已經能做得更好的事情上。
+            </div>
+          </div>
+
+          <!-- UDE 1 -->
+          <div class="flow-item">
+            <div class="flow-connector">⬆</div>
+            <div class="flow-box ude">
+              知識工作者花大量時間學「提示工程」技巧，卻忽略了更根本的<strong>思維升級</strong>，陷入工具焦慮。
+            </div>
+          </div>
+
+          <!-- If-Then -->
+          <div class="flow-item">
+            <div class="flow-connector">⬆</div>
+            <div class="flow-box logic">
+              如果只追求工具層操作，<strong>那麼</strong>所有人的 AI 產出將趨於同質化——因為大家用同樣的工具、同樣的方法、得到同樣的結果。
+            </div>
+          </div>
+
+          <!-- UDE 2 -->
+          <div class="flow-item">
+            <div class="flow-connector">⬆</div>
+            <div class="flow-box ude">
+              <strong>AI 產出同質化</strong>嚴重，無論寫文案、做分析、寫程式，AI 生成的內容越來越像，個人差異消失。
+            </div>
+          </div>
+
+          <!-- If-Then -->
+          <div class="flow-item">
+            <div class="flow-connector">⬆</div>
+            <div class="flow-box logic">
+              如果產出同質化，<strong>那麼</strong>「平庸是地心引力」效應加劇——可被複製的能力價值歸零，專業人士的護城河快速瓦解。
+            </div>
+          </div>
+
+          <!-- UDE 3 -->
+          <div class="flow-item">
+            <div class="flow-connector">⬆</div>
+            <div class="flow-box ude">
+              專業人士的<strong>市場議價能力急速下降</strong>，「十年經驗」不再是壁壘，因為 AI 能在十秒內調用全人類的經驗。
+            </div>
+          </div>
+
+          <!-- If-Then -->
+          <div class="flow-item">
+            <div class="flow-connector">⬆</div>
+            <div class="flow-box logic">
+              如果人只在「窮舉模式」的維度與 AI 競爭（比速度、比記憶、比準確率），<strong>那麼</strong>必然失敗，因為這正是 AI 的絕對優勢領域。
+            </div>
+          </div>
+
+          <!-- UDE 4 -->
+          <div class="flow-item">
+            <div class="flow-connector">⬆</div>
+            <div class="flow-box ude">
+              大量人陷入<strong>「AI 焦慮」與「AI 崇拜」</strong>的兩極——要嘛恐慌失業，要嘛迷信 AI 萬能，兩者都是認知失調。
+            </div>
+          </div>
+
+          <!-- If-Then -->
+          <div class="flow-item">
+            <div class="flow-connector">⬆</div>
+            <div class="flow-box logic">
+              如果缺乏躍層思維，人就只能在<strong>當前層級</strong>被問題追著跑，而無法跳到上一層重新定義遊戲規則。
+            </div>
+          </div>
+
+          <!-- UDE 5 -->
+          <div class="flow-item">
+            <div class="flow-connector">⬆</div>
+            <div class="flow-box ude">
+              教育系統仍在培養「可被 AI 取代」的能力：<strong>標準答案思維、重複性知識記憶、線性問題解決</strong>。
+            </div>
+          </div>
+
+          <!-- If-Then -->
+          <div class="flow-item">
+            <div class="flow-connector">⬆</div>
+            <div class="flow-box logic">
+              如果「世界是草台班子」的認知沒有建立，人就容易被<strong>完美主義</strong>癱瘓——總覺得準備不夠、條件不足，錯過行動窗口。
+            </div>
+          </div>
+
+          <!-- UDE 6 -->
+          <div class="flow-item">
+            <div class="flow-connector">⬆</div>
+            <div class="flow-box ude">
+              知識工作者普遍<strong>行動力不足</strong>——研究了一堆 AI 工具，聽了無數播客，但實際將 AI 融入工作流的人極少。
+            </div>
+          </div>
+
+          <!-- UDE 7 -->
+          <div class="flow-item">
+            <div class="flow-connector">⬆</div>
+            <div class="flow-box ude">
+              組織層面<strong>以 AI 取代人力為導向</strong>，而非以「AI＋人力」協作增效為導向，導致人才流失與創新枯竭的惡性循環。
+            </div>
+          </div>
+        </div>
+
+        <p style="padding:16px 20px; background:linear-gradient(135deg, var(--red-100), var(--orange-100)); border-radius:var(--radius-sm); margin-top:16px;">
+          <strong>🔥 根因匯總：</strong>所有 UDE 最終都指向一個根本原因——<span class="highlight-red">人缺乏末那識層級的深層自我覺察</span>，導致在 AI 時代只能<strong>被動反應</strong>（學工具、怕被取代、追趨勢），而無法<strong>主動定義</strong>（我要用 AI 做什麼、我的不可取代性在哪裡、我的方向是什麼）。這正是萬維鋼所說「人比 AI 凶」的前提——但前提是你<strong>先成為一個有意識的人</strong>。
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 3 ==================== -->
+    <div class="step-card step-3" style="animation-delay: 0.3s">
+      <div class="step-header">
+        <div class="step-number">3</div>
+        <h3 class="step-title">核心衝突雲 EC</h3>
+        <p class="step-subtitle">Evaporating Cloud — 釐清系統的根本兩難，暴露隱藏假設</p>
+      </div>
+      <div class="step-body">
+
+        <div class="ec-cloud">
+          <!-- Row 1: Goal -->
+          <div style="text-align:center; margin-bottom:24px;">
+            <div class="ec-box goal" style="max-width:480px; margin:0 auto;">
+              <div style="font-size:0.75em; color:rgba(0,0,0,0.5); margin-bottom:4px;">A 共同目標</div>
+              在 AI 時代持續產生不可替代的價值，<br>成為「人比 AI 凶」的那種人
+            </div>
+          </div>
+
+          <!-- Row 2: Needs -->
+          <div class="ec-row" style="justify-content:center;">
+            <div class="ec-box need" style="max-width:320px;">
+              <div style="font-size:0.75em; color:rgba(0,0,0,0.5); margin-bottom:4px;">B 需求一</div>
+              快速掌握 AI 工具與技能，<br>跟上技術迭代速度
+            </div>
+            <div class="ec-arrow">⬌</div>
+            <div class="ec-box need" style="max-width:320px;">
+              <div style="font-size:0.75em; color:rgba(0,0,0,0.5); margin-bottom:4px;">C 需求二</div>
+              深耕人類獨有的意識、<br>智慧與方向感
+            </div>
+          </div>
+
+          <!-- Row 3: Actions -->
+          <div class="ec-row" style="justify-content:center; margin-top:16px;">
+            <div class="ec-box action" style="max-width:320px;">
+              <div style="font-size:0.75em; color:rgba(0,0,0,0.5); margin-bottom:4px;">D 行動</div>
+              把大部分時間精力投入<br>學習 AI 工具、提示技巧、自動化流程
+            </div>
+            <div class="ec-conflict-symbol">⚡</div>
+            <div class="ec-box action-conflict" style="max-width:320px;">
+              <div style="font-size:0.75em; color:rgba(0,0,0,0.5); margin-bottom:4px;">D' 對立行動</div>
+              把大部分時間精力投入<br>閱讀、反思、修煉心智、培養獨立判斷
+            </div>
+          </div>
+        </div>
+
+        <!-- Assumptions -->
+        <div class="assumptions-list">
+          <h4>🔓 隱藏的錯誤假設（打破即可消解衝突）</h4>
+          <ul>
+            <li><strong>假設 ①「D→B 唯一路徑」：</strong>只有透過密集的工具學習才能跟上 AI。<br>
+              <span style="color:var(--blue-500);">→ 實際上：萬維鋼指出「不需提示工程，需要迭代追問」。工具學習的邊際收益遞減極快，真正拉開差距的是<strong>提問品質</strong>（來自思維深度）。</span></li>
+            <li><strong>假設 ②「B-C 互斥」：</strong>學 AI 工具和培養人的智慧是時間上的零和遊戲。<br>
+              <span style="color:var(--blue-500);">→ 實際上：「人是主動發起者，AI 是執行者」——深度思考<strong>提升</strong> AI 使用品質，兩者不但不衝突，還互相強化。最好的 AI 使用者是最好的思考者。</span></li>
+            <li><strong>假設 ③「窮舉模式萬能」：</strong>AI 的暴力計算最終能覆蓋啟發模式的所有功能。<br>
+              <span style="color:var(--blue-500);">→ 實際上：啟發模式的本質是<strong>跳出框架</strong>，而窮舉只能在既定框架內搜索最優解。躍層思維（改變問題本身）不可被窮舉覆蓋——這是人的結構性優勢。</span></li>
+            <li><strong>假設 ④「個人無力對抗系統」：</strong>在 AI 浪潮面前，個人的努力微不足道。<br>
+              <span style="color:var(--blue-500);">→ 實際上：「世界是草台班子」——系統遠沒有想像中堅固。一個有意識、有方向、能躍層思考的個體，在草台班子式的世界中反而有<strong>超比例的影響力</strong>。</span></li>
+          </ul>
+        </div>
+
+        <p style="padding:14px 20px; background:var(--orange-100); border-radius:var(--radius-sm);">
+          <strong>⚡ 衝突消解方向：</strong>D 與 D' 的衝突是<strong>假衝突</strong>。正確路徑是「D' 為本、D 為用」——先建立意識和方向感（末那識覺醒），再以此駕馭 AI 工具。這不是「二選一」，而是「先後順序」的問題。
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 4 ==================== -->
+    <div class="step-card step-4" style="animation-delay: 0.4s">
+      <div class="step-header">
+        <div class="step-number">4</div>
+        <h3 class="step-title">注入解萃取</h3>
+        <p class="step-subtitle">Injection Extraction — 從書中萃取打破錯誤假設的突破口</p>
+      </div>
+      <div class="step-body">
+
+        <div class="diagram-flow" style="margin-top:8px;">
+          <div class="flow-item">
+            <div class="flow-connector">💡</div>
+            <div class="flow-box injection">
+              <strong>注入解 ①：末那識覺醒訓練</strong><br>
+              <span style="color:var(--gray-700); font-weight:400;">打破假設 ①②。萬維鋼以佛學「末那識」概念指出：AI 沒有第七識，沒有「我為什麼要做這件事」的根本動機。培養末那識覺察——定期自問「我真正要的是什麼」「這件事為什麼重要」——能將 AI 使用從「被動操作」升級為「有方向的協作」。<strong>書中論據：</strong>AI 只有前六識（感知與推理），缺乏第七識（自我意識）和第八識（深層儲藏），因此永遠需要人類提供「為什麼」。</span>
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-connector">💡</div>
+            <div class="flow-box injection">
+              <strong>注入解 ②：躍層思維 × 迭代追問工作法</strong><br>
+              <span style="color:var(--gray-700); font-weight:400;">打破假設 ②③。不需要學一百種提示模板，只需掌握「躍層」＋「迭代追問」兩個核心能力。躍層思維讓你跳出 AI 的搜索空間（不在框架內比速度），迭代追問讓你在對話中不斷逼近真正有價值的答案。<strong>書中論據：</strong>「不需提示工程，需要迭代追問」——最佳 AI 使用者不是寫最好 prompt 的人，而是追問最深的人。「躍層思維」讓問題本身被重新定義，這是窮舉模式的盲區。</span>
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-connector">💡</div>
+            <div class="flow-box injection">
+              <strong>注入解 ③：草台班子行動哲學</strong><br>
+              <span style="color:var(--gray-700); font-weight:400;">打破假設 ④。「世界是草台班子」不是犬儒主義，是<strong>行動解放</strong>——既然沒有完美系統，等待完美條件就是浪費生命。用 AI 快速原型、快速試錯、快速迭代，把「不完美」當作常態而非障礙。<strong>書中論據：</strong>萬維鋼以多個案例說明——所有看起來光鮮的組織和系統，內部都是「差不多先生」在運轉。認清這點的人反而最敢行動，因為他知道競爭對手也沒比他強多少。「平庸是地心引力」則提供反向力量——知道默認是平庸，就有了刻意對抗的動力。</span>
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-connector">💡</div>
+            <div class="flow-box injection">
+              <strong>注入解 ④：捕捉阿爾法的定位策略</strong><br>
+              <span style="color:var(--gray-700); font-weight:400;">打破假設 ①③。停止在 Beta 層（AI 也能做的事）競爭，轉向 Alpha 層（只有人能做、且稀缺的價值）。這需要識別自己的「不可取代點」——不是技能（會被學走），而是判斷力、方向感、品味和人際信任。<strong>書中論據：</strong>「捕捉阿爾法」概念直接來自金融——當指數基金（AI 基礎能力）讓所有人獲得市場平均回報時，超額回報只來自<strong>非共識判斷</strong>。人比 AI 凶的前提是：你做的事 AI 做不了。</span>
+            </div>
+          </div>
+        </div>
+
+        <p style="padding:14px 20px; background:var(--blue-100); border-radius:var(--radius-sm);">
+          <strong>💉 注入解的共同邏輯：</strong>四個注入解的核心是同一件事——<span class="highlight-blue">從「在 AI 的遊戲規則裡比賽」轉向「自己定義遊戲規則」</span>。末那識提供方向，躍層思維提供方法，草台班子提供勇氣，阿爾法定位提供策略。
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 5 ==================== -->
+    <div class="step-card step-5" style="animation-delay: 0.5s">
+      <div class="step-header">
+        <div class="step-number">5</div>
+        <h3 class="step-title">未來實境樹 FRT</h3>
+        <p class="step-subtitle">Future Reality Tree — 注入解落地後的正面效應鏈</p>
+      </div>
+      <div class="step-body">
+        <p>當四個注入解成功植入系統後，以下<span class="tag tag-green">正面效應 DE</span>將沿因果鏈逐步實現：</p>
+
+        <div class="diagram-flow">
+          <!-- Injection recap -->
+          <div class="flow-item">
+            <div class="flow-connector">💉</div>
+            <div class="flow-box injection" style="font-size:0.88em;">
+              四個注入解啟動：末那識覺醒 × 躍層追問 × 草台行動 × 阿爾法定位
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-connector">⬇</div>
+            <div class="flow-box logic">
+              如果人建立了「我為何而做」的清晰意識（末那識覺醒），<strong>那麼</strong>在與 AI 協作時不再被工具牽著走，而是有明確方向地使用 AI。
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-connector">⬇</div>
+            <div class="flow-box de">
+              <strong>從 AI 焦慮轉為 AI 自信</strong>——清楚知道「哪些事交給 AI、哪些事只有我能做」，心態從恐懼轉為從容。
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-connector">⬇</div>
+            <div class="flow-box logic">
+              如果掌握了躍層思維和迭代追問，<strong>那麼</strong>AI 產出品質大幅提升——不是因為 prompt 更精巧，而是因為<strong>問題本身更有深度</strong>。
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-connector">⬇</div>
+            <div class="flow-box de">
+              <strong>個人產出差異化重建</strong>——同樣使用 AI，你的產出因思維深度不同而呈現明顯差異，「同質化地心引力」被突破。
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-connector">⬇</div>
+            <div class="flow-box de">
+              <strong>專業議價能力回升</strong>——市場開始區分「會用 AI 的人」（Beta，遍地都是）和「能駕馭 AI 的人」（Alpha，稀缺），後者的定價權回歸。
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-connector">⬇</div>
+            <div class="flow-box logic">
+              如果草台班子認知降低了行動門檻，<strong>那麼</strong>更多人開始「做了再說」而非「想好再做」，AI 被用於快速驗證而非無止境的準備。
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-connector">⬇</div>
+            <div class="flow-box de">
+              <strong>行動力大幅提升</strong>——從「研究 AI」轉為「用 AI 做事」，試錯速度加快 10 倍，學習曲線從理論轉為實戰。
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-connector">⬇</div>
+            <div class="flow-box de">
+              <strong>正向飛輪啟動</strong>——更深的思考→更好的 AI 產出→更多超額價值→更強的自信→更深的思考⋯⋯形成自我強化循環。
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-connector">⬇</div>
+            <div class="flow-box de">
+              <strong>心智階段躍遷</strong>——從智者五階段的低層級向高層級移動，逐步具備「在 AI 時代引領方向」的能力，而非僅僅跟隨。
+            </div>
+          </div>
+
+          <div class="flow-item">
+            <div class="flow-connector">⬇</div>
+            <div class="flow-box de" style="background:linear-gradient(135deg, var(--green-200), var(--teal-200)); border-color:var(--green-400); font-size:1.02em;">
+              <strong>🏆 終極效應：成為 ASI 時代的方向定義者</strong>——當 AI 能做一切「怎麼做」的事情時，你是那個說「做什麼」和「為什麼做」的人。這就是「人比 AI 凶」的真正含義。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 6 ==================== -->
+    <div class="step-card step-6" style="animation-delay: 0.6s">
+      <div class="step-header">
+        <div class="step-number">6</div>
+        <h3 class="step-title">瓶頸深度定位</h3>
+        <p class="step-subtitle">Bottleneck Identification — 找出制約系統的多層瓶頸</p>
+      </div>
+      <div class="step-body">
+        <p>系統的吞吐量（T）被以下瓶頸層層制約。根據 TOC 原則，必須先識別<span class="highlight-red">主瓶頸</span>，集中資源突破：</p>
+
+        <div class="bottleneck-layers">
+          <div class="bottleneck-layer primary">
+            <div class="bottleneck-label">🔥 主瓶頸（P1）——認知層</div>
+            <p><strong>缺乏「啟發模式」的思維訓練機制</strong></p>
+            <p style="font-size:0.92em; color:var(--gray-600); margin-top:8px;">
+              整個教育和職場體系都在訓練「窮舉模式」——更多知識、更多資料、更多分析。但萬維鋼指出，人的真正優勢在<strong>啟發模式</strong>：直覺跳躍、模式識別、框架重構。這種能力目前幾乎沒有系統性的訓練方式。<br><br>
+              <strong>📖 書中案例：</strong>萬維鋼對比 AI 下棋（窮舉所有可能走法）和人類棋手（直覺判斷局勢）——AI 的棋力更強，但人類棋手的「棋感」是一種不同維度的能力。在需要跨領域創新的場景中，啟發模式遠比窮舉模式高效。
+            </p>
+          </div>
+
+          <div class="bottleneck-layer secondary">
+            <div class="bottleneck-label">⚠️ 次瓶頸（P2）——行動層</div>
+            <p><strong>「平庸地心引力」的默認回拉力</strong></p>
+            <p style="font-size:0.92em; color:var(--gray-600); margin-top:8px;">
+              即使認知上理解了「人比 AI 凶」，行動層仍會被地心引力拉回：舒適區的吸引力、社交圈的從眾壓力、短期反饋的誘惑。認知升級後如果沒有持續的行動機制，很快就會退化。<br><br>
+              <strong>📖 書中案例：</strong>「平庸是地心引力」——不需要做錯任何事，只要停止刻意對抗，就會自然回歸平庸。這不是個人意志力問題，而是系統的結構性特徵。
+            </p>
+          </div>
+
+          <div class="bottleneck-layer secondary">
+            <div class="bottleneck-label">⚠️ 次瓶頸（P3）——環境層</div>
+            <p><strong>缺乏「人＋AI」協作的最佳實踐模型</strong></p>
+            <p style="font-size:0.92em; color:var(--gray-600); margin-top:8px;">
+              目前主流敘事是「AI 取代人」或「人學 AI 工具」，缺乏「人主導方向、AI 負責執行」的成熟協作範式。個體即使理解了這個道理，也缺乏可參考的實踐模板。<br><br>
+              <strong>📖 書中案例：</strong>「人是主動發起者，AI 是執行者」「把 AI 當比你厲害的超人用」——萬維鋼提供了思路，但從思路到落地的「最後一公里」仍是瓶頸。
+            </p>
+          </div>
+
+          <div class="bottleneck-layer tertiary">
+            <div class="bottleneck-label">📌 支撐瓶頸（P4）——制度層</div>
+            <p><strong>教育與組織制度的滯後性</strong></p>
+            <p style="font-size:0.92em; color:var(--gray-600); margin-top:8px;">
+              學校仍在考「標準答案」，企業仍以「可量化產出」評估員工——這些正是 AI 最擅長的維度。制度不鼓勵（甚至懲罰）啟發式思維、躍層提問和非線性創造。
+            </p>
+          </div>
+        </div>
+
+        <p style="padding:14px 20px; background:var(--purple-100); border-radius:var(--radius-sm);">
+          <strong>🎯 瓶頸優先順序：</strong>P1（認知層）是主瓶頸。只要打通「啟發模式思維訓練」，P2 的行動力和 P3 的協作模式都會隨之改善。正如 TOC 所言：<span class="highlight-purple">在非瓶頸上的改善是幻覺</span>——再多的 AI 工具培訓（P3 領域），如果不先解決認知瓶頸（P1），都只是在增加 OE 而非 T。
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 7 ==================== -->
+    <div class="step-card step-7" style="animation-delay: 0.7s">
+      <div class="step-header">
+        <div class="step-number">7</div>
+        <h3 class="step-title">障礙拆解 PrT</h3>
+        <p class="step-subtitle">Prerequisite Tree — 從障礙倒推中間目標與具體行動</p>
+      </div>
+      <div class="step-body">
+        <p>要落實四個注入解，必須克服以下障礙。每個障礙對應一個<span class="highlight-blue">中間目標</span>和<span class="highlight-green">具體行動</span>：</p>
+
+        <table class="prt-table">
+          <thead>
+            <tr>
+              <th style="width:30%">🚧 障礙</th>
+              <th style="width:30%">🎯 中間目標</th>
+              <th style="width:40%">🏃 具體行動</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>①「末那識」太抽象</strong><br><span style="font-size:0.85em; color:var(--gray-500)">佛學術語嚇退多數人，不知如何落地</span></td>
+              <td>將末那識操作化為<strong>日常可練習的反思問句</strong></td>
+              <td>
+                建立「每日三問」習慣：<br>
+                ❶ 今天做的事中，哪些只有我能做？<br>
+                ❷ 我為什麼選擇做這件事（而非別的）？<br>
+                ❸ 如果 AI 能做得更好，我該轉向什麼？<br>
+                <span style="font-size:0.85em; color:var(--gray-500)">每晚花 5 分鐘用筆記 app 記錄。</span>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>②「躍層思維」缺乏練習場景</strong><br><span style="font-size:0.85em; color:var(--gray-500)">概念懂了但不知在工作中怎麼用</span></td>
+              <td>建立<strong>問題重構的結構化練習</strong>機制</td>
+              <td>
+                每週選一個工作中的「難題」，用「問題升級法」練習：<br>
+                ❶ 原始問題是什麼？<br>
+                ❷ 這個問題背後的問題是什麼？<br>
+                ❸ 如果跳到上一層，這根本不是問題了？<br>
+                用 AI 輔助多角度重構，但<strong>方向由自己定</strong>。
+              </td>
+            </tr>
+            <tr>
+              <td><strong>③「平庸地心引力」太強</strong><br><span style="font-size:0.85em; color:var(--gray-500)">知道要對抗但三天就鬆懈</span></td>
+              <td>設計<strong>抗地心引力的結構性機制</strong>（不靠意志力）</td>
+              <td>
+                ❶ 建立「非共識行為清單」——列出 5 件別人不做但你覺得有價值的事<br>
+                ❷ 每週至少執行 1 件<br>
+                ❸ 找一個「對抗夥伴」互相監督<br>
+                ❹ 用 AI 做「平庸檢測」——把自己的產出丟給 AI，問「這是不是大多數人也能寫出來的？」
+              </td>
+            </tr>
+            <tr>
+              <td><strong>④ 缺乏 Alpha 定位的自我評估工具</strong><br><span style="font-size:0.85em; color:var(--gray-500)">不知道自己的「不可取代性」在哪裡</span></td>
+              <td>完成<strong>個人 Alpha 地圖</strong>的初版繪製</td>
+              <td>
+                用以下框架自我分析：<br>
+                ❶ 列出你做過的 10 件「最有價值」的事<br>
+                ❷ 標記哪些 AI 現在就能做到 80%<br>
+                ❸ 剩下的 20% 是什麼？那就是你的 Alpha 區<br>
+                ❹ 未來 3 個月把 70% 精力投入 Alpha 區<br>
+                <span style="font-size:0.85em; color:var(--gray-500)">每季度重新評估一次。</span>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>⑤ 組織環境不支持</strong><br><span style="font-size:0.85em; color:var(--gray-500)">公司仍以「可量化產出」評估，不獎勵深度思考</span></td>
+              <td>在現有框架內<strong>創造「隱性自主空間」</strong></td>
+              <td>
+                ❶ 用 AI 把「必做但不差異化」的工作壓縮到最短<br>
+                ❷ 把省下的時間投入深度思考和躍層實驗<br>
+                ❸ 用結果反向證明——當你的產出明顯更好時，組織會自然調整對你的評估方式<br>
+                ❹ 如果組織完全無法接受，這本身就是一個「躍層」信號——也許該換賽道
+              </td>
+            </tr>
+            <tr>
+              <td><strong>⑥ 資訊過載與選擇癱瘓</strong><br><span style="font-size:0.85em; color:var(--gray-500)">每天有 100 篇 AI 新聞，不知道該學什麼</span></td>
+              <td>建立<strong>「AI 資訊極簡過濾器」</strong></td>
+              <td>
+                ❶ 設定唯一標準：這個 AI 新能力會改變「我做什麼」還是「我怎麼做」？<br>
+                ❷ 如果只是「怎麼做」→略讀或忽略<br>
+                ❸ 如果改變「做什麼」→深入研究<br>
+                ❹ 每週只花 1 小時整理 AI 資訊，其餘時間用在實踐和反思
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 8 ==================== -->
+    <div class="step-card step-8" style="animation-delay: 0.8s">
+      <div class="step-header">
+        <div class="step-number">8</div>
+        <h3 class="step-title">轉變樹 TT ─ 四週計畫</h3>
+        <p class="step-subtitle">Transition Tree — 將注入解轉化為可執行的週計畫</p>
+      </div>
+      <div class="step-body">
+
+        <div class="tt-weeks">
+          <!-- Week 1 -->
+          <div class="tt-week">
+            <h4>📅 第一週：覺醒</h4>
+            <div class="tt-item">
+              <span class="tt-label inject">注入</span>
+              <span>啟動末那識覺察——建立「每日三問」反思習慣</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label expect">預期</span>
+              <span>開始區分「我在做」vs「我在被推著做」</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label action">行動</span>
+              <span>每晚記錄三問答案；完成「個人 Alpha 地圖」初版</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label verify">驗證</span>
+              <span>週末回顧：是否能清楚說出 3 件「只有我能做」的事</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label kpi">指標</span>
+              <span>三問完成率 ≥ 5/7 天；Alpha 地圖完成</span>
+            </div>
+          </div>
+
+          <!-- Week 2 -->
+          <div class="tt-week">
+            <h4>📅 第二週：重構</h4>
+            <div class="tt-item">
+              <span class="tt-label inject">注入</span>
+              <span>導入躍層思維 × 迭代追問工作法</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label expect">預期</span>
+              <span>工作中的問題開始被重新定義，AI 對話品質提升</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label action">行動</span>
+              <span>選 2 個工作問題做「問題升級法」練習；每次用 AI 至少追問 5 輪</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label verify">驗證</span>
+              <span>對比：同一問題，直接問 AI vs 躍層後再問 AI，結果差異</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label kpi">指標</span>
+              <span>完成 2 次問題升級練習；AI 對話平均深度 ≥ 5 輪</span>
+            </div>
+          </div>
+
+          <!-- Week 3 -->
+          <div class="tt-week">
+            <h4>📅 第三週：行動</h4>
+            <div class="tt-item">
+              <span class="tt-label inject">注入</span>
+              <span>啟動草台班子行動哲學——「做了再說」模式</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label expect">預期</span>
+              <span>行動頻率提升，完美主義降低，AI 被用於快速原型</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label action">行動</span>
+              <span>從「非共識行為清單」中執行 2 件；用 AI 快速做 1 個最小可行實驗</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label verify">驗證</span>
+              <span>是否在 72 小時內從想法到產出？比之前快多少？</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label kpi">指標</span>
+              <span>完成 2 件非共識行為；1 個 MVP 產出；想法到行動 ≤ 3 天</span>
+            </div>
+          </div>
+
+          <!-- Week 4 -->
+          <div class="tt-week">
+            <h4>📅 第四週：整合</h4>
+            <div class="tt-item">
+              <span class="tt-label inject">注入</span>
+              <span>整合四大注入解為日常工作流；建立持續對抗地心引力的機制</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label expect">預期</span>
+              <span>新習慣開始自動化；能清楚感受到與「之前的自己」的差異</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label action">行動</span>
+              <span>完成 4 週回顧報告；找到「對抗夥伴」；制定 Q2 Alpha 聚焦計畫</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label verify">驗證</span>
+              <span>回答：「過去一個月，我的 AI 使用方式有什麼本質改變？」</span>
+            </div>
+            <div class="tt-item">
+              <span class="tt-label kpi">指標</span>
+              <span>4 週回顧完成；Q2 計畫制定；對抗夥伴配對成功</span>
+            </div>
+          </div>
+        </div>
+
+        <p style="padding:14px 20px; background:linear-gradient(135deg, var(--pink-100), var(--blue-100)); border-radius:var(--radius-sm); margin-top:8px;">
+          <strong>📌 設計原則：</strong>四週計畫遵循「覺醒→重構→行動→整合」的節奏，而非「學工具→學更多工具」。每週的注入解都對應書中的核心概念，確保從認知到行為的完整轉化鏈。
+        </p>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 9 ==================== -->
+    <div class="step-card step-9" style="animation-delay: 0.9s">
+      <div class="step-header">
+        <div class="step-number">9</div>
+        <h3 class="step-title">吞吐量審計</h3>
+        <p class="step-subtitle">Throughput Audit — 量化系統的 T / OE / I 與投資回報</p>
+      </div>
+      <div class="step-body">
+
+        <div class="audit-grid">
+          <div class="audit-card" style="border-top:4px solid var(--green-400);">
+            <div class="audit-icon">💰</div>
+            <div class="audit-label">T（吞吐量）</div>
+            <div class="audit-def">不可替代價值的產出速率</div>
+            <div style="font-size:0.88em; color:var(--gray-600); margin-bottom:12px; text-align:left; padding:0 8px;">
+              <strong>定義：</strong>單位時間內產出的「AI 無法獨立完成的高價值工作」。包括：原創方向決策、跨領域洞見、信任關係建立、非共識判斷。
+            </div>
+            <div class="audit-states">
+              <span class="state-badge high">高：每週 3+ 個 Alpha 產出</span>
+              <span class="state-badge low">低：全部工作 AI 可替代</span>
+            </div>
+          </div>
+
+          <div class="audit-card" style="border-top:4px solid var(--orange-400);">
+            <div class="audit-icon">🔧</div>
+            <div class="audit-label">OE（營運費用）</div>
+            <div class="audit-def">維持認知升級的持續成本</div>
+            <div style="font-size:0.88em; color:var(--gray-600); margin-bottom:12px; text-align:left; padding:0 8px;">
+              <strong>定義：</strong>對抗「平庸地心引力」所需的恆常消耗。包括：每日反思時間（30min）、每週深度閱讀（3h）、AI 工具成本、心智能量消耗。
+            </div>
+            <div class="audit-states">
+              <span class="state-badge high">高：每週 15h+（過度消耗）</span>
+              <span class="state-badge low">低：每週 5h（可持續）</span>
+            </div>
+          </div>
+
+          <div class="audit-card" style="border-top:4px solid var(--blue-400);">
+            <div class="audit-icon">🏗️</div>
+            <div class="audit-label">I（投入資本）</div>
+            <div class="audit-def">認知基礎設施的一次性投資</div>
+            <div style="font-size:0.88em; color:var(--gray-600); margin-bottom:12px; text-align:left; padding:0 8px;">
+              <strong>定義：</strong>建立新思維框架的初始投入。包括：閱讀理解核心書籍（40h）、建立反思習慣（4 週）、完成 Alpha 地圖（8h）、形成躍層思維肌肉記憶（3 個月）。
+            </div>
+            <div class="audit-states">
+              <span class="state-badge high">高：全部前置投入 100h+</span>
+              <span class="state-badge low">低：已內化為習慣後 0h</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ROI Analysis -->
+        <div style="margin-top:24px; padding:24px; background:white; border-radius:var(--radius-md); box-shadow:var(--shadow-md);">
+          <h4 style="font-family:'Noto Serif TC',serif; margin-bottom:16px; color:var(--gray-800);">📊 ROI 分析</h4>
+          <table class="info-table">
+            <tr><th>指標</th><th>改善前</th><th>改善後</th><th>變化</th></tr>
+            <tr>
+              <td><strong>T：Alpha 產出</strong></td>
+              <td>每週 0-1 個不可替代決策</td>
+              <td>每週 3-5 個高價值方向性判斷</td>
+              <td><span class="highlight-green">+300~500%</span></td>
+            </tr>
+            <tr>
+              <td><strong>OE：維持成本</strong></td>
+              <td>每週 10h 漫無目的的 AI 學習</td>
+              <td>每週 5h 精準反思＋實踐</td>
+              <td><span class="highlight-green">-50%</span></td>
+            </tr>
+            <tr>
+              <td><strong>I：前置投入</strong></td>
+              <td>持續投入但無系統（無限 I）</td>
+              <td>4 週集中投入→習慣化（有限 I）</td>
+              <td><span class="highlight-green">從無限→有限</span></td>
+            </tr>
+            <tr>
+              <td><strong>T/OE 效率比</strong></td>
+              <td>0.1（大量投入，微量產出）</td>
+              <td>0.8+（精準投入，高效產出）</td>
+              <td><span class="highlight-green">+700%</span></td>
+            </tr>
+            <tr>
+              <td><strong>議價能力</strong></td>
+              <td>Beta 定價（市場均價）</td>
+              <td>Alpha 定價（溢價 2-5 倍）</td>
+              <td><span class="highlight-green">+200~400%</span></td>
+            </tr>
+          </table>
+
+          <p style="margin-top:16px; font-size:0.92em; color:var(--gray-600);">
+            <strong>核心洞見：</strong>萬維鋼的框架最大的 ROI 不在於「提升 AI 使用效率」（這只是 OE 層面的改善），而在於<span class="highlight-pink">根本改變 T 的定義</span>——把吞吐量從「工作量」重新定義為「不可替代價值量」。當 T 的定義改變，整個系統的優化方向就徹底不同了。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==================== STEP 10 ==================== -->
+    <div class="step-card step-10" style="animation-delay: 1.0s">
+      <div class="step-header">
+        <div class="step-number">10</div>
+        <h3 class="step-title">持續改善 POOGI</h3>
+        <p class="step-subtitle">Process of Ongoing Improvement — 四季度的持續精進路線圖</p>
+      </div>
+      <div class="step-body">
+        <p>TOC 的核心信念：<strong>改善永不止步</strong>。以下是四個季度的持續精進計畫，每季度聚焦不同層面：</p>
+
+        <div class="poogi-grid">
+          <!-- Q1 -->
+          <div class="poogi-quarter">
+            <h4>🌸 Q1 — 地基季</h4>
+            <p style="font-size:0.85em; color:var(--gray-500); margin-bottom:12px;">主題：末那識覺醒 × 習慣建立</p>
+            <ul>
+              <li>完成四週轉變計畫</li>
+              <li>「每日三問」習慣穩定運行</li>
+              <li>Alpha 地圖 v1.0 完成</li>
+              <li>識別 3 個個人 Alpha 區域</li>
+              <li>建立 AI 對話品質評分表</li>
+              <li>找到 1 位「對抗夥伴」</li>
+            </ul>
+            <p style="margin-top:12px; font-size:0.85em; color:var(--pink-500); font-weight:600;">
+              ✅ 檢查點：能否清楚回答「我的不可替代性是什麼」？
+            </p>
+          </div>
+
+          <!-- Q2 -->
+          <div class="poogi-quarter">
+            <h4>☀️ Q2 — 深耕季</h4>
+            <p style="font-size:0.85em; color:var(--gray-500); margin-bottom:12px;">主題：躍層思維實戰 × Alpha 深化</p>
+            <ul>
+              <li>每週完成 1 次問題升級練習</li>
+              <li>建立個人「躍層案例庫」（12+ 案例）</li>
+              <li>把 70% 工作時間轉移到 Alpha 區</li>
+              <li>用 AI 做 3 個快速實驗（草台班子哲學）</li>
+              <li>進行首次 T/OE/I 自我審計</li>
+              <li>Alpha 地圖 v2.0 更新</li>
+            </ul>
+            <p style="margin-top:12px; font-size:0.85em; color:var(--blue-500); font-weight:600;">
+              ✅ 檢查點：他人是否開始認知到你的「不同」？
+            </p>
+          </div>
+
+          <!-- Q3 -->
+          <div class="poogi-quarter">
+            <h4>🍂 Q3 — 擴散季</h4>
+            <p style="font-size:0.85em; color:var(--gray-500); margin-bottom:12px;">主題：影響力建立 × 協作模式定型</p>
+            <ul>
+              <li>將個人心得轉化為可分享的框架</li>
+              <li>帶領 1-3 人進行「末那識覺醒」練習</li>
+              <li>在團隊中推行「人主導、AI 執行」模式</li>
+              <li>完成第二次 T/OE/I 審計（對比 Q1）</li>
+              <li>識別新的瓶頸（P1 打通後，P2 或 P3 升級為主瓶頸）</li>
+              <li>重新評估「平庸地心引力」的當前拉力方向</li>
+            </ul>
+            <p style="margin-top:12px; font-size:0.85em; color:var(--purple-500); font-weight:600;">
+              ✅ 檢查點：你是否已從「使用 AI 的人」變成「定義 AI 使用方向的人」？
+            </p>
+          </div>
+
+          <!-- Q4 -->
+          <div class="poogi-quarter">
+            <h4>❄️ Q4 — 躍遷季</h4>
+            <p style="font-size:0.85em; color:var(--gray-500); margin-bottom:12px;">主題：心智階段躍遷 × 系統性升級</p>
+            <ul>
+              <li>對照「智者五階段」評估當前位置</li>
+              <li>回顧全年：「六大區別」中我在哪一邊？</li>
+              <li>用全年數據重繪 CRT——新的 UDE 是什麼？</li>
+              <li>制定次年「捕捉阿爾法」策略</li>
+              <li>完成年度 Alpha 地圖 v3.0（剔除已被 AI 覆蓋的舊 Alpha）</li>
+              <li>重讀《人比AI凶》——注意第二次讀到的不同之處</li>
+            </ul>
+            <p style="margin-top:12px; font-size:0.85em; color:var(--green-500); font-weight:600;">
+              ✅ 檢查點：對比一年前的自己——是否真正實現了「人比 AI 凶」？
+            </p>
+          </div>
+        </div>
+
+        <p style="padding:14px 20px; background:linear-gradient(135deg, var(--green-100), var(--teal-100)); border-radius:var(--radius-sm); margin-top:16px;">
+          <strong>🔄 POOGI 核心原則：</strong>每個季度結束時，回到 Step 6（瓶頸定位）——因為當主瓶頸被打通後，<span class="highlight-green">系統的瓶頸會轉移</span>。Q1 的瓶頸可能是認知層，Q3 的瓶頸可能已經轉移到行動層或環境層。持續改善的本質是：<strong>永遠追著瓶頸跑，永遠不在非瓶頸上浪費資源</strong>。
+        </p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ====== SYNTHESIS ====== -->
+  <div class="section-divider"><span>🎯</span></div>
+
+  <section class="step-card" style="border:2px solid var(--pink-300); animation: fadeInUp 0.8s ease-out;">
+    <div class="step-header" style="background:linear-gradient(135deg, var(--pink-100), var(--purple-100), var(--blue-100));">
+      <div class="step-number" style="background:linear-gradient(135deg, var(--pink-500), var(--purple-500)); width:56px; height:56px; font-size:1.4em;">∑</div>
+      <h3 class="step-title">全局綜合：十步分析的核心洞見</h3>
+      <p class="step-subtitle">Synthesis — 從系統思考視角看《人比AI凶》的終極啟示</p>
+    </div>
+    <div class="step-body">
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fill, minmax(280px,1fr)); gap:16px; margin-bottom:24px;">
+        <div style="padding:20px; background:var(--pink-100); border-radius:var(--radius-md); border-left:4px solid var(--pink-400);">
+          <h4 style="color:var(--pink-600); margin-bottom:8px;">🔑 根因洞見</h4>
+          <p style="font-size:0.92em; color:var(--gray-700);">所有 AI 時代的困境，根源都不在技術，而在<strong>人的自我意識缺失</strong>。末那識的覺醒不是佛學修行，而是「知道自己要什麼」的基本能力。</p>
+        </div>
+        <div style="padding:20px; background:var(--blue-100); border-radius:var(--radius-md); border-left:4px solid var(--blue-400);">
+          <h4 style="color:var(--blue-600); margin-bottom:8px;">⚡ 衝突解法</h4>
+          <p style="font-size:0.92em; color:var(--gray-700);">「學 AI」和「修煉自我」不是二選一，而是<strong>先後順序</strong>的問題。先覺醒（D'），再工具（D），兩者相互強化而非互斥。</p>
+        </div>
+        <div style="padding:20px; background:var(--green-100); border-radius:var(--radius-md); border-left:4px solid var(--green-400);">
+          <h4 style="color:var(--green-600); margin-bottom:8px;">🎯 瓶頸定位</h4>
+          <p style="font-size:0.92em; color:var(--gray-700);">主瓶頸在<strong>認知層</strong>（缺乏啟發模式訓練），不在工具層。在非瓶頸上的改善是幻覺——更多 AI 培訓不會解決意識缺失問題。</p>
+        </div>
+        <div style="padding:20px; background:var(--purple-100); border-radius:var(--radius-md); border-left:4px solid var(--purple-400);">
+          <h4 style="color:var(--purple-600); margin-bottom:8px;">🚀 行動原則</h4>
+          <p style="font-size:0.92em; color:var(--gray-700);">草台班子哲學解放行動力，躍層思維重新定義問題，阿爾法定位聚焦稀缺價值。三者合一＝<strong>反脆弱的 AI 時代生存策略</strong>。</p>
+        </div>
+      </div>
+
+      <!-- Final Quote -->
+      <div style="text-align:center; margin-top:32px; padding:32px; background:linear-gradient(135deg, var(--pink-200), var(--purple-200), var(--blue-200)); border-radius:var(--radius-lg);">
+        <p style="font-family:'Noto Serif TC',serif; font-size:1.5em; font-weight:700; color:var(--gray-800); margin-bottom:12px; line-height:1.6;">
+          「人比 AI 凶」的真正含義：
+        </p>
+        <p style="font-family:'Noto Serif TC',serif; font-size:1.2em; color:var(--gray-600); line-height:1.8; max-width:600px; margin:0 auto;">
+          不是人的計算力比 AI 強，<br>
+          而是人有<span class="highlight-pink">方向感</span>、有<span class="highlight-purple">末那識</span>、有<span class="highlight-blue">意志</span>。<br><br>
+          AI 能回答所有的「怎麼做」，<br>
+          但只有人能決定「<strong>做什麼</strong>」和「<strong>為什麼做</strong>」。<br><br>
+          這就是人在 ASI 時代的終極 Alpha。
+        </p>
+      </div>
+
+      <!-- TOC One-Line Summary -->
+      <div style="margin-top:28px; padding:20px 24px; background:white; border-radius:var(--radius-md); box-shadow:var(--shadow-md);">
+        <h4 style="font-family:'Noto Serif TC',serif; font-size:1.05em; color:var(--gray-800); margin-bottom:16px; text-align:center;">📋 TOC 十步・一句話總結</h4>
+        <table class="info-table">
+          <tr><th style="width:40px">步</th><th style="width:140px">名稱</th><th>核心結論</th></tr>
+          <tr><td><strong>1</strong></td><td>系統界定</td><td>系統目標不是「學 AI」，而是「產生 AI 做不到的價值」</td></tr>
+          <tr><td><strong>2</strong></td><td>現況實境樹</td><td>七大 UDE 的根因都指向「缺乏末那識層級的自我覺察」</td></tr>
+          <tr><td><strong>3</strong></td><td>衝突雲</td><td>「學工具」vs「修心智」是假衝突，四個錯誤假設皆可打破</td></tr>
+          <tr><td><strong>4</strong></td><td>注入解</td><td>末那識覺醒 × 躍層追問 × 草台行動 × 阿爾法定位</td></tr>
+          <tr><td><strong>5</strong></td><td>未來實境樹</td><td>正向飛輪：深度思考→更好 AI 產出→超額價值→更強自信</td></tr>
+          <tr><td><strong>6</strong></td><td>瓶頸定位</td><td>主瓶頸在認知層（啟發模式訓練缺失），不在工具層</td></tr>
+          <tr><td><strong>7</strong></td><td>障礙拆解</td><td>六大障礙各有具體行動：每日三問、問題升級法、非共識清單⋯</td></tr>
+          <tr><td><strong>8</strong></td><td>轉變樹</td><td>四週節奏：覺醒→重構→行動→整合</td></tr>
+          <tr><td><strong>9</strong></td><td>吞吐量審計</td><td>核心 ROI 在於重新定義 T：從「工作量」到「不可替代價值量」</td></tr>
+          <tr><td><strong>10</strong></td><td>持續改善</td><td>每季回到瓶頸定位——瓶頸會轉移，改善永不止步</td></tr>
+        </table>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ====== FOOTER ====== -->
+  <footer class="footer">
+    <p class="footer-brand">《人比AI凶》── TOC 限制理論十步深度分析報告</p>
+    <p>
+      萬維鋼 著 ｜ 分析框架：Goldratt 限制理論（TOC）<br>
+      分析方法：系統界定 → CRT → EC → 注入解 → FRT → 瓶頸定位 → PrT → TT → 吞吐量審計 → POOGI<br>
+      生成日期：2026-03-12 ｜ 繁體中文 ｜ 韓系清新風格<br><br>
+      <span style="color:var(--gray-300);">─── 🐉 龍龍深度分析工坊 ───</span>
+    </p>
+  </footer>
+
+</div>
+
+</body>
+</html>
