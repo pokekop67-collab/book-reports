@@ -1,0 +1,2386 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒分析｜Tiny Humans, Big Emotions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,700;1,400&display=swap');
+
+  :root {
+    --pink-100: #fff0f6;
+    --pink-200: #ffd6e7;
+    --pink-300: #ffadd2;
+    --pink-400: #ff85c0;
+    --pink-500: #f759ab;
+    --purple-100: #f9f0ff;
+    --purple-200: #efdbff;
+    --purple-300: #d3adf7;
+    --purple-400: #b37feb;
+    --purple-500: #9254de;
+    --blue-100: #e6f7ff;
+    --blue-200: #bae7ff;
+    --blue-300: #91d5ff;
+    --blue-400: #69c0ff;
+    --blue-500: #40a9ff;
+    --mint-100: #e6fffb;
+    --mint-200: #b5f5ec;
+    --mint-300: #87e8de;
+    --mint-400: #5cdbd3;
+    --mint-500: #36cfc9;
+    --peach-100: #fff7e6;
+    --peach-200: #ffe7ba;
+    --peach-300: #ffd591;
+    --peach-400: #ffc069;
+    --peach-500: #ffa940;
+    --coral-100: #fff1f0;
+    --coral-200: #ffccc7;
+    --coral-300: #ffa39e;
+    --coral-400: #ff7875;
+    --coral-500: #ff4d4f;
+    --warm-100: #fffbe6;
+    --warm-200: #fff1b8;
+    --warm-300: #ffe58f;
+    --warm-400: #ffd666;
+    --warm-500: #ffc53d;
+    --green-100: #f6ffed;
+    --green-200: #d9f7be;
+    --green-300: #b7eb8f;
+    --green-400: #95de64;
+    --green-500: #73d13d;
+    --lavender-100: #f0f0ff;
+    --lavender-200: #d6d6ff;
+    --lavender-300: #adb5ff;
+    --rose-100: #fff0f3;
+    --rose-200: #ffd6dd;
+    --text-primary: #2d2d3f;
+    --text-secondary: #5a5a7a;
+    --text-light: #8888a8;
+    --glass-bg: rgba(255, 255, 255, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.45);
+    --shadow-soft: 0 4px 24px rgba(150, 120, 180, 0.10);
+    --shadow-card: 0 8px 32px rgba(150, 120, 180, 0.12);
+    --shadow-hover: 0 12px 48px rgba(150, 120, 180, 0.18);
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 28px;
+    --radius-xl: 36px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(160deg, #fef6ff 0%, #f0e6ff 20%, #e6f0ff 40%, #fff0f6 60%, #f6ffed 80%, #fffbe6 100%);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    line-height: 1.85;
+    font-size: 16px;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 20% 30%, rgba(255, 182, 216, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(182, 200, 255, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(200, 255, 220, 0.08) 0%, transparent 50%);
+    z-index: -1;
+    animation: bgFloat 30s ease-in-out infinite;
+  }
+
+  @keyframes bgFloat {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(-2%, 2%) rotate(1deg); }
+    66% { transform: translate(2%, -1%) rotate(-1deg); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInScale {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  @keyframes gentlePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ═══════════ HERO ═══════════ */
+  .hero {
+    text-align: center;
+    padding: 80px 40px;
+    margin-bottom: 48px;
+    background: linear-gradient(135deg, rgba(255, 240, 246, 0.85), rgba(239, 219, 255, 0.75), rgba(230, 247, 255, 0.8));
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-card);
+    position: relative;
+    overflow: hidden;
+    animation: fadeInScale 1s ease-out;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -30%;
+    right: -20%;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(255, 133, 192, 0.15) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 8s ease-in-out infinite;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -20%;
+    left: -15%;
+    width: 350px;
+    height: 350px;
+    background: radial-gradient(circle, rgba(146, 84, 222, 0.10) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float 10s ease-in-out infinite reverse;
+  }
+
+  .hero-emoji {
+    font-size: 72px;
+    margin-bottom: 20px;
+    display: block;
+    animation: float 4s ease-in-out infinite;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-label {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--pink-400), var(--purple-400));
+    color: white;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 6px 20px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', 'Noto Sans TC', serif;
+    font-size: 2.8em;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 12px;
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(135deg, #9254de, #f759ab, #ff85c0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero .subtitle {
+    font-size: 1.15em;
+    color: var(--text-secondary);
+    margin-bottom: 28px;
+    position: relative;
+    z-index: 1;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero-meta .tag {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(8px);
+    padding: 8px 18px;
+    border-radius: 24px;
+    font-size: 0.88em;
+    color: var(--text-secondary);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    font-weight: 400;
+  }
+
+  .hero-meta .tag strong {
+    color: var(--text-primary);
+    font-weight: 600;
+  }
+
+  /* ═══════════ TOC ═══════════ */
+  .toc-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    margin-bottom: 48px;
+    box-shadow: var(--shadow-card);
+    animation: fadeInUp 0.8s ease-out 0.2s both;
+  }
+
+  .toc-card h2 {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 32px;
+    color: var(--purple-500);
+  }
+
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 12px;
+  }
+
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: var(--radius-sm);
+    background: rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: var(--text-primary);
+    border: 1px solid transparent;
+  }
+
+  .toc-item:hover {
+    background: rgba(255, 255, 255, 0.85);
+    border-color: var(--pink-200);
+    transform: translateX(4px);
+  }
+
+  .toc-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8em;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .toc-text {
+    font-size: 0.92em;
+    font-weight: 500;
+  }
+
+  /* ═══════════ SECTION DIVIDER ═══════════ */
+  .section-divider {
+    text-align: center;
+    padding: 48px 24px;
+    margin: 48px 0;
+    position: relative;
+  }
+
+  .section-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--pink-300), var(--purple-300), transparent);
+  }
+
+  .section-divider .label {
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(135deg, var(--pink-100), var(--purple-100));
+    padding: 12px 32px;
+    border-radius: 24px;
+    font-size: 0.9em;
+    font-weight: 600;
+    color: var(--purple-500);
+    letter-spacing: 2px;
+  }
+
+  /* ═══════════ ANALYSIS CARD ═══════════ */
+  .analysis-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 0;
+    margin-bottom: 48px;
+    box-shadow: var(--shadow-card);
+    overflow: hidden;
+    transition: box-shadow 0.4s ease, transform 0.4s ease;
+    animation: fadeInUp 0.8s ease-out both;
+  }
+
+  .analysis-card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+
+  .card-header {
+    padding: 36px 40px 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    opacity: 0.6;
+    z-index: 0;
+  }
+
+  .card-header .step-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.82em;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 16px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-header h2 {
+    font-size: 1.75em;
+    font-weight: 700;
+    line-height: 1.35;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 8px;
+  }
+
+  .card-header .card-subtitle {
+    font-size: 0.95em;
+    color: var(--text-secondary);
+    font-weight: 300;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-body {
+    padding: 32px 40px 40px;
+  }
+
+  /* Card Themes */
+  .theme-pink .card-header::before { background: linear-gradient(135deg, var(--pink-100), var(--rose-100)); }
+  .theme-pink .step-badge { background: linear-gradient(135deg, var(--pink-400), var(--pink-500)); color: white; }
+  .theme-pink h2 { color: #c41d7f; }
+
+  .theme-purple .card-header::before { background: linear-gradient(135deg, var(--purple-100), var(--lavender-100)); }
+  .theme-purple .step-badge { background: linear-gradient(135deg, var(--purple-400), var(--purple-500)); color: white; }
+  .theme-purple h2 { color: #722ed1; }
+
+  .theme-blue .card-header::before { background: linear-gradient(135deg, var(--blue-100), var(--lavender-100)); }
+  .theme-blue .step-badge { background: linear-gradient(135deg, var(--blue-400), var(--blue-500)); color: white; }
+  .theme-blue h2 { color: #1890ff; }
+
+  .theme-mint .card-header::before { background: linear-gradient(135deg, var(--mint-100), var(--blue-100)); }
+  .theme-mint .step-badge { background: linear-gradient(135deg, var(--mint-400), var(--mint-500)); color: white; }
+  .theme-mint h2 { color: #08979c; }
+
+  .theme-peach .card-header::before { background: linear-gradient(135deg, var(--peach-100), var(--warm-100)); }
+  .theme-peach .step-badge { background: linear-gradient(135deg, var(--peach-400), var(--peach-500)); color: white; }
+  .theme-peach h2 { color: #d46b08; }
+
+  .theme-coral .card-header::before { background: linear-gradient(135deg, var(--coral-100), var(--rose-100)); }
+  .theme-coral .step-badge { background: linear-gradient(135deg, var(--coral-400), var(--coral-500)); color: white; }
+  .theme-coral h2 { color: #cf1322; }
+
+  .theme-warm .card-header::before { background: linear-gradient(135deg, var(--warm-100), var(--peach-100)); }
+  .theme-warm .step-badge { background: linear-gradient(135deg, var(--warm-400), var(--warm-500)); color: white; }
+  .theme-warm h2 { color: #d48806; }
+
+  .theme-green .card-header::before { background: linear-gradient(135deg, var(--green-100), var(--mint-100)); }
+  .theme-green .step-badge { background: linear-gradient(135deg, var(--green-400), var(--green-500)); color: white; }
+  .theme-green h2 { color: #389e0d; }
+
+  .theme-lavender .card-header::before { background: linear-gradient(135deg, var(--lavender-100), var(--purple-100)); }
+  .theme-lavender .step-badge { background: linear-gradient(135deg, var(--lavender-300), var(--purple-400)); color: white; }
+  .theme-lavender h2 { color: #531dab; }
+
+  .theme-rose .card-header::before { background: linear-gradient(135deg, var(--rose-100), var(--pink-100)); }
+  .theme-rose .step-badge { background: linear-gradient(135deg, var(--pink-400), var(--coral-400)); color: white; }
+  .theme-rose h2 { color: #c41d7f; }
+
+  /* ═══════════ INNER ELEMENTS ═══════════ */
+  .card-body h3 {
+    font-size: 1.2em;
+    font-weight: 700;
+    margin: 32px 0 16px;
+    color: var(--text-primary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card-body h3:first-child {
+    margin-top: 0;
+  }
+
+  .card-body h4 {
+    font-size: 1.05em;
+    font-weight: 600;
+    margin: 24px 0 12px;
+    color: var(--text-secondary);
+  }
+
+  .card-body p {
+    margin-bottom: 14px;
+    color: var(--text-primary);
+    font-weight: 400;
+  }
+
+  .card-body ul, .card-body ol {
+    margin: 12px 0 16px 20px;
+    color: var(--text-primary);
+  }
+
+  .card-body li {
+    margin-bottom: 8px;
+    padding-left: 4px;
+  }
+
+  .card-body li::marker {
+    color: var(--pink-400);
+  }
+
+  /* Highlight box */
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(255, 240, 246, 0.7), rgba(239, 219, 255, 0.5));
+    border-left: 4px solid var(--pink-400);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-size: 0.95em;
+  }
+
+  .highlight-box.purple {
+    background: linear-gradient(135deg, rgba(249, 240, 255, 0.7), rgba(240, 240, 255, 0.5));
+    border-left-color: var(--purple-400);
+  }
+
+  .highlight-box.blue {
+    background: linear-gradient(135deg, rgba(230, 247, 255, 0.7), rgba(240, 240, 255, 0.5));
+    border-left-color: var(--blue-400);
+  }
+
+  .highlight-box.mint {
+    background: linear-gradient(135deg, rgba(230, 255, 251, 0.7), rgba(230, 247, 255, 0.5));
+    border-left-color: var(--mint-400);
+  }
+
+  .highlight-box.green {
+    background: linear-gradient(135deg, rgba(246, 255, 237, 0.7), rgba(230, 255, 251, 0.5));
+    border-left-color: var(--green-400);
+  }
+
+  .highlight-box.warm {
+    background: linear-gradient(135deg, rgba(255, 251, 230, 0.7), rgba(255, 247, 230, 0.5));
+    border-left-color: var(--warm-400);
+  }
+
+  .highlight-box.coral {
+    background: linear-gradient(135deg, rgba(255, 241, 240, 0.7), rgba(255, 240, 243, 0.5));
+    border-left-color: var(--coral-400);
+  }
+
+  /* Quote */
+  .quote-block {
+    position: relative;
+    padding: 24px 32px;
+    margin: 24px 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8), rgba(249, 240, 255, 0.5));
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(211, 173, 247, 0.3);
+    font-style: italic;
+    font-size: 1.05em;
+    color: var(--purple-500);
+    text-align: center;
+  }
+
+  .quote-block::before {
+    content: '"';
+    position: absolute;
+    top: -8px;
+    left: 20px;
+    font-size: 4em;
+    color: var(--pink-300);
+    font-family: 'Playfair Display', serif;
+    line-height: 1;
+    opacity: 0.6;
+  }
+
+  .quote-block .source {
+    display: block;
+    margin-top: 12px;
+    font-style: normal;
+    font-size: 0.82em;
+    color: var(--text-light);
+    font-weight: 500;
+  }
+
+  /* Comparison Grid */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .compare-item {
+    padding: 20px;
+    border-radius: var(--radius-sm);
+    font-size: 0.93em;
+  }
+
+  .compare-item.bad {
+    background: linear-gradient(135deg, rgba(255, 241, 240, 0.7), rgba(255, 204, 199, 0.3));
+    border: 1px solid rgba(255, 120, 117, 0.2);
+  }
+
+  .compare-item.good {
+    background: linear-gradient(135deg, rgba(246, 255, 237, 0.7), rgba(183, 235, 143, 0.3));
+    border: 1px solid rgba(115, 209, 61, 0.2);
+  }
+
+  .compare-item .label {
+    font-weight: 700;
+    font-size: 0.85em;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .compare-item.bad .label { color: var(--coral-500); }
+  .compare-item.good .label { color: var(--green-500); }
+
+  /* Data Grid */
+  .data-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .data-cell {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .data-cell .emoji {
+    font-size: 2em;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .data-cell .value {
+    font-size: 1.6em;
+    font-weight: 900;
+    display: block;
+    background: linear-gradient(135deg, var(--purple-500), var(--pink-500));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .data-cell .desc {
+    font-size: 0.82em;
+    color: var(--text-light);
+    margin-top: 4px;
+  }
+
+  /* Flow Steps */
+  .flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.55);
+    border-radius: var(--radius-sm);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: all 0.3s ease;
+  }
+
+  .flow-step:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: translateX(4px);
+  }
+
+  .flow-step .num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.9em;
+    color: white;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, var(--pink-400), var(--purple-400));
+  }
+
+  .flow-step .content {
+    flex: 1;
+  }
+
+  .flow-step .content strong {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+  }
+
+  .flow-step .content span {
+    font-size: 0.9em;
+    color: var(--text-secondary);
+  }
+
+  /* Insight pill */
+  .insight-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(135deg, var(--pink-100), var(--purple-100));
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-size: 0.82em;
+    font-weight: 600;
+    color: var(--purple-500);
+    margin: 4px 4px 4px 0;
+  }
+
+  /* Scenario Box */
+  .scenario-box {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(230, 247, 255, 0.4));
+    border: 1px dashed var(--blue-300);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    margin: 20px 0;
+  }
+
+  .scenario-box .scene-title {
+    font-weight: 700;
+    color: var(--blue-500);
+    margin-bottom: 12px;
+    font-size: 1.02em;
+  }
+
+  .scenario-box .dialogue {
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(145, 213, 255, 0.3);
+    font-size: 0.93em;
+  }
+
+  .scenario-box .dialogue:last-child {
+    border-bottom: none;
+  }
+
+  .scenario-box .speaker {
+    font-weight: 700;
+    margin-right: 8px;
+  }
+
+  .scenario-box .speaker.parent { color: var(--purple-500); }
+  .scenario-box .speaker.child { color: var(--pink-500); }
+
+  /* Rating Bar */
+  .rating-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 8px 0;
+  }
+
+  .rating-bar .bar-label {
+    font-size: 0.88em;
+    font-weight: 500;
+    color: var(--text-secondary);
+    min-width: 100px;
+  }
+
+  .rating-bar .bar-track {
+    flex: 1;
+    height: 10px;
+    background: rgba(0,0,0,0.05);
+    border-radius: 5px;
+    overflow: hidden;
+  }
+
+  .rating-bar .bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 1s ease;
+  }
+
+  .rating-bar .bar-value {
+    font-size: 0.85em;
+    font-weight: 700;
+    color: var(--text-primary);
+    min-width: 40px;
+    text-align: right;
+  }
+
+  /* Age Tag */
+  .age-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: linear-gradient(135deg, var(--warm-200), var(--peach-200));
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.78em;
+    font-weight: 700;
+    color: #d46b08;
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+    margin: 20px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--pink-300), var(--purple-300), var(--blue-300));
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 16px 20px;
+    margin-bottom: 16px;
+    background: rgba(255, 255, 255, 0.55);
+    border-radius: var(--radius-sm);
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -25px;
+    top: 22px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--pink-400), var(--purple-400));
+    border: 2px solid white;
+  }
+
+  /* Tag Cloud */
+  .tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0;
+  }
+
+  .tag-cloud .tag {
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-size: 0.82em;
+    font-weight: 500;
+    border: 1px solid;
+  }
+
+  .tag-cloud .tag.t1 { background: var(--pink-100); border-color: var(--pink-200); color: #c41d7f; }
+  .tag-cloud .tag.t2 { background: var(--purple-100); border-color: var(--purple-200); color: #722ed1; }
+  .tag-cloud .tag.t3 { background: var(--blue-100); border-color: var(--blue-200); color: #1890ff; }
+  .tag-cloud .tag.t4 { background: var(--mint-100); border-color: var(--mint-200); color: #08979c; }
+  .tag-cloud .tag.t5 { background: var(--green-100); border-color: var(--green-200); color: #389e0d; }
+  .tag-cloud .tag.t6 { background: var(--warm-100); border-color: var(--warm-200); color: #d48806; }
+  .tag-cloud .tag.t7 { background: var(--peach-100); border-color: var(--peach-200); color: #d46b08; }
+
+  /* Chapter grid */
+  .chapter-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  .chapter-card {
+    display: flex;
+    gap: 16px;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.55);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--purple-300);
+    align-items: flex-start;
+  }
+
+  .chapter-card .ch-emoji {
+    font-size: 1.5em;
+    flex-shrink: 0;
+  }
+
+  .chapter-card .ch-content {
+    flex: 1;
+  }
+
+  .chapter-card .ch-title {
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .chapter-card .ch-desc {
+    font-size: 0.88em;
+    color: var(--text-secondary);
+  }
+
+  /* Score Display */
+  .score-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 28px;
+    margin: 20px 0;
+    background: linear-gradient(135deg, rgba(249, 240, 255, 0.6), rgba(255, 240, 246, 0.6));
+    border-radius: var(--radius-md);
+  }
+
+  .score-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: 900;
+    color: white;
+    background: linear-gradient(135deg, var(--purple-400), var(--pink-400));
+    box-shadow: 0 4px 20px rgba(146, 84, 222, 0.3);
+  }
+
+  .score-meta {
+    text-align: left;
+  }
+
+  .score-meta .score-label {
+    font-size: 0.85em;
+    color: var(--text-light);
+    font-weight: 500;
+  }
+
+  .score-meta .score-text {
+    font-size: 1.15em;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  /* Accordion */
+  .accordion-item {
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: var(--radius-sm);
+    margin: 10px 0;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+  }
+
+  .accordion-header {
+    padding: 16px 20px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: background 0.3s;
+  }
+
+  .accordion-header:hover {
+    background: rgba(255, 255, 255, 0.4);
+  }
+
+  .accordion-body {
+    padding: 0 20px 16px;
+    font-size: 0.93em;
+    color: var(--text-secondary);
+  }
+
+  /* CEP cycle diagram */
+  .cep-cycle {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 12px;
+    margin: 24px 0;
+  }
+
+  .cep-phase {
+    padding: 16px 20px;
+    border-radius: var(--radius-md);
+    text-align: center;
+    min-width: 140px;
+    flex: 1;
+    max-width: 200px;
+    position: relative;
+  }
+
+  .cep-phase .phase-emoji {
+    font-size: 2em;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .cep-phase .phase-name {
+    font-weight: 700;
+    font-size: 0.95em;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .cep-phase .phase-desc {
+    font-size: 0.8em;
+    color: var(--text-secondary);
+  }
+
+  .cep-phase.p1 { background: linear-gradient(135deg, var(--pink-100), var(--pink-200)); }
+  .cep-phase.p2 { background: linear-gradient(135deg, var(--purple-100), var(--purple-200)); }
+  .cep-phase.p3 { background: linear-gradient(135deg, var(--blue-100), var(--blue-200)); }
+  .cep-phase.p4 { background: linear-gradient(135deg, var(--mint-100), var(--mint-200)); }
+  .cep-phase.p5 { background: linear-gradient(135deg, var(--green-100), var(--green-200)); }
+
+  .cep-arrow {
+    display: flex;
+    align-items: center;
+    font-size: 1.4em;
+    color: var(--pink-300);
+  }
+
+  /* Footer */
+  .report-footer {
+    text-align: center;
+    padding: 48px 24px;
+    margin-top: 32px;
+    color: var(--text-light);
+    font-size: 0.85em;
+  }
+
+  .report-footer .footer-line {
+    margin-bottom: 8px;
+  }
+
+  .report-footer .heart {
+    color: var(--pink-400);
+    font-size: 1.2em;
+  }
+
+  /* ═══════════ RESPONSIVE ═══════════ */
+  @media (max-width: 680px) {
+    .container { padding: 20px 16px 60px; }
+    .hero { padding: 48px 24px; }
+    .hero h1 { font-size: 2em; }
+    .card-header { padding: 28px 24px 20px; }
+    .card-body { padding: 24px 24px 32px; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .data-grid { grid-template-columns: 1fr 1fr; }
+    .cep-cycle { flex-direction: column; align-items: center; }
+    .cep-arrow { transform: rotate(90deg); }
+    .hero-meta { flex-direction: column; align-items: center; }
+  }
+
+  /* Print */
+  @media print {
+    body { background: white; }
+    .analysis-card { break-inside: avoid; box-shadow: none; border: 1px solid #eee; }
+    body::before { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero">
+  <span class="hero-emoji">👶🌊</span>
+  <div class="hero-label">書醒 · 覺醒分析 v2</div>
+  <h1>Tiny Humans, Big Emotions</h1>
+  <p class="subtitle">小小人類，大大情緒——在崩潰與失控中，養出情緒智慧的孩子</p>
+  <div class="hero-meta">
+    <span class="tag">✍️ <strong>Alyssa Blask Campbell</strong> & Lauren Stauble</span>
+    <span class="tag">📖 <strong>3 部分 · 13 章</strong></span>
+    <span class="tag">🧠 <strong>CEP 協作式情緒處理</strong></span>
+    <span class="tag">🎯 <strong>適合 3 歲兒父母</strong></span>
+  </div>
+</header>
+
+<!-- ═══════════ TOC ═══════════ -->
+<nav class="toc-card">
+  <h2>🧭 覺醒分析導覽</h2>
+  <div class="toc-grid">
+    <a href="#step1" class="toc-item">
+      <span class="toc-num" style="background: linear-gradient(135deg, var(--pink-400), var(--pink-500));">1</span>
+      <span class="toc-text">靈魂骨架——一句話拆穿這本書</span>
+    </a>
+    <a href="#step2" class="toc-item">
+      <span class="toc-num" style="background: linear-gradient(135deg, var(--purple-400), var(--purple-500));">2</span>
+      <span class="toc-text">作者解碼——誰寫的？為什麼可信？</span>
+    </a>
+    <a href="#step3" class="toc-item">
+      <span class="toc-num" style="background: linear-gradient(135deg, var(--blue-400), var(--blue-500));">3</span>
+      <span class="toc-text">全書地圖——13 章邏輯骨架</span>
+    </a>
+    <a href="#step4" class="toc-item">
+      <span class="toc-num" style="background: linear-gradient(135deg, var(--mint-400), var(--mint-500));">4</span>
+      <span class="toc-text">核心武器庫——CEP 方法完全拆解</span>
+    </a>
+    <a href="#step5" class="toc-item">
+      <span class="toc-num" style="background: linear-gradient(135deg, var(--peach-400), var(--peach-500));">5</span>
+      <span class="toc-text">顛覆清單——這本書推翻了什麼</span>
+    </a>
+    <a href="#step6" class="toc-item">
+      <span class="toc-num" style="background: linear-gradient(135deg, var(--coral-400), var(--coral-500));">6</span>
+      <span class="toc-text">實戰場景——3 歲兒的日常戰場</span>
+    </a>
+    <a href="#step7" class="toc-item">
+      <span class="toc-num" style="background: linear-gradient(135deg, var(--warm-400), var(--warm-500));">7</span>
+      <span class="toc-text">金句博物館——值得背下來的話</span>
+    </a>
+    <a href="#step8" class="toc-item">
+      <span class="toc-num" style="background: linear-gradient(135deg, var(--green-400), var(--green-500));">8</span>
+      <span class="toc-text">盲點與局限——作者沒說的</span>
+    </a>
+    <a href="#step9" class="toc-item">
+      <span class="toc-num" style="background: linear-gradient(135deg, var(--lavender-300), var(--purple-400));">9</span>
+      <span class="toc-text">跨域連結——與其他教養理論對話</span>
+    </a>
+    <a href="#step10" class="toc-item">
+      <span class="toc-num" style="background: linear-gradient(135deg, var(--pink-400), var(--coral-400));">10</span>
+      <span class="toc-text">行動藍圖——30 天 CEP 實踐計劃</span>
+    </a>
+    <a href="#step11" class="toc-item">
+      <span class="toc-num" style="background: linear-gradient(135deg, var(--purple-400), var(--blue-400));">11</span>
+      <span class="toc-text">覺醒裁決——這本書值不值得讀</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ╔═══════════════════════════════════════════════════════════════╗ -->
+<!-- ║                    STEP 1 — 靈魂骨架                         ║ -->
+<!-- ╚═══════════════════════════════════════════════════════════════╝ -->
+
+<div id="step1" class="analysis-card theme-pink">
+  <div class="card-header">
+    <span class="step-badge">🦴 STEP 01</span>
+    <h2>靈魂骨架——一句話拆穿這本書</h2>
+    <p class="card-subtitle">用最精煉的方式，抓住整本書的核心命題</p>
+  </div>
+  <div class="card-body">
+
+    <div class="quote-block">
+      孩子的每一次崩潰，都不是需要被「修好」的問題，<br>
+      而是一個等待被理解的訊號。<br>
+      父母的角色不是情緒的控制者，而是情緒的嚮導。
+      <span class="source">—— 全書核心命題</span>
+    </div>
+
+    <h3>📐 一句話骨架</h3>
+    <p>這本書的靈魂可以濃縮成一個公式：</p>
+
+    <div class="highlight-box">
+      <strong style="font-size: 1.1em; color: #c41d7f;">
+        理解情緒（而非壓制）＋ 協作處理（而非控制）＝ 情緒智慧的孩子
+      </strong>
+    </div>
+
+    <p>Alyssa Blask Campbell 和 Lauren Stauble 花了整本書告訴你一件事：<strong>你的孩子不是「不聽話」，他是「不會處理」</strong>。三歲孩子在超市地板上尖叫打滾，不是因為他故意要羞辱你，而是因為他大腦中負責自我調節的前額葉皮質還在施工中——字面意義上的施工中，要到 25 歲才完工。</p>
+
+    <p>所以當你對著崩潰的三歲小孩說「冷靜一點！」時，就像對一個還沒學會游泳的人說「別溺水啊！」——不是他不想，是他真的不會。</p>
+
+    <h3>🔑 三個關鍵翻轉</h3>
+    <div class="data-grid">
+      <div class="data-cell">
+        <span class="emoji">🔄</span>
+        <span class="value">翻轉 1</span>
+        <span class="desc">從「行為管理」<br>到「情緒引導」</span>
+      </div>
+      <div class="data-cell">
+        <span class="emoji">🤝</span>
+        <span class="value">翻轉 2</span>
+        <span class="desc">從「我 vs 孩子」<br>到「我們 vs 問題」</span>
+      </div>
+      <div class="data-cell">
+        <span class="emoji">🧠</span>
+        <span class="value">翻轉 3</span>
+        <span class="desc">從「即時服從」<br>到「長期能力」</span>
+      </div>
+    </div>
+
+    <p>作者最根本的主張是：<strong>傳統教養把孩子的情緒視為需要被消滅的敵人，CEP 把情緒視為需要被理解的信差</strong>。當你改變看待情緒的方式，你的每一個反應都會不同。你不再問「怎麼讓他停止哭？」而是問「他的哭在告訴我什麼？」</p>
+
+    <div class="highlight-box purple">
+      <strong>🎯 對 3 歲兒父母的意義：</strong>三歲是情緒最「大」但調節能力最「小」的年紀。這本書給你的不是一套「讓孩子閉嘴」的技巧，而是一套「在他學會游泳之前，當他的救生圈」的方法。你越早開始，他越早學會自己游。
+    </div>
+
+  </div>
+</div>
+
+<!-- ╔═══════════════════════════════════════════════════════════════╗ -->
+<!-- ║                    STEP 2 — 作者解碼                         ║ -->
+<!-- ╚═══════════════════════════════════════════════════════════════╝ -->
+
+<div id="step2" class="analysis-card theme-purple">
+  <div class="card-header">
+    <span class="step-badge">🔍 STEP 02</span>
+    <h2>作者解碼——誰寫的？為什麼可信？</h2>
+    <p class="card-subtitle">理解作者的背景，才能理解為什麼這本書這樣寫</p>
+  </div>
+  <div class="card-body">
+
+    <h3>👩‍🔬 Alyssa Blask Campbell</h3>
+    <p>Alyssa 不是那種只在書房裡寫育兒理論的學者。她是 <strong>Seed & Sew</strong> 的創辦人——一個專門研究兒童社會情緒發展的機構。她的背景結合了兒童發展心理學的學術訓練和數千小時直接與幼兒互動的實戰經驗。她從教室裡蹲在地板上陪孩子崩潰的經驗中，歸納出 CEP 方法。</p>
+
+    <p>關鍵是：<strong>她不是從理論推導實踐，而是從實踐歸納理論</strong>。這讓 CEP 方法有一種「這人真的帶過三歲小孩」的說服力，而不是「這人看了很多論文然後推測三歲小孩應該是這樣」的空泛感。</p>
+
+    <h3>👩‍🏫 Lauren Stauble</h3>
+    <p>Lauren 是 Seed & Sew 的另一位核心成員，專長在教育者培訓。她的角色像是翻譯官——把 Alyssa 在一線累積的經驗和研究，翻譯成其他教育者和父母能複製的框架。</p>
+
+    <div class="highlight-box purple">
+      <strong>🤔 為什麼兩人合寫很重要？</strong><br>
+      一個人的盲點，另一個人補。Alyssa 帶來深度和原創性，Lauren 帶來清晰度和可教學性。這解釋了為什麼這本書既有深刻的「啊哈」時刻，又有清楚的「所以我應該怎麼做」步驟。
+    </div>
+
+    <h3>📊 可信度評估</h3>
+
+    <div class="rating-bar">
+      <span class="bar-label">實務經驗</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 95%; background: linear-gradient(90deg, var(--purple-300), var(--purple-500));"></div>
+      </div>
+      <span class="bar-value">9.5</span>
+    </div>
+
+    <div class="rating-bar">
+      <span class="bar-label">學術基礎</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 80%; background: linear-gradient(90deg, var(--blue-300), var(--blue-500));"></div>
+      </div>
+      <span class="bar-value">8.0</span>
+    </div>
+
+    <div class="rating-bar">
+      <span class="bar-label">方法原創性</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 75%; background: linear-gradient(90deg, var(--pink-300), var(--pink-500));"></div>
+      </div>
+      <span class="bar-value">7.5</span>
+    </div>
+
+    <div class="rating-bar">
+      <span class="bar-label">可操作性</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 90%; background: linear-gradient(90deg, var(--mint-300), var(--mint-500));"></div>
+      </div>
+      <span class="bar-value">9.0</span>
+    </div>
+
+    <div class="rating-bar">
+      <span class="bar-label">跨文化適用</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 65%; background: linear-gradient(90deg, var(--warm-300), var(--warm-500));"></div>
+      </div>
+      <span class="bar-value">6.5</span>
+    </div>
+
+    <h3>🧬 知識譜系</h3>
+    <p>CEP 不是從石頭裡蹦出來的。它站在以下巨人的肩膀上：</p>
+    <div class="tag-cloud">
+      <span class="tag t1">🧠 Daniel Siegel — 人際神經生物學</span>
+      <span class="tag t2">👶 John Bowlby — 依附理論</span>
+      <span class="tag t3">🌊 Daniel Goleman — 情緒智商</span>
+      <span class="tag t4">🧪 Stuart Shanker — 自我調節理論</span>
+      <span class="tag t5">🏠 Janet Lansbury — 尊重式教養</span>
+      <span class="tag t6">🌱 Magda Gerber — RIE 教養哲學</span>
+      <span class="tag t7">💡 Tina Payne Bryson — 全腦教養</span>
+    </div>
+
+    <p>CEP 的獨特貢獻是把這些理論「打包」成一個可執行的日常框架。它不要求你先讀完十本神經科學教科書，而是給你一個「下次孩子在超市崩潰時，按這五步走」的行動指南。</p>
+
+  </div>
+</div>
+
+<!-- ╔═══════════════════════════════════════════════════════════════╗ -->
+<!-- ║                    STEP 3 — 全書地圖                         ║ -->
+<!-- ╚═══════════════════════════════════════════════════════════════╝ -->
+
+<div id="step3" class="analysis-card theme-blue">
+  <div class="card-header">
+    <span class="step-badge">🗺️ STEP 03</span>
+    <h2>全書地圖——13 章邏輯骨架</h2>
+    <p class="card-subtitle">看見全貌，才能理解每一塊拼圖的位置</p>
+  </div>
+  <div class="card-body">
+
+    <p>這本書的結構設計精巧——三個部分形成一個「理解→實踐→進階」的螺旋上升結構：</p>
+
+    <div class="data-grid">
+      <div class="data-cell">
+        <span class="emoji">🧠</span>
+        <span class="value">Part I</span>
+        <span class="desc">為什麼？<br>理解情緒的本質</span>
+      </div>
+      <div class="data-cell">
+        <span class="emoji">🛠️</span>
+        <span class="value">Part II</span>
+        <span class="desc">怎麼做？<br>日常實戰工具</span>
+      </div>
+      <div class="data-cell">
+        <span class="emoji">🚀</span>
+        <span class="value">Part III</span>
+        <span class="desc">更進一步？<br>長期能力培養</span>
+      </div>
+    </div>
+
+    <!-- Part I -->
+    <h3>🧠 Part I：什麼是情緒？為什麼重要？</h3>
+    <p>這部分建立認知基礎。如果你不理解情緒「是什麼」，你所有的應對策略都只是在瞎猜。</p>
+
+    <div class="chapter-grid">
+      <div class="chapter-card">
+        <span class="ch-emoji">💡</span>
+        <div class="ch-content">
+          <div class="ch-title">Ch1 · 什麼是情緒智商？</div>
+          <div class="ch-desc">情緒智商不是「不哭」，而是「知道自己為什麼哭，以及哭完之後怎麼辦」。本章拆解情商的五個核心成分：自我覺察、自我調節、動機、同理心、社交技巧。關鍵洞察：情商是可以「教」的，而且教學窗口就在 0-6 歲。</div>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <span class="ch-emoji">🪞</span>
+        <div class="ch-content">
+          <div class="ch-title">Ch2 · 你在孩子情緒中的角色</div>
+          <div class="ch-desc">這是全書最「痛」的一章。核心論點：<strong>你無法給孩子你自己沒有的東西</strong>。如果你自己面對壓力的方式是壓抑或爆發，你的孩子會「複製」你的模式，而不是你嘴巴說的那套。本章要求父母先審視自己的情緒處理方式。</div>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <span class="ch-emoji">🧬</span>
+        <div class="ch-content">
+          <div class="ch-title">Ch3 · 大腦和身體在大情緒時發生了什麼？</div>
+          <div class="ch-desc">用淺白語言解釋神經科學：杏仁核（火災警報器）vs 前額葉皮質（消防隊長）。三歲孩子的消防隊長還在受訓中，所以火災警報響了，沒人能滅火。這章給你一個生理層面的「原諒孩子」的理由：<strong>他不是不想配合，他的大腦硬體還跑不動這個軟體</strong>。</div>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <span class="ch-emoji">🔧</span>
+        <div class="ch-content">
+          <div class="ch-title">Ch4 · 協作式情緒處理法（CEP）</div>
+          <div class="ch-desc">全書的核心方法論正式登場。CEP 的五個階段完整展開。這是一個循環而非線性的系統——你不是「走完五步就畢業」，而是每次情緒事件都是一次新的練習機會。本章是理論與實踐的橋梁。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Part II -->
+    <h3>🛠️ Part II：與小小人類的協作情緒處理</h3>
+    <p>從理論落地到戰壕。這部分處理每個父母每天都會碰到的實際場景。</p>
+
+    <div class="chapter-grid">
+      <div class="chapter-card">
+        <span class="ch-emoji">🆘</span>
+        <div class="ch-content">
+          <div class="ch-title">Ch5 · 當下該怎麼做</div>
+          <div class="ch-desc">孩子正在崩潰的「火場指南」。不是事後分析，是「他現在在地上打滾，我下一秒該做什麼」。核心技巧：先連結（connect），再導引（redirect）。具體到「你的語調應該降低 30%」「蹲到與孩子同高」的操作級細節。</div>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <span class="ch-emoji">🧱</span>
+        <div class="ch-content">
+          <div class="ch-title">Ch6 · 如何設定和堅守界線</div>
+          <div class="ch-desc">這章打破一個常見誤解：溫和教養 ≠ 沒有界線。恰恰相反——界線是安全感的來源。關鍵區分：界線不是懲罰，界線是「我不會讓你傷害自己/別人/物品」。三歲孩子其實渴望界線，因為界線告訴他「世界是可預測的」。</div>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <span class="ch-emoji">💬</span>
+        <div class="ch-content">
+          <div class="ch-title">Ch7 · 何時以及如何談論行為</div>
+          <div class="ch-desc">時機就是一切。情緒風暴中講道理 = 對著暴風雨喊話。等風暴過後，用「我注意到…」「你覺得那時候…」的方式回顧。關鍵：不在崩潰時教課，在平靜時播種。</div>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <span class="ch-emoji">⚖️</span>
+        <div class="ch-content">
+          <div class="ch-title">Ch8 · 後果、懲罰和獎勵</div>
+          <div class="ch-desc">全書最具顛覆性的章節之一。論點：傳統的「後果」往往只是偽裝過的懲罰。獎懲系統的根本問題：它們都依賴外在動機，而 CEP 追求的是內在動機。用「自然後果」和「修復行為」取代人為設計的賞罰。</div>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <span class="ch-emoji">🛡️</span>
+        <div class="ch-content">
+          <div class="ch-title">Ch9 · 在崩潰開始前就結束它</div>
+          <div class="ch-desc">預防大於治療。教你識別崩潰前的「微信號」——聲音的變化、身體的緊繃、眼神的渙散。每個孩子都有獨特的「即將崩潰」信號，父母的任務是學會閱讀這些信號。工具：提前規劃、環境設計、能量管理。</div>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <span class="ch-emoji">👫</span>
+        <div class="ch-content">
+          <div class="ch-title">Ch10 · 當不只一個孩子時</div>
+          <div class="ch-desc">多子女家庭的專屬挑戰。當兩個孩子同時崩潰時，先處理誰？答案：先處理安全問題，再處理情緒最激烈的那個。手足衝突不是問題——它是練習社交情緒技巧的天然教室。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Part III -->
+    <h3>🚀 Part III：提升 CEP 層次</h3>
+    <p>從「滅火」升級到「防火」，從「處理情緒」升級到「培養情緒智慧」。</p>
+
+    <div class="chapter-grid">
+      <div class="chapter-card">
+        <span class="ch-emoji">💗</span>
+        <div class="ch-content">
+          <div class="ch-title">Ch11 · 培養同理心</div>
+          <div class="ch-desc">同理心不是天生的（至少不是成熟版的），而是在被同理的經驗中長出來的。三歲孩子推了別的小朋友不是因為「壞」，而是因為他還沒有足夠的神經迴路去感受「被推的人感覺如何」。培養路徑：先對孩子示範同理，孩子才能對別人展現同理。</div>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <span class="ch-emoji">🔄</span>
+        <div class="ch-content">
+          <div class="ch-title">Ch12 · 變化與轉換</div>
+          <div class="ch-desc">三歲孩子最大的觸發器之一：轉換。從玩耍到吃飯、從公園到回家、從媽媽到保母——每一次轉換都是潛在的崩潰點。工具：預告（「五分鐘後我們要…」）、儀式化（每次轉換有固定的小儀式）、賦予掌控感（「你要先穿鞋子還是先拿外套？」）。</div>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <span class="ch-emoji">🌟</span>
+        <div class="ch-content">
+          <div class="ch-title">Ch13 · 未來是情緒智慧的</div>
+          <div class="ch-desc">收尾願景章。論點：你現在在三歲孩子身上投資的每一分鐘情緒引導，都在建構他 13 歲、23 歲、33 歲時的情緒基礎架構。這不是一場短跑，而是一場馬拉松——但起跑線就是現在。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box blue">
+      <strong>📐 結構設計的精妙之處：</strong>很多教養書是「食譜式」的——給你一堆獨立的技巧，但你不知道它們怎麼連在一起。這本書是「系統式」的——先給你底層邏輯（Part I），再給你工具（Part II），最後讓你看到更大的圖景（Part III）。理解這個結構，你就不會只是「學了幾招」，而是「理解了一套系統」。
+    </div>
+
+  </div>
+</div>
+
+<!-- ╔═══════════════════════════════════════════════════════════════╗ -->
+<!-- ║                    STEP 4 — 核心武器庫                       ║ -->
+<!-- ╚═══════════════════════════════════════════════════════════════╝ -->
+
+<div id="step4" class="analysis-card theme-mint">
+  <div class="card-header">
+    <span class="step-badge">⚔️ STEP 04</span>
+    <h2>核心武器庫——CEP 方法完全拆解</h2>
+    <p class="card-subtitle">這本書最有價值的工具，一次拆到骨頭</p>
+  </div>
+  <div class="card-body">
+
+    <h3>🔄 CEP 五階段循環</h3>
+    <p>CEP（Collaborative Emotion Processing，協作式情緒處理）不是一個線性步驟，而是一個循環系統。每次情緒事件都是一次完整的循環：</p>
+
+    <div class="cep-cycle">
+      <div class="cep-phase p1">
+        <span class="phase-emoji">👁️</span>
+        <span class="phase-name">覺察</span>
+        <span class="phase-desc">注意到情緒的出現，自己的和孩子的</span>
+      </div>
+      <span class="cep-arrow">→</span>
+      <div class="cep-phase p2">
+        <span class="phase-emoji">🤲</span>
+        <span class="phase-name">連結</span>
+        <span class="phase-desc">在情緒中與孩子建立安全的連結</span>
+      </div>
+      <span class="cep-arrow">→</span>
+      <div class="cep-phase p3">
+        <span class="phase-emoji">🗣️</span>
+        <span class="phase-name">命名</span>
+        <span class="phase-desc">幫孩子把感受用語言表達出來</span>
+      </div>
+      <span class="cep-arrow">→</span>
+      <div class="cep-phase p4">
+        <span class="phase-emoji">🧩</span>
+        <span class="phase-name">處理</span>
+        <span class="phase-desc">協作找到應對方式和解決方案</span>
+      </div>
+      <span class="cep-arrow">→</span>
+      <div class="cep-phase p5">
+        <span class="phase-emoji">🌱</span>
+        <span class="phase-name">成長</span>
+        <span class="phase-desc">回顧、學習，建構長期情緒技能</span>
+      </div>
+    </div>
+
+    <h3>⚙️ 階段一：覺察 Awareness</h3>
+    <p><strong>你注意到了嗎？</strong>這個階段發生在一切行動之前。它有兩個面向：</p>
+
+    <div class="compare-grid">
+      <div class="compare-item good">
+        <span class="label">✅ 覺察孩子</span>
+        <p style="margin:0">他的聲音變了嗎？身體緊繃了嗎？呼吸加速了嗎？眼神開始飄了嗎？每個孩子都有獨特的「風暴前兆」信號。</p>
+      </div>
+      <div class="compare-item good">
+        <span class="label">✅ 覺察自己</span>
+        <p style="margin:0">你現在的心跳是多少？肩膀是不是往上縮了？你是不是已經在想「又來了」？你的身體狀態會直接傳染給孩子。</p>
+      </div>
+    </div>
+
+    <div class="highlight-box mint">
+      <strong>🎯 3 歲兒實戰：</strong>三歲孩子在崩潰前通常有 30-90 秒的「黃燈期」。學會識別這個窗口，你就能在崩潰變成「紅燈」之前介入。常見信號：聲音升高、動作變大、開始重複同一個要求、身體開始僵硬。
+    </div>
+
+    <h3>⚙️ 階段二：連結 Connection</h3>
+    <p><strong>先連結，後導引（Connect before you correct）。</strong></p>
+    <p>這是 CEP 最核心的原則。在情緒風暴中，孩子的大腦處於「戰鬥或逃跑」模式，這時候任何講道理的嘗試都會被大腦判定為「威脅」而被屏蔽。你唯一能做的，是讓孩子的神經系統知道：「這裡是安全的，你不是一個人。」</p>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <span class="num">1</span>
+        <div class="content">
+          <strong>物理靠近</strong>
+          <span>蹲到與孩子同高，而不是從上方俯視。高度差距本身就是一種隱含的「權力壓迫」信號。</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="num">2</span>
+        <div class="content">
+          <strong>語調降低</strong>
+          <span>把你的語調降低、放慢。不是刻意壓低（那會讓孩子覺得你在生氣），而是自然地柔和下來。你的聲音是孩子神經系統的調節器。</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="num">3</span>
+        <div class="content">
+          <strong>身體接觸（如果孩子接受的話）</strong>
+          <span>輕輕把手放在背上、肩上，或者只是坐在旁邊。有些孩子在崩潰時不想被碰——尊重這一點。「我就在這裡」本身就是連結。</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="num">4</span>
+        <div class="content">
+          <strong>接納，而非修復</strong>
+          <span>「我看到你很生氣」而不是「不要生氣」。「這對你來說很難」而不是「有什麼好難的」。你不需要修復情緒，你需要陪伴情緒。</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>⚙️ 階段三：命名 Naming</h3>
+    <p><strong>「如果你能命名它，你就能馴服它。」（Name it to tame it.）</strong></p>
+    <p>這個概念借鑑自 Daniel Siegel 的神經科學研究。當我們用語言標記一個情緒時，大腦的前額葉皮質會介入，對杏仁核（情緒警報器）產生「降溫」效果。問題是：三歲孩子的情緒詞彙極其有限。</p>
+
+    <div class="highlight-box">
+      <strong>命名的三個層次：</strong><br><br>
+      <strong>Level 1（基礎）：</strong>「你很生氣」「你很傷心」「你很害怕」——最基本的情緒標記。<br><br>
+      <strong>Level 2（精確）：</strong>「你很失望，因為你想要那個玩具但我們不能買」——情緒＋原因。<br><br>
+      <strong>Level 3（身體化）：</strong>「你的肚子緊緊的嗎？手握得很用力？」——將情緒連結到身體感受，為未來的「身體覺察→情緒識別」通路打基礎。
+    </div>
+
+    <h3>⚙️ 階段四：處理 Processing</h3>
+    <p>情緒被看見、被命名之後，才能被「處理」。這裡的「處理」不是「消除」，而是「通過」。</p>
+
+    <ul>
+      <li><strong>感覺輪（Feeling Wheel）：</strong>給孩子看情緒的圖片或表情卡，幫助他們指認自己的狀態</li>
+      <li><strong>身體調節策略：</strong>深呼吸（教三歲孩子「聞花香、吹蠟燭」的呼吸法）、擠壓遊戲、搖晃、重壓</li>
+      <li><strong>環境轉換：</strong>有時候最簡單的處理就是換個空間——「我們去外面走走好嗎？」</li>
+      <li><strong>共同解決問題：</strong>「你想要A，但我們不能做A。你覺得B或C有沒有可能？」賦予孩子選擇權</li>
+    </ul>
+
+    <h3>⚙️ 階段五：成長 Growth</h3>
+    <p>這是大多數父母跳過的步驟，也是 CEP 區別於其他方法的關鍵。情緒風暴過後，不是「謝天謝地終於結束了」然後假裝什麼都沒發生。而是在之後（可能是幾小時後、睡前故事時間），溫和地回顧：</p>
+
+    <ul>
+      <li>「今天在公園的時候，你的身體怎麼了？」</li>
+      <li>「你覺得下次遇到一樣的事，我們可以怎麼做？」</li>
+      <li>「那個感覺有名字嗎？是生氣？還是失望？還是兩個都有？」</li>
+    </ul>
+
+    <div class="quote-block">
+      每一次崩潰都是一堂課。不是給孩子的「教訓」，而是給親子雙方的「練習」。
+      <span class="source">—— CEP 成長階段的核心理念</span>
+    </div>
+
+    <h3>🛡️ 核心工具箱速查</h3>
+    <div class="data-grid">
+      <div class="data-cell">
+        <span class="emoji">🌸</span>
+        <span class="value">聞花吹燭</span>
+        <span class="desc">深呼吸法<br>3 歲就能學會</span>
+      </div>
+      <div class="data-cell">
+        <span class="emoji">🧸</span>
+        <span class="value">安全角</span>
+        <span class="desc">專屬冷靜空間<br>不是「罰站」是「充電」</span>
+      </div>
+      <div class="data-cell">
+        <span class="emoji">🎨</span>
+        <span class="value">情緒色卡</span>
+        <span class="desc">視覺化情緒<br>「你現在是什麼顏色？」</span>
+      </div>
+      <div class="data-cell">
+        <span class="emoji">🤗</span>
+        <span class="value">重壓擁抱</span>
+        <span class="desc">深壓覺輸入<br>安撫過度激發的神經系統</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ╔═══════════════════════════════════════════════════════════════╗ -->
+<!-- ║                    STEP 5 — 顛覆清單                         ║ -->
+<!-- ╚═══════════════════════════════════════════════════════════════╝ -->
+
+<div id="step5" class="analysis-card theme-peach">
+  <div class="card-header">
+    <span class="step-badge">💥 STEP 05</span>
+    <h2>顛覆清單——這本書推翻了什麼</h2>
+    <p class="card-subtitle">識別哪些「常識」其實是偏見</p>
+  </div>
+  <div class="card-body">
+
+    <p>這本書最有價值的地方之一，是它系統性地挑戰了幾個根深蒂固的教養「常識」。以下是五個最重要的顛覆：</p>
+
+    <h3>💥 顛覆一：「哭就是不乖」→「哭是在溝通」</h3>
+    <div class="compare-grid">
+      <div class="compare-item bad">
+        <span class="label">❌ 舊觀念</span>
+        <p style="margin:0">孩子哭鬧 = 不聽話 = 需要被管教。「再哭就沒有了！」「你看別的小朋友都不哭。」</p>
+      </div>
+      <div class="compare-item good">
+        <span class="label">✅ CEP 觀點</span>
+        <p style="margin:0">孩子哭鬧 = 超過了他的承受範圍 = 需要被幫助。「你的哭告訴我這對你很難。我在這裡。」</p>
+      </div>
+    </div>
+    <p>為什麼這很重要？因為當你把「哭」重新定義為「溝通」而非「挑戰」，你的整個反應模式就改變了。你不再感到被冒犯，而是開始好奇：「他在告訴我什麼？」</p>
+
+    <h3>💥 顛覆二：「要給後果」→「後果經常是偽裝的懲罰」</h3>
+    <div class="compare-grid">
+      <div class="compare-item bad">
+        <span class="label">❌ 舊觀念</span>
+        <p style="margin:0">「你不好好吃飯，就不能看電視。」這叫做「邏輯後果」——讓孩子學會選擇的代價。</p>
+      </div>
+      <div class="compare-item good">
+        <span class="label">✅ CEP 觀點</span>
+        <p style="margin:0">不好好吃飯和看電視有什麼邏輯關係？沒有。這就是懲罰，只是換了個好聽的名字。真正的自然後果是：不吃飯→等一下會餓。</p>
+      </div>
+    </div>
+
+    <h3>💥 顛覆三：「獎勵好行為」→「獎勵殺死內在動機」</h3>
+    <div class="compare-grid">
+      <div class="compare-item bad">
+        <span class="label">❌ 舊觀念</span>
+        <p style="margin:0">「你把玩具收好就給你一顆糖。」「集滿十個笑臉就能換一個玩具。」</p>
+      </div>
+      <div class="compare-item good">
+        <span class="label">✅ CEP 觀點</span>
+        <p style="margin:0">獎勵教會孩子：「我做好事是為了得到東西」。一旦拿掉獎勵，行為就消失。CEP 追求的是：「我做這件事，因為它讓我和周圍的人感覺好。」</p>
+      </div>
+    </div>
+
+    <h3>💥 顛覆四：「暫停隔離」→「暫停隔離是拋棄」</h3>
+    <div class="compare-grid">
+      <div class="compare-item bad">
+        <span class="label">❌ 舊觀念</span>
+        <p style="margin:0">Time-out：把崩潰的孩子放到角落「想一想」。</p>
+      </div>
+      <div class="compare-item good">
+        <span class="label">✅ CEP 觀點</span>
+        <p style="margin:0">在孩子最需要你的時候把他隔離，等於告訴他：「你的大情緒讓你不配待在愛的範圍內。」改用 time-in：「我陪你一起，直到你的身體平靜下來。」</p>
+      </div>
+    </div>
+
+    <h3>💥 顛覆五：「先處理行為」→「先處理情緒」</h3>
+    <div class="compare-grid">
+      <div class="compare-item bad">
+        <span class="label">❌ 舊觀念</span>
+        <p style="margin:0">孩子打人 → 立刻說「不可以打人！道歉！」</p>
+      </div>
+      <div class="compare-item good">
+        <span class="label">✅ CEP 觀點</span>
+        <p style="margin:0">孩子打人 → 先阻止行為（「我不能讓你打人」）→ 連結情緒（「你看起來很挫折」）→ 等待平靜 → 然後才談行為和修復。順序不能反。</p>
+      </div>
+    </div>
+
+    <div class="highlight-box warm">
+      <strong>🔑 顛覆的根源：</strong>所有這些顛覆都指向同一個根本翻轉——<strong>傳統教養在問：「怎麼讓孩子停止不好的行為？」CEP 在問：「是什麼驅動了這個行為？解決了驅動力，行為自然改變。」</strong>這不是軟弱或縱容——這是從根本上解決問題，而不是按住症狀。
+    </div>
+
+  </div>
+</div>
+
+<!-- ╔═══════════════════════════════════════════════════════════════╗ -->
+<!-- ║                    STEP 6 — 實戰場景                         ║ -->
+<!-- ╚═══════════════════════════════════════════════════════════════╝ -->
+
+<div id="step6" class="analysis-card theme-coral">
+  <div class="card-header">
+    <span class="step-badge">🎬 STEP 06</span>
+    <h2>實戰場景——3 歲兒的日常戰場</h2>
+    <p class="card-subtitle">理論好看，但能不能打？讓我們實際操演</p>
+  </div>
+  <div class="card-body">
+
+    <p>以下每一個場景都是三歲孩子家庭的「日常」。我們用 CEP 的框架，具體展示從「舊反應」到「新反應」的轉換。</p>
+
+    <!-- Scene 1 -->
+    <h3>🎬 場景一：超市崩潰——「我要那個！！！」</h3>
+
+    <div class="scenario-box">
+      <div class="scene-title">📍 情境設定</div>
+      <p style="font-size:0.93em; margin:8px 0 16px;">超市糖果區。三歲的孩子看到最愛的恐龍軟糖，你說「今天不買」，他開始尖叫、跺腳、然後直接躺在地上。周圍十雙眼睛看著你。</p>
+
+      <div class="dialogue">
+        <span class="speaker parent">🟣 覺察（你的內心）：</span>
+        我的臉在發燙，心跳加速。那些人在看我。深呼吸。這不是緊急事件，這是一個需要我的三歲小孩。
+      </div>
+      <div class="dialogue">
+        <span class="speaker parent">🟣 連結（蹲下，語調降低）：</span>
+        「你真的很想要那個恐龍軟糖對不對？想要一個東西但不能擁有，這個感覺好難受。」
+      </div>
+      <div class="dialogue">
+        <span class="speaker child">🩷 孩子（可能繼續哭）：</span>
+        「我要！我要！我要恐龍！」
+      </div>
+      <div class="dialogue">
+        <span class="speaker parent">🟣 命名：</span>
+        「你很失望。你的身體裡面有一個好大好大的失望。」（不急著修復，讓他感受到被理解）
+      </div>
+      <div class="dialogue">
+        <span class="speaker parent">🟣 界線 + 選擇：</span>
+        「今天我們不買軟糖。不過，你想幫我選蘋果的顏色嗎？紅的還是綠的？」
+      </div>
+      <div class="dialogue">
+        <span class="speaker parent">🟣 成長（回家後，在平靜的時候）：</span>
+        「你還記得今天在超市的時候，你的身體怎麼了嗎？下次你很想要一個東西的時候，我們可以怎麼做？」
+      </div>
+    </div>
+
+    <div class="highlight-box coral">
+      <strong>⚡ 關鍵差異：</strong>舊方式是「不行就是不行！再哭我們直接回家！」——這解決了你的尷尬，但教會孩子的是「我的感受不重要」和「大人的權力不可違抗」。CEP 方式解決的不只是這一次的軟糖問題，而是在建構孩子「面對失望」的能力。
+    </div>
+
+    <!-- Scene 2 -->
+    <h3>🎬 場景二：不要穿衣服——早晨戰爭</h3>
+
+    <div class="scenario-box">
+      <div class="scene-title">📍 情境設定</div>
+      <p style="font-size:0.93em; margin:8px 0 16px;">早上 7:30，你要趕著上班。三歲孩子拒絕穿衣服，光著身子在房間跑，你已經遲到了。</p>
+
+      <div class="dialogue">
+        <span class="speaker parent">🟣 覺察：</span>
+        我很焦慮因為快遲到了。但我的焦慮不是他的錯。他不是在「跟我作對」，他是在享受自由的感覺（或者他不想結束玩耍時間）。
+      </div>
+      <div class="dialogue">
+        <span class="speaker parent">🟣 連結 + 命名：</span>
+        「你不想穿衣服！你想繼續玩，對不對？穿衣服代表要出門了，你還不想走。」
+      </div>
+      <div class="dialogue">
+        <span class="speaker parent">🟣 賦予選擇（而非命令）：</span>
+        「我們需要穿衣服出門。你想穿恐龍T恤還是太空船T恤？」（兩個都可以，重點是他有選擇權）
+      </div>
+      <div class="dialogue">
+        <span class="speaker parent">🟣 遊戲化（Ch9 的預防策略）：</span>
+        「你的腳能在我數到五之前找到襪子嗎？一——二——」
+      </div>
+    </div>
+
+    <!-- Scene 3 -->
+    <h3>🎬 場景三：打人——「他搶我的！」</h3>
+
+    <div class="scenario-box">
+      <div class="scene-title">📍 情境設定</div>
+      <p style="font-size:0.93em; margin:8px 0 16px;">公園裡，另一個小孩拿了你家三歲孩子的鏟子。你的孩子衝過去打了對方一下。</p>
+
+      <div class="dialogue">
+        <span class="speaker parent">🟣 第一步：阻止行為（安全優先）</span>
+        溫柔但堅定地把孩子拉開。「我不能讓你打人。打人會痛。」（不是懲罰，是保護雙方。）
+      </div>
+      <div class="dialogue">
+        <span class="speaker parent">🟣 第二步：連結情緒</span>
+        「你好生氣！他拿了你的鏟子，你覺得不公平。」（先處理情緒，行為教導等後面。）
+      </div>
+      <div class="dialogue">
+        <span class="speaker parent">🟣 第三步：等待平靜</span>
+        可能需要幾分鐘。不急。在他的身體平靜之前，任何「教育」都進不去。
+      </div>
+      <div class="dialogue">
+        <span class="speaker parent">🟣 第四步：談行為＋修復</span>
+        「你很生氣是 OK 的。打人不 OK。下次你很生氣的時候，你可以用嘴巴說『這是我的，請還給我』，或者來找我幫忙。現在，我們去看看小朋友還好嗎？」
+      </div>
+    </div>
+
+    <!-- Scene 4 -->
+    <h3>🎬 場景四：睡前崩潰——「再一本！再一本！」</h3>
+
+    <div class="scenario-box">
+      <div class="scene-title">📍 情境設定</div>
+      <p style="font-size:0.93em; margin:8px 0 16px;">約定好的三本故事書已經讀完了。你說該睡了，孩子開始哭著要「再一本」。</p>
+
+      <div class="dialogue">
+        <span class="speaker parent">🟣 預防（Ch9）——事前設定：</span>
+        睡前就說好：「今天讀三本。你來選是哪三本。」讓他參與決定。
+      </div>
+      <div class="dialogue">
+        <span class="speaker parent">🟣 溫和堅定：</span>
+        「我知道你還想聽故事，故事好好聽對不對？而且我們已經讀了三本，就是我們說好的。明天又有三本新故事在等你。」
+      </div>
+      <div class="dialogue">
+        <span class="speaker parent">🟣 轉換儀式（Ch12）：</span>
+        「現在是抱抱時間了。你想要大熊抱還是小兔子抱？」（用可預期的儀式取代突然的「結束」。）
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>🎯 場景的共同模式：</strong>你會注意到，每一個場景都遵循同樣的結構——覺察→連結→命名→處理→（事後）成長。重點不是死記每個場景怎麼應對，而是內化這個迴圈。迴圈內化了，你面對任何新場景都有框架可依。
+    </div>
+
+  </div>
+</div>
+
+<!-- ╔═══════════════════════════════════════════════════════════════╗ -->
+<!-- ║                    STEP 7 — 金句博物館                       ║ -->
+<!-- ╚═══════════════════════════════════════════════════════════════╝ -->
+
+<div id="step7" class="analysis-card theme-warm">
+  <div class="card-header">
+    <span class="step-badge">💎 STEP 07</span>
+    <h2>金句博物館——值得背下來的話</h2>
+    <p class="card-subtitle">最好的句子，是那些改變你看事情方式的句子</p>
+  </div>
+  <div class="card-body">
+
+    <div class="quote-block">
+      Tiny humans have big emotions.
+      <span class="source">小小人類有大大情緒——全書的起點和終點</span>
+    </div>
+
+    <div class="quote-block" style="border-color: rgba(255, 133, 192, 0.3);">
+      You can't teach a child to swim while they're drowning.<br>
+      你不能在孩子溺水的時候教他游泳。
+      <span class="source">—— 關於「為什麼崩潰中講道理沒用」</span>
+    </div>
+
+    <div class="quote-block" style="border-color: rgba(92, 219, 211, 0.3);">
+      Connect before you correct.<br>
+      先連結，再糾正。
+      <span class="source">—— CEP 的第一法則</span>
+    </div>
+
+    <div class="quote-block" style="border-color: rgba(255, 192, 105, 0.3);">
+      Behind every behavior is a feeling. And behind every feeling is a need.<br>
+      每個行為背後都有一個感受，每個感受背後都有一個需求。
+      <span class="source">—— 理解「問題行為」的鑰匙</span>
+    </div>
+
+    <div class="quote-block" style="border-color: rgba(115, 209, 61, 0.3);">
+      Boundaries are not the opposite of warmth — they are a form of it.<br>
+      界線不是溫暖的反面——它是溫暖的一種形式。
+      <span class="source">—— 打破「溫和教養 = 沒規矩」的迷思</span>
+    </div>
+
+    <div class="quote-block" style="border-color: rgba(146, 84, 222, 0.3);">
+      It's not your job to prevent your child from ever feeling uncomfortable.<br>
+      It's your job to be there when they do.<br>
+      你的工作不是讓孩子永遠不難受，而是在他難受的時候在場。
+      <span class="source">—— 關於「保護」vs「過度保護」</span>
+    </div>
+
+    <div class="quote-block" style="border-color: rgba(255, 120, 117, 0.3);">
+      They're not giving you a hard time. They're having a hard time.<br>
+      他不是在給你找麻煩，他是正在經歷麻煩。
+      <span class="source">—— 改變一切的視角翻轉</span>
+    </div>
+
+    <div class="quote-block" style="border-color: rgba(105, 192, 255, 0.3);">
+      Collaboration, not control.<br>
+      協作，不是控制。
+      <span class="source">—— CEP 的精神核心</span>
+    </div>
+
+    <h3>🧠 為什麼金句重要？</h3>
+    <p>在你的三歲孩子第八次在同一個晚上爬出床的時候，你的大腦不會去翻 Ch9 的理論框架。但它可能會想起一句話：<strong>「他不是在給你找麻煩，他是正在經歷麻煩。」</strong>金句是壓力下的快捷鍵——它們繞過你的疲憊和挫折，直接觸發一個更有同理心的反應迴路。</p>
+
+    <div class="highlight-box warm">
+      <strong>💡 實用建議：</strong>選兩到三句最觸動你的金句，寫在便利貼上，貼在冰箱上、孩子房間門口、或你容易看到的地方。不是裝飾——是你的「情緒急救包」。當你快要失去耐心的時候，那幾個字可能就是讓你暫停三秒的關鍵。
+    </div>
+
+  </div>
+</div>
+
+<!-- ╔═══════════════════════════════════════════════════════════════╗ -->
+<!-- ║                    STEP 8 — 盲點與局限                       ║ -->
+<!-- ╚═══════════════════════════════════════════════════════════════╝ -->
+
+<div id="step8" class="analysis-card theme-green">
+  <div class="card-header">
+    <span class="step-badge">🔭 STEP 08</span>
+    <h2>盲點與局限——作者沒說的</h2>
+    <p class="card-subtitle">好書也有邊界，認識邊界才能用得更好</p>
+  </div>
+  <div class="card-body">
+
+    <p>任何一本書都有它的「鏡頭焦距」——它把某些東西拍得很清楚，同時必然讓某些東西模糊了。誠實地標記這些盲點，不是為了否定這本書，而是為了讓你用得更聰明。</p>
+
+    <h3>🔍 盲點一：文化假設</h3>
+    <div class="highlight-box green">
+      <strong>問題：</strong>CEP 建立在一個深層的西方文化假設上——<strong>個體情緒的優先性</strong>。在西方文化中，「你的感受很重要」是不需要論證的前提。但在許多東亞文化（包括台灣）中，家庭和諧、長幼倫理、面子文化都可能與「充分表達每一個情緒」產生張力。<br><br>
+      <strong>你可以怎麼做：</strong>不需要全盤接受或全盤拒絕。取 CEP 的「理解情緒」精神，同時考量你的文化現實。例如，你可以在家庭內部實踐 CEP，但也教孩子理解「在不同場合，情緒的表達方式可能不同」——這不是壓抑，而是社交智慧。
+    </div>
+
+    <h3>🔍 盲點二：能量與時間的隱含假設</h3>
+    <p>CEP 方法做得好，需要一個前提：<strong>父母有足夠的情緒能量和時間</strong>。蹲下來、降低語調、等待孩子的情緒通過、事後回顧——每一步都需要耐心和能量。但現實是：</p>
+    <ul>
+      <li>你可能是雙薪家庭，下班後已經精疲力竭</li>
+      <li>你可能同時帶兩個孩子（Ch10 有提，但仍然低估了難度）</li>
+      <li>你可能自己的情緒杯已經見底，沒有東西可以「給」了</li>
+    </ul>
+    <p>書中雖然提到「先照顧好自己」，但篇幅不多，且缺乏具體的「父母自我照護系統」。CEP 的理想操作和現實中的操作之間，存在一個「能量缺口」。</p>
+
+    <h3>🔍 盲點三：神經多樣性的不足</h3>
+    <p>CEP 假設的是「典型發展」的孩子。但如果你的孩子有以下特質，CEP 的某些策略可能需要調整：</p>
+    <ul>
+      <li><strong>ADHD 傾向：</strong>「等待風暴過去」可能需要更長的時間；「事後回顧」可能因為工作記憶的限制而效果有限</li>
+      <li><strong>感覺統合問題：</strong>「身體接觸」可能是觸發器而非安慰；需要不同的感覺調節策略</li>
+      <li><strong>自閉症譜系：</strong>情緒的「命名」可能需要完全不同的路徑（視覺化、量化而非語言化）</li>
+    </ul>
+
+    <h3>🔍 盲點四：父母雙方不一致怎麼辦</h3>
+    <p>這是很多家庭的現實：一方在學 CEP，另一方（或阿公阿嬤）用的還是傳統方式。書中幾乎沒有處理這個極其常見且極其棘手的問題。當媽媽說「你很生氣對不對」的時候，爸爸在旁邊說「男孩子哭什麼哭」——孩子收到的是什麼訊號？</p>
+
+    <h3>🔍 盲點五：缺乏長期追蹤數據</h3>
+    <p>CEP 的效果主要基於：作者的實務經驗、依附理論和神經科學的間接支持、以及家長的回饋。但目前缺乏嚴格的隨機對照試驗（RCT）或長期追蹤研究來驗證其具體效果。這不代表 CEP 沒效——只是代表它的效果尚未被「最高標準」的科學研究所驗證。</p>
+
+    <div class="highlight-box">
+      <strong>🎯 建設性結論：</strong>這些盲點不是讓你不讀或不用這本書的理由。每一本書都有局限。正確的做法是：<strong>拿走 CEP 的核心精神（理解情緒、協作處理），同時根據你的具體情境做調整</strong>。你是最了解你的孩子的人——比作者更了解。書是地圖，你是嚮導。
+    </div>
+
+  </div>
+</div>
+
+<!-- ╔═══════════════════════════════════════════════════════════════╗ -->
+<!-- ║                    STEP 9 — 跨域連結                         ║ -->
+<!-- ╚═══════════════════════════════════════════════════════════════╝ -->
+
+<div id="step9" class="analysis-card theme-lavender">
+  <div class="card-header">
+    <span class="step-badge">🌐 STEP 09</span>
+    <h2>跨域連結——與其他教養理論的對話</h2>
+    <p class="card-subtitle">把這本書放進更大的知識版圖</p>
+  </div>
+  <div class="card-body">
+
+    <p>一本書的深度，不只取決於它自己說了什麼，還取決於它和其他思想的對話品質。讓我們把 CEP 放到更大的教養理論版圖中。</p>
+
+    <h3>🗺️ CEP 在教養光譜上的位置</h3>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <span class="num" style="background: linear-gradient(135deg, var(--coral-400), var(--coral-500));">嚴</span>
+        <div class="content">
+          <strong>權威式教養（Authoritarian）</strong>
+          <span>「我說了算。」高控制、低溫暖。服從是目標。CEP 完全不走這條路。</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="num" style="background: linear-gradient(135deg, var(--green-400), var(--green-500));">中</span>
+        <div class="content">
+          <strong>權威民主式（Authoritative）— CEP 在這裡</strong>
+          <span>高溫暖 + 有界線。理解孩子的感受，同時堅持必要的規範。不是「什麼都可以」，而是「規範的執行方式帶有尊重」。</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="num" style="background: linear-gradient(135deg, var(--warm-400), var(--warm-500));">鬆</span>
+        <div class="content">
+          <strong>放任式教養（Permissive）</strong>
+          <span>「你開心就好。」高溫暖、低界線。CEP 不是這個——Ch6 整章都在談如何設定和堅守界線。</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>📚 與其他教養經典的對話</h3>
+
+    <h4>vs Daniel Siegel《全腦教養法》</h4>
+    <p><strong>交集：</strong>兩者都強調神經科學基礎，都主張「先連結再導引」。Siegel 的「上層腦/下層腦」模型是 CEP 背後的理論支柱之一。</p>
+    <p><strong>差異：</strong>Siegel 更偏學術，給你理論框架。CEP 更偏實戰，給你「明天早上就能用」的具體步驟。兩者互補而非競爭。</p>
+
+    <h4>vs Adele Faber《怎麼說孩子才會聽》</h4>
+    <p><strong>交集：</strong>都強調「接納感受」的重要性。Faber 的「接納-命名-幻想滿足」技巧和 CEP 的「連結-命名」幾乎同源。</p>
+    <p><strong>差異：</strong>Faber 的書更廣泛（適用於 2-12 歲），CEP 對幼兒情緒的處理更深入、更具體。Faber 寫於 1980 年代，缺乏新一代神經科學的支持。</p>
+
+    <h4>vs Janet Lansbury《No Bad Kids》</h4>
+    <p><strong>交集：</strong>都基於 RIE（尊重式教養）傳統，都相信孩子有能力面對自己的情緒。</p>
+    <p><strong>差異：</strong>Lansbury 更強調「不介入」——讓孩子自己處理情緒，父母提供安全的環境和界線。CEP 比 Lansbury 更「主動參與」——父母不只是在旁觀察，而是積極地命名、共同處理。對三歲孩子來說，CEP 的「陪伴程度」可能更適合。</p>
+
+    <h4>vs Alfie Kohn《Unconditional Parenting》</h4>
+    <p><strong>交集：</strong>都反對獎懲系統，都追求內在動機。</p>
+    <p><strong>差異：</strong>Kohn 更哲學、更極端——他幾乎反對所有形式的外在影響。CEP 更務實——承認界線的必要性，只是改變界線的「執行方式」。如果 Kohn 是教養界的理想主義者，CEP 是教養界的實用主義者。</p>
+
+    <h3>🔗 跨界連結：超越教養書</h3>
+
+    <div class="data-grid">
+      <div class="data-cell">
+        <span class="emoji">🧠</span>
+        <span class="value" style="font-size:0.9em;">正念冥想</span>
+        <span class="desc">CEP 的「覺察」階段本質上就是正念——觀察而不反應。父母的正念練習直接提升 CEP 能力。</span>
+      </div>
+      <div class="data-cell">
+        <span class="emoji">💼</span>
+        <span class="value" style="font-size:0.9em;">非暴力溝通</span>
+        <span class="desc">Marshall Rosenberg 的 NVC 與 CEP 結構驚人相似：觀察→感受→需求→請求 ≈ 覺察→命名→處理→成長。</span>
+      </div>
+      <div class="data-cell">
+        <span class="emoji">🏢</span>
+        <span class="value" style="font-size:0.9em;">情商領導力</span>
+        <span class="desc">Goleman 的職場情商理論和 CEP 共享同一個根：自我覺察→自我管理→社會覺察→關係管理。你教孩子的，也是你自己需要的。</span>
+      </div>
+      <div class="data-cell">
+        <span class="emoji">🎭</span>
+        <span class="value" style="font-size:0.9em;">創傷知情照護</span>
+        <span class="desc">CEP 的「先安全再教導」原則直接來自創傷知情理論：一個處於警覺狀態的神經系統無法學習。</span>
+      </div>
+    </div>
+
+    <div class="highlight-box purple">
+      <strong>🔑 關鍵洞察：</strong>CEP 不是一座孤島——它是一整片知識大陸的一個入口。如果你被 CEP 的核心觸動了，你的學習路徑可以延伸到正念、NVC、依附理論、甚至哲學（斯多葛派對情緒的看法和 CEP 有有趣的對話空間）。知識是網狀的，不是線性的。
+    </div>
+
+  </div>
+</div>
+
+<!-- ╔═══════════════════════════════════════════════════════════════╗ -->
+<!-- ║                    STEP 10 — 行動藍圖                        ║ -->
+<!-- ╚═══════════════════════════════════════════════════════════════╝ -->
+
+<div id="step10" class="analysis-card theme-rose">
+  <div class="card-header">
+    <span class="step-badge">🗓️ STEP 10</span>
+    <h2>行動藍圖——30 天 CEP 實踐計劃</h2>
+    <p class="card-subtitle">知道不等於做到。這是你從「讀完」走到「活出來」的橋</p>
+  </div>
+  <div class="card-body">
+
+    <p>讀完一本書最危險的事，是把「理解了」等同於「做到了」。以下是一個為三歲孩子父母設計的 30 天 CEP 內化計劃。每週聚焦一個主題，循序漸進。</p>
+
+    <h3>📅 第一週：覺察——先管好你自己</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <strong>Day 1-2：情緒日記</strong>
+        <p>每天記錄 3 個你「被孩子觸發」的時刻。不需要改變什麼，只需要注意到。寫下：觸發事件 → 你的身體反應 → 你的情緒 → 你的行為。</p>
+      </div>
+      <div class="timeline-item">
+        <strong>Day 3-4：身體掃描</strong>
+        <p>每次感到被孩子觸發時，花 5 秒做一個快速身體掃描：肩膀？下巴？胃？學會讀自己的「火災警報」。</p>
+      </div>
+      <div class="timeline-item">
+        <strong>Day 5-7：暫停練習</strong>
+        <p>在回應孩子之前，練習數到三。不是為了「冷靜」，而是為了在「自動反應」和「有意識選擇」之間插入一個空隙。這個空隙就是改變的起點。</p>
+      </div>
+    </div>
+
+    <div class="highlight-box coral">
+      <strong>🔑 第一週的關鍵：</strong>你會發現，大部分時候你被觸發的原因不是孩子的行為本身，而是你對這個行為的<strong>詮釋</strong>。「他又不聽話了」是詮釋。「他說了不要」是事實。區分這兩者，就是覺察的開始。
+    </div>
+
+    <h3>📅 第二週：連結——練習「先連結再糾正」</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <strong>Day 8-9：蹲下練習</strong>
+        <p>每次和孩子說重要的事，都蹲到和他同高。觀察當你在他的高度時，你的語氣自然會發生什麼變化。你會發現：<strong>身體姿勢改變，心態跟著改變</strong>。</p>
+      </div>
+      <div class="timeline-item">
+        <strong>Day 10-11：反射式傾聽</strong>
+        <p>孩子說什麼，先重複一次。「你不想吃飯？」「你想繼續玩？」不加評判，不加建議，只是讓他知道你聽見了。觀察這個簡單的動作如何改變對話的走向。</p>
+      </div>
+      <div class="timeline-item">
+        <strong>Day 12-14：情緒命名實踐</strong>
+        <p>每天至少命名 5 次情緒——你的和孩子的。「我現在有點著急，因為我們快遲到了。」「你看起來很興奮！」讓情緒語言成為家庭的日常用語。</p>
+      </div>
+    </div>
+
+    <h3>📅 第三週：界線——溫柔而堅定</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <strong>Day 15-17：界線語言升級</strong>
+        <p>把「不可以！」換成「我不能讓你……因為……」。把「你再這樣我就……」換成「你可以選擇 A 或 B」。語言不是修辭技巧——語言塑造關係。</p>
+      </div>
+      <div class="timeline-item">
+        <strong>Day 18-19：接納情緒 + 堅守界線</strong>
+        <p>練習同時做兩件事：「我知道你很想吃冰淇淋（接納感受），而且現在是吃飯時間（堅守界線）。」兩者不矛盾——這就是 CEP 的精髓。</p>
+      </div>
+      <div class="timeline-item">
+        <strong>Day 20-21：自然後果觀察</strong>
+        <p>找一兩個低風險的場景，讓自然後果發生，而不是人為設計「懲罰」。不想穿外套？OK，出門感受到冷。不想吃飯？OK，等一下可能會餓。（前提：安全且風險可控。）</p>
+      </div>
+    </div>
+
+    <h3>📅 第四週：整合——讓 CEP 變成肌肉記憶</h3>
+    <div class="timeline">
+      <div class="timeline-item">
+        <strong>Day 22-24：完整循環練習</strong>
+        <p>每天至少完成一次完整的 CEP 循環：覺察→連結→命名→處理→成長。不需要完美——重點是走完整個流程。記錄下來，觀察什麼有效、什麼需要調整。</p>
+      </div>
+      <div class="timeline-item">
+        <strong>Day 25-27：預防策略</strong>
+        <p>識別三個最常見的崩潰觸發點（例如：轉換、飢餓、疲倦），設計預防策略。預告、儀式化、能量管理——把這些變成日常習慣。</p>
+      </div>
+      <div class="timeline-item">
+        <strong>Day 28-30：回顧與慶祝</strong>
+        <p>回看你第一週的情緒日記，和現在的你對比。你的反應有什麼不同？哪些改變是你最驕傲的？哪些還需要繼續努力？<strong>對自己也用 CEP——接納你的不完美，為你的進步命名。</strong></p>
+      </div>
+    </div>
+
+    <div class="score-display">
+      <div class="score-circle">30</div>
+      <div class="score-meta">
+        <span class="score-label">天的承諾</span>
+        <span class="score-text">不求完美，只求進步。<br>每一天都是新的練習機會。</span>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <strong>⚠️ 重要提醒：</strong>你會搞砸。你會在某一天累到爆炸、對孩子吼出你不想說的話。這不代表你失敗了——這代表你是人類。CEP 也適用於你自己：覺察（「我剛才吼了他」）→ 連結（和孩子修復）→ 命名（「爸爸剛才太累了，他說話的方式讓你害怕了對不對？」）→ 處理（「爸爸不應該那樣說。你的感受很重要。」）→ 成長（「下次爸爸太累的時候，我需要先自己深呼吸。」）<br><br>
+      <strong>修復的能力，比從不犯錯更重要。</strong>
+    </div>
+
+  </div>
+</div>
+
+<!-- ╔═══════════════════════════════════════════════════════════════╗ -->
+<!-- ║                    STEP 11 — 覺醒裁決                        ║ -->
+<!-- ╚═══════════════════════════════════════════════════════════════╝ -->
+
+<div id="step11" class="analysis-card theme-purple">
+  <div class="card-header">
+    <span class="step-badge">⚖️ STEP 11</span>
+    <h2>覺醒裁決——這本書值不值得讀</h2>
+    <p class="card-subtitle">最終評估：給誰讀、怎麼讀、讀完之後呢</p>
+  </div>
+  <div class="card-body">
+
+    <h3>📊 綜合評分</h3>
+
+    <div class="rating-bar">
+      <span class="bar-label">實用性</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 92%; background: linear-gradient(90deg, var(--pink-300), var(--pink-500));"></div>
+      </div>
+      <span class="bar-value">9.2</span>
+    </div>
+
+    <div class="rating-bar">
+      <span class="bar-label">原創性</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 72%; background: linear-gradient(90deg, var(--purple-300), var(--purple-500));"></div>
+      </div>
+      <span class="bar-value">7.2</span>
+    </div>
+
+    <div class="rating-bar">
+      <span class="bar-label">可讀性</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 88%; background: linear-gradient(90deg, var(--blue-300), var(--blue-500));"></div>
+      </div>
+      <span class="bar-value">8.8</span>
+    </div>
+
+    <div class="rating-bar">
+      <span class="bar-label">科學基礎</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 78%; background: linear-gradient(90deg, var(--mint-300), var(--mint-500));"></div>
+      </div>
+      <span class="bar-value">7.8</span>
+    </div>
+
+    <div class="rating-bar">
+      <span class="bar-label">改變潛力</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 90%; background: linear-gradient(90deg, var(--warm-300), var(--warm-500));"></div>
+      </div>
+      <span class="bar-value">9.0</span>
+    </div>
+
+    <div class="rating-bar">
+      <span class="bar-label">適用年齡精準度</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width: 95%; background: linear-gradient(90deg, var(--green-300), var(--green-500));"></div>
+      </div>
+      <span class="bar-value">9.5</span>
+    </div>
+
+    <div class="score-display">
+      <div class="score-circle">8.6</div>
+      <div class="score-meta">
+        <span class="score-label">覺醒指數（滿分 10）</span>
+        <span class="score-text">高度推薦 · 尤其適合幼兒父母</span>
+      </div>
+    </div>
+
+    <h3>🎯 這本書最適合誰？</h3>
+
+    <div class="data-grid">
+      <div class="data-cell" style="border-left: 3px solid var(--green-400);">
+        <span class="emoji">🎯</span>
+        <span class="value" style="font-size: 0.85em;">完美匹配</span>
+        <span class="desc">1-5 歲孩子的父母。尤其是正在經歷「terrible twos/threes」的你——這本書幾乎是為你寫的。</span>
+      </div>
+      <div class="data-cell" style="border-left: 3px solid var(--blue-400);">
+        <span class="emoji">👍</span>
+        <span class="value" style="font-size: 0.85em;">很適合</span>
+        <span class="desc">準父母、幼教老師、保母。提前建立正確的情緒認知框架，比事後修正容易一百倍。</span>
+      </div>
+      <div class="data-cell" style="border-left: 3px solid var(--warm-400);">
+        <span class="emoji">🤔</span>
+        <span class="value" style="font-size: 0.85em;">可以但不必</span>
+        <span class="desc">學齡以上孩子的父母。核心理念仍適用，但具體場景和工具會需要調整。可搭配其他書。</span>
+      </div>
+      <div class="data-cell" style="border-left: 3px solid var(--text-light);">
+        <span class="emoji">💡</span>
+        <span class="value" style="font-size: 0.85em;">意外收穫</span>
+        <span class="desc">任何想理解自己情緒的成年人。你讀著讀著會發現——那個需要被理解的「小小人類」，也住在你裡面。</span>
+      </div>
+    </div>
+
+    <h3>📖 怎麼讀？</h3>
+    <div class="flow-steps">
+      <div class="flow-step">
+        <span class="num">1</span>
+        <div class="content">
+          <strong>第一遍：快速掃讀</strong>
+          <span>先讀 Ch1-4（建立核心認知），然後跳到 Ch5（當下該怎麼做）。這五章是全書的骨架。</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="num">2</span>
+        <div class="content">
+          <strong>第二遍：對號入座</strong>
+          <span>根據你目前最困擾的問題，選讀對應章節。界線問題看 Ch6，獎懲困惑看 Ch8，轉換崩潰看 Ch12。</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="num">3</span>
+        <div class="content">
+          <strong>第三遍：回頭看自己</strong>
+          <span>仔細讀 Ch2（你在孩子情緒中的角色）。這一章讀起來可能會痛——因為它要求你面對自己的情緒模式，以及你從原生家庭繼承的東西。但這是改變的起點。</span>
+        </div>
+      </div>
+      <div class="flow-step">
+        <span class="num">4</span>
+        <div class="content">
+          <strong>持續使用：當成工具書</strong>
+          <span>放在床頭。每次遇到新的挑戰，翻到相關章節。這不是一本「讀完就收起來」的書——它是一本「用到翻爛」的書。</span>
+        </div>
+      </div>
+    </div>
+
+    <h3>✨ 對 rexhead（3 歲孩子的爸爸）的特別建議</h3>
+
+    <div class="highlight-box purple">
+      <strong>🐉 龍龍的真心話：</strong><br><br>
+      你正處在 CEP 最有價值的時間窗口。三歲——大腦的前額葉皮質正在快速發展，情緒系統在線但調節系統還沒上線，每一天都在建構未來的情緒基礎架構。<br><br>
+      <strong>你現在投入的每一分鐘「蹲下來、看著他的眼睛、告訴他你理解」，都在他的大腦裡建構一條神經通路。</strong>這條通路在他 13 歲面對同儕壓力時會救他，在他 23 歲面對失戀時會接住他，在他 33 歲當爸爸時會指引他。<br><br>
+      你不需要完美。你只需要「夠好」（good enough）。<br><br>
+      而「夠好」的定義是：大部分時候在場、大部分時候嘗試、每次搞砸之後願意修復。<br><br>
+      這本書不會讓你的孩子不再崩潰——<strong>它會讓你在他崩潰的時候，成為他最安全的地方。</strong>
+    </div>
+
+    <h3>📚 延伸閱讀地圖</h3>
+    <div class="chapter-grid">
+      <div class="chapter-card">
+        <span class="ch-emoji">🧠</span>
+        <div class="ch-content">
+          <div class="ch-title">想了解神經科學基礎</div>
+          <div class="ch-desc">Daniel Siegel《The Whole-Brain Child》——理解孩子的大腦如何運作，和 CEP 完美互補。</div>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <span class="ch-emoji">🗣️</span>
+        <div class="ch-content">
+          <div class="ch-title">想精進溝通技巧</div>
+          <div class="ch-desc">Adele Faber《How to Talk So Kids Will Listen》——更多具體的對話技巧和範例。</div>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <span class="ch-emoji">🏠</span>
+        <div class="ch-content">
+          <div class="ch-title">想要更「放手」的哲學</div>
+          <div class="ch-desc">Janet Lansbury《No Bad Kids》——RIE 教養哲學，更強調觀察和信任孩子的能力。</div>
+        </div>
+      </div>
+      <div class="chapter-card">
+        <span class="ch-emoji">💪</span>
+        <div class="ch-content">
+          <div class="ch-title">想處理自己的情緒模式</div>
+          <div class="ch-desc">Dr. Becky Kennedy《Good Inside》——從父母的內在修復出發，和 CEP 的 Ch2 精神一致。</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>🔚 最後一句話</h3>
+
+    <div class="quote-block">
+      這本書最深刻的教導不是一個方法、一個技巧、一個步驟。<br>
+      它是一個邀請——<br>
+      邀請你相信：你的孩子不是需要被修好的問題，<br>
+      而是一個正在學習成為人類的小小人類。<br><br>
+      而你能給他最好的禮物，<br>
+      不是一個永遠不犯錯的完美父母，<br>
+      而是一個願意一起學習、一起成長、<br>
+      一起穿越那些大大情緒的<strong>夥伴</strong>。
+      <span class="source">—— 書醒分析 · 覺醒裁決</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="report-footer">
+  <div class="footer-line">
+    <span class="heart">♥</span> 書醒 · 覺醒分析 v2 <span class="heart">♥</span>
+  </div>
+  <div class="footer-line">
+    Tiny Humans, Big Emotions — Alyssa Blask Campbell & Lauren Stauble
+  </div>
+  <div class="footer-line">
+    分析生成於 2026 年 3 月 15 日 · 為 rexhead（3 歲孩子的爸爸）量身定製
+  </div>
+  <div class="footer-line" style="margin-top: 16px; font-size: 0.8em;">
+    🐉 龍龍 · 深度閱讀，深度覺醒
+  </div>
+</footer>
+
+</div><!-- .container -->
+
+</body>
+</html>反應和回應之間創造一個選擇的空間。</p>
+      </div>
+      <div class="timeline-item">
+        <strong>Week 2：情緒命名</strong>
+        <p>開始在家庭中使用情緒詞彙：「我注意到你看起來很沮喪」「你的身體告訴我你很興奮」。不評判，只命名。</p>
+      </div>
+      <div class="timeline-item">
+        <strong>Week 3：CEP 實踐</strong>
+        <p>完整實施 CEP 流程：連結→同理→引導。記住：先處理情緒，再處理行為。順序不能反。</p>
+      </div>
+      <div class="timeline-item">
+        <strong>Week 4：界線設定</strong>
+        <p>練習溫柔而堅定的界線：「我不會讓你打人，但我理解你很生氣。我們一起想想還能怎麼表達。」</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 10 -->
+<section id="step10" class="card card-amber">
+  <div class="card-step-label">✦ STEP 10</div>
+  <h2 class="card-title">一個比喻說完整本書</h2>
+  <p class="card-subtitle">用一個畫面，裝下整本書的靈魂</p>
+  <div class="metaphor-box">
+    <div class="metaphor-icon">🌊</div>
+    <div class="metaphor-title">孩子的情緒是海浪，父母是海岸</div>
+    <div class="prose">
+      <p>想像你的孩子是一片海洋。</p>
+      <p>海洋會有風暴、巨浪、漩渦——這些就是他們的大情緒：憤怒的海嘯、悲傷的暗流、恐懼的漩渦。</p>
+      <p>傳統育兒告訴你：建一道堤壩，擋住海浪。（壓制情緒）<br>
+      或者：把海水抽乾。（否認情緒）<br>
+      或者：懲罰海洋不要有浪。（懲罰情緒）</p>
+      <p>但這本書告訴你：<strong>你不是堤壩，你是海岸。</strong></p>
+      <p>海岸不會阻止海浪——它接納每一波浪潮，讓它們自然地來、自然地退。</p>
+      <p>海岸堅實而溫柔。它不會被海浪沖垮，但也不會對海浪生氣。</p>
+      <p>海岸只是<strong>在那裡</strong>——穩定、可靠、永恆。</p>
+      <p>這就是 CEP 的精髓：<strong>成為你孩子的海岸。</strong></p>
+      <p>讓情緒的海浪來，陪伴它，然後看著它自然退去。每一次浪潮過後，海岸和海洋之間的信任又深了一層。</p>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 11 -->
+<section id="step11" class="card card-green">
+  <div class="card-step-label">✦ STEP 11</div>
+  <h2 class="card-title">行動轉化</h2>
+  <p class="card-subtitle">從認知到實踐——你的情緒教養行動清單</p>
+  <div class="action-grid">
+    <div class="action-item">
+      <div class="action-number">01</div>
+      <div class="action-title">建立「情緒天氣報告」儀式</div>
+      <div class="action-desc">每天早上和孩子一起做「情緒天氣報告」：「今天你的心情像什麼天氣？」晴天、多雲、下雨都可以，沒有錯誤答案。</div>
+    </div>
+    <div class="action-item">
+      <div class="action-number">02</div>
+      <div class="action-title">打造「冷靜角落」</div>
+      <div class="action-desc">在家裡設一個溫馨的角落，放軟墊、繪本、感覺瓶。這不是「罰站」，而是孩子可以主動選擇去的安全空間。</div>
+    </div>
+    <div class="action-item">
+      <div class="action-number">03</div>
+      <div class="action-title">練習「先連結再糾正」</div>
+      <div class="action-desc">下次孩子崩潰時，蹲下來，與他平視，先說「我看到你了」再處理行為。順序永遠是：情緒→行為。</div>
+    </div>
+    <div class="action-item">
+      <div class="action-number">04</div>
+      <div class="action-title">自我覺察日記</div>
+      <div class="action-desc">每晚花 3 分鐘寫：今天什麼情境觸發了我？我的身體反應是什麼？我希望下次怎麼回應？你的情緒調節能力就是孩子的教材。</div>
+    </div>
+  </div>
+</section>
+
+</div><!-- .container -->
+<footer>
+  <p>覺醒 v2 深度分析 ✦ 《Tiny Humans, Big Emotions》Alyssa Blask Campbell & Lauren Stauble 著</p>
+  <p>Generated with 🐉 by 龍龍 AI Book Analysis</p>
+</footer>
+</body>
+</html>

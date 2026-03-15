@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>覺醒報告｜The Power of Now — 當下的力量</title>
+<style>
+  /* ========================================
+     韓系清新風格 — 覺醒 v2 報告
+     The Power of Now · Eckhart Tolle
+     ======================================== */
+
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg-main: #FDF8F4;
+    --bg-card: #FFFFFF;
+    --bg-glass: rgba(255, 255, 255, 0.72);
+    --glass-border: rgba(255, 255, 255, 0.45);
+    --text-primary: #2D2A32;
+    --text-secondary: #6B6577;
+    --text-light: #9B93A8;
+    --accent-1: #C4A882;
+    --accent-2: #A8D4C2;
+    --accent-3: #D4B8D0;
+    --accent-4: #8EB8D4;
+    --accent-5: #E8C8A0;
+    --accent-6: #B8D0A8;
+    --accent-7: #D0A8B8;
+    --accent-8: #A8C4D4;
+    --accent-9: #D4C8A8;
+    --accent-10: #C0B8D4;
+    --accent-11: #A8D4D0;
+    --gradient-hero: linear-gradient(135deg, #F5E6D3 0%, #E8D5C4 25%, #D4C4B0 50%, #C8B8A8 75%, #B8A898 100%);
+    --gradient-warm: linear-gradient(135deg, #FFF5EB 0%, #FDE8D8 100%);
+    --gradient-cool: linear-gradient(135deg, #EBF5FF 0%, #D8E8FD 100%);
+    --gradient-zen: linear-gradient(135deg, #F0F5EB 0%, #E0EBD8 100%);
+    --gradient-lavender: linear-gradient(135deg, #F5EBF5 0%, #E8D8ED 100%);
+    --gradient-gold: linear-gradient(135deg, #FDF5E6 0%, #F5E6CC 100%);
+    --gradient-sage: linear-gradient(135deg, #EBF2EB 0%, #D8E6D8 100%);
+    --gradient-rose: linear-gradient(135deg, #FDF0F0 0%, #F5E0E0 100%);
+    --gradient-sky: linear-gradient(135deg, #EBF2FA 0%, #D8E4F5 100%);
+    --gradient-cream: linear-gradient(135deg, #FAF5EB 0%, #F0E6D4 100%);
+    --gradient-mist: linear-gradient(135deg, #F0EBF5 0%, #E4D8ED 100%);
+    --gradient-water: linear-gradient(135deg, #EBF5F2 0%, #D8EBE6 100%);
+    --shadow-soft: 0 2px 20px rgba(45, 42, 50, 0.06);
+    --shadow-medium: 0 8px 40px rgba(45, 42, 50, 0.08);
+    --shadow-float: 0 16px 60px rgba(45, 42, 50, 0.10);
+    --shadow-glow: 0 0 40px rgba(196, 168, 130, 0.15);
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 28px;
+    --radius-xl: 36px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: 'Noto Sans TC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---- 背景裝飾 ---- */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 20% 20%, rgba(196, 168, 130, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(168, 212, 194, 0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(212, 184, 208, 0.05) 0%, transparent 50%);
+    z-index: -1;
+    animation: bgFloat 30s ease-in-out infinite;
+  }
+
+  @keyframes bgFloat {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(-2%, -1%) rotate(1deg); }
+    66% { transform: translate(1%, 2%) rotate(-1deg); }
+  }
+
+  /* ---- 浮動光點 ---- */
+  .floating-orbs {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.15;
+    animation: orbFloat 20s ease-in-out infinite;
+  }
+
+  .orb:nth-child(1) {
+    width: 400px; height: 400px;
+    background: var(--accent-1);
+    top: 10%; left: -5%;
+    animation-delay: 0s;
+    animation-duration: 25s;
+  }
+
+  .orb:nth-child(2) {
+    width: 350px; height: 350px;
+    background: var(--accent-2);
+    top: 60%; right: -8%;
+    animation-delay: -5s;
+    animation-duration: 22s;
+  }
+
+  .orb:nth-child(3) {
+    width: 300px; height: 300px;
+    background: var(--accent-3);
+    bottom: 10%; left: 30%;
+    animation-delay: -10s;
+    animation-duration: 28s;
+  }
+
+  .orb:nth-child(4) {
+    width: 250px; height: 250px;
+    background: var(--accent-4);
+    top: 30%; right: 20%;
+    animation-delay: -15s;
+    animation-duration: 20s;
+  }
+
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(30px, -40px) scale(1.1); }
+    50% { transform: translate(-20px, 20px) scale(0.95); }
+    75% { transform: translate(40px, 30px) scale(1.05); }
+  }
+
+  /* ---- 容器 ---- */
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ========================================
+     Hero 區域
+     ======================================== */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 24px;
+    position: relative;
+  }
+
+  .hero-content {
+    text-align: center;
+    max-width: 780px;
+    animation: fadeInUp 1.2s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .hero-badge::before {
+    content: '☀️';
+    font-size: 1rem;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', 'Noto Sans TC', serif;
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-title .en-title {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+    font-weight: 400;
+    color: var(--accent-1);
+    margin-top: 12px;
+    letter-spacing: 0.02em;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: var(--text-secondary);
+    margin-bottom: 40px;
+    line-height: 1.9;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .hero-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.2rem;
+    color: var(--accent-1);
+    padding: 28px 40px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  .hero-quote::before {
+    content: '"';
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    color: var(--accent-1);
+    opacity: 0.3;
+    position: absolute;
+    top: -10px;
+    left: 16px;
+    line-height: 1;
+  }
+
+  /* ---- 滾動指示 ---- */
+  .scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  .scroll-indicator span {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--accent-1), transparent);
+  }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ========================================
+     導覽目錄
+     ======================================== */
+  .toc-section {
+    padding: 80px 0;
+  }
+
+  .toc-card {
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 48px;
+    box-shadow: var(--shadow-medium);
+  }
+
+  .toc-header {
+    text-align: center;
+    margin-bottom: 36px;
+  }
+
+  .toc-header h2 {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .toc-header p {
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+
+  .toc-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 20px;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+  }
+
+  .toc-item:hover {
+    background: rgba(196, 168, 130, 0.08);
+    border-color: rgba(196, 168, 130, 0.2);
+    transform: translateX(8px);
+  }
+
+  .toc-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-5));
+    color: white;
+    font-size: 0.8rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .toc-text {
+    flex: 1;
+  }
+
+  .toc-text .step-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .toc-text .step-title {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  /* ========================================
+     步驟卡片（11步）
+     ======================================== */
+  .step-section {
+    padding: 50px 0;
+  }
+
+  .step-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    border: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .step-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-float);
+  }
+
+  .step-card-header {
+    padding: 48px 48px 28px;
+    position: relative;
+  }
+
+  .step-card-header .step-number {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--text-light);
+    margin-bottom: 16px;
+  }
+
+  .step-card-header .step-number .num-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  .step-card-header h2 {
+    font-size: 1.65rem;
+    font-weight: 700;
+    line-height: 1.35;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .step-card-header .en-subtitle {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+  }
+
+  .step-card-header .step-intro {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.85;
+    padding: 20px 24px;
+    border-radius: var(--radius-md);
+    border-left: 3px solid;
+  }
+
+  .step-card-body {
+    padding: 0 48px 48px;
+  }
+
+  /* ---- 區塊樣式 ---- */
+  .content-block {
+    margin-top: 32px;
+  }
+
+  .content-block h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .content-block h3 .icon {
+    font-size: 1.2rem;
+  }
+
+  .content-block p {
+    font-size: 0.98rem;
+    color: var(--text-secondary);
+    line-height: 1.85;
+    margin-bottom: 14px;
+  }
+
+  .content-block ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .content-block ul li {
+    position: relative;
+    padding: 10px 0 10px 24px;
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.75;
+  }
+
+  .content-block ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 18px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    opacity: 0.6;
+  }
+
+  /* ---- 引用塊 ---- */
+  .quote-block {
+    padding: 24px 28px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: var(--radius-md);
+    border-left: 3px solid var(--accent-1);
+    margin: 20px 0;
+    position: relative;
+  }
+
+  .quote-block .quote-text {
+    font-family: 'Playfair Display', 'Noto Sans TC', serif;
+    font-style: italic;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+    line-height: 1.75;
+    margin-bottom: 8px;
+  }
+
+  .quote-block .quote-source {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    text-align: right;
+  }
+
+  /* ---- 洞察框 ---- */
+  .insight-box {
+    padding: 24px 28px;
+    border-radius: var(--radius-md);
+    margin: 20px 0;
+    border: 1px solid;
+  }
+
+  .insight-box.type-key {
+    background: var(--gradient-gold);
+    border-color: rgba(196, 168, 130, 0.25);
+  }
+
+  .insight-box.type-practice {
+    background: var(--gradient-zen);
+    border-color: rgba(168, 212, 194, 0.3);
+  }
+
+  .insight-box.type-warning {
+    background: var(--gradient-rose);
+    border-color: rgba(212, 168, 184, 0.3);
+  }
+
+  .insight-box.type-deep {
+    background: var(--gradient-lavender);
+    border-color: rgba(192, 184, 212, 0.3);
+  }
+
+  .insight-box.type-connect {
+    background: var(--gradient-sky);
+    border-color: rgba(142, 184, 212, 0.3);
+  }
+
+  .insight-box h4 {
+    font-size: 0.92rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .insight-box p, .insight-box li {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  /* ---- 概念卡片 ---- */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .concept-card {
+    padding: 20px 24px;
+    border-radius: var(--radius-md);
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    transition: transform 0.3s ease;
+  }
+
+  .concept-card:hover {
+    transform: translateY(-3px);
+  }
+
+  .concept-card h5 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+
+  .concept-card p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ---- 比較表 ---- */
+  .compare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin: 20px 0;
+    box-shadow: var(--shadow-soft);
+  }
+
+  .compare-table th {
+    padding: 14px 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-align: left;
+    letter-spacing: 0.05em;
+  }
+
+  .compare-table td {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    border-top: 1px solid rgba(0,0,0,0.04);
+  }
+
+  .compare-table tr:nth-child(even) td {
+    background: rgba(0,0,0,0.015);
+  }
+
+  /* ---- 分隔線 ---- */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 40px 0;
+    color: var(--text-light);
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+  }
+
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-1), transparent);
+  }
+
+  /* ---- 步驟各自的主題色 ---- */
+  .step-1 .num-circle { background: linear-gradient(135deg, #C4A882, #D4B892); }
+  .step-1 .step-intro { border-color: var(--accent-1); background: var(--gradient-warm); }
+  .step-1 ul li::before { background: var(--accent-1); }
+
+  .step-2 .num-circle { background: linear-gradient(135deg, #A8D4C2, #90C4B0); }
+  .step-2 .step-intro { border-color: var(--accent-2); background: var(--gradient-zen); }
+  .step-2 ul li::before { background: var(--accent-2); }
+
+  .step-3 .num-circle { background: linear-gradient(135deg, #D4B8D0, #C4A8C0); }
+  .step-3 .step-intro { border-color: var(--accent-3); background: var(--gradient-lavender); }
+  .step-3 ul li::before { background: var(--accent-3); }
+
+  .step-4 .num-circle { background: linear-gradient(135deg, #8EB8D4, #7EA8C4); }
+  .step-4 .step-intro { border-color: var(--accent-4); background: var(--gradient-cool); }
+  .step-4 ul li::before { background: var(--accent-4); }
+
+  .step-5 .num-circle { background: linear-gradient(135deg, #E8C8A0, #D8B890); }
+  .step-5 .step-intro { border-color: var(--accent-5); background: var(--gradient-gold); }
+  .step-5 ul li::before { background: var(--accent-5); }
+
+  .step-6 .num-circle { background: linear-gradient(135deg, #B8D0A8, #A8C098); }
+  .step-6 .step-intro { border-color: var(--accent-6); background: var(--gradient-sage); }
+  .step-6 ul li::before { background: var(--accent-6); }
+
+  .step-7 .num-circle { background: linear-gradient(135deg, #D0A8B8, #C098A8); }
+  .step-7 .step-intro { border-color: var(--accent-7); background: var(--gradient-rose); }
+  .step-7 ul li::before { background: var(--accent-7); }
+
+  .step-8 .num-circle { background: linear-gradient(135deg, #A8C4D4, #98B4C4); }
+  .step-8 .step-intro { border-color: var(--accent-8); background: var(--gradient-sky); }
+  .step-8 ul li::before { background: var(--accent-8); }
+
+  .step-9 .num-circle { background: linear-gradient(135deg, #D4C8A8, #C4B898); }
+  .step-9 .step-intro { border-color: var(--accent-9); background: var(--gradient-cream); }
+  .step-9 ul li::before { background: var(--accent-9); }
+
+  .step-10 .num-circle { background: linear-gradient(135deg, #C0B8D4, #B0A8C4); }
+  .step-10 .step-intro { border-color: var(--accent-10); background: var(--gradient-mist); }
+  .step-10 ul li::before { background: var(--accent-10); }
+
+  .step-11 .num-circle { background: linear-gradient(135deg, #A8D4D0, #98C4C0); }
+  .step-11 .step-intro { border-color: var(--accent-11); background: var(--gradient-water); }
+  .step-11 ul li::before { background: var(--accent-11); }
+
+  /* ========================================
+     Footer
+     ======================================== */
+  .report-footer {
+    text-align: center;
+    padding: 80px 24px 60px;
+    color: var(--text-light);
+  }
+
+  .footer-quote {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--accent-1);
+    margin-bottom: 32px;
+    line-height: 1.7;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .footer-meta {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    line-height: 2;
+  }
+
+  .footer-divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(to right, var(--accent-1), var(--accent-2));
+    margin: 24px auto;
+    border-radius: 2px;
+  }
+
+  /* ---- 響應式 ---- */
+  @media (max-width: 768px) {
+    .step-card-header,
+    .step-card-body {
+      padding-left: 28px;
+      padding-right: 28px;
+    }
+
+    .toc-card {
+      padding: 32px 24px;
+    }
+
+    .hero-quote {
+      padding: 22px 28px;
+      font-size: 1.05rem;
+    }
+
+    .concept-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-meta {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  /* ---- 動畫 ---- */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ---- 進度條 ---- */
+  .reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-3));
+    z-index: 9999;
+    transition: width 0.1s linear;
+    border-radius: 0 2px 2px 0;
+  }
+
+  /* ---- 回到頂部 ---- */
+  .back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-medium);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+    z-index: 100;
+    cursor: pointer;
+  }
+
+  .back-to-top.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .back-to-top:hover {
+    box-shadow: var(--shadow-float);
+    transform: translateY(-3px);
+  }
+
+  /* ---- 標籤 ---- */
+  .tag-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    color: var(--text-secondary);
+  }
+
+  /* ---- 層次指示 ---- */
+  .depth-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 16px 0;
+  }
+
+  .depth-bar {
+    height: 4px;
+    border-radius: 2px;
+    flex: 1;
+    max-width: 80px;
+  }
+
+  .depth-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.08em;
+  }
+
+  /* ---- 多重引言 ---- */
+  .multi-quotes {
+    display: grid;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .mini-quote {
+    padding: 16px 20px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius-sm);
+    border-left: 2px solid var(--accent-1);
+    font-style: italic;
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ---- 數字卡 ---- */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .stat-card {
+    text-align: center;
+    padding: 20px 16px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+  }
+
+  .stat-card .stat-num {
+    font-size: 1.6rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--accent-1), var(--accent-5));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-card .stat-label {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    margin-top: 4px;
+  }
+
+  /* ---- 流程步驟 ---- */
+  .flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 20px 0;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    background: var(--bg-glass);
+    border-radius: var(--radius-sm);
+  }
+
+  .flow-step:first-child {
+    border-radius: var(--radius-md) var(--radius-md) var(--radius-sm) var(--radius-sm);
+  }
+
+  .flow-step:last-child {
+    border-radius: var(--radius-sm) var(--radius-sm) var(--radius-md) var(--radius-md);
+  }
+
+  .flow-step .flow-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .flow-step .flow-text {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .flow-step .flow-text strong {
+    color: var(--text-primary);
+  }
+</style>
+</head>
+<body>
+
+<!-- 閱讀進度條 -->
+<div class="reading-progress" id="readingProgress"></div>
+
+<!-- 浮動光點 -->
+<div class="floating-orbs">
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+  <div class="orb"></div>
+</div>
+
+<!-- 回到頂部 -->
+<a href="#top" class="back-to-top" id="backToTop">↑</a>
+
+<!-- ============================================================
+     HERO 區域
+     ============================================================ -->
+<section class="hero" id="top">
+  <div class="hero-content">
+    <div class="hero-badge">覺醒 v2 深度報告</div>
+
+    <h1 class="hero-title">
+      當下的力量
+      <span class="en-title">The Power of Now — A Guide to Spiritual Enlightenment</span>
+    </h1>
+
+    <p class="hero-subtitle">
+      21世紀最重要的靈性經典<br>
+      東方禪宗 × 西方心理學的終極融合<br>
+      一本讓你從心智的牢籠中醒來的書
+    </p>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">✍️ Eckhart Tolle</div>
+      <div class="hero-meta-item">📖 10 章</div>
+      <div class="hero-meta-item">🌍 翻譯成 52 種語言</div>
+      <div class="hero-meta-item">⏱️ 深度分析 · 11 步</div>
+    </div>
+
+    <div class="hero-quote">
+      Realize deeply that the present moment is all you ever have.
+      <br><span style="font-size:0.88rem; color:var(--text-light);">— Eckhart Tolle</span>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>向下探索</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ============================================================
+     導覽目錄
+     ============================================================ -->
+<section class="toc-section">
+  <div class="container">
+    <div class="toc-card fade-in">
+      <div class="toc-header">
+        <h2>🗺️ 覺醒地圖</h2>
+        <p>從心智的認知突破，到臣服的終極實踐——11步完整旅程</p>
+      </div>
+      <div class="toc-grid">
+        <a href="#step-1" class="toc-item">
+          <div class="toc-num">01</div>
+          <div class="toc-text">
+            <div class="step-label">第一步</div>
+            <div class="step-title">元認知：你不是你的心智</div>
+          </div>
+        </a>
+        <a href="#step-2" class="toc-item">
+          <div class="toc-num">02</div>
+          <div class="toc-text">
+            <div class="step-label">第二步</div>
+            <div class="step-title">核心論證：時間幻覺與痛苦的根源</div>
+          </div>
+        </a>
+        <a href="#step-3" class="toc-item">
+          <div class="toc-num">03</div>
+          <div class="toc-text">
+            <div class="step-label">第三步</div>
+            <div class="step-title">章節深潛：十章完整拆解</div>
+          </div>
+        </a>
+        <a href="#step-4" class="toc-item">
+          <div class="toc-num">04</div>
+          <div class="toc-text">
+            <div class="step-label">第四步</div>
+            <div class="step-title">核心概念圖譜：六大關鍵詞彙</div>
+          </div>
+        </a>
+        <a href="#step-5" class="toc-item">
+          <div class="toc-num">05</div>
+          <div class="toc-text">
+            <div class="step-label">第五步</div>
+            <div class="step-title">東西方融合：禪宗與心理學的交匯</div>
+          </div>
+        </a>
+        <a href="#step-6" class="toc-item">
+          <div class="toc-num">06</div>
+          <div class="toc-text">
+            <div class="step-label">第六步</div>
+            <div class="step-title">實踐框架：從理解到體驗</div>
+          </div>
+        </a>
+        <a href="#step-7" class="toc-item">
+          <div class="toc-num">07</div>
+          <div class="toc-text">
+            <div class="step-label">第七步</div>
+            <div class="step-title">挑戰與限制：批判性思考</div>
+          </div>
+        </a>
+        <a href="#step-8" class="toc-item">
+          <div class="toc-num">08</div>
+          <div class="toc-text">
+            <div class="step-label">第八步</div>
+            <div class="step-title">金句圖鑑：語言的覺醒力量</div>
+          </div>
+        </a>
+        <a href="#step-9" class="toc-item">
+          <div class="toc-num">09</div>
+          <div class="toc-text">
+            <div class="step-label">第九步</div>
+            <div class="step-title">跨域共鳴：科學、哲學與靈修傳統</div>
+          </div>
+        </a>
+        <a href="#step-10" class="toc-item">
+          <div class="toc-num">10</div>
+          <div class="toc-text">
+            <div class="step-label">第十步</div>
+            <div class="step-title">讀者定位與行動指南</div>
+          </div>
+        </a>
+        <a href="#step-11" class="toc-item">
+          <div class="toc-num">11</div>
+          <div class="toc-text">
+            <div class="step-label">第十一步</div>
+            <div class="step-title">終極洞見：覺醒之後的世界</div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     STEP 1 — 元認知：你不是你的心智
+     ============================================================ -->
+<section class="step-section" id="step-1">
+  <div class="container">
+    <div class="step-card step-1 fade-in">
+      <div class="step-card-header">
+        <div class="step-number">
+          <span class="num-circle">01</span>
+          STEP ONE
+        </div>
+        <h2>元認知：你不是你的心智</h2>
+        <div class="en-subtitle">The Most Revolutionary Premise of the 21st Century</div>
+        <div class="step-intro">
+          這本書最顛覆的不是教你「正面思考」或「努力改變」，而是告訴你一個更根本的事實：<strong>你一直以為是「你」的那個東西——那個不停思考、不停擔憂、不停計劃的心智——根本不是你。</strong>你是覺察到它的那個意識。這一句話，打碎了整個西方啟蒙運動以來「我思故我在」的根基。
+        </div>
+      </div>
+
+      <div class="step-card-body">
+        <div class="content-block">
+          <h3><span class="icon">🔍</span> Tolle 的個人覺醒故事</h3>
+          <p>Eckhart Tolle 在 29 歲那年經歷了一場自發性的靈性開悟。在長期的焦慮與抑鬱之後，某個深夜他心中浮起一句話：「I cannot live with myself any longer.」突然間，他意識到這句話暗含了一個驚人的分裂——有一個「I」，還有一個「myself」。那個承受不了的是哪個？那個在覺察承受不了的，又是哪個？</p>
+          <p>這個認知裂隙讓他的心智活動突然停止，他被拉入一個深不見底的虛空——不是恐懼，而是一種前所未有的平靜。隔天醒來，世界完全不同了。鳥鳴是奇蹟，光影是神聖，一切都在發光。他花了接下來兩年時間坐在公園長椅上，幾乎不做任何事，只是沉浸在這種存在的喜悅（the joy of Being）中。</p>
+        </div>
+
+        <div class="content-block">
+          <h3><span class="icon">💡</span> 為什麼這個前提如此重要？</h3>
+          <ul>
+            <li>大多數人終其一生都在「被心智控制」的狀態中運作，卻完全不自知。Tolle 稱這是人類的「正常瘋狂」（normal insanity）</li>
+            <li>笛卡爾的「我思故我在」把思考等同於存在，Tolle 完全翻轉：思考是存在的最大障礙</li>
+            <li>這不是叫你「不要想」——那是另一種心智的把戲——而是讓你發現「想」的背後，有一個不需要想就存在的覺知</li>
+            <li>一旦你真正體驗到「觀察者」與「被觀察的念頭」之間的間隙，你的整個存在方式就開始轉變</li>
+          </ul>
+        </div>
+
+        <div class="insight-box type-key">
+          <h4>🔑 核心命題</h4>
+          <p>自由不是「從外在困境中解脫」，而是「從與心智的認同中解脫」。你不需要改變你的想法——你需要發現：你不是你的想法。想法來來去去，但觀察想法的那個「你」，從未改變。</p>
+        </div>
+
+        <div class="content-block">
+          <h3><span class="icon">🧠</span> 心智認同的運作機制</h3>
+          <p>Tolle 描述了一個精密的心理機制：心智不只是你的「工具」，它已經佔據了你的身分。它不停地產生念頭，然後告訴你「這些念頭就是你」。你相信了，於是你成為了自己念頭的囚徒。</p>
+          <ul>
+            <li><strong>強迫性思考（Compulsive thinking）：</strong>大多數人的思考是被動的、不自願的。你有沒有試過讓自己「停止思考」五分鐘？如果做不到，代表不是你在使用心智，而是心智在使用你</li>
+            <li><strong>認同機制（Identification）：</strong>心智把念頭包裝成你的身分——「我是成功的」「我是受害者」「我是不夠好的」。你與這些念頭融為一體，失去了覺察的空間</li>
+            <li><strong>小我的建構（Ego construction）：</strong>自我感（ego）就是心智用思想、記憶、信念建構出來的虛假身分。它需要不斷被確認、被保護、被強化，這就是大部分人際衝突的根源</li>
+          </ul>
+        </div>
+
+        <div class="quote-block">
+          <div class="quote-text">「The beginning of freedom is the realization that you are not the possessing entity — the thinker. Knowing this enables you to observe the entity.」</div>
+          <div class="quote-source">— Eckhart Tolle, Chapter 1</div>
+        </div>
+
+        <div class="content-block">
+          <h3><span class="icon">🌊</span> 觀察者意識的誕生</h3>
+          <p>當你開始觀察自己的念頭——不是分析它們、不是判斷它們、不是試圖改變它們——只是看著它們，就像坐在河邊看水流過。這個「看」的動作本身，就是覺醒的開始。</p>
+          <p>Tolle 用了一個生動的比喻：想像你站在一個房間裡，裡面有很多傢俱。你一直以為你就是那些傢俱——你的想法、你的情緒、你的記憶。但事實上，你是那個房間本身。傢俱可以搬走、可以替換，房間依然在那裡。那個不變的空間，就是你真正的本質。</p>
+        </div>
+
+        <div class="insight-box type-practice">
+          <h4>🧘 首要練習：思想觀察</h4>
+          <p>現在就可以嘗試：閉上眼睛，問自己「我的下一個念頭會是什麼？」然後像貓看老鼠洞一樣警覺地等待。你會發現，當你真正警覺地等待時，念頭反而遲疑了。那個念頭到來之前的空隙，那個純粹的警覺狀態——就是你的真實本性的一瞥。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">✦ ✦ ✦</div>
+
+<!-- ============================================================
+     STEP 2 — 核心論證：時間幻覺與痛苦的根源
+     ============================================================ -->
+<section class="step-section" id="step-2">
+  <div class="container">
+    <div class="step-card step-2 fade-in">
+      <div class="step-card-header">
+        <div class="step-number">
+          <span class="num-circle">02</span>
+          STEP TWO
+        </div>
+        <h2>核心論證：時間幻覺與痛苦的根源</h2>
+        <div class="en-subtitle">Why All Suffering Is Self-Created Through Time</div>
+        <div class="step-intro">
+          Tolle 的中心論證可以用一句話總結：<strong>所有的痛苦，都源自你對當下的抗拒。</strong>而抗拒當下的方式，就是活在心理時間中——不斷回顧過去或投射未來。時間不是問題，「心理時間」才是。分清這兩者，就是脫離痛苦的第一步。
+        </div>
+      </div>
+
+      <div class="step-card-body">
+        <div class="content-block">
+          <h3><span class="icon">⏰</span> 兩種時間的關鍵區分</h3>
+          <p>這是整本書最具操作性的概念之一。Tolle 區分了兩種完全不同的時間經驗：</p>
+
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th style="background:var(--gradient-gold); width:50%;">時鐘時間（Clock Time）</th>
+                <th style="background:var(--gradient-cool); width:50%;">心理時間（Psychological Time）</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>實用的、功能性的時間</td>
+                <td>心智製造的時間幻覺</td>
+              </tr>
+              <tr>
+                <td>安排行程、學習技能、設定目標</td>
+                <td>悔恨過去、焦慮未來、逃避當下</td>
+              </tr>
+              <tr>
+                <td>用完即放，回到當下</td>
+                <td>強迫性地困在過去或未來</td>
+              </tr>
+              <tr>
+                <td>健康、必要的時間使用</td>
+                <td>痛苦、壓力、焦慮的根源</td>
+              </tr>
+              <tr>
+                <td>例：「我下午三點有會議」</td>
+                <td>例：「如果搞砸了我這輩子就完了」</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="content-block">
+          <h3><span class="icon">🔗</span> 痛苦的鏈條</h3>
+          <p>Tolle 揭示了一條精密的痛苦製造鏈。理解這條鏈，就是打破它的第一步：</p>
+
+          <div class="flow-steps">
+            <div class="flow-step">
+              <div class="flow-icon">1️⃣</div>
+              <div class="flow-text"><strong>心智製造念頭</strong> — 不停地、自動地、強迫性地產生關於過去和未來的想法</div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-icon">2️⃣</div>
+              <div class="flow-text"><strong>你與念頭認同</strong> — 你相信那些念頭就是「你」，就是「真實的」</div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-icon">3️⃣</div>
+              <div class="flow-text"><strong>情緒反應被觸發</strong> — 因為認同了念頭，身體產生相應的情緒反應（恐懼、焦慮、憤怒）</div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-icon">4️⃣</div>
+              <div class="flow-text"><strong>情緒強化念頭</strong> — 情緒反過來餵養更多同類念頭，形成惡性循環</div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-icon">5️⃣</div>
+              <div class="flow-text"><strong>痛苦之身被啟動</strong> — 累積的負面情緒能量形成了一個半自主的實體，它需要更多痛苦來餵養自己</div>
+            </div>
+            <div class="flow-step">
+              <div class="flow-icon">6️⃣</div>
+              <div class="flow-text"><strong>完全失去當下</strong> — 你被困在過去的悔恨和未來的恐懼之間，而唯一真實的「現在」被完全錯過</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="insight-box type-deep">
+          <h4>🔮 深層洞察：痛苦之身（Pain-Body）</h4>
+          <p>Pain-body 是 Tolle 最原創的概念之一。他認為，每個人體內都攜帶著一個累積了一生（甚至數代）未被消化的情緒能量場。這個能量場有自己的「意志」——它定期「醒來」，尋找能觸發痛苦的情境來餵養自己。你有沒有過這樣的經驗：本來心情不錯，突然莫名其妙地想起某件不愉快的事，然後越想越難過？那就是 Pain-body 在餵養自己。</p>
+          <p>更關鍵的是：Pain-body 不只影響個人，它還有集體維度。Tolle 認為，國族間的仇恨、性別間的對立、種族間的偏見，都是集體 Pain-body 的表現——代代相傳的未消化痛苦。</p>
+        </div>
+
+        <div class="quote-block">
+          <div class="quote-text">「The past gives you an identity and the future holds the promise of salvation, of fulfillment in whatever form. Both are illusions.」</div>
+          <div class="quote-source">— Eckhart Tolle</div>
+        </div>
+
+        <div class="content-block">
+          <h3><span class="icon">💎</span> 論證的邏輯結構</h3>
+          <p>Tolle 的論證有一個精巧的邏輯結構，值得仔細拆解：</p>
+          <ul>
+            <li><strong>前提一：</strong>你的痛苦不是來自於「發生了什麼」，而是來自你對「發生了什麼」的想法。事件本身是中性的，是心智的詮釋製造了痛苦</li>
+            <li><strong>前提二：</strong>所有製造痛苦的想法都與時間有關——要嘛是對過去的悔恨（「我不該那樣做」），要嘛是對未來的恐懼（「如果這樣怎麼辦」）</li>
+            <li><strong>前提三：</strong>在純粹的「當下」，也就是沒有心理時間投射的此刻，痛苦無法存在。你可能有身體上的疼痛，但心理上的「痛苦」——那個加在疼痛之上的故事——消失了</li>
+            <li><strong>結論：</strong>因此，脫離痛苦的唯一方法不是改變外在環境，而是停止對當下的抗拒，回到此時此刻</li>
+          </ul>
+        </div>
+
+        <div class="insight-box type-warning">
+          <h4>⚠️ 常見誤解</h4>
+          <p>「活在當下」不等於「不規劃未來」或「不從過去學習」。Tolle 明確區分了：使用時鐘時間來處理實際事務是必要的。問題在於，大多數人不是在「使用」時間，而是被時間「使用」——被過去的記憶和未來的想像控制。真正的活在當下，是在處理實際事務的同時，內在保持一種不被故事綁架的覺知。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">✦ ✦ ✦</div>
+
+<!-- ============================================================
+     STEP 3 — 章節深潛：十章完整拆解
+     ============================================================ -->
+<section class="step-section" id="step-3">
+  <div class="container">
+    <div class="step-card step-3 fade-in">
+      <div class="step-card-header">
+        <div class="step-number">
+          <span class="num-circle">03</span>
+          STEP THREE
+        </div>
+        <h2>章節深潛：十章完整拆解</h2>
+        <div class="en-subtitle">A Complete Journey Through All Ten Chapters</div>
+        <div class="step-intro">
+          《當下的力量》的十章構成了一趟完整的靈性覺醒旅程——從認識心智的本質開始，經過痛苦的轉化、臨在的建立、內在身體的發現，最終抵達臣服的深海。每一章都是前一章的深化，整體形成一個螺旋上升的結構。以下是逐章的核心提煉。
+        </div>
+      </div>
+
+      <div class="step-card-body">
+        <!-- Ch1 -->
+        <div class="content-block">
+          <h3><span class="icon">📖</span> 第一章：You Are Not Your Mind — 你不是你的心智</h3>
+          <p>全書的基石。Tolle 用問答的形式引導讀者發現：思考是一種習癮（addiction），而大多數人甚至不知道自己上癮了。他提出了「觀察思考者」（Watching the thinker）的核心練習，並第一次引入了「臨在」（Presence）的概念——一種超越思考的覺知狀態。</p>
+          <p>這一章最精彩的類比：心智就像一個不停播放的收音機，大多數人一生都以為收音機裡的聲音就是自己。開悟的第一步，就是意識到你可以「關掉」收音機——或者至少，意識到你不是收音機。</p>
+        </div>
+
+        <!-- Ch2 -->
+        <div class="content-block">
+          <h3><span class="icon">📖</span> 第二章：Consciousness: The Way Out of Pain — 意識：脫離痛苦之路</h3>
+          <p>引入了本書最原創的概念之一：Pain-body（痛苦之身）。Tolle 將它描述為一個由累積的舊有情緒能量組成的半自主實體，定期「醒來」尋找痛苦來餵養自己。他解釋了為什麼有些人似乎「享受」自己的痛苦——不是他們真的享受，而是 Pain-body 控制了他們。</p>
+          <p>脫離的方法並非壓抑或對抗情緒，而是用意識的光照亮它。就像陽光照入黑暗的房間——黑暗不需要被「打敗」，只需要被照亮。當你能以覺知的態度觀察自己的痛苦，而不是無意識地被它吞噬，轉化就開始了。</p>
+        </div>
+
+        <!-- Ch3 -->
+        <div class="content-block">
+          <h3><span class="icon">📖</span> 第三章：Moving Deeply into the Now — 深入當下</h3>
+          <p>如果說前兩章是「理解」層面的突破，第三章開始進入「體驗」的深度。Tolle 論述了為什麼「當下」是唯一真實存在的維度——過去只是記憶的痕跡，未來只是心智的投射。他提出了一個震撼性的問題：「除了當下這一刻，你還有什麼？」</p>
+          <p>他進一步區分了「生命情境」（life situation）與「生命」（life）本身。你的生命情境可能有各種問題——財務壓力、人際困難、健康挑戰。但「生命」本身——此刻的呼吸、此刻的感知、此刻的存在——永遠是完整的。問題只存在於心理時間中。</p>
+        </div>
+
+        <!-- Ch4 -->
+        <div class="content-block">
+          <h3><span class="icon">📖</span> 第四章：Mind Strategies for Avoiding the Now — 心智逃避當下的策略</h3>
+          <p>這一章揭露了心智用來把你拉離當下的各種精密策略。Tolle 像一個解密專家，一一拆解這些無意識的模式：</p>
+          <ul>
+            <li><strong>等待（Waiting）：</strong>「等到 X 發生，我就會快樂了」——這是心智最經典的陷阱，讓你永遠活在「未來的期待」中</li>
+            <li><strong>不滿足（Dissatisfaction）：</strong>對當下持續的不滿意，成為心智維持自身存在的養分。如果你完全滿足了，自我感就沒有理由繼續存在</li>
+            <li><strong>投射（Projection）：</strong>把「拯救」投射到未來的某個事件——升職、結婚、退休。到達那裡才發現，又有新的不滿足在等著你</li>
+            <li><strong>漸進式時間幻覺：</strong>相信你需要「更多時間」才能覺醒。Tolle 的回答斬釘截鐵：覺醒不需要時間，它發生在時間之外的當下</li>
+          </ul>
+        </div>
+
+        <!-- Ch5 -->
+        <div class="content-block">
+          <h3><span class="icon">📖</span> 第五章：The State of Presence — 臨在的狀態</h3>
+          <p>Tolle 在這裡對「臨在」（Presence）做了最完整的描述。臨在不是一種你「做到」的狀態，而是你停止「做」的時候自然浮現的。它不需要被創造——它一直都在，只是被心智的噪音覆蓋了。</p>
+          <p>他用了基督教的「窄門」（narrow gate）來比喻：進入臨在的入口非常窄，因為你必須放下所有的心智行囊——你的身分、你的故事、你的期待——才能通過。同時，他也提到了禪宗的「初心」（beginner's mind）——一種不帶預設的、新鮮的覺知狀態。</p>
+          <p>臨在的標誌：內在的平靜不因外在環境而動搖。這不是冷漠或麻木——恰恰相反，臨在讓你對生命更加敏感、更加鮮活。</p>
+        </div>
+
+        <!-- Ch6 -->
+        <div class="content-block">
+          <h3><span class="icon">📖</span> 第六章：The Inner Body — 內在身體</h3>
+          <p>這一章提供了全書最具體的進入臨在的方法：「內在身體覺察」。Tolle 要你把注意力從頭腦轉移到身體的內在感受——不是身體的外形或外觀，而是從內部感受到的那個活生生的能量場。</p>
+          <p>方法很簡單：閉上眼睛，感受你的雙手。不是看它們，不是想它們，而是「感受」它們的內在——那種微微的刺麻感、溫暖感、活力感。然後把這個感知擴展到全身。這就是你的「內在身體」——它是意識與物質形態之間的橋樑。</p>
+          <p>為什麼這個練習如此有力？因為當你深深地感受內在身體時，你自動進入了當下。心智無法在你全然覺察身體的同時還主導你的注意力。身體永遠在當下——它不活在過去或未來。</p>
+        </div>
+
+        <!-- Ch7 -->
+        <div class="content-block">
+          <h3><span class="icon">📖</span> 第七章：Portals into the Unmanifested — 通往未顯化的入口</h3>
+          <p>這是全書最「形而上」的一章。Tolle 引入了「未顯化」（Unmanifested）的概念——那個超越所有形相、超越所有現象的終極源頭。如果顯化的世界（物質、思想、情緒）是海浪，那未顯化就是大海本身。</p>
+          <p>他描述了通往未顯化的幾個入口：</p>
+          <ul>
+            <li><strong>深度臨在：</strong>當你完全安住在當下，沒有任何念頭，你觸碰到了未顯化</li>
+            <li><strong>停止念頭活動：</strong>念頭之間的空隙，就是通往無形的門</li>
+            <li><strong>臣服：</strong>全然接受此刻，不做任何抗拒</li>
+            <li><strong>寂靜：</strong>聽外在聲音背後的寂靜——那個承托所有聲音的空間</li>
+            <li><strong>空間：</strong>注意物體之間的空間，而不只注意物體本身</li>
+            <li><strong>死亡：</strong>不是肉體的死亡，而是心理自我的死亡——放下所有的心智認同</li>
+          </ul>
+        </div>
+
+        <!-- Ch8 -->
+        <div class="content-block">
+          <h3><span class="icon">📖</span> 第八章：Enlightened Relationships — 開悟的關係</h3>
+          <p>Tolle 對親密關係的分析可能是全書最「接地氣」的部分。他指出，大多數所謂的「愛情」其實是自我（ego）在尋找一面鏡子來確認自己的存在。你不是愛上了對方，你是愛上了對方給你的那個「自我感覺良好」。</p>
+          <p>這就解釋了為什麼戀愛初期如此美好（自我被完全滿足），而幾個月或幾年後開始痛苦（對方不再滿足你的自我需求）。Tolle 稱這是「癮性關係」（addictive relationship）——你把對方當成你的毒品，期待他們讓你完整。</p>
+          <p>真正的「開悟關係」不是找一個人來讓你完整，而是兩個已經在自己內在找到完整性的人選擇在一起。在這樣的關係中，愛不是「需要」，而是「溢出」——像杯子裝滿了水，自然往外流。</p>
+        </div>
+
+        <!-- Ch9 -->
+        <div class="content-block">
+          <h3><span class="icon">📖</span> 第九章：Beyond Happiness and Unhappiness There Is Peace — 超越快樂與不快樂，是平靜</h3>
+          <p>這一章挑戰了人類最根深蒂固的假設之一：追求快樂是人生的目標。Tolle 認為，快樂和不快樂是同一枚硬幣的兩面——只要你追求一面，另一面就必然跟隨。真正的解脫不是更多的快樂，而是超越快樂與不快樂的「平靜」（peace）。</p>
+          <p>他區分了三個層次：</p>
+          <ul>
+            <li><strong>快樂（Happiness）：</strong>依賴外在條件，本質上不穩定。條件改變，快樂消失</li>
+            <li><strong>不快樂（Unhappiness）：</strong>快樂的反面，同樣依賴條件。兩者交替出現，形成情緒的過山車</li>
+            <li><strong>平靜（Peace）：</strong>不依賴任何條件的深層安定。它不是情緒，而是你的本性。即使在痛苦中，你仍然可以觸碰到那份超越痛苦的平靜</li>
+          </ul>
+          <p>這不是要你變成一個不情緒化的人。Tolle 的意思是：當你不再需要快樂來肯定自己，不再逃避不快樂來保護自己，一種更深的東西就浮現了——那是真正的自由。</p>
+        </div>
+
+        <!-- Ch10 -->
+        <div class="content-block">
+          <h3><span class="icon">📖</span> 第十章：The Meaning of Surrender — 臣服的意義</h3>
+          <p>最後一章探討了全書最容易被誤解的概念：臣服（Surrender）。在一般理解中，臣服意味著放棄、投降、認輸。但 Tolle 賦予了它完全不同的含義：<strong>臣服是停止對「此刻的樣子」的內在抗拒。</strong></p>
+          <p>這不是被動地接受一切——你依然可以採取行動來改變外在情境。但你在行動的同時，內在不再與此刻對抗。你可以說「不」，但你是從清明的臨在中說「不」，而不是從恐懼、憤怒或受害者心態中說「不」。</p>
+          <p>Tolle 用了一個精妙的區分：臣服不等於順從（submission）。順從是出於恐懼的無力感，臣服是出於覺知的主動選擇。一個臣服的人並不軟弱——恰恰相反，他是最有力量的，因為他不再浪費能量與現實對抗。</p>
+        </div>
+
+        <div class="quote-block">
+          <div class="quote-text">「Surrender is the simple but profound wisdom of yielding to rather than opposing the flow of life.」</div>
+          <div class="quote-source">— Eckhart Tolle, Chapter 10</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">✦ ✦ ✦</div>
+
+<!-- ============================================================
+     STEP 4 — 核心概念圖譜：六大關鍵詞彙
+     ============================================================ -->
+<section class="step-section" id="step-4">
+  <div class="container">
+    <div class="step-card step-4 fade-in">
+      <div class="step-card-header">
+        <div class="step-number">
+          <span class="num-circle">04</span>
+          STEP FOUR
+        </div>
+        <h2>核心概念圖譜：六大關鍵詞彙</h2>
+        <div class="en-subtitle">The Lexicon of Awakening</div>
+        <div class="step-intro">
+          Tolle 創造了一套獨特的概念語言，每個詞彙都指向一個特定的靈性體驗。理解這些概念不只是學術練習——它們是「指月之指」，每個詞彙都在邀請你進入一種直接體驗。
+        </div>
+      </div>
+
+      <div class="step-card-body">
+        <div class="concept-grid">
+          <div class="concept-card">
+            <h5>🔴 Pain-Body 痛苦之身</h5>
+            <p>由累積的未消化負面情緒組成的能量場。它有自己的「智慧」，會被特定情境觸發，然後控制你的思想和行為。它靠「製造更多痛苦」來餵養自己。覺察它、命名它，就是弱化它的開始。</p>
+          </div>
+          <div class="concept-card">
+            <h5>✨ Presence 臨在</h5>
+            <p>不帶思維的純粹覺知。不是一種你「做到」的狀態，而是你停止所有心智活動時自然浮現的本來面目。它不需要被創造，只需要被允許。你的自然狀態，就是臨在。</p>
+          </div>
+          <div class="concept-card">
+            <h5>🎭 Ego Identification 自我認同</h5>
+            <p>心智用思想、記憶、信念、社會角色建構出來的虛假身分。它不是「你」，而是一個精密的心理結構。它需要不斷被外在確認才能存在。所有的防衛、比較、嫉妒，都是自我在保護自己免於「消失」。</p>
+          </div>
+          <div class="concept-card">
+            <h5>⏳ Psychological Time 心理時間</h5>
+            <p>有別於實用的「時鐘時間」，心理時間是心智用來逃避當下的機制。「如果當初…」（活在過去）和「等到…就好了」（活在未來）都是心理時間的表現。一切痛苦都發生在心理時間中。</p>
+          </div>
+          <div class="concept-card">
+            <h5>🙏 Surrender 臣服</h5>
+            <p>不是放棄或投降，而是停止內在對「此刻的樣子」的抗拒。你可以同時臣服於現實又積極行動——臣服的對象是「當下的事實」，不是「未來的命運」。臣服讓你獲得反應之外的全新力量。</p>
+          </div>
+          <div class="concept-card">
+            <h5>🌊 Being 存在</h5>
+            <p>超越所有形相和名稱的終極實相。你可以稱它為「上帝」「道」「本體」「梵」——名稱不重要。重要的是它不是一個概念，而是你最深層的本質。當你完全臨在，你就觸碰到了存在本身。</p>
+          </div>
+        </div>
+
+        <div class="insight-box type-connect">
+          <h4>🔗 概念之間的關係</h4>
+          <p>這六個概念形成了一個完整的系統：<strong>Ego</strong> 透過 <strong>Psychological Time</strong> 製造故事，餵養 <strong>Pain-body</strong>，讓你遠離 <strong>Presence</strong>。而 <strong>Surrender</strong> 是回到 Presence 的關鍵動作，當你完全臨在，你就安住在 <strong>Being</strong> 之中。</p>
+          <p>理解它們的反面也很重要：Being 的反面不是「不存在」，而是「忘記存在」。Presence 的反面不是「缺席」，而是「被心智綁架」。Pain-body 的對立面不是「快樂」，而是「覺察」。</p>
+        </div>
+
+        <div class="content-block">
+          <h3><span class="icon">🗝️</span> 隱含的次要概念</h3>
+          <ul>
+            <li><strong>Watcher / Observer（觀察者）：</strong>你內在那個覺察念頭的意識。它不是另一個念頭，而是念頭的容器</li>
+            <li><strong>Gap（間隙）：</strong>念頭與念頭之間的空隙。在那個空隙中，你是自由的</li>
+            <li><strong>Unmanifested（未顯化）：</strong>一切可見現象背後的不可見源頭。寂靜、空間、純粹的潛能</li>
+            <li><strong>Inner Body（內在身體）：</strong>透過內在感知覺察到的身體能量場。進入臨在最直接的入口</li>
+            <li><strong>Acceptance（接受）：</strong>臣服的同義詞。不是認可一切，而是承認一切「已經如此」的事實</li>
+            <li><strong>Resistance（抗拒）：</strong>痛苦的同義詞。對當下的任何形式的心理抗拒，都是痛苦的直接原因</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">✦ ✦ ✦</div>
+
+<!-- ============================================================
+     STEP 5 — 東西方融合：禪宗與心理學的交匯
+     ============================================================ -->
+<section class="step-section" id="step-5">
+  <div class="container">
+    <div class="step-card step-5 fade-in">
+      <div class="step-card-header">
+        <div class="step-number">
+          <span class="num-circle">05</span>
+          STEP FIVE
+        </div>
+        <h2>東西方融合：禪宗與心理學的交匯</h2>
+        <div class="en-subtitle">Where Zen Buddhism Meets Western Psychology</div>
+        <div class="step-intro">
+          《當下的力量》的真正天才之處，不在於它說了什麼「新」的東西——這些智慧佛陀在 2500 年前就說過了。它的天才在於：<strong>用現代西方人能聽懂的語言，重新翻譯了東方千年的靈性智慧。</strong>Tolle 站在禪宗與西方心理學的交匯處，完成了一次跨文明的靈性翻譯。
+        </div>
+      </div>
+
+      <div class="step-card-body">
+        <div class="content-block">
+          <h3><span class="icon">🏯</span> 來自東方的源泉</h3>
+          <table class="compare-table">
+            <thead>
+              <tr>
+                <th style="background:var(--gradient-gold);">東方傳統</th>
+                <th style="background:var(--gradient-gold);">核心教導</th>
+                <th style="background:var(--gradient-gold);">Tolle 的翻譯</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>禪宗</strong></td>
+                <td>直指人心，見性成佛</td>
+                <td>「你已經是你在尋找的東西」——覺醒不是獲得什麼，而是放下對心智的認同</td>
+              </tr>
+              <tr>
+                <td><strong>佛教四聖諦</strong></td>
+                <td>苦、集、滅、道</td>
+                <td>痛苦源自執著（心智認同），脫離痛苦的方法是臨在（回到當下）</td>
+              </tr>
+              <tr>
+                <td><strong>道家</strong></td>
+                <td>無為、順應自然</td>
+                <td>臣服不是被動，而是不與生命之流對抗。「Life is the dancer and you are the dance.」</td>
+              </tr>
+              <tr>
+                <td><strong>吠檀多</strong></td>
+                <td>梵我一如（Atman = Brahman）</td>
+                <td>你的本質（Being）與宇宙的本質是同一個東西</td>
+              </tr>
+              <tr>
+                <td><strong>蘇菲派</strong></td>
+                <td>神即在當下的每一刻</td>
+                <td>「當下」本身就是神聖的入口</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="content-block">
+          <h3><span class="icon">🧪</span> 來自西方的框架</h3>
+          <ul>
+            <li><strong>榮格心理學：</strong>Pain-body 的概念與榮格的「陰影」（Shadow）高度相似——都是被壓抑的、未被整合的心理內容。不同之處在於，Tolle 認為你不需要「分析」Pain-body（那只是更多的心智活動），而是直接用覺知去照亮它</li>
+            <li><strong>認知行為療法（CBT）：</strong>CBT 教你識別和挑戰「不合理的信念」，Tolle 更進一步：不只挑戰特定念頭，而是質疑「與念頭認同」這個機制本身</li>
+            <li><strong>存在主義：</strong>海德格的「被拋入世界」（Thrownness）和齊克果的「焦慮」概念，在 Tolle 這裡被重新框架為「心智製造的不必要痛苦」</li>
+            <li><strong>正念（Mindfulness）研究：</strong>卡巴金的 MBSR（正念減壓）與 Tolle 的臨在練習有大量重疊，但 Tolle 的框架更具靈性深度，不只是「技術」，而是一種存在方式的根本轉變</li>
+          </ul>
+        </div>
+
+        <div class="insight-box type-deep">
+          <h4>🔮 Tolle 的獨特貢獻</h4>
+          <p>Tolle 不只是翻譯者——他帶來了幾個獨特的東西：</p>
+          <ul>
+            <li><strong>Pain-body 理論：</strong>這個概念在任何傳統中都找不到完全對應的版本。它把東方的「業力」概念和西方的「創傷」概念融合成一個直覺上易懂的模型</li>
+            <li><strong>時鐘時間 vs 心理時間的區分：</strong>解決了「活在當下」最大的實踐問題——人們總問：「那我還能計劃未來嗎？」Tolle 的回答：當然可以，只要你不被計劃綁架</li>
+            <li><strong>去宗教化的靈性：</strong>他引用基督教、佛教、道教、印度教、蘇菲派，但不屬於任何一派。這讓「不信教」的現代人也能接受這些智慧</li>
+            <li><strong>問答對話形式：</strong>模擬了禪宗的師徒對話和蘇格拉底式提問，讓抽象的靈性真理變得具體可觸</li>
+          </ul>
+        </div>
+
+        <div class="quote-block">
+          <div class="quote-text">「All true spiritual teachings point to the same truth. They use different words and different metaphors, but all of them essentially say the same thing: there is a deeper reality beyond the surface level of form.」</div>
+          <div class="quote-source">— Eckhart Tolle</div>
+        </div>
+
+        <div class="content-block">
+          <h3><span class="icon">🌉</span> 為什麼這個融合在此刻如此重要？</h3>
+          <p>我們活在一個前所未有的時代：傳統宗教的影響力在下降，但人類對「意義」的渴望並沒有消失。心理學提供了工具但缺乏深度，靈性傳統提供了深度但常被宗教包袱拖累。Tolle 的作品恰好填補了這個空缺——它既有靈性的深度，又有心理學的精確性，同時不要求你信仰任何宗教。</p>
+          <p>這就是為什麼這本書能跨越文化、年齡、宗教背景，成為全球暢銷書。它不是在傳教，它是在指著月亮說：「看，月亮在那裡。」至於月亮，你自己去看。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">✦ ✦ ✦</div>
+
+<!-- ============================================================
+     STEP 6 — 實踐框架：從理解到體驗
+     ============================================================ -->
+<section class="step-section" id="step-6">
+  <div class="container">
+    <div class="step-card step-6 fade-in">
+      <div class="step-card-header">
+        <div class="step-number">
+          <span class="num-circle">06</span>
+          STEP SIX
+        </div>
+        <h2>實踐框架：從理解到體驗</h2>
+        <div class="en-subtitle">From Understanding to Direct Experience</div>
+        <div class="step-intro">
+          Tolle 反覆強調：這本書不是用來「理解」的，是用來「體驗」的。閱讀只是開始，真正的轉化發生在你把這些指引帶入日常生活的每一刻。以下是從書中提煉出的完整實踐框架，分為五個層次。
+        </div>
+      </div>
+
+      <div class="step-card-body">
+        <div class="content-block">
+          <h3><span class="icon">🌱</span> 第一層：基礎覺察練習</h3>
+          <p>這些練習任何人隨時可以開始，不需要任何先備條件：</p>
+
+          <div class="insight-box type-practice">
+            <h4>🧘 練習 1：觀察思想者</h4>
+            <p>在日常活動中（走路、等車、洗碗），突然問自己：「我現在在想什麼？」不是去分析內容，只是注意到「有念頭在發生」這個事實。那個「注意到」的覺知，就是你的真實身分。</p>
+          </div>
+
+          <div class="insight-box type-practice">
+            <h4>🧘 練習 2：感受內在身體</h4>
+            <p>閉上眼睛，將注意力放在身體的某個部位——從雙手開始。感受手掌內部的能量感。然後慢慢擴展到手臂、胸腔、腹部、雙腿、全身。維持這種全身的內在覺察至少一分鐘。</p>
+          </div>
+
+          <div class="insight-box type-practice">
+            <h4>🧘 練習 3：感官錨定</h4>
+            <p>選擇一個感官通道——聽覺最容易。現在，聽。不是聽「什麼聲音」，而是聽「聲音本身」。鳥鳴、車聲、冷氣的嗡嗡聲。甚至聽寂靜——寂靜不是沒有聲音，而是所有聲音的背景。這個練習立即把你帶入當下。</p>
+          </div>
+        </div>
+
+        <div class="content-block">
+          <h3><span class="icon">🌿</span> 第二層：情緒轉化</h3>
+          <p>當你建立了基本的覺察能力後，開始處理情緒——尤其是負面情緒：</p>
+          <ul>
+            <li><strong>Pain-body 覺察：</strong>當你感到突然的情緒波動（莫名的憤怒、悲傷、焦慮），不要立刻反應。暫停。問自己：「這是 Pain-body 在被啟動嗎？」僅僅是命名它，就削弱了它的力量</li>
+            <li><strong>情緒的身體地圖：</strong>每一種情緒都有對應的身體感覺。焦慮通常在胸口和胃部，憤怒在肩膀和下巴，悲傷在胸口和喉嚨。當情緒來時，不要去想「為什麼」，而是直接去感受「身體哪裡有感覺」</li>
+            <li><strong>不抗拒，不認同：</strong>讓情緒存在，但不成為它。你可以說：「有憤怒在這裡」，而不是「我很憤怒」。這個微小的語言轉換，代表了一個根本性的意識轉變</li>
+          </ul>
+        </div>
+
+        <div class="content-block">
+          <h3><span class="icon">🌳</span> 第三層：關係中的臨在</h3>
+          <p>把覺察帶入人際互動，這是最具挑戰性也最有轉化力的練習場：</p>
+          <ul>
+            <li><strong>聆聽的藝術：</strong>下次有人對你說話時，不要在心裡準備回應。全然聆聽。不只聽他們的話，也感受他們話語背後的能量——那個正在說話的「存在」</li>
+            <li><strong>衝突中的空間：</strong>當爭吵即將爆發，在回應之前留一個有意識的停頓。即使只是一秒鐘。那一秒鐘就足以讓你從自動反應模式切換到有意識的回應模式</li>
+            <li><strong>不投射：</strong>留意自己是否在把過去的經驗投射到現在的人身上。你的伴侶不是你的父母，你的同事不是你的前任。當你帶著完整的臨在去看對方，你看到的是「此刻的他們」，而不是你過去經驗的投影</li>
+          </ul>
+        </div>
+
+        <div class="content-block">
+          <h3><span class="icon">🌲</span> 第四層：日常生活的臣服</h3>
+          <p>臣服不是一次性的事件，而是每一刻的選擇：</p>
+          <ul>
+            <li><strong>等待的藝術：</strong>排隊、塞車、等人——這些通常令人煩躁的時刻，恰好是最好的臣服練習。不要抗拒等待，而是完全進入等待本身。你會發現，當你不再抗拒，「等待」消失了，只剩下「存在」</li>
+            <li><strong>做家事的禪：</strong>洗碗不只是洗碗——如果你帶著完全的覺知去做，它就是冥想。感受水的溫度，泡沫的觸感，碗的重量。Tolle 的意思不是「享受洗碗」，而是「在洗碗中保持臨在」</li>
+            <li><strong>接受「此刻」的練習：</strong>無論你現在的處境是什麼，對它說一聲內在的「是」。這不表示你喜歡它或認為它應該繼續，而是你承認：「它已經如此」。從這個接受出發，你的行動會更有智慧、更有力量</li>
+          </ul>
+        </div>
+
+        <div class="content-block">
+          <h3><span class="icon">🏔️</span> 第五層：深度臨在</h3>
+          <p>這是進階練習，需要建立在前四層的基礎上：</p>
+          <ul>
+            <li><strong>空隙冥想：</strong>在靜坐中，不要嘗試「停止念頭」。只是觀察念頭的來去，並特別留意念頭之間的「空隙」。那個空隙就是未顯化的入口。隨著練習深入，空隙會自然擴大</li>
+            <li><strong>「我是」冥想：</strong>安靜地坐著，感受「我存在」這個事實——不是「我是某某人」，不是「我是某某職業」，而是純粹的「我在」。這個練習來自吠檀多傳統，Tolle 認為它是通往 Being 最直接的方法</li>
+            <li><strong>全然感知：</strong>嘗試同時覺察你的所有感官——看、聽、觸、嗅——不偏向任何一個。這種 360 度的開放式覺知，就是深度臨在的體驗</li>
+          </ul>
+        </div>
+
+        <div class="stat-row">
+          <div class="stat-card">
+            <div class="stat-num">5</div>
+            <div class="stat-label">練習層次</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">12+</div>
+            <div class="stat-label">具體練習</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">深化空間</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">Now</div>
+            <div class="stat-label">唯一的時機</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">✦ ✦ ✦</div>
+
+<!-- ============================================================
+     STEP 7 — 挑戰與限制：批判性思考
+     ============================================================ -->
+<section class="step-section" id="step-7">
+  <div class="container">
+    <div class="step-card step-7 fade-in">
+      <div class="step-card-header">
+        <div class="step-number">
+          <span class="num-circle">07</span>
+          STEP SEVEN
+        </div>
+        <h2>挑戰與限制：批判性思考</h2>
+        <div class="en-subtitle">What the Book Doesn't Tell You</div>
+        <div class="step-intro">
+          任何深度分析都不應該只有讚美。一本書越有影響力，就越需要被批判性地審視。以下是對《當下的力量》最誠實的挑戰——不是為了否定它，而是為了更完整地理解它。
+        </div>
+      </div>
+
+      <div class="step-card-body">
+        <div class="content-block">
+          <h3><span class="icon">⚡</span> 結構性挑戰</h3>
+          <ul>
+            <li><strong>重複性高：</strong>整本書的核心論點其實可以用 20 頁說完。Tolle 用不同角度、不同比喻反覆闡述同一個主題。這對某些讀者來說是「深化」，對另一些讀者來說是「囉嗦」</li>
+            <li><strong>問答格式的限制：</strong>書中的「提問者」似乎總是問出「剛好正確的問題」，讓 Tolle 能完美地回答。這些問答更像是教學工具，而非真正的對話。缺少了真正棘手的、Tolle 答不出的問題</li>
+            <li><strong>經驗驗證的困難：</strong>Tolle 描述的許多狀態（深度臨在、與 Being 合一）本質上是主觀體驗，無法被外部驗證。這不代表它們不真實，但確實讓質疑者沒有可以檢驗的標準</li>
+          </ul>
+        </div>
+
+        <div class="content-block">
+          <h3><span class="icon">🔥</span> 概念性挑戰</h3>
+          <ul>
+            <li><strong>對心智的過度簡化：</strong>Tolle 傾向於把心智描繪成「敵人」——一個需要被超越的障礙。但心智也是人類最偉大的工具：科學、藝術、語言、文明，全都是心智的成就。問題也許不在心智本身，而在心智與覺知的失衡</li>
+            <li><strong>「痛苦是自造的」的道德風險：</strong>對於經歷真實創傷（戰爭、虐待、系統性壓迫）的人，「所有痛苦都是自造的」這個說法可能被解讀為「責備受害者」。Tolle 的本意是指向「內在抗拒」，但在表述上需要更多細微區分</li>
+            <li><strong>社會結構的缺席：</strong>Tolle 幾乎完全聚焦於個人的內在轉化，很少談論社會正義、制度性改革、集體行動。一個人可以內在非常「臨在」，同時生活在一個極度不公正的社會中。內在平靜不應該成為不追求外在改變的藉口</li>
+            <li><strong>文化特權的盲點：</strong>「坐在公園長椅上兩年什麼都不做」的覺醒經歷，對一個需要打三份工養家的人來說，不是一個可行的選項。Tolle 的教導隱含了一定程度的物質安全假設</li>
+          </ul>
+        </div>
+
+        <div class="content-block">
+          <h3><span class="icon">🧩</span> 實踐性挑戰</h3>
+          <ul>
+            <li><strong>「需要臨在師」的悖論：</strong>Tolle 說「覺醒不需要時間」，但他自己的教導卻暗示你需要一個「已覺醒的老師」的臨在才能被點燃。這讓整個體系帶上了一絲「上師崇拜」的色彩</li>
+            <li><strong>與心理治療的張力：</strong>Tolle 有時暗示，傳統心理治療（尤其是分析性治療）通過過度關注過去的故事，反而強化了 Pain-body。這個觀點可能讓需要專業心理幫助的人迴避治療</li>
+            <li><strong>「漸修」vs「頓悟」的曖昧：</strong>書中同時包含了兩種看似矛盾的訊息：一方面說覺醒可以「瞬間」發生，另一方面提供了大量的漸進式練習。這種張力本身可能是有意為之的（禪宗也有這個傳統），但對初學者來說可能造成困惑</li>
+          </ul>
+        </div>
+
+        <div class="insight-box type-key">
+          <h4>⚖️ 公正的評價</h4>
+          <p>上述挑戰是真實的，但它們不足以動搖這本書的核心價值。就像你不會因為地圖沒有標出每一棵樹就說地圖沒用。《當下的力量》是一張指向覺醒的地圖——它不是完美的，但它指的方向是真實的。最好的讀法是：帶著開放的心去吸收它的智慧，帶著清醒的頭去辨識它的限制。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">✦ ✦ ✦</div>
+
+<!-- ============================================================
+     STEP 8 — 金句圖鑑：語言的覺醒力量
+     ============================================================ -->
+<section class="step-section" id="step-8">
+  <div class="container">
+    <div class="step-card step-8 fade-in">
+      <div class="step-card-header">
+        <div class="step-number">
+          <span class="num-circle">08</span>
+          STEP EIGHT
+        </div>
+        <h2>金句圖鑑：語言的覺醒力量</h2>
+        <div class="en-subtitle">Words That Can Shatter the Dream of the Mind</div>
+        <div class="step-intro">
+          Tolle 的文字有一種特殊的品質——它們不只傳遞資訊，而是試圖在讀者心中製造一個「裂隙」，讓覺知的光透進來。以下是全書最具衝擊力的金句，附上深度解析。每一句都值得反覆品味，因為它們的意義會隨著你意識的深化而不斷展開。
+        </div>
+      </div>
+
+      <div class="step-card-body">
+        <div class="quote-block">
+          <div class="quote-text">「Realize deeply that the present moment is all you ever have.」</div>
+          <div class="quote-source">深刻地領悟：當下這一刻是你唯一擁有的。</div>
+        </div>
+        <div class="content-block">
+          <p>這不是一句勵志格言，而是一個存在論的事實。你能找到一個在「現在」之外存在的時刻嗎？過去只是你「現在」的記憶，未來只是你「現在」的想像。「realize deeply」暗示：你可能「理解」這一點，但你是否「深刻領悟」了它？理解是頭腦的活動，領悟是整個存在的轉變。</p>
+        </div>
+
+        <div class="quote-block">
+          <div class="quote-text">「The past gives you an identity and the future holds the promise of salvation. Both are illusions.」</div>
+          <div class="quote-source">過去給你一個身分，未來承諾一個救贖。兩者都是幻象。</div>
+        </div>
+        <div class="content-block">
+          <p>這句話同時打碎了兩個最根深蒂固的心理機制。「過去給你身分」——你的故事、你的創傷、你的成就，都成了你用來定義自己的材料。「未來承諾救贖」——「等到我成功了 / 找到對的人 / 退休了，一切就會好的。」Tolle 一刀兩斷：這兩者都是心智的幻術。你的真實身分不在故事裡，你的救贖也不在未來。</p>
+        </div>
+
+        <div class="quote-block">
+          <div class="quote-text">「Wherever you are, be there totally.」</div>
+          <div class="quote-source">無論你在哪裡，全然地在那裡。</div>
+        </div>
+        <div class="content-block">
+          <p>簡短到近乎暴力的一句話。它的力量在於它的絕對性——「totally」（全然）。不是部分地在那裡，不是身體在那裡但心在別處，而是「全然」。這是一個終極的邀請：在洗碗時全然洗碗，在走路時全然走路，在悲傷時全然悲傷。聽起來簡單，卻是一生的修行。</p>
+        </div>
+
+        <div class="quote-block">
+          <div class="quote-text">「Life is the dancer and you are the dance.」</div>
+          <div class="quote-source">生命是舞者，你是那支舞。</div>
+        </div>
+        <div class="content-block">
+          <p>這可能是 Tolle 最美的比喻。它徹底翻轉了主客體的關係：你以為你是舞者（主動者、控制者），但其實你是舞蹈本身（流動、表現、過程）。生命不是你「擁有」的東西，生命是透過你「發生」的東西。這與道家的「無為」和印度教的「神在透過你行動」（Lila）完美呼應。</p>
+        </div>
+
+        <div class="multi-quotes">
+          <div class="mini-quote">「Nothing ever happened in the past; it happened in the Now. Nothing will ever happen in the future; it will happen in the Now.」<br><span style="font-size:0.82rem; color:var(--text-light);">— 過去從來沒有事情發生過；事情發生在當下。未來也不會有事情發生；事情將發生在當下。</span></div>
+          <div class="mini-quote">「The primary cause of unhappiness is never the situation but your thoughts about it.」<br><span style="font-size:0.82rem; color:var(--text-light);">— 不快樂的首要原因從來不是情境本身，而是你對它的想法。</span></div>
+          <div class="mini-quote">「What a liberation to realize that the 'voice in my head' is not who I am.」<br><span style="font-size:0.82rem; color:var(--text-light);">— 意識到「我腦袋裡的聲音」不是我，是多大的解放。</span></div>
+          <div class="mini-quote">「Die to the past every moment. You don't need it. Only refer to it when it is absolutely relevant to the present.」<br><span style="font-size:0.82rem; color:var(--text-light);">— 每一刻都讓過去死去。你不需要它。只在它與當下絕對相關時才參考它。</span></div>
+          <div class="mini-quote">「You can always cope with the present moment, but you cannot cope with something that is only a mind projection.」<br><span style="font-size:0.82rem; color:var(--text-light);">— 你永遠能應對當下這一刻，但你無法應對只存在於心智投射中的東西。</span></div>
+          <div class="mini-quote">「Acceptance looks like a passive state, but in reality it brings something entirely new into this world.」<br><span style="font-size:0.82rem; color:var(--text-light);">— 接受看起來是被動的狀態，但事實上它為這個世界帶來了某種全然嶄新的東西。</span></div>
+        </div>
+
+        <div class="insight-box type-deep">
+          <h4>🔮 Tolle 的語言策略</h4>
+          <p>注意 Tolle 的文字有一個特殊的結構特徵：他很少使用「你應該」，而是大量使用「你能不能注意到」「你是否意識到」。這不是偶然——他的語言本身就是一種「指向」的手勢，不是命令你做什麼，而是邀請你看見已經在那裡的東西。這與禪宗「直指人心」的傳統完全一致。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider">✦ ✦ ✦</div>
+
+<!-- ============================================================
+     STEP 9 — 跨域共鳴：科學、哲學與靈修傳統
+     ============================================================ -->
+<section class="step-section" id="step-9">
+  <div class="container">
+    <div class="step-card step-9 fade-in">
+      <div class="step-card-header">
+        <div class="step-number">
+          <span class="num-circle">09</span>
+          STEP NINE
+        </div>
+        <h2>跨域共鳴：科學、哲學與靈修傳統</h2>
+        <div class="en-subtitle">Resonances Across Disciplines and Centuries</div>
+        <div class="step-intro">
+          《當下的力量》的教導並非孤立存在——它與現代科學的發現、哲學的思辨、以及各大靈修傳統形成了驚人的共鳴。這些跨域連結不只是知識上的有趣，它們暗示了：Tolle 所指向的，可能是人類意識的一個普遍真理。
+        </div>
+      </div>
+
+      <div class="step-card-body">
+        <div class="content-block">
+          <h3><span class="icon">🔬</span> 科學的共鳴</h3>
+          <ul>
+            <li><strong>神經科學：Default Mode Network（預設模式網絡）</strong> — 大腦在「不做事」時最活躍的區域恰好是負責「自我參照思維」的網絡。冥想研究顯示，經驗豐富的冥想者的 DMN 活動顯著降低——這與 Tolle 描述的「心智活動減少後的深度覺知」高度一致</li>
+            <li><strong>量子物理學：觀察者效應</strong> — 量子力學中，觀察行為本身改變了被觀察的系統。Tolle 的「觀察思想者」練習有一個類似的效應：當你觀察念頭，念頭的性質改變了。當然，直接類比需要謹慎，但這種結構性的相似值得注意</li>
+            <li><strong>心理學：Flow 狀態</strong> — Csikszentmihalyi 的心流（Flow）研究發現，人在最佳表現時往往「忘記自我」——自我意識消失，時間感扭曲，全然投入當下。這與 Tolle 描述的臨在狀態有顯著重疊</li>
+            <li><strong>正念研究的實證</strong> — 大量 RCT 研究支持正念練習的效果：減少焦慮、降低抑鬱復發率、改善注意力、降低壓力荷爾蒙。雖然 Tolle 的教導比臨床正念更廣，但核心機制相同</li>
+          </ul>
+        </div>
+
+        <div class="content-block">
+          <h3><span class="icon">📚</span> 哲學的共鳴</h3>
+          <ul>
+            <li><strong>現象學（胡塞爾、梅洛-龐蒂）：</strong>「回到事物本身」（Zu den Sachen selbst）——不是透過概念去理解世界，而是回到直接的感知經驗。Tolle 的「全然臨在」本質上就是一種現象學式的存在方式</li>
+            <li><strong>存在主義（齊克果、海德格、沙特）：</strong>海德格的「向死而生」（Being-toward-death）和 Tolle 的「死於每一刻」有深層共鳴。齊克果的「焦慮是自由的眩暈」呼應 Tolle 對心智恐懼的分析</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 10 -->
+<section id="step10" class="card card-amber">
+  <div class="card-step-label">✦ STEP 10</div>
+  <h2 class="card-title">一個比喻說完整本書</h2>
+  <p class="card-subtitle">用一個畫面，裝下整本書的靈魂</p>
+  <div class="metaphor-box">
+    <div class="metaphor-icon">🪷</div>
+    <div class="metaphor-title">你是天空，思緒是雲</div>
+    <div class="prose">
+      <p>想像你一直以為自己是天上的雲。</p>
+      <p>烏雲來了，你說「我很悲傷」。暴風雨來了，你說「我很憤怒」。雲散了，你說「我很快樂」。你的整個人生就是在追逐好看的雲、逃避難看的雲。</p>
+      <p>Eckhart Tolle 說：<strong>你不是雲。你是天空。</strong></p>
+      <p>天空從不受雲的影響。烏雲密布時，天空依然是天空。暴風雨肆虐時，天空依然是天空。雲來雲去，天空始終在那裡——廣闊、寧靜、不變。</p>
+      <p>你的思緒、情緒、記憶、恐懼——這些都是雲。你的身份認同、過去的故事、未來的焦慮——這些也是雲。</p>
+      <p>而<strong>覺察這一切的那個意識</strong>——那個在思緒之間的寂靜、在情緒之下的平靜——那才是你。</p>
+      <p>這就是《當下的力量》的全部訊息：<strong>停止認同於雲，記起你是天空。</strong></p>
+      <p>你不需要「成為」天空——你已經是了。你只需要記起來。</p>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 11 -->
+<section id="step11" class="card card-green">
+  <div class="card-step-label">✦ STEP 11</div>
+  <h2 class="card-title">行動轉化</h2>
+  <p class="card-subtitle">從認知到實踐——你的臨在練習清單</p>
+  <div class="action-grid">
+    <div class="action-item">
+      <div class="action-number">01</div>
+      <div class="action-title">「間隙練習」</div>
+      <div class="action-desc">每天找 3 個「間隙」：等紅燈、排隊、等電梯時，不拿手機，只是感受呼吸、感受身體、感受當下。這些微小的間隙就是通往臨在的入口。</div>
+    </div>
+    <div class="action-item">
+      <div class="action-number">02</div>
+      <div class="action-title">「內在身體」掃描</div>
+      <div class="action-desc">早上醒來後，閉眼感受身體的能量場：從腳趾到頭頂，感受每個部位的「活著的感覺」。Tolle 說這是最直接的臨在錨點。每天 5 分鐘。</div>
+    </div>
+    <div class="action-item">
+      <div class="action-number">03</div>
+      <div class="action-title">「觀察者」模式</div>
+      <div class="action-desc">下次負面情緒升起時，試著說「有一個憤怒的念頭出現了」而非「我很憤怒」。這個語言轉換就是從認同到覺察的關鍵一步。</div>
+    </div>
+    <div class="action-item">
+      <div class="action-number">04</div>
+      <div class="action-title">臣服實驗</div>
+      <div class="action-desc">選一個讓你煩躁的日常情境（塞車、排隊、孩子哭鬧），練習完全接受它。不是被動放棄，而是主動選擇「對這一刻說是」。觀察接受之後，行動反而更有效率。</div>
+    </div>
+  </div>
+</section>
+
+</div><!-- .container -->
+<footer>
+  <p>覺醒 v2 深度分析 ✦ 《The Power of Now》Eckhart Tolle 著</p>
+  <p>Generated with 🐉 by 龍龍 AI Book Analysis</p>
+</footer>
+</body>
+</html>
