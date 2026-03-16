@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>覺醒報告 — The Let Them Theory | Mel Robbins</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  /* ═══════════════════════════════════════════
+     🌸 韓系清新風格 — 覺醒報告 v2
+     The Let Them Theory / Mel Robbins
+     ═══════════════════════════════════════════ */
+
+  :root {
+    --bg-base: #FDF6F0;
+    --bg-warm: #FFF8F3;
+    --bg-card: rgba(255, 255, 255, 0.82);
+    --bg-glass: rgba(255, 255, 255, 0.55);
+    --text-primary: #2D2A26;
+    --text-secondary: #6B635A;
+    --text-muted: #9E958B;
+    --accent-coral: #E8836B;
+    --accent-peach: #F4A98C;
+    --accent-blush: #F9C4B4;
+    --accent-sage: #A8C5A0;
+    --accent-sky: #8BB8D0;
+    --accent-lavender: #B8A9D4;
+    --accent-gold: #D4A853;
+    --accent-rose: #D4728C;
+    --gradient-hero: linear-gradient(135deg, #FDE4D8 0%, #F9C4B4 25%, #E8B4C8 50%, #B8A9D4 75%, #8BB8D0 100%);
+    --gradient-warm: linear-gradient(135deg, #FFF0E8 0%, #FFE4D6 50%, #FDD8C8 100%);
+    --gradient-cool: linear-gradient(135deg, #E8F4F0 0%, #D4E8F0 50%, #C0D8E8 100%);
+    --gradient-sage: linear-gradient(135deg, #E8F0E4 0%, #D4E4D0 50%, #C4D8BC 100%);
+    --gradient-lavender: linear-gradient(135deg, #F0E8F4 0%, #E4D8EC 50%, #D4C8E0 100%);
+    --shadow-soft: 0 4px 24px rgba(0,0,0,0.04);
+    --shadow-card: 0 8px 32px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.03);
+    --shadow-float: 0 16px 48px rgba(0,0,0,0.08), 0 4px 16px rgba(0,0,0,0.04);
+    --shadow-glow: 0 0 40px rgba(232,131,107,0.15);
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 28px;
+    --radius-xl: 36px;
+    --radius-full: 9999px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-base);
+    color: var(--text-primary);
+    line-height: 1.85;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  /* ── 背景裝飾 ── */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -30%;
+    right: -20%;
+    width: 70vw;
+    height: 70vw;
+    background: radial-gradient(circle, rgba(232,131,107,0.08) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    bottom: -20%;
+    left: -15%;
+    width: 60vw;
+    height: 60vw;
+    background: radial-gradient(circle, rgba(139,184,208,0.07) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  /* ═══════════════════════════════════════════
+     HERO 區塊
+     ═══════════════════════════════════════════ */
+  .hero {
+    background: var(--gradient-hero);
+    border-radius: var(--radius-xl);
+    padding: 64px 48px 56px;
+    margin-bottom: 48px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-float), var(--shadow-glow);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255,255,255,0.4) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.3) 0%, transparent 50%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '🫧';
+    position: absolute;
+    top: 20px;
+    right: 32px;
+    font-size: 64px;
+    opacity: 0.35;
+    filter: blur(1px);
+    animation: float-slow 8s ease-in-out infinite;
+  }
+
+  @keyframes float-slow {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: var(--radius-full);
+    padding: 6px 18px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--accent-coral);
+    letter-spacing: 0.08em;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2.6rem;
+    font-weight: 900;
+    line-height: 1.25;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    position: relative;
+    letter-spacing: -0.01em;
+  }
+
+  .hero-subtitle {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    position: relative;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: var(--radius-full);
+    padding: 5px 14px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  .hero-quote {
+    margin-top: 32px;
+    padding: 20px 24px;
+    background: rgba(255,255,255,0.45);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: var(--radius-md);
+    border-left: 4px solid var(--accent-coral);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.7;
+    position: relative;
+  }
+
+  .hero-quote .attr {
+    display: block;
+    margin-top: 8px;
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--text-muted);
+  }
+
+  /* ═══════════════════════════════════════════
+     通用卡片
+     ═══════════════════════════════════════════ */
+  .card {
+    background: var(--bg-card);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: var(--radius-lg);
+    padding: 44px 40px;
+    margin-bottom: 36px;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-float);
+  }
+
+  .card-accent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  .card-accent.coral { background: linear-gradient(90deg, var(--accent-coral), var(--accent-peach)); }
+  .card-accent.sage { background: linear-gradient(90deg, var(--accent-sage), #C4DEB8); }
+  .card-accent.sky { background: linear-gradient(90deg, var(--accent-sky), #A8D0E4); }
+  .card-accent.lavender { background: linear-gradient(90deg, var(--accent-lavender), #C8B8E0); }
+  .card-accent.gold { background: linear-gradient(90deg, var(--accent-gold), #E4C070); }
+  .card-accent.rose { background: linear-gradient(90deg, var(--accent-rose), #E48CA0); }
+  .card-accent.peach { background: linear-gradient(90deg, var(--accent-peach), var(--accent-blush)); }
+
+  /* ── 卡片標頭 ── */
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .card-icon.coral-bg { background: var(--gradient-warm); }
+  .card-icon.sage-bg { background: var(--gradient-sage); }
+  .card-icon.sky-bg { background: var(--gradient-cool); }
+  .card-icon.lavender-bg { background: var(--gradient-lavender); }
+  .card-icon.gold-bg { background: linear-gradient(135deg, #FFF4E0, #FFE8C0); }
+  .card-icon.rose-bg { background: linear-gradient(135deg, #FFE8F0, #FFD0DC); }
+  .card-icon.peach-bg { background: linear-gradient(135deg, #FFF0E8, #FFE0D4); }
+
+  .step-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--accent-coral);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .card-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.35;
+  }
+
+  /* ── 內容段落 ── */
+  .card p, .card li {
+    font-size: 0.98rem;
+    color: var(--text-secondary);
+    line-height: 1.9;
+    margin-bottom: 14px;
+  }
+
+  .card p:last-child, .card li:last-child {
+    margin-bottom: 0;
+  }
+
+  .lead-text {
+    font-size: 1.08rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+
+  .section-subtitle {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 28px 0 14px;
+    padding-left: 14px;
+    border-left: 3px solid var(--accent-peach);
+  }
+
+  .mini-heading {
+    font-weight: 700;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* ── 引用框 ── */
+  .quote-box {
+    background: var(--gradient-warm);
+    border-radius: var(--radius-md);
+    padding: 22px 26px;
+    margin: 22px 0;
+    border-left: 4px solid var(--accent-coral);
+    position: relative;
+  }
+
+  .quote-box.sage {
+    background: var(--gradient-sage);
+    border-left-color: var(--accent-sage);
+  }
+
+  .quote-box.sky {
+    background: var(--gradient-cool);
+    border-left-color: var(--accent-sky);
+  }
+
+  .quote-box.lavender {
+    background: var(--gradient-lavender);
+    border-left-color: var(--accent-lavender);
+  }
+
+  .quote-box.gold {
+    background: linear-gradient(135deg, #FFF8E8, #FFF0D4);
+    border-left-color: var(--accent-gold);
+  }
+
+  .quote-box.rose {
+    background: linear-gradient(135deg, #FFF0F4, #FFE8EC);
+    border-left-color: var(--accent-rose);
+  }
+
+  .quote-box p {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.02rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.75;
+    margin-bottom: 0;
+  }
+
+  .quote-box .source {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    margin-top: 6px;
+    display: block;
+  }
+
+  /* ── 清單 ── */
+  .insight-list {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0;
+  }
+
+  .insight-list li {
+    position: relative;
+    padding: 12px 16px 12px 42px;
+    margin-bottom: 8px;
+    background: rgba(255,255,255,0.5);
+    border-radius: var(--radius-sm);
+    font-size: 0.95rem;
+    transition: background 0.2s;
+  }
+
+  .insight-list li:hover {
+    background: rgba(255,255,255,0.75);
+  }
+
+  .insight-list li::before {
+    content: attr(data-icon);
+    position: absolute;
+    left: 14px;
+    top: 12px;
+    font-size: 1rem;
+  }
+
+  /* ── 對比表格 ── */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .compare-item {
+    padding: 20px;
+    border-radius: var(--radius-md);
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.6);
+  }
+
+  .compare-item.before {
+    background: linear-gradient(135deg, #FFF0F0, #FFE8E4);
+    border-color: rgba(232,131,107,0.2);
+  }
+
+  .compare-item.after {
+    background: linear-gradient(135deg, #E8F8E4, #D8F0D0);
+    border-color: rgba(168,197,160,0.3);
+  }
+
+  .compare-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .compare-item.before .compare-label { color: var(--accent-coral); }
+  .compare-item.after .compare-label { color: var(--accent-sage); }
+
+  .compare-item p {
+    font-size: 0.9rem;
+    margin-bottom: 6px;
+  }
+
+  /* ── 情境卡片 ── */
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .scenario-card {
+    padding: 18px 20px;
+    border-radius: var(--radius-md);
+    background: rgba(255,255,255,0.55);
+    border: 1px solid rgba(255,255,255,0.5);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .scenario-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .scenario-emoji {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+  }
+
+  .scenario-title {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .scenario-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .scenario-response {
+    margin-top: 8px;
+    padding: 8px 12px;
+    background: var(--gradient-warm);
+    border-radius: var(--radius-sm);
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent-coral);
+  }
+
+  /* ── 步驟流程 ── */
+  .flow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+  }
+
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.5);
+    border-radius: var(--radius-md);
+    transition: background 0.2s;
+  }
+
+  .flow-step:hover {
+    background: rgba(255,255,255,0.7);
+  }
+
+  .flow-number {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    color: white;
+  }
+
+  .flow-number.coral { background: var(--accent-coral); }
+  .flow-number.sage { background: var(--accent-sage); }
+  .flow-number.sky { background: var(--accent-sky); }
+  .flow-number.lavender { background: var(--accent-lavender); }
+  .flow-number.gold { background: var(--accent-gold); }
+
+  .flow-content h4 {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .flow-content p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    margin-bottom: 0;
+  }
+
+  /* ── 高亮框 ── */
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(232,131,107,0.08), rgba(184,169,212,0.08));
+    border: 1px solid rgba(232,131,107,0.15);
+    border-radius: var(--radius-md);
+    padding: 24px 28px;
+    margin: 22px 0;
+    text-align: center;
+  }
+
+  .highlight-box .big-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--accent-coral);
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+
+  .highlight-box .sub-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  /* ── 強調氣泡 ── */
+  .bubble {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: var(--radius-full);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin: 3px 4px;
+  }
+
+  .bubble.coral { background: rgba(232,131,107,0.12); color: var(--accent-coral); }
+  .bubble.sage { background: rgba(168,197,160,0.15); color: #6B9B60; }
+  .bubble.sky { background: rgba(139,184,208,0.15); color: #5A94B0; }
+  .bubble.lavender { background: rgba(184,169,212,0.15); color: #8070A8; }
+  .bubble.gold { background: rgba(212,168,83,0.12); color: #B08830; }
+  .bubble.rose { background: rgba(212,114,140,0.12); color: var(--accent-rose); }
+
+  /* ── 重點摘要塊 ── */
+  .key-insight {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    padding: 18px 22px;
+    background: rgba(255,255,255,0.55);
+    border-radius: var(--radius-md);
+    margin: 14px 0;
+    border: 1px solid rgba(255,255,255,0.5);
+  }
+
+  .key-insight .ki-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .key-insight .ki-text {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  .key-insight .ki-text strong {
+    color: var(--text-primary);
+  }
+
+  /* ── 章節分隔 ── */
+  .part-divider {
+    text-align: center;
+    margin: 48px 0 36px;
+    position: relative;
+  }
+
+  .part-divider::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232,131,107,0.2), transparent);
+  }
+
+  .part-divider span {
+    display: inline-block;
+    background: var(--bg-base);
+    padding: 8px 28px;
+    border-radius: var(--radius-full);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--accent-coral);
+    letter-spacing: 0.08em;
+    position: relative;
+    border: 1px solid rgba(232,131,107,0.15);
+  }
+
+  /* ── 頁尾 ── */
+  .report-footer {
+    text-align: center;
+    padding: 48px 24px 24px;
+    color: var(--text-muted);
+  }
+
+  .footer-line {
+    width: 60px;
+    height: 3px;
+    background: var(--gradient-hero);
+    border-radius: 2px;
+    margin: 0 auto 20px;
+  }
+
+  .footer-text {
+    font-size: 0.8rem;
+    line-height: 1.7;
+  }
+
+  .footer-text .heart { color: var(--accent-coral); }
+
+  /* ── 動畫 ── */
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .card, .hero {
+    animation: fade-in-up 0.6s ease-out both;
+  }
+
+  .card:nth-child(2) { animation-delay: 0.05s; }
+  .card:nth-child(3) { animation-delay: 0.1s; }
+  .card:nth-child(4) { animation-delay: 0.15s; }
+
+  /* ── 關鍵詞高亮 ── */
+  .kw {
+    color: var(--accent-coral);
+    font-weight: 700;
+  }
+
+  .kw-sage {
+    color: #6B9B60;
+    font-weight: 700;
+  }
+
+  .kw-sky {
+    color: #5A94B0;
+    font-weight: 700;
+  }
+
+  .kw-lavender {
+    color: #8070A8;
+    font-weight: 700;
+  }
+
+  em.subtle {
+    font-style: normal;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+  }
+
+  /* ── 大字金句區塊 ── */
+  .mantra-block {
+    text-align: center;
+    padding: 36px 32px;
+    margin: 24px 0;
+    background: linear-gradient(135deg, rgba(232,131,107,0.06), rgba(139,184,208,0.06));
+    border-radius: var(--radius-lg);
+    border: 1px dashed rgba(232,131,107,0.2);
+  }
+
+  .mantra-block .mantra {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--accent-coral);
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+    line-height: 1.5;
+  }
+
+  .mantra-block .mantra-sub {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+
+  /* ── 兩欄佈局 ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 18px 0;
+  }
+
+  .col-box {
+    padding: 20px;
+    border-radius: var(--radius-md);
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.5);
+  }
+
+  .col-box h4 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .col-box p, .col-box li {
+    font-size: 0.88rem;
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+
+  .col-box ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .col-box ul li {
+    padding: 4px 0 4px 20px;
+    position: relative;
+  }
+
+  .col-box ul li::before {
+    content: '·';
+    position: absolute;
+    left: 6px;
+    color: var(--accent-peach);
+    font-weight: 900;
+    font-size: 1.2rem;
+  }
+
+  /* ── 數據區塊 ── */
+  .stat-row {
+    display: flex;
+    gap: 16px;
+    margin: 20px 0;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    flex: 1;
+    min-width: 140px;
+    text-align: center;
+    padding: 20px 16px;
+    background: rgba(255,255,255,0.55);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255,255,255,0.5);
+  }
+
+  .stat-number {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--accent-coral);
+    line-height: 1.2;
+  }
+
+  .stat-desc {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* ── 漸層文字 ── */
+  .gradient-text {
+    background: linear-gradient(135deg, var(--accent-coral), var(--accent-lavender));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── 響應式 ── */
+  @media (max-width: 768px) {
+    .page-wrapper { padding: 24px 16px 60px; }
+    .hero { padding: 40px 28px 36px; }
+    .hero-title { font-size: 1.85rem; }
+    .card { padding: 32px 24px; }
+    .card-title { font-size: 1.25rem; }
+    .compare-grid, .scenario-grid, .two-col { grid-template-columns: 1fr; }
+    .stat-row { flex-direction: column; }
+    .mantra-block .mantra { font-size: 1.6rem; }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title { font-size: 1.55rem; }
+    .hero { padding: 32px 20px 28px; }
+    .card { padding: 26px 20px; }
+  }
+</style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <!-- ═══════════════════════════════════════
+       HERO
+       ═══════════════════════════════════════ -->
+  <header class="hero">
+    <div class="hero-badge">🧠 覺醒報告 v2 · 深度解讀</div>
+    <h1 class="hero-title">The Let Them Theory</h1>
+    <p class="hero-subtitle">兩個字，奪回你人生的主控權</p>
+    <div class="hero-meta">
+      <span class="hero-tag">✍️ Mel Robbins</span>
+      <span class="hero-tag">📖 自我成長 / 心理學</span>
+      <span class="hero-tag">🔥 2025 全球暢銷</span>
+      <span class="hero-tag">⏱️ 16 章 · 4 大部分</span>
+    </div>
+    <div class="hero-quote">
+      <p>「Let them. 讓他們去吧。然後——Let me. 讓我來。<br>你永遠無法控制別人怎麼對你，但你永遠可以選擇怎麼對待自己。」</p>
+      <span class="attr">—— Mel Robbins，全球播放量第一的 Podcast 主持人</span>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════
+       STEP 1：一句話精華
+       ═══════════════════════════════════════ -->
+  <article class="card">
+    <div class="card-accent coral"></div>
+    <div class="card-header">
+      <div class="card-icon coral-bg">💎</div>
+      <div>
+        <div class="step-label">Step 01</div>
+        <h2 class="card-title">一句話精華：全書的 DNA</h2>
+      </div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="big-text">Let Them. Let Me.</div>
+      <div class="sub-text">你無法控制別人的行為，但你永遠可以決定自己的下一步。</div>
+    </div>
+
+    <p class="lead-text">Mel Robbins 把一個極度簡單的概念——<span class="kw">「讓他們去」</span>——變成了席捲全球的心理解放運動。不是消極放棄，不是冷漠無情，而是一個清醒的選擇：<strong>把浪費在試圖改變別人的精力，全部收回來投資自己。</strong></p>
+
+    <p>這本書的核心公式驚人地簡潔：</p>
+
+    <div class="two-col">
+      <div class="col-box" style="background: var(--gradient-warm);">
+        <h4>🫧 Let Them（讓他們去）</h4>
+        <p>別人要離開，讓他們去。別人要批評你，讓他們去。別人要選擇跟你不同的路，讓他們去。<strong>你控制不了。</strong></p>
+      </div>
+      <div class="col-box" style="background: var(--gradient-sage);">
+        <h4>🌱 Let Me（讓我來）</h4>
+        <p>讓我專注我能控制的。讓我設定界線。讓我選擇我要的人生。讓我照顧好自己。<strong>這你控制得了。</strong></p>
+      </div>
+    </div>
+
+    <div class="quote-box">
+      <p>「大部分人的痛苦，來自於試圖控制那些你根本無法控制的東西。你以為你在『關心』，其實你在自我消耗。」</p>
+      <span class="source">—— Chapter 1：What Is the Let Them Theory?</span>
+    </div>
+
+    <p>Robbins 的天才之處在於她沒有把這寫成一本「道理書」——她寫成了一本<span class="kw">行動手冊</span>。每一章都是一個你明天就會遇到的場景：你的伴侶忘了你的生日、你的老闆搶了你的功勞、你的朋友在背後說你壞話、你在社群媒體上被酸……然後她教你：<strong>兩個字，就夠了。</strong></p>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       STEP 2：作者解碼
+       ═══════════════════════════════════════ -->
+  <article class="card">
+    <div class="card-accent sky"></div>
+    <div class="card-header">
+      <div class="card-icon sky-bg">🔬</div>
+      <div>
+        <div class="step-label">Step 02</div>
+        <h2 class="card-title">作者解碼：Mel Robbins 是誰？</h2>
+      </div>
+    </div>
+
+    <p class="lead-text">如果你不認識 Mel Robbins，讓我用三個數字告訴你她有多猛：</p>
+
+    <div class="stat-row">
+      <div class="stat-item">
+        <div class="stat-number">#1</div>
+        <div class="stat-desc">全球播放量最高<br>Podcast 主持人</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">60M+</div>
+        <div class="stat-desc">TED Talk<br>觀看次數</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">10M+</div>
+        <div class="stat-desc">書籍全球<br>累計銷量</div>
+      </div>
+    </div>
+
+    <p>但 Mel 的故事不是一帆風順的成功學模板。她<strong>41歲才出第一本書</strong>，之前差點破產、婚姻瀕臨崩潰、每天早上靠倒數「5-4-3-2-1」才能逼自己起床（這後來成了她的成名作《五秒法則》）。</p>
+
+    <div class="key-insight">
+      <div class="ki-icon">🎯</div>
+      <div class="ki-text">
+        <strong>她的超能力是什麼？</strong> 把複雜的心理學概念翻譯成你阿嬤都聽得懂的大白話——然後讓你當場就想行動。她的風格是 <span class="kw">TED 的感染力 + 閨蜜的直白 + 教練的果斷</span>。不裝、不繞、不說廢話。
+      </div>
+    </div>
+
+    <p>The Let Them Theory 的誕生源自一個真實故事：她的女兒被朋友排擠，哭著回家。Mel 想衝過去找那些孩子理論——但她突然意識到：<em>我控制不了那些孩子，但我可以陪在女兒身邊。</em></p>
+
+    <div class="quote-box sky">
+      <p>「那一刻我頓悟了。我花了一輩子試圖讓別人用我希望的方式對待我。而我真正需要學的是：讓他們去。然後，照顧好我自己。」</p>
+      <span class="source">—— Mel Robbins，談 Let Them Theory 的起源</span>
+    </div>
+
+    <p>她的寫作方法論也值得注意：<strong>先講故事，再講科學，最後給你具體步驟。</strong>每一章都像一集 Podcast——你以為自己在聽八卦，但不知不覺已經學會了一個改變人生的工具。這是她能讓百萬人瘋傳的原因。</p>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       STEP 3：結構透視
+       ═══════════════════════════════════════ -->
+  <article class="card">
+    <div class="card-accent sage"></div>
+    <div class="card-header">
+      <div class="card-icon sage-bg">🏗️</div>
+      <div>
+        <div class="step-label">Step 03</div>
+        <h2 class="card-title">結構透視：四幕劇的編排邏輯</h2>
+      </div>
+    </div>
+
+    <p class="lead-text">這本書的 16 章被精心編排成<span class="kw">四個遞進的部分</span>，就像一齣四幕劇——從「認知」到「實戰」到「內功」再到「大師級」：</p>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-number coral">I</div>
+        <div class="flow-content">
+          <h4>Part 1：理論基礎 —— 「這到底是什麼？」</h4>
+          <p>Let Them 是什麼 / 大腦科學：為什麼這招有效 / 為什麼「兩個字」就能改變一切。先建立<strong>認知框架</strong>，讓你理解這不是雞湯，而是有神經科學支持的心理工具。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number sage">II</div>
+        <div class="flow-content">
+          <h4>Part 2：關係應用 —— 「在真實場景中怎麼用？」</h4>
+          <p>伴侶 / 家人 / 朋友 / 職場 / 社交媒體。五大關係場域，逐一示範如何用「Let Them」<strong>化解衝突、減少內耗</strong>。這部分案例最多、最接地氣。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number sky">III</div>
+        <div class="flow-content">
+          <h4>Part 3：Let Me 的力量 —— 「收回能量之後呢？」</h4>
+          <p>自我照顧 / 設定界線 / 優先排序 / 找回自我價值。<strong>硬幣的另一面。</strong>光「放手」不夠，你還需要把收回來的能量用在自己身上。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number lavender">IV</div>
+        <div class="flow-content">
+          <h4>Part 4：進階 —— 「困難的時候怎麼辦？」</h4>
+          <p>困難情境 / 悲傷與失去 / 長期實踐。當不只是「有人惹你生氣」而是「人生崩塌」的時候，Let Them 如何成為你的<strong>生存哲學</strong>。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="key-insight">
+      <div class="ki-icon">💡</div>
+      <div class="ki-text">
+        <strong>結構設計的巧妙之處：</strong>Part 1-2 處理<span class="kw">「對外」</span>的關係（別人怎麼對你），Part 3-4 處理<span class="kw-sage">「對內」</span>的關係（你怎麼對自己）。Mel 的洞察是：大部分人只學了前半段（放手），卻從不學後半段（建設自己）——所以永遠在原地打轉。
+      </div>
+    </div>
+
+    <p>這個架構的遞進邏輯是：<br>
+    <span class="bubble coral">理解概念</span>
+    <span class="bubble sage">↓ 在關係中練習</span>
+    <span class="bubble sky">↓ 轉向建設自己</span>
+    <span class="bubble lavender">↓ 應對最難的時刻</span></p>
+
+    <p>每一章都可以獨立閱讀——這是 Mel 的刻意設計。她知道讀者可能是因為「跟老公吵架」才翻開這本書，所以她讓你直接跳到伴侶那章，馬上就能用。但如果你從頭讀到尾，會發現這是一趟<strong>從放手到自由</strong>的完整旅程。</p>
+  </article>
+
+  <div class="part-divider"><span>Part I ── 理論基礎</span></div>
+
+  <!-- ═══════════════════════════════════════
+       STEP 4：核心論點深掘
+       ═══════════════════════════════════════ -->
+  <article class="card">
+    <div class="card-accent coral"></div>
+    <div class="card-header">
+      <div class="card-icon coral-bg">⛏️</div>
+      <div>
+        <div class="step-label">Step 04</div>
+        <h2 class="card-title">核心論點深掘：大腦為什麼讓你執著？</h2>
+      </div>
+    </div>
+
+    <p class="lead-text">Mel Robbins 不是在講「看開一點」這種空話。她用<span class="kw">神經科學</span>解釋為什麼你明明知道「不要管別人」，卻還是管不住——然後給你一個<strong>物理性的大腦開關</strong>。</p>
+
+    <div class="section-subtitle">論點一：控制幻覺——你的大腦在騙你</div>
+
+    <p>人類大腦有一個出廠設定：<strong>它相信如果你夠努力，就能改變任何人。</strong>這在遠古部落時代是有用的——你需要讓部落成員合作才能生存。但在現代社會，這個機制讓你做了大量無效的事：</p>
+
+    <ul class="insight-list">
+      <li data-icon="😤">反覆跟伴侶爭論同一件事，以為「這次他/她會聽」</li>
+      <li data-icon="📱">刷完社群媒體後感覺被冒犯，然後花兩小時在腦中「回嘴」</li>
+      <li data-icon="💼">在職場上試圖讓每個人都喜歡你，結果累到崩潰</li>
+      <li data-icon="👨‍👩‍👧">對家人的選擇指指點點，以為自己在「幫忙」</li>
+      <li data-icon="🪞">不斷調整自己去迎合別人的期望，然後失去自己</li>
+    </ul>
+
+    <div class="quote-box">
+      <p>「你以為你在『溝通』、在『關心』、在『解決問題』。但你真正在做的事叫做：試圖控制另一個人的行為。而這件事——在宇宙中——是不可能的。」</p>
+      <span class="source">—— Chapter 2：The Science of Why This Works</span>
+    </div>
+
+    <div class="section-subtitle">論點二：網狀激活系統（RAS）與注意力陷阱</div>
+
+    <p>Mel 引入了一個關鍵的腦科學概念——<strong>RAS（Reticular Activating System，網狀激活系統）</strong>。這是你大腦中負責「過濾資訊」的守門員。當你執著於某件事（例如「我的朋友為什麼不回我訊息」），RAS 會自動放大所有相關的負面訊號：</p>
+
+    <div class="compare-grid">
+      <div class="compare-item before">
+        <div class="compare-label">❌ 沒有 Let Them 的大腦</div>
+        <p>朋友沒回訊息 → RAS 放大 → 「她一定是故意的」→ 回想過去被忽略的經歷 → 越想越氣 → 發了一條帶刺的訊息 → 關係惡化</p>
+      </div>
+      <div class="compare-item after">
+        <div class="compare-label">✅ 有 Let Them 的大腦</div>
+        <p>朋友沒回訊息 → 「Let them.」→ RAS 重新校準 → 「也許她在忙」→ 注意力回到自己正在做的事 → 情緒平穩 → 關係完好</p>
+      </div>
+    </div>
+
+    <div class="section-subtitle">論點三：「兩個字」的神經機制</div>
+
+    <p>為什麼只是在心裡說「Let them」就有效？因為這兩個字做了三件事：</p>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-number coral">1</div>
+        <div class="flow-content">
+          <h4>中斷杏仁核劫持</h4>
+          <p>當你感到被冒犯、被忽略、被拒絕，杏仁核（大腦的恐懼中心）會啟動戰鬥或逃跑反應。「Let them」是一個<strong>認知中斷器</strong>——它在杏仁核接管之前，把控制權交還給前額葉皮質（理性腦）。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number sage">2</div>
+        <div class="flow-content">
+          <h4>重新定義「威脅」</h4>
+          <p>大腦把「別人不按你的劇本走」標記為威脅。「Let them」告訴大腦：<strong>這不是威脅，這是別人的自由。</strong>威脅級別降低，皮質醇分泌減少，你不再進入應激狀態。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number sky">3</div>
+        <div class="flow-content">
+          <h4>開啟選擇空間</h4>
+          <p>當你停止反應，一個空間被打開——在「刺激」和「回應」之間的空間。Viktor Frankl 說過：<strong>「在刺激與回應之間，有一個空間。那個空間裡有我們選擇的自由。」</strong>「Let them」就是打開那個空間的鑰匙。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mantra-block">
+      <div class="mantra">Let Them.</div>
+      <div class="mantra-sub">不是放棄。不是冷漠。是清醒地選擇：<strong>我不在這件事上浪費我的生命。</strong></div>
+    </div>
+
+    <div class="key-insight">
+      <div class="ki-icon">🧬</div>
+      <div class="ki-text">
+        <strong>關鍵區別：</strong>「Let Them」不等於「我不在乎」。Mel 反覆強調——你可以在乎，你可以有感受，你可以難過。但你<strong>不需要因為在乎就去試圖控制對方</strong>。在乎是情感，控制是行為。你可以有前者而不做後者。
+      </div>
+    </div>
+  </article>
+
+  <div class="part-divider"><span>Part II ── 關係應用</span></div>
+
+  <!-- ═══════════════════════════════════════
+       STEP 5：關鍵場景拆解
+       ═══════════════════════════════════════ -->
+  <article class="card">
+    <div class="card-accent peach"></div>
+    <div class="card-header">
+      <div class="card-icon peach-bg">🎭</div>
+      <div>
+        <div class="step-label">Step 05</div>
+        <h2 class="card-title">關鍵場景拆解：五大關係戰場</h2>
+      </div>
+    </div>
+
+    <p class="lead-text">Part 2 是這本書最有殺傷力的部分——因為 Mel 不談抽象概念，她談的是<span class="kw">你明天就會遇到的那些鳥事</span>。每一章都是一個關係場域，每一個場域都有「使用前 vs 使用後」的真實對比。</p>
+
+    <div class="scenario-grid">
+      <div class="scenario-card">
+        <div class="scenario-emoji">💑</div>
+        <div class="scenario-title">伴侶關係</div>
+        <div class="scenario-text">他忘了你的生日。他把襪子丟在地上第 847 次。他跟你意見不同就沉默不語。</div>
+        <div class="scenario-response">Let them 忘。Let me 自己慶祝。Let them 有自己的溝通方式。Let me 表達我的需求然後放手。</div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-emoji">👨‍👩‍👧‍👦</div>
+        <div class="scenario-title">家人關係</div>
+        <div class="scenario-text">你媽對你的人生選擇有意見。你的兄弟姐妹處理事情的方式讓你抓狂。家族聚會永遠是壓力源。</div>
+        <div class="scenario-response">Let them 有他們的意見。Let me 做我自己的選擇。Let them 用他們的方式生活。Let me 愛他們但不改變他們。</div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-emoji">👯</div>
+        <div class="scenario-title">朋友關係</div>
+        <div class="scenario-text">好朋友漸行漸遠。有人在背後說你壞話。你總是付出比較多的那個。</div>
+        <div class="scenario-response">Let them 離開。Let me 接受有些友情有保質期。Let them 說。Let me 繼續做好自己，真正的朋友自然會留下來。</div>
+      </div>
+      <div class="scenario-card">
+        <div class="scenario-emoji">💼</div>
+        <div class="scenario-title">職場關係</div>
+        <div class="scenario-text">老闆搶了你的功勞。同事在會議上反對你。你被跳過升遷。辦公室政治讓你窒息。</div>
+        <div class="scenario-response">Let them 搶。Let me 繼續累積實力。Let them 反對。Let me 用成果說話。Let them 玩政治。Let me 專注真正的價值。</div>
+      </div>
+    </div>
+
+    <div class="section-subtitle">🌐 社交媒體：最毒的戰場</div>
+
+    <p>Mel 花了很大篇幅討論<span class="kw">社交媒體</span>——因為這是 Let Them Theory 最被需要的地方。社群媒體是一台<strong>「製造你應該在意別人看法」的機器</strong>：</p>
+
+    <ul class="insight-list">
+      <li data-icon="📊">你發了一則貼文，然後每五分鐘檢查一次有多少讚——<strong>Let them 按或不按</strong></li>
+      <li data-icon="😢">你看到別人的「完美生活」然後覺得自己不夠好——<strong>Let them 展示他們想展示的</strong></li>
+      <li data-icon="🔥">有人在留言區酸你——<strong>Let them 酸，他們的鍵盤不是你的人生</strong></li>
+      <li data-icon="📵">你花三小時滑手機然後感覺更空虛——<strong>Let me 放下手機，去做真正讓我開心的事</strong></li>
+    </ul>
+
+    <div class="quote-box rose">
+      <p>「社交媒體的演算法被設計來讓你在意別人。Let Them Theory 是你的反演算法——它被設計來讓你在意自己。」</p>
+      <span class="source">—— Chapter 10：Social Media and the Let Them Mindset</span>
+    </div>
+
+    <div class="key-insight">
+      <div class="ki-icon">⚡</div>
+      <div class="ki-text">
+        <strong>Mel 的關係哲學核心：</strong>每段關係中，你只能控制<strong>你這一端</strong>。你可以清楚表達你的需求、設定你的界線、選擇你的回應方式。但對方聽不聽、改不改、留不留？<span class="kw">Let them.</span> 然後讓結果告訴你，這段關係值不值得你投入。
+      </div>
+    </div>
+  </article>
+
+  <div class="part-divider"><span>Part III ── Let Me 的力量</span></div>
+
+  <!-- ═══════════════════════════════════════
+       STEP 6：顛覆認知
+       ═══════════════════════════════════════ -->
+  <article class="card">
+    <div class="card-accent lavender"></div>
+    <div class="card-header">
+      <div class="card-icon lavender-bg">🔄</div>
+      <div>
+        <div class="step-label">Step 06</div>
+        <h2 class="card-title">顛覆認知：Let Me 才是真正的重頭戲</h2>
+      </div>
+    </div>
+
+    <p class="lead-text">大部分人讀這本書，會以為「Let Them」是主角。但 Mel 的真正殺手鐧藏在 Part 3——<span class="kw-lavender">「Let Me」才是這本書最重要的兩個字。</span></p>
+
+    <div class="highlight-box">
+      <div class="big-text" style="color: var(--accent-lavender);">Let Me.</div>
+      <div class="sub-text">放手不是終點——<strong>拿回力量</strong>才是。</div>
+    </div>
+
+    <p>Mel 觀察到一個令人心碎的模式：很多人學會了放手，卻不知道接下來該怎麼辦。他們變成了<strong>「佛系空殼」</strong>——什麼都不在乎了，但也沒有為自己建設任何東西。這不是自由，這是另一種困境。</p>
+
+    <div class="section-subtitle">🪞 四個「Let Me」的核心面向</div>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-number lavender">1</div>
+        <div class="flow-content">
+          <h4>Let Me 照顧好自己</h4>
+          <p>不是泡泡浴那種表面的「自我照顧」。是真正的：充足的睡眠、規律的運動、好的飲食、定期的心理健康檢查。<strong>你對自己的照顧品質，決定了你人生的品質。</strong></p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number sky">2</div>
+        <div class="flow-content">
+          <h4>Let Me 設定界線</h4>
+          <p>界線不是懲罰別人的工具——界線是<strong>你告訴世界「你準備好接受什麼」的宣言</strong>。沒有界線的 Let Them 只是被動的忍耐；有界線的 Let Them 是主動的選擇。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number sage">3</div>
+        <div class="flow-content">
+          <h4>Let Me 排出優先順序</h4>
+          <p>當你不再花精力試圖控制別人，你突然多了大量的時間和心力。問題是：<strong>你要拿來做什麼？</strong>Mel 教你如何辨認「真正重要的事」vs「只是緊急的事」vs「其實根本不關你的事」。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number coral">4</div>
+        <div class="flow-content">
+          <h4>Let Me 找回自我價值</h4>
+          <p>這是最深的一層。很多人的自我價值建立在「別人怎麼看我」上。當你 Let Them 之後，你可能會發現：<strong>拿掉了別人的評價，你不知道自己是誰了。</strong>Part 3 幫你重建。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-box lavender">
+      <p>「Let Them 是清除雜草。Let Me 是種下你真正想要的花。<br>大部分人只會拔草，然後對著空地發呆。別做那個人。」</p>
+      <span class="source">—— Chapter 13：Prioritizing Yourself Isn't Selfish</span>
+    </div>
+
+    <div class="compare-grid">
+      <div class="compare-item before">
+        <div class="compare-label">❌ 只有 Let Them 的人</div>
+        <p>「隨便啦，我不在乎了。」</p>
+        <p>看似灑脫，實則空虛。放手了，但不知道要抓住什麼。變成佛系，但不是真的平靜。</p>
+      </div>
+      <div class="compare-item after">
+        <div class="compare-label">✅ Let Them + Let Me 的人</div>
+        <p>「讓他們去。然後讓我來決定我要什麼。」</p>
+        <p>清醒地放手，有方向地前進。不糾結別人，專注建設自己。這才是真正的力量。</p>
+      </div>
+    </div>
+
+    <div class="key-insight">
+      <div class="ki-icon">🎯</div>
+      <div class="ki-text">
+        <strong>Mel 最犀利的洞察：</strong>「自私」和「自我照顧」的區別是什麼？自私是不顧別人的感受去滿足自己。自我照顧是<strong>先把自己照顧好，這樣你才有能力真正地愛別人</strong>。飛機上的氧氣面罩理論——先給自己戴上，才能幫旁邊的人。
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       STEP 7：方法論萃取
+       ═══════════════════════════════════════ -->
+  <article class="card">
+    <div class="card-accent gold"></div>
+    <div class="card-header">
+      <div class="card-icon gold-bg">🧰</div>
+      <div>
+        <div class="step-label">Step 07</div>
+        <h2 class="card-title">方法論萃取：Let Them Theory 操作手冊</h2>
+      </div>
+    </div>
+
+    <p class="lead-text">理論再好，不能用就是廢話。以下是 Mel 在書中反覆教你的<span class="kw">實戰操作流程</span>——可以直接套用在任何讓你「想控制但控制不了」的情境。</p>
+
+    <div class="section-subtitle">🔧 The Let Them Method：五步操作流程</div>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-number coral">1</div>
+        <div class="flow-content">
+          <h4>覺察：「我現在想控制什麼？」</h4>
+          <p>第一步永遠是覺察。當你感到焦慮、憤怒、受傷、失望——問自己：<strong>我正在試圖控制什麼我控制不了的東西？</strong>通常答案是：「別人的行為」、「別人的感受」或「別人的選擇」。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number sage">2</div>
+        <div class="flow-content">
+          <h4>說出來：「Let them.」</h4>
+          <p>在心裡或大聲說出來。「讓他們去吧。」這不是認輸——這是你<strong>有意識地選擇不參與這場你贏不了的遊戲</strong>。Mel 建議你甚至可以寫在手機桌布上，直到它變成本能反應。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number sky">3</div>
+        <div class="flow-content">
+          <h4>感受：允許情緒存在</h4>
+          <p>Let them 不是壓抑情緒。你可以難過、可以生氣、可以失望。<strong>感受你的感受，但不要讓感受決定你的行動。</strong>情緒是天氣——它會來，它也會走。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number lavender">4</div>
+        <div class="flow-content">
+          <h4>轉向：「Let me ___。」</h4>
+          <p>把注意力從「他們做了什麼」轉向「我要做什麼」。填空：Let me _______。Let me 去散步。Let me 打電話給真正在乎我的人。Let me 專注在我的目標上。<strong>這一步是最關鍵的——它把能量從消耗轉為建設。</strong></p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-number gold">5</div>
+        <div class="flow-content">
+          <h4>行動：做一件你控制得了的事</h4>
+          <p>不是想，是做。現在就做一件小事。<strong>行動是最快的情緒調節器。</strong>不需要是大事——泡杯茶、去走十分鐘、寫下三件你感恩的事。重點是：你在做，不是在等。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="mantra-block">
+      <div class="mantra" style="font-size: 1.4rem; letter-spacing: 0.05em;">覺察 → 放手 → 感受 → 轉向 → 行動</div>
+      <div class="mantra-sub">五步。不到一分鐘。但它能改變你接下來一整天的走向。</div>
+    </div>
+
+    <div class="section-subtitle">🎯 Mel 的「三個不等於」</div>
+
+    <p>為了防止你誤用，Mel 在書中反覆強調三個重要的區別：</p>
+
+    <div class="flow-steps">
+      <div class="flow-step" style="background: linear-gradient(135deg, #FFF0F0, #FFE8E4);">
+        <div class="flow-number coral">≠</div>
+        <div class="flow-content">
+          <h4>Let Them ≠ 我不在乎（冷漠）</h4>
+          <p>你在乎。你只是選擇不把「在乎」變成「控制」。</p>
+        </div>
+      </div>
+      <div class="flow-step" style="background: linear-gradient(135deg, #FFF0F0, #FFE8E4);">
+        <div class="flow-number coral">≠</div>
+        <div class="flow-content">
+          <h4>Let Them ≠ 我同意（認可）</h4>
+          <p>你可以不同意。你只是承認你<strong>改變不了</strong>對方的想法。</p>
+        </div>
+      </div>
+      <div class="flow-step" style="background: linear-gradient(135deg, #FFF0F0, #FFE8E4);">
+        <div class="flow-number coral">≠</div>
+        <div class="flow-content">
+          <h4>Let Them ≠ 我接受虐待（忍受）</h4>
+          <p>如果有人在傷害你，Let Them 的正確用法是：<strong>Let me 離開這個環境。Let me 設定界線。Let me 保護自己。</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="quote-box gold">
+      <p>「Let Them 不是白旗。它是你收回力量的宣言。你不是投降——你是在說：<br>『這場仗不值得我打。因為我有更重要的仗要打——為我自己。』」</p>
+      <span class="source">—— Chapter 3：Two Words That Change Everything</span>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       STEP 8：實戰案例
+       ═══════════════════════════════════════ -->
+  <article class="card">
+    <div class="card-accent rose"></div>
+    <div class="card-header">
+      <div class="card-icon rose-bg">📖</div>
+      <div>
+        <div class="step-label">Step 08</div>
+        <h2 class="card-title">實戰案例：當理論遇上真實人生</h2>
+      </div>
+    </div>
+
+    <p class="lead-text">Mel Robbins 最強的武器不是理論——是<span class="kw">故事</span>。以下是書中最具代表性的幾個案例，展現 Let Them Theory 在真實混亂的人生中如何運作。</p>
+
+    <div class="section-subtitle">🎯 案例一：女兒被排擠（起源故事）</div>
+
+    <div class="key-insight">
+      <div class="ki-icon">👧</div>
+      <div class="ki-text">
+        Mel 的女兒哭著回家，說朋友們在午餐時故意不跟她坐。Mel 的第一反應是<strong>打電話給對方家長、找老師介入、衝到學校去「處理」</strong>。但她停下來了。她意識到：她無法控制那些孩子。她能做的是——<strong>陪在女兒身邊，教她怎麼面對。</strong>「Let them 排擠。Let me 教我女兒：她的價值不是由別人的午餐座位決定的。」
+      </div>
+    </div>
+
+    <div class="section-subtitle">💔 案例二：伴侶的沉默處理</div>
+
+    <p>一位聽眾分享：每次跟丈夫吵架，丈夫就冷戰三天。她以前的反應是：道歉（即使不是她的錯）、討好、追問「你在想什麼」、焦慮到失眠。</p>
+
+    <div class="compare-grid">
+      <div class="compare-item before">
+        <div class="compare-label">❌ Before</div>
+        <p>「他不說話一定是我的錯。我要道歉。我要哄他。」→ 自我消耗，問題從未真正解決，模式一再重複。</p>
+      </div>
+      <div class="compare-item after">
+        <div class="compare-label">✅ After Let Them</div>
+        <p>「Let him 需要時間消化。Let me 同時照顧好自己的情緒。等他準備好了，我們再談。如果他永遠不準備好——那也是重要的資訊。」</p>
+      </div>
+    </div>
+
+    <div class="section-subtitle">🏢 案例三：職場功勞被搶</div>
+
+    <p>一個專案經理花了三個月做完一個項目，在報告會上，她的老闆把所有功勞歸給自己。她想當場爆發——</p>
+
+    <div class="quote-box rose">
+      <p>「Let him 搶。搶不走的東西叫實力。讓我繼續累積，讓我的作品替我說話，讓我的下一個機會看到的是——我的名字。」</p>
+      <span class="source">—— Mel 對一位聽眾的建議</span>
+    </div>
+
+    <div class="section-subtitle">📱 案例四：社群媒體的惡意留言</div>
+
+    <p>Mel 自己就是最好的案例。作為擁有數千萬粉絲的公眾人物，她每天收到的惡意留言比大部分人一輩子都多。她的態度：</p>
+
+    <div class="key-insight">
+      <div class="ki-icon">📱</div>
+      <div class="ki-text">
+        <strong>「他們有權在鍵盤後面說任何話。我有權不讀。Let them 打字。Let me 過我的人生。」</strong><br>
+        她坦言自己不是一開始就能做到的——這是練習出來的。一開始她會花兩小時寫回覆（然後刪掉）。後來她學會了：<span class="kw">不回應不是軟弱，是最強大的回應。</span>
+      </div>
+    </div>
+
+    <div class="section-subtitle">🕊️ 案例五：放手與悲傷</div>
+
+    <p>書的後半部分有一章讓很多讀者落淚——<strong>關於失去</strong>。Mel 談到一位失去孩子的母親。這位母親說：「人們告訴我要堅強、要繼續前進、要走出來。」</p>
+
+    <p>Mel 的回應是：<strong>「Let them 不知道該怎麼安慰你。他們不是壞人，他們只是不知道。Let me 允許自己悲傷。Let me 按照自己的時間表療癒。Let me 不需要符合任何人對『走出來』的定義。」</strong></p>
+
+    <p>這是 Let Them Theory 最溫柔的一面——它不只是用在「別人惹你生氣」的時候，也用在<strong>「你的世界碎裂」的時候</strong>。Let them 不懂你的痛。Let me 好好地痛。</p>
+  </article>
+
+  <div class="part-divider"><span>Part IV ── 進階與長期實踐</span></div>
+
+  <!-- ═══════════════════════════════════════
+       STEP 9：批判性思考
+       ═══════════════════════════════════════ -->
+  <article class="card">
+    <div class="card-accent sky"></div>
+    <div class="card-header">
+      <div class="card-icon sky-bg">⚖️</div>
+      <div>
+        <div class="step-label">Step 09</div>
+        <h2 class="card-title">批判性思考：這理論的邊界在哪裡？</h2>
+      </div>
+    </div>
+
+    <p class="lead-text">任何被百萬人追捧的理論都值得被認真檢驗。Let Them Theory 確實強大，但它不是萬靈丹。以下是<span class="kw-sky">幾個需要謹慎思考的面向</span>。</p>
+
+    <div class="section-subtitle">✅ 這理論真正厲害的地方</div>
+
+    <ul class="insight-list">
+      <li data-icon="🎯"><strong>極度低門檻：</strong>「兩個字」的設計是天才級的產品化。不需要冥想十年、不需要讀完心理學教科書，任何人都能馬上使用。</li>
+      <li data-icon="🧠"><strong>神經科學支撐：</strong>杏仁核劫持、RAS 重新校準、認知重評——Mel 引用的科學不是她編的，這些在心理學和神經科學中有紮實的研究基礎。</li>
+      <li data-icon="📖"><strong>故事驅動的教學法：</strong>人類的大腦天生就是被故事打動的。Mel 把每一個概念包裝成一個你會轉發給朋友的故事——這是知識傳播的最高形式。</li>
+      <li data-icon="🔄"><strong>雙向設計：</strong>Let Them + Let Me 的雙向結構避免了「什麼都不做」的陷阱。她不只教你放手，還教你建設。</li>
+    </ul>
+
+    <div class="section-subtitle">⚠️ 需要注意的邊界與限制</div>
+
+    <ul class="insight-list">
+      <li data-icon="🚧"><strong>結構性問題的盲點：</strong>當問題不是「某個人」而是「整個系統」時（例如職場的系統性歧視、不平等的社會結構），「Let them」可能變成一種被動接受不公的藉口。有時候，你需要的不是放手，而是<strong>站出來改變規則</strong>。</li>
+      <li data-icon="🔍"><strong>簡化複雜問題的風險：</strong>人際關係是極度複雜的。有些情境不是「Let them 或不 Let them」的二元選擇。例如：養育孩子時，你確實需要「控制」某些事（安全、健康、教育）。判斷「哪些該放手、哪些不該」需要比兩個字更多的智慧。</li>
+      <li data-icon="💔"><strong>可能被誤用為「情感迴避」：</strong>有些人會用 Let Them 作為不面對衝突的擋箭牌。「我不想處理這個問題，所以 Let them。」——但有些問題是需要被面對的。放手和逃避之間的界線，Mel 有提醒，但可能不夠深入。</li>
+      <li data-icon="🌏"><strong>文化差異：</strong>這是一本非常「美式個人主義」的書。在亞洲等重視集體、關係、面子的文化中，「Let them」可能不是那麼容易做到，因為社會的壓力結構不同。不是每個人都有「讓他們去」的社會資本。</li>
+    </ul>
+
+    <div class="quote-box sky">
+      <p>「最好的工具是你知道它的極限的工具。一把好的錘子，不代表所有東西都是釘子。」</p>
+    </div>
+
+    <div class="key-insight">
+      <div class="ki-icon">🧭</div>
+      <div class="ki-text">
+        <strong>我的判斷：</strong>Let Them Theory 的核心洞察是<strong>真的、有用的、被科學支持的</strong>。但它最適合的場景是「日常人際摩擦」和「情緒內耗」。面對結構性問題、嚴重的心理創傷、或需要專業介入的情境，它是<strong>補充工具，不是替代方案</strong>。用它來處理日常？絕佳。用它來處理一切？危險。
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       STEP 10：行動方案
+       ═══════════════════════════════════════ -->
+  <article class="card">
+    <div class="card-accent sage"></div>
+    <div class="card-header">
+      <div class="card-icon sage-bg">🚀</div>
+      <div>
+        <div class="step-label">Step 10</div>
+        <h2 class="card-title">行動方案：你的 Let Them 30 天挑戰</h2>
+      </div>
+    </div>
+
+    <p class="lead-text">知道和做到之間，差的就是<span class="kw-sage">一個具體的行動計畫</span>。以下是根據書中方法設計的 30 天漸進式練習——從最簡單的開始，慢慢挑戰高難度情境。</p>
+
+    <div class="section-subtitle">📅 Week 1：覺察期（Day 1-7）</div>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-number sage">✎</div>
+        <div class="flow-content">
+          <h4>每日記錄：控制衝動日記</h4>
+          <p>每天記錄三次你「想控制別人但控制不了」的時刻。不需要做任何事——<strong>光是覺察就已經是改變的開始</strong>。格式：「我想讓 ______ 做 ______，但這是我控制不了的。」</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-subtitle">📅 Week 2：小事練習（Day 8-14）</div>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-number sky">🫧</div>
+        <div class="flow-content">
+          <h4>在「小鳥事」上練習 Let Them</h4>
+          <p>有人插隊？Let them. 服務生態度不好？Let them. 路上有人開車很慢？Let them. <strong>從最不重要的事開始，訓練你的「放手肌肉」。</strong>每次練習後，注意你的情緒變化——你會驚訝地發現：不反應之後，你其實很快就忘了那件事。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-subtitle">📅 Week 3：關係應用（Day 15-21）</div>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-number lavender">💜</div>
+        <div class="flow-content">
+          <h4>挑一段你最消耗的關係</h4>
+          <p>選一個人——可能是伴侶、家人、同事——在跟他們的互動中<strong>有意識地使用 Let Them + Let Me</strong>。設定一個規則：每次想「改變」對方時，先在心裡說「Let them」，然後問自己「Let me 做什麼？」。<strong>一週之後寫下你的觀察。</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-subtitle">📅 Week 4：Let Me 建設期（Day 22-30）</div>
+
+    <div class="flow-steps">
+      <div class="flow-step">
+        <div class="flow-number coral">🌱</div>
+        <div class="flow-content">
+          <h4>把收回來的能量投資自己</h4>
+          <p>計算一下這三週你「省下來」的情緒能量——那些你沒有花在生氣、焦慮、抱怨上的時間。<strong>現在把它用在你一直想做但「沒時間」做的事上。</strong>開始運動？學一個新技能？好好睡覺？整理你的空間？寫下你的 Let Me 清單，然後<strong>每天做一件</strong>。</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="highlight-box" style="border-color: rgba(168,197,160,0.3);">
+      <div class="big-text" style="color: var(--accent-sage); font-size: 1.4rem;">你的 Let Me 清單</div>
+      <div class="sub-text" style="text-align: left; max-width: 480px; margin: 12px auto 0;">
+        <strong>Let me</strong> ___________________________<br>
+        <strong>Let me</strong> ___________________________<br>
+        <strong>Let me</strong> ___________________________<br>
+        <br>
+        <em class="subtle">現在就填。等一下你就會忘了。</em>
+      </div>
+    </div>
+
+    <div class="section-subtitle">🔑 長期維護的三個提醒</div>
+
+    <ul class="insight-list">
+      <li data-icon="1️⃣"><strong>它是肌肉，不是開關：</strong>Let Them 不是你「學會了」就永遠會的東西。它需要每天練習。你會反覆失敗，反覆忘記，反覆在某個瞬間又陷入想控制別人的衝動——這很正常。<strong>重點不是完美，是持續。</strong></li>
+      <li data-icon="2️⃣"><strong>從身邊人開始：</strong>不要一開始就挑戰最難的情境（例如原生家庭的創傷）。先從同事、陌生人、社群媒體上練習，<strong>慢慢升級到最親密的關係</strong>。</li>
+      <li data-icon="3️⃣"><strong>找一個問責夥伴：</strong>Mel 強烈建議你找一個人一起做這個練習。可以是伴侶、朋友、甚至網路上的陌生人。<strong>當你又想控制別人的時候，發一條訊息：「我又來了。Let them.」</strong>這比你一個人硬撐有效一百倍。</li>
+    </ul>
+
+    <div class="quote-box sage">
+      <p>「你不需要完美地做到 Let Them。你只需要比昨天多做到一次。365 天之後，你會變成一個完全不同的人。」</p>
+      <span class="source">—— Chapter 16：The Long Game</span>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       STEP 11：覺醒時刻
+       ═══════════════════════════════════════ -->
+  <article class="card">
+    <div class="card-accent coral"></div>
+    <div class="card-header">
+      <div class="card-icon coral-bg">🌅</div>
+      <div>
+        <div class="step-label">Step 11</div>
+        <h2 class="card-title">覺醒時刻：如果你只記住一件事</h2>
+      </div>
+    </div>
+
+    <div class="mantra-block" style="padding: 48px 36px;">
+      <div class="mantra" style="font-size: 2.6rem;">Let Them.<br>Let Me.</div>
+      <div class="mantra-sub" style="font-size: 1rem; margin-top: 16px;">
+        你無法控制別人怎麼對你。<br>
+        但你永遠可以選擇怎麼對待自己。
+      </div>
+    </div>
+
+    <p class="lead-text">讀完這本書，我認為 Mel Robbins 做了一件了不起的事——她把<span class="kw">斯多葛哲學的核心智慧</span>（只關注你能控制的），用最現代、最口語、最容易傳播的方式，重新包裝給了 2025 年的人。</p>
+
+    <p>Marcus Aurelius 在兩千年前就說過類似的話。但他寫在拉丁文的哲學書裡，只有學者會讀。Mel 把同樣的智慧寫在一本你在機場買得到的書裡，用你跟朋友聊天的方式說出來——然後數百萬人的人生因此改變了。</p>
+
+    <div class="section-subtitle">💫 這本書最深的三層意義</div>
+
+    <div class="two-col">
+      <div class="col-box" style="background: var(--gradient-warm);">
+        <h4>🫧 表層：情緒管理工具</h4>
+        <p>「別人惹你生氣的時候，說 Let them，你就不氣了。」——大部分人對這本書的理解停在這裡。有用，但只是入門。</p>
+      </div>
+      <div class="col-box" style="background: var(--gradient-cool);">
+        <h4>🌊 中層：人際關係哲學</h4>
+        <p>「每個人都有權做自己的選擇，包括你不喜歡的選擇。你的工作不是改變他們，而是決定你跟誰走。」——這是真正改變關係品質的層次。</p>
+      </div>
+    </div>
+
+    <div class="key-insight" style="background: linear-gradient(135deg, rgba(232,131,107,0.08), rgba(184,169,212,0.08)); border: 1px solid rgba(232,131,107,0.12);">
+      <div class="ki-icon" style="font-size: 1.8rem;">🏔️</div>
+      <div class="ki-text">
+        <strong>深層：存在主義式的自由</strong><br>
+        「你是你人生中唯一的主角。別人都是配角——包括你最愛的人。你無法編寫他們的劇本，但你可以決定你的故事怎麼走。」——這是 Let Them Theory 最終極的意義。它不只是一個「小技巧」，它是一種<span class="kw">活著的方式</span>。
+      </div>
+    </div>
+
+    <div class="section-subtitle">📝 給自己的最後一封信</div>
+
+    <div class="quote-box" style="background: linear-gradient(135deg, rgba(253,228,216,0.6), rgba(249,196,180,0.4)); border-left-color: var(--accent-coral);">
+      <p style="font-size: 1.08rem; line-height: 2;">
+        親愛的自己：<br><br>
+        你花了太多年試圖讓所有人滿意。<br>
+        你花了太多夜晚在腦中重播別人說過的話。<br>
+        你花了太多精力在那些你改變不了的事情上。<br><br>
+        從今天開始——<br>
+        他們要走？<strong>Let them.</strong><br>
+        他們要批評？<strong>Let them.</strong><br>
+        他們要用自己的方式過日子？<strong>Let them.</strong><br><br>
+        然後——<br>
+        <strong>Let me</strong> 好好愛自己。<br>
+        <strong>Let me</strong> 做讓我開心的事。<br>
+        <strong>Let me</strong> 成為我想成為的人。<br><br>
+        兩個字。<br>
+        不是放棄。是解放。<br>
+        不是冷漠。是清醒。<br>
+        不是終點。是開始。<br><br>
+        <span style="font-size: 1.3rem; font-weight: 900; color: var(--accent-coral);">Let them. Let me. Let go. Let grow.</span>
+      </p>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-item">
+        <div class="stat-number" style="font-size: 1.4rem;">🧠</div>
+        <div class="stat-desc">改變始於<br><strong>覺察</strong></div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" style="font-size: 1.4rem;">🫧</div>
+        <div class="stat-desc">放手是<br><strong>勇氣</strong></div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" style="font-size: 1.4rem;">🌱</div>
+        <div class="stat-desc">建設自己是<br><strong>選擇</strong></div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number" style="font-size: 1.4rem;">🌅</div>
+        <div class="stat-desc">自由是<br><strong>結果</strong></div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════ -->
+  <footer class="report-footer">
+    <div class="footer-line"></div>
+    <p class="footer-text">
+      覺醒報告 v2 · <span class="heart">❤</span> · The Let Them Theory — Mel Robbins<br>
+      <em class="subtle">「你永遠無法控制別人怎麼對你，但你永遠可以選擇怎麼對待自己。」</em><br>
+      <span style="font-size: 0.72rem; color: var(--text-muted);">Generated with 🐉 by 龍龍 · 2026-03-16</span>
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>
