@@ -1,0 +1,2283 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOC 十步深度分析 ｜ The Let Them Theory — Mel Robbins</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════════════════════
+   韓系清新風格 — TOC 十步深度分析
+   The Let Them Theory / Mel Robbins
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+  --pink-50: #fef1f6;
+  --pink-100: #fde4ed;
+  --pink-200: #fcc8db;
+  --pink-300: #fba4c4;
+  --pink-400: #f76da3;
+  --pink-500: #ef4483;
+  --pink-600: #dc2262;
+  --rose-50: #fff1f2;
+  --rose-100: #ffe4e6;
+  --lavender-50: #f5f0ff;
+  --lavender-100: #ede5ff;
+  --lavender-200: #ddd0fe;
+  --lavender-300: #c4abfd;
+  --lavender-400: #a78bfa;
+  --lavender-500: #8b5cf6;
+  --mint-50: #f0fdf4;
+  --mint-100: #dcfce7;
+  --mint-200: #bbf7d0;
+  --mint-300: #86efac;
+  --mint-400: #4ade80;
+  --mint-500: #22c55e;
+  --sky-50: #f0f9ff;
+  --sky-100: #e0f2fe;
+  --sky-200: #bae6fd;
+  --sky-300: #7dd3fc;
+  --sky-400: #38bdf8;
+  --sky-500: #0ea5e9;
+  --peach-50: #fff7ed;
+  --peach-100: #ffedd5;
+  --peach-200: #fed7aa;
+  --peach-300: #fdba74;
+  --peach-400: #fb923c;
+  --amber-50: #fffbeb;
+  --amber-100: #fef3c7;
+  --amber-200: #fde68a;
+  --amber-300: #fcd34d;
+  --warm-50: #fefce8;
+  --warm-100: #fef9c3;
+
+  --glass-white: rgba(255, 255, 255, 0.72);
+  --glass-white-strong: rgba(255, 255, 255, 0.88);
+  --glass-border: rgba(255, 255, 255, 0.45);
+  --shadow-soft: 0 4px 24px rgba(180, 120, 160, 0.10);
+  --shadow-card: 0 8px 32px rgba(180, 120, 160, 0.12), 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-hover: 0 12px 48px rgba(180, 120, 160, 0.18), 0 4px 12px rgba(0,0,0,0.06);
+  --shadow-float: 0 20px 60px rgba(180, 120, 160, 0.20);
+
+  --text-primary: #1e1b2e;
+  --text-secondary: #4a4560;
+  --text-muted: #8b85a0;
+  --text-accent: #7c3aed;
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  --font-sans: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'Noto Serif TC', Georgia, serif;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--text-primary);
+  line-height: 1.8;
+  background: linear-gradient(160deg, #fdf2f8 0%, #f5f0ff 25%, #eff6ff 50%, #f0fdf4 75%, #fefce8 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 背景裝飾 */
+body::before {
+  content: '';
+  position: fixed;
+  top: -40%;
+  right: -20%;
+  width: 80vw;
+  height: 80vw;
+  background: radial-gradient(circle, rgba(251, 164, 196, 0.12) 0%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -30%;
+  left: -15%;
+  width: 70vw;
+  height: 70vw;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.10) 0%, transparent 70%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ===== 容器 ===== */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* ===== 封面 Hero ===== */
+.hero {
+  position: relative;
+  padding: 80px 0 60px;
+  text-align: center;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(251, 164, 196, 0.18) 0%, rgba(167, 139, 250, 0.08) 50%, transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 20px;
+  background: var(--glass-white-strong);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--text-accent);
+  letter-spacing: 0.08em;
+  margin-bottom: 24px;
+  position: relative;
+  z-index: 1;
+}
+.hero-badge::before { content: '🔬'; }
+
+.hero h1 {
+  font-family: var(--font-serif);
+  font-size: 3.2rem;
+  font-weight: 900;
+  line-height: 1.25;
+  background: linear-gradient(135deg, var(--pink-500) 0%, var(--lavender-500) 50%, var(--sky-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero .subtitle {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero .author {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  font-weight: 400;
+  margin-bottom: 32px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-quote {
+  max-width: 640px;
+  margin: 0 auto 40px;
+  padding: 28px 36px;
+  background: var(--glass-white-strong);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  position: relative;
+  z-index: 1;
+}
+.hero-quote p {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--lavender-500);
+  font-style: italic;
+  line-height: 1.7;
+}
+.hero-quote .quote-src {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+  font-weight: 400;
+  margin-top: 8px;
+}
+
+.hero-meta {
+  display: flex;
+  justify-content: center;
+  gap: 28px;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+.hero-meta .meta-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.hero-meta .meta-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.hero-meta .meta-value {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+/* ===== 導覽 TOC 目錄 ===== */
+.toc-nav {
+  margin: 20px auto 60px;
+  max-width: 720px;
+  padding: 28px 32px;
+  background: var(--glass-white-strong);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+.toc-nav h3 {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.toc-nav h3::before { content: '📋'; }
+.toc-nav-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px 16px;
+}
+.toc-nav a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  color: var(--text-secondary);
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+.toc-nav a:hover {
+  background: var(--lavender-50);
+  color: var(--lavender-500);
+  transform: translateX(4px);
+}
+.toc-nav a .step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink-200), var(--lavender-200));
+  color: var(--text-primary);
+  font-size: 0.72rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ===== 書籍概覽卡片 ===== */
+.book-overview {
+  margin-bottom: 60px;
+}
+.overview-card {
+  background: var(--glass-white-strong);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  padding: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.overview-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--pink-400), var(--lavender-400), var(--sky-400), var(--mint-400));
+}
+.overview-card h2 {
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.overview-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 28px;
+}
+.overview-part {
+  padding: 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+}
+.overview-part.part1 { background: var(--pink-50); border-color: var(--pink-200); }
+.overview-part.part2 { background: var(--lavender-50); border-color: var(--lavender-200); }
+.overview-part.part3 { background: var(--sky-50); border-color: var(--sky-200); }
+.overview-part.part4 { background: var(--mint-50); border-color: var(--mint-200); }
+.overview-part h4 {
+  font-family: var(--font-serif);
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+.overview-part.part1 h4 { color: var(--pink-500); }
+.overview-part.part2 h4 { color: var(--lavender-500); }
+.overview-part.part3 h4 { color: var(--sky-500); }
+.overview-part.part4 h4 { color: var(--mint-500); }
+.overview-part ul {
+  list-style: none;
+  padding: 0;
+}
+.overview-part li {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  padding: 3px 0;
+  padding-left: 18px;
+  position: relative;
+}
+.overview-part li::before {
+  content: '›';
+  position: absolute;
+  left: 4px;
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.core-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+.pillar {
+  text-align: center;
+  padding: 24px 16px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(160deg, var(--glass-white), rgba(255,255,255,0.4));
+  border: 1px solid var(--glass-border);
+}
+.pillar-icon {
+  font-size: 2rem;
+  margin-bottom: 8px;
+}
+.pillar-title {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--lavender-500);
+  margin-bottom: 6px;
+}
+.pillar-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ===== Step 卡片通用 ===== */
+.step-card {
+  margin-bottom: 48px;
+  background: var(--glass-white-strong);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  padding: 0;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.step-card:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translateY(-2px);
+}
+
+.step-header {
+  padding: 32px 40px 24px;
+  position: relative;
+}
+.step-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.step-number .num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: #fff;
+}
+.step-number .label {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.step-header h2 {
+  font-family: var(--font-serif);
+  font-size: 1.65rem;
+  font-weight: 800;
+  line-height: 1.35;
+  color: var(--text-primary);
+}
+.step-header .step-subtitle {
+  font-size: 0.92rem;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+.step-body { padding: 0 40px 36px; }
+
+/* Step 色彩主題 */
+.step-card[data-step="1"] .step-header::before { background: linear-gradient(90deg, var(--pink-400), var(--pink-300)); }
+.step-card[data-step="1"] .num { background: linear-gradient(135deg, var(--pink-500), var(--pink-400)); }
+.step-card[data-step="1"] .label { color: var(--pink-500); }
+
+.step-card[data-step="2"] .step-header::before { background: linear-gradient(90deg, #ef4444, #f87171); }
+.step-card[data-step="2"] .num { background: linear-gradient(135deg, #ef4444, #f87171); }
+.step-card[data-step="2"] .label { color: #ef4444; }
+
+.step-card[data-step="3"] .step-header::before { background: linear-gradient(90deg, var(--lavender-500), var(--lavender-400)); }
+.step-card[data-step="3"] .num { background: linear-gradient(135deg, var(--lavender-500), var(--lavender-400)); }
+.step-card[data-step="3"] .label { color: var(--lavender-500); }
+
+.step-card[data-step="4"] .step-header::before { background: linear-gradient(90deg, var(--sky-500), var(--sky-400)); }
+.step-card[data-step="4"] .num { background: linear-gradient(135deg, var(--sky-500), var(--sky-400)); }
+.step-card[data-step="4"] .label { color: var(--sky-500); }
+
+.step-card[data-step="5"] .step-header::before { background: linear-gradient(90deg, var(--mint-500), var(--mint-400)); }
+.step-card[data-step="5"] .num { background: linear-gradient(135deg, var(--mint-500), var(--mint-400)); }
+.step-card[data-step="5"] .label { color: var(--mint-500); }
+
+.step-card[data-step="6"] .step-header::before { background: linear-gradient(90deg, var(--peach-400), var(--peach-300)); }
+.step-card[data-step="6"] .num { background: linear-gradient(135deg, var(--peach-400), var(--peach-300)); }
+.step-card[data-step="6"] .label { color: var(--peach-400); }
+
+.step-card[data-step="7"] .step-header::before { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+.step-card[data-step="7"] .num { background: linear-gradient(135deg, #f59e0b, #fbbf24); }
+.step-card[data-step="7"] .label { color: #f59e0b; }
+
+.step-card[data-step="8"] .step-header::before { background: linear-gradient(90deg, #06b6d4, #22d3ee); }
+.step-card[data-step="8"] .num { background: linear-gradient(135deg, #06b6d4, #22d3ee); }
+.step-card[data-step="8"] .label { color: #06b6d4; }
+
+.step-card[data-step="9"] .step-header::before { background: linear-gradient(90deg, #8b5cf6, #a78bfa); }
+.step-card[data-step="9"] .num { background: linear-gradient(135deg, #8b5cf6, #a78bfa); }
+.step-card[data-step="9"] .label { color: #8b5cf6; }
+
+.step-card[data-step="10"] .step-header::before { background: linear-gradient(90deg, var(--pink-500), var(--lavender-500)); }
+.step-card[data-step="10"] .num { background: linear-gradient(135deg, var(--pink-500), var(--lavender-500)); }
+.step-card[data-step="10"] .label { color: var(--pink-500); }
+
+/* ===== 通用元件 ===== */
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.info-box {
+  padding: 18px 20px;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+}
+.info-box.pink { background: var(--pink-50); border-color: var(--pink-200); }
+.info-box.lavender { background: var(--lavender-50); border-color: var(--lavender-200); }
+.info-box.sky { background: var(--sky-50); border-color: var(--sky-200); }
+.info-box.mint { background: var(--mint-50); border-color: var(--mint-200); }
+.info-box.peach { background: var(--peach-50); border-color: var(--peach-200); }
+.info-box.amber { background: var(--amber-50); border-color: var(--amber-200); }
+.info-box.rose { background: var(--rose-50); border-color: var(--rose-100); }
+.info-box .box-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.info-box .box-value {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+.info-box .box-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  line-height: 1.5;
+}
+
+/* 標記 */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.tag-red { background: #fef2f2; color: #dc2626; border: 1px solid #fecaca; }
+.tag-green { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+.tag-blue { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
+.tag-purple { background: #f5f3ff; color: #7c3aed; border: 1px solid #ddd6fe; }
+.tag-amber { background: #fffbeb; color: #d97706; border: 1px solid #fde68a; }
+.tag-pink { background: #fdf2f8; color: #db2777; border: 1px solid #fbcfe8; }
+
+/* 分區標題 */
+.section-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 28px 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--lavender-100);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* CRT 因果鏈 */
+.crt-chain {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 20px 0;
+}
+.crt-node {
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  border: 2px solid;
+  position: relative;
+  margin-bottom: 0;
+}
+.crt-node.root-cause {
+  background: #fef2f2;
+  border-color: #fca5a5;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
+}
+.crt-node.root-cause .crt-label { color: #dc2626; }
+.crt-node.ude {
+  background: #fff7ed;
+  border-color: #fdba74;
+}
+.crt-node.ude .crt-label { color: #ea580c; }
+.crt-node.intermediate {
+  background: #fefce8;
+  border-color: #fde68a;
+}
+.crt-node.intermediate .crt-label { color: #ca8a04; }
+.crt-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.crt-text {
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.crt-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 0;
+  color: var(--text-muted);
+  font-size: 1.2rem;
+  position: relative;
+}
+.crt-arrow::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: var(--lavender-200);
+  transform: translateX(-50%);
+}
+.crt-arrow span {
+  background: var(--lavender-100);
+  padding: 2px 10px;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--lavender-500);
+  position: relative;
+  z-index: 1;
+}
+
+/* EC 衝突雲 */
+.ec-cloud {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  margin: 24px 0;
+  position: relative;
+}
+.ec-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.ec-box {
+  padding: 18px 20px;
+  border-radius: var(--radius-md);
+  border: 2px solid;
+  text-align: center;
+}
+.ec-box.goal {
+  grid-column: 1 / -1;
+  background: linear-gradient(135deg, var(--lavender-50), var(--pink-50));
+  border-color: var(--lavender-300);
+  max-width: 480px;
+  margin: 0 auto 16px;
+}
+.ec-box.need {
+  background: var(--sky-50);
+  border-color: var(--sky-300);
+}
+.ec-box.action {
+  border-style: solid;
+}
+.ec-box.action-d {
+  background: var(--mint-50);
+  border-color: var(--mint-300);
+}
+.ec-box.action-d-prime {
+  background: var(--rose-50);
+  border-color: var(--pink-300);
+}
+.ec-box-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 6px;
+}
+.ec-box-text {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+.ec-conflict {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+}
+.ec-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+/* 假設卡 */
+.assumption-card {
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  background: var(--warm-50);
+  border: 1px solid var(--amber-200);
+  margin-bottom: 12px;
+}
+.assumption-id {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #b45309;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 4px;
+}
+.assumption-text {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+}
+.assumption-rebuttal {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  padding-left: 16px;
+  border-left: 3px solid var(--lavender-200);
+  line-height: 1.6;
+}
+.assumption-rebuttal strong { color: var(--lavender-500); }
+
+/* 注入解卡片 */
+.injection-card {
+  padding: 24px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(160deg, var(--sky-50), var(--lavender-50));
+  border: 2px solid var(--sky-200);
+  margin-bottom: 16px;
+  position: relative;
+}
+.injection-card::before {
+  content: '💉';
+  position: absolute;
+  top: -12px;
+  right: 20px;
+  font-size: 1.4rem;
+  background: white;
+  padding: 2px 6px;
+  border-radius: 50%;
+}
+.injection-title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--sky-500);
+  margin-bottom: 10px;
+}
+.injection-detail {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  margin-bottom: 8px;
+}
+.injection-detail strong { color: var(--text-primary); }
+.injection-tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+/* DE 效應卡 */
+.de-card {
+  padding: 14px 20px;
+  border-radius: var(--radius-sm);
+  background: var(--mint-50);
+  border: 1px solid var(--mint-200);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+.de-icon {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--mint-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 800;
+  margin-top: 2px;
+}
+.de-text {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  line-height: 1.6;
+}
+.de-text em {
+  color: var(--mint-500);
+  font-style: normal;
+  font-weight: 600;
+}
+
+/* 瓶頸層 */
+.bottleneck-layer {
+  padding: 20px 24px;
+  border-radius: var(--radius-md);
+  margin-bottom: 14px;
+  border-left: 5px solid;
+}
+.bottleneck-layer.cognitive { background: var(--lavender-50); border-color: var(--lavender-400); }
+.bottleneck-layer.emotional { background: var(--pink-50); border-color: var(--pink-400); }
+.bottleneck-layer.practical { background: var(--sky-50); border-color: var(--sky-400); }
+.bottleneck-layer.social { background: var(--peach-50); border-color: var(--peach-400); }
+.bottleneck-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+.bottleneck-layer.cognitive .bottleneck-label { color: var(--lavender-500); }
+.bottleneck-layer.emotional .bottleneck-label { color: var(--pink-500); }
+.bottleneck-layer.practical .bottleneck-label { color: var(--sky-500); }
+.bottleneck-layer.social .bottleneck-label { color: var(--peach-400); }
+.bottleneck-text {
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  font-weight: 500;
+  line-height: 1.6;
+}
+.bottleneck-example {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  padding-left: 14px;
+  border-left: 2px solid rgba(0,0,0,0.08);
+  font-style: italic;
+}
+.primary-bottleneck {
+  padding: 20px 24px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #fef2f2, #fdf2f8);
+  border: 2px solid var(--pink-300);
+  margin-top: 16px;
+  text-align: center;
+}
+.primary-bottleneck .pb-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #dc2626;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: 6px;
+}
+.primary-bottleneck .pb-text {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* PrT 障礙表 */
+.prt-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.prt-box {
+  padding: 14px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+.prt-obstacle {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+}
+.prt-io {
+  background: var(--amber-50);
+  border: 1px solid var(--amber-200);
+}
+.prt-action {
+  background: var(--mint-50);
+  border: 1px solid var(--mint-200);
+}
+.prt-arrow-right {
+  color: var(--text-muted);
+  font-size: 1.2rem;
+}
+
+/* TT 四週計畫 */
+.tt-week {
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 18px;
+  border: 1px solid;
+  position: relative;
+}
+.tt-week.w1 { background: var(--pink-50); border-color: var(--pink-200); }
+.tt-week.w2 { background: var(--lavender-50); border-color: var(--lavender-200); }
+.tt-week.w3 { background: var(--sky-50); border-color: var(--sky-200); }
+.tt-week.w4 { background: var(--mint-50); border-color: var(--mint-200); }
+.tt-week-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.tt-week-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: white;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+.tt-week.w1 .tt-week-num { background: var(--pink-400); }
+.tt-week.w2 .tt-week-num { background: var(--lavender-400); }
+.tt-week.w3 .tt-week-num { background: var(--sky-400); }
+.tt-week.w4 .tt-week-num { background: var(--mint-400); }
+.tt-week-title {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+.tt-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+}
+.tt-item {
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  background: var(--glass-white);
+  border: 1px solid var(--glass-border);
+}
+.tt-item-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+.tt-item-value {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+/* 吞吐量審計表 */
+.audit-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--lavender-200);
+  margin: 16px 0;
+}
+.audit-table th {
+  background: linear-gradient(135deg, var(--lavender-50), var(--pink-50));
+  padding: 14px 18px;
+  text-align: left;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--lavender-200);
+}
+.audit-table td {
+  padding: 14px 18px;
+  font-size: 0.88rem;
+  color: var(--text-primary);
+  border-bottom: 1px solid var(--lavender-100);
+  line-height: 1.5;
+}
+.audit-table tr:last-child td { border-bottom: none; }
+.audit-table tr:nth-child(even) td { background: rgba(245, 240, 255, 0.3); }
+.audit-table .high { color: var(--mint-500); font-weight: 600; }
+.audit-table .low { color: #dc2626; font-weight: 600; }
+
+/* POOGI 季度 */
+.poogi-quarter {
+  padding: 24px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 16px;
+  border: 1px solid;
+}
+.poogi-quarter.q1 { background: var(--pink-50); border-color: var(--pink-200); }
+.poogi-quarter.q2 { background: var(--lavender-50); border-color: var(--lavender-200); }
+.poogi-quarter.q3 { background: var(--sky-50); border-color: var(--sky-200); }
+.poogi-quarter.q4 { background: var(--mint-50); border-color: var(--mint-200); }
+.poogi-quarter h4 {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+.poogi-quarter.q1 h4 { color: var(--pink-500); }
+.poogi-quarter.q2 h4 { color: var(--lavender-500); }
+.poogi-quarter.q3 h4 { color: var(--sky-500); }
+.poogi-quarter.q4 h4 { color: var(--mint-500); }
+.poogi-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+.poogi-item {
+  padding: 10px 14px;
+  background: var(--glass-white);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* 金句 */
+.golden-quote {
+  margin: 24px 0;
+  padding: 24px 28px;
+  background: linear-gradient(160deg, var(--lavender-50), var(--pink-50));
+  border-radius: var(--radius-lg);
+  border-left: 4px solid var(--lavender-400);
+  position: relative;
+}
+.golden-quote::before {
+  content: '"';
+  font-family: var(--font-serif);
+  font-size: 3rem;
+  color: var(--lavender-300);
+  position: absolute;
+  top: 8px;
+  left: 14px;
+  line-height: 1;
+}
+.golden-quote p {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--lavender-500);
+  padding-left: 24px;
+  line-height: 1.7;
+  font-style: italic;
+}
+.golden-quote .quote-source {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-style: normal;
+  font-weight: 400;
+  padding-left: 24px;
+  margin-top: 6px;
+}
+
+/* 描述段落 */
+.desc-text {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.85;
+  margin-bottom: 16px;
+}
+.desc-text strong { color: var(--text-primary); }
+
+/* 列表 */
+.styled-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+}
+.styled-list li {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  padding: 6px 0 6px 24px;
+  position: relative;
+  line-height: 1.6;
+}
+.styled-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 6px;
+  color: var(--lavender-400);
+  font-weight: 700;
+}
+.styled-list li strong { color: var(--text-primary); }
+
+/* 提示框 */
+.callout {
+  padding: 18px 22px;
+  border-radius: var(--radius-md);
+  margin: 16px 0;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.callout-icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 2px; }
+.callout-text { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+.callout.info { background: var(--sky-50); border: 1px solid var(--sky-200); }
+.callout.warn { background: var(--amber-50); border: 1px solid var(--amber-200); }
+.callout.success { background: var(--mint-50); border: 1px solid var(--mint-200); }
+
+/* 利害關係人 */
+.stakeholder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.stakeholder-card {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  background: var(--glass-white);
+  border: 1px solid var(--glass-border);
+  text-align: center;
+}
+.stakeholder-icon { font-size: 1.6rem; margin-bottom: 8px; }
+.stakeholder-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 4px;
+}
+.stakeholder-role {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 48px 0 40px;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+}
+.footer-line {
+  width: 120px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--lavender-200), transparent);
+  margin: 0 auto 20px;
+}
+.footer p {
+  line-height: 1.8;
+}
+.footer .heart { color: var(--pink-400); }
+
+/* 長文段 */
+.insight-block {
+  margin: 20px 0;
+  padding: 24px;
+  background: linear-gradient(160deg, rgba(245,240,255,0.5), rgba(254,242,242,0.3));
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--lavender-100);
+}
+.insight-block h4 {
+  font-family: var(--font-serif);
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--lavender-500);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.insight-block p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+.insight-block p + p { margin-top: 10px; }
+.insight-block strong { color: var(--text-primary); }
+
+/* 比較表 */
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+.compare-col {
+  padding: 20px;
+  border-radius: var(--radius-md);
+}
+.compare-col.before { background: #fef2f2; border: 1px solid #fecaca; }
+.compare-col.after { background: var(--mint-50); border: 1px solid var(--mint-200); }
+.compare-col h5 {
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 10px;
+}
+.compare-col.before h5 { color: #dc2626; }
+.compare-col.after h5 { color: var(--mint-500); }
+.compare-col ul {
+  list-style: none;
+  padding: 0;
+}
+.compare-col li {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  padding: 4px 0;
+  line-height: 1.5;
+}
+
+/* 主瓶頸高亮 */
+.highlight-box {
+  padding: 20px 24px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--lavender-50), var(--pink-50));
+  border: 2px solid var(--lavender-300);
+  margin: 16px 0;
+}
+.highlight-box .hl-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--lavender-500);
+  margin-bottom: 6px;
+}
+.highlight-box .hl-text {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  line-height: 1.5;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2.2rem; }
+  .overview-grid { grid-template-columns: 1fr; }
+  .core-pillars { grid-template-columns: 1fr; }
+  .toc-nav-grid { grid-template-columns: 1fr; }
+  .step-header { padding: 24px 24px 18px; }
+  .step-body { padding: 0 24px 28px; }
+  .ec-row { grid-template-columns: 1fr; gap: 8px; }
+  .prt-row { grid-template-columns: 1fr; gap: 6px; }
+  .prt-arrow-right { transform: rotate(90deg); justify-self: center; }
+  .compare-grid { grid-template-columns: 1fr; }
+  .info-grid { grid-template-columns: 1fr; }
+  .tt-grid { grid-template-columns: 1fr; }
+  .audit-table { font-size: 0.82rem; }
+  .poogi-items { grid-template-columns: 1fr; }
+  .hero-meta { gap: 16px; }
+}
+
+/* 動畫 */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.step-card {
+  animation: fadeInUp 0.6s ease both;
+}
+.step-card:nth-child(1) { animation-delay: 0.05s; }
+.step-card:nth-child(2) { animation-delay: 0.1s; }
+.step-card:nth-child(3) { animation-delay: 0.15s; }
+.step-card:nth-child(4) { animation-delay: 0.2s; }
+.step-card:nth-child(5) { animation-delay: 0.25s; }
+
+/* 回頂按鈕 */
+.back-to-top {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pink-400), var(--lavender-400));
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 1.2rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 999;
+}
+.back-to-top.visible { opacity: 1; visibility: visible; }
+.back-to-top:hover { transform: translateY(-3px); box-shadow: var(--shadow-float); }
+</style>
+</head>
+<body>
+
+<!-- 回頂按鈕 -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<!-- ═══════════════════════════════════════════════════════
+     封面 HERO
+     ═══════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="container">
+    <div class="hero-badge">TOC 限制理論 × 十步深度分析</div>
+    <h1>The Let Them Theory</h1>
+    <p class="subtitle">放手的力量：讓他們去，讓我來</p>
+    <p class="author">Mel Robbins 著 ｜ 2025</p>
+
+    <div class="hero-quote">
+      <p>「Let them. Let me.<br>You can't control them, but you can control you.」</p>
+      <div class="quote-src">— Mel Robbins</div>
+    </div>
+
+    <div class="hero-meta">
+      <div class="meta-item">
+        <span class="meta-label">分析框架</span>
+        <span class="meta-value">TOC 十步法</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">章節結構</span>
+        <span class="meta-value">4 部分 × 16 章</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">核心工具</span>
+        <span class="meta-value">Let Them + Let Me</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">分析深度</span>
+        <span class="meta-value">十步完全展開</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════
+     導覽目錄
+     ═══════════════════════════════════════════════════════ -->
+<div class="container">
+  <nav class="toc-nav">
+    <h3>分析導覽</h3>
+    <div class="toc-nav-grid">
+      <a href="#step1"><span class="step-num">01</span> 系統界定</a>
+      <a href="#step2"><span class="step-num">02</span> 現況實境樹 CRT</a>
+      <a href="#step3"><span class="step-num">03</span> 核心衝突雲 EC</a>
+      <a href="#step4"><span class="step-num">04</span> 注入解萃取</a>
+      <a href="#step5"><span class="step-num">05</span> 未來實境樹 FRT</a>
+      <a href="#step6"><span class="step-num">06</span> 瓶頸深度定位</a>
+      <a href="#step7"><span class="step-num">07</span> 障礙拆解 PrT</a>
+      <a href="#step8"><span class="step-num">08</span> 轉變樹 TT 四週計畫</a>
+      <a href="#step9"><span class="step-num">09</span> 吞吐量審計</a>
+      <a href="#step10"><span class="step-num">10</span> 持續改善 POOGI</a>
+    </div>
+  </nav>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     書籍概覽
+     ═══════════════════════════════════════════════════════ -->
+<div class="container">
+  <div class="book-overview">
+    <div class="overview-card">
+      <h2>📖 書籍全景概覽</h2>
+      <p class="desc-text">
+        Mel Robbins 在《The Let Them Theory》中提出了一個看似簡單卻深刻的人生哲學：<strong>「Let Them（讓他們去）」</strong>與 <strong>「Let Me（讓我來）」</strong>。這不是消極放棄，而是一種經過神經科學驗證的<strong>認知重評策略</strong>——當你停止試圖控制別人的行為、想法和選擇，你就釋放了被困在無效焦慮中的心理資源，將注意力重新導向<strong>你唯一能控制的事物：你自己的回應</strong>。
+      </p>
+      <p class="desc-text">
+        全書以腦科學為基底（<strong>RAS 網狀激活系統</strong>如何過濾注意力、<strong>杏仁核劫持</strong>如何讓我們做出衝動反應、<strong>認知重評</strong>如何重新框架情緒），從理論建構到五大關係戰場的實戰應用，再到 Let Me 的自我力量回收，最終在困難情境與長期實踐中完成閉環。每一章都結合<strong>真實案例</strong>、<strong>科學根據</strong>與<strong>即時可用的行動步驟</strong>。
+      </p>
+
+      <div class="overview-grid">
+        <div class="overview-part part1">
+          <h4>🧬 Part 1 — 理論基礎</h4>
+          <ul>
+            <li>Let Them 是什麼：核心定義與哲學框架</li>
+            <li>大腦科學：RAS、杏仁核劫持、認知重評</li>
+            <li>兩個字改變一切：從思維模式到行為轉變</li>
+            <li>從控制慾到自由：心理機制的完整拆解</li>
+          </ul>
+        </div>
+        <div class="overview-part part2">
+          <h4>💜 Part 2 — 關係應用</h4>
+          <ul>
+            <li>伴侶：停止改變對方，接納差異</li>
+            <li>家人：血緣不等於控制權</li>
+            <li>朋友：友情中的邊界與自由</li>
+            <li>職場：同事與老闆的界線藝術</li>
+            <li>社交媒體：數位世界的 Let Them</li>
+          </ul>
+        </div>
+        <div class="overview-part part3">
+          <h4>💙 Part 3 — Let Me 的力量</h4>
+          <ul>
+            <li>自我照顧：Let Me 照顧自己的需求</li>
+            <li>設定界線：Let Me 保護我的空間</li>
+            <li>優先排序：Let Me 專注真正重要的事</li>
+            <li>自我價值：Let Me 決定我自己的價值</li>
+          </ul>
+        </div>
+        <div class="overview-part part4">
+          <h4>🌿 Part 4 — 進階實踐</h4>
+          <ul>
+            <li>困難情境：背叛、欺騙、嚴重傷害</li>
+            <li>悲傷與失去：放手不等於遺忘</li>
+            <li>長期實踐：從工具到生活方式</li>
+            <li>成為新的自己：身份認同的根本轉變</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="core-pillars">
+        <div class="pillar">
+          <div class="pillar-icon">🫷</div>
+          <div class="pillar-title">Let Them</div>
+          <div class="pillar-desc">讓他們去做他們要做的事。你無法控制別人的選擇、反應和行為。放手不是放棄，是從無效消耗中解脫。</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🫸</div>
+          <div class="pillar-title">Let Me</div>
+          <div class="pillar-desc">讓我來掌控我能掌控的。我的回應、我的界線、我的選擇、我的能量。力量的回收從這裡開始。</div>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon">🧠</div>
+          <div class="pillar-title">神經科學根基</div>
+          <div class="pillar-desc">RAS 過濾注意力、杏仁核劫持觸發衝動、認知重評重構框架。科學證明：你可以重新訓練你的大腦。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     STEP 1 — 系統界定
+     ═══════════════════════════════════════════════════════ -->
+<div class="container">
+  <div class="step-card" data-step="1" id="step1">
+    <div class="step-header">
+      <div class="step-number">
+        <span class="num">01</span>
+        <span class="label">System Identification</span>
+      </div>
+      <h2>系統界定：個人情緒主權系統</h2>
+      <p class="step-subtitle">定義分析對象的邊界、目標與度量指標</p>
+    </div>
+    <div class="step-body">
+
+      <div class="info-grid">
+        <div class="info-box pink">
+          <div class="box-label">系統名稱</div>
+          <div class="box-value">個人情緒主權回收系統</div>
+          <div class="box-desc">Personal Emotional Sovereignty Recovery System (PESRS)</div>
+        </div>
+        <div class="info-box lavender">
+          <div class="box-label">系統範疇</div>
+          <div class="box-value">人際互動中的情緒控制迴路</div>
+          <div class="box-desc">涵蓋認知、情感、行為三層面的自我調節系統</div>
+        </div>
+      </div>
+
+      <div class="section-title">🎯 系統目標</div>
+      <p class="desc-text">
+        <strong>終極目標：</strong>使個體在面對所有人際互動（伴侶、家人、朋友、同事、陌生人、網路）時，能夠<strong>自主選擇情緒反應</strong>，而非被他人的行為、意見或期待所劫持。從「被動反應者」轉變為「主動選擇者」，在放下對外界的控制慾的同時，強化對自我的掌控力。
+      </p>
+
+      <div class="section-title">🔲 系統邊界</div>
+      <div class="compare-grid">
+        <div class="compare-col before">
+          <h5>🔴 系統外部（不可控）</h5>
+          <ul>
+            <li>他人的想法、感受與選擇</li>
+            <li>他人對你的評價與八卦</li>
+            <li>伴侶是否改變壞習慣</li>
+            <li>家人是否接受你的生活方式</li>
+            <li>同事是否配合你的工作風格</li>
+            <li>社交媒體上的惡意評論</li>
+            <li>過去已經發生的事實</li>
+          </ul>
+        </div>
+        <div class="compare-col after">
+          <h5>🟢 系統內部（可控）</h5>
+          <ul>
+            <li>你對事件的詮釋與框架</li>
+            <li>你的情緒回應方式</li>
+            <li>你的注意力焦點（RAS 訓練）</li>
+            <li>你設定的界線與底線</li>
+            <li>你的自我對話內容</li>
+            <li>你投入時間與能量的對象</li>
+            <li>你對自我價值的定義</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-title">👥 利害關係人分析</div>
+      <div class="stakeholder-grid">
+        <div class="stakeholder-card">
+          <div class="stakeholder-icon">🧍</div>
+          <div class="stakeholder-name">自我（系統核心）</div>
+          <div class="stakeholder-role">系統操作者與最大受益者</div>
+        </div>
+        <div class="stakeholder-card">
+          <div class="stakeholder-icon">💑</div>
+          <div class="stakeholder-name">親密伴侶</div>
+          <div class="stakeholder-role">最頻繁觸發點 / 最大改善空間</div>
+        </div>
+        <div class="stakeholder-card">
+          <div class="stakeholder-icon">👨‍👩‍👧‍👦</div>
+          <div class="stakeholder-name">原生家庭</div>
+          <div class="stakeholder-role">控制模式的歷史根源</div>
+        </div>
+        <div class="stakeholder-card">
+          <div class="stakeholder-icon">👥</div>
+          <div class="stakeholder-name">朋友與社交圈</div>
+          <div class="stakeholder-role">社會比較與認同壓力來源</div>
+        </div>
+        <div class="stakeholder-card">
+          <div class="stakeholder-icon">💼</div>
+          <div class="stakeholder-name">職場同事與主管</div>
+          <div class="stakeholder-role">專業界線的測試場域</div>
+        </div>
+        <div class="stakeholder-card">
+          <div class="stakeholder-icon">📱</div>
+          <div class="stakeholder-name">數位社群</div>
+          <div class="stakeholder-role">匿名意見的無限放大器</div>
+        </div>
+      </div>
+
+      <div class="section-title">📊 TOC 度量指標</div>
+      <div class="info-grid">
+        <div class="info-box mint">
+          <div class="box-label">T（吞吐量 Throughput）</div>
+          <div class="box-value">有效情緒決策產出率</div>
+          <div class="box-desc">單位時間內，面對觸發事件時做出「自主選擇性回應」（而非杏仁核劫持式反應）的比例。高 T = 更多清醒的選擇，更少衝動的遺憾。</div>
+        </div>
+        <div class="info-box peach">
+          <div class="box-label">OE（營運費用 Operating Expense）</div>
+          <div class="box-value">情緒維護成本</div>
+          <div class="box-desc">為維持情緒平穩所消耗的心理能量，包含：反覆思考他人行為的時間、試圖改變他人的精力、委屈求全的自我損耗、社交焦慮的背景運算。低 OE = 更少內耗。</div>
+        </div>
+        <div class="info-box sky">
+          <div class="box-label">I（庫存 Inventory）</div>
+          <div class="box-value">待處理情緒積壓量</div>
+          <div class="box-desc">未解決的怨懟、未表達的需求、未設定的界線、壓抑的憤怒等「情緒債務」總量。高 I = 系統過載風險高，隨時可能崩潰。低 I = 輕裝前行。</div>
+        </div>
+      </div>
+
+      <div class="callout info">
+        <span class="callout-icon">💡</span>
+        <span class="callout-text">
+          <strong>系統界定核心洞察：</strong>Robbins 最深刻的系統設計在於將「控制邊界」視覺化——她將所有人際場景二分為「Let Them 區域」（系統外部）與「Let Me 區域」（系統內部），讓讀者第一次清楚看見：自己浪費了多少能量在系統邊界之外。這不是消極，而是<strong>資源重新配置的策略性決策</strong>。
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       STEP 2 — 現況實境樹 CRT
+       ═══════════════════════════════════════════════════════ -->
+  <div class="step-card" data-step="2" id="step2">
+    <div class="step-header">
+      <div class="step-number">
+        <span class="num">02</span>
+        <span class="label">Current Reality Tree</span>
+      </div>
+      <h2>現況實境樹 CRT：不良效應與因果鏈</h2>
+      <p class="step-subtitle">診斷系統現狀——從表面症狀追溯到根本原因</p>
+    </div>
+    <div class="step-body">
+
+      <p class="desc-text">
+        在實施 Let Them Theory 之前，大多數人的「情緒主權系統」處於嚴重失能狀態。以下是 Robbins 在書中反覆描述的<strong>不良效應（UDE）</strong>，以及它們之間的因果邏輯鏈。每個 UDE 都是可觀察的症狀，而追根溯源，它們都指向同一個根因。
+      </p>
+
+      <div class="section-title"><span class="tag tag-red">🔴 UDE</span> 不良效應清單</div>
+
+      <div class="info-grid" style="grid-template-columns: 1fr;">
+        <div class="info-box rose">
+          <div class="box-value" style="display:flex;align-items:center;gap:8px;">
+            <span class="tag tag-red">UDE-1</span>
+            持續性情緒耗竭：花大量精力思考別人在想什麼、說什麼、做什麼
+          </div>
+          <div class="box-desc">你發現自己每天花超過 60% 的心理能量在「他人的行為」上——他為什麼不回訊息？她為什麼那樣看我？他們在背後說什麼？</div>
+        </div>
+        <div class="info-box rose">
+          <div class="box-value" style="display:flex;align-items:center;gap:8px;">
+            <span class="tag tag-red">UDE-2</span>
+            關係品質惡化：試圖控制伴侶/家人導致衝突升級
+          </div>
+          <div class="box-desc">越是想改變對方的行為，對方越是抗拒。嘮叨 → 防禦 → 爭吵 → 冷戰的死循環不斷重演。Robbins 描述這為「控制螺旋」。</div>
+        </div>
+        <div class="info-box rose">
+          <div class="box-value" style="display:flex;align-items:center;gap:8px;">
+            <span class="tag tag-red">UDE-3</span>
+            自我價值外包：讓他人的認可定義自己的價值
+          </div>
+          <div class="box-desc">如果他們不邀請我，我一定不夠好。如果她不回我訊息，我一定做錯了什麼。自我價值完全繫於外部驗證。</div>
+        </div>
+        <div class="info-box rose">
+          <div class="box-value" style="display:flex;align-items:center;gap:8px;">
+            <span class="tag tag-red">UDE-4</span>
+            界線缺失：因害怕衝突而持續委曲求全
+          </div>
+          <div class="box-desc">答應不想答應的事、容忍不該容忍的行為、犧牲自己的需求來維持表面和平。Robbins 稱之為「和平偽裝下的自我背叛」。</div>
+        </div>
+        <div class="info-box rose">
+          <div class="box-value" style="display:flex;align-items:center;gap:8px;">
+            <span class="tag tag-red">UDE-5</span>
+            杏仁核劫持頻發：小事觸發過度反應
+          </div>
+          <div class="box-desc">同事一句無心的話讓你氣了整個週末。孩子不聽話讓你爆炸。社交媒體上的一個評論毀了你一整天的心情。情緒反應與事件嚴重程度完全不成比例。</div>
+        </div>
+        <div class="info-box rose">
+          <div class="box-value" style="display:flex;align-items:center;gap:8px;">
+            <span class="tag tag-red">UDE-6</span>
+            社群比較焦慮：在社交媒體上不斷比較產生匱乏感
+          </div>
+          <div class="box-desc">滑手機時覺得別人的生活都比自己好。他們在度假、升遷、曬恩愛——而你在比較中越陷越深，RAS 被訓練成專門搜尋「你不夠好的證據」。</div>
+        </div>
+        <div class="info-box rose">
+          <div class="box-value" style="display:flex;align-items:center;gap:8px;">
+            <span class="tag tag-red">UDE-7</span>
+            決策癱瘓：過度考慮他人感受導致無法為自己做決定
+          </div>
+          <div class="box-desc">選擇任何事都要先想「別人會怎麼想」。人生的重大決策被他人的潛在反應所綁架。你的人生劇本由觀眾決定，而非導演。</div>
+        </div>
+        <div class="info-box rose">
+          <div class="box-value" style="display:flex;align-items:center;gap:8px;">
+            <span class="tag tag-red">UDE-8</span>
+            身心症狀浮現：長期情緒壓抑導致失眠、焦慮、身體不適
+          </div>
+          <div class="box-desc">沒有出口的情緒不會消失——它們會轉化為身體症狀。胃痛、頭痛、睡眠品質下降、慢性疲勞。系統過載的物理警報。</div>
+        </div>
+      </div>
+
+      <div class="section-title">🔗 If-Then 因果鏈</div>
+      <p class="desc-text">以下因果鏈呈現 UDE 之間的邏輯關係，從根因逐步推導到表面症狀：</p>
+
+      <div class="crt-chain">
+        <div class="crt-node root-cause">
+          <div class="crt-label">🔴 根本原因 ROOT CAUSE</div>
+          <div class="crt-text"><strong>核心信念錯誤：「我有責任（也有能力）控制他人的行為與感受，他人也有責任滿足我的期待」</strong></div>
+        </div>
+        <div class="crt-arrow"><span>If → Then</span></div>
+        <div class="crt-node root-cause">
+          <div class="crt-label">🔴 次級根因</div>
+          <div class="crt-text"><strong>RAS（網狀激活系統）被錯誤校準：注意力預設搜尋「他人做錯了什麼」的證據</strong></div>
+        </div>
+        <div class="crt-arrow"><span>If → Then</span></div>
+        <div class="crt-node intermediate">
+          <div class="crt-label">中間效應</div>
+          <div class="crt-text">大腦持續將注意力導向「他人的行為」而非「自己的選擇」→ 認知資源被外部事件壟斷</div>
+        </div>
+        <div class="crt-arrow"><span>If → Then</span></div>
+        <div class="crt-node ude">
+          <div class="crt-label">🔴 UDE-1 觸發</div>
+          <div class="crt-text">持續性情緒耗竭：心理能量大量消耗在不可控事物上</div>
+        </div>
+        <div class="crt-arrow"><span>同時 And</span></div>
+        <div class="crt-node intermediate">
+          <div class="crt-label">中間效應</div>
+          <div class="crt-text">因為相信「我應該能改變他們」→ 當改變失敗時感到挫折 → 加倍努力控制 → 對方更加抗拒</div>
+        </div>
+        <div class="crt-arrow"><span>If → Then</span></div>
+        <div class="crt-node ude">
+          <div class="crt-label">🔴 UDE-2 觸發</div>
+          <div class="crt-text">關係品質惡化：控制螺旋越轉越緊，親密關係淪為權力鬥爭</div>
+        </div>
+        <div class="crt-arrow"><span>同時 And</span></div>
+        <div class="crt-node intermediate">
+          <div class="crt-label">中間效應</div>
+          <div class="crt-text">因為將自我價值與他人反應掛鉤 → 他人不如預期反應時 → 解讀為「我不夠好」</div>
+        </div>
+        <div class="crt-arrow"><span>If → Then</span></div>
+        <div class="crt-node ude">
+          <div class="crt-label">🔴 UDE-3 + UDE-6 觸發</div>
+          <div class="crt-text">自我價值外包 + 社群比較焦慮：外在驗證成為唯一的自我價值來源</div>
+        </div>
+        <div class="crt-arrow"><span>If → Then</span></div>
+        <div class="crt-node intermediate">
+          <div class="crt-label">中間效應</div>
+          <div class="crt-text">為了維護外在認可 → 壓抑真實需求 → 不敢說不 → 界線持續被侵蝕</div>
+        </div>
+        <div class="crt-arrow"><span>If → Then</span></div>
+        <div class="crt-node ude">
+          <div class="crt-label">🔴 UDE-4 + UDE-7 觸發</div>
+          <div class="crt-text">界線缺失 + 決策癱瘓：為了不讓別人失望，你失去了為自己做決定的能力</div>
+        </div>
+        <div class="crt-arrow"><span>If → Then</span></div>
+        <div class="crt-node intermediate">
+          <div class="crt-label">中間效應</div>
+          <div class="crt-text">壓抑的情緒持續積累 → 杏仁核敏感度上升 → 觸發閾值降低 → 小事引發爆炸</div>
+        </div>
+        <div class="crt-arrow"><span>If → Then</span></div>
+        <div class="crt-node ude">
+          <div class="crt-label">🔴 UDE-5 + UDE-8 觸發</div>
+          <div class="crt-text">杏仁核劫持頻發 + 身心症狀浮現：系統過載，從心理崩潰蔓延到身體崩潰</div>
+        </div>
+      </div>
+
+      <div class="golden-quote">
+        <p>你有沒有注意到，你花在想別人的時間，遠遠超過你花在照顧自己的時間？這就是問題所在。</p>
+        <div class="quote-source">— Mel Robbins, The Let Them Theory</div>
+      </div>
+
+      <div class="insight-block">
+        <h4>🔬 CRT 洞察總結</h4>
+        <p>
+          整棵現況實境樹的核心發現是：<strong>所有 8 個 UDE 都可以追溯到同一個根因——「我有能力也有責任控制他人」這個錯誤核心信念</strong>。這個信念像作業系統一樣運行在背景中，驅動著 RAS 的錯誤校準（專注於他人的「問題」），觸發杏仁核的過度反應（因為每一次「失控」都被大腦解讀為威脅），最終導致認知資源的系統性錯配——你的注意力、精力和時間全部流向了「你無法改變的事物」，而「你能改變的事物」（自我照顧、界線設定、價值回收）反而嚴重匱乏。
+        </p>
+        <p>
+          Robbins 的天才之處在於，她不只是指出問題——她提供了一個只有兩個字的認知中斷器：<strong>「Let Them.」</strong>這兩個字的功能是在杏仁核劫持的瞬間，插入一個認知重評的楔子，打斷自動化反應迴路，讓前額葉皮質重新上線。
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       STEP 3 — 核心衝突雲 EC
+       ═══════════════════════════════════════════════════════ -->
+  <div class="step-card" data-step="3" id="step3">
+    <div class="step-header">
+      <div class="step-number">
+        <span class="num">03</span>
+        <span class="label">Evaporating Cloud</span>
+      </div>
+      <h2>核心衝突雲 EC：控制 vs 放手的永恆拉扯</h2>
+      <p class="step-subtitle">揭示表面衝突背後的錯誤假設</p>
+    </div>
+    <div class="step-body">
+
+      <p class="desc-text">
+        每個人內心都存在一個核心衝突：我們<strong>既想維護關係又想保護自己</strong>。這個衝突之所以看起來無解，是因為我們不自覺地接受了幾個<strong>從未被檢驗的假設</strong>。衝突雲的目的就是讓這些隱藏假設浮出水面，然後逐一「蒸發」它們。
+      </p>
+
+      <!-- 衝突雲視覺化 -->
+      <div class="ec-cloud">
+        <!-- 目標 A -->
+        <div class="ec-box goal">
+          <div class="ec-box-label">🅰️ 共同目標</div>
+          <div class="ec-box-text">在人際關係中既感到安全連結，又保有內在平靜與自我完整性</div>
+        </div>
+
+        <!-- 需求 B vs C -->
+        <div class="ec-row">
+          <div class="ec-box need">
+            <div class="ec-box-label">🅱️ 需求一</div>
+            <div class="ec-box-text">維護與重要他人的關係品質與情感連結</div>
+          </div>
+          <div class="ec-arrow">←→</div>
+          <div class="ec-box need">
+            <div class="ec-box-label">🅲 需求二</div>
+            <div class="ec-box-text">保護自己的情緒健康、界線與自主性</div>
+          </div>
+        </div>
+
+        <!-- 行動 D vs D' -->
+        <div class="ec-row">
+          <div class="ec-box action action-d">
+            <div class="ec-box-label">🅳 行動一</div>
+            <div class="ec-box-text">積極介入他人的行為：糾正、建議、嘮叨、控制、操控結果</div>
+          </div>
+          <div class="ec-conflict">⚡</div>
+          <div class="ec-box action action-d-prime">
+            <div class="ec-box-label">🅳' 行動二</div>
+            <div class="ec-box-text">放手讓他人做他們的選擇：不介入、不糾正、不試圖改變</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout warn">
+        <span class="callout-icon">⚡</span>
+        <span class="callout-text">
+          <strong>衝突核心：</strong>D 與 D' 看似不可共存——如果我放手不管（D'），關係會不會崩壞？如果我積極控制（D），我的心理健康會不會崩潰？這個「看似不可能兩全」的困境，正是 Robbins 要打破的。
+        </span>
+      </div>
+
+      <div class="section-title">🧩 錯誤假設與書中反駁</div>
+
+      <div class="assumption-card">
+        <div class="assumption-id">錯誤假設 ❶ — B→D 之間</div>
+        <div class="assumption-text">「如果我不積極介入他人的行為，關係就會惡化或消失。愛一個人意味著要幫他們變得更好。」</div>
+        <div class="assumption-rebuttal">
+          <strong>Robbins 反駁：</strong>書中大量案例證明，<strong>試圖改變對方的行為恰恰是關係惡化的主因</strong>。當你停止嘮叨伴侶的壞習慣，對方反而有空間自我反思。一位妻子停止催促丈夫運動後，丈夫三週內自己開始晨跑——因為外部壓力消除後，內在動機終於有了呼吸的空間。「Love is not about changing someone. Love is about accepting someone and choosing to stay.」
+        </div>
+      </div>
+
+      <div class="assumption-card">
+        <div class="assumption-id">錯誤假設 ❷ — C→D' 之間</div>
+        <div class="assumption-text">「放手等於不在乎、冷漠、放棄。如果我 Let Them，就代表我對關係沒有投入。」</div>
+        <div class="assumption-rebuttal">
+          <strong>Robbins 反駁：</strong>Let Them 不是冷漠，而是<strong>最高形式的尊重</strong>。你尊重對方是一個有自主意志的成年人，有權利做自己的選擇（即使是壞選擇）。真正的「不在乎」是情感抽離；Let Them 是帶著愛的放手——「I love you enough to let you be who you are, even when it's hard for me.」同時，放手讓你回收的能量可以投入在真正有效的行動上。
+        </div>
+      </div>
+
+      <div class="assumption-card">
+        <div class="assumption-id">錯誤假設 ❸ — D→A 之間</div>
+        <div class="assumption-text">「只要我足夠努力地控制結果，我就能獲得安全感和內在平靜。控制 = 安全。」</div>
+        <div class="assumption-rebuttal">
+          <strong>Robbins 反駁：</strong>控制帶來的是<strong>暫時的幻覺安全感，但長期代價是焦慮加倍</strong>。因為你控制得越多，需要控制的事就越多。這是一個永遠無法滿足的癮——書中用神經科學解釋：每一次成功控制都強化了杏仁核的「控制 = 安全」迴路，讓你下一次需要更多控制才能感到安心。這是一個<strong>遞減效用的陷阱</strong>。真正的內在平靜來自於接受「不確定性」，而非消除它。
+        </div>
+      </div>
+
+      <div class="assumption-card">
+        <div class="assumption-id">錯誤假設 ❹ — D'→A 之間</div>
+        <div class="assumption-text">「如果我放手讓別人自己做決定，壞事就會發生，而且那會是我的錯。放手 = 不負責任。」</div>
+        <div class="assumption-rebuttal">
+          <strong>Robbins 反駁：</strong>這個假設混淆了兩個概念——<strong>「關心」和「控制」</strong>。你可以關心一個人的福祉，同時尊重他們的自主權。讓成年子女做自己的職涯選擇不是「不負責任」，而是承認他們有能力承擔自己的後果。Robbins 引用大量治療案例說明：過度控制的父母養育出最沒有自信的孩子，因為他們從未有機會學習從失敗中站起來。<strong>放手是對他人能力的信任，而非對責任的逃避</strong>。
+        </div>
+      </div>
+
+      <div class="assumption-card">
+        <div class="assumption-id">錯誤假設 ❺ — 隱藏系統假設</div>
+        <div class="assumption-text">「我的情緒反應是由外部事件直接導致的。他讓我生氣、她讓我難過——是他們的行為造成了我的感受。」</div>
+        <div class="assumption-rebuttal">
+          <strong>Robbins 反駁：</strong>這是整本書最根本性的顛覆——<strong>事件 ≠ 情緒</strong>。在事件和情緒之間，存在一個你可以介入的空間：<strong>你的詮釋</strong>。認知重評（cognitive reappraisal）的神經科學研究清楚證明：同一個事件，不同的詮釋框架會激活完全不同的大腦區域和情緒反應。「Let Them」這兩個字的功能正是在這個空間中插入一個新的詮釋選擇——從「這不應該發生！」轉為「他們有權利做這個選擇，而我有權利選擇我的回應。」
+        </div>
+      </div>
+
+      <div class="insight-block">
+        <h4>⚡ 衝突雲蒸發點</h4>
+        <p>
+          當我們逐一檢視這五個假設，衝突雲開始「蒸發」——原來 D 和 D' <strong>並非真正對立</strong>。真正的解法不是在「控制」和「放手」之間二選一，而是<strong>重新定義「愛」和「關係」的含義</strong>：愛不等於控制，放手不等於冷漠，安全感不來自掌控外界，而來自信任自己能應對任何結果。
+        </p>
+        <p>
+          <strong>打破假設 ❺ 尤其關鍵</strong>——一旦你真正接受「我的情緒是我的詮釋的產物」，整個衝突結構就坍塌了。因為你不再需要控制外部事件來管理內部情緒。你的注意力從「讓他們改變」轉向「讓我選擇」——這正是 Let Them → Let Me 的完整轉向。
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       STEP 4 — 注入解萃取
+       ═══════════════════════════════════════════════════════ -->
+  <div class="step-card" data-step="4" id="step4">
+    <div class="step-header">
+      <div class="step-number">
+        <span class="num">04</span>
+        <span class="label">Injection Extraction</span>
+      </div>
+      <h2>注入解萃取：打破死結的三大突破口</h2>
+      <p class="step-subtitle">從衝突雲中萃取出改變現實的創新解方</p>
+    </div>
+    <div class="step-body">
+
+      <p class="desc-text">
+        注入解（Injection）是 TOC 的核心概念——它不是「妥協」或「折衷」，而是<strong>從根本上改變遊戲規則的創新想法</strong>，讓原本看似不可調和的衝突自然消解。以下三個注入解直接來自 Robbins 的理論框架。
+      </p>
+
+      <div class="injection-card">
+        <div class="injection-title">💉 注入解一：「Let Them」認知中斷器</div>
+        <div class="injection-detail">
+          <strong>打破假設：</strong>❶ + ❺（「愛 = 控制」+「情緒由外部決定」）
+        </div>
+        <div class="injection-detail">
+          <strong>機制：</strong>在觸發事件發生的瞬間，用「Let Them」這兩個字啟動認知重評程序。這不是壓抑情緒，而是在杏仁核啟動和前額葉接管之間的 6 秒窗口中，<strong>插入一個新的認知框架</strong>。具體運作：<br>
+          ① 觸發事件發生（他遲到了、她沒邀請我、他們在背後說我）<br>
+          ② 杏仁核開始啟動戰鬥/逃跑反應<br>
+          ③ 在衝動行動前，對自己說：「Let them.」<br>
+          ④ 這兩個字啟動認知重評：「他有權利遲到，而我有權利決定這對我意味著什麼」<br>
+          ⑤ 前額葉重新上線，你做出有意識的選擇而非自動化反應
+        </div>
+        <div class="injection-detail">
+          <strong>書中論據：</strong>Robbins 引用認知行為治療（CBT）與神經可塑性研究，說明每次成功使用「Let Them」中斷器，都在大腦中建立新的神經通路。21 天的持續練習可以顯著降低杏仁核的預設反應強度。她分享了自己在丈夫 Chris 忘記結婚紀念日時的實戰案例——從差點爆發到說出「Let him forget. Let me decide what I want to do about it.」
+        </div>
+        <div class="injection-detail">
+          <strong>實際應用：</strong>每天選擇 3 個「觸發時刻」練習 Let Them。從低風險場景開始（交通堵塞、服務員態度差），逐步升級到高風險場景（伴侶意見不合、家人批評你的選擇）。建立「Let Them 日記」追蹤觸發事件、使用情況和情緒變化。
+        </div>
+        <div class="injection-tags">
+          <span class="tag tag-blue">認知重評</span>
+          <span class="tag tag-purple">神經可塑性</span>
+          <span class="tag tag-pink">即時可用</span>
+        </div>
+      </div>
+
+      <div class="injection-card">
+        <div class="injection-title">💉 注入解二：「Let Me」力量回收宣言</div>
+        <div class="injection-detail">
+          <strong>打破假設：</strong>❷ + ❹（「放手 = 冷漠」+「放手 = 不負責任」）
+        </div>
+        <div class="injection-detail">
+          <strong>機制：</strong>Let Them 釋放了你對外界的執念後，Let Me 將回收的能量<strong>重新導向自我建設</strong>。具體框架：<br>
+          ① Let Them 做他們的選擇（釋放外部控制慾）<br>
+          ② Let Me 照顧自己的需求（啟動自我關懷）<br>
+          ③ Let Me 設定我的界線（建立保護機制）<br>
+          ④ Let Me 專注在我能改變的事上（重新配置注意力）<br>
+          ⑤ Let Me 定義我自己的價值（回收自我定義權）
+        </div>
+        <div class="injection-detail">
+          <strong>書中論據：</strong>Robbins 在 Part 3 用四整章展開 Let Me 的力量。她強調 Let Them 沒有 Let Me 是不完整的——「If you only Let Them without the Let Me, you'll just become a doormat. Let Me is where your power lives.」她描述自己如何從一個「每個人的需求都排在我前面」的狀態，轉變為能夠說出「Let me prioritize what matters to me」的人。
+        </div>
+        <div class="injection-detail">
+          <strong>實際應用：</strong>每天寫下 3 個「Let Me」宣言。例如：「Let me say no to this dinner without guilt.」「Let me spend this weekend doing what refills my energy.」「Let me set a boundary about how late people can text me.」將 Let Me 視為 Let Them 的必要配對——每一次 Let Them 之後，都要接一個 Let Me。
+        </div>
+        <div class="injection-tags">
+          <span class="tag tag-blue">自我掌控</span>
+          <span class="tag tag-purple">界線設定</span>
+          <span class="tag tag-amber">配對練習</span>
+        </div>
+      </div>
+
+      <div class="injection-card">
+        <div class="injection-title">💉 注入解三：RAS 重新校準訓練</div>
+        <div class="injection-detail">
+          <strong>打破假設：</strong>❸ + ❺（「控制 = 安全」+「情緒由外部決定」）
+        </div>
+        <div class="injection-detail">
+          <strong>機制：</strong>RAS（網狀激活系統）是大腦的過濾器——它決定你「注意到什麼」。如果你的 RAS 被校準為搜尋「別人做錯了什麼」，你的世界就充滿了證據。注入解是<strong>有意識地重新訓練 RAS 的搜尋關鍵字</strong>：<br>
+          ① 從「他們又做了什麼」→ 「我今天想專注什麼」<br>
+          ② 從「誰虧欠我」→ 「我感恩什麼」<br>
+          ③ 從「他們為什麼不改」→ 「我可以怎麼成長」<br>
+          ④ 從「這不公平」→ 「在這個限制中，什麼是可能的」
+        </div>
+        <div class="injection-detail">
+          <strong>書中論據：</strong>Robbins 在 Part 1 用整章解釋 RAS 的運作原理，以及為什麼「你看到什麼取決於你在找什麼」。她引用心理學的「確認偏誤」研究：一旦你相信某人「總是不尊重你」，你的 RAS 就會專門搜集支持這個信念的證據，而自動過濾掉反面證據。重新校準 RAS 等於從根源改變你感知世界的方式。
+        </div>
+        <div class="injection-detail">
+          <strong>實際應用：</strong>每日 RAS 重啟儀式：早晨設定一個正向搜尋意圖（「今天我要注意到善意」），晚上回顧三個符合意圖的觀察。使用手機提醒在每天 10:00、14:00、18:00 問自己：「我的注意力現在在哪裡？在我的控制範圍內嗎？」持續 30 天，大腦將建立新的預設搜尋模式。
+        </div>
+        <div class="injection-tags">
+          <span class="tag tag-blue">注意力訓練</span>
+          <span class="tag tag-purple">RAS 重校準</span>
+          <span class="tag tag-amber">30 天計畫</span>
+        </div>
+      </div>
+
+      <div class="callout success">
+        <span class="callout-icon">✅</span>
+        <span class="callout-text">
+          <strong>三注入解的協同效應：</strong>Let Them 處理「當下反應」（即時中斷），Let Me 處理「持續行動」（能量重導），RAS 重校準處理「底層系統」（感知更新）。三者同時運作時，系統轉型從「外控式生存」切換為「內控式生活」。
+        </span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       STEP 5 — 未來實境樹 FRT
+       ═══════════════════════════════════════════════════════ -->
+  <div class="step-card" data-step="5" id="step5">
+    <div class="step-header">
+      <div class="step-number">
+        <span class="num">05</span>
+        <span class="label">Future Reality Tree</span>
+      </div>
+      <h2>未來實境樹 FRT：注入解生效後的美好世界</h2>
+      <p class="step-subtitle">預測正面效應的連鎖反應</p>
+    </div>
+    <div class="step-body">
+
+      <p class="desc-text">
+        當三個注入解持續運作，系統的不良效應（UDE）將逐步被<strong>期望效應（DE）</strong>所取代。以下是 Robbins 在書中描繪的轉變後藍圖——每一條 DE 都對應著先前 CRT 中的一個或多個 UDE 的翻轉。
+      </p>
+
+      <div class="de-card">
+        <div class="de-icon">1</div>
+        <div class="de-text">
+          <span class="tag tag-green" style="margin-bottom:6px;">DE-1</span><br>
+          <em>情緒能量大幅回收：</em>不再花 60%+ 心理能量在他人行為上，而是將這些認知資源重新導向自我成長、創造力和深度關係。<strong>UDE-1 翻轉</strong>。你發現自己有了「多出來的時間和精力」——不是一天變成 25 小時，而是你不再把 8 小時浪費在反覆咀嚼別人的言行上了。Robbins 描述這種感覺為「emotional bandwidth recovery」，就像手機關掉了 20 個背景運行的 App，突然變得飛快。
+        </div>
+      </div>
+
+      <div class="de-card">
+        <div class="de-icon">2</div>
+        <div class="de-text">
+          <span class="tag tag-green" style="margin-bottom:6px;">DE-2</span><br>
+          <em>關係品質自然提升：</em>當你停止控制螺旋，對方的防禦機制隨之降低，真實的溝通開始發生。<strong>UDE-2 翻轉</strong>。伴侶不再需要「對抗你的控制」來保護自主性，因為你根本沒有在控制。這種放鬆讓脆弱對話成為可能——他終於能說出「其實我也不知道為什麼我會那樣做」而不怕被審判。Robbins 分享了數十對夫妻的轉變故事：嘮叨消失後，親密感回來了。
+        </div>
+      </div>
+
+      <div class="de-card">
+        <div class="de-icon">3</div>
+        <div class="de-text">
+          <span class="tag tag-green" style="margin-bottom:6px;">DE-3</span><br>
+          <em>自我價值內建化：</em>你的價值感來自於你如何對待自己，而非他人如何對待你。<strong>UDE-3 翻轉</strong>。Let Me 宣言的持續練習重新建立了內在自我評價系統。你不再需要每個人都喜歡你——「Let them think whatever they want. Let me know who I am.」不被邀請不再意味著「我不夠好」，而是「他們有自己的考量，而我有自己的價值」。社群比較焦慮同時大幅降低。
+        </div>
+      </div>
+
+      <div class="de-card">
+        <div class="de-icon">4</div>
+        <div class="de-text">
+          <span class="tag tag-green" style="margin-bottom:6px;">DE-4</span><br>
+          <em>健康界線自然建立：</em>因為你不再害怕「別人會怎麼想」，設定界線變成了一件自然且不帶內疚的事。<strong>UDE-4 翻轉</strong>。你學會了 Robbins 的界線公式：「Let them be disappointed. Let me take care of my needs.」你發現說「不」不會導致世界末日——大多數人會調整他們的期待，而那些不調整的人，正好幫你看清了這段關係的真面目。
+        </div>
+      </div>
+
+      <div class="de-card">
+        <div class="de-icon">5</div>
+        <div class="de-text">
+          <span class="tag tag-green" style="margin-bottom:6px;">DE-5</span><br>
+          <em>情緒反應回歸比例：</em>杏仁核不再是你的預設反應器，前額葉重新成為駕駛座上的人。<strong>UDE-5 翻轉</strong>。小事不再引發地震級反應。同事的一句話就是一句話，不再是「對你整個人的否定」。RAS 重校準讓你的注意力過濾器更新了——你開始注意到善意和正面訊號，而不是只捕捉到威脅。Robbins 描述這為「你的情緒恆溫器被重新校準了」。
+        </div>
+      </div>
+
+      <div class="de-card">
+        <div class="de-icon">6</div>
+        <div class="de-text">
+          <span class="tag tag-green" style="margin-bottom:6px;">DE-6</span><br>
+          <em>身心症狀改善：</em>當情緒積壓（I）大幅降低，身體的壓力反應隨之緩解。<strong>UDE-8 翻轉</strong>。不再需要用身體來「說」心裡壓抑的話了。Robbins 描述實踐者回報的改善：睡眠品質提升、慢性頭痛減輕、消化問題改善。這不是安慰劑效應——當皮質醇水平持續降低，免疫系統和自主神經系統確實會開始修復。
+        </div>
+      </div>
+
+      <div class="de-card">
+        <div class="de-icon">7</div>
+        <div class="de-text">
+          <span class="tag tag-green" style="margin-bottom:6px;">DE-7</span><br>
+          <em>決策自主性恢復：</em>你重新成為自己人生的導演，不再讓觀眾決定劇本。<strong>UDE-7 翻轉</strong>。「Let them judge. Let me choose.」——你開始做出那些擱置已久的決定：轉換職涯、結束消耗性關係、搬到想住的城市、開始一直想做的事。人生的主導權回到你手上。
+        </div>
+      </div>
+
+      <div class="de-card">
+        <div class="de-icon">8</div>
+        <div class="de-text">
+          <span class="tag tag-green" style="margin-bottom:6px;">DE-8</span><br>
+          <em>長期心理韌性提升：</em>不只是應對當下的觸發，而是建立了面對未來任何挑戰的認知彈性。<strong>系統層級提升</strong>。當 Let Them / Let Me 成為自動化思維模式而非需要刻意啟動的工具時，你就完成了 Robbins 所說的「身份認同層級的轉變」——你不再是一個「正在練習放手的人」，而是一個「本質上自由的人」。
+        </div>
+      </div>
+
+      <div class="golden-quote">
+        <p>想像一下，如果你把花在擔心別人在想什麼的所有能量，全部投入在你真正想創造的生活上——那會是什麼樣的人生？</p>
+        <div class="quote-source">— Mel Robbins, The Let Them Theory</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════════════════
+       STEP 6 — 瓶頸深度定位
+       ═══════════════════════════════════════════════════════ -->
+  <div class="step-card" data-step="6" id="step6">
+    <div class="step-header">
+      <div class="step-number">
+        <span class="num">06</span>
+        <span class="label">Bottleneck Deep Dive</span>
+      </div>
+      <h2>瓶頸深度定位：為什麼知道卻做不到？</h2>
+      <p class="step-subtitle">多層瓶頸分析與主瓶頸識別</p>
+    </div>
+    <div class="step-body">
+
+      <p class="desc-text">
+        大多數人讀完這本書都會說「有道理」，但三天後就打回原形。<strong>知道 ≠ 做到</strong>——中間隔著的就是「瓶頸」。Robbins 在書中（特別是 Part 4 進階部分）深入探討了為什麼 Let Them 如此簡單的概念卻如此難以持續實踐。以下是四個層次的瓶頸分析。
+      </p>
+
+      <div class="bottleneck-layer cognitive">
+        <div class="bottleneck-label">🧠 認知層瓶頸</div>
+        <div class="bottleneck-text">
+          <strong>「知其然不知其所以然」的認知陷阱</strong><br>
+          人們理解「不要試圖控制別人」這個道理，但沒有理解<strong>為什麼大腦會預設啟動控制機制</strong>。不理解 RAS 和杏仁核的運作原理，就無法在觸發瞬間及時啟動 Let Them 中斷器——因為你不知道自己正在被劫持。此外，「控制 = 愛」的等式在文化中根深蒂固，需要反覆的認知重構才能鬆動。
+        </div>
+        <div class="bottleneck-example">
+          書中案例：一位母親理解了 Let Them 的道理，但每次看到成年兒子做出「愚蠢的財務決定」時，杏仁核劫持仍然在「我理解」之前就觸發了。她需要的不只是道理，而是對大腦自動反應機制的理解和即時識別能力。
+        </div>
+      </div>
+
+      <div class="bottleneck-layer emotional">
+        <div class="bottleneck-label">💗 情感層瓶頸</div>
+        <div class="bottleneck-text">
+          <strong>放手的恐懼比控制的痛苦更強烈</strong><br>
+          這是最深層的瓶頸：控制雖然痛苦，但它是<strong>熟悉的痛苦</strong>。放手則帶來未知——如果我不管了，他真的會一錯到底呢？如果我放手，她真的不再需要我了呢？放手的不確定性觸發了<strong>更原始的恐懼：被拋棄、被遺忘、失去存在價值</strong>。Robbins 指出：很多人的控制慾本質上是一種「被需要成癮」——他們害怕的不是別人犯錯，而是自己變得不重要。
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 7: 障礙拆解 PrT -->
+<section id="step7" class="card card-purple">
+  <div class="card-step-label">✦ STEP 07</div>
+  <h2 class="card-title">障礙拆解（前提樹 PrT）</h2>
+
+  <div class="obstacle-list">
+    <div class="obstacle-item">
+      <div class="obstacle-label" style="background:#e74c3c;color:#fff;">障礙 1</div>
+      <strong>「放手等於不在乎」的文化信念</strong>
+      <div class="arrow">→ 中間目標：重新定義「在乎」= 尊重對方的自主權</div>
+      <div class="arrow">→ 行動：每次想介入時先問「這是我的事還是他們的事？」</div>
+    </div>
+    <div class="obstacle-item">
+      <div class="obstacle-label" style="background:#e74c3c;color:#fff;">障礙 2</div>
+      <strong>杏仁核劫持：情緒反應快過理性思考</strong>
+      <div class="arrow">→ 中間目標：在刺激與反應之間創造空間</div>
+      <div class="arrow">→ 行動：練習「5 秒法則」——感覺到衝動時倒數 5-4-3-2-1，啟動前額葉</div>
+    </div>
+    <div class="obstacle-item">
+      <div class="obstacle-label" style="background:#e74c3c;color:#fff;">障礙 3</div>
+      <strong>社交媒體持續觸發比較心態</strong>
+      <div class="arrow">→ 中間目標：減少被動瀏覽，增加主動創造</div>
+      <div class="arrow">→ 行動：設定每日社交媒體時限 30 分鐘，取消追蹤觸發焦慮的帳號</div>
+    </div>
+    <div class="obstacle-item">
+      <div class="obstacle-label" style="background:#e74c3c;color:#fff;">障礙 4</div>
+      <strong>親密關係中的「拯救者情結」</strong>
+      <div class="arrow">→ 中間目標：區分「支持」和「拯救」</div>
+      <div class="arrow">→ 行動：練習說「你需要我幫忙嗎？」而非直接介入解決</div>
+    </div>
+    <div class="obstacle-item">
+      <div class="obstacle-label" style="background:#e74c3c;color:#fff;">障礙 5</div>
+      <strong>害怕衝突導致壓抑而非放手</strong>
+      <div class="arrow">→ 中間目標：學會區分「壓抑」和「釋放」</div>
+      <div class="arrow">→ 行動：用日記寫出「我想控制什麼」和「我可以放手什麼」，每週一次</div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 8: 轉變樹 TT -->
+<section id="step8" class="card card-warm">
+  <div class="card-step-label">✦ STEP 08</div>
+  <h2 class="card-title">轉變樹（TT）四週行動計畫</h2>
+
+  <div class="week-grid">
+    <div class="week-card">
+      <h3>Week 1：覺察週</h3>
+      <div><strong>注入：</strong>「Let Them」咒語植入</div>
+      <div><strong>行動：</strong>每天記錄 3 次想控制別人的衝動，不需要改變，只需要覺察</div>
+      <div><strong>驗證：</strong>If 我能識別控制衝動 → Then 我已啟動覺察系統</div>
+      <div><strong>指標：</strong>記錄筆數 ≥ 21 則（7天×3次）</div>
+    </div>
+    <div class="week-card">
+      <h3>Week 2：小放手週</h3>
+      <div><strong>注入：</strong>在低風險情境中實踐 Let Them</div>
+      <div><strong>行動：</strong>選 3 個小事放手（同事的工作方式、朋友的選擇、伴侶的習慣）</div>
+      <div><strong>驗證：</strong>If 放手後世界沒崩塌 → Then 我的恐懼被誇大了</div>
+      <div><strong>指標：</strong>成功放手 ≥ 3 次，焦慮指數下降</div>
+    </div>
+    <div class="week-card">
+      <h3>Week 3：Let Me 週</h3>
+      <div><strong>注入：</strong>將釋放的能量轉向自我</div>
+      <div><strong>行動：</strong>每天用省下的精力做一件「Let Me」的事（運動、學習、創作）</div>
+      <div><strong>驗證：</strong>If 我把注意力轉向自己 → Then 生活品質提升</div>
+      <div><strong>指標：</strong>自我照顧活動 ≥ 7 次</div>
+    </div>
+    <div class="week-card">
+      <h3>Week 4：整合週</h3>
+      <div><strong>注入：</strong>在高難度情境中實踐（家人、伴侶）</div>
+      <div><strong>行動：</strong>面對最想控制的一個人/情境，完整實踐 Let Them + Let Me</div>
+      <div><strong>驗證：</strong>If 關係品質沒變差甚至改善 → Then 系統運作成功</div>
+      <div><strong>指標：</strong>關係衝突次數 vs 上月同期</div>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 9: 吞吐量審計 -->
+<section id="step9" class="card card-teal">
+  <div class="card-step-label">✦ STEP 09</div>
+  <h2 class="card-title">吞吐量審計</h2>
+
+  <div class="toi-grid">
+    <div class="toi-card">
+      <h3 style="color:#27ae60;">T — 吞吐量（內在平靜的產出）</h3>
+      <p><strong>定義：</strong>單位時間內你能處理的人際互動而不失去內在平衡的數量</p>
+      <p><strong>高 T 狀態：</strong>面對伴侶的壞習慣、同事的推諉、孩子的叛逆，你能穩定回應而非被動反應。每次互動後精力反而增加。</p>
+      <p><strong>低 T 狀態：</strong>一個批評就崩潰、一條社交媒體貼文就焦慮半天、每次衝突後精疲力竭需要恢復數小時。</p>
+    </div>
+    <div class="toi-card">
+      <h3 style="color:#e74c3c;">OE — 營運費用（控制的隱藏成本）</h3>
+      <p><strong>情緒成本：</strong>焦慮、憤怒、怨恨、委屈——每次試圖控制別人都在燃燒情緒能量</p>
+      <p><strong>時間成本：</strong>反覆糾結、盤算、策劃如何改變別人——這些時間全是沉沒成本</p>
+      <p><strong>關係成本：</strong>越控制越疏遠，最終失去你最想留住的人</p>
+      <p><strong>健康成本：</strong>慢性壓力 → 皮質醇飆升 → 免疫力下降 → 身心疾病</p>
+    </div>
+    <div class="toi-card">
+      <h3 style="color:#3498db;">I — 庫存（積壓的未處理情緒）</h3>
+      <p><strong>怨恨庫存：</strong>對方沒按你的意思做 → 積壓怨恨 → 某天爆發</p>
+      <p><strong>期待庫存：</strong>未表達的期望越堆越多 → 失望的落差越來越大</p>
+      <p><strong>身份庫存：</strong>「我就是那個負責的人」的身份認同 → 無法放下</p>
+    </div>
+  </div>
+
+  <div class="insight-block">
+    <div class="insight-label">ROI 評估</div>
+    <p><strong>投資：</strong>30 天刻意練習 + 每天 10 分鐘覺察日記 + 放下「被需要」的身份感</p>
+    <p><strong>回報：</strong>關係品質提升、精力釋放、焦慮降低、自我價值從內在建立</p>
+    <p><strong>回收期：</strong>第一週即有感（覺察帶來的輕鬆感），第四週顯著改善</p>
+  </div>
+</section>
+
+<!-- STEP 10: POOGI -->
+<section id="step10" class="card card-green">
+  <div class="card-step-label">✦ STEP 10</div>
+  <h2 class="card-title">持續改善循環（POOGI）</h2>
+
+  <div class="quarter-grid">
+    <div class="quarter-card">
+      <h3>Q1：建立基礎</h3>
+      <ul>
+        <li>完成四週行動計畫</li>
+        <li>識別個人前 3 大控制觸發點</li>
+        <li>建立「Let Them 日記」習慣</li>
+        <li>指標：每週控制衝動覺察率 ≥ 70%</li>
+      </ul>
+    </div>
+    <div class="quarter-card">
+      <h3>Q2：深化應用</h3>
+      <ul>
+        <li>在最困難的關係中實踐（父母/伴侶）</li>
+        <li>練習「Let Me」的自我投資</li>
+        <li>每月一次「關係健康檢查」</li>
+        <li>指標：關係衝突頻率下降 50%</li>
+      </ul>
+    </div>
+    <div class="quarter-card">
+      <h3>Q3：擴展邊界</h3>
+      <ul>
+        <li>將 Let Them 應用到職場和社交媒體</li>
+        <li>教導身邊的人這個方法</li>
+        <li>處理更深層的控制模式（童年根源）</li>
+        <li>指標：整體生活滿意度提升</li>
+      </ul>
+    </div>
+    <div class="quarter-card">
+      <h3>Q4：內化為本能</h3>
+      <ul>
+        <li>Let Them 成為自動反應而非刻意練習</li>
+        <li>回顧全年：哪些關係改善最多？</li>
+        <li>設定下一年度的成長方向</li>
+        <li>指標：「自動放手率」≥ 80%</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="insight-block">
+    <div class="insight-label">長期改善原則</div>
+    <p><strong>Robbins 的核心提醒：</strong>Let Them 不是一次性決定，而是一種持續的練習。就像肌肉需要重複訓練，放手的能力也需要每天鍛鍊。關鍵不是「永遠不再控制」，而是「每次控制衝動來臨時，你有能力選擇放手」。<strong>自由不是沒有衝動，而是有衝動時仍能選擇。</strong></p>
+  </div>
+</section>
+
+</div><!-- .container -->
+<footer>
+  <p>TOC 十步深度分析 ✦ 《The Let Them Theory》Mel Robbins 著</p>
+  <p>Generated with 🐉 by 龍龍 AI Book Analysis</p>
+</footer>
+</body>
+</html>
