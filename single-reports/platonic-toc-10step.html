@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platonic — TOC 限制理論十步深度實戰系統</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--a:#667eea;--a2:#764ba2;--w:#f093fb;--t:#2D3436;--t2:#636E72;--tl:#B2BEC3;--g:#00b894;--o:#fdcb6e;--r:#e17055;--b:#74b9ff;--tl2:#00cec9}
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{font-family:'Noto Sans TC',-apple-system,sans-serif;font-weight:300;line-height:1.8;color:var(--t);background:linear-gradient(135deg,#EEF2FF 0%,#FFF0F8 50%,#F0F7FF 100%);min-height:100vh;padding:40px 20px}
+    .c{max-width:940px;margin:0 auto}
+    .hero{text-align:center;padding:70px 40px;margin-bottom:32px;background:rgba(255,255,255,.6);backdrop-filter:blur(20px);border-radius:32px;border:1px solid rgba(255,255,255,.8);box-shadow:0 20px 60px rgba(0,0,0,.08);position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(102,126,234,.06) 0%,transparent 50%),radial-gradient(circle at 70% 80%,rgba(240,147,251,.06) 0%,transparent 50%);animation:fl 15s ease-in-out infinite}
+    @keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,-10px)}}
+    .bg{display:inline-block;background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;padding:7px 22px;border-radius:50px;font-size:.82rem;font-weight:500;letter-spacing:2px;margin-bottom:20px;position:relative;z-index:1}
+    .hero h1{font-family:'Noto Serif TC',serif;font-size:2.4rem;font-weight:700;background:linear-gradient(135deg,#667eea,#f093fb);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;position:relative;z-index:1}
+    .hero .sub{font-size:1rem;color:var(--t2);position:relative;z-index:1}
+    .hero .meta{margin-top:16px;font-size:.8rem;color:var(--tl);position:relative;z-index:1}
+    .cd{background:rgba(255,255,255,.7);backdrop-filter:blur(10px);border-radius:24px;border:1px solid rgba(255,255,255,.5);box-shadow:0 8px 32px rgba(0,0,0,.08);padding:34px 30px;margin-bottom:20px;transition:transform .3s,box-shadow .3s}
+    .cd:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(0,0,0,.1)}
+    .st{font-family:'Noto Serif TC',serif;font-size:1.3rem;font-weight:700;color:var(--t);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid rgba(102,126,234,.2);display:flex;align-items:center;gap:10px}
+    .sd{color:var(--t2);font-size:.88rem;margin-bottom:16px;line-height:1.7}
+    p{margin-bottom:11px;font-size:.9rem;line-height:1.85}
+    .sh{font-family:'Noto Serif TC',serif;font-size:1.02rem;font-weight:700;color:var(--a);margin:22px 0 10px}
+    .hl{background:linear-gradient(135deg,rgba(102,126,234,.08),rgba(240,147,251,.08));border-radius:14px;padding:18px;margin:14px 0;border-left:4px solid var(--a)}
+    .hl.g{border-left-color:var(--g)}.hl.o{border-left-color:var(--o)}.hl.r{border-left-color:var(--r)}.hl.t{border-left-color:var(--tl2)}
+    .tg{display:inline-block;background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;padding:3px 10px;border-radius:18px;font-size:.7rem;font-weight:400;margin:2px}
+    .tg.g{background:linear-gradient(135deg,#00b894,#00cec9)}.tg.o{background:linear-gradient(135deg,#fdcb6e,#e17055)}.tg.r{background:linear-gradient(135deg,#e17055,#d63031)}.tg.b{background:linear-gradient(135deg,#74b9ff,#0984e3)}.tg.p{background:linear-gradient(135deg,#a29bfe,#6c5ce7)}
+    table{width:100%;border-collapse:separate;border-spacing:0;margin:14px 0;background:rgba(255,255,255,.6);border-radius:14px;overflow:hidden;font-size:.84rem}
+    th{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.78rem}
+    td{padding:9px 12px;border-bottom:1px solid rgba(0,0,0,.04);line-height:1.6}
+    tr:last-child td{border-bottom:none}
+    tr:hover td{background:rgba(102,126,234,.03)}
+    .bk{background:rgba(255,255,255,.5);border-radius:16px;padding:20px;margin-bottom:14px;border:1px solid rgba(255,255,255,.4)}
+    .bk h3{font-family:'Noto Serif TC',serif;font-size:1rem;font-weight:700;margin-bottom:8px;color:var(--a)}
+    .it{background:rgba(102,126,234,.04);border-radius:12px;padding:14px 16px;margin:10px 0;font-size:.86rem;line-height:1.7}
+    .it .if{color:var(--a);font-weight:500}.it .then{color:var(--a2);font-weight:500}.it .root{color:#d63031;font-weight:700}
+    .ec{background:rgba(255,255,255,.5);border-radius:18px;padding:22px;margin:14px 0;border:2px dashed rgba(102,126,234,.3)}
+    .ec-row{display:flex;gap:12px;align-items:stretch;margin:10px 0;flex-wrap:wrap}
+    .ec-box{flex:1;min-width:200px;background:rgba(102,126,234,.06);border-radius:12px;padding:12px;font-size:.86rem}
+    .ec-vs{display:flex;align-items:center;justify-content:center;font-size:1.3rem;color:var(--r);font-weight:900;min-width:40px}
+    .tt{background:rgba(255,255,255,.45);border-radius:14px;padding:18px;margin-bottom:12px;border:1px solid rgba(255,255,255,.4)}
+    .tt h4{font-weight:500;color:var(--a);margin-bottom:10px;font-size:.92rem}
+    .tt-branch{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;font-size:.82rem}
+    .tt-ok{background:rgba(0,184,148,.08);border-radius:10px;padding:10px}
+    .tt-fail{background:rgba(225,112,85,.08);border-radius:10px;padding:10px}
+    .ok{color:var(--g);font-weight:700}.warn{color:var(--o);font-weight:700}.block{color:var(--r);font-weight:700}
+    .chain{display:flex;align-items:center;gap:5px;flex-wrap:wrap;margin:10px 0;font-size:.84rem}
+    .cn{background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;padding:4px 12px;border-radius:18px;font-size:.76rem}
+    .cn.gn{background:linear-gradient(135deg,#00b894,#00cec9)}.cn.rd{background:linear-gradient(135deg,#e17055,#d63031)}
+    .ca{color:var(--a);font-size:1rem;font-weight:700}
+    footer{text-align:center;padding:40px 20px;color:var(--tl);font-size:.84rem}
+    @media(max-width:768px){.hero{padding:50px 20px}.hero h1{font-size:1.8rem}.cd{padding:22px 16px}.ec-row{flex-direction:column}.tt-branch{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<div class="c">
+
+<header class="hero">
+  <span class="bg">TOC 限制理論 × 依附理論 🔗</span>
+  <h1>Platonic — 友誼的科學</h1>
+  <p class="sub">用限制理論解構「為什麼我們知道友誼重要，卻一直沒有好朋友」</p>
+  <p class="meta">Marisa G. Franco 著｜依附理論 × TOC 十步深度實戰系統</p>
+</header>
+
+<!-- ══════ STEP 1 ══════ -->
+<section class="cd">
+  <h2 class="st">📍 Step 1｜系統界定</h2>
+  <div class="hl"><strong>系統名稱：</strong>成人友誼建立與維繫系統</div>
+  <div class="sh">系統邊界</div>
+  <table>
+    <tr><td style="width:80px"><strong>輸入</strong></td><td>個人的依附風格（童年經驗塑造）、主動意願、溝通技能、時間精力</td></tr>
+    <tr><td><strong>產出</strong></td><td>深度、持久、互相支持的成人友誼</td></tr>
+    <tr><td><strong>組件</strong></td><td>①主動出擊 ②展露脆弱 ③追求真實 ④處理衝突 ⑤提供慷慨 ⑥給予情感</td></tr>
+    <tr><td><strong>目標</strong></td><td>建立讓你「被人所知、被人所愛」的真實連結——而不只是表面熟識</td></tr>
+  </table>
+  <div class="sh">作者的核心洞見 vs 文化現實落差</div>
+  <table>
+    <thead><tr><th>文化預設（多數人的劇本）</th><th>科學現實（作者揭示）</th><th>落差影響</th></tr></thead>
+    <tbody>
+      <tr><td>浪漫愛情是人生最重要的連結</td><td>友誼對健康、壽命、幸福的影響與愛情相當甚至更強</td><td>人們把友誼當「備胎」，不主動投資</td></tr>
+      <tr><td>成年後交朋友應該自然發生</td><td>成年後需要主動意圖（intentionality）才能建立友誼</td><td>被動等待 = 孤獨</td></tr>
+      <tr><td>主動找人=奇怪、軟弱、desperate</td><td>主動出擊是高自尊行為，也是所有友誼的起點</td><td>怕被拒絕的慣性讓人原地踏步</td></tr>
+      <tr><td>好朋友是找到的，不是培養的</td><td>友誼深度取決於具體行為：脆弱、真實、修復衝突</td><td>人們等「對的人出現」而非主動創造深度</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════ STEP 2 ══════ -->
+<section class="cd">
+  <h2 class="st">🌲 Step 2｜現況實境樹（CRT）— 當代孤獨的因果結構</h2>
+  <p class="sd">從10個不良效應（UDE）追溯到3個根因。每個 UDE 都有書中對應的觀察支撐。</p>
+  <div class="sh">不良效應清單（UDE）</div>
+  <table>
+    <thead><tr><th>#</th><th>不良效應</th><th>書中佐證</th></tr></thead>
+    <tbody>
+      <tr><td>UDE1</td><td>成年後幾乎沒有新朋友，舊朋友也逐漸疏遠</td><td>Ch1：孤獨流行病，友誼數量在成年後持續下滑</td></tr>
+      <tr><td>UDE2</td><td>有想認識的人，但不知道怎麼「開口」不顯得奇怪</td><td>Ch3：主動出擊的心理障礙</td></tr>
+      <tr><td>UDE3</td><td>認識很多人，但沒有人「真的了解我」</td><td>Ch4：表面互動不帶脆弱，深度連結無從建立</td></tr>
+      <tr><td>UDE4</td><td>跟朋友之間有衝突，選擇沉默或疏遠而非面對</td><td>Ch6：迴避衝突是友誼最大的殺手之一</td></tr>
+      <tr><td>UDE5</td><td>總是付出更多的那一方，感到精疲力竭</td><td>Ch7：慷慨失衡導致怨恨積累</td></tr>
+      <tr><td>UDE6</td><td>在朋友面前表演「一切都好」，不敢展示真實的自己</td><td>Ch5：真實性的缺失讓友誼停在表面</td></tr>
+      <tr><td>UDE7</td><td>害怕被拒絕，所以等別人先主動</td><td>Ch3：被拒絕恐懼是主動出擊最大障礙</td></tr>
+      <tr><td>UDE8</td><td>搬到新城市後幾年，還是沒有真正的朋友圈</td><td>作者親身經歷：搬到亞特蘭大後的重建歷程</td></tr>
+      <tr><td>UDE9</td><td>生病、失業、分手的時候，發現沒有人可以打電話</td><td>Ch1：友誼的真正價值在危機時才顯現</td></tr>
+      <tr><td>UDE10</td><td>知道友誼重要，但就是沒有採取行動</td><td>結論：「知道卻不做」是全書核心困境</td></tr>
+    </tbody>
+  </table>
+  <div class="sh">If-Then 因果鏈</div>
+  <div class="it">
+    <p><span class="root">🔴 根因 A：文化對友誼的系統性貶值——浪漫愛情的霸佔</span></p>
+    <p><span class="if">如果</span> 文化告訴我們「人生最重要的關係是伴侶/家庭」（根因A）</p>
+    <p><span class="then">那麼</span> → 友誼被定位為「有了更好，沒有也無所謂」的次要關係（UDE10）</p>
+    <p><span class="then">那麼</span> → 人們不主動投資友誼，等它自然發生（UDE1、UDE8）</p>
+    <p><span class="then">那麼</span> → 危機來臨時才發現友誼帳戶是空的（UDE9）</p>
+  </div>
+  <div class="it">
+    <p><span class="root">🔴 根因 B：不安全的依附風格——童年關係模板的重播</span></p>
+    <p><span class="if">如果</span> 早年的依附關係讓人學會「親密是危險的」（根因B）</p>
+    <p><span class="then">那麼</span> → 形成迴避型或焦慮型依附風格，干擾成人友誼</p>
+    <p><span class="then">那麼</span> → 迴避型：不展露脆弱、不帶情感（UDE3、UDE6）</p>
+    <p><span class="then">那麼</span> → 焦慮型：過度付出求認同、害怕衝突（UDE5、UDE4）</p>
+    <p><span class="then">那麼</span> → 兩種都導致友誼停在表面或走向消耗（UDE3、UDE5）</p>
+  </div>
+  <div class="it">
+    <p><span class="root">🔴 根因 C：缺乏友誼技能的具體訓練——學校沒有教的事</span></p>
+    <p><span class="if">如果</span> 沒有人教我們如何在成年後主動建立友誼（根因C）</p>
+    <p><span class="then">那麼</span> → 不知道如何「把陌生人變朋友」的具體操作（UDE2、UDE7）</p>
+    <p><span class="then">那麼</span> → 不知道衝突是友誼加深的機會而非威脅（UDE4）</p>
+    <p><span class="then">那麼</span> → 不知道情感表達和慷慨如何保持平衡（UDE5）</p>
+    <p><span class="then">最終</span> → 有意願卻無能力，友誼深度原地踏步（UDE10）</p>
+  </div>
+</section>
+
+<!-- ══════ STEP 3 ══════ -->
+<section class="cd">
+  <h2 class="st">☁️ Step 3｜蒸發雲（EC）— 友誼的核心衝突</h2>
+  <p class="sd">書中反覆出現三個根本衝突，每一個都在阻止人建立深度友誼。</p>
+
+  <div class="sh">衝突一：想要被人認識 vs 怕被人拒絕</div>
+  <div class="ec">
+    <div class="hl" style="margin-bottom:12px"><strong>A（共同目標）：</strong>建立真實、深度的友誼</div>
+    <div class="ec-row">
+      <div class="ec-box"><strong>B：需求①</strong><br>渴望深度連結，被人真正看見<br><br><strong>D：行動①</strong><br>主動出擊、展露脆弱、表達真實自我</div>
+      <div class="ec-vs">⚡</div>
+      <div class="ec-box"><strong>C：需求②</strong><br>保護自尊，避免被拒絕的痛苦<br><br><strong>D'：行動②</strong><br>等別人先主動、保持表面形象、不展露脆弱</div>
+    </div>
+    <p style="margin-top:12px;font-size:.85rem;color:var(--t2)"><strong>隱含假設（打破點）：</strong>「主動 = 降低身份 / 暴露弱點 = 一定被利用」<br>
+    <span class="ok">作者的注入解：</span>主動是高自尊的表現；多數人都渴望被邀請，被拒絕的比例遠低於你想像的（Liking Gap 研究）。</p>
+  </div>
+
+  <div class="sh">衝突二：想要真實的自己 vs 怕真實讓人失去朋友</div>
+  <div class="ec">
+    <div class="hl" style="margin-bottom:12px"><strong>A（共同目標）：</strong>維持穩定且深度的友誼</div>
+    <div class="ec-row">
+      <div class="ec-box"><strong>B：需求①</strong><br>不想戴面具活著，渴望「完整的自己」被接受<br><br><strong>D：行動①</strong><br>表達真實的想法、感受、不完美</div>
+      <div class="ec-vs">⚡</div>
+      <div class="ec-box"><strong>C：需求②</strong><br>不想讓朋友失望、離開，維持關係穩定<br><br><strong>D'：行動②</strong><br>表演「理想版本的自己」，迴避爭議話題</div>
+    </div>
+    <p style="margin-top:12px;font-size:.85rem;color:var(--t2)"><strong>隱含假設（打破點）：</strong>「展示真實自己會讓人離開」<br>
+    <span class="ok">作者的注入解：</span>研究顯示，人們更喜歡展現真實自我的人；虛假的友誼遲早會因為表演疲乏而消耗殆盡。</p>
+  </div>
+
+  <div class="sh">衝突三：想要關係和諧 vs 必須處理真實衝突</div>
+  <div class="ec">
+    <div class="hl" style="margin-bottom:12px"><strong>A（共同目標）：</strong>長久的深度友誼</div>
+    <div class="ec-row">
+      <div class="ec-box"><strong>B：需求①</strong><br>維持友誼的連結感與正面情緒<br><br><strong>D：行動①</strong><br>直接表達憤怒或不滿，修復裂縫</div>
+      <div class="ec-vs">⚡</div>
+      <div class="ec-box"><strong>C：需求②</strong><br>避免不舒服的對話和潛在衝突<br><br><strong>D'：行動②</strong><br>沉默、疏遠、暗自生悶氣直到離開</div>
+    </div>
+    <p style="margin-top:12px;font-size:.85rem;color:var(--t2)"><strong>隱含假設（打破點）：</strong>「表達憤怒 = 破壞關係」<br>
+    <span class="ok">作者的注入解：</span>能夠處理衝突的友誼比迴避衝突的更持久；未說出口的憤怒才是真正的殺手。</p>
+  </div>
+</section>
+
+<!-- ══════ STEP 4 ══════ -->
+<section class="cd">
+  <h2 class="st">🌳 Step 4｜未來實境樹（FRT）— 如果打破假設會怎樣</h2>
+  <p class="sd">作者的六大注入解（每章一個技能）預測會產生什麼連鎖效應。</p>
+
+  <div class="tt">
+    <h4>💉 注入解 1：主動出擊（Ch3）</h4>
+    <div class="tt-branch">
+      <div class="tt-ok"><strong class="ok">✓ 正向效應</strong><br>打破等待循環 → 接觸機會大增 → 友誼種子數量上升 → 命中率即使低，總量也有收穫</div>
+      <div class="tt-fail"><strong class="warn">⚠ 負面分支</strong><br>被拒絕感覺更頻繁<br><span style="font-size:.8rem">預防：重新定義拒絕 = 「這個人現在不適合，不是我不夠好」</span></div>
+    </div>
+  </div>
+
+  <div class="tt">
+    <h4>💉 注入解 2：展露脆弱（Ch4）</h4>
+    <div class="tt-branch">
+      <div class="tt-ok"><strong class="ok">✓ 正向效應</strong><br>打破表面互動 → 引發對方互相袒露（自我揭露的互惠效應）→ 友誼深度快速提升</div>
+      <div class="tt-fail"><strong class="warn">⚠ 負面分支</strong><br>被利用或被評判的風險<br><span style="font-size:.8rem">預防：漸進式脆弱，先用「低風險的真實」測試關係安全度</span></div>
+    </div>
+  </div>
+
+  <div class="tt">
+    <h4>💉 注入解 3：追求真實性（Ch5）</h4>
+    <div class="tt-branch">
+      <div class="tt-ok"><strong class="ok">✓ 正向效應</strong><br>表演成本下降 → 友誼變得可持續 → 吸引真正契合的人，篩去不適合的</div>
+      <div class="tt-fail"><strong class="warn">⚠ 負面分支</strong><br>部分現有友誼因為「真實的你」與關係不符而結束<br><span style="font-size:.8rem">預防：接受這是必要的友誼重組，少而精</span></div>
+    </div>
+  </div>
+
+  <div class="tt">
+    <h4>💉 注入解 4：修復衝突而非迴避（Ch6）</h4>
+    <div class="tt-branch">
+      <div class="tt-ok"><strong class="ok">✓ 正向效應</strong><br>成功修復一次 → 關係韌性大增 → 建立「這段友誼能承受真實」的信任感</div>
+      <div class="tt-fail"><strong class="warn">⚠ 負面分支</strong><br>對方可能選擇離開<br><span style="font-size:.8rem">預防：區分「值得修復的友誼」vs「一直有問題的關係」</span></div>
+    </div>
+  </div>
+
+  <div class="tt">
+    <h4>💉 注入解 5：有界限的慷慨（Ch7）</h4>
+    <div class="tt-branch">
+      <div class="tt-ok"><strong class="ok">✓ 正向效應</strong><br>給予不再是消耗 → 友誼變成能量補充來源 → 可以長期維持</div>
+      <div class="tt-fail"><strong class="warn">⚠ 負面分支</strong><br>建立界限可能讓習慣接受付出的朋友不舒服<br><span style="font-size:.8rem">預防：界限的表達方式要直接但溫和</span></div>
+    </div>
+  </div>
+
+  <div class="tt">
+    <h4>💉 注入解 6：主動給予情感（Ch8）</h4>
+    <div class="tt-branch">
+      <div class="tt-ok"><strong class="ok">✓ 正向效應</strong><br>愛的語言外顯化 → 朋友「感覺到被重視」→ 友誼長期韌性提升</div>
+      <div class="tt-fail"><strong class="warn">⚠ 負面分支</strong><br>對方不習慣接受情感表達，覺得奇怪<br><span style="font-size:.8rem">預防：從小動作開始（「我很高興認識你」這種話）</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════ STEP 5 ══════ -->
+<section class="cd">
+  <h2 class="st">🪜 Step 5｜前提樹（PrT）— 障礙清單與行動序列</h2>
+  <p class="sd">從現狀到「有一個真正懂你的深度友誼圈」需要克服的障礙，按順序排列。</p>
+  <table>
+    <thead><tr><th>順序</th><th>障礙</th><th>中間目標（克服方式）</th></tr></thead>
+    <tbody>
+      <tr><td><strong>1</strong></td><td>認為友誼不重要，所以從未認真投資</td><td>閱讀 Ch1：用科學數據重新校準「友誼的 ROI」</td></tr>
+      <tr><td><strong>2</strong></td><td>不了解自己的依附風格如何影響友誼</td><td>Ch2 的依附風格測試：找出自己是迴避型還是焦慮型</td></tr>
+      <tr><td><strong>3</strong></td><td>害怕被拒絕，不敢主動出擊</td><td>Ch3 實驗：每週一次「低風險主動出擊」（邀請某人喝咖啡）</td></tr>
+      <tr><td><strong>4</strong></td><td>互動停在表面，不知道如何深化</td><td>Ch4：練習「漸進式脆弱」——先說一件最近讓你困擾的小事</td></tr>
+      <tr><td><strong>5</strong></td><td>在朋友面前戴著面具，真實自我沒有出口</td><td>Ch5：找一個「練習場」——一個可以先嘗試真實的關係</td></tr>
+      <tr><td><strong>6</strong></td><td>有積怨但不敢開口，友誼靜靜腐爛</td><td>Ch6：練習「憤怒的翻譯」——把憤怒轉成「我需要」的語言</td></tr>
+      <tr><td><strong>7</strong></td><td>付出過度，慷慨變成負擔</td><td>Ch7：識別自己的「慷慨陷阱」，設定一個可說「不」的場景</td></tr>
+      <tr><td><strong>8</strong></td><td>情感藏在心裡，朋友感覺不到被重視</td><td>Ch8：這週告訴一個朋友，他們對你的具體意義</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ══════ STEP 6 ══════ -->
+<section class="cd">
+  <h2 class="st">🔬 Step 6｜依附理論深挖（書的核心引擎）</h2>
+  <p class="sd">書的最大貢獻：把依附理論從「親密關係」擴展到「友誼」——這是 Platonic 最原創的洞見。</p>
+
+  <div class="sh">四種依附風格 × 友誼中的行為模式</div>
+  <table>
+    <thead><tr><th>依附風格</th><th>友誼中的典型行為</th><th>核心假設</th><th>打破方式</th></tr></thead>
+    <tbody>
+      <tr><td><strong>安全型</strong></td><td>容易建立深度連結，衝突後能修復</td><td>我值得被愛，他人是可信的</td><td>模板：朝這個方向修正</td></tr>
+      <tr><td><strong>焦慮型</strong></td><td>過度付出、害怕被拋棄、難以建立界限</td><td>我不夠好，必須努力維持關係</td><td>練習：不行動等待，看關係是否自然存活</td></tr>
+      <tr><td><strong>迴避型</strong></td><td>保持距離、不展露脆弱、看起來「不需要別人」</td><td>親密 = 危險，獨立 = 安全</td><td>練習：每次互動多說一點「真實感受」</td></tr>
+      <tr><td><strong>混亂型</strong></td><td>同時渴望和恐懼親密，行為模式不一致</td><td>人既是安慰的來源也是威脅的來源</td><td>需要更深層的自我覺察，可能需要治療支持</td></tr>
+    </tbody>
+  </table>
+
+  <div class="hl g"><strong>[AI 原創洞見 L3]</strong> 依附風格是「友誼失敗的隱藏操作系統」。表面上你在選擇要不要主動、要不要說真心話——但實際上是你10歲前形成的關係模板在替你決策。書的真正貢獻不是「6個友誼技能」，而是讓你看到自己的操作系統，從而有機會更新它。</div>
+</section>
+
+<!-- ══════ STEP 7 ══════ -->
+<section class="cd">
+  <h2 class="st">🔇 Step 7｜缺席分析——書沒說但應該說的</h2>
+
+  <div class="bk">
+    <h3>🔕 刻意迴避：數位社群時代的偽友誼問題</h3>
+    <p>書寫於 2022 年，卻對 Instagram/微信等社群媒體如何<strong>製造友誼的幻覺</strong>著墨甚少。按讚取代了真正的陪伴，讓人誤以為自己有豐富的社群，卻在危機時發現友誼帳戶是空的。</p>
+  </div>
+  <div class="bk">
+    <h3>👁 盲點缺席：文化差異對友誼模式的影響</h3>
+    <p>書的研究幾乎全部基於西方（主要是美國）樣本。東亞文化中「友誼通過共同活動維繫而非深度對話」的模式，以及集體主義文化中「面子」對脆弱表達的抑制作用，書中完全缺席。</p>
+  </div>
+  <div class="bk">
+    <h3>⏰ 時代缺席：遠距工作時代的友誼建立</h3>
+    <p>Covid 後遠距工作普及，人們失去了「被動接觸」（proximity + repeated exposure）的自然機會。書沒有討論當「在場」的機會本身消失時，如何刻意創造替代環境。</p>
+  </div>
+</section>
+
+<!-- ══════ STEP 8 ══════ -->
+<section class="cd">
+  <h2 class="st">🤖 Step 8｜AI 視角與跨領域連結</h2>
+
+  <div class="sh">如果作者要寫第 N+1 章</div>
+  <div class="hl t"><strong>應補的盲區：「友誼的商業化」</strong><br>
+  作者強調友誼的無條件性，但現代社會中「有用的人脈」和「真正的朋友」的邊界越來越模糊。如何在功利性互動中識別和培養真正的友誼？如何避免友誼被商業化邏輯污染？這是作者迴避的最大問題。</div>
+
+  <div class="sh">跨領域連結</div>
+  <table>
+    <thead><tr><th>領域</th><th>連結點</th><th>洞見</th></tr></thead>
+    <tbody>
+      <tr><td>TOC 限制理論</td><td>依附風格 = 友誼系統的政策制約</td><td>最大的瓶頸不是「缺乏機會」而是「內在的心智模型」——這是最難改變但影響最大的</td></tr>
+      <tr><td>行為經濟學</td><td>Liking Gap 研究</td><td>人們系統性低估別人對自己的好感，這是主動出擊的最大心理障礙——修正這個認知偏差是改變的槓桿</td></tr>
+      <tr><td>神經科學</td><td>社會痛苦 = 身體痛苦使用相同的神經迴路</td><td>拒絕和孤獨真的「痛」，這解釋了為什麼人們會理性地選擇迴避——這是本能，不是懦弱</td></tr>
+      <tr><td>溝通學</td><td>自我揭露的互惠效應</td><td>脆弱是有傳染性的——你先說一點，對方更可能也說——這是友誼加速的槓桿點</td></tr>
+      <tr><td>東方哲學</td><td>「君子之交淡如水」vs 作者的「情感表達」</td><td>東方傳統通過共同行動（吃飯、一起做事）建立深度連結，而非西方的語言型親密——方法不同，但終點相似</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sh">一個比喻說完整本書</div>
+  <div class="hl"><strong>友誼是一顆植物，不是一個物件。</strong><br>你不是「找到」一個好朋友，你是「種出來」的。它需要你選擇土地（主動出擊）、澆水（脆弱和真實）、剪枝（處理衝突）、施肥（情感表達）。沒有人天生會園藝，但每個技能都是可以學的。最後一句，交給你決定：你的花園現在是什麼樣子？</div>
+</section>
+
+<!-- ══════ STEP 9 ══════ -->
+<section class="cd">
+  <h2 class="st">✅ Step 9｜行動轉化（三層）</h2>
+
+  <div class="sh">本週啟動（微行動，15分鐘可完成）</div>
+  <div class="bk">
+    <h3>🌱 「友誼清點」</h3>
+    <p>列出三個你一直想更了解的人。不需要馬上採取行動，只是把他們寫下來，給自己的意識一個「目標清單」。</p>
+  </div>
+  <div class="bk">
+    <h3>🌱 「一個真實的回應」</h3>
+    <p>這週當有人問「你最近怎樣？」，不要說「還好啊」。說一件真實發生在你生活中的事，不需要很嚴重，只要是真的。觀察對方的反應。</p>
+  </div>
+
+  <div class="sh">本月實驗（1個習慣）</div>
+  <div class="bk">
+    <h3>🌿 「主動出擊實驗」</h3>
+    <p>每兩週主動邀請一個人出來，不需要特別原因。觀察：①自己的焦慮在邀請前後的變化 ②對方的反應是否和你預期的一樣 ③結束後你的感受。記錄數據，不做評判。</p>
+  </div>
+
+  <div class="sh">長期追蹤（1個核心指標）</div>
+  <div class="hl g"><strong>指標：「3am 清單」</strong><br>
+  每季問自己：「如果凌晨三點我遇到緊急事情，我可以打給哪幾個人？」如果這個清單在增長，你的友誼投資正在產生回報。</div>
+</section>
+
+<!-- ══════ STEP 10 ══════ -->
+<section class="cd">
+  <h2 class="st">📚 Step 10｜書庫卡片 + 知識庫整合</h2>
+  <table>
+    <tr><td style="width:120px"><strong>書名</strong></td><td>Platonic: How the Science of Attachment Can Help You Make and Keep Friends</td></tr>
+    <tr><td><strong>作者</strong></td><td>Marisa G. Franco（心理學博士，友誼研究者）</td></tr>
+    <tr><td><strong>核心論點</strong></td><td>友誼需要主動的意圖和具體的技能，依附理論是理解友誼模式的關鍵框架</td></tr>
+    <tr><td><strong>書型</strong></td><td>🧠 心理成長型 × 🔧 方法實踐型</td></tr>
+    <tr><td><strong>難度</strong></td><td>★★★☆☆（平易近人，案例豐富）</td></tr>
+    <tr><td><strong>推薦度</strong></td><td>★★★★☆（對有孤獨感或搬到新城市的人：★★★★★）</td></tr>
+  </table>
+
+  <div class="sh">個人化透鏡</div>
+  <div class="hl"><strong>TOC 透鏡：</strong>書的核心貢獻是識別「友誼系統的瓶頸」——不是機會不夠，而是依附風格作為政策制約在阻止你。解決政策制約的 TOC 方法：先讓假設可見，再用小實驗打破它。</div>
+  <div class="hl g"><strong>書醒系統透鏡：</strong>書的六大技能對應六個 L1 可操作行動（每章末有具體練習），是少數「讀完就能開始做」的心理學書籍。</div>
+</section>
+
+<footer>
+  <div>🐉 龍龍 × 書醒系統 × TOC 十步深度實戰</div>
+  <p style="margin-top:6px">Platonic · Marisa G. Franco · 2022</p>
+</footer>
+
+</div>
+</body>
+</html>
