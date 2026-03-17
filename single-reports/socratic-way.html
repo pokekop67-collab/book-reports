@@ -1,0 +1,1803 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒報告 ｜ The Socratic Way of Questioning</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+
+  :root {
+    --primary: #6C63FF;
+    --primary-light: #A5A0FF;
+    --primary-dark: #4B44CC;
+    --accent: #FF6B9D;
+    --accent-light: #FF9DC2;
+    --warm: #FFB347;
+    --warm-light: #FFD699;
+    --sage: #7EC8A0;
+    --sage-light: #B5E8CC;
+    --sky: #74B9FF;
+    --sky-light: #A8D8FF;
+    --coral: #FF7675;
+    --coral-light: #FFADAD;
+    --lavender: #DDA0DD;
+    --lavender-light: #EED5EE;
+    --mint: #00CEC9;
+    --mint-light: #81ECEC;
+    --peach: #FFEAA7;
+    --rose: #FD79A8;
+    --indigo: #6C5CE7;
+    --teal: #00B894;
+    --bg-main: #F8F6FF;
+    --bg-card: #FFFFFF;
+    --text-primary: #2D3436;
+    --text-secondary: #636E72;
+    --text-muted: #B2BEC3;
+    --shadow-sm: 0 2px 8px rgba(108, 99, 255, 0.08);
+    --shadow-md: 0 8px 32px rgba(108, 99, 255, 0.12);
+    --shadow-lg: 0 16px 48px rgba(108, 99, 255, 0.16);
+    --shadow-glow: 0 0 40px rgba(108, 99, 255, 0.15);
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 28px;
+    --radius-xl: 36px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.8;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ═══════════════════════════════════════════
+     背景裝飾
+  ═══════════════════════════════════════════ */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(108, 99, 255, 0.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(255, 107, 157, 0.05) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(126, 200, 160, 0.04) 0%, transparent 50%);
+    z-index: -1;
+    animation: bgFloat 20s ease-in-out infinite;
+  }
+
+  @keyframes bgFloat {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(-2%, 1%) rotate(1deg); }
+    66% { transform: translate(1%, -1%) rotate(-0.5deg); }
+  }
+
+  /* 浮動幾何裝飾 */
+  .floating-shapes {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .floating-shapes .shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.08;
+    animation: floatShape 15s ease-in-out infinite;
+  }
+
+  .floating-shapes .shape:nth-child(1) {
+    width: 300px; height: 300px;
+    background: var(--primary);
+    top: 10%; left: -5%;
+    animation-duration: 18s;
+  }
+  .floating-shapes .shape:nth-child(2) {
+    width: 200px; height: 200px;
+    background: var(--accent);
+    top: 60%; right: -3%;
+    animation-duration: 22s;
+    animation-delay: -5s;
+  }
+  .floating-shapes .shape:nth-child(3) {
+    width: 150px; height: 150px;
+    background: var(--sage);
+    top: 30%; right: 20%;
+    animation-duration: 16s;
+    animation-delay: -8s;
+  }
+  .floating-shapes .shape:nth-child(4) {
+    width: 250px; height: 250px;
+    background: var(--warm);
+    bottom: 10%; left: 15%;
+    animation-duration: 20s;
+    animation-delay: -3s;
+  }
+  .floating-shapes .shape:nth-child(5) {
+    width: 180px; height: 180px;
+    background: var(--lavender);
+    top: 50%; left: 40%;
+    animation-duration: 25s;
+    animation-delay: -10s;
+  }
+
+  @keyframes floatShape {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(20px, -30px) scale(1.05); }
+    50% { transform: translate(-15px, 20px) scale(0.95); }
+    75% { transform: translate(25px, 10px) scale(1.02); }
+  }
+
+  /* ═══════════════════════════════════════════
+     主容器
+  ═══════════════════════════════════════════ */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ═══════════════════════════════════════════
+     封面 Hero
+  ═══════════════════════════════════════════ */
+  .hero {
+    text-align: center;
+    padding: 80px 40px;
+    margin-bottom: 60px;
+    background: linear-gradient(135deg, #6C63FF 0%, #A5A0FF 40%, #FF6B9D 100%);
+    border-radius: var(--radius-xl);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background:
+      radial-gradient(circle at 30% 70%, rgba(255,255,255,0.15) 0%, transparent 60%),
+      radial-gradient(circle at 70% 30%, rgba(255,255,255,0.1) 0%, transparent 50%);
+  }
+
+  .hero::after {
+    content: '?';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 300px;
+    font-weight: 900;
+    color: rgba(255, 255, 255, 0.06);
+    font-family: 'Noto Serif TC', serif;
+    pointer-events: none;
+  }
+
+  .hero-icon {
+    font-size: 72px;
+    margin-bottom: 24px;
+    position: relative;
+    display: inline-block;
+    animation: pulse 3s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+    padding: 8px 24px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #fff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 12px;
+    position: relative;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.15);
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: rgba(255,255,255,0.92);
+    font-weight: 400;
+    margin-bottom: 8px;
+    position: relative;
+  }
+
+  .hero-author {
+    font-size: 0.95rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 300;
+    position: relative;
+  }
+
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 32px;
+    position: relative;
+    flex-wrap: wrap;
+  }
+
+  .hero-meta-item {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(8px);
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ═══════════════════════════════════════════
+     導航索引
+  ═══════════════════════════════════════════ */
+  .toc-nav {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 36px 40px;
+    margin-bottom: 48px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(108, 99, 255, 0.08);
+  }
+
+  .toc-nav h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--primary);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 10px;
+  }
+
+  .toc-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    background: rgba(108, 99, 255, 0.03);
+  }
+
+  .toc-item:hover {
+    background: rgba(108, 99, 255, 0.08);
+    color: var(--primary);
+    transform: translateX(4px);
+  }
+
+  .toc-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* ═══════════════════════════════════════════
+     通用卡片基底
+  ═══════════════════════════════════════════ */
+  .card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 48px 44px;
+    margin-bottom: 40px;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(108, 99, 255, 0.06);
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 4px;
+  }
+
+  .card-step {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+  }
+
+  .card h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.7rem;
+    font-weight: 900;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+
+  .card h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin: 28px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 22px 0 10px;
+    color: var(--text-primary);
+  }
+
+  .card-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  .card p {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--text-primary);
+    margin-bottom: 14px;
+  }
+
+  /* ═══════════════════════════════════════════
+     各卡片色彩主題
+  ═══════════════════════════════════════════ */
+  .card-1::before { background: linear-gradient(90deg, var(--primary), var(--primary-light)); }
+  .card-1 .card-step { background: rgba(108, 99, 255, 0.1); color: var(--primary); }
+  .card-1 h2 { color: var(--primary-dark); }
+  .card-1 h3 { color: var(--primary); }
+
+  .card-2::before { background: linear-gradient(90deg, var(--accent), var(--accent-light)); }
+  .card-2 .card-step { background: rgba(255, 107, 157, 0.1); color: var(--accent); }
+  .card-2 h2 { color: #D63384; }
+  .card-2 h3 { color: var(--accent); }
+
+  .card-3::before { background: linear-gradient(90deg, var(--sage), var(--sage-light)); }
+  .card-3 .card-step { background: rgba(126, 200, 160, 0.1); color: #2D9E6A; }
+  .card-3 h2 { color: #1E7A52; }
+  .card-3 h3 { color: #2D9E6A; }
+
+  .card-4::before { background: linear-gradient(90deg, var(--warm), var(--warm-light)); }
+  .card-4 .card-step { background: rgba(255, 179, 71, 0.1); color: #E67E22; }
+  .card-4 h2 { color: #D35400; }
+  .card-4 h3 { color: #E67E22; }
+
+  .card-5::before { background: linear-gradient(90deg, var(--sky), var(--sky-light)); }
+  .card-5 .card-step { background: rgba(116, 185, 255, 0.1); color: #2980B9; }
+  .card-5 h2 { color: #1A5276; }
+  .card-5 h3 { color: #2980B9; }
+
+  .card-6::before { background: linear-gradient(90deg, var(--coral), var(--coral-light)); }
+  .card-6 .card-step { background: rgba(255, 118, 117, 0.1); color: #E74C3C; }
+  .card-6 h2 { color: #C0392B; }
+  .card-6 h3 { color: #E74C3C; }
+
+  .card-7::before { background: linear-gradient(90deg, var(--lavender), var(--lavender-light)); }
+  .card-7 .card-step { background: rgba(221, 160, 221, 0.1); color: #8E44AD; }
+  .card-7 h2 { color: #6C3483; }
+  .card-7 h3 { color: #8E44AD; }
+
+  .card-8::before { background: linear-gradient(90deg, var(--mint), var(--mint-light)); }
+  .card-8 .card-step { background: rgba(0, 206, 201, 0.1); color: #00A896; }
+  .card-8 h2 { color: #008073; }
+  .card-8 h3 { color: #00A896; }
+
+  .card-9::before { background: linear-gradient(90deg, var(--rose), var(--accent-light)); }
+  .card-9 .card-step { background: rgba(253, 121, 168, 0.1); color: #E84393; }
+  .card-9 h2 { color: #C2185B; }
+  .card-9 h3 { color: #E84393; }
+
+  .card-10::before { background: linear-gradient(90deg, var(--indigo), #A29BFE); }
+  .card-10 .card-step { background: rgba(108, 92, 231, 0.1); color: var(--indigo); }
+  .card-10 h2 { color: #4A148C; }
+  .card-10 h3 { color: var(--indigo); }
+
+  .card-11::before { background: linear-gradient(90deg, var(--teal), #55EFC4); }
+  .card-11 .card-step { background: rgba(0, 184, 148, 0.1); color: var(--teal); }
+  .card-11 h2 { color: #006D5B; }
+  .card-11 h3 { color: var(--teal); }
+
+  /* ═══════════════════════════════════════════
+     引用塊
+  ═══════════════════════════════════════════ */
+  .quote-block {
+    background: linear-gradient(135deg, rgba(108, 99, 255, 0.05), rgba(255, 107, 157, 0.05));
+    border-left: 4px solid var(--primary);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 24px 28px;
+    margin: 24px 0;
+    position: relative;
+  }
+
+  .quote-block::before {
+    content: '"';
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    font-size: 48px;
+    color: var(--primary-light);
+    font-family: 'Noto Serif TC', serif;
+    line-height: 1;
+    opacity: 0.6;
+  }
+
+  .quote-block p {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--primary-dark);
+    margin-bottom: 6px;
+    padding-left: 8px;
+  }
+
+  .quote-block .quote-src {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-style: italic;
+    font-weight: 400;
+    font-family: 'Noto Sans TC', sans-serif;
+    padding-left: 8px;
+  }
+
+  /* ═══════════════════════════════════════════
+     重點框
+  ═══════════════════════════════════════════ */
+  .insight-box {
+    background: linear-gradient(135deg, rgba(108, 99, 255, 0.06), rgba(165, 160, 255, 0.06));
+    border: 1px solid rgba(108, 99, 255, 0.15);
+    border-radius: var(--radius-md);
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .insight-box.warm {
+    background: linear-gradient(135deg, rgba(255, 179, 71, 0.08), rgba(255, 214, 153, 0.06));
+    border-color: rgba(255, 179, 71, 0.2);
+  }
+
+  .insight-box.sage {
+    background: linear-gradient(135deg, rgba(126, 200, 160, 0.08), rgba(181, 232, 204, 0.06));
+    border-color: rgba(126, 200, 160, 0.2);
+  }
+
+  .insight-box.coral {
+    background: linear-gradient(135deg, rgba(255, 118, 117, 0.08), rgba(255, 173, 173, 0.06));
+    border-color: rgba(255, 118, 117, 0.2);
+  }
+
+  .insight-box.sky {
+    background: linear-gradient(135deg, rgba(116, 185, 255, 0.08), rgba(168, 216, 255, 0.06));
+    border-color: rgba(116, 185, 255, 0.2);
+  }
+
+  .insight-box.accent {
+    background: linear-gradient(135deg, rgba(255, 107, 157, 0.08), rgba(255, 157, 194, 0.06));
+    border-color: rgba(255, 107, 157, 0.2);
+  }
+
+  .insight-box.lavender {
+    background: linear-gradient(135deg, rgba(221, 160, 221, 0.08), rgba(238, 213, 238, 0.06));
+    border-color: rgba(221, 160, 221, 0.2);
+  }
+
+  .insight-box.mint {
+    background: linear-gradient(135deg, rgba(0, 206, 201, 0.08), rgba(129, 236, 236, 0.06));
+    border-color: rgba(0, 206, 201, 0.2);
+  }
+
+  .insight-box-title {
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .insight-box p, .insight-box li {
+    font-size: 0.9rem;
+    line-height: 1.85;
+  }
+
+  /* ═══════════════════════════════════════════
+     列表
+  ═══════════════════════════════════════════ */
+  .card ul, .card ol {
+    padding-left: 20px;
+    margin: 12px 0;
+  }
+
+  .card li {
+    font-size: 0.93rem;
+    line-height: 1.85;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+  }
+
+  .styled-list {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .styled-list li {
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 12px;
+  }
+
+  .styled-list li::before {
+    content: '◆';
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-size: 0.7rem;
+    top: 4px;
+  }
+
+  .numbered-flow {
+    list-style: none;
+    padding-left: 0;
+    counter-reset: flow-counter;
+  }
+
+  .numbered-flow li {
+    position: relative;
+    padding-left: 42px;
+    margin-bottom: 16px;
+    counter-increment: flow-counter;
+  }
+
+  .numbered-flow li::before {
+    content: counter(flow-counter);
+    position: absolute;
+    left: 0; top: 0;
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ═══════════════════════════════════════════
+     對比表格
+  ═══════════════════════════════════════════ */
+  .comparison-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .comparison-col {
+    padding: 20px 24px;
+    border-radius: var(--radius-md);
+  }
+
+  .comparison-col.before {
+    background: linear-gradient(135deg, rgba(255, 118, 117, 0.08), rgba(255, 173, 173, 0.04));
+    border: 1px solid rgba(255, 118, 117, 0.15);
+  }
+
+  .comparison-col.after {
+    background: linear-gradient(135deg, rgba(126, 200, 160, 0.08), rgba(181, 232, 204, 0.04));
+    border: 1px solid rgba(126, 200, 160, 0.15);
+  }
+
+  .comparison-col h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .comparison-col.before h4 { color: var(--coral); }
+  .comparison-col.after h4 { color: #2D9E6A; }
+
+  .comparison-col li {
+    font-size: 0.85rem;
+    line-height: 1.8;
+  }
+
+  /* ═══════════════════════════════════════════
+     流程步驟
+  ═══════════════════════════════════════════ */
+  .process-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin: 20px 0;
+  }
+
+  .process-step {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: rgba(108, 99, 255, 0.03);
+    border-radius: var(--radius-sm);
+    transition: all 0.3s ease;
+  }
+
+  .process-step:hover {
+    background: rgba(108, 99, 255, 0.07);
+  }
+
+  .process-step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .process-step-content {
+    flex: 1;
+  }
+
+  .process-step-content strong {
+    font-size: 0.92rem;
+    display: block;
+    margin-bottom: 2px;
+  }
+
+  .process-step-content span {
+    font-size: 0.83rem;
+    color: var(--text-secondary);
+  }
+
+  .process-arrow {
+    text-align: center;
+    color: var(--primary-light);
+    font-size: 1.2rem;
+    padding: 4px 0;
+  }
+
+  /* ═══════════════════════════════════════════
+     六種提問類型網格
+  ═══════════════════════════════════════════ */
+  .question-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .question-type {
+    padding: 24px;
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(108, 99, 255, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .question-type:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .question-type-icon {
+    font-size: 32px;
+    margin-bottom: 12px;
+  }
+
+  .question-type-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .question-type-sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+    font-style: italic;
+  }
+
+  .question-type p {
+    font-size: 0.85rem;
+    line-height: 1.75;
+    margin-bottom: 10px;
+  }
+
+  .question-type .example {
+    font-size: 0.82rem;
+    padding: 10px 14px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 8px;
+    color: var(--text-secondary);
+    border-left: 3px solid;
+  }
+
+  .qt-1 { background: rgba(108, 99, 255, 0.04); }
+  .qt-1 .question-type-title { color: var(--primary-dark); }
+  .qt-1 .example { border-color: var(--primary); }
+
+  .qt-2 { background: rgba(255, 107, 157, 0.04); }
+  .qt-2 .question-type-title { color: #D63384; }
+  .qt-2 .example { border-color: var(--accent); }
+
+  .qt-3 { background: rgba(126, 200, 160, 0.04); }
+  .qt-3 .question-type-title { color: #1E7A52; }
+  .qt-3 .example { border-color: var(--sage); }
+
+  .qt-4 { background: rgba(255, 179, 71, 0.04); }
+  .qt-4 .question-type-title { color: #D35400; }
+  .qt-4 .example { border-color: var(--warm); }
+
+  .qt-5 { background: rgba(116, 185, 255, 0.04); }
+  .qt-5 .question-type-title { color: #1A5276; }
+  .qt-5 .example { border-color: var(--sky); }
+
+  .qt-6 { background: rgba(221, 160, 221, 0.04); }
+  .qt-6 .question-type-title { color: #6C3483; }
+  .qt-6 .example { border-color: var(--lavender); }
+
+  /* ═══════════════════════════════════════════
+     高亮標記
+  ═══════════════════════════════════════════ */
+  .highlight {
+    background: linear-gradient(180deg, transparent 60%, rgba(108, 99, 255, 0.15) 60%);
+    padding: 0 2px;
+    font-weight: 600;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin: 2px 4px;
+  }
+
+  .tag-primary { background: rgba(108, 99, 255, 0.1); color: var(--primary); }
+  .tag-accent { background: rgba(255, 107, 157, 0.1); color: var(--accent); }
+  .tag-sage { background: rgba(126, 200, 160, 0.1); color: #2D9E6A; }
+  .tag-warm { background: rgba(255, 179, 71, 0.1); color: #E67E22; }
+
+  /* ═══════════════════════════════════════════
+     對話示範
+  ═══════════════════════════════════════════ */
+  .dialogue {
+    margin: 20px 0;
+    padding: 0;
+  }
+
+  .dialogue-line {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    align-items: flex-start;
+  }
+
+  .dialogue-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .dialogue-avatar.socrates {
+    background: linear-gradient(135deg, var(--primary), var(--primary-light));
+  }
+
+  .dialogue-avatar.student {
+    background: linear-gradient(135deg, var(--warm), var(--warm-light));
+  }
+
+  .dialogue-bubble {
+    padding: 12px 18px;
+    border-radius: 16px;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    max-width: 80%;
+  }
+
+  .dialogue-bubble.socrates {
+    background: rgba(108, 99, 255, 0.08);
+    border-bottom-left-radius: 4px;
+    color: var(--primary-dark);
+  }
+
+  .dialogue-bubble.student {
+    background: rgba(255, 179, 71, 0.08);
+    border-bottom-left-radius: 4px;
+    color: #8B5E14;
+  }
+
+  /* ═══════════════════════════════════════════
+     統計數字
+  ═══════════════════════════════════════════ */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 20px 16px;
+    border-radius: var(--radius-md);
+    background: rgba(108, 99, 255, 0.03);
+  }
+
+  .stat-num {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  /* ═══════════════════════════════════════════
+     分隔線
+  ═══════════════════════════════════════════ */
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 48px 0;
+    gap: 16px;
+  }
+
+  .divider::before, .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(108, 99, 255, 0.2), transparent);
+  }
+
+  .divider-icon {
+    font-size: 24px;
+    opacity: 0.5;
+  }
+
+  /* ═══════════════════════════════════════════
+     頁腳
+  ═══════════════════════════════════════════ */
+  .footer {
+    text-align: center;
+    padding: 48px 40px;
+    margin-top: 40px;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .footer-icon {
+    font-size: 48px;
+    margin-bottom: 16px;
+    opacity: 0.8;
+  }
+
+  .footer p {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  .footer .footer-brand {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 24px;
+    letter-spacing: 2px;
+  }
+
+  /* ═══════════════════════════════════════════
+     響應式
+  ═══════════════════════════════════════════ */
+  @media (max-width: 768px) {
+    .container { padding: 20px 16px 60px; }
+    .hero { padding: 56px 24px; }
+    .hero h1 { font-size: 1.8rem; }
+    .card { padding: 32px 24px; }
+    .question-grid { grid-template-columns: 1fr; }
+    .comparison-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr; }
+    .hero-meta { flex-direction: column; align-items: center; gap: 10px; }
+    .toc-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .hero h1 { font-size: 1.5rem; }
+    .card h2 { font-size: 1.4rem; }
+    .card { padding: 24px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- 浮動背景裝飾 -->
+<div class="floating-shapes">
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+  <div class="shape"></div>
+</div>
+
+<div class="container">
+
+  <!-- ═══════════════════════════════════════
+       封面 Hero
+  ═══════════════════════════════════════ -->
+  <header class="hero">
+    <div class="hero-icon">🏛️</div>
+    <div class="hero-badge">📖 書醒 Awakening v2</div>
+    <h1>蘇格拉底提問法<br>通往真理的追問之道</h1>
+    <div class="hero-subtitle">The Socratic Way of Questioning: How to Use Socrates' Method to Uncover the Truth and Argue Wisely</div>
+    <div class="hero-author">Thinknetic 著 ・ 繁體中文深度解析</div>
+    <div class="hero-meta">
+      <div class="hero-meta-item">🎯 實用提問指南</div>
+      <div class="hero-meta-item">🧠 六種提問類型</div>
+      <div class="hero-meta-item">⚡ 反詰法 × 助產術</div>
+      <div class="hero-meta-item">🔍 認知偏見拆解</div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════
+       導航索引
+  ═══════════════════════════════════════ -->
+  <nav class="toc-nav">
+    <h2>📑 覺醒路線圖</h2>
+    <div class="toc-grid">
+      <a href="#card-1" class="toc-item"><span class="toc-num">1</span> 一句話驚醒</a>
+      <a href="#card-2" class="toc-item"><span class="toc-num">2</span> 作者解剖</a>
+      <a href="#card-3" class="toc-item"><span class="toc-num">3</span> 核心論點拆解</a>
+      <a href="#card-4" class="toc-item"><span class="toc-num">4</span> 關鍵概念地圖</a>
+      <a href="#card-5" class="toc-item"><span class="toc-num">5</span> 六種提問武器</a>
+      <a href="#card-6" class="toc-item"><span class="toc-num">6</span> 顛覆認知的段落</a>
+      <a href="#card-7" class="toc-item"><span class="toc-num">7</span> 思維陷阱與偏見</a>
+      <a href="#card-8" class="toc-item"><span class="toc-num">8</span> 實戰對話演練</a>
+      <a href="#card-9" class="toc-item"><span class="toc-num">9</span> 行動清單</a>
+      <a href="#card-10" class="toc-item"><span class="toc-num">10</span> 讀前 vs 讀後的我</a>
+      <a href="#card-11" class="toc-item"><span class="toc-num">11</span> 一生受用的一句話</a>
+    </div>
+  </nav>
+
+  <!-- ═══════════════════════════════════════
+       Step 01 ─ 一句話驚醒
+  ═══════════════════════════════════════ -->
+  <article class="card card-1" id="card-1">
+    <div class="card-step">STEP 01 ── 一句話驚醒</div>
+    <h2>❓ 真正的智慧，不在於知道答案，而在於知道該問什麼</h2>
+    <p class="card-desc">「你以為你在對話？不，你只是在交換獨白。」</p>
+
+    <p>這本書像一面鏡子，照出我們日常「溝通」的本質——<span class="highlight">我們大多數時候都在等對方說完，好輪到自己開口</span>。蘇格拉底在兩千四百年前就發現了這個問題：人類不是不會思考，而是不會提問。</p>
+
+    <div class="quote-block">
+      <p>I know that I know nothing.</p>
+      <div class="quote-src">—— 蘇格拉底（Socrates）</div>
+    </div>
+
+    <p>這句話不是謙虛，而是<span class="highlight">認識論上最銳利的武器</span>。當你真正接受自己「不知道」，你才會開始問出有意義的問題。而有意義的問題，比任何答案都更有力量。</p>
+
+    <p>Thinknetic 把蘇格拉底的方法從哲學殿堂拉進現實生活：會議室裡的決策、家庭中的爭論、自我反思的獨白——所有場景，都可以用「提問」取代「告知」。這不是說服術，這是<span class="highlight">共同發現真理的方法</span>。</p>
+
+    <div class="insight-box">
+      <div class="insight-box-title">🔑 核心震撼</div>
+      <p>大多數人把對話當作說服的戰場。蘇格拉底把對話當作<strong>真理的產房</strong>——答案不是被「給予」的，而是被「接生」出來的。你不需要成為最聰明的人，你只需要成為<strong>問出最好問題的人</strong>。</p>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-num">2400+</div>
+        <div class="stat-label">年歷史的方法論</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">6</div>
+        <div class="stat-label">種核心提問類型</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">∞</div>
+        <div class="stat-label">適用場景</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       Step 02 ─ 作者解剖
+  ═══════════════════════════════════════ -->
+  <article class="card card-2" id="card-2">
+    <div class="card-step">STEP 02 ── 作者解剖</div>
+    <h2>🔬 Thinknetic：把古典哲學打包成行動手冊的團隊</h2>
+    <p class="card-desc">不是學院派的論文，而是實用主義者的提問工具箱</p>
+
+    <h3>📌 作者定位</h3>
+    <p>Thinknetic 不是個人作者，而是一個<span class="highlight">專注於批判性思維與溝通技巧的出版品牌</span>。他們的寫作風格有明確特徵：把複雜的哲學概念拆解成可操作的步驟，用大量例子取代抽象論述。</p>
+
+    <p>這個定位決定了本書的基調——<strong>實用優先，哲學深度適可而止</strong>。如果你期待的是柏拉圖對話錄級別的哲學探討，可能會失望。但如果你想在明天的會議上就開始用蘇格拉底式提問，這本書就對了。</p>
+
+    <h3>📌 寫作策略分析</h3>
+    <div class="insight-box accent">
+      <div class="insight-box-title">🧩 三層架構</div>
+      <ul class="styled-list">
+        <li><strong>哲學底座：</strong>先交代蘇格拉底方法的歷史脈絡與哲學基礎，建立合法性。不深挖，但足夠讓讀者知道「這不是我發明的，這是經過兩千年驗證的」。</li>
+        <li><strong>方法論中層：</strong>將蘇格拉底法拆解為具體的提問類型、對話結構、思維檢查清單。這是全書的核心價值所在。</li>
+        <li><strong>應用層：</strong>每個概念都附帶現實場景的應用示範——從職場溝通到自我反思，從辯論到教學。</li>
+      </ul>
+    </div>
+
+    <h3>📌 作者的隱含立場</h3>
+    <p>Thinknetic 的寫作透露出一個核心信念：<span class="highlight">思維能力是可以訓練的技能，而非天賦</span>。這意味著蘇格拉底式提問不是哲學家的專利，而是像學開車一樣——任何人只要練習正確的步驟，都能掌握。</p>
+
+    <p>這種「去神秘化」的取向有其優勢（降低門檻、增加實用性）也有其代價（可能過度簡化蘇格拉底方法的深層哲學意涵）。作為讀者，你需要自行決定要在哪一層停下。</p>
+
+    <div class="insight-box warm">
+      <div class="insight-box-title">⚖️ 客觀評估</div>
+      <p><strong>優勢：</strong>結構清晰、例子豐富、上手門檻低、即學即用。<br>
+      <strong>侷限：</strong>哲學深度有限、部分案例偏簡化、缺少對蘇格拉底方法倫理面向的深入討論。<br>
+      <strong>最適讀者：</strong>想要提升提問與思辨能力的實踐者，而非哲學研究者。</p>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       Step 03 ─ 核心論點拆解
+  ═══════════════════════════════════════ -->
+  <article class="card card-3" id="card-3">
+    <div class="card-step">STEP 03 ── 核心論點拆解</div>
+    <h2>🏗️ 蘇格拉底方法的四根支柱</h2>
+    <p class="card-desc">不只是提問技巧，而是一整套認識論的作戰系統</p>
+
+    <h3>🔹 支柱一：無知之知（Socratic Ignorance）</h3>
+    <p>整套方法的起點是<span class="highlight">承認自己不知道</span>。這不是姿態，而是認識論上的真實狀態。蘇格拉底發現，大多數人以為自己知道的事情，經不起三個追問。「無知之知」是一種認知上的歸零——只有歸零，才能重新裝填經過驗證的知識。</p>
+
+    <div class="quote-block">
+      <p>The unexamined life is not worth living.</p>
+      <div class="quote-src">—— 蘇格拉底，在雅典審判中的申辯</div>
+    </div>
+
+    <p>這句話的力量在於它的絕對性——蘇格拉底寧願面對死刑，也不願放棄追問。這不是修辭，這是他用生命實踐的信念。</p>
+
+    <h3>🔹 支柱二：反詰法（Elenchus）</h3>
+    <p>Elenchus 是蘇格拉底方法的<span class="highlight">核心引擎</span>。它的運作邏輯出奇簡單：</p>
+
+    <div class="process-flow">
+      <div class="process-step">
+        <div class="process-step-num" style="background: linear-gradient(135deg, #7EC8A0, #B5E8CC);">1</div>
+        <div class="process-step-content">
+          <strong>邀請對方陳述立場</strong>
+          <span>「你認為正義是什麼？」——讓對方先說出他以為自己知道的答案。</span>
+        </div>
+      </div>
+      <div class="process-arrow">↓</div>
+      <div class="process-step">
+        <div class="process-step-num" style="background: linear-gradient(135deg, #7EC8A0, #B5E8CC);">2</div>
+        <div class="process-step-content">
+          <strong>追問前提假設</strong>
+          <span>「如果正義意味著X，那麼在Y情境下會怎樣？」——檢驗立場的邏輯後果。</span>
+        </div>
+      </div>
+      <div class="process-arrow">↓</div>
+      <div class="process-step">
+        <div class="process-step-num" style="background: linear-gradient(135deg, #7EC8A0, #B5E8CC);">3</div>
+        <div class="process-step-content">
+          <strong>暴露矛盾</strong>
+          <span>「但你剛才也說了Z，而Z和X是矛盾的。那究竟哪個才對？」</span>
+        </div>
+      </div>
+      <div class="process-arrow">↓</div>
+      <div class="process-step">
+        <div class="process-step-num" style="background: linear-gradient(135deg, #7EC8A0, #B5E8CC);">4</div>
+        <div class="process-step-content">
+          <strong>迫使修正或放棄</strong>
+          <span>對方必須修正原始立場，或承認自己其實不確定。</span>
+        </div>
+      </div>
+      <div class="process-arrow">↓</div>
+      <div class="process-step">
+        <div class="process-step-num" style="background: linear-gradient(135deg, #7EC8A0, #B5E8CC);">5</div>
+        <div class="process-step-content">
+          <strong>重新出發</strong>
+          <span>從修正後的立場繼續追問，直到找到更堅固的真理（或承認不知道）。</span>
+        </div>
+      </div>
+    </div>
+
+    <p>反詰法的精妙之處在於：<span class="highlight">提問者不需要知道「正確答案」</span>。你只需要不斷檢驗對方（或自己）的答案是否自洽。這讓蘇格拉底式提問成為一種<strong>探索工具</strong>而非<strong>說服工具</strong>。</p>
+
+    <h3>🔹 支柱三：助產術（Maieutics）</h3>
+    <p>如果說反詰法是「破」，助產術就是「立」。蘇格拉底自比為助產士——他的母親是助產士，而他認為自己做的是同樣的事，只不過接生的不是嬰兒，而是<span class="highlight">思想</span>。</p>
+
+    <p>助產術的核心假設：<strong>答案已經在對方心中</strong>，只是被未經檢驗的假設、偏見和慣性思維所遮蔽。提問者的工作不是「灌輸」知識，而是通過精準的提問，幫助對方「生出」自己的洞見。</p>
+
+    <div class="insight-box sage">
+      <div class="insight-box-title">💡 反詰法 vs 助產術</div>
+      <p><strong>反詰法（Elenchus）</strong>的目標是<em>拆除錯誤的信念</em>——像拆掉蓋歪的牆。<br>
+      <strong>助產術（Maieutics）</strong>的目標是<em>協助生出新的認知</em>——像引導嬰兒來到世界。<br><br>
+      兩者不是對立的，而是<strong>序列關係</strong>：先拆舊牆，再蓋新房。先承認不知道，才有空間裝入新知。</p>
+    </div>
+
+    <h3>🔹 支柱四：辯證式對話（Dialectic Dialogue）</h3>
+    <p>蘇格拉底式對話不是辯論——辯論的目的是贏，而辯證式對話的目的是<span class="highlight">共同接近真理</span>。這要求雙方都願意放下自尊，接受自己可能是錯的。</p>
+
+    <p>Thinknetic 特別強調一點：蘇格拉底方法的有效性取決於<strong>對話的善意基礎</strong>。如果對方感覺被攻擊、被羞辱，他們會啟動防禦機制，任何提問都無法穿透。因此，蘇格拉底式提問者需要具備的第一項能力不是提問技巧，而是<span class="highlight">建立心理安全感的能力</span>。</p>
+
+    <div class="insight-box">
+      <div class="insight-box-title">🎯 四根支柱的協同運作</div>
+      <p>無知之知 → 打開心智空間<br>
+      反詰法 → 清除錯誤信念<br>
+      助產術 → 催生新洞見<br>
+      辯證對話 → 確保過程是合作而非對抗<br><br>
+      四者缺一不可：沒有無知之知，你不會問；沒有反詰法，你無法破；沒有助產術，你只破不立；沒有辯證精神，整個過程會變成知識的暴力。</p>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       Step 04 ─ 關鍵概念地圖
+  ═══════════════════════════════════════ -->
+  <article class="card card-4" id="card-4">
+    <div class="card-step">STEP 04 ── 關鍵概念地圖</div>
+    <h2>🗺️ 十二個核心概念及其互動關係</h2>
+    <p class="card-desc">從散落的珍珠到串成一條完整項鍊</p>
+
+    <h3>🔸 概念群 A：認識論基礎</h3>
+
+    <h4>1. Socratic Ignorance（蘇格拉底式無知）</h4>
+    <p>不是「我什麼都不懂」的自謙，而是一種<span class="highlight">認知精確度的校準</span>。蘇格拉底區分了三種人：①自以為知道但不知道的人（最危險）、②知道自己不知道的人（蘇格拉底）、③真正知道的人（神）。日常生活中，我們幾乎都是第一種人。</p>
+
+    <h4>2. Doxa vs Episteme（意見 vs 知識）</h4>
+    <p>Doxa 是未經驗證的信念，Episteme 是經過系統檢驗的知識。蘇格拉底方法的全部工作，就是把你從 Doxa 的舒適區拖出來，逼你面對「你其實只是在<em>相信</em>，而不是在<em>知道</em>」的現實。</p>
+
+    <h4>3. Aporia（困惑）</h4>
+    <p>蘇格拉底式對話經常以 Aporia 結束——雙方都承認自己不知道答案。這不是失敗，而是<span class="highlight">最有價值的成果</span>。因為「知道自己不知道」比「以為自己知道」要進步一百倍。Aporia 是通往真知的必經之路。</p>
+
+    <h3>🔸 概念群 B：方法論工具</h3>
+
+    <h4>4. Elenchus（反詰法）</h4>
+    <p>邏輯檢驗的核心引擎。透過一系列追問，暴露對方立場中的內在矛盾。關鍵不是「找錯」，而是「讓對方自己看見矛盾」。</p>
+
+    <h4>5. Maieutics（助產術）</h4>
+    <p>知識接生的藝術。假設對方已經擁有答案的種子，提問者的工作是創造條件讓它發芽。這是蘇格拉底方法中最溫柔、最賦能的部分。</p>
+
+    <h4>6. Hypothesis Elimination（假說消去法）</h4>
+    <p>逐一檢驗可能的答案，淘汰經不起考驗的假說。留下來的不一定是正確的，但至少是<strong>目前最不錯的</strong>。這和科學方法的「證偽主義」驚人地相似——波普爾（Karl Popper）本人就深受蘇格拉底影響。</p>
+
+    <h3>🔸 概念群 C：對話動力學</h3>
+
+    <h4>7. Intellectual Humility（智識謙遜）</h4>
+    <p>蘇格拉底式對話的心態前提。如果你進入對話時心裡已經有了「正確答案」，你就不是在提問，而是在審問。</p>
+
+    <h4>8. Steel-manning（鋼人論證）</h4>
+    <p>稻草人論證（Straw-manning）的反面——不是把對方的論點弱化後再攻擊，而是<span class="highlight">先把對方的論點強化到最強版本，然後看它是否站得住</span>。這是蘇格拉底式對話中尊重對手的具體表現。</p>
+
+    <h4>9. Productive Discomfort（建設性不適）</h4>
+    <p>被蘇格拉底追問的感覺不舒服——你的信念被挑戰，你的確定感被動搖。但這種不適是<span class="highlight">成長的訊號</span>。Thinknetic 將此與心理學的「認知失調」（Cognitive Dissonance）連結：只有當你感到不安，改變才有可能發生。</p>
+
+    <h3>🔸 概念群 D：認知偏見防禦</h3>
+
+    <h4>10. Confirmation Bias（確認偏誤）</h4>
+    <p>只注意支持自己立場的證據，忽略反面證據。蘇格拉底式提問是確認偏誤的天然解藥——因為它強迫你面對自己不想面對的反例。</p>
+
+    <h4>11. Dunning-Kruger Effect（達克效應）</h4>
+    <p>能力不足的人傾向高估自己。蘇格拉底在雅典街頭遇到的大多數人就是這種狀態——政治家以為自己懂治國，詩人以為自己懂人生，工匠以為自己懂一切。反詰法就是打破達克效應的工具。</p>
+
+    <h4>12. Anchoring（錨定效應）</h4>
+    <p>最先接收到的資訊會不成比例地影響後續判斷。蘇格拉底式提問通過<strong>不斷質疑初始前提</strong>來對抗錨定效應——「等等，我們回到最開始。你為什麼會這樣想？」</p>
+
+    <div class="insight-box warm">
+      <div class="insight-box-title">🔗 概念間的隱藏連結</div>
+      <p>這十二個概念不是孤立的。它們形成一個<strong>自增強迴路</strong>：智識謙遜讓你願意被追問 → 反詰法暴露你的偏見 → Aporia（困惑）清空你的假知識 → 助產術幫你重建更堅固的認知 → 新的認知讓你更加謙遜 → 循環繼續。<br><br>
+      這就是為什麼蘇格拉底說，哲學不是一套知識，而是一種<em>生活方式</em>。</p>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       Step 05 ─ 六種提問武器
+  ═══════════════════════════════════════ -->
+  <article class="card card-5" id="card-5">
+    <div class="card-step">STEP 05 ── 六種提問武器</div>
+    <h2>⚔️ 蘇格拉底式提問的六把鑰匙</h2>
+    <p class="card-desc">每一種提問都打開不同的思維之門</p>
+
+    <p>本書最具實用價值的部分，是將蘇格拉底式提問歸納為<strong>六種類型</strong>。這不是蘇格拉底本人的分類（他不會用框架思維），而是 Thinknetic 基於教育學研究整理出的操作模型。每一種類型針對不同的認知盲點，打開不同的思維空間。</p>
+
+    <div class="question-grid">
+      <div class="question-type qt-1">
+        <div class="question-type-icon">🔍</div>
+        <div class="question-type-title">第一型：澄清提問</div>
+        <div class="question-type-sub">Clarifying Questions</div>
+        <p>針對模糊概念進行精確定義。很多爭論的根源不是意見不同，而是雙方在使用同一個詞時指的是不同的東西。</p>
+        <p><strong>核心功能：</strong>確保雙方在同一個語義平面上對話。</p>
+        <div class="example">
+          「你說的『成功』具體指什麼？」<br>
+          「你能舉一個具體的例子來說明嗎？」<br>
+          「換句話說，你的意思是……？」
+        </div>
+      </div>
+
+      <div class="question-type qt-2">
+        <div class="question-type-icon">🧱</div>
+        <div class="question-type-title">第二型：假設探問</div>
+        <div class="question-type-sub">Probing Assumptions</div>
+        <p>挖掘立場背後未被明說的前提假設。大多數人的觀點都建立在他們自己都沒意識到的假設之上。</p>
+        <p><strong>核心功能：</strong>讓隱藏的前提浮出水面接受檢驗。</p>
+        <div class="example">
+          「你這個結論背後的假設是什麼？」<br>
+          「如果那個假設不成立呢？」<br>
+          「你為什麼認為這是理所當然的？」
+        </div>
+      </div>
+
+      <div class="question-type qt-3">
+        <div class="question-type-icon">📊</div>
+        <div class="question-type-title">第三型：證據追問</div>
+        <div class="question-type-sub">Probing Evidence & Reasoning</div>
+        <p>追問支持論點的證據品質與推理過程。「你有什麼依據？」是最強大也最基本的蘇格拉底式武器。</p>
+        <p><strong>核心功能：</strong>區分「感覺是對的」和「有充分理由相信是對的」。</p>
+        <div class="example">
+          「你怎麼知道這是真的？」<br>
+          「有什麼證據支持這個說法？」<br>
+          「這個推理的邏輯鏈是什麼？」
+        </div>
+      </div>
+
+      <div class="question-type qt-4">
+        <div class="question-type-icon">🌐</div>
+        <div class="question-type-title">第四型：觀點轉換</div>
+        <div class="question-type-sub">Questioning Viewpoints & Perspectives</div>
+        <p>邀請對方站在不同角度看同一個問題。跳出自己的認知框架，是突破確認偏誤的最有效方式。</p>
+        <p><strong>核心功能：</strong>打破「只有一種看法」的幻覺。</p>
+        <div class="example">
+          「如果你是反對方，你會怎麼反駁？」<br>
+          「還有誰會受到這個決定的影響？他們怎麼想？」<br>
+          「有沒有完全不同的解讀方式？」
+        </div>
+      </div>
+
+      <div class="question-type qt-5">
+        <div class="question-type-icon">🔮</div>
+        <div class="question-type-title">第五型：後果推演</div>
+        <div class="question-type-sub">Probing Implications & Consequences</div>
+        <p>將論點推向邏輯極端，看看它是否仍然站得住腳。一個理論如果在極端情境下崩潰，說明它的基礎可能有問題。</p>
+        <p><strong>核心功能：</strong>壓力測試論點的穩健性。</p>
+        <div class="example">
+          「如果每個人都這樣做，會發生什麼？」<br>
+          「這個邏輯推到極端會導致什麼結論？」<br>
+          「長期來看，這個決定的影響是什麼？」
+        </div>
+      </div>
+
+      <div class="question-type qt-6">
+        <div class="question-type-icon">🪞</div>
+        <div class="question-type-title">第六型：反問（質疑問題本身）</div>
+        <div class="question-type-sub">Questions About the Question</div>
+        <p>最高層次的提問——質疑問題本身的合理性。有時候最有力的回應不是回答問題，而是指出問題問錯了。</p>
+        <p><strong>核心功能：</strong>跳出框架，重新定義問題空間。</p>
+        <div class="example">
+          「為什麼你覺得這是一個重要的問題？」<br>
+          「我們是不是在問一個錯誤的問題？」<br>
+          「如果我們把問題換成……會怎樣？」
+        </div>
+      </div>
+    </div>
+
+    <div class="insight-box sky">
+      <div class="insight-box-title">⚡ 六型提問的使用策略</div>
+      <p>這六種提問不是隨機使用的，它們有一個<strong>自然的遞進順序</strong>：<br><br>
+      <strong>第一型（澄清）</strong>→ 確保理解一致 → <strong>第二型（假設）</strong>→ 挖出隱藏前提 → <strong>第三型（證據）</strong>→ 檢驗支撐力 → <strong>第四型（觀點）</strong>→ 引入新視角 → <strong>第五型（後果）</strong>→ 壓力測試 → <strong>第六型（反問）</strong>→ 根本性反思<br><br>
+      當然，實際對話中你可以根據情境靈活組合。但如果你剛開始練習，建議<strong>從第一型開始</strong>——因為驚人數量的爭論，光靠澄清定義就能化解。</p>
+    </div>
+  </article>
+
+  <div class="divider"><span class="divider-icon">🏛️</span></div>
+
+  <!-- ═══════════════════════════════════════
+       Step 06 ─ 顛覆認知的段落
+  ═══════════════════════════════════════ -->
+  <article class="card card-6" id="card-6">
+    <div class="card-step">STEP 06 ── 顛覆認知的段落</div>
+    <h2>💥 五個改寫我思維迴路的洞見</h2>
+    <p class="card-desc">從「原來如此」到「天啊，我一直都搞錯了」</p>
+
+    <h3>💥 洞見一：「告訴別人答案」是最低效的教學方式</h3>
+    <p>蘇格拉底從不直接告訴別人答案。不是因為他不知道（雖然他經常宣稱不知道），而是因為他深刻理解：<span class="highlight">被告知的知識和自己發現的知識，在大腦中的處理方式完全不同</span>。</p>
+    <p>當你自己通過思考得出結論時，你不只獲得了那個結論，你同時獲得了<strong>到達那個結論的思維路徑</strong>。這條路徑比結論本身更有價值——因為它可以重複使用，而且你不容易忘記自己「走」過的路。</p>
+
+    <div class="insight-box coral">
+      <div class="insight-box-title">🤯 現代腦神經科學的印證</div>
+      <p>當代教育研究證實了蘇格拉底的直覺：「主動提取」（Active Retrieval）比「被動接收」（Passive Reception）的學習效果高出 50% 以上。蘇格拉底在沒有 fMRI 的年代就搞對了。</p>
+    </div>
+
+    <h3>💥 洞見二：大多數爭論是「定義之爭」而非「事實之爭」</h3>
+    <p>書中一個例子讓我醍醐灌頂：兩個人爭論「自由」是否比「安全」重要，吵了一個小時，直到有人問：「你說的自由是指什麼？」——一個人說的是「免於政府干預的自由」，另一個人說的是「免於經濟匱乏的自由」。他們根本在談<strong>兩件不同的事</strong>。</p>
+    <p>蘇格拉底式的第一型提問（澄清定義）能在 90% 的爭論中節省 90% 的時間。但我們太急著表達自己的立場，以至於<span class="highlight">忘了先確認我們在討論同一件事</span>。</p>
+
+    <h3>💥 洞見三：不舒服 ≠ 不友善</h3>
+    <p>蘇格拉底式對話經常讓人不舒服——你的信念被挑戰，你的確定感被動搖。但 Thinknetic 做了一個關鍵區分：<span class="highlight">讓人不舒服和讓人不安全是兩回事</span>。</p>
+    <p>好的蘇格拉底式提問者會讓你感到「認知上的不適」（你的想法被挑戰），但不會讓你感到「情感上的不安全」（你的人格被否定）。前者促進成長，後者觸發防禦。</p>
+
+    <h3>💥 洞見四：提問比回答更需要勇氣</h3>
+    <p>表面上看，被追問的人更需要勇氣。但 Thinknetic 指出一個反直覺的事實：提問者也需要巨大的勇氣。因為——</p>
+    <ul class="styled-list">
+      <li><strong>提問意味著承認你不確定：</strong>在一個獎勵「確定性」的文化中，說「我不知道，讓我們一起想想」需要勇氣。</li>
+      <li><strong>提問可能暴露你自己的無知：</strong>你追問到最後，可能發現自己的立場比對方更站不住腳。</li>
+      <li><strong>提問可能破壞關係：</strong>並非所有人都歡迎被追問。蘇格拉底本人就因為追問太多而被判死刑。</li>
+    </ul>
+
+    <h3>💥 洞見五：「知識的詛咒」讓專家成為最差的解釋者</h3>
+    <p>一個領域的專家往往很難向外行人解釋自己的知識，因為他們已經忘記「不知道」是什麼感覺。蘇格拉底方法的美妙之處在於，它通過<span class="highlight">持續假裝不知道</span>，強迫專家重新走一遍從無知到理解的路徑——這不只幫助了聽眾，也幫助了專家本人。</p>
+
+    <div class="quote-block">
+      <p>真正的無知不是知識的缺乏，而是拒絕獲取知識。</p>
+      <div class="quote-src">—— 改寫自蘇格拉底的教導</div>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       Step 07 ─ 思維陷阱與偏見
+  ═══════════════════════════════════════ -->
+  <article class="card card-7" id="card-7">
+    <div class="card-step">STEP 07 ── 思維陷阱與偏見</div>
+    <h2>🕸️ 蘇格拉底式提問要破解的八大認知陷阱</h2>
+    <p class="card-desc">你的大腦不是在思考，它是在找理由不思考</p>
+
+    <p>Thinknetic 在書中系統整理了蘇格拉底式提問特別擅長破解的認知偏見。這些不是抽象的心理學名詞，而是<span class="highlight">你每天都在犯的思維錯誤</span>。</p>
+
+    <h3>🕸️ 陷阱一：確認偏誤（Confirmation Bias）</h3>
+    <p><strong>症狀：</strong>只看見支持自己觀點的證據。你不是在「研究」，你是在「蒐集彈藥」。</p>
+    <p><strong>蘇格拉底解藥：</strong>第四型提問（觀點轉換）——「如果你是持反對意見的人，你會怎麼反駁你自己？」</p>
+
+    <h3>🕸️ 陷阱二：達克效應（Dunning-Kruger Effect）</h3>
+    <p><strong>症狀：</strong>知道得越少，越覺得自己知道得多。你的自信心與你的實際能力成反比。</p>
+    <p><strong>蘇格拉底解藥：</strong>反詰法（Elenchus）——通過系統性追問，讓對方親身經歷從「我很確定」到「等等，好像哪裡不對」的過程。</p>
+
+    <h3>🕸️ 陷阱三：稻草人論證（Straw Man Fallacy）</h3>
+    <p><strong>症狀：</strong>曲解對方的論點，攻擊一個對方從未主張的立場。</p>
+    <p><strong>蘇格拉底解藥：</strong>第一型提問（澄清）——「等一下，我想確認我正確理解了你的意思。你是說……嗎？」</p>
+
+    <h3>🕸️ 陷阱四：訴諸權威（Appeal to Authority）</h3>
+    <p><strong>症狀：</strong>「專家說的所以一定對。」——但專家可能在他專業範圍外發言，或者專家之間也有分歧。</p>
+    <p><strong>蘇格拉底解藥：</strong>第三型提問（證據追問）——「這位專家的證據是什麼？在這個特定問題上，他的專業範圍是否適用？」</p>
+
+    <h3>🕸️ 陷阱五：滑坡謬誤（Slippery Slope Fallacy）</h3>
+    <p><strong>症狀：</strong>「如果我們允許 A，就一定會導致 B、C、D……最終走向災難。」——但因果鏈中的每一步都需要獨立驗證。</p>
+    <p><strong>蘇格拉底解藥：</strong>第五型提問（後果推演，但反向使用）——「從 A 到 B 的那一步，具體的因果機制是什麼？有什麼證據支持這個因果關係？」</p>
+
+    <h3>🕸️ 陷阱六：錨定效應（Anchoring Bias）</h3>
+    <p><strong>症狀：</strong>第一個接收到的數字或資訊會過度影響後續判斷。</p>
+    <p><strong>蘇格拉底解藥：</strong>第二型提問（假設探問）——「我們先把那個數字放一邊。如果從零開始想，你覺得合理的數字應該是多少？」</p>
+
+    <h3>🕸️ 陷阱七：從眾效應（Bandwagon Effect）</h3>
+    <p><strong>症狀：</strong>「大家都這樣想，所以應該是對的。」——但歷史上大多數人曾經相信地球是平的。</p>
+    <p><strong>蘇格拉底解藥：</strong>第六型提問（反問）——「多數人相信某件事，這個事實本身能作為它為真的證據嗎？」</p>
+
+    <h3>🕸️ 陷阱八：虛假兩難（False Dilemma）</h3>
+    <p><strong>症狀：</strong>「不是 A 就是 B，只有兩個選擇。」——但真實世界幾乎不存在只有兩個選項的情境。</p>
+    <p><strong>蘇格拉底解藥：</strong>第二型 + 第四型提問組合——「為什麼只能選 A 或 B？有沒有 C 的可能？或者 A 和 B 的某種混合？」</p>
+
+    <div class="insight-box lavender">
+      <div class="insight-box-title">🧠 元認知洞察</div>
+      <p>注意一個共同模式：<strong>每一種認知陷阱都可以被至少一種蘇格拉底式提問所瓦解</strong>。這不是巧合——認知偏見的本質就是「未經檢驗的假設」，而蘇格拉底方法的本質就是「系統性地檢驗假設」。它們是天然的對立面。<br><br>
+      更深層的啟示：你不需要記住二十種偏見的名字。你只需要養成<strong>一個習慣</strong>——對任何看似理所當然的事情追問一句「真的嗎？為什麼？」</p>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       Step 08 ─ 實戰對話演練
+  ═══════════════════════════════════════ -->
+  <article class="card card-8" id="card-8">
+    <div class="card-step">STEP 08 ── 實戰對話演練</div>
+    <h2>🎭 從理論到實戰：三個場景的蘇格拉底式對話</h2>
+    <p class="card-desc">看蘇格拉底如果穿越到現代，會怎麼和你聊天</p>
+
+    <h3>🎬 場景一：職場——「我們一直都是這樣做的」</h3>
+
+    <div class="dialogue">
+      <div class="dialogue-line">
+        <div class="dialogue-avatar student">👤</div>
+        <div class="dialogue-bubble student">我們不應該改流程，公司一直都是這樣做的，已經十年了。</div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar socrates">🏛️</div>
+        <div class="dialogue-bubble socrates">我理解。「一直都這樣做」——這裡面隱含的假設是什麼？<br><em>（第二型：假設探問）</em></div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar student">👤</div>
+        <div class="dialogue-bubble student">就是……如果運作了十年，說明它是有效的啊。</div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar socrates">🏛️</div>
+        <div class="dialogue-bubble socrates">有意思。那你覺得「有效」和「最佳」是同一件事嗎？<br><em>（第一型：澄清提問）</em></div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar student">👤</div>
+        <div class="dialogue-bubble student">嗯……也不完全是。有效只是說它能用，不代表沒有更好的方式。</div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar socrates">🏛️</div>
+        <div class="dialogue-bubble socrates">十年前的市場環境和現在一樣嗎？如果環境變了，但流程沒變，這意味著什麼？<br><em>（第五型：後果推演）</em></div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar student">👤</div>
+        <div class="dialogue-bubble student">……意味著我們可能在用過時的方法處理新的問題。好吧，也許值得重新評估一下。</div>
+      </div>
+    </div>
+
+    <div class="insight-box mint">
+      <div class="insight-box-title">📝 技巧拆解</div>
+      <p>注意整個過程中，提問者<strong>從未說「你錯了」</strong>。對方是自己得出「也許該重新評估」的結論。這就是助產術的力量——結論是對方「生」出來的，所以他會認同它、擁有它。</p>
+    </div>
+
+    <h3>🎬 場景二：自我對話——「我不夠好」</h3>
+
+    <div class="dialogue">
+      <div class="dialogue-line">
+        <div class="dialogue-avatar student">👤</div>
+        <div class="dialogue-bubble student">我就是不夠聰明，不適合做這份工作。</div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar socrates">🏛️</div>
+        <div class="dialogue-bubble socrates">你說「不夠聰明」——這是跟誰比？你對「聰明」的定義是什麼？<br><em>（第一型：澄清）</em></div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar student">👤</div>
+        <div class="dialogue-bubble student">就……跟同事比吧。他們做事比我快。</div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar socrates">🏛️</div>
+        <div class="dialogue-bubble socrates">做事快 = 聰明？有沒有可能他們只是經驗更多，而不是更聰明？<br><em>（第二型：假設探問）</em></div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar student">👤</div>
+        <div class="dialogue-bubble student">也許吧……他們確實做這行比我久。</div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar socrates">🏛️</div>
+        <div class="dialogue-bubble socrates">你有什麼證據證明「你不適合」？是具體的績效數據，還是一種感覺？<br><em>（第三型：證據追問）</em></div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar student">👤</div>
+        <div class="dialogue-bubble student">……其實更多是一種感覺。我的績效評估沒有說我不行。</div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar socrates">🏛️</div>
+        <div class="dialogue-bubble socrates">那麼，你是基於證據，還是基於感覺在做這個判斷？<br><em>（第六型：反問——質疑整個問題的前提）</em></div>
+      </div>
+    </div>
+
+    <p>蘇格拉底式提問不只能用在人際對話中，更可以用來<span class="highlight">審問自己的內在對話</span>。你對自己說的話，和別人對你說的話一樣，需要接受檢驗。</p>
+
+    <h3>🎬 場景三：日常辯論——「素食比較健康」</h3>
+
+    <div class="dialogue">
+      <div class="dialogue-line">
+        <div class="dialogue-avatar student">👤</div>
+        <div class="dialogue-bubble student">素食一定比吃肉健康。</div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar socrates">🏛️</div>
+        <div class="dialogue-bubble socrates">你說「一定」——這是一個很強的聲稱。你有什麼證據支持「所有情況下」素食都更健康？<br><em>（第三型：證據追問）</em></div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar student">👤</div>
+        <div class="dialogue-bubble student">很多研究都顯示素食者心臟病風險較低。</div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar socrates">🏛️</div>
+        <div class="dialogue-bubble socrates">這些研究有沒有控制其他變量？比如，素食者是否同時也比較注意運動、不抽菸？相關性和因果性是同一回事嗎？<br><em>（第二型：假設探問 + 第三型：證據追問）</em></div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar student">👤</div>
+        <div class="dialogue-bubble student">嗯……也有道理。也許不是素食「本身」讓他們更健康，而是整體生活方式。</div>
+      </div>
+      <div class="dialogue-line">
+        <div class="dialogue-avatar socrates">🏛️</div>
+        <div class="dialogue-bubble socrates">那麼，也許更精確的說法不是「素食一定比較健康」，而是「精心規劃的飲食，無論是否包含肉類，都可能是健康的」？<br><em>（助產術：幫助對方生出更精確的觀點）</em></div>
+      </div>
+    </div>
+
+    <div class="insight-box">
+      <div class="insight-box-title">🎯 實戰要訣</div>
+      <p>蘇格拉底式對話的目標不是「讓對方認輸」，而是<strong>讓對方的觀點進化</strong>。從「素食一定更健康」進化到「精心規劃的飲食更健康」——觀點變得更精確、更有彈性、更接近真實。對方沒有輸，雙方都贏了。</p>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       Step 09 ─ 行動清單
+  ═══════════════════════════════════════ -->
+  <article class="card card-9" id="card-9">
+    <div class="card-step">STEP 09 ── 行動清單</div>
+    <h2>✅ 讀完這本書後，立刻可以做的十件事</h2>
+    <p class="card-desc">從知道到做到，從理論到肌肉記憶</p>
+
+    <h3>🔥 今天就做（零成本、零風險）</h3>
+
+    <ol class="numbered-flow">
+      <li>
+        <strong>下一次有人說「大家都這樣做」時，追問一句：「大家都這樣做，這本身就說明它是對的嗎？」</strong>
+        <span>這是最容易啟動蘇格拉底模式的時機。不需要正式場合，日常對話就行。練習第六型反問。</span>
+      </li>
+      <li>
+        <strong>今天的任何一次討論中，在表達意見前先問三個澄清問題</strong>
+        <span>強制自己延遲表達。大多數人在完全理解對方之前就開始反駁。用「你的意思是……嗎？」「你能舉個例子嗎？」「這跟……有什麼不同？」來暖身。</span>
+      </li>
+      <li>
+        <strong>對你今天最確定的一個信念，花 5 分鐘寫下三個可能的反駁</strong>
+        <span>這是蘇格拉底式自我對話的起點。不需要真的改變信念，只需要練習想像「如果我錯了呢？」。</span>
+      </li>
+    </ol>
+
+    <h3>📅 本週練習</h3>
+
+    <ol class="numbered-flow" style="counter-reset: flow-counter 3;">
+      <li>
+        <strong>建立「提問日記」——每天記錄一個你問出的好問題和一個你應該問但沒問的問題</strong>
+        <span>提問是一種技能，技能需要反饋迴路。提問日記就是你的反饋系統。一週後回顧，你會發現自己的提問模式。</span>
+      </li>
+      <li>
+        <strong>在一次會議中，從頭到尾只提問、不陳述</strong>
+        <span>這是進階練習。你會發現：①你的問題會比你的陳述更有影響力 ②別人會覺得你「真的在聽」 ③你會獲得比說話更多的資訊。</span>
+      </li>
+      <li>
+        <strong>選一個你和家人/朋友/同事長期爭論不下的議題，用第一型提問重新對話</strong>
+        <span>「等一下，我想確認我真的理解你。你說的XX，具體是指什麼？」——很多時候，你會發現你們爭的根本不是同一件事。</span>
+      </li>
+    </ol>
+
+    <h3>🌱 持續修煉（長期習慣養成）</h3>
+
+    <ol class="numbered-flow" style="counter-reset: flow-counter 6;">
+      <li>
+        <strong>每次做重大決定前，用六種提問類型各問自己一個問題</strong>
+        <span>①我的目標定義清楚嗎？ ②我的假設是什麼？ ③我的證據充分嗎？ ④其他人怎麼看？ ⑤長期後果是什麼？ ⑥我是不是在問對問題？</span>
+      </li>
+      <li>
+        <strong>閱讀新聞時，對每一條標題都問「有什麼證據？」和「誰從這個敘事中獲益？」</strong>
+        <span>蘇格拉底式閱讀不是被動接收資訊，而是主動審問資訊。這能有效降低被誤導的風險。</span>
+      </li>
+      <li>
+        <strong>找一個「蘇格拉底夥伴」，定期互相用提問挑戰彼此的想法</strong>
+        <span>獨自練習有其極限。找一個願意被你追問、也願意追問你的人。像健身搭檔，但鍛鍊的是思維。</span>
+      </li>
+      <li>
+        <strong>每月回顧一次你上個月最大的判斷失誤，用蘇格拉底六問做事後分析</strong>
+        <span>不是為了自責，而是為了從錯誤中提取教訓。蘇格拉底說：「未經審視的人生不值得過。」未經審視的失敗也不值得犯。</span>
+      </li>
+    </ol>
+
+    <div class="insight-box sage">
+      <div class="insight-box-title">⏱️ 90 天挑戰</div>
+      <p><strong>第 1-30 天：</strong>每天至少使用一次第一型（澄清）提問。目標：養成「先理解，再回應」的習慣。<br>
+      <strong>第 31-60 天：</strong>加入第二型（假設）和第三型（證據）提問。目標：學會挖掘隱藏前提。<br>
+      <strong>第 61-90 天：</strong>完整使用六種提問類型。目標：在任何對話中都能靈活切換提問模式。<br><br>
+      <strong>衡量標準：</strong>不是你問了多少問題，而是你的對話品質是否提升——雙方是否更理解彼此，決策品質是否提高。</p>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       Step 10 ─ 讀前 vs 讀後的我
+  ═══════════════════════════════════════ -->
+  <article class="card card-10" id="card-10">
+    <div class="card-step">STEP 10 ── 讀前 vs 讀後的我</div>
+    <h2>🔄 認知升級：被蘇格拉底問醒之前和之後</h2>
+    <p class="card-desc">不是學了新東西，是卸載了舊的作業系統</p>
+
+    <div class="comparison-grid">
+      <div class="comparison-col before">
+        <h4>❌ 讀前的我</h4>
+        <ul>
+          <li>把對話當作「等輪到我說話」的遊戲</li>
+          <li>急著給答案、給建議、給評價</li>
+          <li>覺得「問太多問題」顯得無知</li>
+          <li>遇到分歧直覺反應是說服對方</li>
+          <li>認為確定感 = 正確</li>
+          <li>對自己的信念很少追問「為什麼」</li>
+          <li>把不舒服當作對話出問題的信號</li>
+          <li>覺得哲學是抽象無用的東西</li>
+        </ul>
+      </div>
+      <div class="comparison-col after">
+        <h4>✅ 讀後的我</h4>
+        <ul>
+          <li>把對話當作「共同探索真理」的旅程</li>
+          <li>先問清楚，再決定要不要給答案</li>
+          <li>知道「好問題」比「好答案」更有力量</li>
+          <li>遇到分歧先澄清定義，再處理分歧</li>
+          <li>認為確定感可能是達克效應的症狀</li>
+          <li>養成對自己的信念定期做壓力測試的習慣</li>
+          <li>把認知不適當作思維正在成長的信號</li>
+          <li>理解蘇格拉底哲學是最實用的生活工具</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>🧬 最深層的改變</h3>
+
+    <p>讀完這本書，改變最大的不是某個具體技能，而是<span class="highlight">我和「確定性」的關係</span>。</p>
+
+    <p>以前，我追求確定感。我希望對每件事都有明確的立場，希望自己的觀點是「對的」。不確定讓我焦慮。</p>
+
+    <p>現在，我對「不確定」感到<strong>好奇而非焦慮</strong>。當我意識到自己不確定時，我知道那是一個學習的入口——而不是一個需要掩蓋的弱點。蘇格拉底讓我看見：<span class="highlight">真正的知識分子不是「知道很多的人」，而是「不斷質疑自己所知的人」</span>。</p>
+
+    <div class="insight-box">
+      <div class="insight-box-title">🔑 三個認知範式轉移</div>
+      <ul class="styled-list">
+        <li><strong>從「我要說服你」到「我要理解你」：</strong>溝通的目的從勝負轉向共識。</li>
+        <li><strong>從「確定 = 強大」到「質疑 = 智慧」：</strong>智力的標誌不是你知道多少，而是你願意質疑多少。</li>
+        <li><strong>從「答案最重要」到「問題最重要」：</strong>一個好問題改變思維方向，一個好答案只增加一條資訊。</li>
+      </ul>
+    </div>
+
+    <h3>📊 自我評估：提問能力成長矩陣</h3>
+
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-num">→</div>
+        <div class="stat-label">從被動接收<br>到主動追問</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">→</div>
+        <div class="stat-label">從二元對立<br>到光譜思維</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">→</div>
+        <div class="stat-label">從說服對方<br>到共同探索</div>
+      </div>
+    </div>
+
+    <p>這三個箭頭代表的是<strong>方向</strong>而非終點。蘇格拉底式思維不是一個你「到達」的目的地，而是一條你「持續行走」的路。正如蘇格拉底本人直到被判死刑的那一天，都還在追問。</p>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       Step 11 ─ 一生受用的一句話
+  ═══════════════════════════════════════ -->
+  <article class="card card-11" id="card-11">
+    <div class="card-step">STEP 11 ── 一生受用的一句話</div>
+    <h2>💎 如果這本書只能留下一句話</h2>
+    <p class="card-desc">從 2400 年前的雅典街頭，穿越到你明天的早會</p>
+
+    <div class="quote-block" style="border-left-color: var(--teal); background: linear-gradient(135deg, rgba(0, 184, 148, 0.06), rgba(85, 239, 196, 0.04));">
+      <p style="color: #006D5B; font-size: 1.2rem;">你不需要成為最聰明的人。你只需要成為房間裡問出最好問題的那個人。</p>
+      <div class="quote-src">—— 蘇格拉底方法的核心啟示</div>
+    </div>
+
+    <h3>💎 為什麼是這句話？</h3>
+
+    <p>因為它同時解決了三個問題：</p>
+
+    <ul class="styled-list">
+      <li><strong>它降低了門檻：</strong>你不需要天才智商，不需要博士學位，不需要讀完所有哲學經典。你只需要學會問好問題——而這是一種任何人都可以練習的技能。</li>
+      <li><strong>它翻轉了權力結構：</strong>在傳統認知中，「知道答案的人」擁有權力。但蘇格拉底告訴我們，「問出好問題的人」才是真正推動思考的人。提問者不需要知道目的地，但他決定了旅程的方向。</li>
+      <li><strong>它重新定義了「聰明」：</strong>不是知識的容量，而是質疑的勇氣。不是回答的速度，而是追問的深度。不是說了什麼，而是問了什麼。</li>
+    </ul>
+
+    <h3>💎 延伸思考</h3>
+
+    <p>蘇格拉底一生沒有寫過一個字。他所有的哲學都是通過對話完成的。這本身就是他方法論的證明——<span class="highlight">真理不是被書寫出來的，而是在問答中被發現的</span>。</p>
+
+    <p>兩千四百年後的今天，我們生活在一個答案過剩、問題稀缺的世界。Google 能在 0.5 秒內給你一億個答案，但沒有任何搜尋引擎能告訴你<strong>該問什麼問題</strong>。ChatGPT 可以回答任何問題，但它無法替你決定<strong>哪些問題值得問</strong>。</p>
+
+    <p>在這個意義上，蘇格拉底式提問不只是一種溝通技巧——它是一種<span class="highlight">在資訊洪流中保持清醒的生存策略</span>。</p>
+
+    <div class="insight-box mint">
+      <div class="insight-box-title">🌟 最後的提問</div>
+      <p>讀完這份報告後，我想留給你一個蘇格拉底式的問題：<br><br>
+      <strong>「在你的生活中，有哪一個你一直深信不疑的信念，其實從來沒有被你認真檢驗過？」</strong><br><br>
+      不需要現在回答。但如果這個問題在你腦中停留了超過三秒——恭喜你，蘇格拉底的助產術已經開始工作了。</p>
+    </div>
+
+    <div class="quote-block" style="border-left-color: var(--primary); margin-top: 32px;">
+      <p>I know that I know nothing — and that is the beginning of all wisdom.</p>
+      <div class="quote-src">—— 蘇格拉底的智慧遺產，跨越 2400 年仍在回響</div>
+    </div>
+  </article>
+
+  <!-- ═══════════════════════════════════════
+       頁腳
+  ═══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-icon">🏛️</div>
+    <p>
+      <strong>The Socratic Way of Questioning</strong><br>
+      How to Use Socrates' Method to Uncover the Truth and Argue Wisely<br>
+      Thinknetic 著
+    </p>
+    <p style="margin-top: 16px;">
+      <span class="tag tag-primary">蘇格拉底式提問</span>
+      <span class="tag tag-accent">反詰法</span>
+      <span class="tag tag-sage">助產術</span>
+      <span class="tag tag-warm">批判性思維</span>
+    </p>
+    <p style="margin-top: 20px; font-size: 0.85rem; color: var(--text-muted);">
+      「未經審視的人生不值得過。」——但你已經開始審視了。
+    </p>
+    <div class="footer-brand">書醒 AWAKENING v2 ── 龍龍 🐉 製作</div>
+  </footer>
+
+</div>
+
+</body>
+</html>

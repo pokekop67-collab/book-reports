@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒報告｜What to Ask the Person in the Mirror — Robert Steven Kaplan</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap');
+
+  :root {
+    --glass-bg: rgba(255,255,255,0.72);
+    --glass-border: rgba(255,255,255,0.45);
+    --shadow-soft: 0 8px 32px rgba(100,80,140,0.10);
+    --shadow-card: 0 4px 24px rgba(100,80,140,0.08);
+    --radius-xl: 28px;
+    --radius-lg: 22px;
+    --radius-md: 16px;
+    --gradient-hero: linear-gradient(135deg, #1a1a2e 0%, #16213e 30%, #0f3460 60%, #1a1a2e 100%);
+    --gradient-mirror: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-warm: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --gradient-ocean: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --gradient-sunset: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+    --gradient-forest: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+    --gradient-night: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+    --gradient-fire: linear-gradient(135deg, #f83600 0%, #f9d423 100%);
+    --gradient-sky: linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%);
+    --text-primary: #1a1a2e;
+    --text-secondary: #4a4a6a;
+    --text-muted: #8888aa;
+    --text-light: rgba(255,255,255,0.92);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #f0eff5;
+    color: var(--text-primary);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ═══════════════════════════════════════════
+     CARD 0 — HERO / 開場
+     ═══════════════════════════════════════════ */
+  .hero-card {
+    min-height: 100vh;
+    background: var(--gradient-hero);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    padding: 60px 24px;
+  }
+
+  .hero-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at 30% 50%, rgba(102,126,234,0.15) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(118,75,162,0.12) 0%, transparent 60%);
+    animation: heroFloat 20s ease-in-out infinite;
+  }
+
+  @keyframes heroFloat {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(30px, -20px) rotate(1deg); }
+    66% { transform: translate(-20px, 15px) rotate(-1deg); }
+  }
+
+  .hero-mirror {
+    position: relative;
+    z-index: 2;
+    width: 180px;
+    height: 240px;
+    border: 3px solid rgba(255,255,255,0.25);
+    border-radius: 90px 90px 20px 20px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 100%);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+    box-shadow: 0 0 60px rgba(102,126,234,0.2), inset 0 0 40px rgba(255,255,255,0.05);
+    animation: mirrorGlow 4s ease-in-out infinite;
+  }
+
+  @keyframes mirrorGlow {
+    0%, 100% { box-shadow: 0 0 60px rgba(102,126,234,0.2), inset 0 0 40px rgba(255,255,255,0.05); }
+    50% { box-shadow: 0 0 80px rgba(102,126,234,0.35), inset 0 0 50px rgba(255,255,255,0.08); }
+  }
+
+  .hero-mirror .mirror-icon {
+    font-size: 72px;
+    filter: drop-shadow(0 0 20px rgba(255,255,255,0.3));
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    max-width: 800px;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 40px;
+    padding: 8px 24px;
+    font-size: 0.82rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 28px;
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(2.2rem, 5vw, 3.6rem);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.3;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 30px rgba(0,0,0,0.3);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: rgba(255,255,255,0.65);
+    font-weight: 300;
+    line-height: 1.7;
+    margin-bottom: 36px;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  .hero-meta-item {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 14px;
+    padding: 12px 22px;
+    color: rgba(255,255,255,0.8);
+    font-size: 0.88rem;
+  }
+
+  .hero-meta-item span {
+    display: block;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.45);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 2px;
+  }
+
+  .hero-quote {
+    position: relative;
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 28px 36px;
+    background: rgba(255,255,255,0.06);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: var(--radius-lg);
+    color: rgba(255,255,255,0.85);
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    line-height: 1.8;
+  }
+
+  .hero-quote::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 4rem;
+    color: rgba(102,126,234,0.4);
+    font-family: Georgia, serif;
+    line-height: 1;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    color: rgba(255,255,255,0.35);
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.35; transform: translateX(-50%) translateY(0); }
+    50% { opacity: 0.7; transform: translateX(-50%) translateY(6px); }
+  }
+
+  /* ═══════════════════════════════════════════
+     通用區段容器
+     ═══════════════════════════════════════════ */
+  .section-card {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+
+  .card-glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 52px 44px;
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-glass::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  }
+
+  /* ─── 各卡片頂色條 ─── */
+  .card-vision .card-glass::before { background: var(--gradient-mirror); }
+  .card-time .card-glass::before { background: var(--gradient-ocean); }
+  .card-feedback .card-glass::before { background: var(--gradient-warm); }
+  .card-succession .card-glass::before { background: var(--gradient-forest); }
+  .card-alignment .card-glass::before { background: var(--gradient-sunset); }
+  .card-pressure .card-glass::before { background: var(--gradient-fire); }
+  .card-self .card-glass::before { background: var(--gradient-night); }
+  .card-framework .card-glass::before { background: var(--gradient-sky); }
+  .card-practice .card-glass::before { background: var(--gradient-mirror); }
+  .card-verdict .card-glass::before { background: var(--gradient-warm); }
+
+  .section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 900;
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+  }
+
+  .card-vision .section-number { background: var(--gradient-mirror); }
+  .card-time .section-number { background: var(--gradient-ocean); }
+  .card-feedback .section-number { background: var(--gradient-warm); }
+  .card-succession .section-number { background: var(--gradient-forest); }
+  .card-alignment .section-number { background: var(--gradient-sunset); }
+  .card-pressure .section-number { background: var(--gradient-fire); }
+  .card-self .section-number { background: var(--gradient-night); }
+  .card-framework .section-number { background: var(--gradient-sky); }
+  .card-practice .section-number { background: var(--gradient-mirror); }
+
+  .section-label {
+    font-size: 0.78rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(1.5rem, 3.5vw, 2rem);
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+
+  .section-title-en {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    font-weight: 400;
+    font-style: italic;
+    margin-bottom: 28px;
+  }
+
+  .section-body p {
+    font-size: 1rem;
+    line-height: 2;
+    color: var(--text-secondary);
+    margin-bottom: 18px;
+  }
+
+  .section-body p:last-child { margin-bottom: 0; }
+
+  /* ─── 鏡中之問區塊 ─── */
+  .mirror-question-box {
+    background: linear-gradient(135deg, rgba(102,126,234,0.06) 0%, rgba(118,75,162,0.06) 100%);
+    border: 1px solid rgba(102,126,234,0.12);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
+    margin: 28px 0;
+  }
+
+  .mirror-question-box h4 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #667eea;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .mirror-q {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(102,126,234,0.08);
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .mirror-q:last-child { border-bottom: none; }
+
+  .mirror-q .q-icon {
+    flex-shrink: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+    background: var(--gradient-mirror);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    color: #fff;
+    margin-top: 2px;
+  }
+
+  /* ─── 洞見卡片 ─── */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 18px;
+    margin: 24px 0;
+  }
+
+  .insight-item {
+    background: rgba(255,255,255,0.65);
+    border: 1px solid rgba(200,200,220,0.3);
+    border-radius: var(--radius-md);
+    padding: 24px 20px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .insight-item:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .insight-item .insight-icon {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+
+  .insight-item h5 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .insight-item p {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  /* ─── 金句條 ─── */
+  .golden-quote {
+    position: relative;
+    background: linear-gradient(135deg, rgba(250,112,154,0.06) 0%, rgba(254,225,64,0.06) 100%);
+    border-left: 4px solid;
+    border-image: var(--gradient-sunset) 1;
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    padding: 24px 28px;
+    margin: 28px 0;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.02rem;
+    font-style: italic;
+    line-height: 1.9;
+    color: var(--text-primary);
+  }
+
+  .golden-quote .quote-source {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.82rem;
+    font-style: normal;
+    color: var(--text-muted);
+  }
+
+  /* ─── 案例框 ─── */
+  .case-box {
+    background: linear-gradient(135deg, rgba(67,233,123,0.05) 0%, rgba(56,249,215,0.05) 100%);
+    border: 1px solid rgba(67,233,123,0.15);
+    border-radius: var(--radius-md);
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .case-box h5 {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #2ecc71;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .case-box p {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  /* ─── 警示框 ─── */
+  .warning-box {
+    background: linear-gradient(135deg, rgba(248,54,0,0.05) 0%, rgba(249,212,35,0.05) 100%);
+    border: 1px solid rgba(248,54,0,0.12);
+    border-radius: var(--radius-md);
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .warning-box h5 {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #e74c3c;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .warning-box p, .warning-box li {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  .warning-box ul { padding-left: 20px; margin-top: 8px; }
+  .warning-box li { margin-bottom: 4px; }
+
+  /* ─── 步驟列表 ─── */
+  .step-list {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+    margin: 24px 0;
+  }
+
+  .step-list li {
+    counter-increment: step;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(200,200,220,0.2);
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  .step-list li:last-child { border-bottom: none; }
+
+  .step-list li::before {
+    content: counter(step);
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: var(--gradient-mirror);
+    color: #fff;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  /* ─── 評分 ─── */
+  .rating-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .rating-item {
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(200,200,220,0.2);
+    border-radius: var(--radius-md);
+    padding: 20px;
+  }
+
+  .rating-item .rating-label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .rating-item .rating-bar {
+    height: 8px;
+    background: rgba(200,200,220,0.2);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+
+  .rating-item .rating-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--gradient-mirror);
+    transition: width 1s ease;
+  }
+
+  .rating-item .rating-score {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+  }
+
+  /* ─── 對比表格 ─── */
+  .compare-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    margin: 24px 0;
+    box-shadow: var(--shadow-card);
+  }
+
+  .compare-table th {
+    background: var(--gradient-mirror);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 14px 18px;
+    text-align: left;
+  }
+
+  .compare-table td {
+    background: rgba(255,255,255,0.8);
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    border-bottom: 1px solid rgba(200,200,220,0.15);
+  }
+
+  .compare-table tr:last-child td { border-bottom: none; }
+
+  /* ─── 標籤 ─── */
+  .tag-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 18px 0;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    border: 1px solid;
+  }
+
+  .tag-purple { background: rgba(102,126,234,0.08); border-color: rgba(102,126,234,0.2); color: #667eea; }
+  .tag-pink { background: rgba(240,147,251,0.08); border-color: rgba(240,147,251,0.2); color: #c850c0; }
+  .tag-green { background: rgba(67,233,123,0.08); border-color: rgba(67,233,123,0.2); color: #2ecc71; }
+  .tag-orange { background: rgba(248,54,0,0.08); border-color: rgba(248,54,0,0.15); color: #e67e22; }
+  .tag-blue { background: rgba(79,172,254,0.08); border-color: rgba(79,172,254,0.2); color: #3498db; }
+
+  /* ─── 分隔裝飾 ─── */
+  .divider-dots {
+    text-align: center;
+    padding: 20px 0;
+    color: var(--text-muted);
+    letter-spacing: 12px;
+    font-size: 0.8rem;
+  }
+
+  /* ─── Footer ─── */
+  .footer-card {
+    text-align: center;
+    padding: 60px 24px 80px;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+  }
+
+  .footer-card .footer-line {
+    width: 60px;
+    height: 2px;
+    background: var(--gradient-mirror);
+    margin: 0 auto 20px;
+    border-radius: 1px;
+  }
+
+  /* ─── 動畫 ─── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ─── 背景裝飾圓 ─── */
+  .bg-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.06;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .bg-orb-1 {
+    width: 500px;
+    height: 500px;
+    background: #667eea;
+    top: 10%;
+    left: -10%;
+    animation: orbFloat1 25s ease-in-out infinite;
+  }
+
+  .bg-orb-2 {
+    width: 400px;
+    height: 400px;
+    background: #f093fb;
+    top: 50%;
+    right: -10%;
+    animation: orbFloat2 30s ease-in-out infinite;
+  }
+
+  .bg-orb-3 {
+    width: 350px;
+    height: 350px;
+    background: #43e97b;
+    bottom: 10%;
+    left: 20%;
+    animation: orbFloat3 22s ease-in-out infinite;
+  }
+
+  @keyframes orbFloat1 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(60px, 40px); }
+  }
+
+  @keyframes orbFloat2 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-40px, -60px); }
+  }
+
+  @keyframes orbFloat3 {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -30px); }
+  }
+
+  /* ─── 響應式 ─── */
+  @media (max-width: 768px) {
+    .card-glass { padding: 36px 24px; }
+    .hero-card { padding: 40px 20px; }
+    .hero-mirror { width: 140px; height: 190px; }
+    .hero-mirror .mirror-icon { font-size: 54px; }
+    .insight-grid { grid-template-columns: 1fr; }
+    .rating-grid { grid-template-columns: 1fr; }
+    .compare-table { font-size: 0.85rem; }
+    .compare-table th, .compare-table td { padding: 10px 12px; }
+  }
+
+  /* ─── 特殊重點框 ─── */
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(161,140,209,0.08) 0%, rgba(251,194,235,0.08) 100%);
+    border: 1px solid rgba(161,140,209,0.15);
+    border-radius: var(--radius-md);
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .highlight-box h5 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #764ba2;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .highlight-box p, .highlight-box li {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+
+  .highlight-box ul { padding-left: 20px; margin-top: 8px; }
+  .highlight-box li { margin-bottom: 6px; }
+
+  /* ─── 核心公式 ─── */
+  .formula-box {
+    text-align: center;
+    padding: 32px 24px;
+    margin: 28px 0;
+    background: linear-gradient(135deg, rgba(102,126,234,0.04) 0%, rgba(118,75,162,0.04) 100%);
+    border: 2px dashed rgba(102,126,234,0.2);
+    border-radius: var(--radius-lg);
+  }
+
+  .formula-box .formula {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .formula-box .formula-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  /* ─── 人物引述 ─── */
+  .person-quote {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    padding: 24px;
+    background: rgba(255,255,255,0.5);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(200,200,220,0.2);
+    margin: 20px 0;
+  }
+
+  .person-quote .avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+
+  .person-quote .quote-text {
+    font-size: 0.92rem;
+    line-height: 1.8;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+
+  .person-quote .quote-name {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  /* ─── 數據卡 ─── */
+  .stat-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin: 24px 0;
+    justify-content: center;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 20px 28px;
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(200,200,220,0.2);
+    border-radius: var(--radius-md);
+    min-width: 140px;
+  }
+
+  .stat-item .stat-num {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.8rem;
+    font-weight: 900;
+    background: var(--gradient-mirror);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .stat-item .stat-label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+<!-- 背景裝飾 -->
+<div class="bg-orb bg-orb-1"></div>
+<div class="bg-orb bg-orb-2"></div>
+<div class="bg-orb bg-orb-3"></div>
+
+<!-- ═══════════════════════════════════════════
+     CARD 0 — HERO 開場
+     ═══════════════════════════════════════════ -->
+<section class="hero-card">
+  <div class="hero-mirror">
+    <div class="mirror-icon">🪞</div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-tag">書醒 Awakening v2 ✦ 領導力深度解析</div>
+    <h1 class="hero-title">問鏡中人<br>七道領導力的終極自問</h1>
+    <p class="hero-subtitle">
+      What to Ask the Person in the Mirror — Robert Steven Kaplan<br>
+      成為卓越領導者的關鍵不是有所有答案，而是問對問題
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span>作者</span>
+        Robert Steven Kaplan
+      </div>
+      <div class="hero-meta-item">
+        <span>身份</span>
+        哈佛商學院教授 · 高盛前副董事長
+      </div>
+      <div class="hero-meta-item">
+        <span>核心主題</span>
+        領導力自我反思
+      </div>
+      <div class="hero-meta-item">
+        <span>結構</span>
+        7 大關鍵問題領域
+      </div>
+    </div>
+    <div class="hero-quote">
+      The key to leadership is asking the right questions, not having all the answers.
+      <span class="quote-source">— Robert Steven Kaplan</span>
+    </div>
+  </div>
+  <div class="hero-scroll">↓ SCROLL TO EXPLORE ↓</div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CARD 1 — 核心論點：為何要問鏡中人？
+     ═══════════════════════════════════════════ -->
+<div class="section-card card-framework fade-in">
+  <div class="card-glass">
+    <div class="section-number">01</div>
+    <div class="section-label">Core Thesis — 核心論點</div>
+    <h2 class="section-title">為什麼要問鏡中人？</h2>
+    <div class="section-title-en">The Mirror as a Leadership Tool</div>
+
+    <div class="section-body">
+      <p>Robert Steven Kaplan 在哈佛商學院教了二十年領導力，又在高盛做了二十二年副董事長。他觀察到一個驚人的共通點：<strong>那些最後失敗的領導者，不是能力不夠，而是不再問自己關鍵問題</strong>。</p>
+
+      <p>他們停止了反思。他們開始以為自己已經知道所有答案。他們不再對著鏡子看自己 —— 鏡中人變成了一個陌生人。</p>
+
+      <div class="formula-box">
+        <div class="formula">卓越領導 ＝ 正確的問題 × 誠實的自省 × 持續的調整</div>
+        <div class="formula-desc">Leadership = Right Questions × Honest Reflection × Continuous Adjustment</div>
+      </div>
+
+      <p>Kaplan 提出了一個反直覺的主張：<strong>領導力的核心不是給出答案，而是提出問題</strong>。而且，最關鍵的問題不是問別人的，而是問自己的。他歸納出七大問題領域，涵蓋了一位領導者從願景設定到自我忠誠的完整旅程。</p>
+
+      <div class="insight-grid">
+        <div class="insight-item">
+          <div class="insight-icon">🔍</div>
+          <h5>自問的勇氣</h5>
+          <p>大多數領導者忙於解決外部問題，卻忘了最需要被解決的問題在自己內心。對著鏡子提問需要的不是技巧，而是勇氣。</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🧭</div>
+          <h5>七個方向盤</h5>
+          <p>願景、時間、回饋、授權、對齊、壓力、自我 —— 七個面向就像七個方向盤，任何一個偏掉，整台車都會失控。</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🔄</div>
+          <h5>動態的過程</h5>
+          <p>這不是一次性的自評表格。Kaplan 強調這些問題需要定期回訪，因為環境在變、你在變、答案也在變。</p>
+        </div>
+      </div>
+
+      <div class="golden-quote">
+        許多領導者在職涯初期養成了反思的習慣，但隨著地位提升，這個習慣反而消失了。越成功，越不問自己；越不問自己，越危險。
+        <span class="quote-source">— 本書核心觀察</span>
+      </div>
+
+      <p>這本書的受眾不只是 CEO。Kaplan 明確指出，<strong>無論你是初階主管、創業家、還是非營利組織的負責人，這七個問題都適用</strong>。因為領導力的本質不在於管多少人，而在於你是否清醒地走在自己選擇的路上。</p>
+
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-num">7</div>
+          <div class="stat-label">大關鍵問題領域</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">20+</div>
+          <div class="stat-label">年哈佛教學經驗</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">22</div>
+          <div class="stat-label">年高盛實戰歷練</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">次鏡前自我對話</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CARD 2 — 願景與優先順序
+     ═══════════════════════════════════════════ -->
+<div class="section-card card-vision fade-in">
+  <div class="card-glass">
+    <div class="section-number">02</div>
+    <div class="section-label">Question Area 1 — 第一道鏡中之問</div>
+    <h2 class="section-title">願景與優先順序</h2>
+    <div class="section-title-en">Setting Your Vision and Priorities</div>
+
+    <div class="section-body">
+      <p>Kaplan 把這個問題放在第一位不是偶然的。在他觀察的無數失敗案例中，最常見的根因不是執行力差，而是<strong>領導者從來沒有搞清楚自己到底要帶團隊去哪裡</strong>。</p>
+
+      <p>他講了一個故事：一位科技公司的 CEO 來找他諮詢，抱怨團隊執行力差、各部門各行其是、員工不投入。Kaplan 只問了一個問題：<em>「你能用兩三句話告訴我，你公司的願景是什麼嗎？」</em>對方沈默了整整一分鐘。</p>
+
+      <div class="mirror-question-box">
+        <h4>🪞 鏡中之問</h4>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你能否清晰地說出你的組織（或團隊）的願景？如果問你的直屬下屬，他們的回答會一樣嗎？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你的三到五個最高優先事項是什麼？你的時間和資源分配是否真的反映了這些優先順序？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>如果你必須重新設計你的組織，從零開始，你會怎麼做？現在的結構有多少是歷史包袱？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你上一次重新審視並更新你的願景是什麼時候？那個願景還適用於今天的環境嗎？</div>
+        </div>
+      </div>
+
+      <p>Kaplan 指出，<strong>願景不是貼在牆上的標語，而是一種活的決策框架</strong>。當每個決策都能回溯到願景，團隊就不需要你下每一個指令 —— 他們自己知道該往哪裡走。</p>
+
+      <div class="case-box">
+        <h5>📋 實戰洞見：願景的「電梯測試」</h5>
+        <p>Kaplan 建議領導者做一個簡單的測試：隨機找五個不同層級的員工，分別問他們公司的願景和最重要的三件事。如果答案五花八門，那不是他們的問題 —— 是你的問題。你沒有把願景說清楚，或者說了但沒有不斷強化。他強調：<strong>「你以為你說過一次大家就記住了。不，你需要說一百次。」</strong></p>
+      </div>
+
+      <p>更深層的問題是優先順序。很多領導者會列出十幾個「優先事項」，但 Kaplan 毫不客氣地說：<strong>如果你有超過五個優先事項，那你就沒有優先事項</strong>。真正的優先排序意味著你必須有勇氣說「不」—— 對好機會說不，對有影響力的人說不，對自己喜歡的項目說不。</p>
+
+      <div class="warning-box">
+        <h5>⚠️ 常見陷阱</h5>
+        <ul>
+          <li><strong>「願景通膨」</strong>：願景太大太抽象，聽起來很酷但無法指導日常決策</li>
+          <li><strong>「優先順序麻痺」</strong>：列了太多優先事項，等於沒有優先事項</li>
+          <li><strong>「假設對齊」</strong>：以為大家都懂了，從不驗證</li>
+          <li><strong>「歷史慣性」</strong>：延用過去的願景，即使環境已經完全改變</li>
+        </ul>
+      </div>
+
+      <div class="golden-quote">
+        If you don't articulate a vision, your people will come up with their own — and they won't all be the same.
+        <span class="quote-source">— Robert Steven Kaplan</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CARD 3 — 時間管理
+     ═══════════════════════════════════════════ -->
+<div class="section-card card-time fade-in">
+  <div class="card-glass">
+    <div class="section-number">03</div>
+    <div class="section-label">Question Area 2 — 第二道鏡中之問</div>
+    <h2 class="section-title">時間管理</h2>
+    <div class="section-title-en">Managing Your Time</div>
+
+    <div class="section-body">
+      <p>Kaplan 發現一件弔詭的事：<strong>幾乎每個來找他的領導者都說自己很忙，但幾乎沒有人能說清楚自己的時間到底花在哪裡</strong>。更糟的是，當他讓他們追蹤自己的時間分配時，他們自己都嚇了一跳 —— 實際花的時間和自以為花的時間，差距大得驚人。</p>
+
+      <div class="mirror-question-box">
+        <h4>🪞 鏡中之問</h4>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你的時間使用方式是否與你宣稱的優先事項一致？如果追蹤過去一週的每個小時，會發現什麼？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你是在「管理時間」還是「被時間管理」？你的行程是你主動設計的，還是被別人的請求填滿的？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你有多少時間是花在只有你能做的事情上？有多少是可以授權但你捨不得放手的？</div>
+        </div>
+      </div>
+
+      <p>這一章的核心觀點極為尖銳：<strong>你怎麼花時間，就說明你真正的優先順序是什麼</strong>。不是你說的那些，是你做的那些。如果你說「人才發展」是最重要的，但你一個月花在一對一面談的時間不到三小時，那你的實際優先順序裡根本沒有「人才發展」。</p>
+
+      <div class="highlight-box">
+        <h5>💡 Kaplan 的時間追蹤法</h5>
+        <ul>
+          <li><strong>步驟一：</strong>連續兩週記錄你的每小時行為，不要美化，實話實說</li>
+          <li><strong>步驟二：</strong>把記錄分類 —— 哪些是你的核心優先事項？哪些是救火？哪些是習慣但不重要的？</li>
+          <li><strong>步驟三：</strong>重新設計你的典型一週，讓時間分配真正反映你的優先順序</li>
+          <li><strong>步驟四：</strong>每季重新檢視一次，因為優先順序會隨環境變化</li>
+        </ul>
+      </div>
+
+      <p>Kaplan 特別強調了一個概念：<strong>「只有你能做的事」</strong>。領導者最大的時間陷阱，就是繼續做那些過去讓自己成功、但現在應該授權出去的事。你擅長做財務分析？太好了，但如果你現在是 CEO，那不該是你花時間的地方。</p>
+
+      <div class="compare-table">
+        <table style="width:100%">
+          <tr>
+            <th style="width:50%">❌ 被時間管理的領導者</th>
+            <th style="width:50%">✅ 管理時間的領導者</th>
+          </tr>
+          <tr>
+            <td>行程被會議塞滿，沒有思考時間</td>
+            <td>刻意保留「空白時段」用於反思和策略思考</td>
+          </tr>
+          <tr>
+            <td>任何人隨時都能打斷他</td>
+            <td>設定明確的「深度工作」時段</td>
+          </tr>
+          <tr>
+            <td>花大量時間在自己擅長但可以授權的事</td>
+            <td>專注在「只有我能做」的高槓桿活動</td>
+          </tr>
+          <tr>
+            <td>以「忙碌」為榮</td>
+            <td>以「有效」為榮</td>
+          </tr>
+          <tr>
+            <td>反應式管理：問題來了才處理</td>
+            <td>主動式管理：提前規劃時間塊</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="golden-quote">
+        How you spend your time is the clearest indicator of your real priorities — not what you say, but what you do.
+        <span class="quote-source">— Robert Steven Kaplan</span>
+      </div>
+
+      <p>他還提出了一個殘酷的自問：<strong>如果你明天被車撞了，你的組織還能正常運作嗎？</strong>如果答案是「不能」，那問題不出在你的團隊 —— 問題出在你把自己變成了瓶頸，而你自己可能還以為那叫「不可或缺」。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CARD 4 — 給予和接收回饋
+     ═══════════════════════════════════════════ -->
+<div class="section-card card-feedback fade-in">
+  <div class="card-glass">
+    <div class="section-number">04</div>
+    <div class="section-label">Question Area 3 — 第三道鏡中之問</div>
+    <h2 class="section-title">給予和接收回饋</h2>
+    <div class="section-title-en">Giving and Getting Feedback</div>
+
+    <div class="section-body">
+      <p>Kaplan 在高盛的日子教會了他一件事：<strong>地位越高，你聽到的真話就越少</strong>。這不是陰謀論，而是人性。沒有人想對老闆說難聽的話。問題是，你越成功，就越需要聽到那些話。</p>
+
+      <p>他觀察到一個悲劇模式：領導者在職涯早期還能收到坦率的回饋，但隨著晉升，周圍逐漸形成一個「回饋真空」。每個人都在說好聽的，每個報告都在報喜不報憂，而領導者自己卻以為一切都在掌控之中。</p>
+
+      <div class="mirror-question-box">
+        <h4>🪞 鏡中之問</h4>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你上一次收到真正坦率的負面回饋是什麼時候？如果你想不起來，這本身就是一個警訊。</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你是否有意識地創造了讓別人能安全說真話的環境？還是你無意間釋放了「不要告訴我壞消息」的信號？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你給下屬的回饋是具體的、及時的、可操作的嗎？還是含糊的、事後很久的、讓人困惑的？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你有沒有一個「真話夥伴」—— 一個不受你權力影響、敢對你說實話的人？</div>
+        </div>
+      </div>
+
+      <div class="insight-grid">
+        <div class="insight-item">
+          <div class="insight-icon">🛡️</div>
+          <h5>回饋的防禦機制</h5>
+          <p>Kaplan 指出，很多領導者以為自己歡迎回饋，但他們的肢體語言、反應模式和後續行為卻在告訴所有人：「別來煩我。」即使只有一次在收到壞消息時發脾氣，就足以讓所有人學會閉嘴。</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🎯</div>
+          <h5>主動出擊式回饋</h5>
+          <p>不要等人來找你。定期主動問下屬：「如果你是我，你會改變什麼？」、「我做的什麼事讓你的工作更難？」這些問題的力量在於，它們把回饋的主動權放在對方手裡。</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">📝</div>
+          <h5>教練式回饋法</h5>
+          <p>給回饋時，要像教練而非法官。聚焦在具體行為而非人格特質，聚焦在未來改進而非過去錯誤，聚焦在可操作的建議而非籠統的批評。</p>
+        </div>
+      </div>
+
+      <div class="case-box">
+        <h5>📋 真實案例：沈默的房間</h5>
+        <p>Kaplan 講了一位大型企業 CEO 的故事。這位 CEO 自認是開放型領導者，但當 Kaplan 私下訪談他的直屬團隊時，每個人都說同一件事：<em>「我們從不告訴他壞消息，因為他上次聽到壞消息時，整整一週對那個人冷嘲熱諷。」</em>CEO 完全不知道自己在做這件事。這就是回饋真空的可怕之處 —— <strong>你不知道你不知道的事</strong>。</p>
+      </div>
+
+      <p>Kaplan 提出了「<strong>Junior/Senior Coaching</strong>」概念：不只是上對下的回饋，更要建立一種雙向的、跨層級的教練關係。最好的領導者不只教人，也從每個人身上學習。他建議每位領導者至少有三到四位「回饋源」—— 分布在上級、同僚、下屬和組織外部。</p>
+
+      <div class="golden-quote">
+        If you're not getting critical feedback, it doesn't mean you're doing everything right. It means people don't feel safe enough to tell you the truth.
+        <span class="quote-source">— Robert Steven Kaplan</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CARD 5 — 接班規劃與授權
+     ═══════════════════════════════════════════ -->
+<div class="section-card card-succession fade-in">
+  <div class="card-glass">
+    <div class="section-number">05</div>
+    <div class="section-label">Question Area 4 — 第四道鏡中之問</div>
+    <h2 class="section-title">接班規劃與授權</h2>
+    <div class="section-title-en">Succession Planning and Delegation</div>
+
+    <div class="section-body">
+      <p>這一章觸及了大多數領導者最不願面對的議題：<strong>你的接班人在哪裡？如果你明天離開，誰能接手？</strong>Kaplan 觀察到，即使是最有遠見的領導者，在這個問題上也經常逃避。因為談接班，就是在談自己的可替代性，而這觸碰了一個深層的心理需求——被需要的感覺。</p>
+
+      <div class="mirror-question-box">
+        <h4>🪞 鏡中之問</h4>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你現在有沒有一個明確的接班人選？如果有多個，他們各自需要什麼發展才能勝任？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你是否在有系統地授權和培養人才？還是你把授權當作「甩鍋」—— 把不想做的事丟出去？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你的關鍵崗位中，有多少是「一個人倒了就完了」的單點故障？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你是否無意中成了組織的瓶頸，讓每件事都必須經過你？</div>
+        </div>
+      </div>
+
+      <p>Kaplan 把授權分成了兩個層次。第一層是<strong>「任務授權」</strong>—— 把具體的任務交出去，這是基本的。第二層更難，是<strong>「責任授權」</strong>—— 把整個領域的決策權交出去，讓對方真正擁有那個區塊。大多數領導者卡在第一層：他們授了任務，但決策權還是牢牢握在自己手裡。</p>
+
+      <div class="compare-table">
+        <table style="width:100%">
+          <tr>
+            <th style="width:33%">維度</th>
+            <th style="width:33%">任務授權（基礎）</th>
+            <th style="width:33%">責任授權（進階）</th>
+          </tr>
+          <tr>
+            <td>交出的是</td>
+            <td>具體的工作項目</td>
+            <td>整個領域的擁有權</td>
+          </tr>
+          <tr>
+            <td>決策權</td>
+            <td>仍在領導者手中</td>
+            <td>交給被授權者</td>
+          </tr>
+          <tr>
+            <td>接受犯錯</td>
+            <td>出錯就收回來</td>
+            <td>允許犯錯，視為學習成本</td>
+          </tr>
+          <tr>
+            <td>培養效果</td>
+            <td>執行力提升</td>
+            <td>領導力和判斷力提升</td>
+          </tr>
+          <tr>
+            <td>心理門檻</td>
+            <td>較低</td>
+            <td>極高——需要放下「被需要」的感覺</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="warning-box">
+        <h5>⚠️ 授權的四大心理障礙</h5>
+        <ul>
+          <li><strong>「我做比較快」症候群：</strong>短期確實如此，但你訓練出來的是一支永遠需要你的團隊</li>
+          <li><strong>「失控恐懼」：</strong>害怕別人做錯，背後是對不確定性的不耐受</li>
+          <li><strong>「英雄主義」：</strong>享受自己是救世主的感覺，這其實是一種自私</li>
+          <li><strong>「完美主義」：</strong>別人做的永遠不夠好——但「你的標準」不見得是唯一正確的標準</li>
+        </ul>
+      </div>
+
+      <p>關於接班規劃，Kaplan 提出了一個震撼的觀點：<strong>最優秀的領導者在上任第一天就開始規劃自己的離開</strong>。這不是悲觀，而是最高形式的責任感。因為一個組織如果沒有了你就不行，那你其實沒有建立一個組織——你只是建立了一個對你的依賴。</p>
+
+      <div class="golden-quote">
+        The ultimate test of a leader is not what happens while you're there. It's what happens after you leave.
+        <span class="quote-source">— Robert Steven Kaplan</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CARD 6 — 評估與對齊
+     ═══════════════════════════════════════════ -->
+<div class="section-card card-alignment fade-in">
+  <div class="card-glass">
+    <div class="section-number">06</div>
+    <div class="section-label">Question Area 5 — 第五道鏡中之問</div>
+    <h2 class="section-title">評估與對齊</h2>
+    <div class="section-title-en">Evaluation and Alignment</div>
+
+    <div class="section-body">
+      <p>Kaplan 在這一章提出了一個令人不安的觀察：<strong>大多數組織都有策略、有目標、有 KPI，但它們之間經常是斷裂的</strong>。設計產品的人不理解銷售的困境，銷售的人不知道運營的限制，每個部門都在優化自己的指標，但沒人在看全局的拼圖。</p>
+
+      <div class="mirror-question-box">
+        <h4>🪞 鏡中之問</h4>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你的組織設計（結構、流程、激勵機制）是否真正與你的願景和策略對齊？還是存在結構性的矛盾？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你的關鍵指標在衡量什麼？它們是否激勵了你真正想要的行為？有沒有產生意料之外的副作用？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>如果你是一個剛加入的外部人員，你會怎麼評價這個組織的一致性？哪些地方看起來自相矛盾？</div>
+        </div>
+      </div>
+
+      <p>他用了一個精準的比喻：<strong>組織就像一輛車的四個輪子——願景是方向盤，但結構、流程、人才和文化是四個輪子。如果輪子沒有對齊，方向盤再準也沒用</strong>，車子會歪歪扭扭地前進，浪費大量能量在內耗上。</p>
+
+      <div class="insight-grid">
+        <div class="insight-item">
+          <div class="insight-icon">⚙️</div>
+          <h5>結構對齊</h5>
+          <p>組織結構是為願景服務的嗎？還是因為歷史原因保留了不合理的部門劃分？有些結構在公司五人時合理，在五百人時就是災難。</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">💰</div>
+          <h5>激勵對齊</h5>
+          <p>你的獎金結構、晉升標準是否獎勵你想要的行為？Kaplan 見過太多「嘴上說團隊合作，激勵制度卻獎勵內部競爭」的組織。</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🔗</div>
+          <h5>流程對齊</h5>
+          <p>決策流程是否支持快速執行？還是層層審批把好主意磨成了過時的方案？流程應該是加速器，不是減速帶。</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🌱</div>
+          <h5>文化對齊</h5>
+          <p>你宣稱的文化價值觀和實際被獎勵的行為一致嗎？文化不是你寫在牆上的東西——是你容忍和獎勵的行為的總和。</p>
+        </div>
+      </div>
+
+      <div class="case-box">
+        <h5>📋 對齊失敗的典型症狀</h5>
+        <p>Kaplan 列出了幾個讓領導者可以快速自診的信號：部門之間互相指責越來越多、優秀人才悄悄離開、客戶抱怨不同部門給出不同的承諾、員工說一套做一套但你找不出原因。<strong>這些都不是「人」的問題——是「系統」的問題。</strong>系統沒對齊，再好的人放進去也會表現失常。</p>
+      </div>
+
+      <div class="formula-box">
+        <div class="formula">組織效能 ＝ 策略清晰度 × 結構對齊度 × 文化一致性</div>
+        <div class="formula-desc">任何一項接近零，整體效能就接近零</div>
+      </div>
+
+      <div class="golden-quote">
+        Your organization's design — its structure, incentives, and processes — is sending messages every day. Make sure they're the messages you intend to send.
+        <span class="quote-source">— Robert Steven Kaplan</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CARD 7 — 壓力下的領導
+     ═══════════════════════════════════════════ -->
+<div class="section-card card-pressure fade-in">
+  <div class="card-glass">
+    <div class="section-number">07</div>
+    <div class="section-label">Question Area 6 — 第六道鏡中之問</div>
+    <h2 class="section-title">壓力下的領導</h2>
+    <div class="section-title-en">Leading Under Pressure</div>
+
+    <div class="section-body">
+      <p>Kaplan 在這一章分享了他在高盛經歷多次金融危機的親身體會。他的核心論點直接且毫不修飾：<strong>壓力不會創造性格，壓力會揭露性格</strong>。你在順境中養成的習慣、建立的關係、培養的判斷力，都會在危機時刻被放到顯微鏡下。</p>
+
+      <div class="mirror-question-box">
+        <h4>🪞 鏡中之問</h4>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>當壓力真正來臨時，你的行為模式是什麼？你是更冷靜還是更暴躁？更聚焦還是更分散？更傾聽還是更獨斷？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你在壓力下做過的最糟糕的決策是什麼？從中你學到了什麼關於自己的事？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你的團隊在危機時會主動找你嗎？還是會避開你，因為你壓力大時特別難相處？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你有沒有在「一切都很好」的時候，為「一切都不好」的時刻做準備？</div>
+        </div>
+      </div>
+
+      <p>他提出了一個精準的框架來理解壓力下的領導失敗：</p>
+
+      <div class="step-list">
+        <ol class="step-list">
+          <li><strong>隧道視野（Tunnel Vision）</strong>：壓力讓人只看到眼前的威脅，忽略全局和長期影響。最危險的決策往往是在恐慌中為了解決今天的問題而製造明天更大的問題。</li>
+          <li><strong>退回舒適區</strong>：壓力讓人退回自己最擅長的事 —— CEO 又開始親自寫程式碼、做財務模型。感覺在「做事」，其實是在逃避領導。</li>
+          <li><strong>孤立決策</strong>：壓力讓人不想聽不同意見，因為那會增加不確定性和焦慮。但這恰恰是你最需要多元觀點的時候。</li>
+          <li><strong>責備循環</strong>：壓力讓人尋找替罪羊。一旦開始責備，信任瓦解，團隊分裂，問題加倍惡化。</li>
+        </ol>
+      </div>
+
+      <div class="highlight-box">
+        <h5>💡 Kaplan 的壓力領導準則</h5>
+        <ul>
+          <li><strong>慢下來：</strong>壓力讓你覺得必須立刻行動，但最好的反應往往是先暫停、深呼吸、問正確的問題</li>
+          <li><strong>擴大圈子：</strong>壓力下的本能是減少溝通對象，但你該做的恰恰相反——拉進更多不同觀點的人</li>
+          <li><strong>區分可控與不可控：</strong>把精力集中在你能影響的事情上，接受你無法控制的</li>
+          <li><strong>透明但冷靜：</strong>你的團隊需要知道真實情況，但他們也需要看到你沒有恐慌</li>
+          <li><strong>做長期對的決定：</strong>壓力讓人傾向短期止痛，但真正的領導是在痛苦中做出對長期最好的選擇</li>
+        </ul>
+      </div>
+
+      <div class="person-quote">
+        <div class="avatar" style="background: var(--gradient-fire);">🔥</div>
+        <div>
+          <div class="quote-text">「在 2008 年金融危機中，我見過兩種領導者。一種躲在辦公室裡不敢面對員工，一種走到每個樓層告訴大家：『我不知道所有答案，但我知道我們會一起度過。』第二種人的公司活了下來。」</div>
+          <div class="quote-name">— Robert Steven Kaplan 回憶高盛歲月</div>
+        </div>
+      </div>
+
+      <div class="golden-quote">
+        Pressure doesn't build character; it reveals it. What you do in a crisis tells the truth about who you are as a leader.
+        <span class="quote-source">— Robert Steven Kaplan</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CARD 8 — 忠於自我
+     ═══════════════════════════════════════════ -->
+<div class="section-card card-self fade-in">
+  <div class="card-glass">
+    <div class="section-number">08</div>
+    <div class="section-label">Question Area 7 — 第七道鏡中之問</div>
+    <h2 class="section-title">忠於自我</h2>
+    <div class="section-title-en">Staying True to Yourself</div>
+
+    <div class="section-body">
+      <p>Kaplan 把這個問題放在最後，因為它是最深的——也是最容易被忽略的。他的觀察令人深思：<strong>很多領導者在追逐成功的過程中，不知不覺變成了一個連自己都不認識的人</strong>。</p>
+
+      <p>這不是什麼哲學問題。這直接影響了你的領導力。一個不知道自己是誰的人，怎麼可能帶領別人？一個活在別人期望中的人，怎麼可能做出真正的判斷？</p>
+
+      <div class="mirror-question-box">
+        <h4>🪞 鏡中之問</h4>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你正在走的路，是你真正想走的路嗎？還是你走到了這裡，只是因為慣性、期望、和「應該」？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你的領導風格是真實的你，還是你在模仿某個你認為「成功的領導者」應該有的樣子？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你為了成功犧牲了什麼？那些犧牲值得嗎？你還有機會找回來嗎？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>你的生活有平衡嗎？你的健康、家庭、友誼是否正在被你的「成功」侵蝕？</div>
+        </div>
+        <div class="mirror-q">
+          <div class="q-icon">Q</div>
+          <div>如果你今天退休了，你會驕傲於自己如何領導嗎？你希望別人怎麼記住你？</div>
+        </div>
+      </div>
+
+      <p>Kaplan 分享了一個深刻的練習。他讓哈佛 MBA 學生寫下自己的「理想墓誌銘」—— 你希望在你的墓碑上刻什麼？然後他問：<strong>「你現在的生活方式，能帶你到那個墓誌銘嗎？」</strong>教室裡一片沈默。</p>
+
+      <div class="insight-grid">
+        <div class="insight-item">
+          <div class="insight-icon">🎭</div>
+          <h5>角色 vs. 真我</h5>
+          <p>領導者經常分不清自己的「角色」和「自我」。你是 CEO 是你扮演的角色，但你不等於 CEO。當這兩者混淆時，離開職位就等於失去了自己。</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">⚖️</div>
+          <h5>成功的代價</h5>
+          <p>Kaplan 不迴避一個現實：高成就往往伴隨著高代價。問題不是「有沒有代價」，而是「你有沒有意識到你在付什麼代價，你願意嗎？」</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🔑</div>
+          <h5>發現你的優勢</h5>
+          <p>忠於自我也意味著不再試圖修補所有弱點。找到你獨特的優勢，建立在優勢之上，而不是花一輩子試圖成為一個「全面但平庸」的人。</p>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <h5>💡 Kaplan 的自我檢查清單</h5>
+        <ul>
+          <li>你的成功定義是自己的，還是別人灌輸的？</li>
+          <li>你上一次做自己真正享受的事是什麼時候？</li>
+          <li>你生命中最重要的人是否覺得你在場？還是你總是「人在心不在」？</li>
+          <li>你有沒有在工作之外的身份認同？如果明天丟了工作，你還知道自己是誰嗎？</li>
+          <li>你是在領導，還是在表演領導？</li>
+        </ul>
+      </div>
+
+      <div class="golden-quote">
+        Reaching your potential is not about being someone else. It's about figuring out who you are and then having the courage to be that person.
+        <span class="quote-source">— Robert Steven Kaplan</span>
+      </div>
+
+      <p>Kaplan 最後說了一句話，簡單但震撼：<strong>「世界上最困難的鏡子，就是你自己。」</strong>但也正是這面鏡子，能讓你成為你應該成為的領導者。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CARD 9 — 方法論整合：七問框架
+     ═══════════════════════════════════════════ -->
+<div class="section-card card-practice fade-in">
+  <div class="card-glass">
+    <div class="section-number">09</div>
+    <div class="section-label">Integrated Framework — 方法論整合</div>
+    <h2 class="section-title">七問框架：從自省到行動</h2>
+    <div class="section-title-en">The Seven-Question Leadership Framework</div>
+
+    <div class="section-body">
+      <p>Kaplan 最大的貢獻不只是提出了七個問題，而是建構了一個<strong>完整的自省循環系統</strong>。這七個問題不是獨立的，它們之間有深刻的邏輯關係，形成了一個閉環。</p>
+
+      <div class="formula-box">
+        <div class="formula">願景 → 時間 → 回饋 → 授權 → 對齊 → 壓力 → 自我 → 回到願景</div>
+        <div class="formula-desc">一個永不停止的領導力自省循環</div>
+      </div>
+
+      <div class="compare-table">
+        <table style="width:100%">
+          <tr>
+            <th>問題領域</th>
+            <th>核心自問</th>
+            <th>失敗信號</th>
+          </tr>
+          <tr>
+            <td>願景與優先順序</td>
+            <td>我知道我們要去哪裡嗎？</td>
+            <td>團隊各行其是，方向不一</td>
+          </tr>
+          <tr>
+            <td>時間管理</td>
+            <td>我的時間花在對的地方嗎？</td>
+            <td>極忙但沒有實質進展</td>
+          </tr>
+          <tr>
+            <td>回饋</td>
+            <td>我還聽得到真話嗎？</td>
+            <td>壞消息總是最後到你這裡</td>
+          </tr>
+          <tr>
+            <td>授權與接班</td>
+            <td>我在培養接班人嗎？</td>
+            <td>沒有你什麼都做不了</td>
+          </tr>
+          <tr>
+            <td>評估與對齊</td>
+            <td>系統一致嗎？</td>
+            <td>說的和做的不一樣</td>
+          </tr>
+          <tr>
+            <td>壓力下的領導</td>
+            <td>我在壓力下是什麼樣的人？</td>
+            <td>團隊在危機時躲著你</td>
+          </tr>
+          <tr>
+            <td>忠於自我</td>
+            <td>我還是我嗎？</td>
+            <td>成功了但不快樂</td>
+          </tr>
+        </table>
+      </div>
+
+      <p>Kaplan 建議的實踐方式是<strong>每週選一個問題深入反思</strong>，七週為一個循環。不是做問卷，不是打分數，而是真正地坐下來、面對鏡子、跟自己對話。他甚至建議把反思寫下來——因為寫作迫使你把模糊的感覺變成清晰的思考。</p>
+
+      <div class="highlight-box">
+        <h5>💡 如何開始你的鏡前對話</h5>
+        <ul>
+          <li><strong>每週 30 分鐘：</strong>選一個安靜的時間，不被打擾，選本週的問題領域</li>
+          <li><strong>寫下來：</strong>不是打字，是手寫。Kaplan 堅持手寫的原因是它強迫你放慢思考</li>
+          <li><strong>找一個鏡友：</strong>一個你信任的同伴，定期交換反思，互相問困難的問題</li>
+          <li><strong>每季做一次全面檢視：</strong>七個問題全部走一遍，看看哪裡進步了，哪裡退步了</li>
+          <li><strong>不要追求完美：</strong>重點是持續的覺察，不是完美的答案</li>
+        </ul>
+      </div>
+
+      <div class="tag-group">
+        <span class="tag tag-purple">願景清晰度</span>
+        <span class="tag tag-blue">時間主權</span>
+        <span class="tag tag-pink">回饋生態</span>
+        <span class="tag tag-green">授權深度</span>
+        <span class="tag tag-orange">系統對齊</span>
+        <span class="tag tag-purple">壓力韌性</span>
+        <span class="tag tag-pink">自我忠誠</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CARD 10 — 實踐指南與行動清單
+     ═══════════════════════════════════════════ -->
+<div class="section-card card-framework fade-in">
+  <div class="card-glass">
+    <div class="section-number">10</div>
+    <div class="section-label">Action Guide — 實踐指南</div>
+    <h2 class="section-title">你可以立刻開始的七件事</h2>
+    <div class="section-title-en">Seven Actions You Can Take Today</div>
+
+    <div class="section-body">
+      <p>Kaplan 是一位實踐者，不是空想家。他在高盛二十二年學到的最重要的一課是：<strong>知道和做到之間的距離，就是大多數人失敗的地方</strong>。以下是他從七大問題中提煉的具體行動建議。</p>
+
+      <div class="step-list">
+        <ol class="step-list">
+          <li><strong>寫下你的願景和三大優先事項</strong> —— 用白紙和筆，不超過一頁。然後走到你最信任的下屬面前，問他：「你覺得我們的方向是什麼？」比較你們的答案。差距，就是你的起點。</li>
+          <li><strong>追蹤你下週的每一個小時</strong> —— 不美化，不合理化。把結果分成三類：「只有我能做的」、「應該授權的」、「完全在浪費時間的」。你會被自己的發現嚇到。</li>
+          <li><strong>今天就去找一個人，問他你最大的盲點是什麼</strong> —— 不是你最好的朋友，而是一個敢說真話的人。聽完之後，只說「謝謝」，不解釋、不辯護。這是你能做的最小但最有力的回饋行動。</li>
+          <li><strong>列出你的五個關鍵崗位，在每個旁邊寫下接班人選</strong> —— 如果某個位置是空白的，那就是你的人才發展盲區。開始有意識地給潛力人選更大的挑戰和決策權。</li>
+          <li><strong>做一次「外部人眼光」審計</strong> —— 假裝你是一位剛來的新 CEO。走遍你的組織，用新人的眼光看：結構合理嗎？激勵機制對嗎？流程順暢嗎？你會驚訝自己習以為常的問題有多嚴重。</li>
+          <li><strong>為下一次危機做一份「壓力情境計畫」</strong> —— 不是詳細的應變手冊，而是問自己：上次壓力大時我做了什麼後悔的事？下次我要怎麼不同？把答案寫在一張卡片上放在辦公桌抽屜裡。</li>
+          <li><strong>寫你的理想墓誌銘</strong> —— 三到五句話。你希望別人怎麼記住你？然後問自己：我現在的生活，正在把我帶向那裡嗎？如果不是，哪一件事你明天可以改變？</li>
+        </ol>
+      </div>
+
+      <div class="case-box">
+        <h5>📋 持續的練習，不是一次性的活動</h5>
+        <p>Kaplan 反覆強調，這不是一個「讀完就放在書架上」的書。這是一套需要持續練習的紀律。他建議把日曆上的每週五下午最後30分鐘鎖起來，命名為「鏡前時間」。<strong>每次只處理一個問題，認真地和自己對話。</strong>七週一個循環，循環不止。就像運動一樣——你不會因為跑了一次步就說自己是健康的。</p>
+      </div>
+
+      <div class="person-quote">
+        <div class="avatar" style="background: var(--gradient-mirror);">📣</div>
+        <div>
+          <div class="quote-text">「Robert Kaplan's questions are deceptively simple — and extraordinarily powerful. This book should be required reading for anyone in a leadership role.」</div>
+          <div class="quote-name">— Mohamed El-Erian, CEO of PIMCO</div>
+        </div>
+      </div>
+
+      <div class="person-quote">
+        <div class="avatar" style="background: var(--gradient-warm);">💫</div>
+        <div>
+          <div class="quote-text">「This book helped me understand that leadership starts with self-awareness. The mirror doesn't lie — and that's exactly what makes it so valuable.」</div>
+          <div class="quote-name">— Tyra Banks, Entrepreneur & Media Mogul</div>
+        </div>
+      </div>
+
+      <div class="golden-quote">
+        You can't be a great leader if you don't know who you are. And you can't know who you are if you never stop to ask.
+        <span class="quote-source">— Robert Steven Kaplan</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     CARD 11 — 終極評價
+     ═══════════════════════════════════════════ -->
+<div class="section-card card-verdict fade-in">
+  <div class="card-glass">
+    <div class="section-number">11</div>
+    <div class="section-label">Final Verdict — 終極評價</div>
+    <h2 class="section-title">當鏡中人回望你</h2>
+    <div class="section-title-en">When the Person in the Mirror Looks Back</div>
+
+    <div class="section-body">
+      <p>Robert Steven Kaplan 寫的不是一本「領導力技巧」書。他寫的是一本<strong>「領導力靈魂」書</strong>。在一個充斥著「10 步成為偉大領導者」之類速成指南的市場裡，這本書的立場是反潮流的：<strong>沒有捷徑，只有鏡子</strong>。</p>
+
+      <div class="rating-grid">
+        <div class="rating-item">
+          <div class="rating-label">深度與原創性</div>
+          <div class="rating-bar"><div class="rating-fill" style="width:82%"></div></div>
+          <div class="rating-score">8.2 / 10</div>
+        </div>
+        <div class="rating-item">
+          <div class="rating-label">實用性與可操作性</div>
+          <div class="rating-bar"><div class="rating-fill" style="width:90%"></div></div>
+          <div class="rating-score">9.0 / 10</div>
+        </div>
+        <div class="rating-item">
+          <div class="rating-label">閱讀體驗</div>
+          <div class="rating-bar"><div class="rating-fill" style="width:78%"></div></div>
+          <div class="rating-score">7.8 / 10</div>
+        </div>
+        <div class="rating-item">
+          <div class="rating-label">適用範圍</div>
+          <div class="rating-bar"><div class="rating-fill" style="width:88%"></div></div>
+          <div class="rating-score">8.8 / 10</div>
+        </div>
+        <div class="rating-item">
+          <div class="rating-label">思維轉化力</div>
+          <div class="rating-bar"><div class="rating-fill" style="width:92%"></div></div>
+          <div class="rating-score">9.2 / 10</div>
+        </div>
+        <div class="rating-item">
+          <div class="rating-label">總體推薦度</div>
+          <div class="rating-bar"><div class="rating-fill" style="width:88%"></div></div>
+          <div class="rating-score">8.8 / 10</div>
+        </div>
+      </div>
+
+      <div class="insight-grid">
+        <div class="insight-item">
+          <div class="insight-icon">✨</div>
+          <h5>最大的亮點</h5>
+          <p>Kaplan 的問題看似簡單，卻能直擊核心。這種「不給答案、只給問題」的方式，反而比任何建議都更有力量。因為只有你自己知道你的答案。而被迫面對這些問題的過程，就是成長本身。</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🎓</div>
+          <h5>作者的權威</h5>
+          <p>哈佛教授 × 高盛副董事長的雙重身份不是裝飾。Kaplan 的每一個觀點都有真實的商業場景支撐。他不是在書齋裡想像領導力——他活過這些問題。</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🤔</div>
+          <h5>可能的不足</h5>
+          <p>書中的案例偏重大型企業和金融業，對創業者和小團隊的直接適用性稍弱。部分章節的案例深度不夠，有些可以更展開。但核心框架是普適的。</p>
+        </div>
+      </div>
+
+      <div class="tag-group">
+        <span class="tag tag-purple">領導力自省</span>
+        <span class="tag tag-blue">高管必讀</span>
+        <span class="tag tag-green">哈佛商學院</span>
+        <span class="tag tag-pink">自我覺察</span>
+        <span class="tag tag-orange">決策框架</span>
+        <span class="tag tag-purple">職涯發展</span>
+      </div>
+
+      <div class="divider-dots">· · ·</div>
+
+      <h3 style="font-family: 'Noto Serif TC', serif; font-size: 1.3rem; text-align: center; margin: 24px 0 16px;">這本書最適合誰？</h3>
+
+      <div class="insight-grid">
+        <div class="insight-item">
+          <div class="insight-icon">🏢</div>
+          <h5>企業高管和中高階主管</h5>
+          <p>最直接的受眾。你管的人越多，離真相就越遠。這本書幫你重新找到那面鏡子。</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🚀</div>
+          <h5>創業者</h5>
+          <p>公司從 0 到 1 需要直覺，從 1 到 100 需要自省。這本書幫你在成長的過程中不丟失自己。</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🌟</div>
+          <h5>新任管理者</h5>
+          <p>如果你剛開始帶人，在形成壞習慣之前讀這本書，可以省掉十年的彎路。</p>
+        </div>
+        <div class="insight-item">
+          <div class="insight-icon">🧘</div>
+          <h5>任何追求自我成長的人</h5>
+          <p>你不需要帶團隊才能問這些問題。這七面鏡子照見的是你如何過自己的人生。</p>
+        </div>
+      </div>
+
+      <div class="divider-dots">· · ·</div>
+
+      <div style="text-align: center; margin-top: 32px;">
+        <p style="font-family: 'Noto Serif TC', serif; font-size: 1.15rem; color: var(--text-primary); line-height: 2.2; max-width: 580px; margin: 0 auto;">
+          每天清晨，你刷牙洗臉時會看到鏡中的自己。<br>
+          但你有多久沒有<strong>真正</strong>看過那個人了？<br><br>
+          Kaplan 的七個問題，不會給你答案。<br>
+          它們會做比答案更重要的事——<br>
+          <strong>它們會讓你醒來。</strong>
+        </p>
+      </div>
+
+      <div class="golden-quote" style="margin-top: 36px; text-align: center;">
+        The person in the mirror is the only one who can truly hold you accountable.<br>
+        Start the conversation. Today.
+        <span class="quote-source">— Robert Steven Kaplan</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="footer-card">
+  <div class="footer-line"></div>
+  <p>書醒 Awakening v2 ✦ 深度書籍分析報告</p>
+  <p style="margin-top:6px;">What to Ask the Person in the Mirror — Robert Steven Kaplan</p>
+  <p style="margin-top:6px;">Generated with 🐉 by 龍龍</p>
+  <p style="margin-top:12px; font-size:0.75rem; color:#bbb;">本報告為 AI 輔助生成之深度分析，觀點與詮釋僅供參考</p>
+</footer>
+
+<!-- ═══════════════════════════════════════════
+     Scroll Animation Script
+     ═══════════════════════════════════════════ -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.fade-in').forEach(function(el) {
+    observer.observe(el);
+  });
+});
+</script>
+
+</body>
+</html>
