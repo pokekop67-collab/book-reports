@@ -1,0 +1,2371 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>覺醒報告 ｜ 会話を哲学する — 對話的哲學</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700;900&display=swap');
+
+  :root {
+    --bg-main: #FFF8F3;
+    --bg-card: #FFFFFF;
+    --bg-glass: rgba(255, 255, 255, 0.72);
+    --accent-coral: #FF6B6B;
+    --accent-peach: #FFAB91;
+    --accent-lavender: #B39DDB;
+    --accent-mint: #80CBC4;
+    --accent-sky: #81D4FA;
+    --accent-rose: #F48FB1;
+    --accent-gold: #FFD54F;
+    --accent-sage: #A5D6A7;
+    --accent-plum: #CE93D8;
+    --accent-teal: #4DB6AC;
+    --accent-indigo: #7986CB;
+    --text-primary: #2D2D2D;
+    --text-secondary: #5A5A5A;
+    --text-muted: #9E9E9E;
+    --border-light: rgba(0, 0, 0, 0.06);
+    --shadow-soft: 0 2px 20px rgba(0, 0, 0, 0.04);
+    --shadow-card: 0 4px 32px rgba(0, 0, 0, 0.06);
+    --shadow-hover: 0 8px 48px rgba(0, 0, 0, 0.10);
+    --shadow-glow: 0 0 40px rgba(255, 107, 107, 0.12);
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 28px;
+    --radius-xl: 36px;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.8;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── Animated Background ── */
+  .bg-decoration {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+
+  .bg-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.25;
+    animation: float 20s ease-in-out infinite;
+  }
+
+  .bg-blob:nth-child(1) {
+    width: 600px; height: 600px;
+    background: linear-gradient(135deg, #FFCDD2, #F8BBD0);
+    top: -10%; left: -5%;
+    animation-delay: 0s;
+  }
+
+  .bg-blob:nth-child(2) {
+    width: 500px; height: 500px;
+    background: linear-gradient(135deg, #B3E5FC, #B2DFDB);
+    top: 30%; right: -8%;
+    animation-delay: -7s;
+  }
+
+  .bg-blob:nth-child(3) {
+    width: 450px; height: 450px;
+    background: linear-gradient(135deg, #E1BEE7, #D1C4E9);
+    bottom: 10%; left: 10%;
+    animation-delay: -14s;
+  }
+
+  .bg-blob:nth-child(4) {
+    width: 350px; height: 350px;
+    background: linear-gradient(135deg, #FFE0B2, #FFCCBC);
+    top: 60%; left: 50%;
+    animation-delay: -5s;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    25% { transform: translate(30px, -40px) scale(1.05); }
+    50% { transform: translate(-20px, 20px) scale(0.95); }
+    75% { transform: translate(15px, 35px) scale(1.02); }
+  }
+
+  /* ── Layout ── */
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 6rem;
+  }
+
+  /* ── Hero Section ── */
+  .hero {
+    text-align: center;
+    padding: 5rem 2rem 4rem;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 320px; height: 320px;
+    background: radial-gradient(circle, rgba(255, 107, 107, 0.10) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: linear-gradient(135deg, var(--accent-coral), var(--accent-peach));
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 20px rgba(255, 107, 107, 0.25);
+  }
+
+  .hero-badge .icon {
+    font-size: 1rem;
+  }
+
+  .hero-title-jp {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(2.2rem, 5vw, 3.2rem);
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #2D2D2D 0%, #5A5A5A 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+    margin-bottom: 2rem;
+    line-height: 1.9;
+  }
+
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+  }
+
+  .hero-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-coral), var(--accent-peach));
+    border-radius: 100px;
+    margin: 2.5rem auto 0;
+  }
+
+  /* ── Navigation Pills ── */
+  .nav-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 3rem;
+    padding: 1.5rem;
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-soft);
+    position: sticky;
+    top: 1rem;
+    z-index: 100;
+  }
+
+  .nav-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 1rem;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    white-space: nowrap;
+  }
+
+  .nav-pill:hover {
+    background: white;
+    border-color: var(--border-light);
+    box-shadow: var(--shadow-soft);
+    color: var(--accent-coral);
+    transform: translateY(-1px);
+  }
+
+  .nav-pill .step-num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px; height: 20px;
+    background: var(--border-light);
+    border-radius: 50%;
+    font-size: 0.68rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+  }
+
+  .nav-pill:hover .step-num {
+    background: linear-gradient(135deg, var(--accent-coral), var(--accent-peach));
+    color: white;
+  }
+
+  /* ── Card System ── */
+  .card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-card);
+    margin-bottom: 2.5rem;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
+  }
+
+  .card-accent {
+    height: 4px;
+    width: 100%;
+  }
+
+  .card-header {
+    padding: 2.5rem 2.5rem 0;
+  }
+
+  .card-step {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+  }
+
+  .card-step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  .card-step-label {
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .card-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.65rem;
+    font-weight: 700;
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-body {
+    padding: 1.5rem 2.5rem 2.5rem;
+  }
+
+  .card-body p {
+    margin-bottom: 1.2rem;
+    font-size: 0.95rem;
+    line-height: 2;
+    color: var(--text-secondary);
+  }
+
+  .card-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── Insight Box ── */
+  .insight-box {
+    background: linear-gradient(135deg, #FFF3E0 0%, #FFF8E1 100%);
+    border-left: 4px solid var(--accent-gold);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 1.5rem 1.8rem;
+    margin: 1.5rem 0;
+  }
+
+  .insight-box .insight-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #F57F17;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .insight-box p {
+    color: #5D4037 !important;
+    font-size: 0.92rem !important;
+  }
+
+  /* ── Quote Block ── */
+  .quote-block {
+    position: relative;
+    background: linear-gradient(135deg, #FCE4EC 0%, #F3E5F5 100%);
+    border-radius: var(--radius-md);
+    padding: 2rem 2.5rem;
+    margin: 1.8rem 0;
+    text-align: center;
+  }
+
+  .quote-block::before {
+    content: '"';
+    position: absolute;
+    top: -10px; left: 20px;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 4rem;
+    color: var(--accent-rose);
+    opacity: 0.5;
+    line-height: 1;
+  }
+
+  .quote-block .quote-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #4A148C;
+    line-height: 1.9;
+    margin-bottom: 0.8rem;
+  }
+
+  .quote-block .quote-source {
+    font-size: 0.82rem;
+    color: var(--accent-plum);
+    font-weight: 400;
+  }
+
+  /* ── Tag System ── */
+  .tag-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+  }
+
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.35rem 0.9rem;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    border: 1px solid;
+  }
+
+  .tag-coral {
+    background: #FFF0F0;
+    color: #C62828;
+    border-color: #FFCDD2;
+  }
+
+  .tag-lavender {
+    background: #F3E5F5;
+    color: #6A1B9A;
+    border-color: #E1BEE7;
+  }
+
+  .tag-mint {
+    background: #E0F2F1;
+    color: #00695C;
+    border-color: #B2DFDB;
+  }
+
+  .tag-sky {
+    background: #E1F5FE;
+    color: #01579B;
+    border-color: #B3E5FC;
+  }
+
+  .tag-gold {
+    background: #FFFDE7;
+    color: #F57F17;
+    border-color: #FFF9C4;
+  }
+
+  .tag-sage {
+    background: #E8F5E9;
+    color: #2E7D32;
+    border-color: #C8E6C9;
+  }
+
+  .tag-rose {
+    background: #FCE4EC;
+    color: #AD1457;
+    border-color: #F8BBD0;
+  }
+
+  .tag-indigo {
+    background: #E8EAF6;
+    color: #283593;
+    border-color: #C5CAE9;
+  }
+
+  /* ── Comparison Table ── */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .compare-card {
+    background: linear-gradient(135deg, var(--bg-main), white);
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    border: 1px solid var(--border-light);
+  }
+
+  .compare-card h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .compare-card ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .compare-card li {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    padding: 0.35rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+    line-height: 1.7;
+  }
+
+  .compare-card li::before {
+    content: '·';
+    position: absolute;
+    left: 0;
+    font-weight: 900;
+    font-size: 1.2rem;
+  }
+
+  /* ── Chapter Grid ── */
+  .chapter-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .chapter-item {
+    display: flex;
+    gap: 1.2rem;
+    align-items: flex-start;
+    padding: 1.2rem 1.5rem;
+    background: linear-gradient(135deg, var(--bg-main), white);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+  }
+
+  .chapter-item:hover {
+    box-shadow: var(--shadow-soft);
+    transform: translateX(4px);
+  }
+
+  .chapter-num {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px; height: 40px;
+    border-radius: 50%;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .chapter-content h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .chapter-content p {
+    font-size: 0.85rem !important;
+    color: var(--text-muted) !important;
+    margin-bottom: 0 !important;
+    line-height: 1.7 !important;
+  }
+
+  .chapter-content .example-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 100px;
+    margin-top: 0.4rem;
+    font-weight: 500;
+  }
+
+  /* ── Concept Map ── */
+  .concept-map {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .concept-node {
+    padding: 1.3rem;
+    border-radius: var(--radius-md);
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid var(--border-light);
+  }
+
+  .concept-node:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .concept-icon {
+    font-size: 2rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .concept-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .concept-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  /* ── Quote Gallery ── */
+  .quote-gallery {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+
+  .quote-card {
+    padding: 1.5rem 1.8rem;
+    border-radius: var(--radius-md);
+    border-left: 4px solid;
+    background: white;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+  }
+
+  .quote-card:hover {
+    transform: translateX(6px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .quote-card .q-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.9;
+    margin-bottom: 0.6rem;
+  }
+
+  .quote-card .q-context {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+  }
+
+  .quote-card .q-analysis {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px dashed var(--border-light);
+    line-height: 1.8;
+  }
+
+  /* ── Method Cards ── */
+  .method-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+
+  .method-card {
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    background: white;
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+  }
+
+  .method-card:hover {
+    box-shadow: var(--shadow-card);
+    transform: translateY(-2px);
+  }
+
+  .method-card .method-icon {
+    font-size: 1.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .method-card h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .method-card p {
+    font-size: 0.85rem !important;
+    line-height: 1.8 !important;
+  }
+
+  .method-card .method-steps {
+    list-style: none;
+    padding: 0;
+    margin-top: 0.8rem;
+  }
+
+  .method-card .method-steps li {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    padding: 0.3rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .method-card .method-steps li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-coral);
+  }
+
+  /* ── Critique Section ── */
+  .critique-block {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .critique-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1.3rem 1.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    background: white;
+  }
+
+  .critique-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    width: 40px;
+    text-align: center;
+  }
+
+  .critique-content h4 {
+    font-size: 0.92rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+
+  .critique-content p {
+    font-size: 0.85rem !important;
+    line-height: 1.8 !important;
+  }
+
+  /* ── Cross-Domain Grid ── */
+  .cross-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+
+  .cross-card {
+    padding: 1.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    background: white;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+  }
+
+  .cross-card:hover {
+    box-shadow: var(--shadow-card);
+    transform: translateY(-2px);
+  }
+
+  .cross-card .domain-badge {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+  }
+
+  .cross-card h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .cross-card p {
+    font-size: 0.85rem !important;
+    line-height: 1.8 !important;
+  }
+
+  /* ── Awakening Section ── */
+  .awakening-items {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+    margin: 1.5rem 0;
+  }
+
+  .awakening-item {
+    padding: 1.5rem 1.8rem;
+    border-radius: var(--radius-md);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .awakening-item::after {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 80px; height: 80px;
+    border-radius: 50%;
+    filter: blur(30px);
+    opacity: 0.3;
+  }
+
+  .awakening-item .aw-num {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    opacity: 0.6;
+  }
+
+  .awakening-item h4 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+
+  .awakening-item p {
+    font-size: 0.9rem !important;
+    line-height: 1.9 !important;
+  }
+
+  /* ── Action Plan ── */
+  .action-timeline {
+    position: relative;
+    padding-left: 2.5rem;
+    margin: 1.5rem 0;
+  }
+
+  .action-timeline::before {
+    content: '';
+    position: absolute;
+    left: 14px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent-coral), var(--accent-lavender), var(--accent-mint));
+    border-radius: 100px;
+  }
+
+  .action-item {
+    position: relative;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1rem;
+    background: white;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .action-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 1.5rem;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    border: 3px solid white;
+    box-shadow: 0 0 0 2px var(--accent-coral);
+  }
+
+  .action-item .action-timeframe {
+    display: inline-block;
+    padding: 0.15rem 0.7rem;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+
+  .action-item h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+
+  .action-item p {
+    font-size: 0.85rem !important;
+    line-height: 1.8 !important;
+  }
+
+  .action-item .action-detail {
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px dashed var(--border-light);
+  }
+
+  .action-item .action-detail li {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    padding: 0.2rem 0;
+    padding-left: 1.2rem;
+    position: relative;
+    list-style: none;
+  }
+
+  .action-item .action-detail li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    font-size: 0.65rem;
+    color: var(--accent-coral);
+  }
+
+  /* ── Reading List ── */
+  .reading-section {
+    margin: 1.5rem 0;
+  }
+
+  .reading-category {
+    margin-bottom: 1.5rem;
+  }
+
+  .reading-category-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--border-light);
+  }
+
+  .reading-category-title .rc-icon {
+    font-size: 1.2rem;
+  }
+
+  .book-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.8rem;
+  }
+
+  .book-item {
+    display: flex;
+    gap: 1rem;
+    padding: 1.2rem 1.5rem;
+    background: white;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+    align-items: flex-start;
+  }
+
+  .book-item:hover {
+    box-shadow: var(--shadow-card);
+    transform: translateX(4px);
+  }
+
+  .book-emoji {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+  }
+
+  .book-info h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin-bottom: 0.15rem;
+  }
+
+  .book-info .book-author {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 0.4rem;
+  }
+
+  .book-info .book-reason {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .book-info .book-relation {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 100px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    margin-top: 0.4rem;
+  }
+
+  /* ── Section Divider ── */
+  .section-divider {
+    text-align: center;
+    padding: 1.5rem 0;
+  }
+
+  .section-divider .divider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+
+  .section-divider .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--border-light);
+  }
+
+  .section-divider .dot:nth-child(2) {
+    background: var(--accent-peach);
+    opacity: 0.5;
+  }
+
+  /* ── Score Meter ── */
+  .score-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0.6rem 0;
+  }
+
+  .score-label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    min-width: 100px;
+  }
+
+  .score-bar-bg {
+    flex: 1;
+    height: 8px;
+    background: #F5F5F5;
+    border-radius: 100px;
+    overflow: hidden;
+  }
+
+  .score-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    transition: width 1s ease;
+  }
+
+  .score-value {
+    font-size: 0.82rem;
+    font-weight: 700;
+    min-width: 36px;
+    text-align: right;
+  }
+
+  /* ── Footer ── */
+  .footer {
+    text-align: center;
+    padding: 4rem 2rem 2rem;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+  }
+
+  .footer .footer-logo {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .footer p {
+    margin-bottom: 0.3rem;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 640px) {
+    .container {
+      padding: 1rem 1rem 4rem;
+    }
+
+    .card-header, .card-body {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+
+    .compare-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .nav-pills {
+      position: relative;
+      top: 0;
+    }
+
+    .hero {
+      padding: 3rem 1rem 2.5rem;
+    }
+
+    .concept-map {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* ── Animations ── */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .card {
+    animation: fadeInUp 0.6s ease both;
+  }
+
+  .card:nth-child(2) { animation-delay: 0.05s; }
+  .card:nth-child(3) { animation-delay: 0.10s; }
+  .card:nth-child(4) { animation-delay: 0.15s; }
+
+  /* ── Special Highlight ── */
+  .highlight-text {
+    background: linear-gradient(180deg, transparent 60%, rgba(255, 107, 107, 0.15) 60%);
+    padding: 0 2px;
+  }
+
+  .emphasis-box {
+    background: linear-gradient(135deg, #E8EAF6, #F3E5F5);
+    border-radius: var(--radius-md);
+    padding: 1.5rem 1.8rem;
+    margin: 1.5rem 0;
+    border: 1px solid rgba(179, 157, 219, 0.2);
+  }
+
+  .emphasis-box h4 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #4A148C;
+    margin-bottom: 0.6rem;
+  }
+
+  .emphasis-box p {
+    font-size: 0.88rem !important;
+    color: #4A148C !important;
+    opacity: 0.8;
+  }
+
+  /* ── Pop Culture Reference Cards ── */
+  .pop-culture-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+  }
+
+  .pop-card {
+    padding: 1.3rem 1.5rem;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-light);
+    background: white;
+    box-shadow: var(--shadow-soft);
+    transition: all 0.3s ease;
+  }
+
+  .pop-card:hover {
+    box-shadow: var(--shadow-card);
+    transform: scale(1.02);
+  }
+
+  .pop-card .pop-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .pop-card .pop-title {
+    font-weight: 700;
+    font-size: 0.92rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .pop-card .pop-desc {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ── Spectrum Visualization ── */
+  .spectrum {
+    margin: 1.5rem 0;
+    padding: 1.5rem;
+    background: linear-gradient(135deg, #FFF3E0, #E1F5FE);
+    border-radius: var(--radius-md);
+  }
+
+  .spectrum-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+    position: relative;
+  }
+
+  .spectrum-bar::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 60px;
+    right: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-mint), var(--accent-gold), var(--accent-coral));
+    border-radius: 100px;
+    transform: translateY(-50%);
+  }
+
+  .spectrum-end {
+    text-align: center;
+    z-index: 1;
+    background: white;
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .spectrum-end .se-icon {
+    font-size: 1.5rem;
+  }
+
+  .spectrum-end .se-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+
+  .spectrum-labels {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 0.5rem;
+  }
+
+  .spectrum-label {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  /* ── Dialogue Example ── */
+  .dialogue-box {
+    background: #FAFAFA;
+    border-radius: var(--radius-md);
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+    border: 1px solid var(--border-light);
+  }
+
+  .dialogue-box .dialogue-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .dialogue-line {
+    display: flex;
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+    align-items: flex-start;
+  }
+
+  .dialogue-speaker {
+    min-width: 28px; height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+  }
+
+  .dialogue-bubble {
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.88rem;
+    line-height: 1.7;
+    max-width: 80%;
+  }
+
+  .dialogue-bubble.speaker-a {
+    background: #E3F2FD;
+    color: #1565C0;
+  }
+
+  .dialogue-bubble.speaker-b {
+    background: #FCE4EC;
+    color: #AD1457;
+  }
+
+  .dialogue-note {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-style: italic;
+    text-align: center;
+    margin-top: 0.8rem;
+    padding-top: 0.8rem;
+    border-top: 1px dashed var(--border-light);
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-decoration">
+  <div class="bg-blob"></div>
+  <div class="bg-blob"></div>
+  <div class="bg-blob"></div>
+  <div class="bg-blob"></div>
+</div>
+
+<div class="container">
+
+  <!-- ══════════════════════════════════════ HERO ══════════════════════════════════════ -->
+  <header class="hero">
+    <div class="hero-badge">
+      <span class="icon">🔮</span>
+      AWAKENING REPORT v2
+    </div>
+    <div class="hero-title-jp">会話を哲学する — コミュニケーションとマニピュレーション</div>
+    <h1 class="hero-title">對話的哲學</h1>
+    <p class="hero-subtitle">
+      溝通與操控的邊界在哪裡？<br>
+      當我們說話時，究竟在做什麼？
+    </p>
+    <div class="hero-meta">
+      <span>📖 三木那由他</span>
+      <span>🏷️ 光文社新書</span>
+      <span>🧠 語言哲學</span>
+      <span>📅 2024</span>
+    </div>
+    <div class="hero-divider"></div>
+  </header>
+
+  <!-- ══════════════════════════════════════ NAV ══════════════════════════════════════ -->
+  <nav class="nav-pills" id="nav">
+    <a href="#step1" class="nav-pill"><span class="step-num">1</span> 第一印象</a>
+    <a href="#step2" class="nav-pill"><span class="step-num">2</span> 核心解構</a>
+    <a href="#step3" class="nav-pill"><span class="step-num">3</span> 作者透視</a>
+    <a href="#step4" class="nav-pill"><span class="step-num">4</span> 概念地圖</a>
+    <a href="#step5" class="nav-pill"><span class="step-num">5</span> 金句萃取</a>
+    <a href="#step6" class="nav-pill"><span class="step-num">6</span> 方法論</a>
+    <a href="#step7" class="nav-pill"><span class="step-num">7</span> 批判反思</a>
+    <a href="#step8" class="nav-pill"><span class="step-num">8</span> 跨域連結</a>
+    <a href="#step9" class="nav-pill"><span class="step-num">9</span> 個人覺醒</a>
+    <a href="#step10" class="nav-pill"><span class="step-num">10</span> 行動轉化</a>
+    <a href="#step11" class="nav-pill"><span class="step-num">11</span> 延伸閱讀</a>
+  </nav>
+
+  <!-- ══════════════════════════════════════ STEP 1 ══════════════════════════════════════ -->
+  <article class="card" id="step1">
+    <div class="card-accent" style="background: linear-gradient(90deg, var(--accent-coral), var(--accent-peach));"></div>
+    <div class="card-header">
+      <div class="card-step">
+        <span class="card-step-number" style="background: linear-gradient(135deg, var(--accent-coral), var(--accent-peach));">1</span>
+        <span class="card-step-label">First Impression Capture</span>
+      </div>
+      <h2 class="card-title">第一印象捕捉</h2>
+      <p class="card-subtitle">三秒鐘的直覺反應，未經過濾的第一感受</p>
+    </div>
+    <div class="card-body">
+      <p>
+        翻開這本書的瞬間，最強烈的感受是：<span class="highlight-text">這不是一本「教你說話」的書</span>。市面上充斥著溝通技巧、談判術、說服力的工具書，但三木那由他做的事情完全不同——他在追問一個更根本的問題：<strong>「說話」這個行為本身，到底是什麼？</strong>
+      </p>
+      <p>
+        書的副標題已經暗示了一切：コミュニケーションとマニピュレーション（Communication and Manipulation）。不是「如何更好地溝通」，而是「溝通和操控的界線在哪裡」。這個提問方式本身就令人不安——因為它暗示了，我們日常視為理所當然的「正常對話」，可能隨時越界成為「操控」。
+      </p>
+
+      <div class="tag-group">
+        <span class="tag tag-coral">🔥 顛覆直覺</span>
+        <span class="tag tag-lavender">🧩 哲學深度</span>
+        <span class="tag tag-mint">🎬 流行文化切入</span>
+        <span class="tag tag-sky">💡 日常生活相關</span>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">💡 直覺捕捉</div>
+        <p>最出乎意料的是選材——用 ONE PIECE 的魯夫、駭客任務的乾杯場景、莎士比亞的奧賽羅來分析語言哲學。這不是學者故作親民，而是真正理解到：<strong>對話哲學最好的教材，就藏在我們每天消費的故事裡</strong>。漫畫角色的對白，可能比哲學論文更精準地展示了溝通的本質。</p>
+      </div>
+
+      <p>
+        第一印象的總結：這是一本用「有趣」包裝「深刻」的書。它讓你以為自己在讀漫畫評論，回過神來，你已經在思考維根斯坦和格萊斯了。
+      </p>
+
+      <div class="score-row">
+        <span class="score-label">驚喜程度</span>
+        <div class="score-bar-bg">
+          <div class="score-bar-fill" style="width: 88%; background: linear-gradient(90deg, var(--accent-coral), var(--accent-peach));"></div>
+        </div>
+        <span class="score-value" style="color: var(--accent-coral);">8.8</span>
+      </div>
+      <div class="score-row">
+        <span class="score-label">親和力</span>
+        <div class="score-bar-bg">
+          <div class="score-bar-fill" style="width: 92%; background: linear-gradient(90deg, var(--accent-mint), var(--accent-teal));"></div>
+        </div>
+        <span class="score-value" style="color: var(--accent-teal);">9.2</span>
+      </div>
+      <div class="score-row">
+        <span class="score-label">思考挑戰</span>
+        <div class="score-bar-bg">
+          <div class="score-bar-fill" style="width: 85%; background: linear-gradient(90deg, var(--accent-lavender), var(--accent-plum));"></div>
+        </div>
+        <span class="score-value" style="color: var(--accent-plum);">8.5</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ══════════════════════════════════════ STEP 2 ══════════════════════════════════════ -->
+  <article class="card" id="step2">
+    <div class="card-accent" style="background: linear-gradient(90deg, var(--accent-lavender), var(--accent-plum));"></div>
+    <div class="card-header">
+      <div class="card-step">
+        <span class="card-step-number" style="background: linear-gradient(135deg, var(--accent-lavender), var(--accent-plum));">2</span>
+        <span class="card-step-label">Core Argument Deconstruction</span>
+      </div>
+      <h2 class="card-title">核心論點解構</h2>
+      <p class="card-subtitle">七個章節，一條紅線：會話是什麼，又不是什麼</p>
+    </div>
+    <div class="card-body">
+      <p>
+        全書的核心命題可以用一句話概括：<span class="highlight-text">會話不是一個單一行為，而是多種活動的集合體</span>，其中「溝通」（コミュニケーション）和「操控」（マニピュレーション）是兩個根本不同的活動類型。關鍵不在於你說了什麼，而在於你<strong>如何影響對方的信念</strong>。
+      </p>
+
+      <div class="compare-grid">
+        <div class="compare-card" style="border-top: 3px solid var(--accent-mint);">
+          <h4>🤝 溝通（Communication）</h4>
+          <ul>
+            <li>透過<strong>公開的意圖</strong>讓對方理解</li>
+            <li>對方「被說服」是因為認識到你的意圖</li>
+            <li>雙方的理性自主權被保留</li>
+            <li>說話者願意讓意圖被識破</li>
+            <li>成功取決於對方的<strong>自願接受</strong></li>
+          </ul>
+        </div>
+        <div class="compare-card" style="border-top: 3px solid var(--accent-coral);">
+          <h4>🎭 操控（Manipulation）</h4>
+          <ul>
+            <li>透過<strong>隱藏的手段</strong>改變對方信念</li>
+            <li>對方「被改變」是因為不知道你在做什麼</li>
+            <li>對方的理性自主權被繞過</li>
+            <li>說話者不希望手段被識破</li>
+            <li>成功取決於對方的<strong>不知情</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="chapter-grid">
+        <div class="chapter-item">
+          <span class="chapter-num" style="background: linear-gradient(135deg, #EF5350, #E53935);">1</span>
+          <div class="chapter-content">
+            <h4>定義溝通 vs 操控</h4>
+            <p>從格萊斯（Grice）的意義理論出發：「溝通」需要說話者的意圖是公開的。一旦意圖被隱藏，就滑入「操控」的領域。這不是道德判斷，而是結構性區分。</p>
+            <span class="example-tag" style="background: #E8EAF6; color: #283593;">📌 核心定義</span>
+          </div>
+        </div>
+
+        <div class="chapter-item">
+          <span class="chapter-num" style="background: linear-gradient(135deg, #FFA726, #FB8C00);">2</span>
+          <div class="chapter-content">
+            <h4>說顯而易見的事</h4>
+            <p>為什麼人們要說「今天天氣真好」這種雙方都已經知道的事？因為「說出來」本身就是一個行為——它創造了共識、建立了連結。語言不只傳遞資訊，它<strong>建構關係</strong>。</p>
+            <span class="example-tag" style="background: #E0F2F1; color: #00695C;">🌤️ 寒暄的哲學</span>
+          </div>
+        </div>
+
+        <div class="chapter-item">
+          <span class="chapter-num" style="background: linear-gradient(135deg, #66BB6A, #43A047);">3</span>
+          <div class="chapter-content">
+            <h4>明知是錯也要說</h4>
+            <p>反諷（irony）的本質——說「你真聰明」來表達「你真蠢」。為什麼這算溝通而不是欺騙？因為說話者<strong>期待對方識破</strong>。反諷的成功，恰恰依賴於公開的意圖結構。</p>
+            <span class="example-tag" style="background: #FCE4EC; color: #AD1457;">😏 反諷的邏輯</span>
+          </div>
+        </div>
+
+        <div class="chapter-item">
+          <span class="chapter-num" style="background: linear-gradient(135deg, #42A5F5, #1E88E5);">4</span>
+          <div class="chapter-content">
+            <h4>傳不到才能說</h4>
+            <p>有些話必須在「對方聽不到」的前提下才有意義。在葬禮上對逝者說話、對螢幕上的角色吶喊——這些「不可能被接收」的話語，揭示了語言超越溝通的存在意義。</p>
+            <span class="example-tag" style="background: #FFF3E0; color: #E65100;">💌 不可能的傳達</span>
+          </div>
+        </div>
+
+        <div class="chapter-item">
+          <span class="chapter-num" style="background: linear-gradient(135deg, #AB47BC, #8E24AA);">5</span>
+          <div class="chapter-content">
+            <h4>錯位溝通</h4>
+            <p>A 認為在認真對話，B 認為在開玩笑。錯位溝通不是「失敗的溝通」，而是<strong>不同對話框架的碰撞</strong>。ONE PIECE 中魯夫與他人的對話經常展現這種美麗的錯位。</p>
+            <span class="example-tag" style="background: #EDE7F6; color: #4A148C;">⚡ 框架衝突</span>
+          </div>
+        </div>
+
+        <div class="chapter-item">
+          <span class="chapter-num" style="background: linear-gradient(135deg, #26A69A, #00897B);">6</span>
+          <div class="chapter-content">
+            <h4>隱藏真心</h4>
+            <p>社交禮儀中的「客套話」——說著「下次一起吃飯」但雙方都知道不會實現。這是欺騙嗎？三木論證這是一種雙方合意的「社交演出」，真心被隱藏，但這個隱藏本身是公開的。</p>
+            <span class="example-tag" style="background: #E0F7FA; color: #006064;">🎪 社交劇場</span>
+          </div>
+        </div>
+
+        <div class="chapter-item">
+          <span class="chapter-num" style="background: linear-gradient(135deg, #EC407A, #D81B60);">7</span>
+          <div class="chapter-content">
+            <h4>操控的語言</h4>
+            <p>奧賽羅中伊阿古如何用語言毀滅一個人——不是透過謊言，而是透過「暗示」。操控最危險的形式，是讓對方以為自己得出了獨立的結論，而實際上每一步都被引導。</p>
+            <span class="example-tag" style="background: #FFEBEE; color: #B71C1C;">🕸️ 操控的藝術</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="emphasis-box">
+        <h4>🔑 全書的暗線</h4>
+        <p>七個章節看似獨立，實則構成一個光譜：從最純粹的溝通（第2章的寒暄），逐步移向操控的領域（第7章的伊阿古），中間經過反諷、不可能的傳達、錯位、客套等灰色地帶。三木要說的是：<strong>大多數真實的對話，都在這個光譜的中間地帶</strong>。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ══════════════════════════════════════ STEP 3 ══════════════════════════════════════ -->
+  <article class="card" id="step3">
+    <div class="card-accent" style="background: linear-gradient(90deg, var(--accent-mint), var(--accent-teal));"></div>
+    <div class="card-header">
+      <div class="card-step">
+        <span class="card-step-number" style="background: linear-gradient(135deg, var(--accent-mint), var(--accent-teal));">3</span>
+        <span class="card-step-label">Author Intent Analysis</span>
+      </div>
+      <h2 class="card-title">作者意圖透視</h2>
+      <p class="card-subtitle">三木那由他為什麼要寫這本書？他想改變什麼？</p>
+    </div>
+    <div class="card-body">
+      <p>
+        三木那由他是日本新生代的語言哲學學者，專攻格萊斯的意義理論和語用學。但他選擇寫一本新書（新書＝日本的大眾知識叢書），而不是一本學術專著。這個選擇本身就是一個<strong>意圖表達</strong>。
+      </p>
+
+      <div class="method-grid">
+        <div class="method-card" style="border-top: 3px solid var(--accent-mint);">
+          <div class="method-icon">🎯</div>
+          <h4>表層意圖：讓哲學走出象牙塔</h4>
+          <p>用漫畫、電影、日常場景作為切入點，讓「格萊斯的意義理論」不再是只有哲學系學生才會接觸的東西。每一章都從一個具體的、讀者可以感同身受的情境開始。</p>
+        </div>
+        <div class="method-card" style="border-top: 3px solid var(--accent-lavender);">
+          <div class="method-icon">🔍</div>
+          <h4>中層意圖：重新定義「對話」</h4>
+          <p>挑戰「對話＝資訊交換」的主流觀念。對話不是A把信息傳給B的管道，而是一個涉及意圖、信念、推理、社會規範的複雜活動。這個重新定義，改變了我們理解所有人際互動的方式。</p>
+        </div>
+        <div class="method-card" style="border-top: 3px solid var(--accent-coral);">
+          <div class="method-icon">⚡</div>
+          <h4>深層意圖：建立倫理敏感度</h4>
+          <p>溝通與操控的區分不只是理論分類——它是一個<strong>倫理判準</strong>。三木在暗示：當你下次說話時，問問自己，你是在溝通還是在操控？你願意讓對方看穿你的意圖嗎？</p>
+        </div>
+      </div>
+
+      <p>
+        值得注意的是，三木的論述風格本身就是他理論的實踐。他不是「操控」讀者接受他的觀點（不用高壓論證、不訴諸權威），而是「溝通」——把自己的推理過程完全攤開，邀請讀者一起思考。他的意圖是公開的，你可以看到他每一步在做什麼。<strong>這本書本身就是一次「溝通」而非「操控」的示範。</strong>
+      </p>
+
+      <div class="insight-box">
+        <div class="insight-label">🔎 隱藏的企圖</div>
+        <p>書中反覆出現的金句「帶有企圖的對話是可愛的」（意図を持った会話はかわいい），暗示了三木的一個更激進的立場：企圖本身不是壞事。操控的問題不在於有企圖，而在於<strong>隱藏企圖</strong>。一個帶著企圖但公開企圖的人，反而是最值得信任的溝通者。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ══════════════════════════════════════ STEP 4 ══════════════════════════════════════ -->
+  <article class="card" id="step4">
+    <div class="card-accent" style="background: linear-gradient(90deg, var(--accent-sky), #4FC3F7);"></div>
+    <div class="card-header">
+      <div class="card-step">
+        <span class="card-step-number" style="background: linear-gradient(135deg, var(--accent-sky), #4FC3F7);">4</span>
+        <span class="card-step-label">Concept Mapping</span>
+      </div>
+      <h2 class="card-title">概念地圖</h2>
+      <p class="card-subtitle">本書的核心概念群落與關係網絡</p>
+    </div>
+    <div class="card-body">
+
+      <div class="concept-map">
+        <div class="concept-node" style="background: linear-gradient(135deg, #E8F5E9, #C8E6C9);">
+          <div class="concept-icon">🗣️</div>
+          <div class="concept-name">會話（Conversation）</div>
+          <div class="concept-desc">多種語言活動的集合體，不可化約為單一行為</div>
+        </div>
+        <div class="concept-node" style="background: linear-gradient(135deg, #E1F5FE, #B3E5FC);">
+          <div class="concept-icon">💬</div>
+          <div class="concept-name">溝通（Communication）</div>
+          <div class="concept-desc">意圖公開、理性自主、雙向建構的語言行為</div>
+        </div>
+        <div class="concept-node" style="background: linear-gradient(135deg, #FFEBEE, #FFCDD2);">
+          <div class="concept-icon">🎭</div>
+          <div class="concept-name">操控（Manipulation）</div>
+          <div class="concept-desc">意圖隱藏、繞過理性、單向改變的語言行為</div>
+        </div>
+        <div class="concept-node" style="background: linear-gradient(135deg, #FFF3E0, #FFE0B2);">
+          <div class="concept-icon">🎯</div>
+          <div class="concept-name">意圖（Intention）</div>
+          <div class="concept-desc">說話者期望產生的效果——公開與否是關鍵</div>
+        </div>
+        <div class="concept-node" style="background: linear-gradient(135deg, #F3E5F5, #E1BEE7);">
+          <div class="concept-icon">🧠</div>
+          <div class="concept-name">信念（Belief）</div>
+          <div class="concept-desc">被影響的對象——對話的目標是改變或確認信念</div>
+        </div>
+        <div class="concept-node" style="background: linear-gradient(135deg, #E0F7FA, #B2EBF2);">
+          <div class="concept-icon">🔄</div>
+          <div class="concept-name">互知（Mutual Knowledge）</div>
+          <div class="concept-desc">雙方都知道、且知道對方知道的共享前提</div>
+        </div>
+      </div>
+
+      <div class="spectrum">
+        <p style="text-align: center; font-size: 0.85rem; font-weight: 600; color: var(--text-secondary); margin-bottom: 0.5rem;">
+          ── 溝通—操控光譜 ──
+        </p>
+        <div class="spectrum-bar">
+          <div class="spectrum-end">
+            <div class="se-icon">🤝</div>
+            <div class="se-label">純溝通</div>
+          </div>
+          <div class="spectrum-end">
+            <div class="se-icon">🎭</div>
+            <div class="se-label">純操控</div>
+          </div>
+        </div>
+        <div class="spectrum-labels">
+          <span class="spectrum-label">寒暄<br>Ch.2</span>
+          <span class="spectrum-label">反諷<br>Ch.3</span>
+          <span class="spectrum-label">錯位<br>Ch.5</span>
+          <span class="spectrum-label">客套<br>Ch.6</span>
+          <span class="spectrum-label">暗示<br>Ch.7</span>
+        </div>
+      </div>
+
+      <p>
+        書中隱含但未明言的概念架構，可以歸納為三個同心圓：
+      </p>
+
+      <div class="method-grid">
+        <div class="method-card" style="border-left: 4px solid var(--accent-sage);">
+          <h4>最內圈：語言行為的結構</h4>
+          <ul class="method-steps">
+            <li>言說行為（Locutionary act）——說了什麼</li>
+            <li>言外行為（Illocutionary act）——在做什麼</li>
+            <li>言後行為（Perlocutionary act）——造成什麼效果</li>
+          </ul>
+        </div>
+        <div class="method-card" style="border-left: 4px solid var(--accent-lavender);">
+          <h4>中間圈：意圖的透明度</h4>
+          <ul class="method-steps">
+            <li>完全公開——純溝通</li>
+            <li>部分公開——灰色地帶（反諷、客套、寒暄）</li>
+            <li>完全隱藏——純操控</li>
+          </ul>
+        </div>
+        <div class="method-card" style="border-left: 4px solid var(--accent-coral);">
+          <h4>最外圈：社會互動的倫理</h4>
+          <ul class="method-steps">
+            <li>尊重對方的理性自主——溝通的倫理基礎</li>
+            <li>工具化對方——操控的倫理問題</li>
+            <li>共同建構意義——對話的最高形式</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ══════════════════════════════════════ STEP 5 ══════════════════════════════════════ -->
+  <article class="card" id="step5">
+    <div class="card-accent" style="background: linear-gradient(90deg, var(--accent-rose), var(--accent-plum));"></div>
+    <div class="card-header">
+      <div class="card-step">
+        <span class="card-step-number" style="background: linear-gradient(135deg, var(--accent-rose), var(--accent-plum));">5</span>
+        <span class="card-step-label">Quote Extraction</span>
+      </div>
+      <h2 class="card-title">金句萃取</h2>
+      <p class="card-subtitle">穿透表面的語句，值得反覆咀嚼的思想結晶</p>
+    </div>
+    <div class="card-body">
+
+      <div class="quote-gallery">
+        <div class="quote-card" style="border-left-color: var(--accent-coral);">
+          <div class="q-text" style="color: #C62828;">「帶有企圖的對話是可愛的。」</div>
+          <div class="q-context">── 全書核心金句</div>
+          <div class="q-analysis">
+            這句話顛覆了「真誠＝無目的」的迷思。三木認為，有目的地說話不等於虛偽；真正的問題不在於有沒有企圖，而在於這個企圖是否被公開。一個說「我想說服你」的人，比一個假裝中立卻暗中引導的人，更值得信任。<strong>企圖＋透明＝可愛。企圖＋隱藏＝操控。</strong>
+          </div>
+        </div>
+
+        <div class="quote-card" style="border-left-color: var(--accent-lavender);">
+          <div class="q-text" style="color: #6A1B9A;">「會話不是一個行為。它是一整片風景。」</div>
+          <div class="q-context">── 第一章·會話的集合體本質</div>
+          <div class="q-analysis">
+            我們習慣把「對話」當作一件事：A說→B聽→B回。但三木指出，任何一段對話都同時包含了資訊傳遞、關係維護、社會表演、情感交流、權力協商等多重活動。把對話比喻為「風景」而非「行為」，暗示了看對話需要全景視角，而非聚焦單一動作。
+          </div>
+        </div>
+
+        <div class="quote-card" style="border-left-color: var(--accent-mint);">
+          <div class="q-text" style="color: #00695C;">「說出雙方都已經知道的事，恰恰是對話中最重要的部分。」</div>
+          <div class="q-context">── 第二章·寒暄的哲學意義</div>
+          <div class="q-analysis">
+            從資訊理論的角度，寒暄毫無意義——零新資訊。但從對話哲學的角度，寒暄的意義恰恰在於「不傳遞資訊」。「今天好熱啊」說的不是溫度，說的是「我願意跟你建立連結」。這解釋了為什麼 AI 聊天機器人令人不安——它們太有效率，跳過了人類用寒暄建立信任的過程。
+          </div>
+        </div>
+
+        <div class="quote-card" style="border-left-color: var(--accent-gold);">
+          <div class="q-text" style="color: #F57F17;">「真正的謊言不是說錯的話，而是讓對方以為自己獨立得出了結論。」</div>
+          <div class="q-context">── 第七章·奧賽羅中伊阿古的操控術</div>
+          <div class="q-analysis">
+            伊阿古從不直接對奧賽羅撒謊。他只是「暗示」、「提問」、「表示擔心」。奧賽羅最終的嫉妒和憤怒，表面上看是他「自己得出的結論」。這才是操控最精密的形式：不改變對方的信念內容，而是<strong>操控對方得出信念的過程</strong>。
+          </div>
+        </div>
+
+        <div class="quote-card" style="border-left-color: var(--accent-sky);">
+          <div class="q-text" style="color: #01579B;">「有些話，正因為傳不到，才有意義。」</div>
+          <div class="q-context">── 第四章·不可能的傳達</div>
+          <div class="q-analysis">
+            對逝去的人說話、對螢幕上的角色喊「小心！」——這些注定無法被接收的話語，恰恰揭示了語言的另一個維度：語言不只是溝通的工具，它也是<strong>存在的方式</strong>。我們通過說話來確認自己的感受、整理自己的世界。
+          </div>
+        </div>
+
+        <div class="quote-card" style="border-left-color: var(--accent-plum);">
+          <div class="q-text" style="color: #4A148C;">「錯位不是溝通的失敗，而是溝通的真相。」</div>
+          <div class="q-context">── 第五章·錯位溝通的分析</div>
+          <div class="q-analysis">
+            完美的溝通——A 的意圖被 B 完全按照 A 的意思接收——或許根本不存在。每一次對話都有程度不等的「錯位」，而正是這個錯位空間，賦予了對話創造性的可能。如果對話永遠精確無誤，它就退化成了數據傳輸。
+          </div>
+        </div>
+
+        <div class="quote-card" style="border-left-color: var(--accent-sage);">
+          <div class="q-text" style="color: #2E7D32;">「客套話不是謊言。它是雙方合意的社交劇場。」</div>
+          <div class="q-context">── 第六章·隱藏真心的溝通</div>
+          <div class="q-analysis">
+            說「下次一起吃飯」而雙方都知道不會實現，這是欺騙嗎？三木的答案是否——因為「隱藏真心」這件事本身是公開的。雙方都知道這是演出，這個「都知道」的結構，反而使客套話成為一種精巧的溝通形式。
+          </div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ══════════════════════════════════════ STEP 6 ══════════════════════════════════════ -->
+  <article class="card" id="step6">
+    <div class="card-accent" style="background: linear-gradient(90deg, var(--accent-gold), #FFC107);"></div>
+    <div class="card-header">
+      <div class="card-step">
+        <span class="card-step-number" style="background: linear-gradient(135deg, var(--accent-gold), #FFC107);">6</span>
+        <span class="card-step-label">Methodology Extraction</span>
+      </div>
+      <h2 class="card-title">方法論提煉</h2>
+      <p class="card-subtitle">從書中提煉可操作的思維工具</p>
+    </div>
+    <div class="card-body">
+      <p>
+        三木那由他雖然沒有明確提出「方法論」，但書中隱含了一套分析對話的思維框架。將其提煉並系統化：
+      </p>
+
+      <div class="method-grid">
+        <div class="method-card" style="border-top: 3px solid var(--accent-coral);">
+          <div class="method-icon">🔬</div>
+          <h4>意圖透明度測試</h4>
+          <p>判斷一段對話是溝通還是操控的核心方法。</p>
+          <ul class="method-steps">
+            <li>問自己：我願意讓對方知道我在做什麼嗎？</li>
+            <li>如果意圖被識破，對話效果會消失嗎？</li>
+            <li>是→操控成分高；否→溝通成分高</li>
+            <li>關鍵：不是有無企圖，而是企圖是否可公開</li>
+          </ul>
+        </div>
+        <div class="method-card" style="border-top: 3px solid var(--accent-lavender);">
+          <div class="method-icon">🎭</div>
+          <h4>多層活動辨識法</h4>
+          <p>拆解任何一段對話中同時發生的多重活動。</p>
+          <ul class="method-steps">
+            <li>資訊層：傳遞了什麼事實？</li>
+            <li>關係層：在維護/建立/破壞什麼關係？</li>
+            <li>表演層：在扮演什麼社會角色？</li>
+            <li>情感層：在處理什麼情緒？</li>
+            <li>權力層：誰在主導對話走向？</li>
+          </ul>
+        </div>
+        <div class="method-card" style="border-top: 3px solid var(--accent-mint);">
+          <div class="method-icon">🎯</div>
+          <h4>框架衝突檢測</h4>
+          <p>辨識對話中的「錯位」，理解為何溝通不順暢。</p>
+          <ul class="method-steps">
+            <li>雙方對「這是什麼類型的對話」有共識嗎？</li>
+            <li>一方在認真，另一方在開玩笑？</li>
+            <li>一方在求助，另一方在說教？</li>
+            <li>框架一旦對齊，溝通自然流暢</li>
+          </ul>
+        </div>
+        <div class="method-card" style="border-top: 3px solid var(--accent-sky);">
+          <div class="method-icon">📡</div>
+          <h4>不可能傳達覺察法</h4>
+          <p>辨識那些不以溝通為目的的語言行為。</p>
+          <ul class="method-steps">
+            <li>這句話真的是說給「對方」聽的嗎？</li>
+            <li>也許是說給自己聽的——確認感受</li>
+            <li>也許是說給世界聽的——宣示存在</li>
+            <li>不是所有語言都需要「被接收」才有意義</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="dialogue-box">
+        <div class="dialogue-title">📝 方法論應用示範：職場會議場景</div>
+        <div class="dialogue-line">
+          <div class="dialogue-speaker" style="background: #E3F2FD;">👔</div>
+          <div class="dialogue-bubble speaker-a">「這個方案很有創意，不過我有一些小小的擔心……」</div>
+        </div>
+        <div class="dialogue-line">
+          <div class="dialogue-speaker" style="background: #E8F5E9;">🧠</div>
+          <div class="dialogue-bubble" style="background: #E8F5E9; color: #2E7D32;">
+            <strong>意圖透明度分析：</strong><br>
+            「小小的擔心」→ 通常意味著「重大反對」<br>
+            如果被識破，效果是否消失？→ 否，因為這是約定俗成的委婉<br>
+            判定：灰色地帶——社交潤滑劑，接近「客套」而非「操控」
+          </div>
+        </div>
+        <div class="dialogue-line">
+          <div class="dialogue-speaker" style="background: #FCE4EC;">👩</div>
+          <div class="dialogue-bubble speaker-b">「我完全理解您的顧慮。其實王總也提過類似的看法……」</div>
+        </div>
+        <div class="dialogue-line">
+          <div class="dialogue-speaker" style="background: #E8F5E9;">🧠</div>
+          <div class="dialogue-bubble" style="background: #E8F5E9; color: #2E7D32;">
+            <strong>操控成分偵測：</strong><br>
+            提及「王總」→ 訴諸權威的暗示<br>
+            如果意圖被識破，效果消失嗎？→ 是的，一旦對方意識到這是策略性提名，權威效應減弱<br>
+            判定：接近操控——透過隱藏的手段改變對方立場
+          </div>
+        </div>
+        <div class="dialogue-note">
+          ↑ 日常對話中，溝通和操控的切換往往在一句話之間
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ══════════════════════════════════════ STEP 7 ══════════════════════════════════════ -->
+  <article class="card" id="step7">
+    <div class="card-accent" style="background: linear-gradient(90deg, var(--accent-sage), #66BB6A);"></div>
+    <div class="card-header">
+      <div class="card-step">
+        <span class="card-step-number" style="background: linear-gradient(135deg, var(--accent-sage), #66BB6A);">7</span>
+        <span class="card-step-label">Critical Reflection</span>
+      </div>
+      <h2 class="card-title">批判性反思</h2>
+      <p class="card-subtitle">這本書的盲點、弱點與未竟之處</p>
+    </div>
+    <div class="card-body">
+      <p>
+        尊重一本書最好的方式，不是全盤接受，而是認真對話。以下是對三木論述的批判性思考：
+      </p>
+
+      <div class="critique-block">
+        <div class="critique-item" style="background: linear-gradient(135deg, #FFF3E0, white);">
+          <div class="critique-icon">⚠️</div>
+          <div class="critique-content">
+            <h4>溝通—操控的二分法是否過於簡潔？</h4>
+            <p>三木以「意圖是否公開」作為核心判準，但現實中存在大量<strong>自己都不清楚自己意圖</strong>的情況。一個人說話時，可能同時帶有真誠的關心和隱藏的自利動機，而他自己可能沒有意識到後者。弗洛伊德式的無意識操控——連操控者自己都不知道自己在操控——在三木的框架中似乎沒有位置。</p>
+          </div>
+        </div>
+
+        <div class="critique-item" style="background: linear-gradient(135deg, #E8F5E9, white);">
+          <div class="critique-icon">🌍</div>
+          <div class="critique-content">
+            <h4>文化偏見：個人主義的預設</h4>
+            <p>格萊斯的理論建立在西方個人主義的溝通觀之上——獨立的個體通過公開的意圖進行理性交流。但在東亞的高語境文化中，「不把話說清楚」本身就是一種被期待的溝通方式。日本文化中的「空気を読む」（讀空氣），是操控還是溝通？三木身為日本學者卻採用西方框架，這個張力在書中未被充分處理。</p>
+          </div>
+        </div>
+
+        <div class="critique-item" style="background: linear-gradient(135deg, #E1F5FE, white);">
+          <div class="critique-icon">💻</div>
+          <div class="critique-content">
+            <h4>數位時代的空白</h4>
+            <p>書中的對話範例主要來自面對面交談、文學作品、漫畫。但當代最大量的「對話」發生在社群媒體、即時通訊、留言板上。演算法推薦是一種操控嗎？迷因是溝通還是操控？短影音的「hook」（鉤子開頭）是溝通還是操控？這些當代語言現象，書中幾乎未觸及。</p>
+          </div>
+        </div>
+
+        <div class="critique-item" style="background: linear-gradient(135deg, #F3E5F5, white);">
+          <div class="critique-icon">⚖️</div>
+          <div class="critique-content">
+            <h4>權力不對稱的缺席</h4>
+            <p>三木的分析假設對話雙方是平等的行動者。但現實中，權力關係深刻地影響著誰能「溝通」、誰只能「被操控」。上司對下屬、父母對子女、醫生對病患——這些不對稱關係中的對話，需要一個更複雜的分析框架。一個下屬對上司的「客套話」，和朋友之間的「客套話」，性質可能完全不同。</p>
+          </div>
+        </div>
+
+        <div class="critique-item" style="background: linear-gradient(135deg, #FFEBEE, white);">
+          <div class="critique-icon">🧩</div>
+          <div class="critique-content">
+            <h4>流行文化素材的雙刃劍</h4>
+            <p>用 ONE PIECE 和駭客任務分析哲學概念極為有效地降低了門檻，但也帶來了風險：虛構作品中的對話是被<strong>設計過</strong>的，角色的意圖是透明的（因為作者讓讀者/觀眾看到），現實中的對話從來沒有這種透明度。用虛構作品分析對話哲學，可能讓讀者高估自己辨識意圖的能力。</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="emphasis-box">
+        <h4>🔮 總評</h4>
+        <p>上述批評並非否定這本書的價值——恰恰相反，一本能引發這麼多方向的批判性思考的書，已經完成了它最重要的使命：<strong>讓我們更認真地思考「說話」這件事</strong>。三木提供的不是最終答案，而是一個強力的起點。</p>
+      </div>
+
+      <div class="score-row">
+        <span class="score-label">論證嚴謹度</span>
+        <div class="score-bar-bg">
+          <div class="score-bar-fill" style="width: 82%; background: linear-gradient(90deg, var(--accent-sage), #66BB6A);"></div>
+        </div>
+        <span class="score-value" style="color: #43A047;">8.2</span>
+      </div>
+      <div class="score-row">
+        <span class="score-label">實踐適用性</span>
+        <div class="score-bar-bg">
+          <div class="score-bar-fill" style="width: 75%; background: linear-gradient(90deg, var(--accent-gold), #FFC107);"></div>
+        </div>
+        <span class="score-value" style="color: #F9A825;">7.5</span>
+      </div>
+      <div class="score-row">
+        <span class="score-label">原創性</span>
+        <div class="score-bar-bg">
+          <div class="score-bar-fill" style="width: 78%; background: linear-gradient(90deg, var(--accent-lavender), var(--accent-plum));"></div>
+        </div>
+        <span class="score-value" style="color: var(--accent-plum);">7.8</span>
+      </div>
+      <div class="score-row">
+        <span class="score-label">啟發深度</span>
+        <div class="score-bar-bg">
+          <div class="score-bar-fill" style="width: 90%; background: linear-gradient(90deg, var(--accent-coral), var(--accent-peach));"></div>
+        </div>
+        <span class="score-value" style="color: var(--accent-coral);">9.0</span>
+      </div>
+    </div>
+  </article>
+
+  <!-- ══════════════════════════════════════ STEP 8 ══════════════════════════════════════ -->
+  <article class="card" id="step8">
+    <div class="card-accent" style="background: linear-gradient(90deg, var(--accent-indigo), #5C6BC0);"></div>
+    <div class="card-header">
+      <div class="card-step">
+        <span class="card-step-number" style="background: linear-gradient(135deg, var(--accent-indigo), #5C6BC0);">8</span>
+        <span class="card-step-label">Cross-Domain Connections</span>
+      </div>
+      <h2 class="card-title">跨域連結</h2>
+      <p class="card-subtitle">當對話哲學遇上其他領域，會碰撞出什麼火花？</p>
+    </div>
+    <div class="card-body">
+
+      <div class="cross-grid">
+        <div class="cross-card">
+          <span class="domain-badge" style="background: #E8EAF6; color: #283593;">🧠 認知科學</span>
+          <h4>心智理論（Theory of Mind）</h4>
+          <p>三木討論的「意圖辨識」，正是認知科學中「心智理論」的核心：我們如何推測他人的心理狀態？自閉症譜系的研究顯示，心智理論的缺損直接影響對話能力。這為三木的理論提供了神經科學的實證基礎——辨識意圖不只是哲學概念，它有神經機制的支撐。</p>
+        </div>
+
+        <div class="cross-card">
+          <span class="domain-badge" style="background: #FCE4EC; color: #AD1457;">🎨 UX 設計</span>
+          <h4>暗黑模式（Dark Patterns）</h4>
+          <p>網頁設計中的「暗黑模式」——誤導使用者點擊、隱藏退訂按鈕——正是數位版的「操控」。三木的框架可以直接應用：如果設計意圖被用戶識破後效果消失，那就是操控。<strong>UX 設計的倫理，本質上就是「數位對話」的溝通—操控光譜。</strong></p>
+        </div>
+
+        <div class="cross-card">
+          <span class="domain-badge" style="background: #E0F2F1; color: #00695C;">🤖 AI 對話</span>
+          <h4>ChatGPT 是在溝通還是操控？</h4>
+          <p>AI 聊天機器人有「意圖」嗎？如果沒有，它的對話既不是溝通也不是操控——而是第三種全新的語言活動。但用戶<strong>體驗到的</strong>卻是對話。三木的框架在 AI 時代面臨根本挑戰：當對話的一方根本不存在「意圖」，我們如何分析這段「對話」？</p>
+        </div>
+
+        <div class="cross-card">
+          <span class="domain-badge" style="background: #FFF3E0; color: #E65100;">📊 行為經濟學</span>
+          <h4>助推（Nudge）與操控的邊界</h4>
+          <p>塞勒（Thaler）的「助推」理論——用微妙的環境設計引導人做「更好的」選擇——是操控還是溝通？三木的判準會說：如果助推被識破後效果不消失（例如把健康食物放在顯眼處），就接近溝通；如果消失，就接近操控。助推的倫理爭論可以用三木的光譜重新理解。</p>
+        </div>
+
+        <div class="cross-card">
+          <span class="domain-badge" style="background: #F3E5F5; color: #6A1B9A;">🎭 表演藝術</span>
+          <h4>演員與觀眾的「共謀」</h4>
+          <p>劇場中的「第四面牆」是一種怎樣的對話？演員知道觀眾在看，觀眾知道演員在表演——這種雙方合意的「假裝」，正是三木筆下「客套話」的放大版。當代的互動式劇場、沉浸式體驗，更是在不斷測試溝通—操控的邊界。</p>
+        </div>
+
+        <div class="cross-card">
+          <span class="domain-badge" style="background: #E1F5FE; color: #01579B;">⚖️ 法律</span>
+          <h4>詐欺罪的哲學基礎</h4>
+          <p>法律上，詐欺的核心要件是「使人陷於錯誤」。三木的框架為此提供了更精細的分析：不是所有的「不說實話」都是詐欺（客套話不是），關鍵在於是否<strong>刻意利用隱藏的手段改變對方的信念，並以此獲利</strong>。這與三木對「操控」的定義高度一致。</p>
+        </div>
+      </div>
+
+      <div class="pop-culture-grid">
+        <div class="pop-card" style="border-top: 3px solid var(--accent-coral);">
+          <div class="pop-icon">🏴‍☠️</div>
+          <div class="pop-title">ONE PIECE × 對話哲學</div>
+          <div class="pop-desc">魯夫的語言直率到荒謬——「我要成為海賊王」不隱藏任何意圖。而這種完全透明的企圖，恰恰是為什麼他能吸引夥伴。對比多佛朗明哥的操控術——永遠用線牽著別人，隱藏真正目的。</div>
+        </div>
+        <div class="pop-card" style="border-top: 3px solid var(--accent-mint);">
+          <div class="pop-icon">💊</div>
+          <div class="pop-title">駭客任務 × 對話哲學</div>
+          <div class="pop-desc">莫菲斯遞出紅藍藥丸：「我只能帶你到門口」——這是溝通的典範。他公開自己的意圖（想讓尼歐看真相），但尊重尼歐的選擇權。對比史密斯探員：直接覆寫程式碼，完全繞過理性自主。</div>
+        </div>
+        <div class="pop-card" style="border-top: 3px solid var(--accent-lavender);">
+          <div class="pop-icon">🎭</div>
+          <div class="pop-title">奧賽羅 × 對話哲學</div>
+          <div class="pop-desc">伊阿古是文學史上最偉大的操控者。他從不撒謊，只是「提問」和「暗示」。他的對話策略恰恰體現了三木定義的「操控」：讓對方以為自己得出了結論，實際上每一步都被引導。</div>
+        </div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ══════════════════════════════════════ STEP 9 ══════════════════════════════════════ -->
+  <article class="card" id="step9">
+    <div class="card-accent" style="background: linear-gradient(90deg, var(--accent-plum), #BA68C8);"></div>
+    <div class="card-header">
+      <div class="card-step">
+        <span class="card-step-number" style="background: linear-gradient(135deg, var(--accent-plum), #BA68C8);">9</span>
+        <span class="card-step-label">Personal Awakening</span>
+      </div>
+      <h2 class="card-title">個人覺醒</h2>
+      <p class="card-subtitle">這本書改變了哪些思考方式？打碎了哪些預設？</p>
+    </div>
+    <div class="card-body">
+
+      <div class="awakening-items">
+        <div class="awakening-item" style="background: linear-gradient(135deg, #FFEBEE, #FCE4EC);">
+          <div class="aw-num">AWAKENING 01</div>
+          <h4>「真誠＝無目的」的迷思被打碎</h4>
+          <p>
+            長期以來，我們被灌輸「真正的溝通是沒有企圖的」。三木讓我意識到這完全是錯的——<strong>所有有意義的對話都帶有企圖</strong>。教師想教會學生，醫生想說服病人遵從醫囑，朋友想讓你開心起來。有企圖不是問題，隱藏企圖才是。一個公開說「我想說服你」的人，是最真誠的溝通者。
+          </p>
+        </div>
+
+        <div class="awakening-item" style="background: linear-gradient(135deg, #E8EAF6, #E3F2FD);">
+          <div class="aw-num">AWAKENING 02</div>
+          <h4>寒暄不是浪費時間</h4>
+          <p>
+            以前覺得「天氣真好」「最近好嗎」是無意義的填充。現在理解到：寒暄是人類發明的<strong>最精巧的關係維護機制</strong>。它的意義恰恰在於「不傳遞資訊」。一個什麼都要「直入主題」的人，不是效率高手，而是在破壞人際互動最底層的信任建構過程。
+          </p>
+        </div>
+
+        <div class="awakening-item" style="background: linear-gradient(135deg, #E0F7FA, #E8F5E9);">
+          <div class="aw-num">AWAKENING 03</div>
+          <h4>操控的可怕不在於謊言，在於「讓你以為是自己想的」</h4>
+          <p>
+            伊阿古式的操控——從不撒謊，只是提問和暗示——比直接欺騙更危險一千倍。因為被直接欺騙的人，至少有「被騙了」的自我意識；但被暗示引導的人，會堅信那是自己的獨立判斷。<strong>最深的操控，是讓你失去「被操控了」的意識。</strong>這對理解現代媒體環境至關重要。
+          </p>
+        </div>
+
+        <div class="awakening-item" style="background: linear-gradient(135deg, #FFF3E0, #FFF8E1);">
+          <div class="aw-num">AWAKENING 04</div>
+          <h4>錯位不是失敗，是創造力的源頭</h4>
+          <p>
+            以前把「溝通不良」視為需要修正的問題。現在理解到：<strong>完美的溝通不存在，也不應該存在</strong>。每一次的理解偏差，都是新意義誕生的可能。詩歌、幽默、藝術的魅力，恰恰來自語言的「不精確」。如果我們發明了一種完全不會造成誤解的語言，它可能同時殺死了所有的創造力。
+          </p>
+        </div>
+
+        <div class="awakening-item" style="background: linear-gradient(135deg, #F3E5F5, #FCE4EC);">
+          <div class="aw-num">AWAKENING 05</div>
+          <h4>對話的最高形式不是「被理解」，而是「共同建構」</h4>
+          <p>
+            三木的書暗示了一個更深的洞見：最好的對話不是 A 成功地把想法傳給 B，而是 A 和 B 在對話過程中<strong>共同創造了原本不存在的東西</strong>。這就是為什麼好的對話結束後，雙方都覺得「我說出了自己原本不知道自己想說的話」。對話不是傳輸，是共創。
+          </p>
+        </div>
+      </div>
+
+      <div class="quote-block">
+        <div class="quote-text">
+          讀完這本書後，每一次開口說話<br>
+          都變成了一個需要覺察的倫理行為。<br>
+          這既是負擔，也是解放。
+        </div>
+        <div class="quote-source">── 覺醒的核心轉變</div>
+      </div>
+    </div>
+  </article>
+
+  <!-- ══════════════════════════════════════ STEP 10 ══════════════════════════════════════ -->
+  <article class="card" id="step10">
+    <div class="card-accent" style="background: linear-gradient(90deg, var(--accent-teal), #26A69A);"></div>
+    <div class="card-header">
+      <div class="card-step">
+        <span class="card-step-number" style="background: linear-gradient(135deg, var(--accent-teal), #26A69A);">10</span>
+        <span class="card-step-label">Action Transformation</span>
+      </div>
+      <h2 class="card-title">行動轉化</h2>
+      <p class="card-subtitle">從理解到實踐：把哲學變成日常行為</p>
+    </div>
+    <div class="card-body">
+
+      <div class="action-timeline">
+        <div class="action-item">
+          <span class="action-timeframe" style="background: #E8F5E9; color: #2E7D32;">🟢 即刻行動（今天）</span>
+          <h4>啟動「意圖覺察」模式</h4>
+          <p>在接下來的三次對話中，暫停一秒鐘問自己：「我的意圖是公開的嗎？如果對方知道我在做什麼，我的話語還有效嗎？」不需要改變什麼，只需要覺察。</p>
+          <ul class="action-detail">
+            <li>設一個手機提醒：「今天的對話，你在溝通還是操控？」</li>
+            <li>挑一段今天的對話，嘗試用五層活動辨識法分析</li>
+            <li>特別注意自己使用「暗示」和「間接表達」的時刻</li>
+          </ul>
+        </div>
+
+        <div class="action-item">
+          <span class="action-timeframe" style="background: #E3F2FD; color: #1565C0;">🔵 本週實驗</span>
+          <h4>「透明企圖」實驗</h4>
+          <p>選擇一個需要說服對方的場景（工作提案、約朋友出門、家庭協商），嘗試<strong>把企圖說出來</strong>。不是「你覺得週末一起去爬山怎麼樣」（隱藏企圖），而是「我想約你爬山，因為覺得最近你需要放鬆」（公開企圖）。</p>
+          <ul class="action-detail">
+            <li>記錄對方的反應——公開企圖讓人更信任還是更尷尬？</li>
+            <li>在工作會議中嘗試：「我接下來要說的話，是因為我希望大家支持方案A」</li>
+            <li>觀察：公開企圖後，溝通質量是否提升？</li>
+          </ul>
+        </div>
+
+        <div class="action-item">
+          <span class="action-timeframe" style="background: #FFF3E0; color: #E65100;">🟠 本月深化</span>
+          <h4>「對話日記」練習</h4>
+          <p>每天記錄一段印象深刻的對話，用三木的框架分析：資訊層說了什麼？關係層在做什麼？有沒有框架衝突？有沒有操控成分？</p>
+          <ul class="action-detail">
+            <li>準備一個小筆記本或手機備忘錄</li>
+            <li>每天一段對話分析，不貪多</li>
+            <li>月底回顧：你最常使用的對話策略是什麼？</li>
+            <li>識別自己的「操控盲區」——哪些操控你以前沒意識到？</li>
+          </ul>
+        </div>
+
+        <div class="action-item">
+          <span class="action-timeframe" style="background: #F3E5F5; color: #6A1B9A;">🟣 長期修煉</span>
+          <h4>成為「可愛的溝通者」</h4>
+          <p>三木說「帶有企圖的對話是可愛的」。長期目標是：<strong>成為一個帶著企圖但完全透明的人</strong>。不假裝中立，不暗中引導，而是坦率地說出「我想要什麼」「我為什麼這樣說」。</p>
+          <ul class="action-detail">
+            <li>定期重讀本書的重點章節，每次會有不同的理解</li>
+            <li>在人際衝突中練習：先釐清框架是否對齊，再處理內容</li>
+            <li>培養「meta 對話」的能力——能隨時跳出對話，討論「我們正在進行的這段對話本身」</li>
+            <li>終極目標：讓對話成為共創，而非單向傳輸</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">⚡ 行動原則</div>
+        <p>所有行動轉化的核心只有一個原則：<strong>覺察先於改變</strong>。不急著成為「更好的溝通者」，先成為「更有覺察的說話者」。三木的哲學不是教你溝通技巧，而是給你一雙看見對話結構的眼睛。有了這雙眼睛，改變是自然發生的事。</p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ══════════════════════════════════════ STEP 11 ══════════════════════════════════════ -->
+  <article class="card" id="step11">
+    <div class="card-accent" style="background: linear-gradient(90deg, #FF8A65, #FF7043);"></div>
+    <div class="card-header">
+      <div class="card-step">
+        <span class="card-step-number" style="background: linear-gradient(135deg, #FF8A65, #FF7043);">11</span>
+        <span class="card-step-label">Extended Reading</span>
+      </div>
+      <h2 class="card-title">延伸閱讀</h2>
+      <p class="card-subtitle">平行思考、對立觀點、源頭經典——一張閱讀地圖</p>
+    </div>
+    <div class="card-body">
+
+      <div class="reading-section">
+
+        <!-- ── 源頭經典 ── -->
+        <div class="reading-category">
+          <div class="reading-category-title">
+            <span class="rc-icon">🏛️</span>
+            源頭經典——三木站在誰的肩膀上
+          </div>
+          <div class="book-list">
+            <div class="book-item">
+              <div class="book-emoji">📘</div>
+              <div class="book-info">
+                <h4>Studies in the Way of Words</h4>
+                <div class="book-author">H. Paul Grice（格萊斯）</div>
+                <div class="book-reason">三木整本書的理論根基。格萊斯的「意義」三層意圖理論、合作原則、會話含義——三木所有論述的起點都在這裡。格萊斯的天才在於：用「意圖的公開性」來定義「溝通」。</div>
+                <span class="book-relation" style="background: #E8EAF6; color: #283593;">🔗 直接源頭</span>
+              </div>
+            </div>
+
+            <div class="book-item">
+              <div class="book-emoji">📗</div>
+              <div class="book-info">
+                <h4>How to Do Things with Words</h4>
+                <div class="book-author">J.L. Austin（奧斯汀）</div>
+                <div class="book-reason">言語行為理論的開山之作。「說話就是做事」——Austin 證明了語言不只是描述世界，它改變世界。三木討論的「說出來就有意義」（第2章）和「傳不到才能說」（第4章），都回應了 Austin 的洞見。</div>
+                <span class="book-relation" style="background: #E8EAF6; color: #283593;">🔗 直接源頭</span>
+              </div>
+            </div>
+
+            <div class="book-item">
+              <div class="book-emoji">📙</div>
+              <div class="book-info">
+                <h4>Philosophical Investigations</h4>
+                <div class="book-author">Ludwig Wittgenstein（維根斯坦）</div>
+                <div class="book-reason">「語言遊戲」的概念是三木整個分析的潛在架構——不同類型的對話就是不同的「語言遊戲」，各有規則。三木筆下的「框架衝突」（第5章），本質上就是兩個不同語言遊戲的碰撞。</div>
+                <span class="book-relation" style="background: #E8EAF6; color: #283593;">🔗 深層源頭</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 平行 / 相似 ── -->
+        <div class="reading-category">
+          <div class="reading-category-title">
+            <span class="rc-icon">🔄</span>
+            平行閱讀——不同路徑，類似目的地
+          </div>
+          <div class="book-list">
+            <div class="book-item">
+              <div class="book-emoji">💡</div>
+              <div class="book-info">
+                <h4>Talking to Strangers</h4>
+                <div class="book-author">Malcolm Gladwell（葛拉威爾）</div>
+                <div class="book-reason">探討「為什麼我們這麼不擅長判斷陌生人」。Gladwell 從社會心理學出發，三木從語言哲學出發，卻都指向同一個問題：<strong>我們高估了自己辨識他人意圖的能力</strong>。兩本書搭配閱讀，一個給你理論框架，一個給你真實案例。</div>
+                <span class="book-relation" style="background: #E0F2F1; color: #00695C;">🔄 平行視角</span>
+              </div>
+            </div>
+
+            <div class="book-item">
+              <div class="book-emoji">🔍</div>
+              <div class="book-info">
+                <h4>Influence: The Psychology of Persuasion</h4>
+                <div class="book-author">Robert Cialdini（乔尔迪尼）</div>
+                <div class="book-reason">心理學經典——六大說服原理（互惠、承諾、社會證明等）。用三木的框架重讀 Cialdini：這些說服技巧是「溝通」還是「操控」？大部分都是操控——因為一旦被識破，效果會大幅降低。這本書可以視為「操控技術的百科全書」。</div>
+                <span class="book-relation" style="background: #E0F2F1; color: #00695C;">🔄 互補閱讀</span>
+              </div>
+            </div>
+
+            <div class="book-item">
+              <div class="book-emoji">🌸</div>
+              <div class="book-info">
+                <h4>言語にして関わらなければ</h4>
+                <div class="book-author">和泉悠</div>
+                <div class="book-reason">同為日本語言哲學的新世代學者，探討「厭惡言論」和語言暴力的哲學。如果三木關注的是溝通與操控的光譜，和泉關注的則是「語言作為武器」的更極端形態。兩者互為補充。</div>
+                <span class="book-relation" style="background: #E0F2F1; color: #00695C;">🔄 同世代對話</span>
+              </div>
+            </div>
+
+            <div class="book-item">
+              <div class="book-emoji">🎯</div>
+              <div class="book-info">
+                <h4>Nonviolent Communication</h4>
+                <div class="book-author">Marshall Rosenberg（羅森伯格）</div>
+                <div class="book-reason">非暴力溝通強調「觀察、感受、需要、請求」的四步驟框架。用三木的理論來看，NVC 的核心正是「讓意圖公開化」——明確說出你的需要和請求，而不是用隱藏的方式操控對方。NVC 是三木理論的實踐版。</div>
+                <span class="book-relation" style="background: #E0F2F1; color: #00695C;">🔄 實踐對照</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 對立 / 挑戰 ── -->
+        <div class="reading-category">
+          <div class="reading-category-title">
+            <span class="rc-icon">⚔️</span>
+            對立閱讀——挑戰三木的觀點
+          </div>
+          <div class="book-list">
+            <div class="book-item">
+              <div class="book-emoji">🔥</div>
+              <div class="book-info">
+                <h4>On Bullshit</h4>
+                <div class="book-author">Harry Frankfurt（法蘭克福）</div>
+                <div class="book-reason">Frankfurt 提出了「溝通」和「操控」之外的第三種語言活動：<strong>「胡扯」（Bullshit）</strong>——說話者根本不在乎真假，不是在溝通也不是在操控，而是在填充空間。這對三木的二分法構成根本挑戰：也許最常見的語言活動，既不是溝通也不是操控，而是「胡扯」。</div>
+                <span class="book-relation" style="background: #FFEBEE; color: #B71C1C;">⚔️ 框架挑戰</span>
+              </div>
+            </div>
+
+            <div class="book-item">
+              <div class="book-emoji">🌀</div>
+              <div class="book-info">
+                <h4>The Presentation of Self in Everyday Life</h4>
+                <div class="book-author">Erving Goffman（高夫曼）</div>
+                <div class="book-reason">高夫曼的「戲劇理論」認為所有社交互動都是「表演」。如果所有對話都是表演，那麼三木區分溝通和操控的基礎——「意圖的真實性」——就被動搖了。也許根本不存在「不表演的對話」。這是對三木最有力的挑戰。</div>
+                <span class="book-relation" style="background: #FFEBEE; color: #B71C1C;">⚔️ 根本質疑</span>
+              </div>
+            </div>
+
+            <div class="book-item">
+              <div class="book-emoji">🧬</div>
+              <div class="book-info">
+                <h4>Thinking, Fast and Slow</h4>
+                <div class="book-author">Daniel Kahneman（康納曼）</div>
+                <div class="book-reason">康納曼的「系統一/系統二」理論揭示：人類大部分決策不經過理性思考。如果聽話者的信念改變大多是「系統一」自動反應，那麼三木強調的「理性自主」——溝通尊重理性而操控繞過理性——可能高估了人類的理性程度。也許所有有效的語言影響，本質上都是「操控」。</div>
+                <span class="book-relation" style="background: #FFEBEE; color: #B71C1C;">⚔️ 理性質疑</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── 延伸探索 ── -->
+        <div class="reading-category">
+          <div class="reading-category-title">
+            <span class="rc-icon">🚀</span>
+            延伸探索——從這裡出發，走得更遠
+          </div>
+          <div class="book-list">
+            <div class="book-item">
+              <div class="book-emoji">🌊</div>
+              <div class="book-info">
+                <h4>Relevance: Communication and Cognition</h4>
+                <div class="book-author">Dan Sperber & Deirdre Wilson</div>
+                <div class="book-reason">關聯理論是格萊斯之後最重要的語用學發展。Sperber & Wilson 用「認知效率」重新定義了溝通：我們不是在交換資訊，而是在尋找最省力的理解路徑。這為三木的框架提供了認知科學的延伸。</div>
+                <span class="book-relation" style="background: #E1F5FE; color: #01579B;">🚀 進階探索</span>
+              </div>
+            </div>
+
+            <div class="book-item">
+              <div class="book-emoji">🎙️</div>
+              <div class="book-info">
+                <h4>You Just Don't Understand</h4>
+                <div class="book-author">Deborah Tannen（乔丹·坦能）</div>
+                <div class="book-reason">探討性別如何影響對話風格——「報告式對話」vs「關係式對話」。三木的「錯位溝通」（第5章）在性別差異中有最豐富的實例。男女之間的溝通困難，很多時候不是誰對誰錯，而是在玩不同的「語言遊戲」。</div>
+                <span class="book-relation" style="background: #E1F5FE; color: #01579B;">🚀 應用延伸</span>
+              </div>
+            </div>
+
+            <div class="book-item">
+              <div class="book-emoji">🏗️</div>
+              <div class="book-info">
+                <h4>Making It Explicit</h4>
+                <div class="book-author">Robert Brandom（布蘭登）</div>
+                <div class="book-reason">Brandom 的推論主義語義學為三木提供了更深的哲學基礎：語言的意義不在於指涉，而在於推論實踐中的角色。如果語言本質上是「推論遊戲」，那麼溝通就是公開的推論邀請，操控就是隱藏的推論引導。</div>
+                <span class="book-relation" style="background: #E1F5FE; color: #01579B;">🚀 哲學深入</span>
+              </div>
+            </div>
+
+            <div class="book-item">
+              <div class="book-emoji">🎭</div>
+              <div class="book-info">
+                <h4>Othello（奧賽羅）</h4>
+                <div class="book-author">William Shakespeare（莎士比亞）</div>
+                <div class="book-reason">三木在第七章大量引用的原著。讀完三木的分析再重讀奧賽羅，你會看到完全不同的東西：每一句台詞都變成了溝通—操控光譜上的精確標記。伊阿古不是邪惡的天才，他只是把語言的操控潛力發揮到了極致。</div>
+                <span class="book-relation" style="background: #E1F5FE; color: #01579B;">🚀 原典回歸</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="emphasis-box">
+        <h4>📚 閱讀路線建議</h4>
+        <p>
+          <strong>入門路線：</strong>先讀 Gladwell《Talking to Strangers》感受問題的緊迫性 → 再回頭細讀三木的理論框架 → 最後讀 Rosenberg《非暴力溝通》做實踐轉化。<br><br>
+          <strong>深入路線：</strong>從 Grice《Studies in the Way of Words》打基礎 → 三木做當代應用 → Frankfurt《On Bullshit》做批判 → Sperber & Wilson 做進階。<br><br>
+          <strong>跨域路線：</strong>三木 → Goffman《日常生活中的自我呈現》→ Kahneman《快思慢想》→ Cialdini《影響力》——從哲學到社會學到心理學到行為科學。
+        </p>
+      </div>
+    </div>
+  </article>
+
+  <!-- ══════════════════════════════════════ FOOTER ══════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer-logo">🔮</div>
+    <p><strong>覺醒報告 v2</strong> — Awakening Report</p>
+    <p style="margin-top: 0.5rem;">会話を哲学する ── 對話的哲學</p>
+    <p>三木那由他 · 光文社新書</p>
+    <p style="margin-top: 1.5rem; font-size: 0.75rem; opacity: 0.5;">
+      「帶有企圖的對話是可愛的」<br>
+      Generated with 🐉 by 龍龍 · 2026
+    </p>
+  </footer>
+
+</div><!-- .container -->
+
+</body>
+</html>
