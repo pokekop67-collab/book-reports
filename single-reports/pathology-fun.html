@@ -1,0 +1,2359 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>覺醒報告｜有趣到讓你不想睡的病理學通識</title>
+<style>
+  /* ============================================================
+     韓系清新風格 — 覺醒 v2 深度分析報告
+     書：有趣到讓你不想睡的病理學通識 / 仲野徹
+     ============================================================ */
+
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700;900&display=swap');
+
+  :root {
+    --bg-main: #FFF5F7;
+    --bg-card: rgba(255, 255, 255, 0.82);
+    --bg-glass: rgba(255, 255, 255, 0.45);
+    --accent-pink: #FF6B9D;
+    --accent-coral: #FF8A80;
+    --accent-peach: #FFAB91;
+    --accent-lavender: #B39DDB;
+    --accent-mint: #80CBC4;
+    --accent-sky: #81D4FA;
+    --accent-lemon: #FFF176;
+    --accent-rose: #F48FB1;
+    --accent-teal: #4DB6AC;
+    --accent-indigo: #7986CB;
+    --accent-amber: #FFD54F;
+    --text-primary: #2D2D3F;
+    --text-secondary: #5A5A72;
+    --text-muted: #8E8EA0;
+    --shadow-soft: 0 4px 24px rgba(255, 107, 157, 0.10);
+    --shadow-card: 0 8px 32px rgba(255, 107, 157, 0.12);
+    --shadow-hover: 0 12px 48px rgba(255, 107, 157, 0.18);
+    --shadow-glow: 0 0 40px rgba(255, 107, 157, 0.15);
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 28px;
+    --radius-xl: 36px;
+    --gradient-hero: linear-gradient(135deg, #FF6B9D 0%, #FF8A80 25%, #FFAB91 50%, #B39DDB 75%, #81D4FA 100%);
+    --gradient-warm: linear-gradient(135deg, #FF6B9D 0%, #FF8A80 50%, #FFAB91 100%);
+    --gradient-cool: linear-gradient(135deg, #B39DDB 0%, #81D4FA 50%, #80CBC4 100%);
+    --gradient-sunset: linear-gradient(135deg, #FF6B9D 0%, #FFAB91 50%, #FFF176 100%);
+    --gradient-ocean: linear-gradient(135deg, #7986CB 0%, #81D4FA 50%, #80CBC4 100%);
+    --gradient-forest: linear-gradient(135deg, #80CBC4 0%, #4DB6AC 50%, #81D4FA 100%);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+  }
+
+  body {
+    font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: var(--bg-main);
+    color: var(--text-primary);
+    line-height: 1.8;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ── 背景裝飾粒子 ── */
+  body::before {
+    content: '';
+    position: fixed;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background:
+      radial-gradient(circle at 20% 30%, rgba(255, 107, 157, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(179, 157, 219, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 50% 80%, rgba(129, 212, 250, 0.06) 0%, transparent 50%),
+      radial-gradient(circle at 10% 70%, rgba(128, 203, 196, 0.05) 0%, transparent 50%),
+      radial-gradient(circle at 90% 60%, rgba(255, 171, 145, 0.05) 0%, transparent 50%);
+    z-index: -1;
+    animation: bgFloat 30s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  @keyframes bgFloat {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    33% { transform: translate(-2%, 1%) rotate(1deg); }
+    66% { transform: translate(1%, -2%) rotate(-1deg); }
+    100% { transform: translate(-1%, 2%) rotate(0.5deg); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(30px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.92); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  /* ── 容器 ── */
+  .container {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ════════════════════════════════════════════════════
+     HERO 區塊
+     ════════════════════════════════════════════════════ */
+  .hero {
+    position: relative;
+    padding: 80px 0 60px;
+    text-align: center;
+    overflow: hidden;
+    animation: fadeInUp 1s ease-out;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -80px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(255,107,157,0.12) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    animation: pulse 4s ease-in-out infinite;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 107, 157, 0.2);
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--accent-pink);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    animation: scaleIn 0.8s ease-out 0.3s both;
+  }
+
+  .hero-badge .dot {
+    width: 6px;
+    height: 6px;
+    background: var(--accent-pink);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .hero-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 16px;
+    background: var(--gradient-hero);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 6s ease-in-out infinite;
+  }
+
+  .hero-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-secondary);
+    font-weight: 400;
+    line-height: 1.7;
+    max-width: 640px;
+    margin: 0 auto 28px;
+    animation: fadeInUp 1s ease-out 0.5s both;
+  }
+
+  .hero-author {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 28px;
+    background: var(--bg-card);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 107, 157, 0.12);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-soft);
+    animation: fadeInUp 1s ease-out 0.7s both;
+  }
+
+  .hero-author .avatar {
+    width: 44px;
+    height: 44px;
+    background: var(--gradient-warm);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    color: white;
+    font-weight: 700;
+  }
+
+  .hero-author .info {
+    text-align: left;
+  }
+
+  .hero-author .name {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text-primary);
+  }
+
+  .hero-author .role {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 28px;
+    margin-top: 28px;
+    flex-wrap: wrap;
+    animation: fadeInUp 1s ease-out 0.9s both;
+  }
+
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .hero-meta-item .value {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--accent-pink);
+  }
+
+  .hero-meta-item .label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── 浮動裝飾元素 ── */
+  .floating-deco {
+    position: absolute;
+    pointer-events: none;
+    opacity: 0.15;
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .floating-deco.deco-1 { top: 10%; left: 5%; font-size: 3rem; animation-delay: 0s; }
+  .floating-deco.deco-2 { top: 20%; right: 8%; font-size: 2.5rem; animation-delay: 1s; }
+  .floating-deco.deco-3 { bottom: 15%; left: 10%; font-size: 2rem; animation-delay: 2s; }
+  .floating-deco.deco-4 { bottom: 25%; right: 5%; font-size: 2.8rem; animation-delay: 0.5s; }
+
+  /* ════════════════════════════════════════════════════
+     導覽列
+     ════════════════════════════════════════════════════ */
+  .nav-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(255, 245, 247, 0.85);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 1px solid rgba(255, 107, 157, 0.08);
+    padding: 12px 0;
+    margin-bottom: 40px;
+  }
+
+  .nav-inner {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    padding: 4px 0;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav-pill {
+    flex-shrink: 0;
+    padding: 6px 14px;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    border: 1px solid transparent;
+  }
+
+  .nav-pill:hover {
+    color: var(--accent-pink);
+    background: rgba(255, 107, 157, 0.08);
+    border-color: rgba(255, 107, 157, 0.15);
+  }
+
+  .nav-pill.active {
+    color: white;
+    background: var(--gradient-warm);
+    border-color: transparent;
+    box-shadow: 0 2px 12px rgba(255, 107, 157, 0.3);
+  }
+
+  /* ════════════════════════════════════════════════════
+     卡片通用樣式
+     ════════════════════════════════════════════════════ */
+  .card {
+    background: var(--bg-card);
+    backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: 40px;
+    margin-bottom: 36px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: fadeInUp 0.8s ease-out both;
+  }
+
+  .card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-3px);
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  .card:nth-child(1)::before  { background: var(--gradient-warm); }
+  .card:nth-child(2)::before  { background: var(--gradient-cool); }
+  .card:nth-child(3)::before  { background: var(--gradient-sunset); }
+  .card:nth-child(4)::before  { background: var(--gradient-ocean); }
+  .card:nth-child(5)::before  { background: var(--gradient-forest); }
+  .card:nth-child(6)::before  { background: var(--gradient-warm); }
+  .card:nth-child(7)::before  { background: var(--gradient-cool); }
+  .card:nth-child(8)::before  { background: var(--gradient-sunset); }
+  .card:nth-child(9)::before  { background: var(--gradient-ocean); }
+  .card:nth-child(10)::before { background: var(--gradient-forest); }
+  .card:nth-child(11)::before { background: var(--gradient-warm); }
+
+  /* 卡片步驟標號 */
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 28px;
+  }
+
+  .step-number {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .step-title-group {
+    flex: 1;
+  }
+
+  .step-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 2px;
+  }
+
+  .step-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.4;
+  }
+
+  /* ── 段落 ── */
+  .card p {
+    font-size: 0.98rem;
+    color: var(--text-secondary);
+    line-height: 1.9;
+    margin-bottom: 16px;
+  }
+
+  .card p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* ── 引言區塊 ── */
+  .quote-block {
+    position: relative;
+    padding: 24px 28px;
+    background: linear-gradient(135deg, rgba(255,107,157,0.06) 0%, rgba(179,157,219,0.06) 100%);
+    border-left: 4px solid var(--accent-pink);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+    margin: 20px 0;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.8;
+  }
+
+  .quote-block::before {
+    content: '"';
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    font-size: 3.5rem;
+    color: var(--accent-pink);
+    opacity: 0.25;
+    font-family: Georgia, serif;
+  }
+
+  .quote-block .quote-source {
+    display: block;
+    margin-top: 10px;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--text-muted);
+    font-family: 'Noto Sans TC', sans-serif;
+  }
+
+  /* ── 小標 ── */
+  .card h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 28px 0 12px;
+    padding-left: 14px;
+    border-left: 3px solid var(--accent-pink);
+  }
+
+  .card h4 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--accent-pink);
+    margin: 20px 0 8px;
+  }
+
+  /* ── 列表 ── */
+  .card ul, .card ol {
+    padding-left: 20px;
+    margin: 12px 0;
+  }
+
+  .card li {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+    margin-bottom: 8px;
+  }
+
+  .card li::marker {
+    color: var(--accent-pink);
+  }
+
+  /* ── 強調框 ── */
+  .highlight-box {
+    padding: 20px 24px;
+    background: linear-gradient(135deg, rgba(255,241,118,0.15) 0%, rgba(255,171,145,0.12) 100%);
+    border: 1px solid rgba(255,213,79,0.3);
+    border-radius: var(--radius-md);
+    margin: 16px 0;
+  }
+
+  .highlight-box.blue {
+    background: linear-gradient(135deg, rgba(129,212,250,0.12) 0%, rgba(179,157,219,0.08) 100%);
+    border-color: rgba(129,212,250,0.3);
+  }
+
+  .highlight-box.green {
+    background: linear-gradient(135deg, rgba(128,203,196,0.12) 0%, rgba(129,212,250,0.08) 100%);
+    border-color: rgba(128,203,196,0.3);
+  }
+
+  .highlight-box.pink {
+    background: linear-gradient(135deg, rgba(255,107,157,0.08) 0%, rgba(244,143,177,0.08) 100%);
+    border-color: rgba(255,107,157,0.2);
+  }
+
+  .highlight-box .box-title {
+    font-weight: 700;
+    font-size: 0.92rem;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .highlight-box p {
+    font-size: 0.92rem !important;
+    margin-bottom: 8px !important;
+  }
+
+  /* ── 比較表 ── */
+  .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .compare-item {
+    padding: 20px;
+    border-radius: var(--radius-md);
+    text-align: center;
+  }
+
+  .compare-item.left {
+    background: linear-gradient(135deg, rgba(255,107,157,0.10) 0%, rgba(255,138,128,0.08) 100%);
+    border: 1px solid rgba(255,107,157,0.2);
+  }
+
+  .compare-item.right {
+    background: linear-gradient(135deg, rgba(129,212,250,0.10) 0%, rgba(179,157,219,0.08) 100%);
+    border: 1px solid rgba(129,212,250,0.2);
+  }
+
+  .compare-item .emoji {
+    font-size: 2.2rem;
+    margin-bottom: 8px;
+  }
+
+  .compare-item .title {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+  }
+
+  .compare-item .desc {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ── 知識卡 ── */
+  .knowledge-card {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: var(--radius-md);
+    margin: 16px 0;
+    transition: transform 0.3s ease;
+  }
+
+  .knowledge-card:hover {
+    transform: translateX(4px);
+  }
+
+  .knowledge-card .icon {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .knowledge-card .content {
+    flex: 1;
+  }
+
+  .knowledge-card .content .title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .knowledge-card .content .text {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ── 流程圖 ── */
+  .flow-chain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 24px 0;
+    padding: 20px;
+    background: linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,245,247,0.6) 100%);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255,107,157,0.1);
+  }
+
+  .flow-node {
+    padding: 10px 18px;
+    border-radius: var(--radius-md);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: white;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+
+  .flow-arrow {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+  }
+
+  /* ── 指標圓圈 ── */
+  .metrics-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .metric-circle {
+    text-align: center;
+    padding: 20px 12px;
+    background: var(--bg-glass);
+    backdrop-filter: blur(8px);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255,255,255,0.5);
+    transition: transform 0.3s ease;
+  }
+
+  .metric-circle:hover {
+    transform: translateY(-4px);
+  }
+
+  .metric-circle .number {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    background: var(--gradient-warm);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .metric-circle .unit {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  /* ── 時間軸 ── */
+  .timeline {
+    position: relative;
+    padding-left: 36px;
+    margin: 24px 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 14px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--accent-pink), var(--accent-lavender), var(--accent-mint));
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 24px;
+    padding: 16px 20px;
+    background: var(--bg-glass);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255,255,255,0.4);
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -28px;
+    top: 22px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent-pink);
+    border: 3px solid var(--bg-main);
+    box-shadow: 0 0 0 2px var(--accent-pink);
+  }
+
+  .timeline-item .time-label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--accent-pink);
+    margin-bottom: 4px;
+    letter-spacing: 1px;
+  }
+
+  .timeline-item .time-content {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ── 標籤 ── */
+  .tag {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 50px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    margin: 3px 4px 3px 0;
+  }
+
+  .tag.pink { background: rgba(255,107,157,0.12); color: var(--accent-pink); }
+  .tag.lavender { background: rgba(179,157,219,0.15); color: var(--accent-lavender); }
+  .tag.mint { background: rgba(128,203,196,0.15); color: var(--accent-teal); }
+  .tag.sky { background: rgba(129,212,250,0.15); color: #1E88E5; }
+  .tag.coral { background: rgba(255,138,128,0.15); color: var(--accent-coral); }
+  .tag.amber { background: rgba(255,213,79,0.18); color: #F57F17; }
+
+  /* ── 分隔區 ── */
+  .section-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 32px 0;
+    color: var(--text-muted);
+    font-size: 0.82rem;
+    letter-spacing: 3px;
+  }
+
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,107,157,0.2), transparent);
+  }
+
+  /* ── 頁尾 ── */
+  .footer {
+    text-align: center;
+    padding: 60px 0 40px;
+    animation: fadeInUp 0.8s ease-out;
+  }
+
+  .footer-logo {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    background: var(--gradient-hero);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 6s ease-in-out infinite;
+    margin-bottom: 12px;
+  }
+
+  .footer-text {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+  }
+
+  .footer-heart {
+    display: inline-block;
+    animation: pulse 2s ease-in-out infinite;
+    color: var(--accent-pink);
+  }
+
+  /* ── 回到頂部 ── */
+  .back-to-top {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--gradient-warm);
+    color: white;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    box-shadow: 0 4px 20px rgba(255,107,157,0.35);
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 200;
+  }
+
+  .back-to-top.visible { opacity: 1; }
+  .back-to-top:hover { transform: translateY(-3px) scale(1.05); }
+
+  /* ── 數據徽章 ── */
+  .data-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background: var(--bg-glass);
+    border: 1px solid rgba(255,107,157,0.15);
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    margin: 4px;
+  }
+
+  .data-badge .badge-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  /* ── 互動卡片 ── */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 20px 0;
+  }
+
+  .insight-item {
+    padding: 20px;
+    background: var(--bg-glass);
+    border-radius: var(--radius-md);
+    border: 1px solid rgba(255,255,255,0.5);
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .insight-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-card);
+  }
+
+  .insight-item .emoji-big {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+  }
+
+  .insight-item .insight-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .insight-item .insight-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ── 響應式 ── */
+  @media (max-width: 768px) {
+    .hero-title { font-size: 2rem; }
+    .card { padding: 28px 22px; }
+    .compare-grid { grid-template-columns: 1fr; }
+    .metrics-row { grid-template-columns: repeat(2, 1fr); }
+    .hero-meta { gap: 16px; }
+    .nav-pill { font-size: 0.7rem; padding: 5px 10px; }
+    .flow-chain { flex-direction: column; }
+    .flow-arrow { transform: rotate(90deg); }
+  }
+
+  @media (max-width: 480px) {
+    .hero-title { font-size: 1.6rem; }
+    .hero-subtitle { font-size: 1rem; }
+    .card { padding: 22px 18px; margin-bottom: 24px; }
+    .step-title { font-size: 1.2rem; }
+    .insight-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── 特殊動畫延遲 ── */
+  .card:nth-child(1)  { animation-delay: 0.0s; }
+  .card:nth-child(2)  { animation-delay: 0.1s; }
+  .card:nth-child(3)  { animation-delay: 0.15s; }
+  .card:nth-child(4)  { animation-delay: 0.2s; }
+  .card:nth-child(5)  { animation-delay: 0.25s; }
+  .card:nth-child(6)  { animation-delay: 0.3s; }
+  .card:nth-child(7)  { animation-delay: 0.35s; }
+  .card:nth-child(8)  { animation-delay: 0.4s; }
+  .card:nth-child(9)  { animation-delay: 0.45s; }
+  .card:nth-child(10) { animation-delay: 0.5s; }
+  .card:nth-child(11) { animation-delay: 0.55s; }
+
+  /* ── 戰爭隱喻顏色方塊 ── */
+  .battle-card {
+    padding: 20px 24px;
+    border-radius: var(--radius-md);
+    margin: 12px 0;
+    border-left: 4px solid;
+  }
+
+  .battle-card.enemy {
+    background: linear-gradient(135deg, rgba(255,107,157,0.06) 0%, rgba(255,138,128,0.05) 100%);
+    border-color: var(--accent-coral);
+  }
+
+  .battle-card.ally {
+    background: linear-gradient(135deg, rgba(128,203,196,0.08) 0%, rgba(129,212,250,0.06) 100%);
+    border-color: var(--accent-mint);
+  }
+
+  .battle-card.neutral {
+    background: linear-gradient(135deg, rgba(179,157,219,0.08) 0%, rgba(255,241,118,0.06) 100%);
+    border-color: var(--accent-lavender);
+  }
+
+  .battle-card .b-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    color: var(--text-primary);
+  }
+
+  .battle-card .b-text {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* ── 章節概覽圓環 ── */
+  .chapter-ring {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: var(--bg-glass);
+    border-radius: var(--radius-lg);
+    border: 1px solid rgba(255,255,255,0.4);
+    margin: 10px 0;
+    transition: all 0.3s ease;
+  }
+
+  .chapter-ring:hover {
+    transform: translateX(6px);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .chapter-ring .ring-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .chapter-ring .ring-content {
+    flex: 1;
+  }
+
+  .chapter-ring .ring-title {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: var(--text-primary);
+  }
+
+  .chapter-ring .ring-desc {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+  }
+
+  /* ── 核心概念大字 ── */
+  .big-concept {
+    text-align: center;
+    padding: 32px 20px;
+    margin: 24px 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.7) 0%, rgba(255,245,247,0.5) 100%);
+    border-radius: var(--radius-xl);
+    border: 1px dashed rgba(255,107,157,0.25);
+  }
+
+  .big-concept .concept-emoji {
+    font-size: 3rem;
+    margin-bottom: 12px;
+  }
+
+  .big-concept .concept-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.6;
+  }
+
+  .big-concept .concept-sub {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-top: 8px;
+  }
+
+  /* ── 評分條 ── */
+  .rating-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 10px 0;
+  }
+
+  .rating-bar .bar-label {
+    width: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    flex-shrink: 0;
+  }
+
+  .rating-bar .bar-track {
+    flex: 1;
+    height: 8px;
+    background: rgba(255,107,157,0.1);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .rating-bar .bar-fill {
+    height: 100%;
+    border-radius: 4px;
+    background: var(--gradient-warm);
+    transition: width 1s ease-out;
+  }
+
+  .rating-bar .bar-value {
+    width: 40px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent-pink);
+    text-align: right;
+  }
+
+  /* ── 對話泡泡 ── */
+  .chat-bubble-group {
+    margin: 20px 0;
+  }
+
+  .chat-bubble {
+    max-width: 80%;
+    padding: 14px 20px;
+    border-radius: var(--radius-md);
+    margin-bottom: 12px;
+    font-size: 0.92rem;
+    line-height: 1.7;
+    position: relative;
+  }
+
+  .chat-bubble.author {
+    background: linear-gradient(135deg, rgba(255,107,157,0.10) 0%, rgba(255,171,145,0.08) 100%);
+    border: 1px solid rgba(255,107,157,0.15);
+    margin-right: auto;
+    border-bottom-left-radius: 6px;
+    color: var(--text-primary);
+  }
+
+  .chat-bubble.reader {
+    background: linear-gradient(135deg, rgba(129,212,250,0.10) 0%, rgba(179,157,219,0.08) 100%);
+    border: 1px solid rgba(129,212,250,0.15);
+    margin-left: auto;
+    border-bottom-right-radius: 6px;
+    color: var(--text-primary);
+  }
+
+  .chat-bubble .speaker {
+    font-size: 0.78rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .chat-bubble.author .speaker { color: var(--accent-pink); }
+  .chat-bubble.reader .speaker { color: var(--accent-sky); }
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════════════
+     HERO
+     ════════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="floating-deco deco-1">🔬</div>
+  <div class="floating-deco deco-2">🦠</div>
+  <div class="floating-deco deco-3">💉</div>
+  <div class="floating-deco deco-4">🧬</div>
+
+  <div class="container">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      覺醒報告 v2 ── 深度分析
+    </div>
+
+    <h1 class="hero-title">有趣到讓你不想睡的<br>病理學通識</h1>
+
+    <p class="hero-subtitle">
+      用聊天的口氣講清楚「生病」這件事——<br>
+      細胞怎麼受傷、怎麼死、怎麼叛變，免疫系統又怎麼打仗。<br>
+      病理學從來沒有這麼好笑過。
+    </p>
+
+    <div class="hero-author">
+      <div class="avatar">仲</div>
+      <div class="info">
+        <div class="name">仲野 徹（Toru Nakano）</div>
+        <div class="role">大阪大學醫學系教授 · 病理學者 · 段子手</div>
+      </div>
+    </div>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="value">8</div>
+        <div class="label">核心章節</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="value">100+</div>
+        <div class="label">神比喻</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="value">★ 4.3</div>
+        <div class="label">日亞評分</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="value">0</div>
+        <div class="label">先備知識</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     導覽列
+     ════════════════════════════════════════════════════ -->
+<nav class="nav-bar" id="nav">
+  <div class="container">
+    <div class="nav-inner">
+      <a class="nav-pill active" href="#step1">01 第一印象</a>
+      <a class="nav-pill" href="#step2">02 結構透視</a>
+      <a class="nav-pill" href="#step3">03 作者解碼</a>
+      <a class="nav-pill" href="#step4">04 核心論點</a>
+      <a class="nav-pill" href="#step5">05 翻譯機</a>
+      <a class="nav-pill" href="#step6">06 武器庫</a>
+      <a class="nav-pill" href="#step7">07 盲點偵測</a>
+      <a class="nav-pill" href="#step8">08 生命經驗</a>
+      <a class="nav-pill" href="#step9">09 跨域連結</a>
+      <a class="nav-pill" href="#step10">10 行動清單</a>
+      <a class="nav-pill" href="#step11">11 終極裁決</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════
+     STEP 01 ── 直覺反應
+     ════════════════════════════════════════════════════ -->
+<div class="container">
+<div class="card" id="step1">
+  <div class="step-header">
+    <div class="step-number" style="background: var(--gradient-warm);">01</div>
+    <div class="step-title-group">
+      <div class="step-label">STEP ONE — FIRST IMPRESSION</div>
+      <div class="step-title">直覺反應｜第一口咬下去什麼味道？</div>
+    </div>
+  </div>
+
+  <p>老實說，拿起這本書的第一秒，你會覺得封面設計跟「嚴肅的醫學」扯不上半點關係。日文原版帶著一股漫畫感，中文版也延續了那種「拜託你不要怕我」的親切氣質。然後你翻開第一頁——</p>
+
+  <div class="quote-block">
+    生病就是細胞受到損傷。就這樣。不用更複雜的定義了。
+    <span class="quote-source">── 仲野徹，序章</span>
+  </div>
+
+  <p>這句話像一記溫柔的巴掌：你以為病理學有多難？人家用一句話就講完了。整本書的核心邏輯，就是把醫學院要花好幾學期才講完的東西，用「你朋友在居酒屋跟你聊天」的方式重新說一遍。</p>
+
+  <h3>🎯 三個第一印象</h3>
+
+  <div class="insight-grid">
+    <div class="insight-item">
+      <div class="emoji-big">😂</div>
+      <div class="insight-title">好笑到出聲</div>
+      <div class="insight-desc">仲野教授的梗密度驚人。每隔幾頁就會有一個讓你噗嗤的比喻，像在看脫口秀講稿。</div>
+    </div>
+    <div class="insight-item">
+      <div class="emoji-big">🧠</div>
+      <div class="insight-title">真的學到東西</div>
+      <div class="insight-desc">笑完之後你發現——欸，我居然搞懂壞死和凋亡的差別了？這不是醫學系的考試範圍嗎？</div>
+    </div>
+    <div class="insight-item">
+      <div class="emoji-big">💡</div>
+      <div class="insight-title">世界觀被更新</div>
+      <div class="insight-desc">讀完後看待身體的方式完全不同。感冒不再只是「我生病了」，而是「我的免疫軍團正在打仗」。</div>
+    </div>
+  </div>
+
+  <div class="highlight-box pink">
+    <div class="box-title">🔥 一句話讀後感</div>
+    <p>如果你的高中生物老師是仲野徹，你現在可能已經是醫生了。</p>
+  </div>
+
+  <p>情緒溫度：<strong>興奮偏高</strong>。那種「原來這個世界一直有這麼有趣的東西，我居然現在才知道」的感覺。不是知識焦慮，而是純粹的好奇被點燃。</p>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     STEP 02 ── 結構透視
+     ════════════════════════════════════════════════════ -->
+<div class="card" id="step2">
+  <div class="step-header">
+    <div class="step-number" style="background: var(--gradient-cool);">02</div>
+    <div class="step-title-group">
+      <div class="step-label">STEP TWO — ARCHITECTURE</div>
+      <div class="step-title">結構透視｜這本書是怎麼蓋起來的？</div>
+    </div>
+  </div>
+
+  <p>仲野徹用了一個極聰明的架構：<strong>他把整個病理學教科書的目錄打散，然後按照「你的身體會遇到什麼事」來重新排列</strong>。不是按器官分，不是按疾病分，而是按「身體的災難類型」分。</p>
+
+  <div class="big-concept">
+    <div class="concept-emoji">🏗️</div>
+    <div class="concept-text">全書結構 = 身體的災難應變手冊</div>
+    <div class="concept-sub">從細胞受傷 → 適應 → 死亡 → 癌化 → 免疫 → 感染 → 全身崩潰</div>
+  </div>
+
+  <h3>📋 章節地圖</h3>
+
+  <div class="chapter-ring">
+    <div class="ring-icon" style="background: linear-gradient(135deg, #FF6B9D, #FF8A80);">🏠</div>
+    <div class="ring-content">
+      <div class="ring-title">序章：什麼是生病？</div>
+      <div class="ring-desc">生病 = 細胞受損。全書破題。用居酒屋的語氣定義了整個醫學。</div>
+    </div>
+  </div>
+
+  <div class="chapter-ring">
+    <div class="ring-icon" style="background: linear-gradient(135deg, #FF8A80, #FFAB91);">💥</div>
+    <div class="ring-content">
+      <div class="ring-title">第一章：細胞的損傷與適應</div>
+      <div class="ring-desc">細胞被打了會怎樣？變大、變小、變形、硬撐——適應的四種策略。</div>
+    </div>
+  </div>
+
+  <div class="chapter-ring">
+    <div class="ring-icon" style="background: linear-gradient(135deg, #FFAB91, #FFF176);">💀</div>
+    <div class="ring-content">
+      <div class="ring-title">第二章：細胞的死亡方式</div>
+      <div class="ring-desc">他殺（壞死） vs 自殺（凋亡）。這是全書最經典的比喻段落。</div>
+    </div>
+  </div>
+
+  <div class="chapter-ring">
+    <div class="ring-icon" style="background: linear-gradient(135deg, #FFF176, #80CBC4);">🔥</div>
+    <div class="ring-content">
+      <div class="ring-title">第三章：發炎反應</div>
+      <div class="ring-desc">紅腫熱痛不是病，是身體在救火。消防隊出動的完整流程。</div>
+    </div>
+  </div>
+
+  <div class="chapter-ring">
+    <div class="ring-icon" style="background: linear-gradient(135deg, #80CBC4, #81D4FA);">🔄</div>
+    <div class="ring-content">
+      <div class="ring-title">第四章：修復與再生</div>
+      <div class="ring-desc">傷口怎麼長回去的？為什麼有些器官能再生、有些不行？</div>
+    </div>
+  </div>
+
+  <div class="chapter-ring">
+    <div class="ring-icon" style="background: linear-gradient(135deg, #81D4FA, #B39DDB);">🩸</div>
+    <div class="ring-content">
+      <div class="ring-title">第五章：血液循環的異常</div>
+      <div class="ring-desc">血栓、栓塞、梗塞——水管的故障學。塞住了比漏水更可怕。</div>
+    </div>
+  </div>
+
+  <div class="chapter-ring">
+    <div class="ring-icon" style="background: linear-gradient(135deg, #B39DDB, #7986CB);">⚔️</div>
+    <div class="ring-content">
+      <div class="ring-title">第六章：免疫系統</div>
+      <div class="ring-desc">身體裡的國防軍。先天免疫是憲兵，後天免疫是特種部隊。</div>
+    </div>
+  </div>
+
+  <div class="chapter-ring">
+    <div class="ring-icon" style="background: linear-gradient(135deg, #7986CB, #FF6B9D);">🦠</div>
+    <div class="ring-content">
+      <div class="ring-title">第七章：感染症</div>
+      <div class="ring-desc">細菌、病毒、真菌、寄生蟲——入侵者的四大家族與牠們的戰術。</div>
+    </div>
+  </div>
+
+  <div class="chapter-ring">
+    <div class="ring-icon" style="background: linear-gradient(135deg, #FF6B9D, #B39DDB);">🎭</div>
+    <div class="ring-content">
+      <div class="ring-title">第八章：腫瘤與癌症</div>
+      <div class="ring-desc">壓軸大魔王。癌細胞就是叛變的自己人。這章有全書最多的「哦！」時刻。</div>
+    </div>
+  </div>
+
+  <div class="highlight-box blue">
+    <div class="box-title">📐 結構策略分析</div>
+    <p>仲野的排列順序其實暗藏玄機：他從<strong>最小的單位（細胞）</strong>開始，逐步放大到<strong>系統層級（免疫、循環）</strong>，最後收在<strong>最複雜的問題（癌症）</strong>。這是一個完美的認知腳手架——你永遠不會「跳級」，每一章都建立在前一章的理解之上。</p>
+  </div>
+
+  <div class="flow-chain">
+    <div class="flow-node" style="background: var(--accent-coral);">細胞受傷</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="background: var(--accent-peach);">細胞死亡</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="background: var(--accent-amber);">發炎救火</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="background: var(--accent-mint);">修復再生</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="background: var(--accent-sky);">循環異常</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="background: var(--accent-lavender);">免疫作戰</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="background: var(--accent-indigo);">感染入侵</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="background: var(--accent-pink);">癌症叛變</div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     STEP 03 ── 作者解碼
+     ════════════════════════════════════════════════════ -->
+<div class="card" id="step3">
+  <div class="step-header">
+    <div class="step-number" style="background: var(--gradient-sunset);">03</div>
+    <div class="step-title-group">
+      <div class="step-label">STEP THREE — AUTHOR DECODE</div>
+      <div class="step-title">作者解碼｜仲野徹是什麼樣的人？</div>
+    </div>
+  </div>
+
+  <p>要理解這本書為什麼能用這種語氣寫，你得先搞懂仲野徹這個人——他不是一般的醫學教授。他是那種在學術會議上會突然講冷笑話、然後自己笑最大聲的類型。</p>
+
+  <div class="compare-grid">
+    <div class="compare-item left">
+      <div class="emoji">🎓</div>
+      <div class="title">學術面</div>
+      <div class="desc">大阪大學醫學系教授。病理學專家。發表過大量正經學術論文。研究細胞分化與表觀遺傳學。</div>
+    </div>
+    <div class="compare-item right">
+      <div class="emoji">🍺</div>
+      <div class="title">人格面</div>
+      <div class="desc">自稱「居酒屋教授」。愛喝酒、愛聊天、愛書評。書評寫得比很多文藝評論家還好笑。日本書評界的隱藏強者。</div>
+    </div>
+  </div>
+
+  <h3>🔍 三層動機拆解</h3>
+
+  <div class="knowledge-card">
+    <div class="icon" style="background: linear-gradient(135deg, #FF6B9D, #FF8A80);">😤</div>
+    <div class="content">
+      <div class="title">表層動機：對無聊教科書的不滿</div>
+      <div class="text">仲野在書裡明確表達過，他覺得傳統病理學教科書「寫得跟催眠藥一樣」。他認為這些知識本身超有趣，是寫法的問題。這本書是他對教科書界的一次叛逆。</div>
+    </div>
+  </div>
+
+  <div class="knowledge-card">
+    <div class="icon" style="background: linear-gradient(135deg, #B39DDB, #7986CB);">💡</div>
+    <div class="content">
+      <div class="title">中層動機：科普的使命感</div>
+      <div class="text">身為大阪大學的教授，他在課堂上已經把「好笑地教學」練了幾十年。這本書是他課堂風格的文字化——他想讓非醫學背景的人也能擁有「理解自己身體」的權利。</div>
+    </div>
+  </div>
+
+  <div class="knowledge-card">
+    <div class="icon" style="background: linear-gradient(135deg, #80CBC4, #4DB6AC);">🧩</div>
+    <div class="content">
+      <div class="title">深層動機：關西人的表演魂</div>
+      <div class="text">仲野是道地的大阪人。大阪人有一種根深蒂固的「搞笑 DNA」——他們覺得「讓人笑」跟「把事情說清楚」一樣重要。這不只是寫作策略，更是文化基因。</div>
+    </div>
+  </div>
+
+  <div class="chat-bubble-group">
+    <div class="chat-bubble author">
+      <span class="speaker">仲野教授 🎤</span>
+      病理學啊，說穿了就是在研究「為什麼身體會壞掉」。跟修車廠的師傅在做的事情本質上是一樣的啦。
+    </div>
+    <div class="chat-bubble reader">
+      <span class="speaker">讀者 🤔</span>
+      等等……所以您的意思是，醫生就是人體修車廠技師？
+    </div>
+    <div class="chat-bubble author">
+      <span class="speaker">仲野教授 🎤</span>
+      對啊！而且還是那種車主自己也搞不清楚哪裡壞的那種。你只知道「引擎在叫」，但不知道是皮帶鬆了還是活塞裂了。病理學就是幫你聽聲辨位的技術。
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <div class="box-title">⚡ 作者的寫作公式</div>
+    <p><strong>正經知識 × 居酒屋語氣 × 關西幽默 = 讓你笑著學完醫學院一學期的內容</strong></p>
+    <p>仲野的獨特之處在於：他不是降低知識的難度，而是降低知識的「門檻情緒」。內容一樣硬核，但你的心理抗拒感消失了。</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     STEP 04 ── 核心論點
+     ════════════════════════════════════════════════════ -->
+<div class="card" id="step4">
+  <div class="step-header">
+    <div class="step-number" style="background: var(--gradient-ocean);">04</div>
+    <div class="step-title-group">
+      <div class="step-label">STEP FOUR — CORE ARGUMENTS</div>
+      <div class="step-title">核心論點拆解｜這本書到底在講什麼？</div>
+    </div>
+  </div>
+
+  <p>在所有好笑的比喻和段子底下，仲野徹其實埋了幾個非常嚴肅、非常深刻的核心論點。這些論點構成了整本書的思想骨架——把笑話拿掉，這些論點依然成立，而且依然重要。</p>
+
+  <div class="section-divider">核心論點群</div>
+
+  <!-- 論點一 -->
+  <h3>🎯 論點一：所有疾病都是細胞層級的事件</h3>
+
+  <div class="quote-block">
+    不管你得的是感冒還是癌症，追根究柢都是細胞出了問題。沒有什麼疾病是「身體」生的病，都是「細胞」生的病。
+    <span class="quote-source">── 仲野徹</span>
+  </div>
+
+  <p>這是全書最根本的主張。仲野用這個觀點統一了所有看似不相關的疾病：心臟病？心肌細胞缺氧壞死。糖尿病？胰島β細胞功能異常。癌症？正常細胞的基因突變。<strong>你不需要記住一千種病，你只需要理解細胞會遇到的幾種狀況。</strong></p>
+
+  <div class="big-concept">
+    <div class="concept-emoji">🔬</div>
+    <div class="concept-text">一千種疾病 → 一個原理<br>細胞受損的方式，決定疾病的類型</div>
+    <div class="concept-sub">這就像理解了「引力」之後，你不需要分別解釋蘋果掉落和月球繞地。</div>
+  </div>
+
+  <!-- 論點二 -->
+  <h3>⚔️ 論點二：細胞死亡有兩條完全不同的路</h3>
+
+  <p>這是全書最精彩的一段。仲野把細胞的兩種死法講得像偵探小說：</p>
+
+  <div class="compare-grid">
+    <div class="compare-item left">
+      <div class="emoji">🔪</div>
+      <div class="title">壞死（Necrosis）</div>
+      <div class="desc">
+        <strong>他殺。</strong><br>
+        細胞被外力搞死——缺氧、毒素、物理傷害。死法很暴力：細胞膨脹、爆開，內容物灑一地，引起周圍發炎反應。<br><br>
+        <em>「就像被謀殺一樣，現場一片狼藉。」</em>
+      </div>
+    </div>
+    <div class="compare-item right">
+      <div class="emoji">🎭</div>
+      <div class="title">凋亡（Apoptosis）</div>
+      <div class="desc">
+        <strong>自殺。</strong><br>
+        細胞收到信號，主動啟動自毀程序。死法很優雅：縮小、分裂成小碎片，被鄰居默默清掃，不引起發炎。<br><br>
+        <em>「就像日本人的退場方式——安靜、不打擾別人。」</em>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight-box green">
+    <div class="box-title">💡 為什麼這很重要？</div>
+    <p>凋亡不是壞事——它是身體的品質管控機制。每天你有<strong>數十億個細胞</strong>自動凋亡，好讓新的細胞遞補上來。胚胎發育的時候，你的手指之間本來是有蹼的，就是靠凋亡把蹼消掉的。</p>
+    <p>癌症的可怕之處就在於：<strong>癌細胞關掉了自殺程式。它們應該死卻不死。</strong></p>
+  </div>
+
+  <!-- 論點三 -->
+  <h3>🛡️ 論點三：免疫系統是一支完整的軍隊</h3>
+
+  <p>仲野用軍事比喻把免疫系統講得活靈活現。不是「免疫力」這種模糊的概念，而是一支有組織、有分工、有指揮鏈的國防武力：</p>
+
+  <div class="battle-card ally">
+    <div class="b-title">🏰 先天免疫｜常備軍</div>
+    <div class="b-text">皮膚是城牆。黏膜是護城河。巨噬細胞是第一線的步兵——看到異物就吃，不問青紅皂白。嗜中性球是自殺敢死隊——衝進去同歸於盡，膿就是牠們的屍體。</div>
+  </div>
+
+  <div class="battle-card ally">
+    <div class="b-title">🎯 後天免疫｜特種部隊</div>
+    <div class="b-text">T 細胞是狙擊手——精準消滅被感染的細胞。B 細胞是軍火工廠——製造抗體這種導彈。記憶細胞是情報檔案庫——記住敵人的長相，下次秒殺。</div>
+  </div>
+
+  <div class="battle-card enemy">
+    <div class="b-title">💥 免疫失控｜自己人打自己人</div>
+    <div class="b-text">過敏 = 軍隊對花粉開火（根本不是敵人）。自體免疫 = 內亂，軍隊開始攻擊自己的平民。免疫缺乏 = 國防預算歸零，門戶大開。</div>
+  </div>
+
+  <!-- 論點四 -->
+  <h3>🎭 論點四：癌症是自己人的叛變</h3>
+
+  <div class="quote-block">
+    癌細胞不是外來的入侵者。它就是你自己的細胞——只是叛變了。這才是癌症最恐怖的地方：敵人就在內部。
+    <span class="quote-source">── 仲野徹</span>
+  </div>
+
+  <p>仲野用叛變的比喻講癌症，精確到令人不寒而慄：</p>
+
+  <ul>
+    <li><strong>基因突變 = 間諜被洗腦</strong>：正常的基因（原致癌基因）被改寫，開始為敵方服務</li>
+    <li><strong>腫瘤抑制基因 = 內部監察系統</strong>：p53 是最重要的「廉政公署」，癌症的發生通常代表 p53 被幹掉了</li>
+    <li><strong>轉移 = 叛軍擴散建立根據地</strong>：癌細胞順著血管和淋巴跑到遠方，像游擊隊建立新基地</li>
+    <li><strong>腫瘤血管新生 = 叛軍建設補給線</strong>：癌細胞會「招募」血管來供應自己養分</li>
+  </ul>
+
+  <div class="highlight-box pink">
+    <div class="box-title">🧬 癌症的六大超能力（Hallmarks of Cancer 通俗版）</div>
+    <p>仲野把學術界的經典框架翻譯成白話：</p>
+    <p>❶ 不聽停車指令（持續增殖）<br>
+       ❷ 不理會煞車信號（逃避抑制）<br>
+       ❸ 拒絕自殺（抗凋亡）<br>
+       ❹ 長生不死（無限複製）<br>
+       ❺ 自建血管（營養自給）<br>
+       ❻ 到處跑（入侵轉移）</p>
+  </div>
+
+  <!-- 論點五 -->
+  <h3>🦠 論點五：感染是一場軍備競賽</h3>
+
+  <p>微生物和人類免疫系統之間的關係，仲野形容為「永不停止的軍備競賽」：病原體進化出新武器，免疫系統就跟著升級防禦，然後病原體又進化⋯⋯無限循環。</p>
+
+  <div class="flow-chain">
+    <div class="flow-node" style="background: var(--accent-coral);">病原入侵</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="background: var(--accent-peach);">免疫反擊</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="background: var(--accent-mint);">病原進化</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="background: var(--accent-sky);">免疫升級</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="background: var(--accent-lavender);">♾️ 循環</div>
+  </div>
+
+  <p>這個觀點讓你重新理解為什麼：流感疫苗每年都要重打（因為病毒不斷變種）、抗生素抗藥性是人類面臨的大問題（因為細菌也在進化）、為什麼有些古老的傳染病至今無法根除。</p>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     STEP 05 ── 白話翻譯機
+     ════════════════════════════════════════════════════ -->
+<div class="card" id="step5">
+  <div class="step-header">
+    <div class="step-number" style="background: var(--gradient-forest);">05</div>
+    <div class="step-title-group">
+      <div class="step-label">STEP FIVE — TRANSLATION</div>
+      <div class="step-title">白話翻譯機｜用你阿嬤也聽得懂的話重說一遍</div>
+    </div>
+  </div>
+
+  <p>仲野徹最強的超能力就是「翻譯」。他把醫學術語翻譯成日常語言的能力是教科書等級的。讓我們也來做一次完整的白話翻譯：</p>
+
+  <h3>🏠 身體是一座城市</h3>
+
+  <p>想像你的身體是一座超大的城市，裡面住了<strong>37兆個居民（細胞）</strong>。這些居民組成不同的社區（器官），各司其職：</p>
+
+  <div class="insight-grid">
+    <div class="insight-item">
+      <div class="emoji-big">🫀</div>
+      <div class="insight-title">心臟社區</div>
+      <div class="insight-desc">水泵站。24小時不停抽水，一停下來全城缺水。</div>
+    </div>
+    <div class="insight-item">
+      <div class="emoji-big">🫁</div>
+      <div class="insight-title">肺部社區</div>
+      <div class="insight-desc">空氣清淨工廠。吸進氧氣、排出廢氣，全年無休。</div>
+    </div>
+    <div class="insight-item">
+      <div class="emoji-big">🧠</div>
+      <div class="insight-title">大腦社區</div>
+      <div class="insight-desc">市政府+消防局+警察局的綜合體。發號施令的總部。</div>
+    </div>
+    <div class="insight-item">
+      <div class="emoji-big">🫘</div>
+      <div class="insight-title">腎臟社區</div>
+      <div class="insight-desc">汙水處理廠。過濾血液裡的垃圾，排出體外。</div>
+    </div>
+    <div class="insight-item">
+      <div class="emoji-big">🫁</div>
+      <div class="insight-title">肝臟社區</div>
+      <div class="insight-desc">化工廠+倉庫。解毒、儲存、合成，身體最忙的器官。</div>
+    </div>
+    <div class="insight-item">
+      <div class="emoji-big">🦴</div>
+      <div class="insight-title">骨髓社區</div>
+      <div class="insight-desc">軍工廠。每天生產數十億個血球士兵，補充戰力。</div>
+    </div>
+  </div>
+
+  <h3>💬 術語翻譯對照表</h3>
+
+  <div class="knowledge-card">
+    <div class="icon" style="background: linear-gradient(135deg, #FF6B9D, #FF8A80);">📖</div>
+    <div class="content">
+      <div class="title">壞死（Necrosis）→ 被殺害</div>
+      <div class="text">細胞被外力弄死了。像是房子被火燒掉——殘骸散落，鄰居們都嚇到，引起大混亂（發炎）。細胞膨脹、爆裂，內容物流出來，白血球趕來清理現場。</div>
+    </div>
+  </div>
+
+  <div class="knowledge-card">
+    <div class="icon" style="background: linear-gradient(135deg, #B39DDB, #7986CB);">📖</div>
+    <div class="content">
+      <div class="title">凋亡（Apoptosis）→ 安樂死</div>
+      <div class="text">細胞收到「你該退休了」的通知，自己安靜地打包走人。像是一個老員工體面地離職——辦好交接、不吵不鬧，巨噬細胞來把遺物默默清走。每天你有 500 億個細胞這樣默默退場。</div>
+    </div>
+  </div>
+
+  <div class="knowledge-card">
+    <div class="icon" style="background: linear-gradient(135deg, #80CBC4, #81D4FA);">📖</div>
+    <div class="content">
+      <div class="title">發炎（Inflammation）→ 消防隊出動</div>
+      <div class="text">紅 = 血管擴張，血液湧入（消防車到場）。腫 = 液體滲出（灑水滅火）。熱 = 新陳代謝加速（引擎全開）。痛 = 痛覺神經被刺激（警報器響）。這四個症狀全部是「正在修復中」的信號。</div>
+    </div>
+  </div>
+
+  <div class="knowledge-card">
+    <div class="icon" style="background: linear-gradient(135deg, #FFD54F, #FFAB91);">📖</div>
+    <div class="content">
+      <div class="title">轉移（Metastasis）→ 叛軍建分部</div>
+      <div class="text">癌細胞從原本的基地逃出來，順著血管或淋巴管跑到遠方的器官，在那裡落地生根、建立新的叛軍據點。這就是為什麼早期發現那麼重要——一旦轉移，等於叛軍已經遍布全國。</div>
+    </div>
+  </div>
+
+  <div class="knowledge-card">
+    <div class="icon" style="background: linear-gradient(135deg, #F48FB1, #FF6B9D);">📖</div>
+    <div class="content">
+      <div class="title">血栓（Thrombus）→ 水管塞住</div>
+      <div class="text">血管裡的血液凝固成塊，把管子堵住了。如果堵在心臟的血管 = 心肌梗塞。堵在腦的血管 = 腦中風。就像家裡水管被油脂堵住一樣，只是後果嚴重一萬倍。</div>
+    </div>
+  </div>
+
+  <div class="quote-block">
+    真是一群堅強的小小兵啊。每天要面對這麼多敵人、處理這麼多垃圾，還要準時上下班，真的辛苦了。
+    <span class="quote-source">── 仲野徹，談白血球</span>
+  </div>
+
+  <div class="highlight-box">
+    <div class="box-title">🎯 仲野式翻譯的秘密</div>
+    <p>他不是「簡化」知識，而是「找到等價的日常經驗」。壞死 ≠ 簡化版的壞死，壞死 = 「被謀殺的犯罪現場」。這種翻譯保留了原始概念的所有關鍵特徵（暴力、混亂、引起周圍反應），只是換了一個你熟悉的場景。</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     STEP 06 ── 武器庫
+     ════════════════════════════════════════════════════ -->
+<div class="card" id="step6">
+  <div class="step-header">
+    <div class="step-number" style="background: var(--gradient-warm);">06</div>
+    <div class="step-title-group">
+      <div class="step-label">STEP SIX — ARSENAL</div>
+      <div class="step-title">武器庫｜可以帶走的思考工具</div>
+    </div>
+  </div>
+
+  <p>這本書最棒的地方不只是「讓你懂病理學」，而是它提供了幾個可以帶走、用在其他地方的<strong>思考框架</strong>。這些框架超越了醫學本身：</p>
+
+  <h3>🔧 工具一：損傷—適應—死亡 三段論</h3>
+
+  <div class="flow-chain">
+    <div class="flow-node" style="background: var(--accent-coral);">壓力 / 損傷</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="background: var(--accent-amber);">適應 / 代償</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-node" style="background: var(--accent-pink);">崩潰 / 死亡</div>
+  </div>
+
+  <p>任何系統——身體、公司、生態系——面對壓力時都遵循這個模式。先撐住（適應），撐不住就倒（崩潰）。關鍵問題永遠是：<strong>適應的極限在哪裡？</strong></p>
+
+  <div class="highlight-box blue">
+    <div class="box-title">💼 商業應用</div>
+    <p>把「細胞」換成「公司」：市場壓力來了 → 公司先適應（裁員、轉型、縮減） → 如果壓力超過適應極限 → 公司倒閉。仲野的病理學框架完美適用於商業分析。</p>
+  </div>
+
+  <h3>🔧 工具二：他殺 vs 自殺 決策框架</h3>
+
+  <p>壞死（被動死亡）和凋亡（主動退場）的區別，可以推廣到所有「退出」的情境：</p>
+
+  <div class="compare-grid">
+    <div class="compare-item left">
+      <div class="emoji">💥</div>
+      <div class="title">被動退場（壞死型）</div>
+      <div class="desc">被市場淘汰、被解僱、被迫關店。過程混亂，影響周遭，留下一堆爛攤子。</div>
+    </div>
+    <div class="compare-item right">
+      <div class="emoji">🎭</div>
+      <div class="title">主動退場（凋亡型）</div>
+      <div class="desc">主動轉型、體面離職、有計畫地關閉部門。過程優雅，資源回收，不影響系統。</div>
+    </div>
+  </div>
+
+  <p>仲野的啟發：<strong>「自殺」（主動退場）其實是系統健康的關鍵機制。</strong>不敢淘汰不好的部分，整個系統反而會崩潰。這就是為什麼癌細胞可怕——因為它「拒絕自殺」。</p>
+
+  <h3>🔧 工具三：免疫分層防禦模型</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="time-label">第一層：物理屏障</div>
+      <div class="time-content">皮膚、黏膜 = 城牆。不管什麼敵人，先擋住。對應到資安就是防火牆，對應到公司就是合約條款。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time-label">第二層：先天免疫（快速反應）</div>
+      <div class="time-content">巨噬細胞、嗜中性球 = 巡邏警察。看到可疑的就抓，不需要特別指令。對應到公司就是標準作業流程（SOP）。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time-label">第三層：後天免疫（精準打擊）</div>
+      <div class="time-content">T 細胞、B 細胞 = 特種部隊+軍火工廠。需要時間動員，但打擊精準。對應到公司就是專案團隊。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time-label">第四層：免疫記憶（經驗累積）</div>
+      <div class="time-content">記憶細胞 = 戰術資料庫。第二次遇到同樣的敵人，反應速度快十倍。這就是疫苗的原理。對應到組織就是知識管理系統。</div>
+    </div>
+  </div>
+
+  <div class="highlight-box green">
+    <div class="box-title">🏗️ 架構級洞見</div>
+    <p>任何有效的防禦系統都需要這四層：物理屏障、快速反應、精準打擊、經驗累積。少了任何一層都會出問題。這個框架可以用來分析任何組織的風險管理——從網路安全到國家防禦。</p>
+  </div>
+
+  <h3>🔧 工具四：叛變偵測清單</h3>
+
+  <p>仲野講癌症的章節，其實暗含了一個「系統叛變偵測清單」。以下信號意味著系統內部有叛變者：</p>
+
+  <ul>
+    <li>🚨 某個單位<strong>不聽指揮</strong>，自行其是（持續增殖）</li>
+    <li>🚨 某個單位<strong>拒絕績效考核</strong>（逃避抑制信號）</li>
+    <li>🚨 某個單位<strong>拒絕退場</strong>，明明該淘汰了還賴著（抗凋亡）</li>
+    <li>🚨 某個單位<strong>無限擴張</strong>，吃掉其他部門的資源（無限複製）</li>
+    <li>🚨 某個單位<strong>自建後勤</strong>，不走公司正規管道（腫瘤血管新生）</li>
+    <li>🚨 某個單位<strong>開始往外擴張</strong>，在其他地方設立據點（轉移）</li>
+  </ul>
+
+  <div class="highlight-box pink">
+    <div class="box-title">⚡ 這個清單放到公司管理裡也完全成立</div>
+    <p>某個部門不聽話、拒絕被考核、佔用其他部門資源、自己搞小圈圈、開始在別的地方設分部⋯⋯恭喜，你的公司裡有「癌細胞」。趁早處理，否則會轉移。</p>
+  </div>
+
+  <h3>🔧 工具五：軍備競賽動態思維</h3>
+
+  <p>感染症那章教我們的最重要的事：<strong>沒有永遠有效的解法。</strong>因為對手也在進化。</p>
+
+  <div class="knowledge-card">
+    <div class="icon" style="background: linear-gradient(135deg, #FF6B9D, #FFAB91);">🔄</div>
+    <div class="content">
+      <div class="title">紅皇后效應</div>
+      <div class="text">「你必須用力奔跑，才能停在原地。」——《愛麗絲鏡中奇遇》。你的競爭對手也在進步。你今天的優勢，明天可能就是標配。抗生素有效 → 細菌進化抗藥性 → 需要新抗生素。這個循環適用於所有競爭環境。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     STEP 07 ── 盲點偵測
+     ════════════════════════════════════════════════════ -->
+<div class="card" id="step7">
+  <div class="step-header">
+    <div class="step-number" style="background: var(--gradient-cool);">07</div>
+    <div class="step-title-group">
+      <div class="step-label">STEP SEVEN — BLIND SPOTS</div>
+      <div class="step-title">盲點偵測｜仲野教授沒說的事</div>
+    </div>
+  </div>
+
+  <p>一本好的科普書當然有取捨。仲野選擇了「有趣」和「易懂」作為最高優先級，但這意味著某些面向被犧牲了。身為負責任的讀者，我們應該知道這些盲點：</p>
+
+  <h3>🔍 盲點一：過度簡化的比喻陷阱</h3>
+
+  <div class="battle-card neutral">
+    <div class="b-title">⚠️ 比喻的雙面刃</div>
+    <div class="b-text">「免疫=軍隊」的比喻超好懂，但也可能讓讀者誤以為免疫系統真的像軍隊那樣「有意識地作戰」。事實上，免疫反應是純粹的生化反應——沒有意志、沒有策略、沒有「決定」。分子碰到分子，反應就發生。把它擬人化有助理解，但也可能製造誤解。</div>
+  </div>
+
+  <h3>🔍 盲點二：心理與社會因素的缺席</h3>
+
+  <div class="battle-card neutral">
+    <div class="b-title">⚠️ 疾病不只是細胞的事</div>
+    <div class="b-text">仲野的「所有疾病都是細胞問題」這個命題，在生物醫學層面完全正確，但忽略了心理社會模型（biopsychosocial model）。壓力會影響免疫力、社會孤立會增加心臟病風險、貧窮會限制醫療可近性——這些「非細胞」因素，在真實世界的疾病中扮演了巨大角色。</div>
+  </div>
+
+  <h3>🔍 盲點三：最新進展的缺漏</h3>
+
+  <div class="battle-card neutral">
+    <div class="b-title">⚠️ 醫學在快速前進</div>
+    <div class="b-text">書中對於免疫療法（如 PD-1/PD-L1 抑制劑）、CRISPR 基因編輯、腸道菌相對免疫的影響、mRNA 疫苗技術等近年重大突破著墨不多。這不是作者的錯——科普書的保鮮期本來就有限——但讀者需要意識到醫學知識的更新速度。</div>
+  </div>
+
+  <h3>🔍 盲點四：預防醫學的弱化</h3>
+
+  <div class="battle-card neutral">
+    <div class="b-title">⚠️ 知道原理 ≠ 知道怎麼做</div>
+    <div class="b-text">仲野詳細解釋了「為什麼會生病」，但對於「怎麼不生病」的討論相對薄弱。比如他解釋了動脈硬化的原理，但沒有深入討論飲食、運動、睡眠對預防心血管疾病的具體建議。這本書更像是「病理學的理解手冊」而非「健康生活的行動手冊」。</div>
+  </div>
+
+  <h3>🔍 盲點五：日本文化脈絡的局限</h3>
+
+  <div class="battle-card neutral">
+    <div class="b-title">⚠️ 有些笑話你可能 get 不到</div>
+    <div class="b-text">仲野的幽默深深根植於日本（尤其是關西）文化。一些典故、歷史引用、綜藝節目的梗，翻譯成中文後可能失去原味。此外，書中的疾病流行數據是以日本為基準的，某些疾病的盛行率在其他地區可能不同。</div>
+  </div>
+
+  <div class="highlight-box">
+    <div class="box-title">✅ 公允評價</div>
+    <p>這些盲點<strong>不減損</strong>這本書的價值。一本入門科普書不該、也不可能涵蓋所有面向。仲野做的選擇是對的：先讓你有興趣、先讓你看得懂，深度的事情留給下一本書。重要的是，讀完之後你知道自己「還不知道什麼」。</p>
+  </div>
+
+  <div class="metrics-row">
+    <div class="metric-circle">
+      <div class="number">9/10</div>
+      <div class="unit">趣味性</div>
+    </div>
+    <div class="metric-circle">
+      <div class="number">8/10</div>
+      <div class="unit">準確性</div>
+    </div>
+    <div class="metric-circle">
+      <div class="number">6/10</div>
+      <div class="unit">完整性</div>
+    </div>
+    <div class="metric-circle">
+      <div class="number">7/10</div>
+      <div class="unit">時效性</div>
+    </div>
+    <div class="metric-circle">
+      <div class="number">10/10</div>
+      <div class="unit">易讀性</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     STEP 08 ── 生命經驗連結
+     ════════════════════════════════════════════════════ -->
+<div class="card" id="step8">
+  <div class="step-header">
+    <div class="step-number" style="background: var(--gradient-sunset);">08</div>
+    <div class="step-title-group">
+      <div class="step-label">STEP EIGHT — LIFE CONNECTION</div>
+      <div class="step-title">生命經驗連結｜跟你的人生有什麼關係？</div>
+    </div>
+  </div>
+
+  <p>病理學聽起來很遙遠，但其實每個人每天都在跟它打交道——只是你不知道而已。讀完這本書之後，你會發現日常生活中到處都是仲野講的那些原理在運作：</p>
+
+  <h3>🌅 場景一：你割到手指了</h3>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="time-label">第 0 秒</div>
+      <div class="time-content"><strong>損傷發生。</strong>刀割破皮膚（物理屏障被突破），血管破裂，血液流出。你的身體進入「緊急狀態」。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time-label">前 5 分鐘</div>
+      <div class="time-content"><strong>止血啟動。</strong>血小板蜂擁而至，像沙包堆在決堤的堤防上。凝血因子開始工作，形成纖維網把傷口封住。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time-label">幾小時內</div>
+      <div class="time-content"><strong>發炎開始。</strong>傷口紅腫熱痛——消防隊到了。白血球湧入，吃掉入侵的細菌。這就是仲野說的「發炎不是病，是身體在修復」。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time-label">數天後</div>
+      <div class="time-content"><strong>修復期。</strong>纖維母細胞開始製造膠原蛋白，像建築工人用水泥填補牆壁的裂縫。新的皮膚細胞從邊緣向中心生長。</div>
+    </div>
+    <div class="timeline-item">
+      <div class="time-label">幾週後</div>
+      <div class="time-content"><strong>結疤完成。</strong>疤痕組織比原本的皮膚硬，但功能略差。這就是為什麼疤痕處的觸感跟周圍不一樣。</div>
+    </div>
+  </div>
+
+  <p>一個小小的割傷，身體動用了<strong>止血系統、發炎反應、免疫防禦、組織再生</strong>四大系統。仲野書裡講的每一章，都在你的手指上演了一遍。</p>
+
+  <h3>🤧 場景二：你感冒了</h3>
+
+  <div class="chat-bubble-group">
+    <div class="chat-bubble author">
+      <span class="speaker">病毒 🦠</span>
+      嘿嘿，我順著你呼吸的空氣，溜進了你的鼻腔黏膜。先感染幾個上皮細胞當基地。
+    </div>
+    <div class="chat-bubble reader">
+      <span class="speaker">先天免疫 🛡️</span>
+      偵測到入侵者！黏膜表面的哨兵細胞發出警報！巨噬細胞出動，開始吞噬！同時釋放細胞激素，通知全身進入作戰狀態！
+    </div>
+    <div class="chat-bubble author">
+      <span class="speaker">你的身體 🌡️</span>
+      收到警報。啟動發燒模式——體溫升高可以讓免疫細胞更活躍，同時讓病毒不舒服。另外，流鼻涕啟動——用大量黏液把病毒沖走。
+    </div>
+    <div class="chat-bubble reader">
+      <span class="speaker">後天免疫 🎯</span>
+      報告！我們花了幾天辨識敵人的特徵。現在 B 細胞開始量產針對這隻病毒的抗體。T 細胞也出動，逐一消滅被感染的細胞。
+    </div>
+    <div class="chat-bubble author">
+      <span class="speaker">記憶細胞 📝</span>
+      戰鬥結束。已將敵人資料存檔。下次同型病毒入侵，我們可以在幾小時內全面反擊，你甚至不會有症狀。
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <div class="box-title">💡 重新理解「不舒服」</div>
+    <p>發燒、流鼻涕、喉嚨痛、全身痠痛——這些讓你痛苦的症狀，<strong>全部都是免疫系統在打仗的副作用</strong>，不是病毒本身造成的。仲野讓你理解：你的不舒服，其實是身體在保護你的證據。</p>
+  </div>
+
+  <h3>🏋️ 場景三：你開始健身了</h3>
+
+  <p>肌肥大（肌肉變大）就是仲野在第一章講的<strong>適應機制</strong>：</p>
+
+  <div class="knowledge-card">
+    <div class="icon" style="background: linear-gradient(135deg, #FF6B9D, #FFAB91);">💪</div>
+    <div class="content">
+      <div class="title">運動 = 對肌肉細胞施加壓力</div>
+      <div class="text">重訓造成微小的肌肉纖維損傷 → 身體判斷「這個部位經常受到壓力」→ 修復時多加一點材料 → 肌肉變大變強。這就是「損傷→適應」的完美範例。仲野說的「肥大（Hypertrophy）」就是這個過程。</div>
+    </div>
+  </div>
+
+  <div class="knowledge-card">
+    <div class="icon" style="background: linear-gradient(135deg, #81D4FA, #80CBC4);">📉</div>
+    <div class="content">
+      <div class="title">停止訓練 = 壓力消失</div>
+      <div class="text">不練了，肌肉就萎縮回去。這是「萎縮（Atrophy）」——身體判斷不需要維持這麼多肌肉了，於是縮減。太空人在無重力環境住久了，骨骼肌會嚴重萎縮，也是同樣原理。</div>
+    </div>
+  </div>
+
+  <h3>👨‍👩‍👧 場景四：家人得了癌症</h3>
+
+  <p>這可能是這本書最有價值的部分——讓你<strong>理解</strong>癌症，而不只是恐懼它。</p>
+
+  <div class="quote-block">
+    癌症不是詛咒，不是懲罰，不是你做錯了什麼。它就是統計——活得夠久，細胞分裂次數夠多，總會有幾個突變累積到臨界點。
+    <span class="quote-source">── 基於仲野的觀點整理</span>
+  </div>
+
+  <p>讀完仲野的癌症章節，你不會更恐懼，反而會更平靜。因為你終於理解了這個過程的本質：<strong>它不神秘、不玄學、不是命運。它是生物學，它有規律，它可以被理解。</strong></p>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     STEP 09 ── 跨域連結
+     ════════════════════════════════════════════════════ -->
+<div class="card" id="step9">
+  <div class="step-header">
+    <div class="step-number" style="background: var(--gradient-ocean);">09</div>
+    <div class="step-title-group">
+      <div class="step-label">STEP NINE — CROSS-DOMAIN</div>
+      <div class="step-title">跨域連結｜這本書跟其他領域怎麼對話？</div>
+    </div>
+  </div>
+
+  <p>病理學的原理在許多不相關的領域都有完美的對應。以下是最精彩的幾條連結：</p>
+
+  <h3>🏢 病理學 × 組織管理</h3>
+
+  <div class="knowledge-card">
+    <div class="icon" style="background: linear-gradient(135deg, #FF6B9D, #FF8A80);">🏗️</div>
+    <div class="content">
+      <div class="title">公司 = 多細胞組織</div>
+      <div class="text">員工是細胞，部門是器官，管理層是神經系統，現金流是血液循環，企業文化是免疫系統。一個公司的「疾病」——效率低下、部門衝突、人才流失——全部可以用仲野的病理學框架來分析。</div>
+    </div>
+  </div>
+
+  <div class="compare-grid">
+    <div class="compare-item left">
+      <div class="emoji">🔬</div>
+      <div class="title">病理學概念</div>
+      <div class="desc">
+        肥大 → 萎縮<br>
+        發炎反應<br>
+        凋亡（計畫性淘汰）<br>
+        癌化（內部叛變）<br>
+        免疫缺乏<br>
+        栓塞（管路堵塞）
+      </div>
+    </div>
+    <div class="compare-item right">
+      <div class="emoji">🏢</div>
+      <div class="title">管理學對應</div>
+      <div class="desc">
+        團隊擴張 → 裁員縮編<br>
+        組織衝突與變革陣痛<br>
+        績效淘汰制度<br>
+        腐敗的部門帝國<br>
+        缺乏企業文化的新創<br>
+        官僚流程堵塞效率
+      </div>
+    </div>
+  </div>
+
+  <h3>🖥️ 病理學 × 資訊安全</h3>
+
+  <div class="knowledge-card">
+    <div class="icon" style="background: linear-gradient(135deg, #7986CB, #81D4FA);">💻</div>
+    <div class="content">
+      <div class="title">電腦病毒 = 生物病毒的數位翻版</div>
+      <div class="text">計算機科學家在命名「電腦病毒」時，靈感就來自生物學。病毒入侵細胞 = 惡意程式入侵系統。免疫系統 = 防毒軟體。抗體 = 病毒碼。免疫記憶 = 病毒資料庫。自體免疫 = 防毒軟體誤殺正常程式。這不是巧合，而是深層結構的同構。</div>
+    </div>
+  </div>
+
+  <h3>🌍 病理學 × 生態學</h3>
+
+  <div class="knowledge-card">
+    <div class="icon" style="background: linear-gradient(135deg, #80CBC4, #4DB6AC);">🌱</div>
+    <div class="content">
+      <div class="title">生態系統也會「生病」</div>
+      <div class="text">入侵物種 = 感染。棲地破壞 = 組織損傷。生態系修復力 = 再生能力。物種滅絕 = 細胞凋亡。外來污染 = 毒素。仲野的框架完美適用：生態系統面對壓力時，也會經歷「適應→代償→崩潰」的過程。一個健康的生態系統就像一個免疫力強的身體。</div>
+    </div>
+  </div>
+
+  <h3>📚 延伸書單</h3>
+
+  <div class="chapter-ring">
+    <div class="ring-icon" style="background: linear-gradient(135deg, #FF6B9D, #FF8A80);">📕</div>
+    <div class="ring-content">
+      <div class="ring-title">《基因：人類最親密的歷史》悉達多・穆克吉</div>
+      <div class="ring-desc">如果仲野講的是「細胞怎麼壞掉」，穆克吉講的就是「細胞的設計藍圖（基因）是怎麼回事」。完美互補。</div>
+    </div>
+  </div>
+
+  <div class="chapter-ring">
+    <div class="ring-icon" style="background: linear-gradient(135deg, #B39DDB, #7986CB);">📗</div>
+    <div class="ring-content">
+      <div class="ring-title">《萬病之王：癌症的歷史》悉達多・穆克吉</div>
+      <div class="ring-desc">仲野用一章講完的癌症，穆克吉用一整本書展開。獲普立茲獎的癌症傳記。</div>
+    </div>
+  </div>
+
+  <div class="chapter-ring">
+    <div class="ring-icon" style="background: linear-gradient(135deg, #80CBC4, #81D4FA);">📘</div>
+    <div class="ring-content">
+      <div class="ring-title">《免疫：為什麼你不會感到自己在抵抗》菲利普・乃特爾</div>
+      <div class="ring-desc">把免疫系統的複雜度完整展開。如果你被仲野的軍隊比喻勾起興趣，這本書會讓你看到完整的戰場。</div>
+    </div>
+  </div>
+
+  <div class="chapter-ring">
+    <div class="ring-icon" style="background: linear-gradient(135deg, #FFD54F, #FFAB91);">📙</div>
+    <div class="ring-content">
+      <div class="ring-title">《我包含眾多》艾德・乃恩</div>
+      <div class="ring-desc">微生物組的故事。仲野講的是「入侵者」，但其實你身上有更多的共生微生物。這本書翻轉了「細菌=壞人」的敘事。</div>
+    </div>
+  </div>
+
+  <div class="chapter-ring">
+    <div class="ring-icon" style="background: linear-gradient(135deg, #F48FB1, #B39DDB);">📒</div>
+    <div class="ring-content">
+      <div class="ring-title">《反脆弱》納西姆・塔雷伯</div>
+      <div class="ring-desc">塔雷伯的核心論點「從壓力中受益」，跟仲野的「適應機制」深度共鳴。身體不只是抵抗壓力，還能從壓力中變得更強。</div>
+    </div>
+  </div>
+
+  <div class="highlight-box blue">
+    <div class="box-title">🌐 最深層的跨域洞見</div>
+    <p>仲野這本書教我們的最根本的事情是：<strong>複雜系統的運作原理是通用的。</strong>不管是人體、公司、生態系統、還是電腦網路——它們面對壓力的反應模式、防禦策略、失敗方式，都有驚人的相似性。理解了一個系統，你就擁有了理解所有系統的鑰匙。</p>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     STEP 10 ── 行動清單
+     ════════════════════════════════════════════════════ -->
+<div class="card" id="step10">
+  <div class="step-header">
+    <div class="step-number" style="background: var(--gradient-forest);">10</div>
+    <div class="step-title-group">
+      <div class="step-label">STEP TEN — ACTION PLAN</div>
+      <div class="step-title">行動清單｜讀完之後可以做什麼？</div>
+    </div>
+  </div>
+
+  <p>知識如果不轉化為行動，就只是娛樂。仲野的書雖然不是行動指南，但我們可以從中提煉出具體的行動項目：</p>
+
+  <h3>⚡ 立刻可以做的（今天）</h3>
+
+  <div class="battle-card ally">
+    <div class="b-title">🔍 行動 1：重新看待你的身體症狀</div>
+    <div class="b-text">下次發燒、流鼻涕、傷口紅腫時，不要只想「我好不舒服」，而是想「我的身體正在打仗/修復」。這個心態轉換本身就有治療效果——研究顯示，理解症狀原因的病人，恢復速度更快、焦慮更少。</div>
+  </div>
+
+  <div class="battle-card ally">
+    <div class="b-title">📖 行動 2：用仲野的方法教別人一件事</div>
+    <div class="b-text">挑一個你專業領域裡的概念，試著用「居酒屋語氣」解釋給完全外行的朋友聽。不用術語、多用比喻、允許自己好笑。仲野證明了這種溝通方式不會降低知識的品質。</div>
+  </div>
+
+  <h3>📅 一週內可以做的</h3>
+
+  <div class="battle-card ally">
+    <div class="b-title">🩺 行動 3：讀懂你的健檢報告</div>
+    <div class="b-text">拿出你最近一次的健康檢查報告。有了仲野的知識框架，你現在能理解很多數值代表什麼：白血球偏高 = 身體可能正在打仗。紅血球偏低 = 氧氣運輸能力不足。肝指數偏高 = 肝細胞正在受損。這些不再是冷冰冰的數字，而是你身體的「戰報」。</div>
+  </div>
+
+  <div class="battle-card ally">
+    <div class="b-title">🧬 行動 4：建立「身體新聞」閱讀習慣</div>
+    <div class="b-text">開始關注健康相關的新聞報導——但用仲野教你的框架來判讀。當新聞說「某某食物致癌」，你現在知道要問：它是直接損傷 DNA？還是促進慢性發炎？劑量多少？暴露時間多長？有了框架，你不再被標題黨嚇到。</div>
+  </div>
+
+  <h3>📆 一個月內可以做的</h3>
+
+  <div class="battle-card ally">
+    <div class="b-title">📚 行動 5：讀延伸書單中的一本</div>
+    <div class="b-text">從 Step 09 的延伸書單中挑一本，根據你最感興趣的主題深入。如果對癌症好奇 → 讀穆克吉。如果對免疫著迷 → 讀乃特爾。如果想理解微生物 → 讀艾德・乃恩。仲野幫你開了門，現在走進去。</div>
+  </div>
+
+  <div class="battle-card ally">
+    <div class="b-title">🛡️ 行動 6：用免疫分層模型檢視你的生活風險管理</div>
+    <div class="b-text">把 Step 06 的四層防禦框架套用到你的生活：你的財務有「物理屏障」（緊急預備金）嗎？有「快速反應」機制（保險）嗎？有「精準打擊」能力（專業技能）嗎？有「經驗累積」系統（持續學習）嗎？哪一層最薄弱？</div>
+  </div>
+
+  <h3>🔮 長期心態轉變</h3>
+
+  <div class="highlight-box green">
+    <div class="box-title">🧠 最重要的行動：改變看待「問題」的方式</div>
+    <p>仲野教我們的終極心態轉變是：<strong>問題不可怕，不理解問題才可怕。</strong></p>
+    <p>生病不可怕——不知道為什麼生病才可怕。細胞死亡不可怕——不知道死亡有兩種才可怕。癌症不可怕——不知道它的機制才可怕。</p>
+    <p>把這個心態推廣到生活的所有面向：<strong>當你理解一個系統的運作原理時，恐懼就會被好奇取代。</strong></p>
+  </div>
+
+  <div class="metrics-row">
+    <div class="metric-circle">
+      <div class="number">6</div>
+      <div class="unit">行動項目</div>
+    </div>
+    <div class="metric-circle">
+      <div class="number">3</div>
+      <div class="unit">時間區間</div>
+    </div>
+    <div class="metric-circle">
+      <div class="number">1</div>
+      <div class="unit">終極心態</div>
+    </div>
+    <div class="metric-circle">
+      <div class="number">∞</div>
+      <div class="unit">應用場景</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     STEP 11 ── 終極裁決
+     ════════════════════════════════════════════════════ -->
+<div class="card" id="step11">
+  <div class="step-header">
+    <div class="step-number" style="background: var(--gradient-warm);">11</div>
+    <div class="step-title-group">
+      <div class="step-label">STEP ELEVEN — FINAL VERDICT</div>
+      <div class="step-title">終極裁決｜這本書值不值得你的時間？</div>
+    </div>
+  </div>
+
+  <div class="big-concept">
+    <div class="concept-emoji">⚖️</div>
+    <div class="concept-text">裁決：強烈推薦</div>
+    <div class="concept-sub">不只推薦給對醫學有興趣的人，而是推薦給所有「活著」的人。</div>
+  </div>
+
+  <h3>📊 綜合評分</h3>
+
+  <div class="rating-bar">
+    <div class="bar-label">知識密度</div>
+    <div class="bar-track"><div class="bar-fill" style="width: 85%;"></div></div>
+    <div class="bar-value">8.5</div>
+  </div>
+  <div class="rating-bar">
+    <div class="bar-label">閱讀愉悅</div>
+    <div class="bar-track"><div class="bar-fill" style="width: 95%;"></div></div>
+    <div class="bar-value">9.5</div>
+  </div>
+  <div class="rating-bar">
+    <div class="bar-label">實用性</div>
+    <div class="bar-track"><div class="bar-fill" style="width: 75%;"></div></div>
+    <div class="bar-value">7.5</div>
+  </div>
+  <div class="rating-bar">
+    <div class="bar-label">思維啟發</div>
+    <div class="bar-track"><div class="bar-fill" style="width: 90%;"></div></div>
+    <div class="bar-value">9.0</div>
+  </div>
+  <div class="rating-bar">
+    <div class="bar-label">重讀價值</div>
+    <div class="bar-track"><div class="bar-fill" style="width: 70%;"></div></div>
+    <div class="bar-value">7.0</div>
+  </div>
+  <div class="rating-bar">
+    <div class="bar-label">推薦指數</div>
+    <div class="bar-track"><div class="bar-fill" style="width: 92%;"></div></div>
+    <div class="bar-value">9.2</div>
+  </div>
+
+  <h3>🎯 一句話定位</h3>
+
+  <div class="quote-block">
+    這是我讀過最好笑的醫學書，同時也是我讀過最嚴肅的搞笑書。仲野徹證明了一件事：<strong>知識的對立面不是無知，而是無聊。</strong>
+  </div>
+
+  <h3>👥 適合誰讀？</h3>
+
+  <div class="insight-grid">
+    <div class="insight-item">
+      <div class="emoji-big">✅</div>
+      <div class="insight-title">超適合</div>
+      <div class="insight-desc">對身體好奇但怕醫學書的人、想提升健康素養的上班族、覺得高中生物很無聊的人、喜歡科普讀物的雜食讀者</div>
+    </div>
+    <div class="insight-item">
+      <div class="emoji-big">🤔</div>
+      <div class="insight-title">還行</div>
+      <div class="insight-desc">醫學系學生（太基礎但可以當複習甜點）、已經讀過很多科普的人（可能覺得深度不夠）</div>
+    </div>
+    <div class="insight-item">
+      <div class="emoji-big">⚠️</div>
+      <div class="insight-title">可能不適合</div>
+      <div class="insight-desc">想找嚴謹學術參考的專業人士、對口語化風格反感的人、已有深厚病理學基礎的醫護人員</div>
+    </div>
+  </div>
+
+  <h3>🏆 這本書的歷史定位</h3>
+
+  <p>在日本科普書的譜系中，仲野徹的這本書佔據了一個獨特的位置：它不是最有深度的（那是養老孟司的《笨蛋之牆》），不是最有名的（那是中野信子的腦科學系列），但它可能是<strong>最平衡的</strong>——在趣味性和知識密度之間達到了近乎完美的平衡。</p>
+
+  <div class="highlight-box pink">
+    <div class="box-title">💎 仲野徹給我們的終極禮物</div>
+    <p>不只是病理學知識。他給我們的是一種<strong>看待世界的新鏡片</strong>——透過這副鏡片，你的身體不再是一個神秘的黑盒子，而是一個充滿故事、充滿戰爭、充滿英雄的微觀宇宙。</p>
+    <p>每一次心跳都是水泵站的運轉。每一次呼吸都是空氣清淨工廠的作業。每一次傷口癒合都是一場微型的救災行動。每一天，你的體內都在上演比任何戰爭電影更壯觀的故事。</p>
+    <p>而仲野徹，就是那個在居酒屋裡，一邊喝啤酒、一邊把這些故事說得讓你捨不得回家的人。</p>
+  </div>
+
+  <div class="quote-block">
+    細胞沒死那麼快，還分他殺和自殺呢。你看，連死法都有學問。所以啊，活著這件事，比你想的有趣太多了。
+    <span class="quote-source">── 仲野徹式精神</span>
+  </div>
+
+  <div class="section-divider">覺醒完成</div>
+
+  <div class="big-concept">
+    <div class="concept-emoji">🔬🧬💉⚔️🛡️🦠🎭</div>
+    <div class="concept-text">覺醒指數：92 / 100</div>
+    <div class="concept-sub">這本書成功讓你用不同的眼睛看待「活著」這件事。<br>而且過程中你還笑了好幾次。這不就是最好的學習嗎？</div>
+  </div>
+</div>
+
+</div> <!-- /.container -->
+
+<!-- ════════════════════════════════════════════════════
+     頁尾
+     ════════════════════════════════════════════════════ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-logo">覺醒報告 AWAKENING REPORT v2</div>
+    <p class="footer-text">
+      用 <span class="footer-heart">♥</span> 與好奇心製作<br>
+      書名：有趣到讓你不想睡的病理學通識<br>
+      作者：仲野 徹（大阪大學醫學系教授）<br>
+      分析框架：覺醒 v2 · 11 步深度拆解<br>
+      <br>
+      <span style="font-size: 0.75rem; color: var(--text-muted);">
+        本報告為讀書分析，非醫療建議。如有健康疑慮請諮詢專業醫護人員。<br>
+        Generated on 2026-03-17 · 龍龍 🐉 for Awakening Report Series
+      </span>
+    </p>
+  </div>
+</footer>
+
+<!-- 回到頂部按鈕 -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+  // 回到頂部按鈕顯示/隱藏
+  const backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', () => {
+    backToTop.classList.toggle('visible', window.scrollY > 400);
+  });
+
+  // 導覽列高亮
+  const navPills = document.querySelectorAll('.nav-pill');
+  const sections = document.querySelectorAll('.card[id]');
+
+  const observerOptions = {
+    root: null,
+    rootMargin: '-20% 0px -70% 0px',
+    threshold: 0
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navPills.forEach(pill => {
+          pill.classList.toggle('active', pill.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, observerOptions);
+
+  sections.forEach(section => observer.observe(section));
+
+  // 卡片淡入動畫
+  const fadeObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.card').forEach(card => {
+    card.style.opacity = '0';
+    card.style.transform = 'translateY(30px)';
+    card.style.transition = 'opacity 0.8s ease-out, transform 0.8s ease-out';
+    fadeObserver.observe(card);
+  });
+</script>
+</body>
+</html>
