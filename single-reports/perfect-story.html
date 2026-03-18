@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Perfect Story — 書醒深度分析</title>
+  <title>The Perfect Story — 書醒完整十一步深度分析</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
     :root{
       --a:#C97D4E;--a2:#A05C30;--al:#E8A87C;
@@ -14,356 +14,1720 @@
       --bg:linear-gradient(135deg,#FDF6EE 0%,#FFF5EB 50%,#FDF0F5 100%)
     }
     *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Noto Sans TC',-apple-system,sans-serif;font-weight:300;line-height:1.8;color:var(--t);background:var(--bg);min-height:100vh;padding:40px 20px}
-    .c{max-width:960px;margin:0 auto}
+    body{font-family:'Noto Sans TC',-apple-system,sans-serif;font-weight:300;line-height:1.9;color:var(--t);background:var(--bg);min-height:100vh;padding:40px 20px}
+    .c{max-width:980px;margin:0 auto}
 
-    .hero{text-align:center;padding:70px 40px;margin-bottom:32px;background:rgba(255,255,255,.65);backdrop-filter:blur(20px);border-radius:32px;border:1px solid rgba(255,255,255,.8);box-shadow:0 20px 60px rgba(201,125,78,.1);position:relative;overflow:hidden}
-    .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(232,168,124,.07),transparent 50%),radial-gradient(circle at 70% 80%,rgba(242,194,153,.05),transparent 50%);animation:fl 15s ease-in-out infinite}
-    @keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,-10px)}}
+    /* HERO */
+    .hero{text-align:center;padding:80px 40px 60px;margin-bottom:32px;background:rgba(255,255,255,.65);backdrop-filter:blur(20px);border-radius:32px;border:1px solid rgba(255,255,255,.8);box-shadow:0 20px 60px rgba(201,125,78,.12);position:relative;overflow:hidden}
+    .hero::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(circle at 30% 50%,rgba(232,168,124,.09),transparent 50%),radial-gradient(circle at 70% 80%,rgba(242,194,153,.06),transparent 50%);animation:fl 18s ease-in-out infinite}
+    @keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(-20px,-12px)}}
     .bg-tag{display:inline-block;background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;padding:7px 22px;border-radius:50px;font-size:.82rem;font-weight:500;letter-spacing:2px;margin-bottom:20px;position:relative;z-index:1}
-    .hero h1{font-family:'Noto Serif TC',serif;font-size:2.4rem;font-weight:700;background:linear-gradient(135deg,#C97D4E,#E8A87C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;position:relative;z-index:1}
-    .hero .sub{font-size:1rem;color:var(--t2);position:relative;z-index:1}
-    .hero .meta{margin-top:16px;font-size:.8rem;color:var(--tl);position:relative;z-index:1}
+    .hero h1{font-family:'Noto Serif TC',serif;font-size:2.6rem;font-weight:700;background:linear-gradient(135deg,#C97D4E,#E8A87C);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px;position:relative;z-index:1}
+    .hero .sub{font-size:1.05rem;color:var(--t2);position:relative;z-index:1;margin-bottom:8px}
+    .hero .meta{margin-top:14px;font-size:.8rem;color:var(--tl);position:relative;z-index:1;line-height:1.9}
+    .hero .badges{margin-top:18px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;position:relative;z-index:1}
 
-    .cd{background:rgba(255,255,255,.7);backdrop-filter:blur(10px);border-radius:24px;border:1px solid rgba(255,255,255,.5);box-shadow:0 8px 32px rgba(201,125,78,.08);padding:34px 30px;margin-bottom:20px;transition:transform .3s,box-shadow .3s}
-    .cd:hover{transform:translateY(-2px);box-shadow:0 14px 44px rgba(201,125,78,.12)}
-    .st{font-family:'Noto Serif TC',serif;font-size:1.3rem;font-weight:700;color:var(--t);margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid rgba(201,125,78,.25);display:flex;align-items:center;gap:10px}
-    .sd{color:var(--t2);font-size:.88rem;margin-bottom:16px;line-height:1.7}
-    p{margin-bottom:11px;font-size:.9rem;line-height:1.85}
-    .sh{font-family:'Noto Serif TC',serif;font-size:1.02rem;font-weight:700;color:var(--a2);margin:22px 0 10px}
+    /* TOC */
+    .toc-box{background:rgba(255,255,255,.6);backdrop-filter:blur(12px);border-radius:24px;border:1px solid rgba(201,125,78,.2);padding:28px 30px;margin-bottom:28px;box-shadow:0 8px 32px rgba(201,125,78,.07)}
+    .toc-box h2{font-family:'Noto Serif TC',serif;font-size:1.1rem;font-weight:700;color:var(--a2);margin-bottom:14px;display:flex;align-items:center;gap:8px}
+    .toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:6px}
+    .toc-item{display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border-radius:10px;font-size:.82rem;color:var(--t2);transition:background .2s;cursor:pointer;text-decoration:none}
+    .toc-item:hover{background:rgba(201,125,78,.07);color:var(--a2)}
+    .toc-num{font-family:'Noto Serif TC',serif;font-weight:700;color:var(--al);min-width:22px;font-size:.88rem}
 
-    .hl{background:linear-gradient(135deg,rgba(201,125,78,.09),rgba(232,168,124,.06));border-radius:14px;padding:18px;margin:14px 0;border-left:4px solid var(--a)}
-    .hl.g{border-left-color:var(--g);background:linear-gradient(135deg,rgba(90,158,88,.08),transparent)}
-    .hl.o{border-left-color:var(--o);background:linear-gradient(135deg,rgba(208,144,64,.08),transparent)}
-    .hl.r{border-left-color:var(--r);background:linear-gradient(135deg,rgba(192,80,64,.08),transparent)}
-    .hl.b{border-left-color:var(--b);background:linear-gradient(135deg,rgba(90,142,180,.08),transparent)}
-    .hl.t{border-left-color:var(--tl2);background:linear-gradient(135deg,rgba(58,158,144,.08),transparent)}
+    /* SECTION CARD */
+    .cd{background:rgba(255,255,255,.68);backdrop-filter:blur(12px);border-radius:24px;border:1px solid rgba(255,255,255,.55);box-shadow:0 8px 34px rgba(201,125,78,.08);padding:38px 36px;margin-bottom:24px;transition:transform .3s,box-shadow .3s}
+    .cd:hover{transform:translateY(-2px);box-shadow:0 16px 48px rgba(201,125,78,.13)}
+    .step-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;padding:5px 16px;border-radius:20px;font-size:.75rem;font-weight:500;letter-spacing:1.5px;margin-bottom:16px}
+    .st{font-family:'Noto Serif TC',serif;font-size:1.5rem;font-weight:700;color:var(--t);margin-bottom:8px;display:flex;align-items:center;gap:12px}
+    .st-desc{font-size:.88rem;color:var(--tl);margin-bottom:22px;padding-bottom:16px;border-bottom:1.5px solid rgba(201,125,78,.18)}
 
-    .tg{display:inline-block;background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;padding:3px 10px;border-radius:18px;font-size:.7rem;font-weight:400;margin:2px}
-    .tg.g{background:linear-gradient(135deg,#5A9E58,#3A7E38)}.tg.r{background:linear-gradient(135deg,#C05040,#A03020)}.tg.b{background:linear-gradient(135deg,#5A8EB4,#3A6E94)}.tg.o{background:linear-gradient(135deg,#D09040,#B07020)}.tg.gr{background:#888;color:#fff}
+    /* TYPOGRAPHY */
+    p{margin-bottom:12px;font-size:.9rem;line-height:1.9}
+    h3{font-family:'Noto Serif TC',serif;font-size:1.1rem;font-weight:700;color:var(--a2);margin:26px 0 12px;display:flex;align-items:center;gap:8px}
+    h4{font-family:'Noto Serif TC',serif;font-size:.97rem;font-weight:700;color:var(--t);margin:18px 0 8px}
+    h5{font-size:.88rem;font-weight:700;color:var(--t2);margin:14px 0 6px}
+    ul,ol{margin:8px 0 14px 22px;font-size:.88rem;line-height:1.85}
+    li{margin-bottom:6px}
+    strong{font-weight:700;color:var(--t)}
 
-    table{width:100%;border-collapse:separate;border-spacing:0;margin:14px 0;background:rgba(255,255,255,.6);border-radius:14px;overflow:hidden;font-size:.84rem}
-    th{background:linear-gradient(135deg,#C97D4E,#E8A87C);color:#fff;padding:10px 12px;text-align:left;font-weight:500;font-size:.78rem}
-    td{padding:9px 12px;border-bottom:1px solid rgba(0,0,0,.04);line-height:1.6}
+    /* QUOTE */
+    .quote{font-family:'Noto Serif TC',serif;font-size:1.02rem;color:var(--t2);padding:22px 28px 18px 40px;background:rgba(201,125,78,.07);border-radius:16px;margin:16px 0;border:1px dashed rgba(201,125,78,.25);position:relative;line-height:2}
+    .quote::before{content:'"';font-size:5rem;color:var(--al);opacity:.3;position:absolute;top:-8px;left:10px;line-height:1;font-family:'Noto Serif TC',serif}
+    .quote-src{font-size:.76rem;color:var(--tl);margin-top:8px;display:block;font-family:'Noto Sans TC',sans-serif;font-style:italic}
+    .quote-en{font-size:.88rem;color:var(--t2);font-family:Georgia,serif;line-height:1.7;margin-top:6px;padding-top:8px;border-top:1px solid rgba(201,125,78,.15);font-style:italic}
+
+    /* HIGHLIGHT BOXES */
+    .hl{border-radius:14px;padding:18px 20px;margin:14px 0;border-left:4px solid var(--a);background:linear-gradient(135deg,rgba(201,125,78,.08),rgba(232,168,124,.04))}
+    .hl.g{border-left-color:var(--g);background:linear-gradient(135deg,rgba(90,158,88,.07),rgba(90,158,88,.02))}
+    .hl.o{border-left-color:var(--o);background:linear-gradient(135deg,rgba(208,144,64,.07),rgba(208,144,64,.02))}
+    .hl.r{border-left-color:var(--r);background:linear-gradient(135deg,rgba(192,80,64,.07),rgba(192,80,64,.02))}
+    .hl.b{border-left-color:var(--b);background:linear-gradient(135deg,rgba(90,142,180,.07),rgba(90,142,180,.02))}
+    .hl.t{border-left-color:var(--tl2);background:linear-gradient(135deg,rgba(58,158,144,.07),rgba(58,158,144,.02))}
+
+    /* TAGS */
+    .tg{display:inline-block;padding:3px 11px;border-radius:18px;font-size:.7rem;font-weight:500;margin:2px;letter-spacing:.5px}
+    .tg-a{background:linear-gradient(135deg,var(--a),var(--a2));color:#fff}
+    .tg-g{background:linear-gradient(135deg,#5A9E58,#3A7E38);color:#fff}
+    .tg-r{background:linear-gradient(135deg,#C05040,#A03020);color:#fff}
+    .tg-b{background:linear-gradient(135deg,#5A8EB4,#3A6E94);color:#fff}
+    .tg-o{background:linear-gradient(135deg,#D09040,#B07020);color:#fff}
+    .tg-gr{background:#888;color:#fff}
+    .tg-t{background:linear-gradient(135deg,#3A9E90,#1A7E70);color:#fff}
+
+    /* TABLES */
+    table{width:100%;border-collapse:separate;border-spacing:0;margin:14px 0;font-size:.84rem;border-radius:14px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+    thead tr{background:linear-gradient(135deg,#C97D4E,#E8A87C)}
+    th{color:#fff;padding:10px 14px;text-align:left;font-weight:500;font-size:.8rem;letter-spacing:.5px}
+    td{padding:10px 14px;border-bottom:1px solid rgba(0,0,0,.04);line-height:1.65;background:rgba(255,255,255,.55)}
     tr:last-child td{border-bottom:none}
-    tr:hover td{background:rgba(201,125,78,.03)}
+    tbody tr:hover td{background:rgba(201,125,78,.04)}
 
-    .bk{background:rgba(255,255,255,.5);border-radius:16px;padding:20px;margin-bottom:14px;border:1px solid rgba(255,255,255,.4)}
-    .bk h3{font-family:'Noto Serif TC',serif;font-size:1rem;font-weight:700;margin-bottom:8px;color:var(--a2)}
+    /* GRID LAYOUTS */
+    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:14px 0}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:14px 0}
+    .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:14px 0}
 
-    .quote{font-family:'Noto Serif TC',serif;font-size:1rem;color:var(--t2);text-align:center;padding:20px 30px;background:rgba(201,125,78,.06);border-radius:14px;margin:14px 0;border:1px dashed rgba(201,125,78,.2);position:relative}
-    .quote::before{content:'"';font-size:3.5rem;color:var(--al);opacity:.4;position:absolute;top:-4px;left:12px;line-height:1;font-family:'Noto Serif TC',serif}
-    .quote-src{font-size:.78rem;color:var(--tl);margin-top:6px;display:block}
+    /* INFO CARD */
+    .info-card{background:rgba(255,255,255,.55);border-radius:16px;padding:18px;border:1px solid rgba(201,125,78,.15)}
+    .info-card-num{font-family:'Noto Serif TC',serif;font-size:2rem;font-weight:700;color:var(--al);line-height:1;margin-bottom:6px}
+    .info-card-title{font-weight:700;font-size:.93rem;color:var(--t);margin-bottom:6px}
+    .info-card-body{font-size:.82rem;color:var(--t2);line-height:1.7}
+    .info-card-src{font-size:.72rem;color:var(--tl);margin-top:8px;padding-top:6px;border-top:1px solid rgba(201,125,78,.12)}
 
-    .brain-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;margin:14px 0}
-    .brain-card{background:rgba(255,255,255,.55);border-radius:16px;padding:18px;border:1px solid rgba(201,125,78,.15);transition:transform .2s}
-    .brain-card:hover{transform:translateY(-2px)}
-    .brain-num{font-family:'Noto Serif TC',serif;font-size:2.2rem;font-weight:700;color:var(--al);line-height:1;margin-bottom:6px}
-    .brain-title{font-weight:700;font-size:.95rem;color:var(--t);margin-bottom:6px}
-    .brain-desc{font-size:.82rem;color:var(--t2);line-height:1.65}
-    .brain-src{font-size:.72rem;color:var(--tl);margin-top:8px;padding-top:6px;border-top:1px solid rgba(201,125,78,.1)}
+    /* THEME SECTION */
+    .theme-header{background:linear-gradient(135deg,rgba(201,125,78,.12),rgba(232,168,124,.06));border-radius:18px;padding:20px 24px;margin:20px 0 16px;border:1px solid rgba(201,125,78,.2)}
+    .theme-label{font-size:.75rem;color:var(--al);font-weight:700;letter-spacing:2px;margin-bottom:6px;text-transform:uppercase}
+    .theme-title{font-family:'Noto Serif TC',serif;font-size:1.2rem;font-weight:700;color:var(--t)}
+    .theme-subtitle{font-size:.85rem;color:var(--t2);margin-top:4px}
 
-    .model-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:14px 0}
-    .model-step{background:rgba(255,255,255,.55);border-radius:14px;padding:14px;text-align:center;border:1px solid rgba(201,125,78,.15)}
-    .model-step-n{font-family:'Noto Serif TC',serif;font-size:.7rem;color:var(--al);letter-spacing:1px;margin-bottom:4px;font-weight:700}
-    .model-step-t{font-size:.85rem;font-weight:700;color:var(--t);margin-bottom:4px}
-    .model-step-d{font-size:.75rem;color:var(--t2);line-height:1.5}
+    /* 7-LAYER TEMPLATE */
+    .layer{border-radius:14px;padding:18px 20px;margin:12px 0;background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.6)}
+    .layer-label{font-size:.7rem;font-weight:700;letter-spacing:2px;color:var(--al);text-transform:uppercase;margin-bottom:8px}
+    .layer-content{font-size:.88rem;color:var(--t2);line-height:1.85}
 
-    .mistake-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
-    .mistake{background:rgba(192,80,64,.05);border-radius:12px;padding:14px;border-left:3px solid var(--r)}
-    .fix{background:rgba(90,158,88,.05);border-radius:12px;padding:14px;border-left:3px solid var(--g)}
+    /* NARRATIVE ARC */
+    .arc-container{background:rgba(255,255,255,.5);border-radius:18px;padding:24px;margin:16px 0;overflow-x:auto}
+    .arc-line{display:flex;align-items:stretch;gap:0;margin:16px 0}
+    .arc-stage{flex:1;text-align:center;padding:14px 8px;position:relative}
+    .arc-stage::after{content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);color:var(--al);font-size:1.2rem;z-index:2}
+    .arc-stage:last-child::after{display:none}
+    .arc-num{font-family:'Noto Serif TC',serif;font-size:1.8rem;font-weight:700;color:var(--al);line-height:1;margin-bottom:4px}
+    .arc-stage-title{font-weight:700;font-size:.85rem;color:var(--t);margin-bottom:4px}
+    .arc-stage-desc{font-size:.75rem;color:var(--t2);line-height:1.5}
+    .arc-bg-1{background:rgba(201,125,78,.06);border-radius:12px}
+    .arc-bg-2{background:rgba(208,144,64,.06);border-radius:12px}
+    .arc-bg-3{background:rgba(90,158,88,.06);border-radius:12px}
+    .arc-bg-4{background:rgba(90,142,180,.06);border-radius:12px}
+    .arc-bg-5{background:rgba(192,80,64,.06);border-radius:12px}
 
-    .ok{color:var(--g);font-weight:700}.warn{color:var(--o);font-weight:700}.block{color:var(--r);font-weight:700}
+    /* ACTION TABLE */
+    .action-row{display:grid;grid-template-columns:140px 1fr 1fr;gap:0;border-bottom:1px solid rgba(201,125,78,.1)}
+    .action-row:last-child{border-bottom:none}
+    .action-cell{padding:12px 14px;font-size:.83rem;line-height:1.7}
+    .action-label{font-weight:700;font-size:.78rem;color:var(--al);letter-spacing:1px}
 
-    footer{text-align:center;padding:40px 20px;color:var(--tl);font-size:.84rem}
-    @media(max-width:768px){.hero{padding:50px 20px}.hero h1{font-size:1.8rem}.cd{padding:22px 16px}.brain-grid{grid-template-columns:1fr}.mistake-grid{grid-template-columns:1fr}.model-steps{grid-template-columns:1fr 1fr}}
+    /* BOOK CARD */
+    .book-card{background:linear-gradient(135deg,rgba(201,125,78,.1),rgba(232,168,124,.06));border-radius:18px;padding:24px;border:1px solid rgba(201,125,78,.2);margin:14px 0}
+    .book-card-title{font-family:'Noto Serif TC',serif;font-size:1.05rem;font-weight:700;color:var(--t);margin-bottom:4px}
+    .book-card-author{font-size:.82rem;color:var(--t2);margin-bottom:10px}
+    .book-card-reason{font-size:.83rem;color:var(--t2);line-height:1.7}
+
+    /* DIVIDER */
+    .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(201,125,78,.25),transparent);margin:24px 0}
+
+    /* PERSONAL LENS */
+    .lens-card{border-radius:16px;padding:20px;margin:12px 0;border:1px solid rgba(255,255,255,.5)}
+    .lens-card.toc{background:rgba(90,142,180,.06);border-left:4px solid var(--b)}
+    .lens-card.sales{background:rgba(90,158,88,.06);border-left:4px solid var(--g)}
+    .lens-card.expr{background:rgba(208,144,64,.06);border-left:4px solid var(--o)}
+    .lens-card.biz{background:rgba(201,125,78,.08);border-left:4px solid var(--a)}
+    .lens-card.ziwei{background:rgba(58,158,144,.06);border-left:4px solid var(--tl2)}
+    .lens-label{font-size:.73rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:8px;color:var(--tl)}
+    .lens-body{font-size:.86rem;color:var(--t2);line-height:1.8}
+
+    /* CHECKLIST */
+    .check-item{display:flex;align-items:flex-start;gap:10px;padding:8px 0;border-bottom:1px solid rgba(201,125,78,.08);font-size:.86rem;color:var(--t2)}
+    .check-item:last-child{border-bottom:none}
+    .check-box{width:18px;height:18px;border:2px solid var(--al);border-radius:4px;flex-shrink:0;margin-top:2px}
+
+    footer{text-align:center;padding:50px 20px;color:var(--tl);font-size:.82rem;line-height:2}
+    @media(max-width:768px){
+      .hero{padding:50px 20px}.hero h1{font-size:1.9rem}
+      .cd{padding:24px 18px}
+      .grid2,.grid3,.grid4{grid-template-columns:1fr}
+      .arc-line{flex-direction:column}
+      .arc-stage::after{display:none}
+    }
   </style>
 </head>
 <body>
 <div class="c">
 
+<!-- ══════════════════════════════════ HERO ══════════════════════════════════ -->
 <header class="hero">
-  <span class="bg-tag">書醒系統 × 原書精讀版 📖</span>
+  <span class="bg-tag">📖 書醒系統 · 完整十一步深度分析</span>
   <h1>The Perfect Story</h1>
-  <p class="sub">Karen Eber｜如何用故事讓人理解、改變立場、採取行動</p>
-  <p class="meta">基於原書 OCR 全文 · 書醒深度分析 · 五大腦部預設設定 × 四段故事法 × 故事迴圈模型</p>
+  <p class="sub">Karen Eber | 2023, Harper Horizon</p>
+  <p class="sub" style="font-size:.95rem">如何用故事讓人理解、改變立場、採取行動</p>
+  <div class="meta">
+    基於原書 OCR 全文 · 五大腦部預設設定 × 四段故事法 × 故事迴圈模型<br>
+    書醒十一步完整深度分析 · 2026年3月 · 龍龍製作
+  </div>
+  <div class="badges">
+    <span class="tg tg-a">神經科學</span>
+    <span class="tg tg-b">溝通策略</span>
+    <span class="tg tg-g">領導力</span>
+    <span class="tg tg-o">行銷說服</span>
+    <span class="tg tg-t">敘事設計</span>
+    <span class="tg tg-r">組織文化</span>
+  </div>
 </header>
 
-<!-- ══════ 模組00 ══════ -->
-<section class="cd">
-  <h2 class="st">📌 模組 00｜素材確認</h2>
+<!-- ══════════════════════════════════ TOC ══════════════════════════════════ -->
+<nav class="toc-box">
+  <h2>📋 目錄 — 十一步完整書醒</h2>
+  <div class="toc-grid">
+    <a class="toc-item" href="#s1"><span class="toc-num">01</span>書籍資料卡</a>
+    <a class="toc-item" href="#s2"><span class="toc-num">02</span>核心命題三要素</a>
+    <a class="toc-item" href="#s3"><span class="toc-num">03</span>主題式深度分析（五大主題）</a>
+    <a class="toc-item" href="#s4"><span class="toc-num">04</span>敘事弧線分析</a>
+    <a class="toc-item" href="#s5"><span class="toc-num">05</span>整合洞見四維度</a>
+    <a class="toc-item" href="#s6"><span class="toc-num">06</span>缺席分析三類</a>
+    <a class="toc-item" href="#s7"><span class="toc-num">07</span>AI 視角</a>
+    <a class="toc-item" href="#s8"><span class="toc-num">08</span>行動轉化三層</a>
+    <a class="toc-item" href="#s9"><span class="toc-num">09</span>帶問題回去讀</a>
+    <a class="toc-item" href="#s10"><span class="toc-num">10</span>延伸資源</a>
+    <a class="toc-item" href="#s11"><span class="toc-num">11</span>書庫卡片 + 個人化透鏡</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════ STEP 1 ══════════════════════════════════ -->
+<section class="cd" id="s1">
+  <div class="step-badge">STEP 01 · 書籍資料卡</div>
+  <h2 class="st">📚 書籍資料卡</h2>
+  <p class="st-desc">完整書目資料、作者背景、結構地圖、核心數字</p>
+
+  <div class="grid2">
+    <div>
+      <table>
+        <tr><td style="width:100px"><strong>書名</strong></td><td>The Perfect Story: How to Tell Stories that Inform, Influence, and Inspire</td></tr>
+        <tr><td><strong>作者</strong></td><td>Karen Eber</td></tr>
+        <tr><td><strong>出版社</strong></td><td>Harper Horizon</td></tr>
+        <tr><td><strong>出版年</strong></td><td>2023</td></tr>
+        <tr><td><strong>頁數</strong></td><td>約 240 頁</td></tr>
+        <tr><td><strong>章節</strong></td><td>18 章 + 5 份附錄清單</td></tr>
+        <tr><td><strong>語言</strong></td><td>英文（繁體譯本未知）</td></tr>
+      </table>
+    </div>
+    <div>
+      <div class="info-card" style="height:100%">
+        <div class="info-card-title">作者 Karen Eber</div>
+        <div class="info-card-body">
+          <p>Karen Eber 是企業文化策略師、首席說故事教練（Chief Storyteller）。曾任職 <strong>GE（奇異電氣）</strong> 及 <strong>Deloitte（德勤）</strong>，負責人才發展與文化轉型。她在全球頂級企業擔任顧問與培訓師，並在 TED 發表廣受好評的演講，主題正是本書的核心概念：用神經科學拆解說故事的力量。</p>
+          <p>她的背景融合了商業實戰、組織發展與神經科學，使本書既有堅實的科學根基，又充滿可操作的商業案例。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3>📖 全書結構地圖</h3>
   <table>
-    <tr><td style="width:120px"><strong>書名</strong></td><td>The Perfect Story: How to Tell Stories that Inform, Influence, and Inspire</td></tr>
-    <tr><td><strong>作者</strong></td><td>Karen Eber（前 GE / Deloitte 文化長、Chief Storyteller、TED 演講者）</td></tr>
-    <tr><td><strong>出版</strong></td><td>2023，Harper Horizon</td></tr>
-    <tr><td><strong>結構</strong></td><td>5 大部分 · 18 章 · 附 4 份核對清單</td></tr>
-    <tr><td><strong>核心框架</strong></td><td>五大腦部預設設定（Five Factory Settings）× 故事迴圈模型 × 四段故事法（Context · Conflict · Outcome · Takeaway）</td></tr>
-    <tr><td><strong>分析素材</strong></td><td>✅ 原書 PDF（145頁）OCR 全文提取，核心章節 Ch1-3 原文精讀</td></tr>
-  </table>
-</section>
-
-<!-- ══════ L0 ══════ -->
-<section class="cd">
-  <h2 class="st">⚡ L0｜電梯版（30 秒）</h2>
-  <div class="hl">
-    <p>大多數人知道說故事很重要，但就是說不好。不是因為沒有故事可說，而是不知道<strong>為什麼大腦需要故事、去哪裡找故事、以及如何把一個想法變成一個好故事</strong>。</p>
-    <p>Karen Eber 用神經科學（五大腦部預設設定）解釋「故事的底層邏輯」，再用迴圈模型（Collect → Create → Build → Add → Sequence → Apply → Test）帶你把任何日常片段變成有說服力的故事。</p>
-    <p>核心命題：<strong>說故事是一門可以學習的技能，不是天賦。</strong></p>
-  </div>
-</section>
-
-<!-- ══════ L1 ══════ -->
-<section class="cd">
-  <h2 class="st">🔑 L1｜核心洞見（十條，含原文出處）</h2>
-
-  <div class="bk">
-    <h3>1. 故事讓大腦「全部亮起來」——而資訊只能點亮一個角落</h3>
-    <p><span class="tg g">[實證]</span> Ch2 · 原文</p>
-    <p>只有資訊時，大腦的 Wernicke's area（語言處理區，核桃大小）負責解碼文字，50% 的資訊在一小時內被遺忘（Ebbinghaus）。聽到故事時，各感官對應的腦葉全部啟動：temporal lobe（聲音/氣味）、occipital lobe（視覺）、parietal lobe（觸感）、frontal lobe（動作）。故事讓大腦「動用全部資源」。</p>
-  </div>
-
-  <div class="quote">
-    We remember what we feel.
-    <span class="quote-src">— Karen Eber, Ch1</span>
-  </div>
-
-  <div class="bk">
-    <h3>2. 神經耦合（Neural Coupling）——故事讓說者與聽者的大腦同步</h3>
-    <p><span class="tg g">[實證]</span> Ch2 · 原文 · 引自 Dr. Uri Hasson（Princeton）研究</p>
-    <p>Princeton 神經科學家 Uri Hasson 的 fMRI 實驗：讓人在腦部掃描機中聽故事，說者與聽者的大腦活動模式高度相似——且故事越能調動感官和情緒，同步程度越強。Paris Brain Institute 研究更發現，高度投入的聽眾心跳節律會與說故事的人同步。</p>
-  </div>
-
-  <div class="bk">
-    <h3>3. 故事能增加事實記憶留存率 22%</h3>
-    <p><span class="tg g">[實證]</span> Ch1 · 原文 · 引自 Jerome Bruner《Actual Minds, Possible Worlds》</p>
-    <p>心理學家 Jerome Bruner 的研究：將事實嵌入故事，可使記憶留存率提升 22%。這不是「讓資訊好聽一點」，而是利用情緒-記憶連結的神經機制，讓事實被「標記」在感官記憶裡。</p>
-  </div>
-
-  <div class="bk">
-    <h3>4. 大腦是個「懶惰的預測機器」——故事必須對抗預測</h3>
-    <p><span class="tg g">[實證]</span> Ch2 · 原文 · 引自 Dr. Paul Zak / Dr. Lisa Feldman Barrett</p>
-    <p>大腦消耗人體 20% 的卡路里，其中 60-80% 用在預測上（Feldman Barrett 2018）。凡是可預測、情感平板、難以共鳴的故事，大腦直接切回省電模式。好故事需要設計「意外時刻」和「緊張感」，迫使大腦付出注意力。</p>
-  </div>
-
-  <div class="bk">
-    <h3>5. 故事製造「同溫層」（In-group）——比論點更快建立信任</h3>
-    <p><span class="tg g">[實證]</span> Ch2 · 原文 · 引自 Agarwal 2020</p>
-    <p>大腦本能地分辨「圈內人」和「圈外人」。好故事讓聽眾產生「我也這樣！」的感覺，觸發 oxytocin（信任荷爾蒙）釋放。Eber 的公式：<em>Stories create in-groups when they relate to the audience's "I want that!" feeling.</em></p>
-  </div>
-
-  <div class="bk">
-    <h3>6. 故事有兩個版本：你說的，和聽眾「在自己大腦重演的」</h3>
-    <p><span class="tg g">[作者論點]</span> Ch1 · 原文</p>
-    <p>TED 演講後有觀眾寫信給 Eber：「當你描述 Maria 把手機掉進電梯井，我緊張地伸手摸了一下口袋裡的手機——我知道我沒在動，但故事讓我以為我可能掉了。」故事不是「傳遞」，而是讓聽眾在自己腦內<strong>親身經歷一次</strong>。</p>
-  </div>
-
-  <div class="bk">
-    <h3>7. 故事有五個功能：建立理解、製造記憶、強化價值觀、創造連結、驅動行動</h3>
-    <p><span class="tg g">[作者論點]</span> Ch1 · 原文摘要頁</p>
-    <p>書用 5 個功能框架統整故事的作用：① Stories build ideas and shared understanding ② We're changed by stories（神經化學物質） ③ Stories are memorable（感官記憶） ④ Stories reinforce values ⑤ Stories are interactive（聽眾有自己的版本）。</p>
-  </div>
-
-  <div class="bk">
-    <h3>8. 最好的故事往往從「片段」開始，不是從「完整的想法」</h3>
-    <p><span class="tg g">[作者論點]</span> Introduction · 原文</p>
-    <p>書的示範故事（Maria 的手機 + Walt 的 Dottie）本來是兩個獨立的、沒有明顯關聯的片段。Eber 把它用在 TED Talk 前，在迴圈模型裡反覆打磨才找到它們的連結。「等你有完整的好故事才說」= 永遠說不出口的藉口。</p>
-  </div>
-
-  <div class="bk">
-    <h3>9. 故事的開頭是最寶貴的視窗——不能浪費</h3>
-    <p><span class="tg g">[作者論點]</span> 作者部落格「Attention」· 與 Ch1 呼應</p>
-    <p>UC Irvine 研究（Gloria Mark）：2020 年人均注意力持續時間已縮短到 47 秒。簡報前 5-8 分鐘是注意力最高的視窗。「謝謝邀請我」「在開始前先提供一些背景…」= 把最寶貴的時間花在最無聊的地方。</p>
-  </div>
-
-  <div class="bk">
-    <h3>10. 故事可以操縱——必須自問：我是在為聽眾服務，還是只為自己服務？</h3>
-    <p><span class="tg g">[作者論點]</span> Ch17（目錄）</p>
-    <p>書有專章討論「When Does a Story Become Manipulative?」，是同類書中少見的誠實。Eber 在書中要求讀者問自己：這個故事是讓聽眾做出對他們更好的決定，還是只是讓我更容易達成目的？脆弱的分享也有邊界：<em>Storytelling is a gift you're giving to the audience.</em>（Sarah Austin Jenness，The Moth 執行製作人語）</p>
-  </div>
-</section>
-
-<!-- ══════ 五大腦部設定 ══════ -->
-<section class="cd">
-  <h2 class="st">🧠 L2｜五大腦部預設設定（Five Factory Settings）</h2>
-  <p class="sd">全書的科學核心。每一個故事技巧都是在「配合」這五個設定，不是對抗它們。原文 Ch2。</p>
-
-  <div class="brain-grid">
-    <div class="brain-card">
-      <div class="brain-num">1</div>
-      <div class="brain-title">The Lazy Brain</div>
-      <div class="brain-desc">懶惰的大腦。腦是「最小開支的銀行家」，凡無意義或可預測的訊息，立刻切省電模式。故事需要「意外」和「張力」迫使它付出注意力。</div>
-      <div class="brain-src">📖 Dr. Paul Zak 2015 · Dr. Lisa Feldman Barrett 2018/2021/2022</div>
-    </div>
-    <div class="brain-card">
-      <div class="brain-num">2</div>
-      <div class="brain-title">Minding the Gap of Assumptions</div>
-      <div class="brain-desc">大腦自動填補空白。它討厭不完整，會用假設填滿資訊缺口。好故事利用這個設定設計「懸念」，或用意外打破預期，強迫大腦重新付出注意力。</div>
-      <div class="brain-src">📖 Ch2 原文</div>
-    </div>
-    <div class="brain-card">
-      <div class="brain-num">3</div>
-      <div class="brain-title">The Library of Files</div>
-      <div class="brain-desc">大腦是有情緒標籤的檔案庫。感官輸入被貼上情緒標籤後存入長期記憶。嗅覺記憶最強（1,000+ 種嗅覺受體 vs 視覺3種）。故事調動感官 = 在記憶檔案庫留下更深的印記。</div>
-      <div class="brain-src">📖 Hamer 2019 · Feldman Barrett 2018 · Ch2 原文</div>
-    </div>
-    <div class="brain-card">
-      <div class="brain-num">4</div>
-      <div class="brain-title">The Strength of Trust</div>
-      <div class="brain-desc">信任需要「同溫層感」。大腦本能分辨圈內/圈外人，圈內觸發 oxytocin（信任感）。好故事讓聽眾感覺「這說的是我」，製造歸屬感，也可刻意製造圈外感來引發行動。</div>
-      <div class="brain-src">📖 Agarwal 2020 · Dr. Paul Zak · Ch2 原文</div>
-    </div>
-    <div class="brain-card">
-      <div class="brain-num">5</div>
-      <div class="brain-title">Seek Pleasure, Avoid Pain</div>
-      <div class="brain-desc">神經化學物質主導體驗。Dopamine/Oxytocin/Endorphins = 連結與愉悅；Cortisol/Adrenaline = 威脅與專注。好故事刻意設計「不舒服時刻」和「高峰情緒」，讓聽眾在神經化學層面被「移動」。</div>
-      <div class="brain-src">📖 Thomson 2021 · Dr. Paul Zak · Ch2 原文</div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════ 故事迴圈模型 ══════ -->
-<section class="cd">
-  <h2 class="st">🔄 L2｜故事迴圈模型（The Storytelling Loop）</h2>
-  <p class="sd">書的操作核心。不是線性流程，而是一個可以反覆回頭修改的迴圈。原文 Ch1 摘要頁。</p>
-  <div class="model-steps">
-    <div class="model-step">
-      <div class="model-step-n">CENTER</div>
-      <div class="model-step-t">Collect & Select Potential Story Ideas</div>
-      <div class="model-step-d">持續進行，從日常片段建立「故事銀行」</div>
-    </div>
-    <div class="model-step">
-      <div class="model-step-n">STEP 1</div>
-      <div class="model-step-t">Create Audience Persona & Define Outcomes</div>
-      <div class="model-step-d">先定受眾，再選故事。不是找到最好的故事，是找到最適合這個受眾的故事</div>
-    </div>
-    <div class="model-step">
-      <div class="model-step-n">STEP 2</div>
-      <div class="model-step-t">Build Story Structure</div>
-      <div class="model-step-d">四段框架：Context → Conflict → Outcome → Takeaway</div>
-    </div>
-    <div class="model-step">
-      <div class="model-step-n">STEP 3</div>
-      <div class="model-step-t">Add Details, Senses & Emotions</div>
-      <div class="model-step-d">用感官細節讓故事在聽眾腦中「3D化」</div>
-    </div>
-    <div class="model-step">
-      <div class="model-step-n">STEP 4</div>
-      <div class="model-step-t">Sequence the Story</div>
-      <div class="model-step-d">調整故事展開的順序，不一定按時間線</div>
-    </div>
-    <div class="model-step">
-      <div class="model-step-n">STEP 5</div>
-      <div class="model-step-t">Apply Five Factory Settings</div>
-      <div class="model-step-d">驗核：五個腦部設定都有被觸發嗎？</div>
-    </div>
-    <div class="model-step">
-      <div class="model-step-n">STEP 6</div>
-      <div class="model-step-t">Make Everything Earn Its Place</div>
-      <div class="model-step-d">剪掉所有不往結論走的部分。每個細節都要「賺到它的位置」</div>
-    </div>
-    <div class="model-step">
-      <div class="model-step-n">STEP 7</div>
-      <div class="model-step-t">Test Story</div>
-      <div class="model-step-d">說給真實受眾，觀察反應，回到迴圈調整。像煎鬆餅——前幾個通常是失敗品</div>
-    </div>
-  </div>
-  <div class="hl"><strong>關鍵設計邏輯：</strong>這不是「從頭到尾一次完成」的流程，而是一個迴圈。好故事是反覆打磨的產物，不是靈感爆發的結果。Eber 自己的示範故事（Maria + Walt）在 TED 上說之前，已經在這個模型裡走了好幾輪。</div>
-</section>
-
-<!-- ══════ L3 深挖 ══════ -->
-<section class="cd">
-  <h2 class="st">🔬 L3｜深挖——最反直覺的洞見</h2>
-
-  <div class="sh">❌ 你以為的 vs ✅ 原書說的</div>
-  <div class="mistake-grid">
-    <div class="mistake"><strong>❌ 要先有精彩的人生才能說好故事</strong><br><br>多數人等「值得說的故事」降臨，但它從未降臨</div>
-    <div class="fix"><strong>✅ 日常片段 × 迴圈打磨 = 完美故事</strong><br><br>書中示範故事是「手機掉電梯」和「老闆不知道清潔工名字」——都是日常普通場景</div>
-    <div class="mistake"><strong>❌ 說數據，偶爾加個故事潤色</strong><br><br>數據先，故事後——用故事讓數據好吞</div>
-    <div class="fix"><strong>✅ 故事先，數據確認</strong><br><br>故事建立情緒共鳴（神經化學基礎），數據讓共鳴有可信度。順序反了就失效</div>
-    <div class="mistake"><strong>❌ 好的故事要完整、細節豐富</strong><br><br>把所有背景都說清楚才算負責任</div>
-    <div class="fix"><strong>✅ 每個細節都要「賺到它的位置」</strong><br><br>Make Everything Earn Its Place 是書中獨立的一個步驟——故事冗長的原因永遠是「留了太多不必要的細節」</div>
-    <div class="mistake"><strong>❌ 「謝謝邀請，先讓我做個背景介紹…」</strong><br><br>開場要讓聽眾先了解你是誰</div>
-    <div class="fix"><strong>✅ 前 47 秒是你唯一保證的視窗</strong><br><br>把最值得說的場景放在第一句話。Eber 自己的開場是：「我有一隻棕眼睛和一隻綠眼睛…」</div>
-  </div>
-
-  <div class="sh">書中最難忘的故事示範</div>
-  <div class="bk">
-    <h3>🎞 Eber 的開場故事：「吃蠟筆的女孩」</h3>
-    <p>Eber 有一棕一綠兩隻眼睛（Heterochromia）。陌生人總是問她奇怪的問題，讓她感覺像馬戲團的怪人。她後來想出了一個應對方式：<em>「我四歲的時候，有一天肚子餓，拿起了一支綠色蠟筆咬了一口，發現味道很好，就把箱子裡所有綠色蠟筆都吃了。第二天早上醒來，我的左眼變成綠色的。」</em> 然後保持沉默。結果：人們開始大笑，氣氛完全改變，對話從尷尬質問變成真實連結。「我的眼睛給了我一種超能力：說故事。」</p>
-    <p>這個故事示範了五個腦部設定全部被觸發：意外（吃蠟筆）→ 感官細節 → 情緒轉折（尷尬→幽默）→ 製造連結 → 驅動聽眾思考</p>
-  </div>
-</section>
-
-<!-- ══════ L4 原創推論 ══════ -->
-<section class="cd">
-  <h2 class="st">💡 L4｜AI 原創洞見 × 跨領域連結</h2>
-
-  <div class="hl g"><strong>[AI 原創洞見 L4-1]</strong> 這本書本身就是它所教的方法的示範。<br>書的開場（蠟筆故事）→ 神經科學建立「為什麼需要故事」→ 工具（迴圈模型）跨越灰區 → 書末的清單讓你能馬上行動。Eber 在用整本書的結構，示範如何帶一個受眾從「不知道」到「可以做到」。</div>
-
-  <div class="hl b"><strong>[AI 原創洞見 L4-2] 神經耦合的商業含義</strong><br>
-  Neural coupling 意味著：如果你說的故事足夠真實、感官細節夠豐富，聽眾的大腦會「替代性地體驗」你的產品/服務/領導方式。這是最便宜的「試用品」——你不需要讓他們真的試用，你只需要讓他們的大腦經歷一遍。這是 B2B 提案、保險銷售、影像作品提案的核心武器。</div>
-
-  <div class="hl t"><strong>[AI 原創洞見 L4-3] 書沒說但很重要：故事的失效條件</strong><br>
-  神經耦合要發生，需要聽眾「信任這是真的」或「願意暫停懷疑」。一旦聽眾感覺到「這個故事是被設計來操縱我的」，神經耦合就斷裂，反而產生強烈的排斥感。這是為什麼 Eber 要專章討論操縱——故事的威力是雙刃劍。</div>
-
-  <div class="sh">跨領域對照表</div>
-  <table>
-    <thead><tr><th>領域</th><th>Eber 的洞見</th><th>延伸應用</th></tr></thead>
+    <thead><tr><th>部分</th><th>中文主題</th><th>章節</th><th>核心問題</th></tr></thead>
     <tbody>
-      <tr><td><strong>神經科學</strong></td><td>Neural coupling：說者與聽者大腦同步（Hasson, Princeton）</td><td>故事是目前最接近「心靈傳輸」的溝通方式</td></tr>
-      <tr><td><strong>行為心理學</strong></td><td>Jerome Bruner：嵌入故事的事實記憶留存提升 22%</td><td>學習/培訓中，用故事取代 PPT 條列的理論依據</td></tr>
-      <tr><td><strong>行銷學</strong></td><td>In-group 效應：「我也這樣！」觸發 oxytocin</td><td>品牌故事不是「公司有多厲害」，而是「你的客戶用了之後變成誰」</td></tr>
-      <tr><td><strong>書醒系統</strong></td><td>故事迴圈模型 = 可反覆執行的作業流程</td><td>每週練習：找一個日常片段 → 走一遍模型 → 說給一個人聽 → 修改</td></tr>
-      <tr><td><strong>TOC 思考</strong></td><td>「Make Everything Earn Its Place」= 去除限制，讓流程指向目標</td><td>講故事前問：這個細節是否讓聽眾更接近我想要的結果？</td></tr>
+      <tr><td><strong>Part 1</strong></td><td>破解說故事的藝術</td><td>Ch1–3</td><td>為什麼故事有效？大腦如何回應故事？</td></tr>
+      <tr><td><strong>Part 2</strong></td><td>情境——尋找故事素材</td><td>Ch4–7</td><td>從哪裡找故事？如何選擇適合的故事？</td></tr>
+      <tr><td><strong>Part 3</strong></td><td>衝突——建立故事結構</td><td>Ch8–13</td><td>如何架構故事？細節、情感、數據如何整合？</td></tr>
+      <tr><td><strong>Part 4</strong></td><td>結果——說出精彩故事</td><td>Ch14–18</td><td>如何呈現故事？如何避免操控？如何面對恐懼？</td></tr>
+      <tr><td><strong>Part 5</strong></td><td>收穫——核對清單</td><td>附錄</td><td>故事準備清單、測試清單、修正清單</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🔢 關鍵數字一覽</h3>
+  <div class="grid4">
+    <div class="info-card">
+      <div class="info-card-num">22x</div>
+      <div class="info-card-title">記憶倍增</div>
+      <div class="info-card-body">Jerome Bruner 研究：將事實嵌入故事，記憶率提升 22 倍</div>
+      <div class="info-card-src">[Ch2] Actual Minds, Possible Worlds</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-num">50%</div>
+      <div class="info-card-title">一小時遺忘率</div>
+      <div class="info-card-body">Ebbinghaus 遺忘曲線：無互動的資訊，1 小時後遺忘 50%</div>
+      <div class="info-card-src">[Ch2]</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-num">60–80%</div>
+      <div class="info-card-title">大腦預測耗能</div>
+      <div class="info-card-body">大腦 60–80% 的活動用於預測（Feldman Barrett 2018）</div>
+      <div class="info-card-src">[Ch2]</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-num">20%</div>
+      <div class="info-card-title">全身熱量佔比</div>
+      <div class="info-card-body">大腦消耗全身 20% 的卡路里，因此趨向節能模式</div>
+      <div class="info-card-src">[Ch2]</div>
+    </div>
+  </div>
+  <div class="grid4">
+    <div class="info-card">
+      <div class="info-card-num">1,000+</div>
+      <div class="info-card-title">嗅覺受器數量</div>
+      <div class="info-card-body">人類嗅覺受器超過 1,000 個，視覺色彩受器只有 3 個（Hamer 2019）</div>
+      <div class="info-card-src">[Ch2]</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-num">+60%</div>
+      <div class="info-card-title">Email 開信率</div>
+      <div class="info-card-body">Vanessa CEO 案例：每週故事郵件後，員工瀏覽率提升 60%</div>
+      <div class="info-card-src">[Ch4]</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-num">+78%</div>
+      <div class="info-card-title">互動率增長</div>
+      <div class="info-card-body">同上案例：互動率在導入故事郵件後提升 78%</div>
+      <div class="info-card-src">[Ch4]</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-num">4</div>
+      <div class="info-card-title">故事四段結構</div>
+      <div class="info-card-body">情境 → 衝突 → 結果 → 收穫（Context / Conflict / Outcome / Takeaway）</div>
+      <div class="info-card-src">[Ch8]</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <h3>🎤 本書的採訪嘉賓</h3>
+  <p>Eber 在每章末尾都進行深度訪談，涵蓋多元視角：</p>
+  <ul>
+    <li><strong>Sarah Austin Jenness</strong>——The Moth（全美最著名故事講述組織）執行製作人</li>
+    <li><strong>Pixar 創意總監</strong>——分享動畫敘事的工業級技藝</li>
+    <li><strong>神經科學家</strong>——從大腦機制解釋故事的生物基礎</li>
+    <li><strong>電玩遊戲編劇</strong>——互動敘事的特殊挑戰與機遇</li>
+    <li><strong>數據分析師</strong>——如何用故事讓數據說話</li>
+  </ul>
+  <div class="hl">
+    <p>💡 這本書的獨特之處在於：它不僅是一本「說故事技巧書」，更是一本建立在嚴謹神經科學之上的商業溝通教科書。Eber 把每個技巧都錨定在大腦運作機制上，讓讀者知道「為什麼這樣做有效」，而不只是「該怎麼做」。</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ STEP 2 ══════════════════════════════════ -->
+<section class="cd" id="s2">
+  <div class="step-badge">STEP 02 · 核心命題三要素</div>
+  <h2 class="st">🎯 核心命題三要素</h2>
+  <p class="st-desc">本書試圖解決什麼問題？提出什麼論點？用什麼方法論？</p>
+
+  <div class="grid3">
+    <div class="info-card" style="background:rgba(192,80,64,.05);border:1px solid rgba(192,80,64,.2)">
+      <div class="info-card-title" style="color:var(--r)">⚠️ 問題（Problem）</div>
+      <div class="info-card-body">
+        <p><strong>大多數人以為「說故事」是天賦，或者以為會說故事就夠了。</strong></p>
+        <p>商業世界充斥著：冗長的資料轟炸、刻板的 PowerPoint 投影片、無聊的公司電子報、被忽視的重要訊息、以及明明用心準備卻換來觀眾無動於衷的簡報。</p>
+        <p>更深層的問題是：即使人們試圖「說故事」，也常常犯錯——要不是以自我為中心忘了觀眾，要不是故事太可預測毫無張力，要不是堆滿細節卻抓不住主題。</p>
+      </div>
+    </div>
+    <div class="info-card" style="background:rgba(201,125,78,.06);border:1px solid rgba(201,125,78,.2)">
+      <div class="info-card-title" style="color:var(--a2)">💡 論點（Argument）</div>
+      <div class="info-card-body">
+        <p><strong>故事不是修辭技巧，而是一種神經科學工具。</strong></p>
+        <p>說故事的力量來自大腦的五個「出廠設定」——懶惰的大腦、假設填補的傾向、感官記憶的連結、信任機制、以及趨樂避苦的本能。掌握這五個設定，任何人都可以系統性地設計出能被大腦「接收」的故事。</p>
+        <p>更重要的是，故事的目的從來不是娛樂，而是<strong>觸發特定行動</strong>。沒有明確期望行為的故事，就像沒有目的地的地圖。</p>
+      </div>
+    </div>
+    <div class="info-card" style="background:rgba(90,158,88,.05);border:1px solid rgba(90,158,88,.2)">
+      <div class="info-card-title" style="color:var(--g)">🔧 方法論（Method）</div>
+      <div class="info-card-body">
+        <p><strong>故事迴圈模型（Story Loop）× 四段故事法</strong></p>
+        <p>Eber 提供一套可重複操作的完整流程：</p>
+        <ul style="font-size:.82rem">
+          <li>從日常生活中持續收集故事素材</li>
+          <li>先定義受眾與期望行為，再選故事</li>
+          <li>用四段框架建構主幹（情境→衝突→結果→收穫）</li>
+          <li>多層次加入感官細節與情感</li>
+          <li>逆向排序，製造懸念</li>
+          <li>用五大腦部設定檢驗每個元素</li>
+          <li>刪除一切不推進故事的內容</li>
+          <li>測試、迭代、再測試</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>🔍 一句話核心命題</h3>
+  <div class="quote">
+    好故事不是天賦，而是一套可學習的神經科學設計流程——從受眾出發，用大腦的語言說話，每一個字都為特定行動服務。
+    <span class="quote-src">書醒系統 [AI 原創洞見] — 提煉自全書核心論述</span>
+  </div>
+
+  <h3>📐 命題的深層結構</h3>
+  <p>本書的邏輯鏈條如下：</p>
+  <div class="hl">
+    <p><strong>①</strong> 大腦有固定的運作模式（五大出廠設定）<br>
+    ↓<br>
+    <strong>②</strong> 故事是唯一能同步觸發所有五個設定的溝通工具<br>
+    ↓<br>
+    <strong>③</strong> 但大多數故事因為不了解受眾、缺乏結構、沒有張力而失效<br>
+    ↓<br>
+    <strong>④</strong> 用故事迴圈模型可以系統性地設計有效故事<br>
+    ↓<br>
+    <strong>⑤</strong> 有效故事 = 觸發觀眾大腦的神經化學反應 = 驅動期望行為</p>
+  </div>
+
+  <h3>📊 與同類書的差異定位</h3>
+  <table>
+    <thead><tr><th>書目</th><th>核心定位</th><th>Eber 的差異</th></tr></thead>
+    <tbody>
+      <tr><td>Pixar 六步法</td><td>創意敘事框架</td><td>過於複雜，無法即時應用於商業場景</td></tr>
+      <tr><td>英雄旅程（坎伯）</td><td>神話敘事結構</td><td>適合長篇敘事，不適合 5 分鐘簡報</td></tr>
+      <tr><td>Story（Robert McKee）</td><td>電影編劇理論</td><td>偏向創意寫作，缺乏商業應用指南</td></tr>
+      <tr><td><strong>The Perfect Story</strong></td><td>神經科學 × 商業敘事</td><td><strong>科學根基 + 可操作流程 + 即時應用工具</strong></td></tr>
     </tbody>
   </table>
 </section>
 
-<!-- ══════ 行動轉化 ══════ -->
-<section class="cd">
-  <h2 class="st">🚀 行動轉化系統</h2>
+<!-- ══════════════════════════════════ STEP 3 ══════════════════════════════════ -->
+<section class="cd" id="s3">
+  <div class="step-badge">STEP 03 · 主題式深度分析</div>
+  <h2 class="st">🔬 主題式深度分析 — 五大主題 × 七層模板</h2>
+  <p class="st-desc">每個主題都用七層模板展開：①核心論點 ②原書引文 ③案例解析 ④科學機制 ⑤深層洞見 ⑥反例批判 ⑦行動應用</p>
 
-  <div class="sh">本週啟動（15 分鐘，從今天可以做）</div>
-  <div class="bk">
-    <h3>📦 建立你的故事銀行第一筆</h3>
-    <p>打開備忘錄，回想最近三個月裡讓你有情緒反應的日常時刻（驚訝、困窘、感動、挫敗都算）。寫下三個。不需要「有意義」，只要「有感覺」。這是你的原始素材庫。</p>
-  </div>
-  <div class="bk">
-    <h3>🎯 改造你下次簡報的前 47 秒</h3>
-    <p>把你即將要做的任何一場簡報、報告或提案的開場，改成一個場景。不是「謝謝大家」，不是「今天我要談三件事」——而是把聽眾放進一個具體的情境裡，讓他們的大腦馬上「出發」。</p>
-  </div>
-
-  <div class="sh">本月實驗</div>
-  <div class="bk">
-    <h3>🔄 走一遍完整迴圈</h3>
-    <p>從故事銀行選一個片段，照迴圈模型走一遍：① 定受眾 ② 建四段結構 ③ 加感官細節 ④ 確認五個腦部設定有觸發 ⑤ 說給一個真人聽 ⑥ 記錄他的反應。一個月走一個故事，足夠建立說故事的「肌肉記憶」。</p>
+  <!-- ═══ THEME A ═══ -->
+  <div class="theme-header">
+    <div class="theme-label">Theme A</div>
+    <div class="theme-title">五大腦部預設設定（Five Factory Settings）</div>
+    <div class="theme-subtitle">故事有效的科學根基 · Ch2 · 神經科學基礎</div>
   </div>
 
-  <div class="sh">長期指標</div>
-  <div class="hl g">
-    <strong>指標：被轉述的故事</strong><br>
-    如果你說完一個故事，聽眾事後主動提起它，或把它轉述給別人——這就是 Eber 定義的「完美故事」。每季問自己：這個月我有幾個被轉述的故事？
+  <div class="layer">
+    <div class="layer-label">Layer 1 · 核心論點</div>
+    <div class="layer-content">
+      <p>人類的大腦在演化中形成了五個固定的運作模式——Eber 稱之為「出廠設定」（Factory Settings）。這五個設定不是偏好，而是神經架構上的硬體限制。故事之所以有效，是因為它能系統性地觸發這五個設定，讓大腦從「節能模式」切換到「全力投入模式」，從而實現資訊的深度吸收與行為驅動。</p>
+    </div>
   </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 2 · 原書引文（含章節標注）</div>
+    <div class="layer-content">
+      <div class="quote">
+        Your brain is the stingiest of bankers.
+        <span class="quote-src">[Ch2] — 引用自 Paul Zak (2015) 和 Feldman Barrett (2021) 的大腦節能研究</span>
+      </div>
+      <div class="quote">
+        Storytelling is a musical conductor of neurochemicals.
+        <span class="quote-src">[Ch2] — 描述故事如何協調多巴胺、催產素、皮質醇等神經化學物質</span>
+      </div>
+      <div class="quote">
+        We know from the third factory setting — the library of files, these senses are often stamped with memories and emotions.
+        <span class="quote-src">[Ch2] — 解釋感官記憶的神經機制</span>
+      </div>
+      <div class="quote">
+        Stories create in-groups when they relate to the audience's 'I want that!' feeling.
+        <span class="quote-src">[Ch2] — Agarwal 2020，信任設定的核心機制</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 3 · 五大設定深度解析</div>
+    <div class="layer-content">
+      <div class="grid2">
+        <div class="info-card">
+          <div class="info-card-num">01</div>
+          <div class="info-card-title">懶惰的大腦（The Lazy Brain）</div>
+          <div class="info-card-body">
+            <p>大腦消耗全身 20% 的卡路里，其中 60–80% 用於預測。為了節能，大腦會自動忽略「可預測的」資訊。只有出乎意料的張力，才能讓大腦從自動駕駛切換到高度專注。</p>
+            <p><strong>故事應用：</strong>在故事開場就製造不確定性——一個懸而未決的問題、一個出人意料的轉折、或是一個反直覺的觀察，才能讓大腦「值得」投入卡路里去處理。</p>
+          </div>
+          <div class="info-card-src">科學依據：Feldman Barrett (2018, 2021), Paul Zak (2015)</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-num">02</div>
+          <div class="info-card-title">假設的空隙（Minding the Gap）</div>
+          <div class="info-card-body">
+            <p>大腦討厭不完整的資訊，會自動填補空白。當故事留下刻意的「空隙」，大腦就會主動參與填補，這種主動參與本身就強化了記憶。</p>
+            <p><strong>故事應用：</strong>不要把所有資訊說完，刻意留白讓觀眾的大腦「參與」推論。問題比答案更能引發注意：「你覺得接下來發生了什麼？」</p>
+          </div>
+          <div class="info-card-src">應用：問句、伏筆、懸念設計</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-num">03</div>
+          <div class="info-card-title">記憶文件庫（Library of Files）</div>
+          <div class="info-card-body">
+            <p>大腦以感官記憶為索引儲存資訊。嗅覺受器超過 1,000 個（相比視覺只有 3 個色彩受器），氣味能召喚比任何感官都更強烈的情感記憶。感官細節不是裝飾，而是觸發記憶檔案的鑰匙。</p>
+            <p><strong>故事應用：</strong>加入具體感官描述——不是「很熱」，而是「皮膚上黏著汗水的感覺」；不是「咖啡」，而是「炭火烘焙的焦苦香氣」。</p>
+          </div>
+          <div class="info-card-src">科學依據：Hamer (2019)，嗅覺記憶研究</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-num">04</div>
+          <div class="info-card-title">信任的力量（The Strength of Trust）</div>
+          <div class="info-card-body">
+            <p>大腦天生劃分「我群」與「他群」。當故事讓觀眾感受到「這就是我！」或「我也想要這個！」，就建立了心理上的群體認同，大幅降低防禦機制，提升說服力。</p>
+            <p><strong>故事應用：</strong>讓故事中的人物面臨觀眾熟悉的困境，使觀眾自動代入，觸發「我群」認同。共同的掙扎比共同的成功更能建立信任。</p>
+          </div>
+          <div class="info-card-src">科學依據：Agarwal (2020)，群體認同神經機制</div>
+        </div>
+        <div class="info-card" style="grid-column:1/-1">
+          <div class="info-card-num">05</div>
+          <div class="info-card-title">趨樂避苦（Seek Pleasure, Avoid Pain）</div>
+          <div class="info-card-body">
+            <p>大腦的神經化學反應分兩大類：<strong>連結類</strong>（多巴胺、腦內啡、催產素——帶來愉悅與連結感）和<strong>威脅類</strong>（皮質醇、腎上腺素——帶來緊張與警覺）。故事可以刻意調度這兩類神經化學物質，在張力與釋放之間來回波動，製造引人入勝的情感體驗。</p>
+            <p><strong>故事應用：</strong>不要讓情感單調。一個好故事應該像音樂一樣，在緊張（皮質醇）與放鬆（催產素）之間交替，每一次釋放都帶來更深的情感連結與記憶鞏固。</p>
+          </div>
+          <div class="info-card-src">核心比喻：「故事是神經化學物質的音樂指揮」[Ch2]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 4 · 科學機制</div>
+    <div class="layer-content">
+      <h4>神經耦合（Neural Coupling）——最重要的發現</h4>
+      <p>普林斯頓大學 Dr. Uri Hasson 的 fMRI 研究顯示：當說故事者與聽故事者的大腦進行掃描時，兩者的神經活動模式高度同步——這被稱為「神經耦合」（Neural Coupling）。換句話說，一個好故事能讓講者的大腦狀態「傳染」給聽者。</p>
+      <p>巴黎腦部研究院更進一步發現：在聽故事的過程中，聽者的<strong>心跳也會與講者同步</strong>。這不是比喻，而是生理現實。</p>
+      <div class="quote">
+        Jerome Bruner 的研究發現：將事實嵌入故事，比單純陳述事實，記憶率提升 22 倍。
+        <span class="quote-src">[Ch2] — Bruner, J. (1986). Actual Minds, Possible Worlds. Harvard University Press.</span>
+      </div>
+      <div class="hl.b" style="border-left:4px solid var(--b);background:rgba(90,142,180,.07);border-radius:14px;padding:16px 18px;margin:12px 0">
+        <p><strong>Ebbinghaus 遺忘曲線的啟示：</strong>沒有情感連結或互動的資訊，在 1 小時內就會遺忘 50%，24 小時內遺忘超過 70%。而情感標籤（emotional tagging）能大幅延長記憶的半衰期。故事的作用，就是給每一個重要資訊貼上情感標籤。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 5 · 深層洞見 [AI 原創洞見]</div>
+    <div class="layer-content">
+      <p>五大出廠設定不是獨立運作的，而是相互嵌套、協同作用的系統。最有力的故事，是能同時觸發全部五個設定的故事：</p>
+      <ul>
+        <li><strong>懶惰的大腦</strong>（讓大腦願意投入）→ 提供進入故事的「門票」</li>
+        <li><strong>假設的空隙</strong>（讓大腦主動參與）→ 建立投入感與理解深度</li>
+        <li><strong>記憶文件庫</strong>（讓大腦記住）→ 確保資訊留存</li>
+        <li><strong>信任的力量</strong>（讓大腦接受）→ 降低抵抗，建立連結</li>
+        <li><strong>趨樂避苦</strong>（讓大腦行動）→ 驅動具體的行為改變</li>
+      </ul>
+      <p>這個順序本身就是一個最小化故事設計框架：<em>先吸引注意 → 建立參與 → 確保記憶 → 建立信任 → 驅動行動</em>。</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 6 · 反例批判</div>
+    <div class="layer-content">
+      <p>Eber 的框架雖然嚴謹，但有一個潛在盲點：五大設定的強度因文化而異。研究顯示，「信任的力量」在集體主義文化（如東亞、拉丁美洲）中，「我群」的範圍界定方式與個人主義文化（如北美）截然不同。在台灣或日本的商業場景中，過於強調個人英雄弧線的故事，可能反而破壞「我群」認同，因為集體成功才是情感共鳴點。</p>
+      <p>此外，「假設的空隙」在高情境文化（high-context culture）中的應用也需要調整——在重視直接表達的文化中，刻意留白可能被解讀為資訊不充分，而非巧妙的懸念設計。</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 7 · 行動應用</div>
+    <div class="layer-content">
+      <p>每次準備重要溝通前，用五大設定做快速檢核：</p>
+      <ul>
+        <li><span class="tg tg-a">懶惰大腦</span> 我的開場是否有意外/張力？第一句話會讓大腦覺得「值得繼續聽」嗎？</li>
+        <li><span class="tg tg-o">假設空隙</span> 我有沒有在適當時機停頓，讓觀眾的大腦自己推論？</li>
+        <li><span class="tg tg-b">記憶文件庫</span> 我用了哪些具體感官細節？能喚起觀眾自己的記憶嗎？</li>
+        <li><span class="tg tg-t">信任力量</span> 故事中的困境，是觀眾熟悉的困境嗎？他們會想「這就是我！」嗎？</li>
+        <li><span class="tg tg-g">趨樂避苦</span> 我有沒有製造情感的起伏波動？是否有明確的情感「釋放點」？</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══ THEME B ═══ -->
+  <div class="theme-header">
+    <div class="theme-label">Theme B</div>
+    <div class="theme-title">故事 ≠ 娛樂——故事是「行動觸發器」</div>
+    <div class="theme-subtitle">期望結果的核心概念 · Ch3 · 最常被忽略的故事失效原因</div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 1 · 核心論點</div>
+    <div class="layer-content">
+      <p>大多數人把「講了一個好故事」等同於「完成了目標」。Eber 認為這是一個致命的混淆。故事的品質（是否感人、是否精彩）與故事的有效性（是否觸發期望行為）是完全不同的兩件事。一個故事可以讓觀眾淚流滿面，卻完全沒有改變他們的行為。</p>
+      <p>更危險的是：<strong>可預測性是故事的最大殺手</strong>。當觀眾已經知道故事的走向，大腦就切換回節能模式，不再主動投入，也就不會有真正的情感連結和行為改變。</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 2 · 原書引文</div>
+    <div class="layer-content">
+      <div class="quote">
+        It's not enough to tell a story. The way you tell the story makes a difference.
+        <span class="quote-src">[Ch3] — 針對百威啤酒廣告「小狗愛情」案例的總結</span>
+      </div>
+      <div class="quote">
+        It didn't create engagement in the brains of the audience that led to follow-through sales.
+        <span class="quote-src">[Ch3] — 解釋為什麼一個「獲獎的廣告」卻沒有轉化成銷售</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 3 · 案例解析：百威啤酒「小狗愛情」廣告</div>
+    <div class="layer-content">
+      <p>這是本書最核心的案例，也是最反直覺的洞見之一。</p>
+      <div class="hl">
+        <p><strong>故事背景：</strong>2014 年超級盃，百威啤酒播出「Puppy Love」廣告——一隻小黃狗和百威的克萊茲代爾馬之間的友情故事。廣告美麗動人，獲得大量好評，被評為當年最受喜愛的超級盃廣告。</p>
+        <p><strong>問題是：</strong>廣告播出後，百威啤酒的銷售並沒有顯著提升。</p>
+        <p><strong>Eber 的診斷：</strong></p>
+        <ul>
+          <li><strong>可預測性殺死了張力</strong>：從廣告開始的第一秒，觀眾就知道小狗和馬最終會在一起。沒有真正的懸念，大腦就沒有理由主動投入。</li>
+          <li><strong>情感弧線太平</strong>：故事的風險只在中途稍微拉高（馬跑走了），但很快就完美解決。沒有真正的考驗，也就沒有真正的情感投資。</li>
+          <li><strong>沒有「期望行為」</strong>：觀眾看完廣告，感覺很好，但沒有任何理由去「買一瓶百威」。故事與產品之間的連結太薄弱。</li>
+        </ul>
+      </div>
+      <p>反觀真正有效的百威廣告——2002 年超級盃後第一個超級盃，百威播出了一支向 9/11 罹難者致敬的廣告，克萊茲代爾馬在紐約街頭走向雙子星廢墟並鞠躬。這支廣告的情感是真實而沉重的，它讓觀眾感受到品牌的道德立場，建立了深層的品牌信任。</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 4 · 科學機制：神經活動與行為連結</div>
+    <div class="layer-content">
+      <p>Dr. Uri Hasson 的神經耦合研究顯示：只有當故事讓觀眾的大腦產生<strong>主動預測</strong>（而非被動接收）時，神經耦合才會最強。而主動預測的前提是：<strong>結果不可確定</strong>。</p>
+      <p>可預測的故事讓大腦進入「確認模式」——只是在驗證已知的預期，沒有真正的神經活動投入。不可預測的故事才能觸發大腦的「預測機器」全力運轉，形成深度的神經耦合，從而產生真正的情感投資與行為改變動機。</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 5 · 深層洞見</div>
+    <div class="layer-content">
+      <p><strong>「期望行為」是故事設計的 GPS。</strong></p>
+      <p>Eber 提出一個簡單但深刻的問題：「說完這個故事後，你希望觀眾做什麼、說什麼、感覺什麼、相信什麼？」這個問題必須在選故事之前就回答，而不是說完故事再想。</p>
+      <p>這與傳統的「先有內容再想包裝」截然相反——Eber 的邏輯是：<strong>先有目的地，再設計旅程</strong>。這其實是逆向設計（Backward Design）的說故事版本。</p>
+      <div class="quote">
+        期望行為的分類框架 [AI 原創洞見]：<br>
+        • <strong>認知改變</strong>（Believe something new）— 讓觀眾形成新的信念<br>
+        • <strong>情感改變</strong>（Feel something different）— 讓觀眾產生特定情緒<br>
+        • <strong>行為改變</strong>（Do something specific）— 讓觀眾採取具體行動<br>
+        • <strong>身份認同改變</strong>（See themselves differently）— 最深層的改變，重塑自我認知
+        <span class="quote-src">[AI 原創洞見] — 基於 Eber Ch3 期望行為概念的延伸分類</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 6 · 反例批判</div>
+    <div class="layer-content">
+      <p>Eber 的「行動觸發器」框架有一個潛在的過度工具化風險：如果把故事完全工具化，每個故事都必須有明確的期望行為，可能反而失去故事最珍貴的品質——<strong>開放性</strong>。</p>
+      <p>偉大的文學作品之所以偉大，往往是因為它不告訴你該怎麼想，而是讓你自己發現。Eber 的框架在商業場景中是正確的，但在培養長期品牌信任或深層文化影響的場景中，「讓觀眾自己得出結論」可能比「明確導向期望行為」更有效。</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 7 · 行動應用</div>
+    <div class="layer-content">
+      <p><strong>「期望行為」設計練習：</strong></p>
+      <p>在準備任何溝通前，先填完這個句子：「說完這個故事後，我希望觀眾<u>_______</u>（做什麼/說什麼/感覺什麼/相信什麼）。」</p>
+      <p>然後問自己：「我選的故事，是否最直接地服務於這個期望行為？有沒有更好的故事可以更有效地驅動這個行為？」</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══ THEME C ═══ -->
+  <div class="theme-header">
+    <div class="theme-label">Theme C</div>
+    <div class="theme-title">故事不從故事開始——受眾優先原則</div>
+    <div class="theme-subtitle">受眾定義方法論 · Ch5 · 說故事最常見的致命錯誤</div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 1 · 核心論點</div>
+    <div class="layer-content">
+      <p>說故事最常見的錯誤，不是故事本身不好，而是選錯了故事——選了一個講者自己喜歡、自己覺得有意義的故事，卻沒有考慮觀眾是否能產生共鳴。</p>
+      <p>Eber 的主張激進而清晰：<strong>說故事的流程，必須從「我是誰」轉換為「他們是誰」</strong>。在選擇故事之前，你需要先完整定義受眾的心理輪廓——他們知道什麼、不知道什麼、在乎什麼、害怕什麼、需要什麼。</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 2 · 原書引文</div>
+    <div class="layer-content">
+      <div class="quote">
+        The secret of storytelling is that it doesn't start with the story; it starts with the audience.
+        <span class="quote-src">[Ch5] — 全書最核心的一句話，顛覆了大多數人對說故事的理解</span>
+      </div>
+      <div class="quote">
+        Stories that fall flat or seem pointless often share one thing in common. They center on the storyteller and what they love about the story—neglecting to make it meaningful for the audience.
+        <span class="quote-src">[Ch5] — 診斷故事失效的根本原因</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 3 · 案例解析</div>
+    <div class="layer-content">
+      <h4>案例一：Riley 的「最精彩故事清單」</h4>
+      <p>Riley 是一位有豐富故事庫的資深主管。她有一份長長的「最精彩故事清單」——每個故事她都講得滾瓜爛熟，自信十足。但她的簡報效果卻讓人失望。</p>
+      <p>問題在哪？Riley 選故事的標準是「哪些故事我自己最喜歡」，而不是「哪些故事對這個特定的觀眾最有意義」。她的故事庫是以講者為中心構建的，而不是以觀眾為中心。</p>
+      <p>Eber 的解決方案：先建立受眾人物誌（Audience Persona），再回頭在故事庫裡選最適合的故事。</p>
+
+      <h4>案例二：Vanessa CEO 的故事郵件革命</h4>
+      <p>Vanessa 是一家中型企業的 CEO，她決定改變每週員工郵件的寫作方式：從「公司資訊」模式切換到「個人故事」模式。她的故事都經過精心選擇——選那些能讓員工感同身受的困境與成長故事。</p>
+      <p>結果：<strong>郵件瀏覽率提升 60%，互動率提升 78%</strong>。這個案例說明：受眾優先原則不僅是理論，更是可量化的商業成果。</p>
+
+      <h4>案例三：Getting to Yes 橙子故事的失效</h4>
+      <p>《哈佛談判術》（Getting to Yes）中有一個著名的案例：談判雙方爭一顆橙子，最後發現一方要橙汁、一方要橙皮，因此可以完美分配。這個案例被兩個培訓公司廣泛使用，結果每次都失效——聽眾反應冷漠。</p>
+      <div class="quote">
+        No one has ever said, 'I wish that presentation had more business lingo.'
+        <span class="quote-src">[Ch6] — 批評商業說故事中過度使用行業術語與通用案例的問題</span>
+      </div>
+      <p>橙子故事失效的原因：它已經被用到爛了，大腦早已形成「這個我知道」的預期，直接切換節能模式。而且，沒有人能告訴你只有你能說橙子故事——它缺乏個人性，無法建立信任連結。</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 4 · 受眾人物誌建構方法</div>
+    <div class="layer-content">
+      <p>Eber 提供了一個受眾分析框架，在選故事之前必須回答以下問題：</p>
+      <table>
+        <thead><tr><th>維度</th><th>問題</th><th>故事設計影響</th></tr></thead>
+        <tbody>
+          <tr><td>知識水平</td><td>他們對這個主題已知什麼？有什麼誤解？</td><td>決定背景資訊的深度與切入點</td></tr>
+          <tr><td>情感狀態</td><td>他們現在的情緒是什麼？對這個主題的態度？</td><td>決定故事的情感基調與首先需要建立的信任</td></tr>
+          <tr><td>核心顧慮</td><td>他們最擔心什麼？什麼會阻止他們採取行動？</td><td>決定衝突設計——故事應該直面他們的顧慮</td></tr>
+          <tr><td>渴望</td><td>他們最想要什麼？成功對他們意味著什麼？</td><td>決定結果設計——讓故事的結局映照他們的渴望</td></tr>
+          <tr><td>參考框架</td><td>他們熟悉哪些類比、文化、共同經歷？</td><td>決定細節與比喻的選擇</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 5 · 深層洞見：個人故事 ≠ 私人秘密</div>
+    <div class="layer-content">
+      <div class="quote">
+        Personal does not mean private. A personal story doesn't require sharing anything revealing. Anytime you tell a story, give the version only you can tell.
+        <span class="quote-src">[Ch7] — 解除商業人士對個人故事的最大誤解</span>
+      </div>
+      <p>Eber 在 Ch7 用 Lina 的案例說明這個問題：Lina 是一家工程公司的第一位女性主管，她非常擔心使用個人故事會讓她看起來「太情緒化」或「不夠專業」。但 Eber 指出，個人故事不等於暴露脆弱，它只是指「只有你能說的版本」。</p>
+      <p>你可以說一個完全是「工作上的挑戰與解決」的故事，但只要它是你親身經歷的、只有你視角的、加入了你的具體感受的，它就是個人故事。而個人故事的力量，來自它的不可複製性——它無法被大腦預判為「這個我知道」。</p>
+      <div class="quote">
+        Storytelling is a gift you're giving to the audience.
+        <span class="quote-src">[Ch7] — 重新定義說故事的本質：不是表演，而是給予</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 6 · 反例批判</div>
+    <div class="layer-content">
+      <p>「受眾優先」原則雖然強大，但有其侷限：在某些情況下，<strong>說故事者的真實聲音比「為受眾量身定做」更重要</strong>。</p>
+      <p>以品牌敘事為例，過度針對受眾優化的故事可能失去品牌的獨特性——它變得「太精準」，反而缺少讓人意外的稜角。馬丁·路德·金的「我有一個夢想」演說，並不是先做受眾分析再寫的；賈伯斯的 1984 廣告也不是從受眾人物誌出發的。某些改變歷史的故事，是因為說故事者有強烈的信念要分享，而不是因為他們分析了受眾想聽什麼。</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 7 · 行動應用</div>
+    <div class="layer-content">
+      <p><strong>受眾優先快速工作表：</strong></p>
+      <p>在準備任何重要溝通前，用 5 分鐘回答：</p>
+      <ul>
+        <li>這個受眾現在最大的<strong>擔憂</strong>是什麼？</li>
+        <li>他們最深的<strong>渴望</strong>是什麼？</li>
+        <li>他們對這個主題有什麼<strong>錯誤假設</strong>需要被挑戰？</li>
+        <li>我的故事能讓他們說出「<strong>這就是我！</strong>」嗎？</li>
+        <li>說完故事後，他們會做的<strong>第一件事</strong>是什麼？</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══ THEME D ═══ -->
+  <div class="theme-header">
+    <div class="theme-label">Theme D</div>
+    <div class="theme-title">四段故事框架 + 細節層疊設計</div>
+    <div class="theme-subtitle">Ch8–12 · 結構、細節、情感、排序的完整工藝</div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 1 · 核心論點</div>
+    <div class="layer-content">
+      <p>Eber 設計四段故事框架（Context → Conflict → Outcome → Takeaway）的出發點，是解決現有框架的一個根本缺陷：英雄旅程和 Pixar 六步法在簡報現場根本用不上——它們太複雜、太耗時、太難在即時對話中應用。</p>
+      <p>四段框架的設計原則是：<strong>最簡化到還能完整呈現一個有效故事的框架</strong>。不能更少，因為少了任何一段都會讓故事失去效力；不需要更多，因為這四段已經能觸發大腦需要的所有神經化學反應。</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 2 · 原書引文</div>
+    <div class="layer-content">
+      <div class="quote">
+        A great story isn't determined by length. It's created by building an idea that results in the audience's engagement and understanding.
+        <span class="quote-src">[Ch8] — 打破「故事必須很長」的迷思</span>
+      </div>
+      <div class="quote">
+        The story structure acts as the frame for major plot points, the scaffolding to layer details upon.
+        <span class="quote-src">[Ch8] — 說明四段結構的本質是細節的「鷹架」，而非束縛</span>
+      </div>
+      <div class="quote">
+        Communicating information to an audience is like getting ice cream from your freezer... telling a great story is like going out for ice cream.
+        <span class="quote-src">[Ch9] — Kimball Farm 冰淇淋店案例的比喻核心</span>
+      </div>
+      <div class="quote">
+        The difference between a good story and a great story is how it engages the senses and emotions.
+        <span class="quote-src">[Ch10] — 細節與情感的決定性作用</span>
+      </div>
+      <div class="quote">
+        Constraints present the best ideas for storytelling.
+        <span class="quote-src">[Ch10] — 斯皮爾伯格《大白鯊》機器鯊魚壞掉的啟示</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 3 · 四段框架深度解析</div>
+    <div class="layer-content">
+      <div class="arc-container">
+        <div class="arc-line">
+          <div class="arc-stage arc-bg-1">
+            <div class="arc-num">01</div>
+            <div class="arc-stage-title">情境（Context）</div>
+            <div class="arc-stage-desc">建立時間、地點、人物、背景。讓觀眾知道「這個故事在說什麼」，同時預埋衝突的種子。</div>
+          </div>
+          <div class="arc-stage arc-bg-2">
+            <div class="arc-num">02</div>
+            <div class="arc-stage-title">衝突（Conflict）</div>
+            <div class="arc-stage-desc">製造張力、困境、或不確定性。這是故事的引擎，驅動觀眾大腦從節能模式切換到投入模式。</div>
+          </div>
+          <div class="arc-stage arc-bg-3">
+            <div class="arc-num">03</div>
+            <div class="arc-stage-title">結果（Outcome）</div>
+            <div class="arc-stage-desc">衝突如何解決，或未解決。情感釋放點。觀眾的大腦在此完成神經化學的「釋放循環」。</div>
+          </div>
+          <div class="arc-stage arc-bg-4">
+            <div class="arc-num">04</div>
+            <div class="arc-stage-title">收穫（Takeaway）</div>
+            <div class="arc-stage-desc">從故事中提煉的洞見、啟發或行動指引。把故事的情感轉化為認知改變，連結到觀眾的現實。</div>
+          </div>
+        </div>
+      </div>
+
+      <h4>Yasmin 護照故事：反面教材</h4>
+      <p>Yasmin 要講一個關於出差的故事，她以「那是週二早上七點，我剛抵達機場，準備辦理登機」開始，然後花了大量時間描述她如何找停車位、行李有多重、機場的人有多多……結果在還沒進入故事重點之前，觀眾就已經失去興趣。</p>
+      <p>問題診斷：Yasmin 試圖重現所有細節，卻沒有區分哪些細節服務於故事主線，哪些只是她自己的記憶碎片。四段框架的作用，是讓說故事者在開口前就決定：<strong>哪些細節放在哪個框格裡，哪些細節完全不需要</strong>。</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 4 · 細節層疊方法論</div>
+    <div class="layer-content">
+      <h4>Kimball Farm 冰淇淋店：細節的力量</h4>
+      <p>Eber 用兩個版本的同一個場景對比，說明細節的決定性作用：</p>
+      <div class="grid2">
+        <div class="info-card" style="background:rgba(192,80,64,.05)">
+          <div class="info-card-title" style="color:var(--r)">❌ 無細節版</div>
+          <div class="info-card-body">「我們去了一個冰淇淋店，買了冰淇淋。天氣很熱，冰淇淋很好吃。」</div>
+        </div>
+        <div class="info-card" style="background:rgba(90,158,88,.05)">
+          <div class="info-card-title" style="color:var(--g)">✅ 感官細節版</div>
+          <div class="info-card-body">「那個週六下午，新英格蘭的陽光烤著你的後頸，我們排在 Kimball Farm 的長隊裡，腳下的碎石路……空氣中飄著剛烤好的甜筒餅乾香……」</div>
+        </div>
+      </div>
+      <p>細節的「多層次添加法」：Eber 建議先寫出故事的骨架（四段框架），再分多輪添加細節——第一輪加入感官細節，第二輪加入情感反應，第三輪加入具體數字與時間，第四輪剔除一切不服務主題的細節。</p>
+
+      <h4>《大白鯊》的制約美學</h4>
+      <p>斯皮爾伯格在拍攝《大白鯊》時，機器鯊魚頻繁故障，大量計劃好的鏡頭無法拍攝。結果他被迫用音樂、水波紋、人們的反應來<em>暗示</em>鯊魚的存在，而非直接展示。這個「限制」使電影比原來的設計更加恐怖。</p>
+      <div class="quote">
+        Constraints present the best ideas for storytelling.
+        <span class="quote-src">[Ch10]</span>
+      </div>
+      <p><strong>[AI 原創洞見]</strong>：這個原則在商業說故事中有深刻的應用——時間限制（只有 3 分鐘）、資訊限制（不能透露所有細節）、媒介限制（只能用文字）往往能逼出最精準、最有力的故事設計。</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 5 · 序列設計：Good Will Hunting 案例</div>
+    <div class="layer-content">
+      <p>Eber 在 Ch11 用《心靈捕手》中 Sean Maguire（羅賓·威廉斯飾）講亡妻故事的場景，說明非線性排序的力量：</p>
+      <p>Sean <strong>先說結果</strong>（「我不後悔認識她」），<strong>再說情境</strong>（「1975 年 10 月 21 日，世界大賽」），<strong>再說衝突</strong>（「有個女孩走進來……」），<strong>最後說收穫</strong>（「我沒有後悔過把票讓給她」）。</p>
+      <p>關鍵技巧：「1975 年 10 月 21 日」這個具體日期，讓觀眾的大腦產生一個問題：「為什麼他記得這麼清楚？」這個問題就是「懶惰大腦」設定的觸發器——大腦必須繼續聽下去，因為它有一個待填補的空白。</p>
+      <div class="quote">
+        In walks this girl.
+        <span class="quote-src">[Ch11] — Good Will Hunting 場景，「planted seed」技法的示範：先種下一顆懸念的種子，讓觀眾帶著問題進入故事的其餘部分。</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 6 · 讓每個元素賺到它的位置：La La Land</div>
+    <div class="layer-content">
+      <p>Chazelle 在剪輯《樂來越愛你》時，做了一個極端的決定：把所有歌舞場面全部剪掉，然後<strong>逐一讓每個場面重新賺回它的位置</strong>。一個場面被放回去的唯一標準是：「如果剪掉它，故事有損失嗎？」</p>
+      <div class="quote">
+        Does this advance the story forward? If cut, would anything be lost?
+        <span class="quote-src">[Ch12] — La La Land 的剪輯原則，同樣適用於商業故事的精煉</span>
+      </div>
+      <p>這個原則對商業說故事的啟示：你的故事裡有多少元素是「因為我覺得有趣」而不是「因為它推進故事」？統計一下，往往會發現超過 30% 的內容是可以砍掉的。</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 7 · 行動應用</div>
+    <div class="layer-content">
+      <p><strong>四段框架快速建構工作表：</strong></p>
+      <table>
+        <thead><tr><th>框格</th><th>要填入的內容</th><th>常見錯誤</th></tr></thead>
+        <tbody>
+          <tr><td>情境</td><td>誰、在哪、什麼時候、什麼狀況（30 字以內）</td><td>過度描述背景，讓觀眾失去耐心</td></tr>
+          <tr><td>衝突</td><td>出了什麼事？難在哪？為什麼重要？</td><td>衝突太輕微，觀眾感覺不到真正的張力</td></tr>
+          <tr><td>結果</td><td>怎麼解決（或沒解決）的？情感如何轉變？</td><td>解決太快，沒有讓情感有足夠空間呼吸</td></tr>
+          <tr><td>收穫</td><td>這個故事告訴我們/你什麼？接下來怎麼做？</td><td>沒有收穫，或收穫太說教，缺乏邏輯橋接</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ═══ THEME E ═══ -->
+  <div class="theme-header">
+    <div class="theme-label">Theme E</div>
+    <div class="theme-title">故事的倫理邊界——操控 vs. 影響，以及脆弱的力量</div>
+    <div class="theme-subtitle">Ch17–18 · 說故事的道德哲學與恐懼管理</div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 1 · 核心論點</div>
+    <div class="layer-content">
+      <p>說故事是一種力量，而力量可以用來影響，也可以用來操控。Eber 在 Ch17 正面處理這個倫理問題，提出了一個清晰的界限：<strong>影響尊重選擇，操控剝奪選擇</strong>。</p>
+      <p>在 Ch18，她用自己在 TED 演講台上「腦袋空白」的親身經歷，說明說故事的最終倫理問題：不是「你是否完美」，而是「你是否真實」。脆弱（vulnerability）不是軟弱，而是最深層的信任建立工具。</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 2 · 原書引文</div>
+    <div class="layer-content">
+      <div class="quote">
+        Influence involves choice; manipulation involves control.
+        <span class="quote-src">[Ch17] — 操控與影響的核心區別</span>
+      </div>
+      <div class="quote">
+        Manipulation sets in when you aren't transparent about the information, intent, or context.
+        <span class="quote-src">[Ch17] — 操控的三個維度：資訊不透明、意圖不透明、情境不透明</span>
+      </div>
+      <div class="quote">
+        The audience is on your side cheering for you.
+        <span class="quote-src">[Ch18] — Eber 在 TED 台上腦袋空白時，她對自己說的話</span>
+      </div>
+      <div class="quote">
+        Success isn't perfection. It's connecting through moments of authenticity.
+        <span class="quote-src">[Ch18] — 重新定義說故事的「成功」</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 3 · 案例解析</div>
+    <div class="layer-content">
+      <h4>ASPCA 公益廣告：情感力量 vs. 操控？</h4>
+      <p>ASPCA（美國愛護動物協會）的廣告以大量受虐動物的悲慘畫面配上 Sarah McLachlan 的音樂，是公認最「催淚」的廣告之一。有批評者認為這是情感操控。</p>
+      <p>Eber 的判斷：<strong>不是操控，是合理的情感影響</strong>。原因：ASPCA 對自己的意圖完全透明（拯救受虐動物、募集捐款），對資訊完全透明（真實的動物畫面），對情境完全透明（公益廣告）。觀眾有完整的資訊做出捐款與否的自由選擇。</p>
+
+      <h4>宣傳 vs. 說服</h4>
+      <p>Eber 在此觸及了一個更大的問題：宣傳（propaganda）之所以是操控，是因為它選擇性地呈現資訊、隱藏反面證據、製造虛假的緊迫感，並利用群體壓力剝奪個人的獨立判斷。</p>
+      <p>商業說故事的倫理紅線：<strong>不要因為一個故事「有效」就使用它——問自己，這個故事是否真實反映了你的產品/服務/主張的完整圖景？</strong></p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 4 · Fearless Girl 的設計過程</div>
+    <div class="layer-content">
+      <p>在 Ch16，Eber 提到了一個令人驚訝的幕後故事：「無畏女孩」雕像（Fearless Girl）在成為全球知名符號之前，原始設計是一頭銅牛（而不是女孩）。</p>
+      <p>設計師在最後關頭做了一個關鍵轉變——把「對抗華爾街公牛」的故事，從「力量對力量」改變為「勇氣對力量」，這個轉變讓整個故事的情感重量完全不同。</p>
+      <div class="quote">
+        Storytelling doesn't have to be time-consuming, but it does require some preparation.
+        <span class="quote-src">[Ch16] — Fearless Girl 案例的核心啟示</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 5 · 脆弱作為說故事的倫理基礎</div>
+    <div class="layer-content">
+      <p>Eber 的 TED 演講故事是本書最私密、也最有力的部分：她在舞台上完全腦袋空白，停頓了足足幾秒。在那個瞬間，她沒有試圖假裝完美，而是如實承認了自己的停頓，然後繼續。</p>
+      <p>那次演講的回響，比她此前的任何一次都更強烈。原因是：觀眾感受到了一個真實的人，而不是一個完美的表演者。神經耦合在那個「不完美的瞬間」達到了頂峰，因為那是觀眾最能完全代入的時刻。</p>
+      <p><strong>[AI 原創洞見]：</strong>脆弱性（vulnerability）之所以有力，是因為它同時觸發了所有五個大腦出廠設定：「腦袋空白」是出乎意料的（懶惰大腦）；觀眾不知道她會如何應對（假設空隙）；那種緊張感喚起每個人在公開場合出醜的記憶（記憶文件庫）；她沒有假裝，建立了真實信任（信任力量）；最後的連結感帶來深度的情感釋放（趨樂避苦）。</p>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 6 · 反例批判</div>
+    <div class="layer-content">
+      <p>Eber 的倫理框架雖然清晰，但「透明度」在商業世界中往往比理論複雜得多。企業說故事的倫理灰色地帶包括：</p>
+      <ul>
+        <li><strong>選擇性真實</strong>：每一個成功故事都是真實的，但商業敘事往往選擇性地只說成功故事，省略了失敗、副作用、或負面影響。這算操控嗎？</li>
+        <li><strong>情感放大</strong>：即使資訊完整，過度的情感設計是否仍是操控的一種形式？</li>
+        <li><strong>身份認同利用</strong>：利用受眾的「信任設定」建立群體認同，是否有時會淪為制造回音壁？</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="layer">
+    <div class="layer-label">Layer 7 · 行動應用</div>
+    <div class="layer-content">
+      <p><strong>說故事倫理自查問題：</strong></p>
+      <ul>
+        <li>我的故事是否對資訊、意圖、情境都完全透明？</li>
+        <li>我是否選擇性地省略了對觀眾決策有重要影響的反面資訊？</li>
+        <li>觀眾在聽完我的故事後，是否有足夠的資訊做出自主選擇？</li>
+        <li>如果觀眾知道我設計這個故事的全部意圖，他們還會認為它是合理的嗎？</li>
+        <li>我是否在用脆弱來建立真實連結，還是在用「假脆弱」來操縱同情？</li>
+      </ul>
+    </div>
+  </div>
+
 </section>
 
-<!-- ══════ 書庫卡 ══════ -->
-<section class="cd">
-  <h2 class="st">📚 書庫卡片</h2>
+<!-- ══════════════════════════════════ STEP 4 ══════════════════════════════════ -->
+<section class="cd" id="s4">
+  <div class="step-badge">STEP 04 · 敘事弧線分析</div>
+  <h2 class="st">📈 全書敘事弧線分析</h2>
+  <p class="st-desc">本書自身的敘事結構如何演示了它所教授的原則？</p>
+
+  <h3>🏗️ 全書的元敘事結構</h3>
+  <p>Eber 在寫作本書時，本身就在使用她教授的原則。全書有一個清晰的「元故事」（meta-story）結構：</p>
+
+  <div class="arc-container">
+    <div class="arc-line">
+      <div class="arc-stage arc-bg-1">
+        <div class="arc-num">C1</div>
+        <div class="arc-stage-title">情境（Ch1–2）</div>
+        <div class="arc-stage-desc">建立現實：大多數人不懂故事，大多數溝通是低效的。神經科學告訴我們為什麼。</div>
+      </div>
+      <div class="arc-stage arc-bg-2">
+        <div class="arc-num">C2</div>
+        <div class="arc-stage-title">衝突（Ch3–13）</div>
+        <div class="arc-stage-desc">核心衝突：知道「故事重要」≠ 知道「如何說好故事」。每一章都拆解一個常見失敗模式。</div>
+      </div>
+      <div class="arc-stage arc-bg-3">
+        <div class="arc-num">C3</div>
+        <div class="arc-stage-title">結果（Ch14–16）</div>
+        <div class="arc-stage-desc">整合應用：學會了所有技術，如何在真實場景中整合運用？故事講述的現場技巧。</div>
+      </div>
+      <div class="arc-stage arc-bg-4">
+        <div class="arc-num">C4</div>
+        <div class="arc-stage-title">收穫（Ch17–18）</div>
+        <div class="arc-stage-desc">更深的層次：在倫理和真實性的土壤上，故事才能長出最深的根。附錄提供行動工具。</div>
+      </div>
+    </div>
+  </div>
+
+  <h3>🎭 每章的微型故事結構</h3>
+  <p>Eber 在每一章都遵循相同的敘事節奏：</p>
   <table>
-    <tr><td style="width:130px"><strong>核心命題</strong></td><td>說故事是科學+技能，不是天賦。五大腦部設定是理解「為什麼故事有效」的底層框架</td></tr>
-    <tr><td><strong>最強工具</strong></td><td>故事迴圈模型（8步驟）× 四段故事法（CCOT）× 五大腦部設定驗核</td></tr>
-    <tr><td><strong>最大盲點</strong></td><td>書的受眾是英語西方商業情境；東亞「間接溝通」文化中，何時用直接故事 vs 隱喻，需要自行轉化</td></tr>
-    <tr><td><strong>對誰最有用</strong></td><td>做簡報、帶團隊、銷售、社群經營、影像提案——任何需要「讓人記住你說過什麼」的場景</td></tr>
-    <tr><td><strong>難度</strong></td><td>★★☆☆☆（案例豐富，極易讀）</td></tr>
-    <tr><td><strong>推薦度</strong></td><td>★★★★★（對需要說服客戶、提案、帶人的工作者）</td></tr>
-    <tr><td><strong>搭配閱讀</strong></td><td>《說到賣得動》（表達框架）、Made to Stick（Heath兄弟，黏著力公式）、《峰值體驗》（關鍵時刻設計）</td></tr>
+    <thead><tr><th>章節開場</th><th>中段展開</th><th>章末收尾</th></tr></thead>
+    <tbody>
+      <tr><td>一個反直覺的案例或問題（觸發「懶惰大腦」）</td><td>科學機制解析 + 多個實際案例</td><td>章末訪談（提供外部視角，強化信任）+ 簡短的行動指南</td></tr>
+      <tr><td>製造「我以前從沒這樣想」的驚訝感</td><td>逐步建構新的認知框架</td><td>讓讀者帶著一個清晰的洞見與一個具體工具離開</td></tr>
+    </tbody>
   </table>
+
+  <h3>📊 情感張力曲線分析</h3>
+  <table>
+    <thead><tr><th>章節</th><th>情感基調</th><th>核心張力</th><th>解決方式</th></tr></thead>
+    <tbody>
+      <tr><td>Ch1–2</td><td>好奇 × 略感震驚</td><td>「你以為的說故事，其實是錯的」</td><td>提供科學框架，建立希望感</td></tr>
+      <tr><td>Ch3</td><td>認知衝擊</td><td>「一個獲獎廣告卻失敗了？」</td><td>引入「期望行為」概念，讓讀者看到出路</td></tr>
+      <tr><td>Ch4–7</td><td>實用興奮</td><td>「我在哪裡找故事？我選哪個？」</td><td>提供具體工具（故事工具箱、受眾人物誌）</td></tr>
+      <tr><td>Ch8–12</td><td>技術深化</td><td>「為什麼我的故事總是平淡？」</td><td>逐層解決：結構→細節→情感→排序→精煉</td></tr>
+      <tr><td>Ch13</td><td>應用突破</td><td>「數據如何說故事？」</td><td>Lucas 建築公司案例提供完整示範</td></tr>
+      <tr><td>Ch14–16</td><td>自信建立</td><td>「知道了方法，但站上台我還是緊張」</td><td>具體的呈現技巧 + 常見失誤預警</td></tr>
+      <tr><td>Ch17–18</td><td>深度共鳴</td><td>「如果我用故事操控別人怎麼辦？」</td><td>倫理框架 + 作者自身脆弱經歷，最高層次的連結</td></tr>
+    </tbody>
+  </table>
+
+  <div class="divider"></div>
+
+  <h3>🔍 全書最精彩的結構設計：數據說故事章（Ch13）</h3>
+  <p>Ch13 是本書最具操作示範價值的一章，因為它用「故事先行，數據後到」的方式，示範了如何讓受眾的大腦自己得出結論：</p>
+  <div class="hl">
+    <p><strong>Lucas 的建築公司情境：</strong>客戶滿意度從 70% 跌到 20%，Lucas 需要讓團隊理解問題的嚴重性。</p>
+    <p><strong>傳統做法：</strong>打開 PowerPoint，顯示「客戶滿意度：20%」的圖表，然後說：「我們有問題。」<br>
+    → 結果：團隊防禦性地思考「數字有沒有問題」「定義是否正確」，而非真正感受到危機。</p>
+    <p><strong>Eber 的做法：</strong>先講 Trish 的郵輪噩夢故事（一個普通消費者遇到糟糕服務的具體故事），讓團隊自己說出「太扯了！他們應該退款！」，然後說：「讓我給你們看一個影片，是一位我們公司的客戶 Greg……」</p>
+    <p><strong>結果：</strong>團隊在看到數據之前，就已經情感上接受了「這個問題很嚴重」的結論。數據只是在確認他們已經相信的事，而不是試圖說服他們。</p>
+    <div class="quote">
+      What you want is for your audience to call out the problem before you show them the data.
+      <span class="quote-src">[Ch13] — 數據說故事的最高境界：讓觀眾自己說出答案</span>
+    </div>
+  </div>
 </section>
 
+<!-- ══════════════════════════════════ STEP 5 ══════════════════════════════════ -->
+<section class="cd" id="s5">
+  <div class="step-badge">STEP 05 · 整合洞見四維度</div>
+  <h2 class="st">💎 整合洞見四維度</h2>
+  <p class="st-desc">超越單一章節，從更高視角整合全書的深層洞見</p>
+
+  <h3>🔵 維度一：顛覆性洞見（最反直覺的命題）</h3>
+
+  <div class="hl">
+    <h4>洞見 1.1：好故事 ≠ 有效故事</h4>
+    <p>這是本書最核心的顛覆：「好」是一個藝術標準，「有效」是一個行為科學標準。百威啤酒廣告是好故事，卻不是有效故事。一個「不怎麼感人」的客戶成功案例，如果能精準觸發受眾的期望行為，就是有效故事。</p>
+    <p>商業說故事的衡量指標不是「觀眾說好棒」，而是「觀眾做了什麼」。</p>
+    <span class="tg tg-r">反直覺</span> <span class="tg tg-a">Ch3 核心洞見</span>
+  </div>
+
+  <div class="hl">
+    <h4>洞見 1.2：說故事最難的部分是「刪除」</h4>
+    <p>大多數人認為說故事最難的是「找到好素材」或「組織結構」。Eber 認為最難的其實是<strong>「刪除一切不服務故事的內容」</strong>——包括你花了很多時間研究但沒有相關性的細節，包括你個人很喜歡但觀眾不在乎的部分，包括「保險起見」加入的額外背景資訊。</p>
+    <p>La La Land 的剪輯方法論：每個元素都必須重新賺回它的位置。<span class="tg tg-a">Ch12</span></p>
+  </div>
+
+  <div class="hl">
+    <h4>洞見 1.3：數據需要先有情感，才能被接受</h4>
+    <p>大腦在情感投入之前，對數據有天然的防禦性。當人們還沒有情感上「同意」一個前提，數據只是引發批判性思考的燃料——他們會花時間質疑數據的收集方法、樣本大小、定義方式，而不是接受結論。</p>
+    <p>只有當觀眾<strong>已經情感上相信了問題的存在</strong>，數據才能起到「確認」的作用，而非「說服」的作用。<span class="tg tg-a">Ch13</span></p>
+  </div>
+
+  <h3>🟠 維度二：系統性洞見（框架背後的框架）</h3>
+
+  <div class="hl.o" style="border-left:4px solid var(--o);background:rgba(208,144,64,.07);border-radius:14px;padding:18px 20px;margin:14px 0">
+    <h4>洞見 2.1：故事迴圈是一個「設計思維」框架 [AI 原創洞見]</h4>
+    <p>Eber 的故事迴圈模型（收集素材→定義受眾→建構框架→添加細節→排序→五大設定檢驗→精煉→測試）本質上是一個設計思維（Design Thinking）框架，只是應用於敘事設計。</p>
+    <p>同理心（Empathize）→ 定義（Define）→ 發想（Ideate）→ 原型（Prototype）→ 測試（Test）的五步驟，完全對應到：受眾分析→期望行為定義→故事素材選擇→故事建構→故事測試。</p>
+    <p>這意味著說故事是一個<strong>迭代的工程</strong>，而不是一次性的創作。</p>
+  </div>
+
+  <div class="hl.o" style="border-left:4px solid var(--o);background:rgba(208,144,64,.07);border-radius:14px;padding:18px 20px;margin:14px 0">
+    <h4>洞見 2.2：五大腦部設定是一個「注意力管理」框架 [AI 原創洞見]</h4>
+    <p>把五大出廠設定用「注意力管理」的角度重新理解：</p>
+    <ul>
+      <li><strong>懶惰大腦</strong> = 「如何吸引注意力」問題</li>
+      <li><strong>假設空隙</strong> = 「如何維持注意力」問題</li>
+      <li><strong>記憶文件庫</strong> = 「如何讓注意力轉化為記憶」問題</li>
+      <li><strong>信任力量</strong> = 「如何讓記憶引發接受」問題</li>
+      <li><strong>趨樂避苦</strong> = 「如何讓接受轉化為行動」問題</li>
+    </ul>
+    <p>說故事的五個設定，就是注意力管理的五個層次，完美對應到行銷漏斗的五個階段：Awareness → Interest → Desire → Trust → Action。</p>
+  </div>
+
+  <h3>🟢 維度三：實踐性洞見（最可操作的洞見）</h3>
+
+  <div class="hl.g" style="border-left:4px solid var(--g);background:rgba(90,158,88,.07);border-radius:14px;padding:18px 20px;margin:14px 0">
+    <h4>洞見 3.1：建立「故事工具箱」是一種日常習慣，而不是任務</h4>
+    <p>Eber 的「故事工具箱」（Story Toolkit）概念非常實用：把日常生活中每一個有趣的觀察、意外的轉折、情感的瞬間，都記錄下來，形成一個可以持續取用的素材庫。</p>
+    <p>關鍵的認知轉換：從「需要說故事時才去找故事」變成「持續帶著故事雷達生活」。這不是額外的工作，而是一種注意力模式的切換。</p>
+    <div class="quote">
+      The challenge isn't finding the story idea. It's adopting the right mindset and habits to create an endless list of ideas.
+      <span class="quote-src">[Ch4]</span>
+    </div>
+  </div>
+
+  <div class="hl.g" style="border-left:4px solid var(--g);background:rgba(90,158,88,.07);border-radius:14px;padding:18px 20px;margin:14px 0">
+    <h4>洞見 3.2：不要宣告你要說故事</h4>
+    <div class="quote">
+      Let me tell you a story.
+      <span class="quote-src">[Ch14] — 這是說故事的最差開場白</span>
+    </div>
+    <p>Eber 把「讓我說一個故事」類比為喜劇演員說「現在我要說一個笑話」——這個宣告立刻激活了大腦的「評判模式」，讓觀眾帶著「讓我看看這個故事是否值得我的時間」的態度進入，而不是帶著好奇心。</p>
+    <p>正確做法：直接進入故事的情境。「那是 2019 年的一個週四下午，我接到一個電話……」</p>
+  </div>
+
+  <h3>🔵 維度四：哲學性洞見（最深層的意義）</h3>
+
+  <div class="hl.b" style="border-left:4px solid var(--b);background:rgba(90,142,180,.07);border-radius:14px;padding:18px 20px;margin:14px 0">
+    <h4>洞見 4.1：故事是人類最古老的技術 [AI 原創洞見]</h4>
+    <p>Eber 的神經科學框架指向一個更深層的哲學：故事不是人類發明的，而是大腦<strong>進化出來理解世界的基本格式</strong>。Jerome Bruner 將人類的思維模式分為兩種：邏輯論述（logical-scientific）和敘事（narrative）。前者用於科學推理，後者用於理解人類行為與意義。</p>
+    <p>大腦的「預測機器」本質（Feldman Barrett 2018）意味著：我們的大腦永遠在試圖把感知到的片段拼成一個<strong>有因果關係的故事</strong>。說故事不是一種溝通技巧——它是大腦理解現實的基本操作系統。</p>
+  </div>
+
+  <div class="hl.b" style="border-left:4px solid var(--b);background:rgba(90,142,180,.07);border-radius:14px;padding:18px 20px;margin:14px 0">
+    <h4>洞見 4.2：脆弱是故事的最高形式 [AI 原創洞見]</h4>
+    <p>綜合 Ch7（個人故事）、Ch17（操控 vs. 影響）、Ch18（Eber 的 TED 經歷），可以看到一個更深層的主張：最有效的故事，同時也是最真實的故事。不是因為真實「在道德上是好的」，而是因為<strong>真實才能觸發最完整的神經耦合</strong>。</p>
+    <p>大腦有一個精密的「真實性偵測器」——它能感受到表演性的脆弱（為了效果而做的暴露）與真實脆弱（因為連結而願意分享）之間的差異。當說故事者真正處於不確定中，觀眾的大腦也進入真正的不確定，這才是最強的神經耦合狀態。</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ STEP 6 ══════════════════════════════════ -->
+<section class="cd" id="s6">
+  <div class="step-badge">STEP 06 · 缺席分析三類</div>
+  <h2 class="st">🔍 缺席分析——書中沒說到的三類問題</h2>
+  <p class="st-desc">批判性閱讀：這本書沒有討論什麼？這些缺席是否重要？</p>
+
+  <div class="grid3">
+    <div class="info-card" style="background:rgba(192,80,64,.05);border:1px solid rgba(192,80,64,.2)">
+      <div class="info-card-title" style="color:var(--r)">🚫 類型一：刻意省略的主題</div>
+      <div class="info-card-body">
+        <p><strong>組織政治對故事的影響</strong>：Eber 假設說故事者有「透明分享」的心態，但在很多組織中，故事被用來維護派系利益、轉移注意力、或掩蓋失敗。她沒有討論在政治性組織中如何用故事倫理應對「被要求說一個對公司有利但不完整的故事」的情境。</p>
+        <p><strong>失敗故事的系統性缺席</strong>：書中所有的企業案例都以成功結局（或至少是可以學習的失敗）呈現。真實商業世界中，有大量的故事不知道該怎麼用四段框架呈現，因為結局本身是模糊的、開放的、甚至是令人不安的。「我們嘗試了，但還沒有答案」是一種有力的故事形式，卻在本書中缺席。</p>
+      </div>
+    </div>
+    <div class="info-card" style="background:rgba(208,144,64,.05);border:1px solid rgba(208,144,64,.2)">
+      <div class="info-card-title" style="color:var(--o)">⚠️ 類型二：文化視角的盲點</div>
+      <div class="info-card-body">
+        <p><strong>西方個人主義敘事框架</strong>：全書的故事案例幾乎全來自北美商業環境。四段框架（情境→衝突→結果→收穫）是西方線性敘事的典型結構，在強調迂迴、暗示、集體和諧的東亞商業文化中，「衝突」的呈現方式需要根本性的調整。</p>
+        <p><strong>口述文化 vs. 書寫文化</strong>：Eber 沒有討論非洲、原住民、中東等口述文化傳統中截然不同的敘事邏輯——那些文化中，重複、儀式感、社群記憶才是故事的核心，而非個人英雄的線性旅程。</p>
+        <p><strong>跨語言說故事的挑戰</strong>：語言本身承載著文化預設。用英文設計的故事直接翻譯成中文，往往失去原有的情感力量，因為幽默感、隱喻、節奏感都是高度語言特定的。</p>
+      </div>
+    </div>
+    <div class="info-card" style="background:rgba(90,142,180,.05);border:1px solid rgba(90,142,180,.2)">
+      <div class="info-card-title" style="color:var(--b)">💭 類型三：時代性限制</div>
+      <div class="info-card-body">
+        <p><strong>AI 生成故事的倫理問題</strong>：2023 年出版的書，沒有深入討論 AI 輔助（或完全生成）的故事如何改變說故事的倫理框架。當一個「個人故事」實際上是由 AI 草稿後人工修飾，「只有你能說的故事」這個概念還成立嗎？</p>
+        <p><strong>演算法媒介對故事結構的影響</strong>：TikTok、短影音時代讓「前三秒法則」變得更極端。Eber 的四段框架在 60 秒短影音環境中需要大幅壓縮，而本書沒有針對這個媒介特性提供具體指導。</p>
+        <p><strong>深偽技術（Deepfake）對脆弱性故事的衝擊</strong>：當觀眾無法確認一個「真實」故事是否是真實的，Ch18 中「脆弱建立信任」的機制是否仍然有效？</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <h3>🔑 缺席分析的啟示</h3>
+  <div class="hl">
+    <p>這三類缺席不是書的「缺陷」，而是「邊界條件」——它們告訴我們這本書的適用範圍：<strong>北美中大型企業的成年專業工作者，在相對高度個人主義文化中的同步溝通場景</strong>。在這個範圍內，本書的框架是極其有效的工具。在邊界以外，需要讀者自行調適。</p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ STEP 7 ══════════════════════════════════ -->
+<section class="cd" id="s7">
+  <div class="step-badge">STEP 07 · AI 視角</div>
+  <h2 class="st">🤖 AI 視角——N+1章、跨領域連結、文化轉譯、一個比喻</h2>
+  <p class="st-desc">如果 AI 來寫第 19 章，會寫什麼？與哪些領域可以跨接？如何在台灣應用？</p>
+
+  <h3>📖 N+1 章：如果本書有第 19 章 [AI 原創洞見]</h3>
+  <div class="hl">
+    <h4>假設標題：「演算法時代的故事生存術」</h4>
+    <p>Eber 的框架建立在一個默認前提上：說故事者與觀眾之間存在相對公平的溝通環境。但在 2024 年以後的媒介生態中，故事必須先過演算法的「守門」，才能到達人類的大腦。</p>
+    <p>第 19 章可能探討的問題：</p>
+    <ul>
+      <li><strong>演算法是否有「五大出廠設定」的對應機制？</strong>——事實上，演算法的排序邏輯（停留時間、完播率、互動率）高度對應五大設定：前三秒（懶惰大腦）→ 留白/開放性問題（假設空隙）→ 感官衝擊畫面（記憶文件庫）→ 社群認同信號（信任力量）→ 情感峰值（趨樂避苦）。</li>
+      <li><strong>AI 輔助故事創作的「真實性悖論」</strong>：AI 可以生成符合所有技術標準的「完美故事」，但神經耦合要求真實性。一個技術上完美但不真實的故事，是否還能觸發真正的神經耦合？</li>
+      <li><strong>多媒介敘事的整合</strong>：如何讓同一個核心故事在簡報（5 分鐘）、LinkedIn 文章（1,500 字）、短影音（60 秒）、播客（20 分鐘）四種媒介中保持一致的情感核心，同時針對每個媒介特性做差異化設計？</li>
+    </ul>
+  </div>
+
+  <h3>🌐 跨領域連結 [AI 跨領域]</h3>
+  <div class="grid2">
+    <div class="info-card">
+      <div class="info-card-title">🧠 行為經濟學 × Eber 的故事框架</div>
+      <div class="info-card-body">
+        <p>Kahneman 的「系統一 / 系統二」框架與 Eber 的五大設定高度對應：</p>
+        <ul style="font-size:.8rem">
+          <li><strong>系統一</strong>（快思、情感、自動）= 故事的主要作用對象——懶惰大腦、記憶文件庫、趨樂避苦</li>
+          <li><strong>系統二</strong>（慢想、邏輯、理性）= 收穫段（Takeaway）的作用對象——讓理性系統接受情感系統已經處理的結論</li>
+        </ul>
+        <p>Eber 的故事框架本質上是一個「先劫持系統一，再說服系統二」的雙重說服策略。</p>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">🎮 電玩遊戲設計 × 故事互動性</div>
+      <div class="info-card-body">
+        <p>遊戲設計師的「心流理論」（Csikszentmihalyi）與故事的張力設計有直接對應：心流狀態需要挑戰與能力的精確平衡，太難則焦慮，太易則無聊。故事的衝突設計也需要類似的校準——張力要剛好大到讓觀眾想知道結局，但不大到讓他們感到無力或絕望。</p>
+        <p>Eber 的書末訪談包含電玩編劇，說明她意識到了這個連結，但本書沒有深入展開。</p>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">📊 TOC 限制理論 × 故事的瓶頸分析</div>
+      <div class="info-card-body">
+        <p>Goldratt 的限制理論（TOC）問：「什麼是系統的最弱環節？」Eber 的故事框架可以用 TOC 視角重新分析：對大多數人而言，故事迴圈的瓶頸不是「沒有素材」，而是「受眾分析不足」（Ch5 的洞見）。</p>
+        <p>用 TOC 的五步驟改善故事系統：①識別瓶頸（受眾不清）→ ②榨取瓶頸產能（深度受眾研究）→ ③從屬其他（所有故事決策服從受眾需求）→ ④提升瓶頸（建立系統性受眾理解流程）→ ⑤重複循環。</p>
+      </div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">🎵 音樂理論 × 故事的張力與釋放</div>
+      <div class="info-card-body">
+        <p>Eber 的比喻「故事是神經化學物質的音樂指揮」值得更深入展開。音樂理論中的「和諧-不和諧-解決」（consonance-dissonance-resolution）模式，與故事的「情境-衝突-結果」框架完全對應。</p>
+        <p>貝多芬第五交響曲的「命運主題」之所以有力，是因為它在不同段落以不同方式解決同一個主題問題，製造層層遞進的情感滿足感。頂級故事也有同樣的結構：同一個核心衝突在不同層次多次解決，每次解決都比上一次更深。</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>🌏 文化轉譯——在台灣商業環境應用 [AI 原創洞見]</h3>
+  <table>
+    <thead><tr><th>Eber 的原始框架</th><th>台灣商業文化的調適建議</th><th>調適理由</th></tr></thead>
+    <tbody>
+      <tr>
+        <td>個人英雄弧線（Individual hero arc）</td>
+        <td>改為「團隊智慧弧線」——主角面對問題後尋求集體智慧，集體解決後個人成長</td>
+        <td>台灣職場文化中，個人英雄主義往往被解讀為「搶功」，集體敘事更能建立信任</td>
+      </tr>
+      <tr>
+        <td>直接呈現衝突（直說問題）</td>
+        <td>先用隱喻或間接敘事建立情境，讓聽眾自己「看到」問題</td>
+        <td>台灣高情境文化中，直接點名問題有時被視為冒犯，間接的「讓他們發現」更符合面子文化</td>
+      </tr>
+      <tr>
+        <td>個人化「收穫」結語</td>
+        <td>加入「對大家都有意義」的集體收穫，或以問句開放結局讓聽眾自己發現</td>
+        <td>開放性結局在台灣文化中被認為是謙遜，而非資訊不完整</td>
+      </tr>
+      <tr>
+        <td>具體的期望行為（明確要求）</td>
+        <td>改為「創造讓聽眾主動提出行動」的情境，而非直接宣告期望行為</td>
+        <td>台灣商業文化重視自主性，讓聽眾「主動說出」比被告知更有效，且讓他們感覺是自己的決定</td>
+      </tr>
+      <tr>
+        <td>不要宣告「我要說故事」</td>
+        <td>✅ 完全適用，且在台灣更重要——因為台灣的簡報文化有大量的「先說結論」習慣，反向的「故事先行」效果更顯著</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>💡 一個核心比喻——說故事是「大腦的外科手術」[AI 原創洞見]</h3>
+  <div class="quote">
+    如果資料轟炸是朝大腦正面猛撞，那說故事就是外科手術：你要先讓病人放鬆（創造信任），用麻醉讓防禦降低（建立情感共鳴），精準切入到你需要改變的神經迴路（觸發特定記憶與情感），植入你想留下的洞見（期望行為），然後縫合——讓他們帶著改變後的認知醒來，甚至不知道發生了什麼。
+    <span class="quote-src">[AI 原創洞見] — 基於 Eber 的神經科學框架，以及 Uri Hasson 的神經耦合研究</span>
+  </div>
+  <p>這個比喻的意義不只是形象——它指出了說故事的三個外科原則：</p>
+  <ul>
+    <li><strong>精準性</strong>：好的外科手術不動不必要的組織；好的故事不包含不服務目標的細節</li>
+    <li><strong>倫理性</strong>：外科手術需要知情同意；說故事需要透明的意圖</li>
+    <li><strong>術後護理</strong>：手術後需要復健；故事說完後需要行動機制（明確的下一步）</li>
+  </ul>
+</section>
+
+<!-- ══════════════════════════════════ STEP 8 ══════════════════════════════════ -->
+<section class="cd" id="s8">
+  <div class="step-badge">STEP 08 · 行動轉化三層</div>
+  <h2 class="st">⚡ 行動轉化三層——讀完後如何把洞見變成習慣</h2>
+  <p class="st-desc">從「讀了覺得有道理」到「真正改變行為」的三個層次</p>
+
+  <h3>🟢 第一層：即時可執行（今天就能做）</h3>
+  <div class="grid2">
+    <div class="info-card" style="background:rgba(90,158,88,.05);border:1px solid rgba(90,158,88,.2)">
+      <div class="info-card-title" style="color:var(--g)">✅ 行動 1：建立「故事工具箱」</div>
+      <div class="info-card-body">
+        <p>建立一個隨手記錄的故事素材庫。可以是手機備忘錄、Notion 頁面、或一本隨身攜帶的筆記本。關鍵是：<strong>降低記錄的摩擦力到幾乎為零</strong>。</p>
+        <p><strong>記錄格式：</strong>日期 + 一句話情境 + 情感標籤（驚訝/感動/憤怒/好奇）+ 可能應用的場景</p>
+        <p><strong>習慣觸發器：</strong>每天結束前問一個問題：「今天有沒有讓我感受到某種情緒的時刻？」</p>
+      </div>
+    </div>
+    <div class="info-card" style="background:rgba(90,158,88,.05);border:1px solid rgba(90,158,88,.2)">
+      <div class="info-card-title" style="color:var(--g)">✅ 行動 2：改造你的下一個開場</div>
+      <div class="info-card-body">
+        <p>找到你近期最常用的一個溝通開場（會議開場、簡報開場、Email 開頭），問：「我可以把它換成一個具體的情境描述嗎？」</p>
+        <p><strong>範例改造：</strong><br>
+        ❌ 「今天我要分享我們的 Q3 策略」<br>
+        ✅ 「上週五下午三點，我接到一個客戶的電話，她說了一句讓我完全沒料到的話……」</p>
+      </div>
+    </div>
+    <div class="info-card" style="background:rgba(90,158,88,.05);border:1px solid rgba(90,158,88,.2)">
+      <div class="info-card-title" style="color:var(--g)">✅ 行動 3：「期望行為」優先設計</div>
+      <div class="info-card-body">
+        <p>你的下一次重要溝通，在準備內容之前，先寫下這個句子：<br>
+        「說完之後，我希望他們___（做什麼/說什麼/感覺什麼）。」</p>
+        <p>把這個句子放在你的準備筆記最頂端，讓它成為所有內容決策的北極星。</p>
+      </div>
+    </div>
+    <div class="info-card" style="background:rgba(90,158,88,.05);border:1px solid rgba(90,158,88,.2)">
+      <div class="info-card-title" style="color:var(--g)">✅ 行動 4：五大設定快速自查</div>
+      <div class="info-card-body">
+        <p>在任何重要溝通前，用 3 分鐘過一遍五大設定檢核：</p>
+        <ol style="font-size:.82rem">
+          <li>開場是否有意外/張力？</li>
+          <li>是否留了讓觀眾自己推論的空間？</li>
+          <li>是否有具體感官細節？</li>
+          <li>觀眾是否能說「這就是我！」？</li>
+          <li>是否有情感的起伏波動？</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <h3>🟡 第二層：中期習慣建立（接下來 30 天）</h3>
+  <div class="grid2">
+    <div class="info-card" style="background:rgba(208,144,64,.05);border:1px solid rgba(208,144,64,.2)">
+      <div class="info-card-title" style="color:var(--o)">🔄 30 天故事挑戰</div>
+      <div class="info-card-body">
+        <p>每週選一個你「通常不說故事」的溝通場景（Email、週報、一對一會議），強制用四段框架重新設計一次。記錄反應的差異。</p>
+        <p><strong>第 1 週：</strong>Email 主旨 + 開頭段落改造<br>
+        <strong>第 2 週：</strong>數據簡報加入一個故事前導<br>
+        <strong>第 3 週：</strong>用個人故事開場一次重要會議<br>
+        <strong>第 4 週：</strong>挑戰：用三分鐘講完一個有完整四段結構的工作故事</p>
+      </div>
+    </div>
+    <div class="info-card" style="background:rgba(208,144,64,.05);border:1px solid rgba(208,144,64,.2)">
+      <div class="info-card-title" style="color:var(--o)">🎤 建立個人故事庫（主題分類）</div>
+      <div class="info-card-body">
+        <p>把故事工具箱升級為「主題分類故事庫」。按以下主題分類整理：</p>
+        <ul style="font-size:.82rem">
+          <li>⚡ 挑戰與克服（用於激勵/說服）</li>
+          <li>🔍 意外發現（用於引發好奇心）</li>
+          <li>😅 失敗與學習（用於建立信任/謙遜）</li>
+          <li>🤝 連結瞬間（用於建立情感橋樑）</li>
+          <li>💡 轉折洞見（用於推動認知改變）</li>
+        </ul>
+        <p>目標：每個主題至少有 3 個可隨時取用的故事。</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>🔴 第三層：深層能力轉型（長期 3–6 個月）</h3>
+  <div class="hl">
+    <h4>成為「故事型領導者」的三個標誌</h4>
+    <p><strong>標誌一：</strong>你不再問「我應該說什麼」，而是先問「他們需要聽到什麼樣的故事才能做出這個決定」。受眾思維從意識上的提醒，變成本能的首選框架。</p>
+    <p><strong>標誌二：</strong>你開始在日常生活中「收集故事」——新聞、電影、對話、觀察，全都成了你故事工具箱的素材。你的大腦開始自動標記「這個可以用在…」的連結。</p>
+    <p><strong>標誌三：</strong>你能在 10 秒內判斷一個故事是否有效：「這個故事服務於什麼期望行為？它觸發了哪些出廠設定？它在哪個框格裡最薄弱？」這種診斷能力讓你能幫助他人改善故事，也讓你對自己的故事設計有更高的自我要求。</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>📋 本書的附錄核對清單應用</h3>
+  <p>Eber 在書末提供了多份清單，以下是最實用的「故事測試清單」整合版：</p>
+  <div class="check-item"><div class="check-box"></div><span>我已定義了明確的受眾人物誌（知道他們的擔憂、渴望、知識基礎）</span></div>
+  <div class="check-item"><div class="check-box"></div><span>我已定義了具體的期望行為（說完後希望他們做/說/感覺/相信什麼）</span></div>
+  <div class="check-item"><div class="check-box"></div><span>故事有完整的四段結構（情境→衝突→結果→收穫）</span></div>
+  <div class="check-item"><div class="check-box"></div><span>開場有意外元素或懸念，不以「讓我告訴你一個故事」開頭</span></div>
+  <div class="check-item"><div class="check-box"></div><span>衝突段有足夠的張力，風險真實可感</span></div>
+  <div class="check-item"><div class="check-box"></div><span>至少有 3 個具體的感官細節</span></div>
+  <div class="check-item"><div class="check-box"></div><span>有情感的起伏波動（至少一個張力峰值和一個釋放點）</span></div>
+  <div class="check-item"><div class="check-box"></div><span>每個細節都通過「如果刪掉，故事有損失嗎？」的測試</span></div>
+  <div class="check-item"><div class="check-box"></div><span>收穫段清楚地連結到期望行為</span></div>
+  <div class="check-item"><div class="check-box"></div><span>通過五大出廠設定的完整檢核</span></div>
+  <div class="check-item"><div class="check-box"></div><span>意圖、資訊、情境都是透明的（倫理檢核）</span></div>
+  <div class="check-item"><div class="check-box"></div><span>已在目標觀眾代表身上測試過，並收集了回饋</span></div>
+</section>
+
+<!-- ══════════════════════════════════ STEP 9 ══════════════════════════════════ -->
+<section class="cd" id="s9">
+  <div class="step-badge">STEP 09 · 帶問題回去讀</div>
+  <h2 class="st">❓ 帶問題回去讀——第二遍讀書的 15 個深度問題</h2>
+  <p class="st-desc">如果要帶著問題做第二遍精讀，這些問題能讓你挖得更深</p>
+
+  <h3>🔍 關於科學根基的深度問題</h3>
+  <ol>
+    <li style="margin-bottom:10px">
+      <strong>神經耦合（Neural Coupling）的限制條件是什麼？</strong>
+      <p style="font-size:.83rem;color:var(--t2);margin-top:4px">Hasson 的 fMRI 研究在什麼條件下進行？文化差異、個人創傷史、認知風格差異是否影響神經耦合的程度？Eber 假設觀眾的大腦能夠「接收」故事的前提條件是什麼？</p>
+    </li>
+    <li style="margin-bottom:10px">
+      <strong>五大出廠設定的優先順序是什麼？</strong>
+      <p style="font-size:.83rem;color:var(--t2);margin-top:4px">如果一個故事只能觸發其中三個設定，應該優先確保哪三個？在不同的溝通目標（說服 vs. 激勵 vs. 教育）下，優先順序是否不同？</p>
+    </li>
+    <li style="margin-bottom:10px">
+      <strong>「22 倍記憶提升」的實驗設計是什麼？</strong>
+      <p style="font-size:.83rem;color:var(--t2);margin-top:4px">Jerome Bruner 的研究具體測量的是什麼類型的記憶（短期/長期/程序性）？在什麼條件下這個效果最顯著，在什麼條件下最薄弱？</p>
+    </li>
+  </ol>
+
+  <h3>🎯 關於框架應用的深度問題</h3>
+  <ol start="4">
+    <li style="margin-bottom:10px">
+      <strong>「期望行為」如何測量？</strong>
+      <p style="font-size:.83rem;color:var(--t2);margin-top:4px">Vanessa 的案例有明確的量化指標（瀏覽率+60%）。但對於「改變信念」或「建立關係」這種期望行為，如何知道故事是否有效？</p>
+    </li>
+    <li style="margin-bottom:10px">
+      <strong>四段框架最難的框格是哪個，為什麼？</strong>
+      <p style="font-size:.83rem;color:var(--t2);margin-top:4px">Eber 說衝突段是核心，但收穫段往往是最容易「說教」的地方。如何讓收穫段既有力又不顯說教？什麼是「好的收穫段」和「說教的收穫段」的本質差別？</p>
+    </li>
+    <li style="margin-bottom:10px">
+      <strong>什麼情況下不應該用故事？</strong>
+      <p style="font-size:.83rem;color:var(--t2);margin-top:4px">Eber 論述了故事的力量，但有沒有溝通場景是故事反而降低效果的？比如：緊急危機溝通、高度技術性的操作說明、法律合規文件？</p>
+    </li>
+    <li style="margin-bottom:10px">
+      <strong>「只有你能說的故事」的界限在哪裡？</strong>
+      <p style="font-size:.83rem;color:var(--t2);margin-top:4px">Eber 強調個人故事的不可複製性。但品牌說故事（Corporate Storytelling）的主角往往不是個人，而是一個組織。組織如何建立「只有我們能說的故事」？</p>
+    </li>
+  </ol>
+
+  <h3>🌍 關於文化與倫理的深度問題</h3>
+  <ol start="8">
+    <li style="margin-bottom:10px">
+      <strong>在你的文化背景中，「衝突」如何重新定義？</strong>
+      <p style="font-size:.83rem;color:var(--t2);margin-top:4px">台灣（或其他東亞）文化中，什麼才是觀眾認為「值得投入的衝突」？外部困境（市場競爭、自然災害）vs. 內部掙扎（價值觀衝突、自我懷疑）哪一種更能引發共鳴？</p>
+    </li>
+    <li style="margin-bottom:10px">
+      <strong>「透明意圖」是否永遠可行？</strong>
+      <p style="font-size:.83rem;color:var(--t2);margin-top:4px">Eber 的倫理框架要求對意圖透明。但在談判場景、競爭市場中，完全揭示意圖是否會降低說服效果？如何在有效性與倫理性之間找到平衡？</p>
+    </li>
+    <li style="margin-bottom:10px">
+      <strong>什麼是你自己最有力的「脆弱故事」？</strong>
+      <p style="font-size:.83rem;color:var(--t2);margin-top:4px">Eber 在 TED 台上腦袋空白的故事，成為她最有影響力的素材。你的職業生涯中，有沒有一個你一直不敢說，但如果說了可能是最有力的故事？是什麼在阻止你說它？</p>
+    </li>
+  </ol>
+
+  <h3>🔮 關於未來應用的深度問題</h3>
+  <ol start="11">
+    <li style="margin-bottom:10px">
+      <strong>你的組織目前最缺失哪個故事迴圈環節？</strong>
+      <p style="font-size:.83rem;color:var(--t2);margin-top:4px">收集素材→定義受眾→建構框架→添加細節→排序→五大設定檢驗→精煉→測試，哪個環節是你的組織現在最薄弱的瓶頸？如何用最小的介入改善它？</p>
+    </li>
+    <li style="margin-bottom:10px">
+      <strong>如何建立組織級別的「故事文化」？</strong>
+      <p style="font-size:.83rem;color:var(--t2);margin-top:4px">Vanessa CEO 的例子說明個人領導者能改變組織溝通文化。如果你想在你的部門或公司推廣「故事型溝通文化」，應該從哪個槓桿點開始？</p>
+    </li>
+    <li style="margin-bottom:10px">
+      <strong>Ch12 的「La La Land 剪輯原則」如何應用到你的工作報告？</strong>
+      <p style="font-size:.83rem;color:var(--t2);margin-top:4px">拿出你最近的一份工作文件，用「如果刪掉，故事有損失嗎？」的標準重新審視每一個段落。有多少內容是可以刪除的？刪除之後，核心訊息是否更清晰？</p>
+    </li>
+    <li style="margin-bottom:10px">
+      <strong>五大設定中，你個人最擅長觸發哪個，最不擅長觸發哪個？</strong>
+      <p style="font-size:.83rem;color:var(--t2);margin-top:4px">自我評估：你的溝通風格天然偏向哪個設定？（「邏輯型」人往往擅長收穫段但弱於感官細節；「情感型」人往往擅長情感波動但弱於結構清晰度）針對你的弱項設定，本書的哪個章節最值得你再讀一遍？</p>
+    </li>
+    <li style="margin-bottom:10px">
+      <strong>如果你要設計一個「神經耦合測試」，你會怎麼測量你的故事效果？</strong>
+      <p style="font-size:.83rem;color:var(--t2);margin-top:4px">沒有 fMRI 設備，你如何在真實商業場景中判斷神經耦合是否發生？有什麼可觀察的代理指標（聽眾的眼神接觸、身體前傾、問的問題的深度）可以告訴你你的故事正在被大腦接收？</p>
+    </li>
+  </ol>
+</section>
+
+<!-- ══════════════════════════════════ STEP 10 ══════════════════════════════════ -->
+<section class="cd" id="s10">
+  <div class="step-badge">STEP 10 · 延伸資源</div>
+  <h2 class="st">📚 延伸資源——書、研究、演講、工具</h2>
+  <p class="st-desc">讀完 The Perfect Story 之後，這些資源能讓你走得更深或更廣</p>
+
+  <h3>📖 強烈推薦延伸閱讀（直接相關）</h3>
+  <div class="grid2">
+    <div class="book-card">
+      <div class="book-card-title">Actual Minds, Possible Worlds</div>
+      <div class="book-card-author">Jerome Bruner（1986）</div>
+      <div class="book-card-reason">Eber 的科學根基來源之一。Bruner 區分「邏輯論述思維」與「敘事思維」，主張故事是人類理解社會現實的基本認知模式。這本書能讓你理解 22 倍記憶效應背後的完整理論框架。</div>
+    </div>
+    <div class="book-card">
+      <div class="book-card-title">How Emotions Are Made</div>
+      <div class="book-card-author">Lisa Feldman Barrett（2017）</div>
+      <div class="book-card-reason">Eber 的神經科學基礎，特別是「大腦是預測機器」的概念。Barrett 顛覆了傳統的情緒理論，主張情緒不是自動「發生」的，而是大腦主動「建構」的。這與故事的神經機制直接相關。</div>
+    </div>
+    <div class="book-card">
+      <div class="book-card-title">Thinking, Fast and Slow</div>
+      <div class="book-card-author">Daniel Kahneman（2011）</div>
+      <div class="book-card-reason">系統一/系統二框架是理解「為什麼故事比數據更有說服力」的最佳輔助讀本。Kahneman 的研究說明了大腦在情感與理性之間的資源分配邏輯。</div>
+    </div>
+    <div class="book-card">
+      <div class="book-card-title">Building a StoryBrand</div>
+      <div class="book-card-author">Donald Miller（2017）</div>
+      <div class="book-card-reason">與 Eber 的框架互補：Miller 專注於品牌層面的故事設計，提出「客戶是英雄，品牌是導師」的框架。兩本書一起讀，能形成個人溝通（Eber）× 品牌溝通（Miller）的完整工具集。</div>
+    </div>
+    <div class="book-card">
+      <div class="book-card-title">Story: Substance, Structure, Style and the Principles of Screenwriting</div>
+      <div class="book-card-author">Robert McKee（1997）</div>
+      <div class="book-card-reason">如果想理解「衝突設計」的更深層邏輯，McKee 的電影編劇理論是最系統的資源。Eber 的四段框架是 McKee 理論的精簡商業版，讀 McKee 能讓你理解四段框架的理論深度。</div>
+    </div>
+    <div class="book-card">
+      <div class="book-card-title">The Moth Presents All These Wonders</div>
+      <div class="book-card-author">Catherine Burns 編（2017）</div>
+      <div class="book-card-reason">Eber 訪談了 The Moth 執行製作人。這本故事集收錄了 The Moth Radio Hour 的精選故事，是學習真實個人故事如何運作的最佳教材——每一篇都可以用 Eber 的框架分析。</div>
+    </div>
+  </div>
+
+  <h3>🔬 核心學術論文</h3>
+  <table>
+    <thead><tr><th>論文/研究</th><th>作者</th><th>年份</th><th>核心貢獻</th></tr></thead>
+    <tbody>
+      <tr><td>Neural coupling study（fMRI 神經耦合研究）</td><td>Uri Hasson et al.</td><td>2010</td><td>說故事者與聽者的大腦神經活動同步化</td></tr>
+      <tr><td>Predicting with the Body（大腦預測機器）</td><td>Lisa Feldman Barrett</td><td>2018</td><td>大腦 60–80% 活動用於預測，節能機制的神經基礎</td></tr>
+      <tr><td>Narrative Persuasion Research Review</td><td>Green & Brock</td><td>2000</td><td>「轉化」（Transportation）理論：被故事帶走的程度預測態度改變</td></tr>
+      <tr><td>The Trust Factor: The Science of Creating High-Performance Companies</td><td>Paul Zak</td><td>2015</td><td>催產素（信任荷爾蒙）與故事的神經化學連結</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🎬 必看 TED 演講</h3>
+  <table>
+    <thead><tr><th>演講標題</th><th>講者</th><th>連結主題</th></tr></thead>
+    <tbody>
+      <tr><td>How your brain responds to stories — and why they're crucial for leaders</td><td>Karen Eber</td><td>本書核心概念的 12 分鐘精華版，適合分享給同事作為入門</td></tr>
+      <tr><td>The clues to a great story</td><td>Andrew Stanton（Pixar）</td><td>《玩具總動員》導演談故事設計，直接對應 Eber 的受眾優先原則</td></tr>
+      <tr><td>The science of storytelling</td><td>Uri Hasson</td><td>神經耦合研究的第一手解說，是 Eber 科學根基的直接來源</td></tr>
+      <tr><td>The magical science of storytelling</td><td>David JP Phillips</td><td>從神經化學角度拆解故事，與 Eber 的「故事是神經化學導體」概念直接呼應</td></tr>
+    </tbody>
+  </table>
+
+  <h3>🛠️ 實用工具與練習資源</h3>
+  <div class="grid3">
+    <div class="info-card">
+      <div class="info-card-title">🎙️ The Moth（網站 + Podcast）</div>
+      <div class="info-card-body">全球最知名的個人故事講述平台。每週聽一篇 Moth 故事，用四段框架分析：情境在哪、衝突是什麼、結果如何、收穫是什麼。是學習「真實個人故事」最有效的耳訓。</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">📝 StoryCorps（網站 + App）</div>
+      <div class="info-card-body">美國的口述歷史計畫，收錄了數萬個普通人的個人故事。是學習「個人故事 ≠ 私人秘密」的最佳素材庫。</div>
+    </div>
+    <div class="info-card">
+      <div class="info-card-title">🗣️ Toastmasters 演講練習</div>
+      <div class="info-card-body">結合 Eber 的故事框架與 Toastmasters 的即興演講練習，是建立「實時說故事」肌肉記憶的最有效方法之一。</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ STEP 11 ══════════════════════════════════ -->
+<section class="cd" id="s11">
+  <div class="step-badge">STEP 11 · 書庫卡片 + 個人化透鏡</div>
+  <h2 class="st">🗂️ 書庫卡片 + 個人化透鏡</h2>
+  <p class="st-desc">一張可收藏的精華卡片，以及從不同視角解讀本書的個人化框架</p>
+
+  <h3>🃏 書庫精華卡片</h3>
+  <div style="background:linear-gradient(135deg,rgba(201,125,78,.1),rgba(232,168,124,.06));border-radius:20px;padding:28px;border:1.5px solid rgba(201,125,78,.25);margin:16px 0">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:16px">
+      <div>
+        <div style="font-size:.75rem;color:var(--al);font-weight:700;letter-spacing:2px;margin-bottom:6px">書庫卡片 · 書醒系統</div>
+        <div style="font-family:'Noto Serif TC',serif;font-size:1.4rem;font-weight:700;color:var(--t)">The Perfect Story</div>
+        <div style="font-size:.85rem;color:var(--t2);margin-top:4px">Karen Eber · 2023 · Harper Horizon</div>
+      </div>
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
+        <span class="tg tg-a">神經科學</span>
+        <span class="tg tg-b">說故事</span>
+        <span class="tg tg-g">商業溝通</span>
+        <span class="tg tg-o">領導力</span>
+      </div>
+    </div>
+    <div class="divider" style="margin:16px 0"></div>
+    <div class="grid2">
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--al);letter-spacing:1px;margin-bottom:8px">核心命題</div>
+        <p style="font-size:.85rem;color:var(--t2)">故事是神經科學工具，不是藝術天賦。用五大腦部出廠設定 × 故事迴圈模型 × 四段框架，系統設計能驅動期望行為的有效故事。</p>
+      </div>
+      <div>
+        <div style="font-size:.75rem;font-weight:700;color:var(--al);letter-spacing:1px;margin-bottom:8px">一句話記憶</div>
+        <p style="font-size:.85rem;color:var(--t2);font-family:'Noto Serif TC',serif;font-style:italic">「故事不從故事開始，從受眾開始。」</p>
+        <p style="font-size:.8rem;color:var(--tl);margin-top:6px">— Ch5 核心原則</p>
+      </div>
+    </div>
+    <div class="divider" style="margin:16px 0"></div>
+    <div style="font-size:.75rem;font-weight:700;color:var(--al);letter-spacing:1px;margin-bottom:10px">五個必記框架</div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <span style="background:rgba(255,255,255,.6);border-radius:10px;padding:6px 12px;font-size:.78rem;color:var(--t2);border:1px solid rgba(201,125,78,.15)">五大出廠設定</span>
+      <span style="background:rgba(255,255,255,.6);border-radius:10px;padding:6px 12px;font-size:.78rem;color:var(--t2);border:1px solid rgba(201,125,78,.15)">故事迴圈模型</span>
+      <span style="background:rgba(255,255,255,.6);border-radius:10px;padding:6px 12px;font-size:.78rem;color:var(--t2);border:1px solid rgba(201,125,78,.15)">四段故事框架</span>
+      <span style="background:rgba(255,255,255,.6);border-radius:10px;padding:6px 12px;font-size:.78rem;color:var(--t2);border:1px solid rgba(201,125,78,.15)">受眾人物誌</span>
+      <span style="background:rgba(255,255,255,.6);border-radius:10px;padding:6px 12px;font-size:.78rem;color:var(--t2);border:1px solid rgba(201,125,78,.15)">期望行為設計</span>
+    </div>
+    <div class="divider" style="margin:16px 0"></div>
+    <div style="font-size:.75rem;font-weight:700;color:var(--al);letter-spacing:1px;margin-bottom:8px">最重要的 3 個洞見</div>
+    <ol style="font-size:.83rem;color:var(--t2);margin-left:16px;line-height:2">
+      <li>好故事 ≠ 有效故事——百威啤酒案例 [Ch3]</li>
+      <li>故事從受眾開始，不從故事開始——受眾優先原則 [Ch5]</li>
+      <li>數據需要先有情感才能被接受——先讓受眾說出問題 [Ch13]</li>
+    </ol>
+    <div class="divider" style="margin:16px 0"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+      <div>
+        <div style="font-size:.73rem;color:var(--al);font-weight:700;margin-bottom:4px">適合讀者</div>
+        <div style="font-size:.78rem;color:var(--t2)">管理者、業務、顧問、行銷、演講者、任何需要影響他人的人</div>
+      </div>
+      <div>
+        <div style="font-size:.73rem;color:var(--al);font-weight:700;margin-bottom:4px">閱讀難度</div>
+        <div style="font-size:.78rem;color:var(--t2)">★★★☆☆ 中等。科學部分有深度，但案例豐富易讀</div>
+      </div>
+      <div>
+        <div style="font-size:.73rem;color:var(--al);font-weight:700;margin-bottom:4px">重讀價值</div>
+        <div style="font-size:.78rem;color:var(--t2)">★★★★★ 極高。每次溝通前回翻相關章節，是最有效的即時工具書</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>🔭 個人化透鏡——五種解讀視角</h3>
+
+  <div class="lens-card toc">
+    <div class="lens-label">透鏡一 · TOC 限制理論視角</div>
+    <div class="lens-body">
+      <p><strong>核心問題：</strong>你的故事系統的瓶頸在哪裡？</p>
+      <p>用 Goldratt 的 TOC 五步驟檢視 Eber 的故事迴圈：在你目前的工作環境中，故事生產的最弱環節是什麼？大多數組織的答案是「受眾分析不足」——人們跳過 Ch5 的受眾人物誌，直接進入故事建構，導致準備了很好的故事卻用給了不對的人。</p>
+      <p>TOC 的「聚焦五步驟」應用：<br>
+      ① 識別瓶頸：你的故事系統在哪裡生產力最低？<br>
+      ② 榨取瓶頸：在現有資源下，如何最大化這個環節的產出？（例：固定每次簡報前花 10 分鐘做受眾畫布）<br>
+      ③ 從屬其他：讓所有故事決策都服從受眾分析的結果<br>
+      ④ 提升瓶頸：建立系統性的受眾理解機制（定期訪談、問卷、觀察）<br>
+      ⑤ 重複：消除瓶頸後，找到下一個限制（可能是「感官細節不足」或「收穫段太說教」）</p>
+      <p><strong>TOC 視角的最大洞見：</strong>Eber 的故事迴圈是一個端到端的生產系統，最弱的環節決定整個系統的產出上限。找到你的瓶頸，集中資源改善它，而不是均勻地提升所有技能。</p>
+    </div>
+  </div>
+
+  <div class="lens-card sales">
+    <div class="lens-label">透鏡二 · 銷售與業務視角</div>
+    <div class="lens-body">
+      <p><strong>核心問題：</strong>如何用故事縮短銷售週期、提升成交率？</p>
+      <p>對銷售人員而言，Eber 的框架提供了一個革命性的重新定位：<strong>銷售不是說服，而是讓客戶自己說服自己</strong>。</p>
+      <p><strong>四個關鍵應用：</strong></p>
+      <ul>
+        <li><strong>資格審查階段：</strong>不要先介紹產品，先問「能告訴我，你們目前最大的挑戰是什麼？」——這是在讓潛在客戶自己說出他們的「衝突段」，為後續的故事共鳴打下基礎</li>
+        <li><strong>提案階段：</strong>不要先展示功能，先講一個「這個客戶面臨了相同問題，後來……」的客戶成功故事。讓潛在客戶的大腦在你展示方案之前，就已經在神經耦合狀態中「體驗了」你的解決方案</li>
+        <li><strong>反對意見處理：</strong>不要辯駁，改用「我完全理解。事實上，我另一個客戶當時也有同樣的顧慮……」——用故事而非論點回應，啟動信任設定而非論爭模式</li>
+        <li><strong>Lucas 建築公司原則：</strong>讓客戶在看數據之前，就已經情感上接受了問題的存在。先講一個讓客戶說「太扯了！」的外部案例，再展示你的分析數據</li>
+      </ul>
+      <p><strong>銷售視角的最大洞見：</strong>最強的銷售故事，讓客戶感覺「這個決定是我自己做的」——而不是「我被說服了」。神經耦合讓他們的大腦經歷了你的解決方案，自主得出了購買的結論。</p>
+    </div>
+  </div>
+
+  <div class="lens-card expr">
+    <div class="lens-label">透鏡三 · 高價值表達視角</div>
+    <div class="lens-body">
+      <p><strong>核心問題：</strong>如何在每一次表達中都製造「峰值體驗」？</p>
+      <p>結合《說到賣得動》的 KISS 表達框架與 Eber 的神經科學工具，可以設計每次溝通的「關鍵時刻」（MOT：Moment of Truth）：</p>
+      <p><strong>高價值表達的三個神經科學原則：</strong></p>
+      <ul>
+        <li><strong>峰終定律（Peak-End Rule）：</strong>Kahneman 研究顯示，人們對一段體驗的記憶，主要由峰值（最強情感時刻）和終點（最後感受）決定。Eber 的「收穫段」設計本質上就是在設計「終點記憶」，而「衝突段的最高張力」是在設計「峰值記憶」</li>
+        <li><strong>具體性原則：</strong>「1975 年 10 月 21 日，世界大賽」比「多年前的一場比賽」記憶強度高 10 倍以上。在高價值溝通中，具體的數字、日期、名字、地點，是啟動記憶文件庫的「記憶索引」</li>
+        <li><strong>共同掙扎比共同成功更能建立連結：</strong>在自我介紹、提案、演講中，分享一個你面臨過的真實困境（個人故事），往往比分享成就更能建立信任——因為困境觸發信任設定的「我群」機制，成就則有可能觸發防禦性的「他群」比較</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="lens-card biz">
+    <div class="lens-label">透鏡四 · 商業策略視角</div>
+    <div class="lens-body">
+      <p><strong>核心問題：</strong>如何用故事建立組織的溝通競爭優勢？</p>
+      <p>從商業策略角度，Eber 的框架指向一個未被充分重視的競爭優勢來源：<strong>組織的「故事能力」（Storytelling Capability）</strong>是一種難以模仿的戰略資產。</p>
+      <p><strong>故事能力作為競爭優勢的三個機制：</strong></p>
+      <ul>
+        <li><strong>人才吸引力：</strong>Vanessa CEO 案例顯示，故事型溝通讓員工參與度提升 78%。在人才競爭激烈的市場中，能讓員工感受到「我是公司故事的一部分」的組織，在留才上有顯著優勢</li>
+        <li><strong>客戶黏著力：</strong>客戶記住的不是產品功能，而是他們與你的品牌共同經歷的故事。投資建立豐富的客戶故事庫（Case Studies 升級為 Story-Driven Case Studies），每個案例都用四段框架重新設計，能顯著提升引用率和傳播力</li>
+        <li><strong>決策速度：</strong>在董事會、策略會議中，能用故事框架呈現複雜問題（如 Lucas 建築公司的數據說故事法）的領導者，能更快引導高層對齊，縮短決策週期</li>
+      </ul>
+      <p><strong>商業視角的最大洞見：</strong>絕大多數企業的「說故事」停留在行銷部門的廣告文案層次。Eber 的框架指向一個更大的機會：讓整個組織的每一個溝通節點——從業務提案到全員大會到績效面談——都具備系統性的故事能力。這是一個尚未被大多數企業充分開採的「溝通基礎設施」。</p>
+    </div>
+  </div>
+
+  <div class="lens-card ziwei">
+    <div class="lens-label">透鏡五 · 紫微斗數視角 [AI 跨領域]</div>
+    <div class="lens-body">
+      <p><strong>核心問題：</strong>不同命盤格局的人，說故事的天然優勢和盲點在哪裡？</p>
+      <p>紫微斗數的命盤格局反映了一個人天然的溝通風格與能量特質，以下是幾個主要格局與 Eber 五大設定的對應分析：</p>
+      <table style="font-size:.8rem;margin-top:10px">
+        <thead><tr><th>主要命宮星曜</th><th>天然說故事優勢</th><th>說故事盲點</th><th>重點修煉的設定</th></tr></thead>
+        <tbody>
+          <tr><td>紫微／天相</td><td>權威感強，建立信任快（信任設定天然強）</td><td>故事太「完美」，缺少真實衝突和脆弱感</td><td>假設空隙：刻意製造懸念和留白</td></tr>
+          <tr><td>太陽／天梁</td><td>感染力強，情感調動自然（趨樂避苦設定強）</td><td>容易流於情緒化，結構散亂，收穫段不清晰</td><td>四段框架：強化結構意識</td></tr>
+          <tr><td>廉貞／七殺</td><td>衝突設計天然犀利，張力強（懶惰大腦設定強）</td><td>故事太「硬」，缺乏溫度與感官細節</td><td>記憶文件庫：加入感官溫度與個人細節</td></tr>
+          <tr><td>天機／天同</td><td>細節豐富，感官敏銳（記憶文件庫設定強）</td><td>故事太長太細，失去主線，觀眾迷失</td><td>La La Land 剪輯原則：刪除一切不服務故事的細節</td></tr>
+          <tr><td>武曲／破軍</td><td>行動導向清晰，期望行為設計準確</td><td>跳過情感建立直接要求行動，信任不足</td><td>信任力量：先建立「我群」認同，再提出行動</td></tr>
+        </tbody>
+      </table>
+      <p style="margin-top:12px"><strong>紫微視角的最大洞見：</strong>每個人的命盤格局決定了他天然說故事的「主力肌肉」——這也是他最容易過度依賴的部分。Eber 的五大設定框架的價值，不是讓所有人都說一樣的故事，而是讓每個人找到自己的「薄弱設定」，有針對性地補強，形成完整的故事能力組合。</p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>🌟 書醒系統最終評分</h3>
+  <table>
+    <thead><tr><th>評分維度</th><th>評分</th><th>說明</th></tr></thead>
+    <tbody>
+      <tr><td>知識密度</td><td>★★★★☆</td><td>科學根基扎實，但部分章節案例重複，可以更精煉</td></tr>
+      <tr><td>可操作性</td><td>★★★★★</td><td>幾乎每個洞見都附有即時可用的工具，是本書最大的強項</td></tr>
+      <tr><td>創新性</td><td>★★★★☆</td><td>神經科學 × 商業敘事的整合角度是真正的創新，但部分框架借鑒已有工作</td></tr>
+      <tr><td>普遍適用性</td><td>★★★☆☆</td><td>在北美商業環境極為有效，跨文化適用需要調整</td></tr>
+      <tr><td>長期影響力</td><td>★★★★★</td><td>這是一本可以反覆翻閱的工具書，每次溝通前都值得回翻相關章節</td></tr>
+      <tr><td><strong>書醒綜合評分</strong></td><td><strong>★★★★½</strong></td><td><strong>商業溝通類別中，近年難得一見的高品質整合工具書</strong></td></tr>
+    </tbody>
+  </table>
+
+  <div class="quote" style="margin-top:24px">
+    我們記住的是感受，而非事實。故事之所以完美，不是因為它沒有缺陷，而是因為它在正確的時刻，以正確的方式，觸動了正確的大腦。
+    <span class="quote-src">書醒系統 — 整合 Ch1「We remember what we feel」與 Ch18「Success isn't perfection. It's connecting through moments of authenticity」[Ch1] [Ch18]</span>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════ FOOTER ══════════════════════════════════ -->
 <footer>
-  <div>🐉 龍龍 × 書醒系統原書精讀版</div>
-  <p style="margin-top:6px">The Perfect Story · Karen Eber · 2023 · Harper Horizon</p>
-  <p style="margin-top:4px;font-size:.75rem">基於原書 OCR 全文 · L1 洞見均有原書出處</p>
+  <div style="background:rgba(255,255,255,.55);backdrop-filter:blur(12px);border-radius:20px;padding:28px;border:1px solid rgba(201,125,78,.15);display:inline-block;min-width:400px;max-width:700px">
+    <div style="font-family:'Noto Serif TC',serif;font-size:1.05rem;font-weight:700;color:var(--a2);margin-bottom:10px">📖 書醒系統 完整十一步分析</div>
+    <div style="color:var(--t2);font-size:.82rem;line-height:2">
+      The Perfect Story by Karen Eber<br>
+      2023, Harper Horizon<br>
+      <br>
+      書醒系統製作 · 2026年3月 · 龍龍 🐉<br>
+      <span style="color:var(--tl)">本分析基於原書 OCR 全文，結合書醒十一步方法論深度撰寫。<br>
+      所有 [AI 原創洞見] 標注處為 AI 基於書籍內容的延伸推論，非原書文字。</span>
+    </div>
+  </div>
 </footer>
 
 </div>
