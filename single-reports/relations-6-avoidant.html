@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒報告｜孤獨的冷漠：逃避型依戀障礙的分析與修復</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #D4849A;
+    --lavender: #9B7EC8;
+    --navy: #3A5A7C;
+    --teal: #4A8C84;
+    --amber: #C4803A;
+    --stage1: #6A8CC4;
+    --stage2: #8A7ABE;
+    --stage3: #5A9C90;
+    --cream: #F5F7FA;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #F2F5FA 0%, #EBF0F8 25%, #F0EBF8 55%, #EBF5F2 100%);
+    min-height: 100vh;
+    color: #1E2A3A;
+    padding: 40px 20px;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, rgba(40,65,110,0.92), rgba(90,60,130,0.85));
+    backdrop-filter: blur(12px);
+    border-radius: 32px;
+    padding: 48px 40px;
+    text-align: center;
+    margin-bottom: 32px;
+    color: white;
+    box-shadow: 0 8px 48px rgba(40,65,110,0.28);
+  }
+  .book-num { font-size: 13px; letter-spacing: 4px; opacity: 0.85; margin-bottom: 12px; font-family: 'Noto Serif TC'; }
+  .hero h1 { font-family: 'Noto Serif TC', serif; font-size: 1.9rem; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
+  .hero .author { font-size: 0.95rem; opacity: 0.9; margin-bottom: 20px; }
+  .hero .tagline {
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-size: 0.9rem;
+    display: inline-block;
+  }
+
+  /* Section headers */
+  .stage-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 40px 0 20px;
+  }
+  .stage-badge {
+    padding: 6px 20px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: white;
+    white-space: nowrap;
+  }
+  .stage-1 .stage-badge { background: linear-gradient(135deg, #5A7AB4, var(--stage1)); }
+  .stage-2 .stage-badge { background: linear-gradient(135deg, var(--stage2), #6A60A8); }
+  .stage-3 .stage-badge { background: linear-gradient(135deg, var(--stage3), #4A8878); }
+  .stage-line { flex: 1; height: 1px; background: rgba(60,90,124,0.15); }
+  .stage-title { font-family: 'Noto Serif TC'; font-size: 1.2rem; font-weight: 600; color: #2A3A50; }
+
+  /* Cards */
+  .card {
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(60,90,124,0.09);
+    box-shadow: 0 4px 24px rgba(60,90,124,0.07);
+  }
+  .card h3 {
+    font-family: 'Noto Serif TC';
+    font-size: 1.05rem;
+    color: var(--stage1);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card p, .card li { font-size: 0.95rem; line-height: 1.85; color: #2E3A4A; }
+  .card ul { padding-left: 20px; }
+  .card ul li { margin-bottom: 8px; }
+
+  .s1 .card h3 { color: var(--stage1); }
+  .s1 .card { border-left: 3px solid rgba(106,140,196,0.35); }
+  .s2 .card h3 { color: var(--stage2); }
+  .s2 .card { border-left: 3px solid rgba(138,122,190,0.35); }
+  .s3 .card h3 { color: var(--stage3); }
+  .s3 .card { border-left: 3px solid rgba(90,156,144,0.35); }
+
+  /* Attachment types visual */
+  .attachment-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  @media (max-width: 580px) { .attachment-grid { grid-template-columns: 1fr; } }
+  .attach-type {
+    border-radius: 16px;
+    padding: 18px 20px;
+    border: 1px solid rgba(0,0,0,0.07);
+  }
+  .attach-secure { background: linear-gradient(135deg, rgba(90,156,144,0.1), rgba(74,136,132,0.05)); border-color: rgba(90,156,144,0.2); }
+  .attach-anxious { background: linear-gradient(135deg, rgba(212,132,154,0.1), rgba(190,100,120,0.05)); border-color: rgba(212,132,154,0.2); }
+  .attach-avoidant { background: linear-gradient(135deg, rgba(106,140,196,0.12), rgba(80,100,160,0.06)); border-color: rgba(106,140,196,0.2); }
+  .attach-fearful { background: linear-gradient(135deg, rgba(196,128,58,0.1), rgba(160,100,40,0.05)); border-color: rgba(196,128,58,0.2); }
+  .attach-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
+  .attach-name { font-family: 'Noto Serif TC'; font-size: 0.95rem; font-weight: 700; margin-bottom: 6px; }
+  .attach-desc { font-size: 0.83rem; line-height: 1.65; }
+  .secure-text { color: var(--teal); }
+  .anxious-text { color: var(--rose); }
+  .avoidant-text { color: var(--stage1); }
+  .fearful-text { color: var(--amber); }
+
+  /* Concepts grid */
+  .concepts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 600px) { .concepts-grid { grid-template-columns: 1fr; } }
+  .concept-item {
+    background: rgba(255,255,255,0.6);
+    border-radius: 16px;
+    padding: 18px 20px;
+    border: 1px solid rgba(60,90,124,0.1);
+  }
+  .concept-num { font-size: 0.75rem; color: var(--stage1); font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
+  .concept-title { font-family: 'Noto Serif TC'; font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; color: #1E2A3A; }
+  .concept-desc { font-size: 0.85rem; color: #3A4A5A; line-height: 1.7; }
+
+  /* Quote block */
+  .quote-block {
+    background: linear-gradient(135deg, rgba(60,90,124,0.07), rgba(90,60,130,0.05));
+    border-radius: 16px;
+    padding: 20px 24px;
+    border-left: 4px solid var(--stage1);
+    margin: 16px 0;
+  }
+  .quote-block p { font-family: 'Noto Serif TC'; font-size: 1rem; color: #1E2A3A; line-height: 1.9; }
+
+  /* Signs list */
+  .signs-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 12px;
+  }
+  .sign-item {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: rgba(60,90,124,0.04);
+    border-radius: 12px;
+    padding: 12px 16px;
+  }
+  .sign-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+  .sign-text { font-size: 0.9rem; line-height: 1.7; color: #2E3A4A; }
+
+  /* Action cards */
+  .action-item {
+    background: linear-gradient(135deg, rgba(90,156,144,0.1), rgba(74,136,132,0.05));
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(90,156,144,0.18);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .action-num {
+    background: var(--stage3);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .action-content h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; color: #1A4540; }
+  .action-content p { font-size: 0.87rem; color: #3A5550; line-height: 1.7; }
+
+  /* Week cards */
+  .week-card {
+    background: rgba(255,255,255,0.65);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(90,156,144,0.2);
+  }
+  .week-label { font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; color: var(--stage3); margin-bottom: 8px; }
+  .week-title { font-family: 'Noto Serif TC'; font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; color: #1E2A3A; }
+  .week-desc { font-size: 0.87rem; color: #3A4A5A; line-height: 1.7; }
+  .week-check { font-size: 0.82rem; color: var(--stage3); margin-top: 8px; font-weight: 600; }
+
+  /* Golden quote */
+  .golden-quote {
+    background: linear-gradient(135deg, rgba(60,90,124,0.1), rgba(90,60,130,0.07));
+    border-radius: 20px;
+    padding: 28px 32px;
+    text-align: center;
+    margin: 20px 0;
+    border: 1px solid rgba(60,90,124,0.15);
+  }
+  .golden-quote p {
+    font-family: 'Noto Serif TC';
+    font-size: 1.15rem;
+    color: #1E2A3A;
+    line-height: 1.8;
+    font-weight: 600;
+  }
+
+  .tag {
+    display: inline-block;
+    background: rgba(60,90,124,0.09);
+    color: var(--stage1);
+    border-radius: 50px;
+    padding: 3px 12px;
+    font-size: 0.78rem;
+    margin: 3px;
+  }
+  .tag.teal { background: rgba(90,156,144,0.12); color: var(--stage3); }
+
+  .warn-box {
+    background: rgba(196,128,58,0.08);
+    border: 1px solid rgba(196,128,58,0.2);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-top: 12px;
+    font-size: 0.88rem;
+    color: #4A3010;
+    line-height: 1.75;
+  }
+  .warn-box strong { color: #7A5010; }
+
+  /* Spectrum bar */
+  .spectrum {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin: 16px 0;
+    border-radius: 50px;
+    overflow: hidden;
+    height: 32px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: white;
+  }
+  .spec-healthy { background: var(--teal); flex: 1; text-align: center; line-height: 32px; }
+  .spec-mild { background: #6A90C8; flex: 1.5; text-align: center; line-height: 32px; }
+  .spec-disorder { background: #3A5A8C; flex: 2; text-align: center; line-height: 32px; }
+
+  /* Famous cases */
+  .case-card {
+    background: rgba(255,255,255,0.55);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(60,90,124,0.1);
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .case-icon { font-size: 1.5rem; flex-shrink: 0; }
+  .case-name { font-family: 'Noto Serif TC'; font-size: 0.9rem; font-weight: 700; color: #1E2A3A; margin-bottom: 4px; }
+  .case-desc { font-size: 0.84rem; color: #3A4A5A; line-height: 1.65; }
+
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: rgba(30,42,58,0.4);
+    padding-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="book-num">書 ⑥ · AI 書僮深讀報告</div>
+    <h1>孤獨的冷漠<br>逃避型依戀障礙的分析與修復</h1>
+    <div class="author">岡田尊司 著｜邱香凝 譯</div>
+    <div class="tagline">🧠 依戀理論 × 逃避型 × 現代社會 × 療癒修復</div>
+  </div>
+
+  <!-- ======= STAGE 1 ======= -->
+  <div class="stage-header stage-1 s1">
+    <div class="stage-badge">STAGE 1</div>
+    <div class="stage-line"></div>
+    <div class="stage-title">📚 書本深讀</div>
+  </div>
+
+  <div class="s1">
+
+    <!-- 作者背景 -->
+    <div class="card">
+      <h3><span class="icon">👨‍⚕️</span> 作者背景與寫作動機</h3>
+      <p><strong>岡田尊司</strong>是日本知名精神科醫師與文學家，專研人格障礙、依戀理論及發展障礙。他在長期臨床實踐中發現，現代日本（乃至全球）正出現一種「逃避型依戀形式」的大規模蔓延，表面上是個人心理問題，實際上是社會結構與育兒環境劇變的結果。</p>
+      <br>
+      <p>寫作動機：<strong>低迷的結婚率、出生率、繭居族增加</strong>——這些現象背後，不只是經濟問題，更是「去依戀化社會」的必然後果。岡田希望讀者先理解現象，再找到個人層面的突破之道。</p>
+    </div>
+
+    <!-- 全書摘要 -->
+    <div class="card">
+      <h3><span class="icon">🗺️</span> 全書架構摘要</h3>
+      <p>全書共分多章，從個人到社會，從理論到實踐，構成一個完整的逃避型依戀分析框架：</p>
+      <br>
+      <ul>
+        <li><strong>第1章：「新人種」的誕生</strong>——什麼是依戀形式？逃避型、焦慮型、安全型的分類；催產素的生物機制；草原田鼠 vs 山地田鼠的類比。</li>
+        <li><strong>第2-3章：逃避型的成因</strong>——忽視的父母、過度掌控的父母、心靈創傷；近代化、資訊化、托兒所普及、嬰兒床文化如何助長逃避型。</li>
+        <li><strong>第4章：逃避型的愛情與性生活</strong>——難以建立親密關係的原因；逃避型育兒；性行為模式；婚姻壓力。</li>
+        <li><strong>第5章：逃避型在職場與社會的生存方式</strong>——逃避型的工作模式、優勢與困境。</li>
+        <li><strong>第6章：名人案例分析</strong>——艾力·賀佛爾、種田山頭火、赫曼·赫塞等逃避型名人的人生解析。</li>
+        <li><strong>第7-8章：療癒與修復</strong>——如何改變依戀形式；安全型「導師」的重要性；具體修復路徑。</li>
+      </ul>
+    </div>
+
+    <!-- 依戀類型 -->
+    <div class="card">
+      <h3><span class="icon">🔄</span> 四種依戀形式（核心分類地圖）</h3>
+      <div class="attachment-grid">
+        <div class="attach-type attach-secure">
+          <div class="attach-label secure-text">✅ 安全型</div>
+          <div class="attach-name secure-text">安全型依戀</div>
+          <div class="attach-desc">能與人建立穩定信任關係，享受親密，也能獨立。是依戀系統運作良好的狀態。</div>
+        </div>
+        <div class="attach-type attach-anxious">
+          <div class="attach-label anxious-text">⚠️ 焦慮型</div>
+          <div class="attach-name anxious-text">焦慮型（束縛型）</div>
+          <div class="attach-desc">依戀系統過度敏感。強烈恐懼被拋棄，過度依賴，情緒起伏大，容易黏人。</div>
+        </div>
+        <div class="attach-type attach-avoidant">
+          <div class="attach-label avoidant-text">🧊 逃避型（本書主角）</div>
+          <div class="attach-name avoidant-text">逃避型（輕視依戀型）</div>
+          <div class="attach-desc">依戀系統受到壓抑。逃避親密關係，壓抑情感，獨處比較輕鬆，逃避長期責任。</div>
+        </div>
+        <div class="attach-type attach-fearful">
+          <div class="attach-label fearful-text">💢 恐懼逃避型</div>
+          <div class="attach-name fearful-text">恐懼·逃避型（紊亂型）</div>
+          <div class="attach-desc">同時具有焦慮型和逃避型特徵。渴望親密卻無法信任他人，最不穩定的形式。</div>
+        </div>
+      </div>
+      <p style="font-size:0.85rem; color:#4A5A6A; margin-top: 12px; font-style: italic;">逃避型的嚴重程度存在連續光譜：健全的逃避傾向 → 逃避型依戀形式 → 逃避性依戀障礙（影響社會適應）</p>
+    </div>
+
+    <!-- 作者核心主張 -->
+    <div class="card">
+      <h3><span class="icon">💡</span> 作者核心主張</h3>
+      <div class="quote-block">
+        <p>「逃避型依戀障礙不只是個人問題，而是現代文明發展的結構性後果。它正在改變人類的社會型態和育兒機制，如果不加以正視，將威脅到人類的繁衍與社會維繫。但在個人層面，透過正確的理解和努力，依戀形式是可以改變的。」</p>
+      </div>
+    </div>
+
+    <!-- 關鍵觀念 -->
+    <div class="card">
+      <h3><span class="icon">🔑</span> 最重要的 8 個關鍵觀念</h3>
+      <div class="concepts-grid">
+        <div class="concept-item">
+          <div class="concept-num">CONCEPT 01</div>
+          <div class="concept-title">催產素是依戀的生物基礎</div>
+          <div class="concept-desc">催產素（及抗利尿激素）決定了人的依戀能力、同理心和抗壓性。幼年環境是否穩定，直接影響催產素受體的數量，影響持續一生。</div>
+        </div>
+        <div class="concept-item">
+          <div class="concept-num">CONCEPT 02</div>
+          <div class="concept-title">四分之三是環境，四分之一是遺傳</div>
+          <div class="concept-desc">依戀形式只有約25%受遺傳影響，75%是後天環境塑造。這意味著：它雖然根深蒂固，但並非命定，可以透過後天體驗改變。</div>
+        </div>
+        <div class="concept-item">
+          <div class="concept-num">CONCEPT 03</div>
+          <div class="concept-title">1歲半前是關鍵期</div>
+          <div class="concept-desc">依戀形成有關鍵期（出生到1歲半，最多到2歲）。在這段期間，與穩定的主要養育者建立「無條件回應」的關係至關重要。錯過了，後來要花更大的努力修復。</div>
+        </div>
+        <div class="concept-item">
+          <div class="concept-num">CONCEPT 04</div>
+          <div class="concept-title">逃避型的典型特徵</div>
+          <div class="concept-desc">避免親密關係；壓抑正面情感的表達；獨處比相處舒適；恐懼長期責任（婚姻、育兒）；對他人的痛苦缺乏同理心；述情障礙（不清楚自己的感受）。</div>
+        </div>
+        <div class="concept-item">
+          <div class="concept-num">CONCEPT 05</div>
+          <div class="concept-title">過度掌控 = 一種忽視</div>
+          <div class="concept-desc">看似照顧充足的「嚴格父母」，實際上也在「忽視」孩子真正的情感需求和主體性。這種情況下形成的逃避型，往往比被明顯忽視的案例更難自覺。</div>
+        </div>
+        <div class="concept-item">
+          <div class="concept-num">CONCEPT 06</div>
+          <div class="concept-title">現代社會加速「去依戀化」</div>
+          <div class="concept-desc">資訊超載（螢幕成癮）、托兒文化、嬰兒床、核心家庭化、母親早期回歸職場——這些現代發展正系統性地削弱嬰幼兒依戀的形成，造成社會層面的逃避型增加。</div>
+        </div>
+        <div class="concept-item">
+          <div class="concept-num">CONCEPT 07</div>
+          <div class="concept-title">安全堡壘的重要性</div>
+          <div class="concept-desc">依戀穩定的孩子，把父母（後來是伴侶）視為「安全堡壘」，可以大膽探索世界，因為知道失敗了可以回來。失去安全堡壘的人，活在不斷的自我保護和退縮中。</div>
+        </div>
+        <div class="concept-item">
+          <div class="concept-num">CONCEPT 08</div>
+          <div class="concept-title">依戀形式是可以改變的</div>
+          <div class="concept-desc">成年後，與安全型的伴侶、朋友或治療師建立穩定關係，可以逐漸改變依戀形式。關鍵不是「努力改變自己」，而是「被正確對待」的累積體驗。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 名人案例 -->
+    <div class="card">
+      <h3><span class="icon">📖</span> 書中的名人逃避型案例</h3>
+      <div class="case-card">
+        <div class="case-icon">✍️</div>
+        <div>
+          <div class="case-name">艾力·賀佛爾（哲學工人）</div>
+          <div class="case-desc">7歲失明、母親早逝、15歲視力恢復後失去照顧者，終身漂泊。49歲才出版第一本書，一生拒絕定居和親密關係——正是失去依戀對象後「去依戀化」的典型路徑。</div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-icon">🍃</div>
+        <div>
+          <div class="case-name">種田山頭火（俳句詩人）</div>
+          <div class="case-desc">10歲目睹母親投井自盡，終身四處流浪、無法定居。文學世界成為他唯一的「安全避難所」——逃避型找到的補償機制。</div>
+        </div>
+      </div>
+      <div class="case-card">
+        <div class="case-icon">📚</div>
+        <div>
+          <div class="case-name">赫曼·赫塞（德國文學家）</div>
+          <div class="case-desc">母親在他人生關鍵時刻前往探病他拒絕，母親去世也不出席葬禮。其作品中對「母親型控制」的反抗正是他療癒逃避型依戀的創作出口。後來透過榮格精神分析才清楚意識到這一切。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底層假設 -->
+    <div class="card">
+      <h3><span class="icon">🔍</span> 隱含但未明說的底層假設</h3>
+      <ul>
+        <li><strong>假設1：「安全型依戀」是人類最理想的狀態，</strong>逃避型是一種「偏差」而非僅僅是另一種適應策略。這個預設框架可能對高功能逃避型個體不公平。</li>
+        <li><strong>假設2：母親是依戀的首要責任人。</strong>書中大量強調母嬰關係，對父親角色、社會支持網絡的討論相對薄弱，可能加重母親的罪咎感。</li>
+        <li><strong>假設3：現代社會的「去依戀化」趨勢是可逆的，</strong>只要人們有意識地改變育兒行為。但書中後半段其實也承認，這可能是「物種進化」的方向，是否能逆轉尚不確定。</li>
+        <li><strong>假設4：依戀問題可以在個人和人際關係層面解決。</strong>但書中自己也指出這是結構性問題，暗示個人努力在面對系統性壓力時可能遠遠不夠。</li>
+      </ul>
+    </div>
+
+    <!-- 盲點爭議 -->
+    <div class="card">
+      <h3><span class="icon">⚠️</span> 作者可能的盲點或爭議點</h3>
+      <div class="warn-box">
+        <strong>爭議1：對「逃避型」缺乏多元價值視角。</strong> 全書大量描述逃避型的「缺陷」，但也有學者指出，逃避型在某些環境（高度創新、需要獨立決策的領域）可能具有優勢，岡田的框架偏向將逃避型「病理化」。<br><br>
+        <strong>爭議2：過度強調早期依戀的決定性，</strong>可能讓成年人產生「反正我早期就已經受損，無力改變」的宿命感，這與書中「依戀可以改變」的宗旨自相矛盾。<br><br>
+        <strong>爭議3：以日本社會為主要觀察對象，</strong>書中的文化分析是否適用於其他文化背景（包括台灣）需要審慎轉化。<br><br>
+        <strong>爭議4：「逃避型伴侶無法給予有效安慰」等強烈陳述</strong>可能強化了對逃避型個體的污名，忽略了個體差異和改變的可能性。
+      </div>
+    </div>
+
+  </div><!-- end s1 -->
+
+  <!-- ======= STAGE 2 ======= -->
+  <div class="stage-header stage-2 s2">
+    <div class="stage-badge">STAGE 2</div>
+    <div class="stage-line"></div>
+    <div class="stage-title">🌐 公眾認知萃取</div>
+  </div>
+
+  <div class="s2">
+    <div class="card">
+      <h3><span class="icon">📢</span> 這本書在大眾世界被記住的是什麼</h3>
+      <p>大眾最記住的是<strong>「原來我（或我的伴侶/父母）是逃避型」這個標籤性的頓悟</strong>。這本書在社群媒體上被大量引用的場景是：「終於知道為什麼他（她）跟我在一起但又保持距離了」「原來我的疏離是有原因的」。</p>
+      <br>
+      <p>岡田尊司在台日兩地都是暢銷的依戀理論普及者，本書與他的《依戀障礙》系列構成了許多讀者進入依戀理論的入口。</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">💬</span> 最常被引用的觀點</h3>
+      <ul>
+        <li>逃避型的「山地田鼠 vs 草原田鼠」比喻——直觀易懂，大量流傳。</li>
+        <li>「依戀形式75%由後天環境決定」——讓人感到既沉重又有希望。</li>
+        <li>「過度掌控的父母和忽視的父母，效果一樣」——衝擊很多以為自己是好父母的讀者。</li>
+        <li>「逃避型對伴侶的困難視而不見，甚至感到憤怒」——讓很多人驚呼「這就是我老公/老婆！」</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">🌀</span> 最常被誤解的部分</h3>
+      <p>最大的誤解：<strong>用「逃避型」的標籤解釋並接受所有的迴避行為，</strong>而不是把它視為需要療癒的模式。很多人讀完會說「我就是逃避型，所以我就是這樣，沒辦法改」，但書中其實一直強調改變是可能的。</p>
+      <br>
+      <p>另一個誤解：認為逃避型人就是「不愛你」，但書中指出他們往往有深層情感，只是無法表達和靠近。</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">⚡</span> 最有爭議的部分</h3>
+      <p>「逃避型是現代社會的『新品種』」這個框架——批評者認為這是在病理化多元的人格特質，也有人認為這種描述過於悲觀，忽略了逃避型在某些領域（獨立創作、深度思考、特殊職業）的優勢。</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">🎯</span> 這本書真正的核心被記住了嗎？</h3>
+      <div class="quote-block">
+        <p><strong>判斷：記住了一半，另一半被忽略了。</strong>大眾記住了「診斷部分」（我是逃避型），但忽略了「修復部分」（如何透過關係療癒）。書的後半段關於「如何建立新的依戀體驗」、「安全型導師的力量」，才是岡田真正想強調的行動方向。<strong>診斷只是起點，真正的核心是：你願不願意讓人進來，讓依戀重新發生？</strong></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= STAGE 3 ======= -->
+  <div class="stage-header stage-3 s3">
+    <div class="stage-badge">STAGE 3</div>
+    <div class="stage-line"></div>
+    <div class="stage-title">⚡ Rex 個人化轉化</div>
+  </div>
+
+  <div class="s3">
+
+    <div class="card" style="background: linear-gradient(135deg, rgba(90,156,144,0.1), rgba(74,136,132,0.05));">
+      <h3><span class="icon">👤</span> Rex 畫像</h3>
+      <p>42歲 · 叡思影像創辦人 · 社群經濟實戰者 · 強調人情經濟 · 想用 AI 重活一次 · 重視真實連結，但可能因忙碌忽略關係維護</p>
+      <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px;">
+        <span class="tag">人情即資本</span>
+        <span class="tag">主動連結者</span>
+        <span class="tag teal">42歲轉型期</span>
+        <span class="tag teal">渴望真實關係</span>
+        <span class="tag">忙碌中疏忽維護</span>
+      </div>
+    </div>
+
+    <!-- 逃避型特徵自我診斷 -->
+    <div class="card">
+      <h3><span class="icon">🪞</span> Rex 的自我照鏡：他身上有沒有逃避型的影子？</h3>
+      <p style="margin-bottom: 12px; font-size: 0.9rem; color: #3A4A5A;">Rex 強調「人情經濟」、表面上是高度連結的人，但以下幾點值得深思：</p>
+      <div class="signs-list">
+        <div class="sign-item">
+          <div class="sign-icon">🤔</div>
+          <div class="sign-text"><strong>「忙碌」是最好的距離管理工具</strong>——以忙碌為由不維護關係，可能是一種無意識的逃避親密的模式。很多逃避型在職場表現出色，但私人深層關係少。</div>
+        </div>
+        <div class="sign-item">
+          <div class="sign-icon">📊</div>
+          <div class="sign-text"><strong>「人情即資本」的框架可能是情感距離的包裝</strong>——把關係計量化，可能是在用「理性工具」替代真正的情感暴露，避免真正的脆弱。</div>
+        </div>
+        <div class="sign-item">
+          <div class="sign-icon">🔍</div>
+          <div class="sign-text"><strong>「重視真實連結」但「可能因忙碌忽略維護」</strong>——這句話本身就描述了一個溫和的逃避型模式：說重視，但行動不一致。</div>
+        </div>
+        <div class="sign-item">
+          <div class="sign-icon">💡</div>
+          <div class="sign-text">注意：Rex 不一定是逃避型，這只是「值得覺察的問題」，不是標籤。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">🛡️</span> Rex 可能會抗拒的部分</h3>
+      <ul>
+        <li><strong>「依戀理論」聽起來太心理學、太學術</strong>——Rex 是實戰者，這種系統性分析框架如果不能快速翻譯成「對我的生意和關係有什麼用」，很容易被跳過。</li>
+        <li><strong>「你的行為模式可能源自幼年依戀經驗」</strong>——對一個 42 歲、已建立自我認同的創業者，重新回頭挖掘童年可能引發防衛心理。</li>
+        <li><strong>書中對逃避型的大量「負面特徵」描述</strong>——如果 Rex 在某些面向認出自己，可能會出現否認或憤怒的反應（「我才不是這樣」）。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">🎯</span> Rex 最容易忽略的部分</h3>
+      <ul>
+        <li><strong>「被正確對待」才能改變依戀，不只是「努力改變自己」</strong>——Rex 習慣主動出擊，但書中指出修復依戀的關鍵是讓別人用安全型的方式對待你，累積正向體驗。<strong>這意味著：找到能讓你真正放鬆的關係，比自我改造更重要。</strong></li>
+        <li><strong>「人情經濟」的深層風險</strong>——如果你的關係網絡全是「有用的人」，你其實沒有真正的安全堡壘。危機時刻，你能打電話求救的人有幾個？</li>
+        <li><strong>「催產素」與健康和壽命的關係</strong>——書中指出，催產素運作好的人不只人際關係好，連健康和壽命都更好。投資真實關係不只是「情感奢侈品」，而是真實的健康投資。</li>
+        <li><strong>「代際傳遞」的警示</strong>——如果 Rex 有孩子或計劃有孩子，逃避型的育兒模式可能在不自覺中傳遞給下一代。</li>
+      </ul>
+    </div>
+
+    <!-- 金句 -->
+    <div class="golden-quote">
+      <p>💎 Rex 的核心金句</p>
+      <p style="font-size:1.25rem; margin-top: 8px;">「你的人情網絡有多廣，<br>不代表你的安全堡壘有多穩。<br>真正的資本不是誰認識你，<br>而是危機時刻你能打給誰。」</p>
+    </div>
+
+    <!-- 3個行動 -->
+    <div class="card">
+      <h3><span class="icon">⚡</span> 3 個即時可行的行動（各 20 分鐘內）</h3>
+      <div class="action-item">
+        <div class="action-num">1</div>
+        <div class="action-content">
+          <h4>「安全堡壘清單」——你真正的緊急聯絡人有誰？</h4>
+          <p>在紙上快速回答：「如果我現在遇到人生的重大危機（財務崩盤、健康危機、感情破裂），我可以打電話求助、真心傾訴、不需要表演強大的人有幾個？」誠實列出來，不是聯絡人，而是「安全堡壘」。清單很短的人，這就是你的關係課題。</p>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">2</div>
+        <div class="action-content">
+          <h4>「情感帳款」——你有沒有長期忽略的重要關係？</h4>
+          <p>列出 3 個「我一直說要聯繫但一直沒行動」的人（不是客戶，是真正重要的人）。選其中一個，現在傳一則真誠的訊息：「我最近常常想起你，不知道你過得怎麼樣？」不需要理由，不需要目的。這就是修復疏忽的第一步。</p>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">3</div>
+        <div class="action-content">
+          <h4>「真實脆弱」練習——對一個信任的人說一件真實的困難</h4>
+          <p>選一個你信任的人，在接下來 24 小時內，說出一件你目前真正感到困難或擔心的事——不是在抱怨，而是真心分享。不是為了解決問題，只是讓另一個人知道你的真實狀態。練習被人看見。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 30天計劃 -->
+    <div class="card">
+      <h3><span class="icon">📅</span> 30 天落地練習系統</h3>
+
+      <div class="week-card">
+        <div class="week-label">WEEK 1 · 第 1-7 天</div>
+        <div class="week-title">🔍 診斷期：認識你的依戀模式</div>
+        <div class="week-desc">用書末附的「依戀形式診斷測驗」進行自我評估。每天晚上花 5 分鐘記錄：今天有沒有哪個時刻，你「本來想靠近某人但選擇了距離」？不是批判，只是看清模式。同時問自己：在我的生命中，誰是讓我感到最放鬆、不需要表演的人？</div>
+        <div class="week-check">✅ Week 1 檢核點：你對自己的依戀形式有更清晰的認識了嗎？你找到了誰是你的「安全堡壘」嗎？</div>
+      </div>
+
+      <div class="week-card">
+        <div class="week-label">WEEK 2 · 第 8-14 天</div>
+        <div class="week-title">🤝 修復期：主動深化一段真實關係</div>
+        <div class="week-desc">選一個想深化的關係（可以是老朋友、家人、夥伴），這週和他/她進行一次「沒有議程的對話」：不談生意，不解決問題，只是分享近況和真實感受。每天記錄這段關係帶給你的感受變化。</div>
+        <div class="week-check">✅ Week 2 檢核點：這段對話之後，你感覺更靠近還是更焦慮？你有沒有說出平時不說的真實？</div>
+      </div>
+
+      <div class="week-card">
+        <div class="week-label">WEEK 3 · 第 15-21 天</div>
+        <div class="week-title">🌱 催產素充電：用身體投資關係</div>
+        <div class="week-desc">書中提到催產素需要「真實的肢體接觸和情感連結」才能活化。這週主動安排：① 與重要的人面對面吃一頓飯（不是工作餐）；② 給一個你在乎的人一個擁抱或真誠的讚美。觀察自己的狀態和能量變化。</div>
+        <div class="week-check">✅ Week 3 檢核點：面對面和真誠接觸的能量感，和線上溝通有何不同？</div>
+      </div>
+
+      <div class="week-card">
+        <div class="week-label">WEEK 4 · 第 22-30 天</div>
+        <div class="week-title">🏰 安全堡壘建設：把關係轉化為支撐系統</div>
+        <div class="week-desc">回顧這個月，誰是你真正的「安全堡壘」？主動跟那個人說：「你是對我很重要的人，謝謝你一直在。」同時思考：作為一個人情經濟的操盤手，你能不能也成為某些人的「安全堡壘」？真正的人情資本不是廣，是深。</div>
+        <div class="week-check">✅ Week 4 檢核點：30 天後，你的「安全堡壘清單」有沒有增加？你有沒有讓某個關係變得更真實、更有深度？</div>
+      </div>
+    </div>
+
+    <!-- 特別提醒 -->
+    <div class="card" style="background: linear-gradient(135deg, rgba(60,90,124,0.07), rgba(90,60,130,0.04));">
+      <h3><span class="icon">🌟</span> Rex 的特別提醒：你的關係資本需要重新定義</h3>
+      <p>岡田這本書給了 Rex 一個深刻的挑戰：<strong>社群關係的廣度，不等於依戀安全感的深度。</strong></p>
+      <br>
+      <p>「人情經濟」是 Rex 的強項，但書中告訴我們，人類最根本的幸福感來自少數幾段真實、深刻、雙向的依戀關係，而不是廣泛的弱連結網絡。</p>
+      <br>
+      <p>用 AI 重活一次的 Rex，如果要真正「重活」，最值得投資的不只是技術和效率，而是：<strong>你生命中的 2-3 段真實的安全堡壘關係。</strong>這是任何 AI 都無法替代的。</p>
+    </div>
+
+  </div>
+
+  <div class="footer">
+    AI 書僮 2.0 深讀報告 · 書6 · 孤獨的冷漠：逃避型依戀障礙的分析與修復<br>
+    生成時間：2026-03-19 · 三階段深讀系統
+  </div>
+
+</div>
+</body>
+</html>
