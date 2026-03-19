@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒報告｜內在小孩快樂，你才快樂</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #D4849A;
+    --lavender: #9B7EC8;
+    --rose-light: #F2C4CE;
+    --lavender-light: #C9B8E8;
+    --cream: #FDF8F2;
+    --stage1: #E8A4B4;
+    --stage2: #A88FD4;
+    --stage3: #7BC4B8;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #FDF8F2 0%, #FAE8EF 30%, #EDE4F7 60%, #F0F4FE 100%);
+    min-height: 100vh;
+    color: #3D2C35;
+    padding: 40px 20px;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; }
+
+  /* Hero */
+  .hero {
+    background: linear-gradient(135deg, rgba(212,132,154,0.85), rgba(155,126,200,0.85));
+    backdrop-filter: blur(12px);
+    border-radius: 32px;
+    padding: 48px 40px;
+    text-align: center;
+    margin-bottom: 32px;
+    color: white;
+    box-shadow: 0 8px 40px rgba(155,126,200,0.25);
+  }
+  .book-num { font-size: 13px; letter-spacing: 4px; opacity: 0.85; margin-bottom: 12px; font-family: 'Noto Serif TC'; }
+  .hero h1 { font-family: 'Noto Serif TC', serif; font-size: 2rem; font-weight: 700; margin-bottom: 12px; line-height: 1.4; }
+  .hero .author { font-size: 0.95rem; opacity: 0.9; margin-bottom: 20px; }
+  .hero .tagline {
+    background: rgba(255,255,255,0.2);
+    border-radius: 50px;
+    padding: 10px 24px;
+    font-size: 0.9rem;
+    display: inline-block;
+  }
+
+  /* Section headers */
+  .stage-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 40px 0 20px;
+  }
+  .stage-badge {
+    padding: 6px 20px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: white;
+    white-space: nowrap;
+  }
+  .stage-1 .stage-badge { background: linear-gradient(135deg, var(--stage1), var(--rose)); }
+  .stage-2 .stage-badge { background: linear-gradient(135deg, var(--stage2), var(--lavender)); }
+  .stage-3 .stage-badge { background: linear-gradient(135deg, var(--stage3), #5BA8A0); }
+  .stage-line { flex: 1; height: 1px; background: rgba(155,126,200,0.2); }
+  .stage-title { font-family: 'Noto Serif TC'; font-size: 1.2rem; font-weight: 600; color: #4A3558; }
+
+  /* Cards */
+  .card {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(212,132,154,0.12);
+    box-shadow: 0 4px 24px rgba(155,126,200,0.08);
+  }
+  .card h3 {
+    font-family: 'Noto Serif TC';
+    font-size: 1.05rem;
+    color: var(--rose);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card h3 .icon { font-size: 1.2rem; }
+  .card p, .card li { font-size: 0.95rem; line-height: 1.85; color: #4A3A40; }
+  .card ul { padding-left: 20px; }
+  .card ul li { margin-bottom: 8px; }
+
+  /* Stage 1 cards */
+  .s1 .card h3 { color: var(--stage1); }
+  .s1 .card { border-left: 3px solid rgba(232,164,180,0.4); }
+
+  /* Stage 2 cards */
+  .s2 .card h3 { color: var(--stage2); }
+  .s2 .card { border-left: 3px solid rgba(168,143,212,0.4); }
+
+  /* Stage 3 cards */
+  .s3 .card h3 { color: var(--stage3); }
+  .s3 .card { border-left: 3px solid rgba(123,196,184,0.4); }
+
+  /* Key concepts grid */
+  .concepts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 600px) { .concepts-grid { grid-template-columns: 1fr; } }
+  .concept-item {
+    background: rgba(255,255,255,0.6);
+    border-radius: 16px;
+    padding: 18px 20px;
+    border: 1px solid rgba(212,132,154,0.15);
+  }
+  .concept-num { font-size: 0.75rem; color: var(--rose); font-weight: 700; letter-spacing: 1px; margin-bottom: 6px; }
+  .concept-title { font-family: 'Noto Serif TC'; font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; color: #3D2C35; }
+  .concept-desc { font-size: 0.85rem; color: #5A4A50; line-height: 1.7; }
+
+  /* Quote block */
+  .quote-block {
+    background: linear-gradient(135deg, rgba(212,132,154,0.1), rgba(155,126,200,0.1));
+    border-radius: 16px;
+    padding: 20px 24px;
+    border-left: 4px solid var(--rose);
+    margin: 16px 0;
+  }
+  .quote-block p { font-family: 'Noto Serif TC'; font-size: 1rem; color: #4A2535; line-height: 1.9; }
+  .quote-author { font-size: 0.8rem; color: var(--rose); margin-top: 8px; text-align: right; }
+
+  /* Action cards */
+  .action-item {
+    background: linear-gradient(135deg, rgba(123,196,184,0.1), rgba(91,168,160,0.05));
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(123,196,184,0.2);
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+  .action-num {
+    background: var(--stage3);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .action-content h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; color: #2A5550; }
+  .action-content p { font-size: 0.87rem; color: #4A6560; line-height: 1.7; }
+
+  /* 30-day plan */
+  .week-card {
+    background: rgba(255,255,255,0.6);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    border: 1px solid rgba(123,196,184,0.2);
+  }
+  .week-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--stage3);
+    margin-bottom: 8px;
+  }
+  .week-title { font-family: 'Noto Serif TC'; font-size: 0.95rem; font-weight: 600; margin-bottom: 8px; color: #3D2C35; }
+  .week-desc { font-size: 0.87rem; color: #5A4A50; line-height: 1.7; }
+  .week-check { font-size: 0.82rem; color: var(--stage3); margin-top: 8px; font-weight: 600; }
+
+  /* Golden line */
+  .golden-quote {
+    background: linear-gradient(135deg, rgba(212,132,154,0.15), rgba(155,126,200,0.15));
+    border-radius: 20px;
+    padding: 28px 32px;
+    text-align: center;
+    margin: 20px 0;
+    border: 1px solid rgba(212,132,154,0.2);
+  }
+  .golden-quote p {
+    font-family: 'Noto Serif TC';
+    font-size: 1.15rem;
+    color: #4A2535;
+    line-height: 1.8;
+    font-weight: 600;
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    background: rgba(212,132,154,0.12);
+    color: var(--rose);
+    border-radius: 50px;
+    padding: 3px 12px;
+    font-size: 0.78rem;
+    margin: 3px;
+  }
+  .tag.lavender { background: rgba(155,126,200,0.12); color: var(--lavender); }
+
+  .warn-box {
+    background: rgba(255,220,100,0.12);
+    border: 1px solid rgba(255,200,50,0.25);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-top: 12px;
+    font-size: 0.88rem;
+    color: #5A4A20;
+    line-height: 1.75;
+  }
+  .warn-box strong { color: #8B6A10; }
+
+  .footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.8rem;
+    color: rgba(78,60,80,0.5);
+    padding-bottom: 20px;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="book-num">書 ④ · AI 書僮深讀報告</div>
+    <h1>內在小孩快樂，你才快樂</h1>
+    <div class="author">吉本芭娜娜 × 平良愛綾 著｜邱心柔 譯</div>
+    <div class="tagline">🌺 荷歐波諾波諾 × 尤尼希皮里 × 活出真實自我</div>
+  </div>
+
+  <!-- ======= STAGE 1 ======= -->
+  <div class="stage-header stage-1 s1">
+    <div class="stage-badge">STAGE 1</div>
+    <div class="stage-line"></div>
+    <div class="stage-title">📚 書本深讀</div>
+  </div>
+
+  <div class="s1">
+
+    <!-- 全書摘要 -->
+    <div class="card">
+      <h3><span class="icon">🗺️</span> 全書架構摘要</h3>
+      <p>本書是日本知名作家<strong>吉本芭娜娜</strong>（廚房作者）與荷歐波諾波諾實踐者<strong>平良愛綾</strong>的對話錄，以「尤尼希皮里（Unihipili）」——夏威夷古老療癒系統中對內在小孩的稱呼——為核心，探討如何透過理解、傾聽並愛護內在小孩，讓真實的自我重新浮現。</p>
+      <br>
+      <p><strong>全書五大章節脈絡：</strong></p>
+      <ul>
+        <li><strong>第一章：認識尤尼希皮里</strong>——什麼是內在小孩？為何他決定你的快樂？如何傾聽與感受他的存在。</li>
+        <li><strong>第二章：父母的影響與框架</strong>——我們如何在父母的期望下形成「設定值」，以及如何鬆綁這些框架，找回屬於自己的平靜。</li>
+        <li><strong>第三章：照顧並愛護尤尼希皮里</strong>——宇宙法則與內在小孩的關係；如何減少雜音，順勢而為，遇見自然的自己。</li>
+        <li><strong>第四章：誠實的人際關係</strong>——不留足跡的謊言；安定自己才能給予他人；不矛盾地生活。</li>
+        <li><strong>第五章：如何活出最真實的自己</strong>——選擇伴侶、重整心情、培養人際關係的方法，以及離別的覺悟。</li>
+      </ul>
+    </div>
+
+    <!-- 作者核心主張 -->
+    <div class="card">
+      <h3><span class="icon">💡</span> 作者核心主張</h3>
+      <div class="quote-block">
+        <p>「你的痛苦、不快樂、關係失調，根源不在外部，而在內在小孩（尤尼希皮里）沒有被照顧好。當你學會傾聽、接納並喜悅地與他同在，人生就會自然調整到對的頻率。」</p>
+      </div>
+      <p>平良愛綾的核心立場：<strong>荷歐波諾波諾不只是說四句話，而是與內在小孩建立真實的溝通關係。</strong>吉本芭娜娜則從一位創作者與人生觀察者的角度，確認這個概念與她對人性、關係的長期觀察完全吻合。</p>
+    </div>
+
+    <!-- 5-8關鍵觀念 -->
+    <div class="card">
+      <h3><span class="icon">🔑</span> 最重要的 7 個關鍵觀念</h3>
+      <div class="concepts-grid">
+        <div class="concept-item">
+          <div class="concept-num">CONCEPT 01</div>
+          <div class="concept-title">尤尼希皮里是你的內在小孩</div>
+          <div class="concept-desc">荷歐波諾波諾系統將人的意識分為三層：顯意識（Uhane）、潛意識/內在小孩（Unihipili）、超意識（Aumakua）。內在小孩掌管記憶、情緒和身體，是你所有「設定程式」的儲存庫。</div>
+        </div>
+        <div class="concept-item">
+          <div class="concept-num">CONCEPT 02</div>
+          <div class="concept-title">記憶就是思考的習慣</div>
+          <div class="concept-desc">我們以為的「自己的想法」，其實大多是從父母、環境「繼承」來的記憶程式。清理這些記憶，才能讓靈感（inspiration）自由流入，做出真正屬於自己的選擇。</div>
+        </div>
+        <div class="concept-item">
+          <div class="concept-num">CONCEPT 03</div>
+          <div class="concept-title">傾聽內在小孩的聲音</div>
+          <div class="concept-desc">不是用頭腦分析，而是透過身體感受、直覺、情緒信號，去感知尤尼希皮里在說什麼。他往往透過輕微的不舒服、突然的渴望、奇怪的夢境傳遞訊息。</div>
+        </div>
+        <div class="concept-item">
+          <div class="concept-num">CONCEPT 04</div>
+          <div class="concept-title">框架是最大的敵人</div>
+          <div class="concept-desc">「應該要○○」「必須這樣才對」——這些框架限制了內在小孩的喜悅。鬆綁框架，用樂趣作為判斷依據，才能找到符合真實自我的人生方向。</div>
+        </div>
+        <div class="concept-item">
+          <div class="concept-num">CONCEPT 05</div>
+          <div class="concept-title">不做違心之事</div>
+          <div class="concept-desc">長期壓抑內在小孩的感受，代價是慢性疲憊、關係衝突、創造力乾涸。吉本芭娜娜指出：能夠自始至終相信自己的人，往往是能夠持續聆聽內在小孩的人。</div>
+        </div>
+        <div class="concept-item">
+          <div class="concept-num">CONCEPT 06</div>
+          <div class="concept-title">照顧自己就是照顧關係</div>
+          <div class="concept-desc">很多人以為「為別人犧牲自己」是愛，其實是在用虛假的自己去維持關係。當你真正滿足了內在小孩，你才有能力給出不帶條件的愛。</div>
+        </div>
+        <div class="concept-item">
+          <div class="concept-num">CONCEPT 07</div>
+          <div class="concept-title">誠實是關係的核心</div>
+          <div class="concept-desc">不留足跡的謊言，比直接說出真相代價更高。對自己誠實、對他人誠實，才能建立不需要消耗大量能量去維持的真實關係。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底層假設 -->
+    <div class="card">
+      <h3><span class="icon">🔍</span> 隱含但未明說的底層假設</h3>
+      <ul>
+        <li><strong>假設1：人的痛苦根源在內，不在外。</strong>——所有困境都是「記憶的投影」，這個假設沿自荷歐波諾波諾的形而上學世界觀，未經實證科學驗證。</li>
+        <li><strong>假設2：「清理」比「改變行動」更根本。</strong>——書中暗示，內心清理完畢，現實會自動跟著改變，而非強調行動力或策略。</li>
+        <li><strong>假設3：真實的自我是善的、平靜的。</strong>——去除程式後，剩下的「本來的自己」預設是健康、有愛的，未考慮人格中的陰影面。</li>
+        <li><strong>假設4：快樂的標準在內不在外。</strong>——物質成功、社會認可都是次要的，這對追求事業成就的讀者可能造成認知衝突。</li>
+      </ul>
+    </div>
+
+    <!-- 盲點或爭議 -->
+    <div class="card">
+      <h3><span class="icon">⚠️</span> 作者可能的盲點或爭議點</h3>
+      <div class="warn-box">
+        <strong>爭議1：「清理記憶」說太玄。</strong>  荷歐波諾波諾的「清理」機制在科學上缺乏實證支撐，對習慣因果邏輯思考的讀者，書中的「一切都是記憶的投影」說法可能難以接受。<br><br>
+        <strong>爭議2：個人責任邊界模糊。</strong> 若一切困境都是「自己的記憶造成」，可能讓人對不公義的結構性問題（職場歧視、關係暴力）過度內化，忽視外部改變的必要性。<br><br>
+        <strong>爭議3：兩位作者的「人生哲學對話」形式較散漫。</strong> 缺乏系統性的操作指南，適合已有靈性底子的讀者，但對初學者可能方向感不夠清晰。
+      </div>
+    </div>
+
+  </div><!-- end s1 -->
+
+  <!-- ======= STAGE 2 ======= -->
+  <div class="stage-header stage-2 s2">
+    <div class="stage-badge">STAGE 2</div>
+    <div class="stage-line"></div>
+    <div class="stage-title">🌐 公眾認知萃取</div>
+  </div>
+
+  <div class="s2">
+    <div class="card">
+      <h3><span class="icon">📢</span> 這本書在大眾世界被記住的是什麼</h3>
+      <p>大多數讀者記住的是<strong>「尤尼希皮里」這個概念</strong>——一個可愛的、需要被照顧的「內在小孩」形象。很多人把它當作一個心靈慰藉的概念，「啊，原來我的不快樂，是因為內在小孩沒被好好對待。」</p>
+      <br>
+      <p>吉本芭娜娜的名氣讓這本書得到遠超過一般靈性書籍的關注，很多原本只看文學的讀者因此接觸到荷歐波諾波諾。</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">💬</span> 最常被引用的觀點</h3>
+      <ul>
+        <li>「傾聽內在小孩，讓他快樂，你才會真正快樂。」</li>
+        <li>「記憶決定了你的現實——清理記憶，現實就會改變。」</li>
+        <li>「不做違心之事，才能遇見自然的自己。」</li>
+        <li>吉本芭娜娜關於「框架是最大的敵人」的表述被大量引用。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">🌀</span> 最常被誤解的部分</h3>
+      <p>許多讀者以為本書只是在說「說四句話就好」（對不起、請原諒我、謝謝你、我愛你），但書中真正的核心遠比這更深——<strong>建立與內在小孩的持續關係</strong>，而非一套咒語式的技術。</p>
+      <br>
+      <p>另一個誤解：以為「照顧內在小孩」就是「放縱自己」，但書中實際上強調的是深層的誠實與真實，而非縱欲。</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">⚡</span> 最有爭議的部分</h3>
+      <p>靈性書籍在理性主義讀者圈的普遍質疑：<strong>「這不就是一種玄學自我安慰？」</strong>批評者認為把問題的根源都歸到「記憶」和「清理」，等於在迴避實際的問題解決行動。</p>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">🎯</span> 這本書真正的核心被記住了嗎？</h3>
+      <div class="quote-block">
+        <p><strong>判斷：只有一半被記住。</strong>大眾記住了「內在小孩」的概念，卻往往忽略了書中更深層的主張——這不是一種「靈性技術」，而是一種<strong>存在方式的根本轉化</strong>：從「活在別人的框架裡」到「活在自己的真實裡」。吉本芭娜娜貢獻的那些文學觀察，反而是很多讀者略過的精華。</p>
+      </div>
+    </div>
+  </div><!-- end s2 -->
+
+  <!-- ======= STAGE 3 ======= -->
+  <div class="stage-header stage-3 s3">
+    <div class="stage-badge">STAGE 3</div>
+    <div class="stage-line"></div>
+    <div class="stage-title">⚡ Rex 個人化轉化</div>
+  </div>
+
+  <div class="s3">
+
+    <!-- Rex 人設說明 -->
+    <div class="card" style="background: linear-gradient(135deg, rgba(123,196,184,0.12), rgba(91,168,160,0.06));">
+      <h3><span class="icon">👤</span> Rex 畫像</h3>
+      <p>42歲 · 叡思影像創辦人 · 社群經濟實戰者 · 強調人情經濟 · 想用 AI 重活一次 · 重視真實連結，但可能因忙碌忽略關係維護</p>
+      <div style="margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px;">
+        <span class="tag">行動派</span>
+        <span class="tag">結果導向</span>
+        <span class="tag">人情即資本</span>
+        <span class="tag lavender">渴望真實</span>
+        <span class="tag lavender">忙碌中忽略自我</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">🛡️</span> Rex 可能會抗拒的部分</h3>
+      <ul>
+        <li><strong>「清理記憶就會改變現實」</strong>——Rex 是實戰者，這種說法聽起來太玄，他會想說：「直接告訴我要做什麼，別跟我說什麼記憶清理。」</li>
+        <li><strong>「傾聽內在小孩」的概念</strong>——對忙碌的創業者而言，「靜下來感受自己」本身就是一個反直覺的建議。</li>
+        <li><strong>書中偏「柔性」的語調</strong>——吉本芭娜娜的文學式表達，對習慣直接商業語言的 Rex 可能感覺節奏太慢。</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <h3><span class="icon">🎯</span> Rex 最容易忽略的部分</h3>
+      <ul>
+        <li><strong>「不做違心之事」的代價</strong>——Rex 可能因為商業壓力，長期做了很多違心的配合（應酬、合作、表演），而不自知這正在消耗他的創造力與真實連結力。</li>
+        <li><strong>「框架決定了你感知到的機會」</strong>——他的「人情經濟」框架本身可能已經是一種限制，讓他錯過更深層、不需要計算的真實關係。</li>
+        <li><strong>照顧自己的重要性</strong>——Rex 強調關係維護，但書中指出：先把自己內在小孩照顧好，才有資源給出真正的連結。</li>
+      </ul>
+    </div>
+
+    <!-- 金句 -->
+    <div class="golden-quote">
+      <p>💎 Rex 的核心金句</p>
+      <p style="font-size:1.3rem; margin-top: 8px;">「你以為你在管理關係，<br>其實你只是在管理別人對你的印象。<br>真正的連結從照顧好自己的內在小孩開始。」</p>
+    </div>
+
+    <!-- 3 個即時行動 -->
+    <div class="card">
+      <h3><span class="icon">⚡</span> 3 個即時可行的行動（各 20 分鐘內）</h3>
+      <div class="action-item">
+        <div class="action-num">1</div>
+        <div class="action-content">
+          <h4>「違心清單」15分鐘快速寫</h4>
+          <p>拿出紙筆，快速列出最近一個月內，你做過的「違心之事」——那些答應了但內心不情願的合作、回應、出席。不用分析原因，只是誠實列出來。你會驚訝這個清單有多長。</p>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">2</div>
+        <div class="action-content">
+          <h4>「內在小孩的喜悅」5分鐘問自己</h4>
+          <p>問：「如果今天下午我可以做任何讓自己真正開心的事，不考慮生產力，我會做什麼？」把第一個浮現的答案記下來，不用做，只是記住它。這個答案就是你的內在小孩在跟你說話。</p>
+        </div>
+      </div>
+      <div class="action-item">
+        <div class="action-num">3</div>
+        <div class="action-content">
+          <h4>給一個人傳送「真實的訊息」</h4>
+          <p>想一個你久沒聯繫、但真心想念的人，傳送一則不帶任何商業目的的訊息：「最近想到你，只是想跟你說聲嗨。」這就是照顧內在小孩後自然流出的人情連結。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 30天計劃 -->
+    <div class="card">
+      <h3><span class="icon">📅</span> 30 天落地練習系統</h3>
+
+      <div class="week-card">
+        <div class="week-label">WEEK 1 · 第 1-7 天</div>
+        <div class="week-title">🔍 覺察期：我的框架是什麼？</div>
+        <div class="week-desc">每天早上花 5 分鐘，寫下「今天有沒有什麼事是我不情願但說好了的」。晚上花 10 分鐘問自己：「今天有哪個瞬間，我感覺到真實的喜悅？」建立一個記錄本，不求改變，只求看清。</div>
+        <div class="week-check">✅ Week 1 檢核點：你有沒有寫滿 7 天？你的「違心事」有哪些重複出現的模式？</div>
+      </div>
+
+      <div class="week-card">
+        <div class="week-label">WEEK 2 · 第 8-14 天</div>
+        <div class="week-title">🛠️ 清理期：開始說「不」</div>
+        <div class="week-desc">這週選一件「違心之事」，練習說「不」或「之後再說」。不需要完全拒絕，只是開始給自己多一點空間。每天做一件讓內在小孩喜悅的小事（10分鐘內可完成），例如：聽一首喜歡的歌、看日落、買個甜點。</div>
+        <div class="week-check">✅ Week 2 檢核點：你說「不」之後，關係有崩掉嗎？還是其實對方並沒有你想的那麼介意？</div>
+      </div>
+
+      <div class="week-card">
+        <div class="week-label">WEEK 3 · 第 15-21 天</div>
+        <div class="week-title">💬 連結期：從真實開始</div>
+        <div class="week-desc">這週每天主動聯繫一個你真正想念的人，不帶商業目的。同時，在工作中練習說出一個「真實的想法」而非討好對方的回應。觀察真實帶來的關係變化。</div>
+        <div class="week-check">✅ Week 3 檢核點：你的關係有什麼變化？哪些關係因為你的真實而變得更深？</div>
+      </div>
+
+      <div class="week-card">
+        <div class="week-label">WEEK 4 · 第 22-30 天</div>
+        <div class="week-title">🌱 整合期：讓快樂成為方向感</div>
+        <div class="week-desc">回顧這個月的記錄，找出：什麼事情讓你感到「真實的快樂」？這些事情裡有沒有新的商業或創作方向？開始思考：「如果我以內在小孩的喜悅為指南針，下一個大計劃會是什麼？」</div>
+        <div class="week-check">✅ Week 4 檢核點：30天後你對「真實的自己」有沒有多一點清晰感？有沒有一件之前做過但內心不快樂的事，你願意停止了？</div>
+      </div>
+    </div>
+
+  </div><!-- end s3 -->
+
+  <div class="footer">
+    AI 書僮 2.0 深讀報告 · 書4 · 內在小孩快樂，你才快樂<br>
+    生成時間：2026-03-19 · 三階段深讀系統
+  </div>
+
+</div>
+</body>
+</html>
