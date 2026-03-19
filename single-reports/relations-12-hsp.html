@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒分析 | 高敏感卻不受傷的七日練習</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #F0EEF8 0%, #E8E0F4 25%, #F0E8F2 50%, #F8EEF2 75%, #FDF4F0 100%);
+    min-height: 100vh;
+    color: #3D2B3D;
+    padding: 40px 20px;
+    line-height: 1.8;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .book-header {
+    text-align: center;
+    padding: 60px 40px 40px;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(20px);
+    border-radius: 32px;
+    border: 1px solid rgba(155,126,200,0.2);
+    margin-bottom: 40px;
+    box-shadow: 0 8px 40px rgba(212,132,154,0.10);
+  }
+
+  .book-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #8B9EC8, #9B7EC8, #D4849A);
+    color: white;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .book-header h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2D1F3D;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+
+  .book-meta {
+    color: #7B6478;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .book-meta span {
+    display: inline-block;
+    margin: 4px 8px;
+    background: rgba(139,158,200,0.12);
+    padding: 4px 12px;
+    border-radius: 12px;
+  }
+
+  .phase-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+
+  .phase-1 { background: linear-gradient(135deg, rgba(139,158,200,0.2), rgba(139,158,200,0.1)); color: #5060A0; border: 1px solid rgba(139,158,200,0.3); }
+  .phase-2 { background: linear-gradient(135deg, rgba(155,126,200,0.2), rgba(155,126,200,0.1)); color: #7058B0; border: 1px solid rgba(155,126,200,0.3); }
+  .phase-3 { background: linear-gradient(135deg, rgba(212,132,154,0.2), rgba(212,132,154,0.1)); color: #C06080; border: 1px solid rgba(212,132,154,0.3); }
+
+  .section-card {
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 24px rgba(139,158,200,0.08);
+  }
+
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2D1F3D;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(139,158,200,0.25);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title .icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .icon-indigo { background: linear-gradient(135deg, #8B9EC8, #9B7EC8); }
+  .icon-purple { background: linear-gradient(135deg, #9B7EC8, #B090D8); }
+  .icon-pink { background: linear-gradient(135deg, #D4849A, #E8A0B0); }
+
+  .core-claim {
+    background: linear-gradient(135deg, rgba(139,158,200,0.08), rgba(155,126,200,0.08));
+    border-left: 4px solid #8B9EC8;
+    border-radius: 0 16px 16px 0;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #2D1F3D;
+    font-style: italic;
+  }
+
+  /* HSP Traits */
+  .hsp-traits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 16px 0;
+  }
+
+  @media (max-width: 600px) {
+    .hsp-traits { grid-template-columns: 1fr; }
+  }
+
+  .hsp-trait {
+    background: rgba(139,158,200,0.08);
+    border: 1px solid rgba(139,158,200,0.2);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 0.88rem;
+    color: #3D3050;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+
+  .hsp-trait-icon {
+    color: #8B9EC8;
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* 7-Day Program */
+  .day-program {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 16px;
+  }
+
+  .day-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    background: rgba(255,255,255,0.6);
+    border-radius: 16px;
+    padding: 16px 20px;
+    border: 1px solid rgba(139,158,200,0.15);
+  }
+
+  .day-badge {
+    flex-shrink: 0;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 0.7rem;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .day-1 { background: linear-gradient(135deg, #8B9EC8, #9B8EC8); }
+  .day-2 { background: linear-gradient(135deg, #9B90C8, #9B7EC8); }
+  .day-3 { background: linear-gradient(135deg, #A882C0, #9B7EC8); }
+  .day-4 { background: linear-gradient(135deg, #B880B8, #C480A8); }
+  .day-5 { background: linear-gradient(135deg, #C480A8, #D480A0); }
+  .day-6 { background: linear-gradient(135deg, #D48098, #D4849A); }
+  .day-7 { background: linear-gradient(135deg, #D4849A, #C890A8); }
+
+  .day-content {}
+  .day-title {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: #2D1F3D;
+    margin-bottom: 6px;
+  }
+  .day-desc {
+    font-size: 0.88rem;
+    color: #5A4A6A;
+    line-height: 1.7;
+  }
+
+  /* Concepts */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 600px) {
+    .concept-grid { grid-template-columns: 1fr; }
+  }
+
+  .concept-card {
+    background: rgba(255,255,255,0.7);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(139,158,200,0.15);
+  }
+
+  .concept-number {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #8B9EC8;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .concept-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2D1F3D;
+    margin-bottom: 8px;
+  }
+
+  .concept-desc {
+    font-size: 0.9rem;
+    color: #5A4A5A;
+    line-height: 1.7;
+  }
+
+  /* Self vs Other */
+  .compare-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  @media (max-width: 600px) {
+    .compare-box { grid-template-columns: 1fr; }
+  }
+
+  .compare-card {
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .other-base {
+    background: linear-gradient(135deg, rgba(220,80,80,0.08), rgba(200,80,80,0.04));
+    border: 1px solid rgba(220,80,80,0.2);
+  }
+
+  .self-base {
+    background: linear-gradient(135deg, rgba(80,180,120,0.08), rgba(80,160,120,0.04));
+    border: 1px solid rgba(80,180,120,0.2);
+  }
+
+  .compare-label {
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+  }
+
+  .other-base .compare-label { color: #C04040; }
+  .self-base .compare-label { color: #208040; }
+
+  .compare-points { list-style: none; }
+  .compare-points li {
+    font-size: 0.87rem;
+    color: #4A3A4A;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    line-height: 1.6;
+  }
+  .compare-points li:last-child { border-bottom: none; }
+
+  .assumption-item, .blindspot-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+
+  .tag {
+    flex-shrink: 0;
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .tag-pink { background: rgba(212,132,154,0.15); color: #B05570; }
+  .tag-purple { background: rgba(155,126,200,0.15); color: #6840A8; }
+  .tag-orange { background: rgba(220,160,80,0.15); color: #A06020; }
+  .tag-blue { background: rgba(100,160,220,0.15); color: #2060A0; }
+  .tag-indigo { background: rgba(139,158,200,0.15); color: #405080; }
+
+  .perception-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+    align-items: start;
+  }
+
+  .perception-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .label-remember { background: rgba(139,158,200,0.15); color: #405080; }
+  .label-cite { background: rgba(155,126,200,0.15); color: #6840A8; }
+  .label-misread { background: rgba(220,160,80,0.15); color: #A06020; }
+  .label-dispute { background: rgba(100,160,220,0.15); color: #2060A0; }
+  .label-judge { background: rgba(80,180,120,0.15); color: #206840; }
+
+  .perception-content {
+    font-size: 0.9rem;
+    color: #4A3A4A;
+    line-height: 1.7;
+    padding-top: 4px;
+  }
+
+  .rex-resist, .rex-ignore {
+    background: rgba(255,255,255,0.6);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(212,132,154,0.2);
+  }
+
+  .rex-resist h4 { color: #C04060; }
+  .rex-ignore h4 { color: #5060A0; }
+  .rex-resist h4, .rex-ignore h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .golden-sentence {
+    background: linear-gradient(135deg, #8B9EC8 0%, #9B7EC8 50%, #D4849A 100%);
+    border-radius: 20px;
+    padding: 28px 32px;
+    text-align: center;
+    margin: 24px 0;
+    box-shadow: 0 8px 30px rgba(139,158,200,0.3);
+  }
+
+  .golden-label {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .golden-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.6;
+  }
+
+  .action-list { list-style: none; margin-top: 16px; }
+
+  .action-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+
+  .action-number {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #8B9EC8, #9B7EC8);
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .action-content strong {
+    display: block;
+    font-size: 0.95rem;
+    color: #2D1F3D;
+    margin-bottom: 4px;
+  }
+
+  .action-content p {
+    font-size: 0.85rem;
+    color: #5A4A5A;
+    line-height: 1.6;
+  }
+
+  .week-block {
+    background: rgba(255,255,255,0.6);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    border-left: 4px solid;
+  }
+
+  .week-block:nth-child(1) { border-color: #8B9EC8; }
+  .week-block:nth-child(2) { border-color: #9B7EC8; }
+  .week-block:nth-child(3) { border-color: #D4849A; }
+  .week-block:nth-child(4) { border-color: #80C8A0; }
+
+  .week-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #2D1F3D;
+    margin-bottom: 10px;
+  }
+
+  .week-days {
+    font-size: 0.88rem;
+    color: #4A3A5A;
+    line-height: 1.7;
+  }
+
+  .checkpoint {
+    margin-top: 10px;
+    background: rgba(139,158,200,0.08);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.82rem;
+    color: #4060A0;
+    font-weight: 500;
+  }
+
+  .summary-box {
+    background: rgba(255,255,255,0.5);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #4A3A4A;
+  }
+
+  .phase-divider {
+    text-align: center;
+    margin: 48px 0 32px;
+  }
+
+  .phase-divider::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(135deg, #8B9EC8, #9B7EC8, #D4849A);
+    margin: 0 auto 16px;
+    border-radius: 2px;
+  }
+
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 8px; font-size: 0.9rem; color: #4A3A4A; line-height: 1.7; }
+  strong { color: #2D1F3D; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="book-header">
+    <div class="book-badge">書 12 ｜ AI 書僮 2.0 分析報告</div>
+    <h1>高敏感卻不受傷的七日練習</h1>
+    <div class="book-meta">
+      <span>✍️ 作者：根本裕幸（Hiroyuki Nemoto）</span>
+      <span>🌸 HSP 療癒 × 自我本位</span>
+      <span>📚 三階段深讀</span>
+    </div>
+  </div>
+
+  <!-- ===== PHASE 1 ===== -->
+  <div class="phase-divider">
+    <div class="phase-label phase-1">📖 第一階段：書本深讀</div>
+  </div>
+
+  <!-- 全書摘要 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-indigo">📋</span>
+      全書摘要（邏輯架構）
+    </h2>
+    <div class="summary-box">
+      <p>作者根本裕幸是日本心理諮詢師，有十七年以上的諮詢經驗，服務超過一萬五千名個案。他本人也是高敏感人，書中以自傳體的方式描述他如何從一個疲憊、焦慮、自我否定的上班族，成長為一位能夠充實生活的獨立開業諮詢師。</p>
+    </div>
+    <div class="summary-box">
+      <strong>📐 核心論題：高敏感不是弱點，是你用錯了方式在生活</strong>
+      <p style="margin-top:8px;">真正的問題不是「你太敏感」，而是你把注意力全放在「別人的需求和評價」上，忘了自己的感受和需求。這叫做「以他人為本（他人本位）」，它是高敏感人受傷的根本原因，而不是敏感本身。</p>
+    </div>
+    <div class="summary-box">
+      <strong>📐 架構邏輯（七日系統）</strong>
+      <ul style="margin-top:10px;">
+        <li><strong>Day 1-3：</strong>把注意力轉移到自己身上——「當下的自己」是第一優先，開始感受自己的感受。</li>
+        <li><strong>Day 2-3：</strong>回顧過去——審視校園生活、家庭關係，找出高敏感特質被強化的根源。</li>
+        <li><strong>Day 4：</strong>建立自我本位的思維——學習以「自己的價值觀」為中心，而非「別人的想法」。</li>
+        <li><strong>Day 5：</strong>包容與原諒——包容使自己變得高敏感的原因，原諒自己。</li>
+        <li><strong>Day 6：</strong>轉化敏感為強項——如何利用高敏感特質建立真正有建設性的人際關係。</li>
+        <li><strong>Day 7：</strong>落地整合——把這七天的練習整合進日常，面對問題和煩惱的新方式。</li>
+      </ul>
+    </div>
+
+    <div class="summary-box">
+      <p><strong>兩大主旨：</strong>第一，提升自我肯定感（接納最真實的自己）；第二，建立自我本位的思維（以自己的想法和價值觀為行動基準，而非他人的期待）。書中強調：「只要有了自我肯定感，人們才會產生自信。」</p>
+    </div>
+  </div>
+
+  <!-- HSP 特徵 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-indigo">🌸</span>
+      高敏感人（HSP）的六大特徵
+    </h2>
+    <div class="hsp-traits">
+      <div class="hsp-trait">
+        <span class="hsp-trait-icon">●</span>
+        <span>很在意別人的臉色，卻不知道如何自然地表達自己</span>
+      </div>
+      <div class="hsp-trait">
+        <span class="hsp-trait-icon">●</span>
+        <span>害怕被別人討厭，拒絕不了別人的請託</span>
+      </div>
+      <div class="hsp-trait">
+        <span class="hsp-trait-icon">●</span>
+        <span>和別人見面後總覺得很疲憊，需要長時間恢復</span>
+      </div>
+      <div class="hsp-trait">
+        <span class="hsp-trait-icon">●</span>
+        <span>很在意別人的評價，腦袋中一片空白無法說出意見</span>
+      </div>
+      <div class="hsp-trait">
+        <span class="hsp-trait-icon">●</span>
+        <span>老是在意別人的想法，從來不暢所欲言表達意見</span>
+      </div>
+      <div class="hsp-trait">
+        <span class="hsp-trait-icon">●</span>
+        <span>總是否定自我，陷入負面思維，覺得自己很沒用</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- 自我本位 vs 他人本位 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-indigo">⚖️</span>
+      核心框架：自我本位 vs 他人本位
+    </h2>
+    <div class="compare-box">
+      <div class="compare-card other-base">
+        <div class="compare-label">❌ 他人本位（根源問題）</div>
+        <ul class="compare-points">
+          <li>以別人的想法和價值觀為行動基準</li>
+          <li>總在揣測「別人希望我怎麼做」</li>
+          <li>犧牲自己的感受去迎合他人</li>
+          <li>難以拒絕、難以表達自己意見</li>
+          <li>把「被別人認可」當成自我價值的來源</li>
+          <li>心靈越來越疲憊，卻仍然停不下來</li>
+        </ul>
+      </div>
+      <div class="compare-card self-base">
+        <div class="compare-label">✅ 自我本位（目標狀態）</div>
+        <ul class="compare-points">
+          <li>以自己的真正想法和價值觀為行動基準</li>
+          <li>關注「當下的自己真正需要什麼」</li>
+          <li>能夠感受並尊重自己的情緒</li>
+          <li>能夠說不，能夠誠實表達自己</li>
+          <li>自我肯定感從內部生長，不依賴外部認可</li>
+          <li>敏感成為觀察他人、創造連結的強項</li>
+        </ul>
+      </div>
+    </div>
+    <div class="summary-box" style="margin-top:0;">
+      <p><strong>重要區分：</strong>「自我本位」不是「自私自利」，而是先照顧好自己，才有能力真正照顧別人。如同飛機上的安全指示——先為自己戴上氧氣面罩，再協助他人。</p>
+    </div>
+  </div>
+
+  <!-- 七日程序 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-indigo">📅</span>
+      七日練習：完整流程
+    </h2>
+    <div class="day-program">
+      <div class="day-item">
+        <div class="day-badge day-1">DAY<br>1</div>
+        <div class="day-content">
+          <div class="day-title">把注意力集中到當下的自己</div>
+          <div class="day-desc">高敏感人的注意力往往都在別人身上。今天的練習是：「感受當下的自己就好。」不評判，不比較，只是感受此刻的自己。這是從「他人本位」轉向「自我本位」的第一步。</div>
+        </div>
+      </div>
+      <div class="day-item">
+        <div class="day-badge day-2">DAY<br>2</div>
+        <div class="day-content">
+          <div class="day-title">回顧過去的校園生活</div>
+          <div class="day-desc">回顧學生時代與同學、老師、前輩的相處。找出高敏感特質是在哪個情境下被強化的——那個讓你「不敢說話」、「害怕被排擠」的記憶，就是今天要溫柔面對的。</div>
+        </div>
+      </div>
+      <div class="day-item">
+        <div class="day-badge day-3">DAY<br>3</div>
+        <div class="day-content">
+          <div class="day-title">回顧家庭關係的影響</div>
+          <div class="day-desc">家庭是人際關係的原型。今天要找出：父母的哪些言行、教育方式，讓你養成了「不能有自己的想法」、「必須迎合他人」的生存策略？理解根源是原諒的前提。</div>
+        </div>
+      </div>
+      <div class="day-item">
+        <div class="day-badge day-4">DAY<br>4</div>
+        <div class="day-content">
+          <div class="day-title">建立自我本位的思維，提升自我肯定感</div>
+          <div class="day-desc">學習以自己的想法和感受作為判斷基準。核心練習：「我現在真正想做什麼？」而不是「別人希望我做什麼？」提升自我肯定感，讓自信從內部生長。</div>
+        </div>
+      </div>
+      <div class="day-item">
+        <div class="day-badge day-5">DAY<br>5</div>
+        <div class="day-content">
+          <div class="day-title">包容與原諒：對自己和過去</div>
+          <div class="day-desc">包容使自己變得高敏感的所有原因——包括那些讓你受傷的人和事。這不是替他們辯護，而是從那個「受害者角色」中釋放自己，讓自己重新擁有能量。</div>
+        </div>
+      </div>
+      <div class="day-item">
+        <div class="day-badge day-6">DAY<br>6</div>
+        <div class="day-content">
+          <div class="day-title">把高敏感轉化為強項，建立正向人際關係</div>
+          <div class="day-desc">高敏感人天生善於觀察細節、感受他人情緒、建立深度連結——這些都是人際關係的強項。今天學習如何「活用」而非「壓制」這個特質，創造有建設性的關係。</div>
+        </div>
+      </div>
+      <div class="day-item">
+        <div class="day-badge day-7">DAY<br>7</div>
+        <div class="day-content">
+          <div class="day-title">整合：用自我本位面對問題與人際關係</div>
+          <div class="day-desc">把前六天的練習整合進日常生活。遇到問題時不再問「我哪裡做錯了」，而是先感受自己、確認自己的需求，再從自我本位出發決定行動。這是一輩子的練習，七天只是開始。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 作者核心主張 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-indigo">💡</span>
+      作者核心主張
+    </h2>
+    <div class="core-claim">
+      高敏感不是你的問題，是你的能力——但你用錯了方向。把觀察力和感受力全部用在「別人在想什麼」上，你當然精疲力竭。把這個能力轉向「自己真正需要什麼」，它就變成了你最強的武器。
+    </div>
+    <div class="core-claim" style="border-left-color: #9B7EC8;">
+      自我肯定感不是「覺得自己很棒」，而是「接受最真實的自己」——包括你的敏感、你的不完美、你的恐懼。只有先接納自己，才能真正地與他人連結。
+    </div>
+  </div>
+
+  <!-- 關鍵觀念 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-indigo">🔑</span>
+      最重要的 6 個關鍵觀念
+    </h2>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 01</div>
+        <div class="concept-title">敏感本身不是問題</div>
+        <div class="concept-desc">受傷的根本原因不是「太敏感」，而是把注意力全部朝向外部（他人的反應、評價），而非自己的感受和需求。方向對了，敏感就是力量。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 02</div>
+        <div class="concept-title">自我肯定感 ≠ 自信</div>
+        <div class="concept-desc">自信是「我能做到」的信念，自我肯定感是「我就是這樣的人，沒關係」的接納。沒有後者，前者是空殼。書中系統性地從接納開始建構，而不是強迫自己「積極正向」。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 03</div>
+        <div class="concept-title">成為高敏感的根源</div>
+        <div class="concept-desc">多數高敏感人的「他人本位」來自童年/青少年期的生存適應——在不安全的家庭或人際環境中，「察覺他人情緒」是保護自己的策略，但成年後繼續這樣活，只剩下疲憊。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 04</div>
+        <div class="concept-title">七日是轉化的起點</div>
+        <div class="concept-desc">七天的練習不是「治癒」，而是啟動轉化的最小系統。就像開通了一條新的神經路徑，剩下的是日復一日的練習讓它加深。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 05</div>
+        <div class="concept-title">包容不等於縱容</div>
+        <div class="concept-desc">原諒讓自己受傷的過去，不是替那些傷害你的人辯護，而是把能量從「受害者角色」取回來。「包容」是為了自己，不是為了那個傷害你的人。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 06</div>
+        <div class="concept-title">高敏感的社交優勢</div>
+        <div class="concept-desc">當高敏感從「以他人本位壓榨自己」轉變為「以自我本位提供感受力」，它變成深度聆聽、細膩觀察、創造真實連結的強項——這在深度關係中是無可替代的能力。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底層假設 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-indigo">🔍</span>
+      隱含但未明說的底層假設
+    </h2>
+    <div class="assumption-item">
+      <span class="tag tag-indigo">假設 1</span>
+      <p class="perception-content">高敏感是童年/環境養成的，而非純粹天生——書中對「成為高敏感人的原因」著重在成長環境（家庭、學校），底層假設是「改變思維模式就能改變結果」，對先天神經生理的 HSP 特質著墨較少。</p>
+    </div>
+    <div class="assumption-item">
+      <span class="tag tag-purple">假設 2</span>
+      <p class="perception-content">個人的內在改變優先於外部環境改變——書中假設讀者能夠透過改變「自己的視角和思維」來改善關係，對真正有毒的外部環境（有毒職場、家庭暴力）的建議比較有限。</p>
+    </div>
+    <div class="assumption-item">
+      <span class="tag tag-orange">假設 3</span>
+      <p class="perception-content">七天足以啟動根本性的轉化——這個假設在行銷層面是有效的，但在心理學嚴格意義上，深層的童年創傷往往需要更長時間和更專業的治療。書中的建議更適合「輕到中度的敏感疲憊」而非嚴重的心理創傷。</p>
+    </div>
+    <div class="assumption-item">
+      <span class="tag tag-blue">假設 4</span>
+      <p class="perception-content">讀者有足夠安全的環境可以「做自己」——「自我本位」的練習需要一個相對安全的環境。在極度壓迫的職場或家庭中，「不迎合他人」可能帶來真實的代價，書中對此情境著墨不足。</p>
+    </div>
+  </div>
+
+  <!-- 盲點與爭議 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-indigo">⚠️</span>
+      作者可能的盲點或爭議點
+    </h2>
+    <div class="blindspot-item">
+      <span class="tag tag-orange">爭議 1</span>
+      <p class="perception-content"><strong>HSP 的科學定義模糊：</strong>「高敏感人」（HSP）概念源自美國心理學家 Elaine Aron，但在臨床心理學中並不是一個正式診斷類別，與焦慮症、社交恐懼症、神經多樣性（如 ADHD、自閉症譜系）的邊界模糊，書中對此沒有清楚區分。</p>
+    </div>
+    <div class="blindspot-item">
+      <span class="tag tag-orange">爭議 2</span>
+      <p class="perception-content"><strong>「七日」的時間框架可能過度承諾：</strong>標題暗示七天就能「不受傷」，但心理療癒往往是非線性且長期的。對處於深度心理困境的讀者，這個時間框架可能帶來「我怎麼七天後還是這樣」的自我否定。</p>
+    </div>
+    <div class="blindspot-item">
+      <span class="tag tag-orange">爭議 3</span>
+      <p class="perception-content"><strong>「自我本位」在集體主義文化的適用性：</strong>在日本（以及台灣等東亞文化）的集體主義語境中，「以自己為中心」的思維和「和諧、謙遜」的文化期待有直接衝突，書中對這個文化張力沒有足夠的討論。</p>
+    </div>
+    <div class="blindspot-item">
+      <span class="tag tag-orange">爭議 4</span>
+      <p class="perception-content"><strong>諮詢師身份的局限：</strong>書中的觀點高度個人化（基於作者自身的成長故事），可能讓某些讀者難以套用到自己差異較大的生命情境。</p>
+    </div>
+  </div>
+
+  <!-- ===== PHASE 2 ===== -->
+  <div class="phase-divider">
+    <div class="phase-label phase-2">🌐 第二階段：公眾認知萃取</div>
+  </div>
+
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-purple">📡</span>
+      這本書在大眾世界被如何記住？
+    </h2>
+
+    <div class="perception-row">
+      <span class="perception-label label-remember">被記住的</span>
+      <p class="perception-content">「高敏感不是弱點，是用錯了方向」這個觀點最廣為流傳，對長期被說「你太敏感了」的讀者有強烈的解放感。「自我本位 vs 他人本位」的框架也常被分享，因為它提供了一個清晰的自我診斷工具。</p>
+    </div>
+
+    <div class="perception-row">
+      <span class="perception-label label-cite">最常引用</span>
+      <p class="perception-content">「把注意力放在自己身上」、「先照顧好自己才能照顧別人」是最常被引用的段落。書中的 HSP 六大特徵清單也被大量轉發，很多讀者把它作為「原來我不是異常」的自我認同工具。</p>
+    </div>
+
+    <div class="perception-row">
+      <span class="perception-label label-misread">最常誤解</span>
+      <p class="perception-content">最常見的誤解是把「自我本位」等同於「自私，只顧自己」。書中明確區分了兩者，但輕讀者容易用「我現在要以自己為本了」來合理化逃避責任或關係的行為，而非真正的自我肯定。</p>
+    </div>
+
+    <div class="perception-row">
+      <span class="perception-label label-dispute">最有爭議</span>
+      <p class="perception-content">在嚴重心理創傷的療癒社群中，「七天」的時間框架被批評過度樂觀，甚至有聲音認為這種「快速自助手冊」風格，可能讓讀者迴避尋求真正需要的專業心理諮詢。</p>
+    </div>
+
+    <div class="perception-row">
+      <span class="perception-label label-judge">核心被記住了嗎？</span>
+      <p class="perception-content"><strong>表面概念被記住了，但深度轉化大多沒有發生。</strong> 很多讀者記住了「高敏感不是弱點」和「要以自我為本」，但書中最重要的部分——「回顧過去，找出自己變成這樣的根源」，以及「包容與原諒」的療癒工作——往往被跳過。這才是轉化的核心，卻是最費力的部分。</p>
+    </div>
+  </div>
+
+  <!-- ===== PHASE 3 ===== -->
+  <div class="phase-divider">
+    <div class="phase-label phase-3">🎯 第三階段：Rex 個人化轉化</div>
+  </div>
+
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-pink">🛡️</span>
+      Rex 可能會抗拒的部分
+    </h2>
+    <div class="rex-resist">
+      <h4>抗拒點 1：「我不是 HSP，這本書不是寫給我的」</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">Rex 是實戰型社群經濟人，可能不認同自己是「高敏感人」。但 HSP 不是「脆弱」的代名詞——高度觀察他人的能力、對細節的敏感、對關係品質的在意，這些都是 HSP 特質，也是許多優秀創業者的共同特徵。這本書值得以「高感知力管理」的角度來讀。</p>
+    </div>
+    <div class="rex-resist">
+      <h4>抗拒點 2：「回顧過去」感覺像在挖傷疤</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">書中第二、三日要回顧校園和家庭，Rex 可能覺得這是不必要的「向後看」，而他更習慣「往前衝」。但書中的邏輯是：未處理的過去會在當下的關係中無意識地重演。了解根源不是挖傷疤，而是找到操控你行為的看不見的程式碼。</p>
+    </div>
+    <div class="rex-resist">
+      <h4>抗拒點 3：「以自我為本」聽起來太自私</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">Rex 非常重視「給予」和「人情資本」，可能抗拒「先考慮自己」的概念。但這裡的自我本位是指：「我能給予的能量是有限的，先確認自己有足夠的能量，才能真的給予。」過度消耗自己最終傷害所有關係。</p>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-pink">🎯</span>
+      Rex 最容易忽略的部分
+    </h2>
+    <div class="rex-ignore">
+      <h4>容易忽略：他可能已經在高強度他人本位模式下運作很久了</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">社群經濟的本質是不斷觀察受眾需求、迎合市場、回應期待——這是生存必需，但也可能讓人不知不覺陷入「永遠把別人的期待放第一」的模式。Rex 需要定期問自己：「這件事，是我真正想做的，還是因為怕失去別人的認可？」</p>
+    </div>
+    <div class="rex-ignore">
+      <h4>容易忽略：「允許自己不表現」的重要性</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">Rex 是創辦人、是社群身份，常常需要「展現」。但書中提醒：高敏感人消耗能量的主要來源之一是「永遠在展現」。允許自己有不需要表現的時間和空間，不是懶，而是充電。</p>
+    </div>
+    <div class="rex-ignore">
+      <h4>容易忽略：深度關係的建立需要「被看見脆弱」</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">Rex 重視真實連結，但忙碌中最常被壓縮的是「允許自己在重要的人面前軟弱」。書中說，真正深度的人際關係建立在雙向的脆弱上——你讓別人看到你的不完美，對方才感受到你是真實的人，而不是一個需要維持形象的角色。</p>
+    </div>
+  </div>
+
+  <!-- Golden Sentence -->
+  <div class="golden-sentence">
+    <div class="golden-label">✨ REX 核心金句</div>
+    <div class="golden-text">
+      「你的敏感不是弱點，<br>
+      是你一直用它在服務別人——<br>
+      現在，把它轉回來服務自己。<br>
+      你能量足了，關係才真的豐盛。」
+    </div>
+  </div>
+
+  <!-- 3 Immediate Actions -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-pink">⚡</span>
+      3 個即時可行的行動（各 20 分鐘內）
+    </h2>
+    <ul class="action-list">
+      <li>
+        <div class="action-item">
+          <div class="action-number">1</div>
+          <div class="action-content">
+            <strong>「自我本位 vs 他人本位」快速盤點（15 分鐘）</strong>
+            <p>拿出筆記本，列出你在過去一週做的五個主要決定或行動（工作的、生活的都可以）。在旁邊標注：這個決定是「我真正想做的（自我本位）」還是「我認為別人希望我做的（他人本位）」？看一下比例，你現在站在哪裡？</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="action-item">
+          <div class="action-number">2</div>
+          <div class="action-content">
+            <strong>給自己 15 分鐘完全不輸出、不表現（15 分鐘）</strong>
+            <p>今天找一個時間段，關掉手機螢幕，不看通知，不思考要發什麼內容、不規劃要做什麼。只是感受當下的自己——你的身體感覺、情緒狀態、真正需要什麼。這是「自我本位」最基礎的身體練習。</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="action-item">
+          <div class="action-number">3</div>
+          <div class="action-content">
+            <strong>問自己一個誠實的問題（5 分鐘）</strong>
+            <p>選一件你最近感到疲憊的事（工作、關係、義務）。然後問自己：「這件事讓我累，是因為我不喜歡做它，還是因為我害怕不做它別人會失望？」誠實回答，不需要採取行動，只需要看清楚。</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 30-Day Practice -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-pink">📅</span>
+      30 天落地練習系統（每天 20-30 分鐘）
+    </h2>
+
+    <div class="week-block">
+      <div class="week-title">第一週｜覺察：識別你的「他人本位」觸發點</div>
+      <div class="week-days">
+        <strong>Day 1-2：</strong>完整做書中的 Day 1 練習——每天早上 10 分鐘，把注意力帶回自己身上。記錄今天的情緒狀態，不評判，只觀察。<br>
+        <strong>Day 3-4：</strong>每天晚上記下：今天有哪些時刻你感到疲憊或不舒服？這些時刻你在做什麼？是在「服務別人的期待」還是「做自己想做的」？<br>
+        <strong>Day 5-6：</strong>做「他人本位 vs 自我本位」的週盤點——找出你最常被觸發「他人本位」的場景（是某個人、某個情境、還是某種溝通模式？）<br>
+        <strong>Day 7：</strong>寫下本週最大的覺察：你的能量在哪裡被消耗得最不值得？
+      </div>
+      <div class="checkpoint">📍 週檢核：我能識別出「在做這件事時，是誰的需求在驅動我」嗎？</div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">第二週｜根源：理解你的敏感從哪來</div>
+      <div class="week-days">
+        <strong>Day 8-10：</strong>做書中 Day 2-3 練習——回顧校園記憶和家庭關係。每天寫 15 分鐘的記憶流——不需要分析，先讓記憶浮現。哪個場景讓你學會「不敢有自己的意見」？<br>
+        <strong>Day 11-12：</strong>把找到的「根源場景」和現在的某個行為模式連結起來。例如：「我在會議中不敢直接提出意見，是因為小時候我的想法曾被某某嘲笑。」<br>
+        <strong>Day 13-14：</strong>嘗試對那個過去的場景（和那個更年輕的自己）說一句話。不需要解決，只需要承認它。
+      </div>
+      <div class="checkpoint">📍 週檢核：我找到了哪個「讓我學會壓抑自己」的早期記憶？</div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">第三週｜轉化：從他人本位切換到自我本位</div>
+      <div class="week-days">
+        <strong>Day 15-17：</strong>每天選一個日常小決定（午餐吃什麼、今天先做哪個任務），刻意問自己「我真正想要的是什麼？」而非「我應該做什麼？」，把自我本位練習在最小的事上。<br>
+        <strong>Day 18-19：</strong>在一個重要關係中，練習說出自己真實的感受或需求——不是抱怨，而是分享。「我今天需要一點安靜的時間」比「你都不理解我」更是自我本位的表達。<br>
+        <strong>Day 20-21：</strong>觀察：當你更自我本位時，關係的品質有什麼變化？記下來。
+      </div>
+      <div class="checkpoint">📍 週檢核：我在哪個關係中練習了「誠實說出自己的需求」？結果如何？</div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">第四週｜整合：把敏感變成你的競爭優勢</div>
+      <div class="week-days">
+        <strong>Day 22-25：</strong>列出高敏感特質為你帶來的三個具體優勢（例如：能察覺客戶未說出的需求、能在重要的人面前讓對方感到被理解、能設計出有情感深度的內容）。<br>
+        <strong>Day 26-28：</strong>刻意把這三個優勢「用在自己身上」——把那份細膩的觀察力，用來觀察自己今天的狀態；把那份深度聆聽的能力，用來聆聽自己內心真正的聲音。<br>
+        <strong>Day 29-30：</strong>設計你的「能量更新協議」——每週有幾天、每天有多少時間是屬於自己的不輸出時間？把它放進行事曆。
+      </div>
+      <div class="checkpoint">📍 月總結：相比月初，我有多少次「自我本位的決定」？我的能量狀態有沒有改善？</div>
+    </div>
+  </div>
+
+  <div style="text-align:center; padding: 24px 0; color: #8B9EC8; font-size: 0.85rem; letter-spacing: 1px;">
+    書醒分析報告 · AI 書僮 2.0 · 叡思影像 × 關係深讀計畫
+  </div>
+
+</div>
+</body>
+</html>
