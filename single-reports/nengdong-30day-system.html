@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>30 天能動者練習系統｜Rex 專屬</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --accent: #667eea;
+  --accent-2: #764ba2;
+  --accent-pink: #f093fb;
+  --text-primary: #2D3436;
+  --text-secondary: #636E72;
+  --text-light: #B2BEC3;
+  --red: #ff6b6b;
+  --gold: #f0932b;
+  --green: #6ab04c;
+  --cyan: #22a6b3;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Noto Sans TC', -apple-system, sans-serif;
+  font-weight: 300;
+  line-height: 1.85;
+  color: var(--text-primary);
+  background: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+.container { max-width: 900px; margin: 0 auto; }
+
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 70px 40px 50px;
+  margin-bottom: 32px;
+  background: rgba(255,255,255,0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 32px;
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+}
+.hero-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #fff;
+  padding: 6px 20px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 18px;
+}
+.hero h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 2.6rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+.hero .subtitle {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 560px;
+  margin: 0 auto 20px;
+}
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.stat {
+  text-align: center;
+}
+.stat-num {
+  font-size: 2.2rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent), var(--accent-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.1;
+}
+.stat-label {
+  font-size: 0.82rem;
+  color: var(--text-light);
+  margin-top: 2px;
+}
+
+/* Card */
+.card {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  padding: 36px 32px;
+  margin-bottom: 24px;
+}
+.section-title {
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(102,126,234,0.2);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-title::before {
+  content: '';
+  width: 4px; height: 22px;
+  background: linear-gradient(135deg, #667eea, #f093fb);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+p { margin-bottom: 12px; font-size: 0.96rem; }
+
+/* Golden Sentence */
+.golden {
+  text-align: center;
+  padding: 40px 32px;
+  background: linear-gradient(135deg, rgba(102,126,234,0.06), rgba(240,147,251,0.06));
+  border: 2px solid rgba(102,126,234,0.2);
+  border-radius: 28px;
+  margin-bottom: 32px;
+}
+.golden blockquote {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1.65;
+}
+.golden .attr {
+  color: var(--text-light);
+  font-size: 0.82rem;
+  margin-top: 12px;
+}
+
+/* Week Header */
+.week-card {
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  padding: 0;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+.week-top {
+  background: linear-gradient(135deg, rgba(102,126,234,0.12), rgba(240,147,251,0.12));
+  padding: 24px 32px;
+  border-bottom: 1px solid rgba(102,126,234,0.08);
+}
+.week-top h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.3rem;
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+.week-top .theme {
+  color: var(--accent);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+.week-body {
+  padding: 20px 32px 28px;
+}
+
+/* Day Row */
+.day {
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.day:last-of-type { border-bottom: none; }
+.day-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+.day-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-weight: 600;
+  color: #fff;
+  font-size: 0.8rem;
+  flex-shrink: 0;
+  min-width: 40px;
+}
+.day-name {
+  font-weight: 500;
+  font-size: 1.05rem;
+  color: var(--text-primary);
+}
+.day-desc {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  margin-bottom: 6px;
+  padding-left: 2px;
+}
+.day-tags {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.dt {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+.dt-output { background: rgba(102,126,234,0.1); color: var(--accent); }
+.dt-time { background: rgba(240,147,251,0.1); color: #9b59b6; }
+.dt-ai { background: rgba(34,166,179,0.1); color: var(--cyan); }
+
+/* Checkpoint */
+.checkpoint {
+  background: linear-gradient(135deg, rgba(106,176,76,0.06), rgba(34,166,179,0.06));
+  border: 1px solid rgba(106,176,76,0.15);
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin-top: 8px;
+}
+.checkpoint h5 {
+  color: var(--green);
+  font-weight: 500;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+}
+.checkpoint p { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0; }
+
+/* Action List */
+.action-ol {
+  list-style: none;
+  counter-reset: a;
+  padding-left: 0;
+}
+.action-ol li {
+  counter-increment: a;
+  padding: 16px 0 16px 52px;
+  position: relative;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.action-ol li:last-child { border-bottom: none; }
+.action-ol li::before {
+  content: counter(a);
+  position: absolute;
+  left: 0; top: 16px;
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-pink));
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+}
+.action-ol li strong {
+  display: block;
+  font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: 4px;
+}
+.action-ol li p {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+  margin-bottom: 0;
+}
+.action-trigger {
+  display: inline-block;
+  background: rgba(240,147,11,0.08);
+  color: var(--gold);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  margin-top: 4px;
+}
+.ai-tag {
+  display: inline-block;
+  background: rgba(34,166,179,0.1);
+  color: var(--cyan);
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 0.72rem;
+  font-weight: 500;
+  margin-left: 4px;
+}
+
+/* How To Use */
+.usage-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+.usage-item {
+  background: rgba(255,255,255,0.5);
+  border-radius: 16px;
+  padding: 20px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.4);
+}
+.usage-icon { font-size: 2rem; margin-bottom: 8px; }
+.usage-title { font-weight: 500; font-size: 0.95rem; margin-bottom: 4px; }
+.usage-desc { font-size: 0.82rem; color: var(--text-secondary); }
+
+/* Highlight */
+.highlight-box {
+  background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(240,147,251,0.08));
+  border-radius: 16px;
+  padding: 20px 24px;
+  margin: 16px 0;
+  border-left: 4px solid var(--accent);
+}
+
+footer {
+  text-align: center;
+  padding: 40px;
+  color: var(--text-light);
+  font-size: 0.85rem;
+}
+@media (max-width:768px) {
+  .hero { padding: 50px 24px 40px; }
+  .hero h1 { font-size: 2rem; }
+  .week-body { padding: 16px 20px 20px; }
+  .hero-stats { gap: 20px; }
+  .usage-grid { grid-template-columns: 1fr 1fr; }
+}
+@media print {
+  body { background: #fff; padding: 20px; }
+  .card, .week-card { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+  .golden { border-color: #ccc; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ══════ HERO ══════ -->
+<header class="hero">
+  <div class="hero-badge">萬維鋼〈能動〉× Rex 專屬行動系統</div>
+  <h1>30 天能動者練習系統</h1>
+  <p class="subtitle">每天 20-30 分鐘，每個練習都有產出物。<br>把穩態邏輯一層一層剝掉，讓你從攝影師變成導演。</p>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">30</div><div class="stat-label">天</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">階段</div></div>
+    <div class="stat"><div class="stat-num">30</div><div class="stat-label">份產出物</div></div>
+    <div class="stat"><div class="stat-num">7</div><div class="stat-label">長期行動</div></div>
+  </div>
+</header>
+
+<!-- ══════ 核心金句 ══════ -->
+<div class="golden">
+  <blockquote>別用四條線的忙碌，<br>迴避一條線的全力以赴。<br>你是導演，不是攝影師。</blockquote>
+  <div class="attr">— Rex 能動者宣言 v0（Day 23 寫出你自己的版本）</div>
+</div>
+
+<!-- ══════ 使用說明 ══════ -->
+<section class="card">
+  <h2 class="section-title">📌 使用說明</h2>
+  <div class="usage-grid">
+    <div class="usage-item">
+      <div class="usage-icon">⏱️</div>
+      <div class="usage-title">每天 20-30 分鐘</div>
+      <div class="usage-desc">早上、通勤、睡前<br>任何固定時段都行</div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-icon">📄</div>
+      <div class="usage-title">每天都有產出物</div>
+      <div class="usage-desc">做完就有東西可看<br>不是「想一想就好」</div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-icon">📈</div>
+      <div class="usage-title">難度遞增</div>
+      <div class="usage-desc">W1 照 X 光 → W4 建系統<br>第一週最簡單</div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-icon">✅</div>
+      <div class="usage-title">每週檢核點</div>
+      <div class="usage-desc">不舒服的程度<br>＝觸碰到真正穩態的深度</div>
+    </div>
+  </div>
+  <div class="highlight-box">
+    <strong>核心原則：</strong>這套系統不是在教你「想通」——而是逼你每天「做出一個東西」。知道了很多道理還是過不好這一生，是因為你一直停在「知道」，沒有走到「做出來然後看到結果」。
+  </div>
+</section>
+
+<!-- ══════════════════════════════ -->
+<!--    WEEK 1：照 X 光              -->
+<!-- ══════════════════════════════ -->
+<div class="week-card">
+  <div class="week-top">
+    <h3>第一週（Day 1-7）：照 X 光</h3>
+    <div class="theme">THEME → 看見你的穩態邏輯在哪裡</div>
+  </div>
+  <div class="week-body">
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D1</span><span class="day-name">穩態清單</span></div>
+      <p class="day-desc">四條業務線（叡思影像 / 保險 / 社群 / AI）各列 3 件「一直都這樣做」的事，共 12 件。不評判、不分析，只列出。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：12 項穩態清單</span><span class="dt dt-time">20 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D2</span><span class="day-name">受益人追問</span></div>
+      <p class="day-desc">拿出 D1 的 12 項清單，逐一追問：這個做法，最大受益人是誰？是我自己？是客戶？還是「大家都這樣所以我也這樣」？用三種顏色標記。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：12 項 + 受益人標記</span><span class="dt dt-time">20 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D3</span><span class="day-name">恐懼雷達</span></div>
+      <p class="day-desc">列出你目前「想做但一直沒做」的 5 件事。每件事寫下你沒做的真正原因——是能力不夠？怕失敗？怕被看到？怕得罪人？還是單純懶？要誠實。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：5 項 + 恐懼根源分析</span><span class="dt dt-time">25 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D4</span><span class="day-name">營收 X 光</span></div>
+      <p class="day-desc">畫出四條線過去三個月的收入結構。哪條佔比最高？哪條成長最快？哪條投入最多時間但收入最低？用數字說話，不要用感覺。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：四線收入結構圖（含數字）</span><span class="dt dt-time">25 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D5</span><span class="day-name">加法 vs 乘法</span></div>
+      <p class="day-desc">四條線各寫出營收公式（例如：影像 = 案件數 × 平均單價 × 回購率）。標記哪些是加法模式（時間換錢，做一單賺一單），哪些有乘法可能（一次投入、多次收益）。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：四條線營收公式 + 加乘標記</span><span class="dt dt-time">20 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D6</span><span class="day-name">態度 vs 成果審計</span></div>
+      <p class="day-desc">回顧本週的工作時間，把每個活動標記為「態度」（展示忙碌/投入但無明確產出）或「成果」（有明確產出物或決策推進）。計算兩者的時間比例。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：態度/成果比例（%）</span><span class="dt dt-time">20 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D7</span><span class="day-name">穩態 X 光片總結</span></div>
+      <p class="day-desc">把 D1-D6 所有產出攤開，整合成一張「我的穩態邏輯地圖」。在地圖上標出 Top 3 最需要突破的點——這三個點將決定 W2-W4 的行動方向。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：穩態地圖 + Top 3 突破點</span><span class="dt dt-time">30 min</span></div>
+    </div>
+
+    <div class="checkpoint">
+      <h5>✅ 第一週檢核</h5>
+      <p>這 7 天有幾天讓你不舒服？不舒服程度越高＝觸碰到真正的穩態邏輯。如果全程都很舒服——你可能在用「做練習的姿態」迴避「真正面對自己」。回去重做 D3。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!--    WEEK 2：風險校準              -->
+<!-- ══════════════════════════════ -->
+<div class="week-card">
+  <div class="week-top">
+    <h3>第二週（Day 8-14）：風險校準</h3>
+    <div class="theme">THEME → 把風險厭惡轉化為風險識別</div>
+  </div>
+  <div class="week-body">
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D8</span><span class="day-name">最壞情況表</span></div>
+      <p class="day-desc">從 D3 的 5 件「想做但沒做」中選 1 件，做三欄分析：最壞情況（真的發生了會怎樣？）/ 最可能情況 / 最好情況。花 15 分鐘寫，5 分鐘重讀。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：三欄風險分析表</span><span class="dt dt-time">20 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D9</span><span class="day-name">MVP 挑戰</span></div>
+      <p class="day-desc">把 D8 選的那件事，設計一個 30 分鐘能完成的最小可行版本。<strong>今天就做完它。</strong>不求完美，只求存在。做完之後記錄你的感覺和實際結果。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：一個 MVP 成品 + 感受記錄</span><span class="dt dt-time">30 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D10</span><span class="day-name">報價實驗</span></div>
+      <p class="day-desc">選一個即將進行的報價場景（影像案件 / 保險方案 / 社群服務），把你原本想報的價格提高 20%。寫下提高的價值理由——不是「因為練習要求」，而是你真正能說清的價值。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：提價理由書</span><span class="dt dt-time">20 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D11</span><span class="day-name">被看見練習</span></div>
+      <p class="day-desc">在任何一個公開平台（社群、朋友圈、Line 群、臉書）發佈一則你的獨立觀點——不是轉發，不是引用別人，是你自己對某件事的看法。主題不限，字數不限。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：一則公開發佈的獨立觀點</span><span class="dt dt-time">20 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D12</span><span class="day-name">從眾掃描</span></div>
+      <p class="day-desc">回顧過去一週你做的所有決定（大小都算），把每個決定標記為「獨立判斷」或「從眾」（因為別人都這樣做 / 怕不一樣被議論）。計算從眾比例。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：從眾比例（%）</span><span class="dt dt-time">20 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D13</span><span class="day-name">逆向從眾</span></div>
+      <p class="day-desc">刻意做一件「別人不做但你覺得對」的事。可以很小：拒絕一個不值得的邀約、對客戶說一次不討喜但真實的建議、用一個沒人用過的方式辦社群活動。做完記錄結果。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：逆向行動 + 結果記錄</span><span class="dt dt-time">25 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D14</span><span class="day-name">風險校準總結</span></div>
+      <p class="day-desc">回顧 D8-D13 所有產出。D9 的 MVP 結果比預期好還是差？D10 的提價有沒有被接受？D11 被看見之後發生了什麼？D13 的逆向行動感覺如何？</p>
+      <div class="day-tags"><span class="dt dt-output">產出：風險校準日記</span><span class="dt dt-time">25 min</span></div>
+    </div>
+
+    <div class="checkpoint">
+      <h5>✅ 第二週檢核</h5>
+      <p>D9 的 MVP 和 D13 的逆向行動，結果比你預期的好還是差？如果比預期好——你的風險厭惡長期低估了你的能力邊界。如果比預期差——也好，你現在有了真實數據，而不是恐懼幻想。兩種結果都比「什麼都不做」有價值。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!--    WEEK 3：模型升級              -->
+<!-- ══════════════════════════════ -->
+<div class="week-card">
+  <div class="week-top">
+    <h3>第三週（Day 15-21）：模型升級</h3>
+    <div class="theme">THEME → 從「更努力」到「更精準地施力」</div>
+  </div>
+  <div class="week-body">
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D15</span><span class="day-name">價值鏈拆解</span></div>
+      <p class="day-desc">選你營收最高的一條業務線，畫出從「客戶有需求」到「錢進你帳戶」的完整價值鏈——每一個環節都寫出來。然後標記：哪個環節有最大槓桿效應（改善它能讓整條鏈的產出倍增）。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：一條線的完整價值鏈圖</span><span class="dt dt-time">30 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D16</span><span class="day-name">四線交叉地圖</span></div>
+      <p class="day-desc">畫出四條業務線之間的交叉關係：A 線的客戶有沒有流向 B 線？C 線的能力有沒有加速 D 線？標記所有實際存在的交叉點。沒有交叉的線與線之間畫上 ✕。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：四線交叉關係地圖</span><span class="dt dt-time">25 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D17</span><span class="day-name">時間 × 回報矩陣</span></div>
+      <p class="day-desc">把上週的工作時間按四條線分配（估算 % 即可），對照各線同期營收。算出每條線的「時間回報率」（營收 ÷ 時間投入）。排出優先序。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：四線時間回報率排序</span><span class="dt dt-time">20 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D18</span><span class="day-name">乘法入口設計</span></div>
+      <p class="day-desc">針對 D5 標記的「最有乘法可能」的線，設計一個「一次投入、多次收益」的產品或服務概念。例如：把分析框架做成線上課程 / 把影像 SOP 做成授權模板。只需概念，不需完成。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：一個乘法產品概念（500 字內）</span><span class="dt dt-time">25 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D19</span><span class="day-name">AI 穩態審計</span></div>
+      <p class="day-desc">列出你目前所有在用的 AI 工作流。分成兩類：① 加速既有流程（穩態 AI：做一樣的事只是更快）② 讓你做了以前不敢做/不會做的事（能動 AI）。計算比例。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：AI 穩態/能動比例</span><span class="dt dt-time">20 min</span><span class="dt dt-ai">AI 相關</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D20</span><span class="day-name">知識→決策追蹤</span></div>
+      <p class="day-desc">翻開你過去三次用超級大腦讀書法或 TOC 做的分析報告。每份問一個問題：<strong>「這份分析改變了我的哪個具體決策或行為？」</strong>如果答案是「沒有」或「想不起來」——記下來。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：知識轉化率評估表</span><span class="dt dt-time">25 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D21</span><span class="day-name">模型升級總結</span></div>
+      <p class="day-desc">整合 D15-D20 所有發現，回答一個刺痛的問題：<strong>如果你只能保留兩條業務線，你會保留哪兩條？為什麼？</strong>不是叫你真的砍掉——是測試你能不能說清楚每條線存在的理由。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：雙線優先序 + 完整理由</span><span class="dt dt-time">30 min</span></div>
+    </div>
+
+    <div class="checkpoint">
+      <h5>✅ 第三週檢核</h5>
+      <p>回答 D21 的「只保留兩條」時，你的身體反應是什麼？胸口一緊？腦中立刻跳出「不行，每條都很重要」？那就是穩態邏輯的風險厭惡在保護自己不被質疑。注意那個反應。不需要行動，只需要看見它。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!--    WEEK 4：能動者系統            -->
+<!-- ══════════════════════════════ -->
+<div class="week-card">
+  <div class="week-top">
+    <h3>第四週（Day 22-30）：能動者系統</h3>
+    <div class="theme">THEME → 從知道到做到，建立你的操作系統</div>
+  </div>
+  <div class="week-body">
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D22</span><span class="day-name">穩態退出清單</span></div>
+      <p class="day-desc">從過去三週的所有發現中，列出 3 件你決定<strong>「從今天起不再這樣做」</strong>的事。每件事寫下具體的替代方案——不是「要改變」這種空話，是「以前這樣做 → 以後這樣做」。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：3 項退出 + 3 項替代方案</span><span class="dt dt-time">20 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D23</span><span class="day-name">能動者宣言</span></div>
+      <p class="day-desc">用你自己的話，寫一段 100 字以內的「我的能動者宣言」。不能用萬維鋼的原話，不能用這份報告裡的金句。必須是<strong>你自己的語言、你自己的處境、你自己的承諾</strong>。寫完貼在你每天會看到的地方。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：個人宣言（100 字內）</span><span class="dt dt-time">20 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D24</span><span class="day-name">社群能動化設計</span></div>
+      <p class="day-desc">為你的社群設計一個「反從眾機制」——一個讓成員有空間表達異見、做不一樣選擇的活動。例如：每月一次「反直覺分享會」，每人分享一個和主流意見不同的決策。寫成可執行的活動方案。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：反從眾活動方案（含流程）</span><span class="dt dt-time">25 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D25</span><span class="day-name">波動創造</span></div>
+      <p class="day-desc">主動做一件會「創造波動」的事：提一個比你平常大膽 3 倍的提案、聯繫一個你一直不敢聯繫的人、發佈一個你一直壓在硬碟裡的作品。<strong>今天就做，不要等明天。</strong>做完記錄結果。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：一次主動波動 + 結果記錄</span><span class="dt dt-time">30 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D26</span><span class="day-name">導演 vs 攝影師盤點</span></div>
+      <p class="day-desc">盤點四條業務線，每條線標記清楚：你是「導演」（設計整體方向、調用團隊和資源）還是「攝影師」（執行別人的需求、按客戶說的做）？如果有一條線你 100% 是攝影師，問自己：要怎麼開始拿回導演權？</p>
+      <div class="day-tags"><span class="dt dt-output">產出：四線角色盤點 + 導演化計畫</span><span class="dt dt-time">20 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D27</span><span class="day-name">觀念溯源練習</span></div>
+      <p class="day-desc">選一個你業務中「理所當然」的慣例（例如：拍攝前一定要先出完整腳本 / 保險一定要從人情切入），花 15 分鐘追問它的歷史起源和受益人。寫成一篇 300 字的小筆記。這個練習以後每月做一次。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：觀念溯源筆記（300 字）</span><span class="dt dt-time">20 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D28</span><span class="day-name">能動性指數 v1</span></div>
+      <p class="day-desc">設計你自己的「月度能動性指數」——選 3-5 個你認為最能衡量「你是不是在當能動者」的指標。例如：本月主動創造波動的次數、獨立決策的比例、乘法收入佔總收入的比例。這套指標以後每月底自評一次。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：能動性指數設計表</span><span class="dt dt-time">25 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D29</span><span class="day-name">下一本書定位</span></div>
+      <p class="day-desc">基於這 30 天的發現，你的<strong>下一個瓶頸</strong>是什麼？是不會建系統？不會定價？不會放手？找一本能打破那個瓶頸的書。只需要找到書名和你選它的理由，不需要讀完。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：下一本書 + 瓶頸定位</span><span class="dt dt-time">20 min</span></div>
+    </div>
+
+    <div class="day">
+      <div class="day-header"><span class="day-num">D30</span><span class="day-name">30 天回顧</span></div>
+      <p class="day-desc">重新拿出 D1 的穩態清單和 D7 的穩態地圖。哪些已經改變了？哪些還卡著？你這 30 天最大的一個發現是什麼？寫一段 300-500 字的信給自己——不是總結報告，是一段<strong>你想對自己說的話</strong>。</p>
+      <div class="day-tags"><span class="dt dt-output">產出：給自己的信（300-500 字）</span><span class="dt dt-time">30 min</span></div>
+    </div>
+
+    <div class="checkpoint">
+      <h5>✅ 最終檢核（三個問題）</h5>
+      <p><strong>① 波動：</strong>這 30 天裡，你「主動創造波動」了幾次？（D9、D11、D13、D25 都算）</p>
+      <p><strong>② 改變：</strong>你的四條業務線，有沒有任何一條的營收模式、定價方式或客戶關係因為這 30 天而開始改變？</p>
+      <p><strong>③ 身份：</strong>如果萬維鋼問你「你是能動者嗎？」——你的回答是什麼？你的<strong>證據</strong>是什麼？</p>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════ -->
+<!--    核心行動清單（長期）           -->
+<!-- ══════════════════════════════ -->
+<section class="card">
+  <h2 class="section-title">🔁 7 項長期核心行動</h2>
+  <p style="color:var(--text-secondary);margin-bottom:20px;">30 天練習結束後，這 7 個行動變成你的常駐操作系統。每一項都有明確的觸發條件——不是「記得做」，而是「遇到這個情境就自動啟動」。</p>
+
+  <ol class="action-ol">
+    <li>
+      <strong>每月一次「觀念溯源」</strong>
+      <p>挑一個你業務中「一直都這樣做」的慣例，用 15 分鐘追問它的歷史出生證明和受益人。</p>
+      <span class="action-trigger">觸發：每月第一個週一</span>
+    </li>
+    <li>
+      <strong>對每個新計劃先做 MVP</strong>
+      <p>任何新想法，先用 30 分鐘做一個最小可行版本再評估。不是「等準備好」，而是「先做出來再說」。</p>
+      <span class="action-trigger">觸發：每次你發現自己在說「再想想」</span>
+    </li>
+    <li>
+      <strong>報價時先加 20% 再決定</strong>
+      <p>先算出「加 20% 的價格」，然後問自己能不能說清楚為什麼值這個價。能說清楚就報高的。說不清楚代表你還沒搞懂自己的價值。</p>
+      <span class="action-trigger">觸發：每次報價前</span>
+    </li>
+    <li>
+      <strong>每週至少一次「被看見」</strong>
+      <p>發佈一則你的獨立觀點、原創作品或主動提案。不是轉發，不是引用，是你自己的東西。</p>
+      <span class="action-trigger">觸發：每週五下午（固定時段）</span>
+    </li>
+    <li>
+      <strong>遇到瓶頸用「價值鏈」取代「更努力」</strong>
+      <p>營收卡住的時候，不是投入更多時間，而是畫出價值鏈找出最大槓桿點，然後把精力集中在那個點上。</p>
+      <span class="action-trigger">觸發：每次你覺得「已經很努力了為什麼還是這樣」</span>
+    </li>
+    <li>
+      <strong>每個新 AI 工作流做「能動性審計」</strong>
+      <p>建好之後問：這是在加速穩態（做一樣的事只是更快），還是在釋放能動性（讓我做了以前不敢做的事）？只保留後者。</p>
+      <span class="action-trigger">觸發：每次建完新的 AI 工作流</span>
+      <span class="ai-tag">AI 相關</span>
+    </li>
+    <li>
+      <strong>每份書籍分析必須連結到決策</strong>
+      <p>每完成一份超級大腦讀書法 / TOC / 書僮分析，在報告末尾必須寫下：「這份分析改變了我的哪個具體決策？」寫不出來，這份分析的價值就打五折。</p>
+      <span class="action-trigger">觸發：每份分析報告完成時</span>
+    </li>
+  </ol>
+</section>
+
+<!-- ══════ 月度自評表 ══════ -->
+<section class="card">
+  <h2 class="section-title">📊 月度能動性自評（模板）</h2>
+  <p style="color:var(--text-secondary);margin-bottom:16px;">每月最後一天花 15 分鐘填寫，追蹤你從穩態走向能動的進度。</p>
+  <table>
+    <tr><th style="width:40%;">指標</th><th style="width:20%;">本月數據</th><th>備註</th></tr>
+    <tr><td>主動創造波動的次數</td><td style="color:var(--text-light);">______ 次</td><td style="font-size:0.85rem;color:var(--text-secondary);">含報價提升、公開發佈、大膽提案等</td></tr>
+    <tr><td>獨立決策 vs 從眾決策的比例</td><td style="color:var(--text-light);">______%</td><td style="font-size:0.85rem;color:var(--text-secondary);">D12 的方法每月做一次</td></tr>
+    <tr><td>態度時間 vs 成果時間的比例</td><td style="color:var(--text-light);">______%</td><td style="font-size:0.85rem;color:var(--text-secondary);">D6 的方法每月做一次</td></tr>
+    <tr><td>乘法收入佔總收入的比例</td><td style="color:var(--text-light);">______%</td><td style="font-size:0.85rem;color:var(--text-secondary);">一次投入多次收益的收入</td></tr>
+    <tr><td>知識分析→實際決策改變的轉化率</td><td style="color:var(--text-light);">______ / ______</td><td style="font-size:0.85rem;color:var(--text-secondary);">改變了決策的分析數 / 總分析數</td></tr>
+    <tr><td>導演角色的業務線數量</td><td style="color:var(--text-light);">______ / 4</td><td style="font-size:0.85rem;color:var(--text-secondary);">你是導演而非攝影師的線</td></tr>
+  </table>
+</section>
+
+<!-- ══════ 結語 ══════ -->
+<div class="golden">
+  <blockquote>這套系統不是讓你「知道更多」。<br>是讓你每天做出一個東西，<br>然後看到自己在變。</blockquote>
+  <div class="attr">Day 1 從穩態清單開始。現在就做。</div>
+</div>
+
+<footer>
+  <p>🦊 AI 書僮 2.0 ✦ 30 天能動者練習系統</p>
+  <p>萬維鋼〈能動〉× Rex 專屬 ✦ 2026-03-19</p>
+</footer>
+
+</div>
+</body>
+</html>
