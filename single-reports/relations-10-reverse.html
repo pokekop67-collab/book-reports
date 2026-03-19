@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒分析 | 逆轉不和諧人際關係</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #FDF6F0 0%, #FAE8EC 40%, #EDE6F5 80%, #F0EAF8 100%);
+    min-height: 100vh;
+    color: #3D2B3D;
+    padding: 40px 20px;
+    line-height: 1.8;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .book-header {
+    text-align: center;
+    padding: 60px 40px 40px;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(20px);
+    border-radius: 32px;
+    border: 1px solid rgba(212,132,154,0.2);
+    margin-bottom: 40px;
+    box-shadow: 0 8px 40px rgba(155,126,200,0.12);
+  }
+
+  .book-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #D4849A, #9B7EC8);
+    color: white;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .book-header h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2D1F3D;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+
+  .book-meta {
+    color: #7B6478;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .book-meta span {
+    display: inline-block;
+    margin: 4px 8px;
+    background: rgba(212,132,154,0.12);
+    padding: 4px 12px;
+    border-radius: 12px;
+  }
+
+  /* Phase Labels */
+  .phase-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+
+  .phase-1 { background: linear-gradient(135deg, rgba(212,132,154,0.2), rgba(212,132,154,0.1)); color: #C06080; border: 1px solid rgba(212,132,154,0.3); }
+  .phase-2 { background: linear-gradient(135deg, rgba(155,126,200,0.2), rgba(155,126,200,0.1)); color: #7058B0; border: 1px solid rgba(155,126,200,0.3); }
+  .phase-3 { background: linear-gradient(135deg, rgba(100,160,200,0.2), rgba(100,160,200,0.1)); color: #3078A8; border: 1px solid rgba(100,160,200,0.3); }
+
+  /* Section Cards */
+  .section-card {
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 24px rgba(155,126,200,0.08);
+  }
+
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2D1F3D;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(212,132,154,0.25);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title .icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .icon-pink { background: linear-gradient(135deg, #D4849A, #E8A0B0); }
+  .icon-purple { background: linear-gradient(135deg, #9B7EC8, #B090D8); }
+  .icon-blue { background: linear-gradient(135deg, #6AA0C8, #88B8D8); }
+
+  /* Core Claim */
+  .core-claim {
+    background: linear-gradient(135deg, rgba(212,132,154,0.08), rgba(155,126,200,0.08));
+    border-left: 4px solid #D4849A;
+    border-radius: 0 16px 16px 0;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #3D2033;
+    font-style: italic;
+  }
+
+  /* Key Concepts */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 600px) {
+    .concept-grid { grid-template-columns: 1fr; }
+  }
+
+  .concept-card {
+    background: rgba(255,255,255,0.7);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(212,132,154,0.15);
+  }
+
+  .concept-number {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #D4849A;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .concept-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2D1F3D;
+    margin-bottom: 8px;
+  }
+
+  .concept-desc {
+    font-size: 0.9rem;
+    color: #5A4A5A;
+    line-height: 1.7;
+  }
+
+  /* Assumptions & Blind Spots */
+  .assumption-item, .blindspot-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+
+  .tag {
+    flex-shrink: 0;
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .tag-pink { background: rgba(212,132,154,0.15); color: #B05570; }
+  .tag-purple { background: rgba(155,126,200,0.15); color: #6840A8; }
+  .tag-orange { background: rgba(220,160,80,0.15); color: #A06020; }
+  .tag-blue { background: rgba(100,160,220,0.15); color: #2060A0; }
+
+  /* Quote Box */
+  .quote-box {
+    background: linear-gradient(135deg, rgba(155,126,200,0.08), rgba(212,132,154,0.08));
+    border: 1px solid rgba(155,126,200,0.2);
+    border-radius: 20px;
+    padding: 24px 28px;
+    margin: 20px 0;
+    position: relative;
+  }
+
+  .quote-box::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    font-size: 3rem;
+    color: rgba(155,126,200,0.4);
+    font-family: 'Noto Serif TC', serif;
+    line-height: 1;
+  }
+
+  .quote-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: #2D1F3D;
+    font-weight: 600;
+  }
+
+  /* Public Perception */
+  .perception-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+    align-items: start;
+  }
+
+  .perception-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .label-remember { background: rgba(212,132,154,0.15); color: #B05570; }
+  .label-cite { background: rgba(155,126,200,0.15); color: #6840A8; }
+  .label-misread { background: rgba(220,160,80,0.15); color: #A06020; }
+  .label-dispute { background: rgba(100,160,220,0.15); color: #2060A0; }
+  .label-judge { background: rgba(80,180,120,0.15); color: #206840; }
+
+  .perception-content {
+    font-size: 0.9rem;
+    color: #4A3A4A;
+    line-height: 1.7;
+    padding-top: 4px;
+  }
+
+  /* Rex Section */
+  .rex-resist, .rex-ignore {
+    background: rgba(255,255,255,0.6);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(100,160,220,0.2);
+  }
+
+  .rex-resist h4 { color: #C04060; }
+  .rex-ignore h4 { color: #6840A8; }
+
+  .rex-resist h4, .rex-ignore h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Golden Sentence */
+  .golden-sentence {
+    background: linear-gradient(135deg, #D4849A 0%, #9B7EC8 100%);
+    border-radius: 20px;
+    padding: 28px 32px;
+    text-align: center;
+    margin: 24px 0;
+    box-shadow: 0 8px 30px rgba(155,126,200,0.3);
+  }
+
+  .golden-label {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .golden-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.6;
+  }
+
+  /* Actions */
+  .action-list {
+    list-style: none;
+    margin-top: 16px;
+  }
+
+  .action-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+
+  .action-number {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6AA0C8, #9B7EC8);
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .action-content strong {
+    display: block;
+    font-size: 0.95rem;
+    color: #2D1F3D;
+    margin-bottom: 4px;
+  }
+
+  .action-content p {
+    font-size: 0.85rem;
+    color: #5A4A5A;
+    line-height: 1.6;
+  }
+
+  /* 30-Day Practice */
+  .week-block {
+    background: rgba(255,255,255,0.6);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    border-left: 4px solid;
+  }
+
+  .week-block:nth-child(1) { border-color: #D4849A; }
+  .week-block:nth-child(2) { border-color: #9B7EC8; }
+  .week-block:nth-child(3) { border-color: #6AA0C8; }
+  .week-block:nth-child(4) { border-color: #80C8A0; }
+
+  .week-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #2D1F3D;
+    margin-bottom: 10px;
+  }
+
+  .week-days {
+    font-size: 0.88rem;
+    color: #4A3A5A;
+    line-height: 1.7;
+  }
+
+  .checkpoint {
+    margin-top: 10px;
+    background: rgba(212,132,154,0.08);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.82rem;
+    color: #A05070;
+    font-weight: 500;
+  }
+
+  /* Summary Box */
+  .summary-box {
+    background: rgba(255,255,255,0.5);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #4A3A4A;
+  }
+
+  /* Divider */
+  .phase-divider {
+    text-align: center;
+    margin: 48px 0 32px;
+  }
+
+  .phase-divider::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(135deg, #D4849A, #9B7EC8);
+    margin: 0 auto 16px;
+    border-radius: 2px;
+  }
+
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+  
+  ul { padding-left: 20px; }
+  li { margin-bottom: 8px; font-size: 0.9rem; color: #4A3A4A; line-height: 1.7; }
+  
+  strong { color: #2D1F3D; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="book-header">
+    <div class="book-badge">書 10 ｜ AI 書僮 2.0 分析報告</div>
+    <h1>逆轉不和諧人際關係<br>從此難受、痛苦全數終結！</h1>
+    <div class="book-meta">
+      <span>✍️ 作者：松村亞里（Matsumura Ari）</span>
+      <span>🧠 正向心理學</span>
+      <span>📚 三階段深讀</span>
+    </div>
+  </div>
+
+  <!-- ===== PHASE 1 ===== -->
+  <div class="phase-divider">
+    <div class="phase-label phase-1">📖 第一階段：書本深讀</div>
+  </div>
+
+  <!-- 全書摘要 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-pink">📋</span>
+      全書摘要（邏輯架構）
+    </h2>
+    <div class="summary-box">
+      <p>本書作者松村亞里是旅居紐約的正向心理學家，出身單親貧困家庭，靠自力赴美取得哥倫比亞大學碩士、秋田大學醫學博士，在紐約市立大學等機構執教十餘年，並創立「紐約平衡生活研究所（NYLB）」。</p>
+      <p>全書圍繞一個核心問題展開：<strong>為什麼越努力建立良好關係，有時反而越糟糕？</strong> 答案在於——我們用的「工具」錯了。</p>
+    </div>
+    
+    <div class="summary-box">
+      <strong>📐 架構邏輯（三層次）</strong>
+      <ul style="margin-top:10px;">
+        <li><strong>第一層：診斷問題</strong> ——引入「膩煩三角」vs「幸福三角」框架，讓讀者識別自己目前的關係模式屬於哪種。90% 的不良關係屬於膩煩三角，90% 的良好關係屬於幸福三角。</li>
+        <li><strong>第二層：根因分析</strong> ——「弱點取向（Gap Approach / Negative Approach）」是萬惡之源。無論是批評對方、不斷擔憂、試圖修復對方，都是在用「弱點視角」看待關係，必然耗盡雙方能量。</li>
+        <li><strong>第三層：實踐轉化</strong> ——改用「正向取向（Positive Approach）」，透過發現「優勢（VIA 性格優勢）」、問「What's good?」式的問題、成為「教練」而非「拯救者」，把關係從膩煩三角轉為幸福三角。</li>
+      </ul>
+    </div>
+
+    <div class="summary-box">
+      <strong>📖 章節故事主線：</strong> 書中穿插大量真實案例——A 小姐與道德騷擾的丈夫、拒學的女兒共處、諮商師面對學生卻越努力越失敗的困境、職場中被低估的員工轉化——全部用同一套框架解決，說明「工具正確，人人都能逆轉關係」。
+    </div>
+  </div>
+
+  <!-- 作者核心主張 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-pink">💡</span>
+      作者核心主張
+    </h2>
+    <div class="core-claim">
+      不和諧的人際關係，90% 源自「弱點取向」的思維模式——盯著對方的缺點、用差距定義問題。只要切換成「正向取向」，發現並強化對方的優勢，關係就能從「膩煩三角」逆轉為「幸福三角」，不需要改變對方，改變自己的視角就夠了。
+    </div>
+    <div class="core-claim" style="border-left-color: #9B7EC8;">
+      人際關係的改善，從「你決定改變的那一刻」就已經開始。行動不需要完美，微小的轉變就能在系統中引發漣漪效應。
+    </div>
+  </div>
+
+  <!-- 關鍵觀念 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-pink">🔑</span>
+      最重要的 7 個關鍵觀念
+    </h2>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 01</div>
+        <div class="concept-title">膩煩三角 vs 幸福三角</div>
+        <div class="concept-desc">膩煩三角：批評者 × 被批評者 × 旁觀的害怕者，三方都陷入負能量循環。幸福三角：強化優勢的人 × 被看見優勢的人 × 見證成長的人，三方共同成長。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 02</div>
+        <div class="concept-title">弱點取向 vs 正向取向</div>
+        <div class="concept-desc">Gap Approach（弱點取向）：以「應有的樣子 – 現實 = 差距」為核心，總是追逐缺口。Positive Approach（正向取向）：以「已有的優勢 + 成功的因素」為核心，放大做對的事。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 03</div>
+        <div class="concept-title">VIA 性格優勢</div>
+        <div class="concept-desc">正向心理學的 VIA 24 項性格優勢，每個人都有獨特的優勢組合。發現並命名對方的優勢，是改變關係的最強催化劑。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 04</div>
+        <div class="concept-title">What's good? 問句</div>
+        <div class="concept-desc">用「這件事哪裡做得好？」「你為什麼能做到？」代替「哪裡做錯了？」，引導對方和自己從成功中學習，而非從失敗中找罪人。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 05</div>
+        <div class="concept-title">因應問句 / 生存問句</div>
+        <div class="concept-desc">當對方處於最低谷時，不急著解決，而是問：「你還是來了，是什麼讓你撐下來的？」讓對方看見自己內在的力量。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 06</div>
+        <div class="concept-title">教練 vs 拯救者</div>
+        <div class="concept-desc">「拯救者」盯著對方弱點，替對方解決問題，結果對方依賴且脆弱。「教練」發現對方優勢，讓對方發現自己的力量，關係因此翻轉。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 07</div>
+        <div class="concept-title">漣漪效應</div>
+        <div class="concept-desc">改變從決心的那一刻就開始發生。預約輔導後就產生變化、拿起書的那一刻就已轉化——微小行動在關係系統中引發連鎖反應。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 底層假設 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-pink">🔍</span>
+      隱含但未明說的底層假設
+    </h2>
+    <div class="assumption-item">
+      <span class="tag tag-pink">假設 1</span>
+      <p class="perception-content">人性本質上是可以成長的——只要環境對了，每個人都有優勢可以被激活，問題不在「人」而在「系統」。</p>
+    </div>
+    <div class="assumption-item">
+      <span class="tag tag-purple">假設 2</span>
+      <p class="perception-content">個人的主動性優先於結構性因素——書中假設讀者有能力透過改變視角來改變關係，對於系統性壓迫（如職場霸凌結構、社會階層）的改變力量相對輕描淡寫。</p>
+    </div>
+    <div class="assumption-item">
+      <span class="tag tag-orange">假設 3</span>
+      <p class="perception-content">正向情緒比負向情緒更有生產力——底層依據是正向心理學的「擴展建構理論」，但並非所有情況都適用（憤怒、悲傷有其功能）。</p>
+    </div>
+    <div class="assumption-item">
+      <span class="tag tag-blue">假設 4</span>
+      <p class="perception-content">關係問題是雙向的，但「先改變的人」擁有最大影響力——因此只要「自己」先改變視角，就能撬動整個關係系統。</p>
+    </div>
+  </div>
+
+  <!-- 盲點與爭議 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-pink">⚠️</span>
+      作者可能的盲點或爭議點
+    </h2>
+    <div class="blindspot-item">
+      <span class="tag tag-orange">爭議 1</span>
+      <p class="perception-content"><strong>過度樂觀化：</strong>對於嚴重的道德騷擾、家暴等不對稱權力關係，「改變視角」的框架可能讓受害者繼續忍耐而非離開。書中案例的成功故事選擇性可能偏高。</p>
+    </div>
+    <div class="blindspot-item">
+      <span class="tag tag-orange">爭議 2</span>
+      <p class="perception-content"><strong>文化適用性：</strong>正向心理學的 VIA 框架源自西方，作者在紐約發展，部分概念在東亞集體主義文化中的適用程度有待商榷。</p>
+    </div>
+    <div class="blindspot-item">
+      <span class="tag tag-orange">爭議 3</span>
+      <p class="perception-content"><strong>責任歸屬不清：</strong>當關係問題真的是對方造成的，「先改變自己視角」的建議可能讓讀者承擔過多不屬於自己的責任。</p>
+    </div>
+    <div class="blindspot-item">
+      <span class="tag tag-orange">爭議 4</span>
+      <p class="perception-content"><strong>忽略情緒的必要性：</strong>書中傾向「快速轉化」視角，對「需要先充分感受和哀悼負向情緒」的過程著墨較少，可能讓讀者跳過必要的情緒處理。</p>
+    </div>
+  </div>
+
+  <!-- ===== PHASE 2 ===== -->
+  <div class="phase-divider">
+    <div class="phase-label phase-2">🌐 第二階段：公眾認知萃取</div>
+  </div>
+
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-purple">📡</span>
+      這本書在大眾世界被如何記住？
+    </h2>
+
+    <div class="perception-row">
+      <span class="perception-label label-remember">被記住的</span>
+      <p class="perception-content">「幸福三角 vs 膩煩三角」是最廣為流傳的概念。讀者普遍記住的是「只要改變看待對方的視角，關係就能逆轉」，以及「不需要改變對方，改變自己就夠了」。</p>
+    </div>
+
+    <div class="perception-row">
+      <span class="perception-label label-cite">最常引用</span>
+      <p class="perception-content">「90% 的不良關係來自弱點取向」「What's good?（哪裡做得好？）」這兩個概念常被引用。日本職場教練圈也常引用「教練 vs 拯救者」的框架。</p>
+    </div>
+
+    <div class="perception-row">
+      <span class="perception-label label-misread">最常誤解</span>
+      <p class="perception-content">最常見的誤解是把書理解為「永遠正向、不能批評」，但作者並非主張無條件積極，而是主張「看見優勢的方向」，不是「忽視問題的方向」。正向取向不等於正向思考。</p>
+    </div>
+
+    <div class="perception-row">
+      <span class="perception-label label-dispute">最有爭議</span>
+      <p class="perception-content">在家暴或職場霸凌討論中，「改變自己視角能逆轉關係」的說法被批評為「合理化受害者繼續留在有害關係中」，這是書中框架的最大社會爭議點。</p>
+    </div>
+
+    <div class="perception-row">
+      <span class="perception-label label-judge">核心被記住了嗎？</span>
+      <p class="perception-content"><strong>只記住了一半。</strong> 大眾記住了「視角轉換」和「看優勢」，但核心的「VIA 性格優勢工具」和「因應問句 / 生存問句的具體技術」大多被略過，留在表面的「正向思考」層次，而非深入的「正向心理學實踐」。</p>
+    </div>
+  </div>
+
+  <!-- ===== PHASE 3 ===== -->
+  <div class="phase-divider">
+    <div class="phase-label phase-3">🎯 第三階段：Rex 個人化轉化</div>
+  </div>
+
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-blue">🛡️</span>
+      Rex 可能會抗拒的部分
+    </h2>
+    <div class="rex-resist">
+      <h4>抗拒點 1：「改變視角就夠了」——聽起來太廉價</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">Rex 是社群經濟實戰者，習慣用結果說話。「只改變看問題的角度」這種說法，很可能被當成「心靈雞湯」快速略過。但本書真正的主張是系統性的工具替換，不是正向思考口號。</p>
+    </div>
+    <div class="rex-resist">
+      <h4>抗拒點 2：「對方的優勢」—— 忙的時候哪有空去發現？</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">當一個人同時管理多個合作夥伴、客戶、員工，很難有耐心一一去找每個人的優勢。但這正是這個工具的槓桿所在——一個優勢的發現，可以省去無數次的糾正成本。</p>
+    </div>
+    <div class="rex-resist">
+      <h4>抗拒點 3：「教練心態」——我有時候就是得快速解決問題</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">商業節奏下，Rex 可能需要直接指出問題而非等待對方自我發現。這與書中「教練型」的耐心節奏有張力，需要情境判斷，不是全面套用。</p>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-blue">🎯</span>
+      Rex 最容易忽略的部分
+    </h2>
+    <div class="rex-ignore">
+      <h4>容易忽略：「膩煩三角」的自我診斷</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">Rex 強調人情經濟，視關係為資本。但當他無意識地陷入「膩煩三角」角色（批評者）時——因為忙碌對合作夥伴或家人持續批評——這個消耗比他意識到的大得多。這個診斷步驟最容易被跳過。</p>
+    </div>
+    <div class="rex-ignore">
+      <h4>容易忽略：「What's good?」應用在自己身上</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">書中的問句不只是用在別人身上，也是給自己的工具。當Rex對自己的某個決策感到懊悔時，與其反覆問「哪裡做錯了」，不如先問「這次做對了什麼」，然後再修正。這個內向應用最容易被略過。</p>
+    </div>
+    <div class="rex-ignore">
+      <h4>容易忽略：關係改善的「漣漪效應」不需要完美切入點</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">Rex 可能等待「有空的時候再好好處理關係」，但書中明確說：光是「決定要改變」就已經啟動了漣漪。不需要等到完美時機，微小的行動現在就能開始。</p>
+    </div>
+  </div>
+
+  <!-- Golden Sentence -->
+  <div class="golden-sentence">
+    <div class="golden-label">✨ REX 核心金句</div>
+    <div class="golden-text">
+      「盯著差距的人永遠只能看到問題，<br>
+      看見優勢的人才能看到槓桿。<br>
+      關係就是資本——你在用什麼視角在經營它？」
+    </div>
+  </div>
+
+  <!-- 3 Immediate Actions -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-blue">⚡</span>
+      3 個即時可行的行動（各 20 分鐘內）
+    </h2>
+    <ul class="action-list">
+      <li>
+        <div class="action-item">
+          <div class="action-number">1</div>
+          <div class="action-content">
+            <strong>「優勢掃描」一個你最近有摩擦的關係（10 分鐘）</strong>
+            <p>拿出紙筆，列出你最近覺得難搞的一個人（合夥人、員工、家人）。強迫自己寫出他們至少 5 個你真心欣賞的特質或過去做對的事。這個動作本身就在切換視角，你會驚訝於自己的態度會在幾分鐘內改變。</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="action-item">
+          <div class="action-number">2</div>
+          <div class="action-content">
+            <strong>今天一個對話中只問「What's good?」（15 分鐘）</strong>
+            <p>選一個今天要進行的會議或對話，把你原本要問「哪裡出錯了」的問題，換成「這次做對了什麼？下次要如何複製這個成功？」完整地走一次正向問句，感受對方能量的變化。</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="action-item">
+          <div class="action-number">3</div>
+          <div class="action-content">
+            <strong>自我診斷：我在哪段關係裡扮演「膩煩三角」的角色？（5 分鐘）</strong>
+            <p>三個角色：批評者、被批評者、旁觀的害怕者。快速想一想你在不同關係中扮演的角色。光是意識到，就已經開始改變了。</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 30-Day Practice -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-blue">📅</span>
+      30 天落地練習系統（每天 20-30 分鐘）
+    </h2>
+
+    <div class="week-block">
+      <div class="week-title">第一週｜覺察：識別自己的膩煩三角</div>
+      <div class="week-days">
+        <strong>Day 1-2：</strong>讀書前半，標注「哪些場景讓你有感覺」。把你最近三段困難的關係寫下來。<br>
+        <strong>Day 3-4：</strong>用「膩煩三角 / 幸福三角」分析這三段關係，你在每段關係中扮演什麼角色？<br>
+        <strong>Day 5-6：</strong>在一段關係中，刻意做一次「優勢掃描」，把觀察寫下來。<br>
+        <strong>Day 7：</strong>寫下本週最大的覺察洞見。
+      </div>
+      <div class="checkpoint">📍 週檢核：我識別出自己在哪段關係中用了「弱點取向」嗎？</div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">第二週｜工具：練習正向問句</div>
+      <div class="week-days">
+        <strong>Day 8-10：</strong>每天一個真實對話，刻意替換問句——把「哪裡出錯了」換成「哪裡做對了」。記錄對方的反應變化。<br>
+        <strong>Day 11-12：</strong>對一個你關係緊繃的人，練習說出你真正欣賞他的一個優勢。不要假，要真實。<br>
+        <strong>Day 13-14：</strong>把「What's good?」用在自己的某個過去決策上，重新審視。
+      </div>
+      <div class="checkpoint">📍 週檢核：我練習過幾次正向問句？對方有什麼不同反應？</div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">第三週｜深化：成為教練而非拯救者</div>
+      <div class="week-days">
+        <strong>Day 15-17：</strong>在一段工作關係中，刻意從「給答案」轉為「問問題」——「你覺得這個情況，你能做什麼？」觀察對方的主動性有沒有提升。<br>
+        <strong>Day 18-19：</strong>對一個「我一直在幫他解決問題」的人，暫停一次，讓他自己嘗試。<br>
+        <strong>Day 20-21：</strong>評估本週哪些關係有能量提升，哪些沒有，分析原因。
+      </div>
+      <div class="checkpoint">📍 週檢核：哪段關係因為我的「教練型問句」而有了改變？</div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">第四週｜整合：把框架變成習慣</div>
+      <div class="week-days">
+        <strong>Day 22-25：</strong>每天晚上 5 分鐘，用「幸福三角」回顧今天的一個重要對話——我是在強化對方的優勢，還是在放大弱點？<br>
+        <strong>Day 26-28：</strong>選一段你最想改善的關係，做一次完整的「優勢 + 正向問句 + 教練心態」的深度對話。<br>
+        <strong>Day 29-30：</strong>寫下 30 天後你的關係地圖有什麼改變，哪段關係能量最明顯提升？
+      </div>
+      <div class="checkpoint">📍 月總結：我的「人情資本」有在這個月增加嗎？把成功的對話模式記下來複用。</div>
+    </div>
+  </div>
+
+  <div style="text-align:center; padding: 24px 0; color: #9B7EC8; font-size: 0.85rem; letter-spacing: 1px;">
+    書醒分析報告 · AI 書僮 2.0 · 叡思影像 × 關係深讀計畫
+  </div>
+
+</div>
+</body>
+</html>
