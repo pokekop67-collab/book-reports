@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>不受傷害也不傷害人的說話練習 × 三階段深讀報告</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --coral: #E8806A;
+    --mint: #5BBFA0;
+    --peach: #F5C4A8;
+    --lavender: #9B7EC8;
+    --rose: #D4849A;
+    --warm-white: #FFF9F5;
+    --card-bg: rgba(255, 255, 255, 0.75);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #FFF5F0 0%, #F5FFFC 35%, #FFF0F5 65%, #F8F5FF 100%);
+    min-height: 100vh;
+    color: #3D2B2B;
+    line-height: 1.8;
+    padding: 2rem 1rem;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; }
+
+  .book-header {
+    text-align: center;
+    padding: 3rem 2rem 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .book-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--coral), var(--mint));
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    margin-bottom: 1.2rem;
+  }
+
+  .book-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--coral), var(--mint));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    line-height: 1.4;
+  }
+
+  .book-subtitle {
+    font-size: 1rem;
+    color: #7A6A6A;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  .book-meta {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: #9A8A8A;
+  }
+
+  /* PAC Visual */
+  .pac-visual {
+    display: flex;
+    gap: 1rem;
+    margin: 1.5rem 0;
+    flex-wrap: wrap;
+  }
+
+  .pac-card {
+    flex: 1;
+    min-width: 200px;
+    border-radius: 20px;
+    padding: 1.3rem;
+    text-align: center;
+  }
+
+  .pac-parent {
+    background: linear-gradient(135deg, rgba(232,128,106,0.2), rgba(245,196,168,0.15));
+    border: 1px solid rgba(232,128,106,0.3);
+  }
+
+  .pac-adult {
+    background: linear-gradient(135deg, rgba(91,191,160,0.2), rgba(180,230,215,0.15));
+    border: 1px solid rgba(91,191,160,0.3);
+  }
+
+  .pac-child {
+    background: linear-gradient(135deg, rgba(155,126,200,0.2), rgba(215,200,240,0.15));
+    border: 1px solid rgba(155,126,200,0.3);
+  }
+
+  .pac-emoji { font-size: 2rem; margin-bottom: 0.5rem; }
+
+  .pac-label {
+    font-family: 'Noto Serif TC', serif;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .pac-parent .pac-label { color: #B05030; }
+  .pac-adult .pac-label { color: #2A7A68; }
+  .pac-child .pac-label { color: #6A4A9A; }
+
+  .pac-en {
+    font-size: 0.78rem;
+    opacity: 0.6;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+  }
+
+  .pac-desc { font-size: 0.82rem; line-height: 1.6; color: #5A4A4A; }
+
+  /* Phase elements */
+  .phase-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+  }
+
+  .phase-1 { background: linear-gradient(135deg, #FFE8E0, #FFDAD0); color: #B05030; }
+  .phase-2 { background: linear-gradient(135deg, #D0F5EC, #C0EEE0); color: #1A7A68; }
+  .phase-3 { background: linear-gradient(135deg, #F5E8D0, #F0DCC0); color: #9A6020; }
+
+  .phase-section { margin-bottom: 3rem; }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem 2rem;
+    border-radius: 24px;
+  }
+
+  .phase-1-header { background: linear-gradient(135deg, rgba(232,128,106,0.2), rgba(245,196,168,0.15)); }
+  .phase-2-header { background: linear-gradient(135deg, rgba(91,191,160,0.2), rgba(180,230,215,0.15)); }
+  .phase-3-header { background: linear-gradient(135deg, rgba(245,196,168,0.3), rgba(240,220,180,0.2)); }
+
+  .phase-icon { font-size: 2rem; }
+
+  .phase-header-text h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .phase-header-text p { font-size: 0.85rem; opacity: 0.7; margin-top: 0.2rem; }
+
+  .card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 24px rgba(180, 100, 80, 0.07);
+  }
+
+  .card-accent-coral { border-left: 4px solid var(--coral); }
+  .card-accent-mint { border-left: 4px solid var(--mint); }
+  .card-accent-lavender { border-left: 4px solid var(--lavender); }
+
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .concept-card {
+    background: rgba(255,255,255,0.8);
+    border-radius: 18px;
+    padding: 1.3rem;
+    border: 1px solid rgba(255,255,255,0.9);
+  }
+
+  .concept-number { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; color: var(--coral); margin-bottom: 0.5rem; }
+
+  .concept-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #3D2B2B;
+  }
+
+  .concept-desc { font-size: 0.88rem; color: #6A5A5A; line-height: 1.7; }
+
+  .quote-box {
+    background: linear-gradient(135deg, rgba(232,128,106,0.1), rgba(91,191,160,0.1));
+    border-radius: 20px;
+    padding: 1.8rem 2rem;
+    margin: 1.5rem 0;
+    border-left: 4px solid var(--coral);
+    position: relative;
+  }
+
+  .quote-mark {
+    font-size: 4rem;
+    line-height: 0;
+    color: var(--coral);
+    opacity: 0.25;
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+  }
+
+  .quote-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.05rem;
+    font-style: italic;
+    color: #5A3A3A;
+    line-height: 1.8;
+    padding-left: 1rem;
+  }
+
+  .styled-list { list-style: none; padding: 0; }
+
+  .styled-list li {
+    padding: 0.7rem 0 0.7rem 2rem;
+    position: relative;
+    border-bottom: 1px solid rgba(180,100,80,0.07);
+    font-size: 0.93rem;
+    color: #5A4A4A;
+    line-height: 1.7;
+  }
+
+  .styled-list li:last-child { border-bottom: none; }
+
+  .styled-list li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--coral);
+    font-size: 0.7rem;
+    top: 0.95rem;
+  }
+
+  .styled-list.mint li::before { color: var(--mint); content: '◆'; }
+  .styled-list.lavender li::before { color: var(--lavender); }
+
+  /* TA Transaction types */
+  .transaction-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.8rem;
+    margin: 1rem 0;
+  }
+
+  .transaction-card {
+    background: rgba(255,255,255,0.8);
+    border-radius: 16px;
+    padding: 1rem 1.2rem;
+    border: 1px solid rgba(255,255,255,0.9);
+  }
+
+  .t-type {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+  }
+
+  .t-name {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 0.4rem;
+    color: #3D2B2B;
+  }
+
+  .t-desc { font-size: 0.82rem; color: #6A5A5A; line-height: 1.6; }
+
+  .action-box {
+    background: linear-gradient(135deg, rgba(91,191,160,0.1), rgba(180,230,215,0.1));
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border: 1px solid rgba(91,191,160,0.25);
+  }
+
+  .action-title {
+    font-weight: 700;
+    color: var(--mint);
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .gold-card {
+    background: linear-gradient(135deg, rgba(255,220,150,0.3), rgba(255,200,100,0.15));
+    border-radius: 20px;
+    padding: 1.8rem;
+    border: 1px solid rgba(220,170,50,0.3);
+    text-align: center;
+  }
+
+  .gold-card .label { font-size: 0.8rem; font-weight: 700; color: #B08020; letter-spacing: 0.1em; margin-bottom: 0.8rem; }
+
+  .gold-card .insight {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #7A5010;
+    line-height: 1.6;
+  }
+
+  .week-grid { display: grid; gap: 1rem; }
+
+  .week-card {
+    background: rgba(255,255,255,0.7);
+    border-radius: 18px;
+    padding: 1.2rem 1.5rem;
+    border-left: 4px solid;
+  }
+
+  .week-card:nth-child(1) { border-color: var(--coral); }
+  .week-card:nth-child(2) { border-color: var(--mint); }
+  .week-card:nth-child(3) { border-color: var(--lavender); }
+  .week-card:nth-child(4) { border-color: #F4C4A0; }
+
+  .week-label { font-weight: 700; font-size: 0.85rem; letter-spacing: 0.05em; margin-bottom: 0.7rem; }
+
+  .week-card:nth-child(1) .week-label { color: #B05030; }
+  .week-card:nth-child(2) .week-label { color: #1A7A68; }
+  .week-card:nth-child(3) .week-label { color: #6A4A9A; }
+  .week-card:nth-child(4) .week-label { color: #C08020; }
+
+  .week-task { font-size: 0.88rem; color: #5A4A4A; line-height: 1.7; }
+
+  .week-check { display: flex; align-items: center; gap: 0.5rem; margin-top: 0.8rem; font-size: 0.8rem; color: var(--mint); font-weight: 600; }
+
+  .warning-box {
+    background: rgba(255,200,200,0.2);
+    border: 1px solid rgba(200,100,100,0.25);
+    border-radius: 18px;
+    padding: 1.3rem 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .warning-title { font-weight: 700; color: #B06060; font-size: 0.9rem; margin-bottom: 0.7rem; }
+
+  .controversy-box {
+    background: rgba(255,210,180,0.2);
+    border: 1px solid rgba(220,140,80,0.25);
+    border-radius: 18px;
+    padding: 1.3rem 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .controversy-title { font-weight: 700; color: #A06030; font-size: 0.9rem; margin-bottom: 0.7rem; }
+
+  .summary-bar {
+    background: linear-gradient(135deg, var(--coral), var(--mint));
+    border-radius: 20px;
+    padding: 1.8rem 2rem;
+    color: white;
+    margin-bottom: 1.5rem;
+  }
+
+  .summary-bar h3 { font-family: 'Noto Serif TC', serif; font-size: 1.1rem; margin-bottom: 0.8rem; opacity: 0.9; }
+  .summary-bar p { font-size: 0.93rem; line-height: 1.8; opacity: 0.92; }
+
+  /* Egogram visual */
+  .ego-bar { display: flex; gap: 0.5rem; align-items: flex-end; height: 80px; margin: 1rem 0; }
+  .ego-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 0.3rem; }
+  .ego-fill { width: 100%; border-radius: 6px 6px 0 0; min-height: 10px; transition: height 0.3s; }
+  .ego-label { font-size: 0.72rem; font-weight: 700; text-align: center; }
+
+  .report-footer {
+    text-align: center;
+    padding: 2rem;
+    color: #9A8A8A;
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(180,100,80,0.1);
+    margin-top: 3rem;
+  }
+
+  @media (max-width: 600px) {
+    .book-title { font-size: 1.8rem; }
+    .concept-grid { grid-template-columns: 1fr; }
+    .pac-visual { flex-direction: column; }
+    .card { padding: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="book-header">
+    <div class="book-badge">📖 AI 書僮 2.0 × 三階段深讀報告</div>
+    <h1 class="book-title">不受傷害也不傷害人的<br>說話練習</h1>
+    <p class="book-subtitle">透過溝通分析，找到成熟對話的溝通祕訣</p>
+    <div class="book-meta">
+      <span>✍️ 作者：林玎珉（韓國）</span>
+      <span>💬 主題：溝通分析 × PAC 自我狀態</span>
+      <span>📅 報告日期：2026.03.19</span>
+    </div>
+  </div>
+
+  <!-- ==================== 第一階段 ==================== -->
+  <div class="phase-section">
+    <div class="phase-header phase-1-header">
+      <div class="phase-icon">🔬</div>
+      <div class="phase-header-text">
+        <h2>第一階段：書本深讀</h2>
+        <p>架構解析 × 核心主張 × 關鍵觀念 × 底層假設 × 盲點爭議</p>
+      </div>
+    </div>
+
+    <!-- PAC 核心框架 -->
+    <div class="card">
+      <div class="phase-label phase-1">🧠 核心框架：PAC 自我狀態（溝通分析 TA）</div>
+      <div class="pac-visual">
+        <div class="pac-card pac-parent">
+          <div class="pac-emoji">👨‍👩‍👧</div>
+          <div class="pac-label">父母自我（P）</div>
+          <div class="pac-en">Parent Ego State</div>
+          <div class="pac-desc">從重要養育者吸收的行為、思維和感受模式。分為「批評型父母（CP）」和「養育型父母（NP）」。說話帶評判或過度保護。</div>
+        </div>
+        <div class="pac-card pac-adult">
+          <div class="pac-emoji">💼</div>
+          <div class="pac-label">成人自我（A）</div>
+          <div class="pac-en">Adult Ego State</div>
+          <div class="pac-desc">基於當下現實的理性、客觀處理。收集事實、評估情況、做出理性決定。是溝通中最能互相理解的狀態。</div>
+        </div>
+        <div class="pac-card pac-child">
+          <div class="pac-emoji">🧒</div>
+          <div class="pac-label">兒童自我（C）</div>
+          <div class="pac-en">Child Ego State</div>
+          <div class="pac-desc">童年時期的感受、思維和行為模式的重現。分為「自由型兒童（FC）」和「順從/叛逆型兒童（AC/RC）」。說話帶情緒波動。</div>
+        </div>
+      </div>
+      <div class="warning-box" style="background:rgba(232,128,106,0.08); border-color:rgba(232,128,106,0.2);">
+        <div class="warning-title" style="color:#904030;">📊 Egogram（自我圖）</div>
+        <p style="font-size:0.88rem; color:#5A4A4A; line-height:1.7;">每個人在 5 種自我狀態（CP批評型父母、NP養育型父母、A成人、FC自由兒童、AC適應兒童）的能量分配比例，形成個人獨特的溝通性格圖。了解自己的 Egogram 是改善溝通的第一步。</p>
+      </div>
+    </div>
+
+    <!-- 全書架構 -->
+    <div class="card card-accent-coral">
+      <div class="phase-label phase-1">📋 全書架構摘要（四大部分）</div>
+      <div class="concept-grid">
+        <div class="concept-card">
+          <div class="concept-number">PART 01</div>
+          <div class="concept-title">診斷你的溝通方式</div>
+          <div class="concept-desc">先察覺自己的說話習慣——大多數人有溝通問題，卻從不診斷「自己」，只診斷「對方」。本部分提供 Egogram 自我評估工具。</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-number">PART 02</div>
+          <div class="concept-title">理解自己的對話模式</div>
+          <div class="concept-desc">PAC 自我狀態的深入理解：你的溝通是從哪個「自我椅子」出發的？批評型父母、養育型父母、理性成人、自由兒童、適應兒童各有特徵。</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-number">PART 03</div>
+          <div class="concept-title">理解對方的交流模式</div>
+          <div class="concept-desc">交流（Transaction）的三種類型：互補交流（順暢）、交叉交流（衝突起點）、隱藏交流（雙層意義）。識別這些模式讓你看穿對話的真實結構。</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-number">PART 04</div>
+          <div class="concept-title">實戰說話練習</div>
+          <div class="concept-desc">具體情境的說話技巧：道歉、請求、表達情緒、職場溝通、衝突管理。包含撫慰（Stroke）的給予與接受，以及改變溝通模式的十步驟。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 核心主張 -->
+    <div class="card">
+      <div class="phase-label phase-1">💡 作者核心主張</div>
+      <div class="summary-bar">
+        <h3>一句話總結：</h3>
+        <p>說話技術的學習必須從「向內認識自己的溝通模式」開始，而非只學外在技巧。溝通的本質是選擇你想與對方建立什麼關係，而 PAC 框架是讓你有意識地做出這個選擇的地圖。</p>
+      </div>
+      <ul class="styled-list">
+        <li>說話不是「知識」而是「技術」——必須透過訓練而非只是學習才能改變</li>
+        <li>後設認知（知道自己知道什麼/不知道什麼）是良好溝通的基礎</li>
+        <li>大多數溝通問題源於不知道自己當下處於哪個「自我狀態」，也不知道對方在哪個狀態</li>
+        <li>「不受傷害也不傷害人」的溝通核心是：先安頓自己的內在，才能有效對外表達</li>
+      </ul>
+    </div>
+
+    <!-- 關鍵觀念 -->
+    <div class="card">
+      <div class="phase-label phase-1">🗝️ 最重要的 7 個關鍵觀念</div>
+      <div class="concept-grid">
+        <div class="concept-card">
+          <div class="concept-number">KEY 01</div>
+          <div class="concept-title">PAC 自我狀態意識</div>
+          <div class="concept-desc">每個當下你都是從父母（P）、成人（A）或兒童（C）的狀態說話。識別當下的自我狀態，是選擇更合適說話方式的前提。</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-number">KEY 02</div>
+          <div class="concept-title">交流模式解讀</div>
+          <div class="concept-desc">互補交流讓對話順暢；交叉交流製造衝突（如你用成人問問題，對方用父母批評回應）；隱藏交流最危險，表面在說一件事，底層在傳遞另一層信息。</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-number">KEY 03</div>
+          <div class="concept-title">撫慰（Stroke）理論</div>
+          <div class="concept-desc">人類需要「被看見、被承認」的心理撫慰。正向撫慰（讚美、關心）滋養人；負向撫慰（批評、忽視）傷人。學習給予和接受正向撫慰是改善關係的核心。</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-number">KEY 04</div>
+          <div class="concept-title">OK/Not-OK 人生態度</div>
+          <div class="concept-desc">溝通背後有四種基本人生態度：我好你好（I'm OK, You're OK）是唯一健康的基礎。「我不好你好」導致屈服，「我好你不好」導致攻擊，「我不好你不好」是最深的無望狀態。</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-number">KEY 05</div>
+          <div class="concept-title">對話目的意識</div>
+          <div class="concept-desc">在說話前問：「我說這句話的目的是什麼？」很多傷害性的話源於說話者自己都不清楚目的——有時出口的話傷害了人，卻不是本意。</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-number">KEY 06</div>
+          <div class="concept-title">情緒命名能力</div>
+          <div class="concept-desc">能夠精確命名情緒的人，有更好的自我調節能力。很多人說「我很不舒服」，卻無法分辨是憤怒、委屈、恐懼、還是羞愧——這導致溝通模糊和情緒失控。</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-number">KEY 07</div>
+          <div class="concept-title">換句話說的藝術</div>
+          <div class="concept-desc">同樣的意思，從不同自我狀態出發，說法截然不同。練習把「批評型父母」的說話轉換成「成人」或「養育型父母」的說話，改變關係質地而不改變意思。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底層假設 -->
+    <div class="card card-accent-mint">
+      <div class="phase-label phase-2">🔍 隱含但未明說的底層假設</div>
+      <ul class="styled-list mint">
+        <li>假設「成人自我（A）」是最理想的溝通狀態——但在親密關係中，純粹「理性成人」可能缺乏情感連結</li>
+        <li>假設溝通問題主要源於「說話方式」，而非「說話內容」或「關係結構的權力不對等」</li>
+        <li>假設 PAC 框架在所有文化中適用——但集體主義文化中的「適應型兒童（AC）」行為有時是社會適應而非心理問題</li>
+        <li>假設改變自己的溝通模式，對方自然會跟著改變——但這在處理真正的惡意或操控時有限制</li>
+        <li>隱含「所有人都有能力發展後設認知」這個前提，忽略神經多樣性的影響</li>
+      </ul>
+    </div>
+
+    <!-- 盲點 -->
+    <div class="warning-box">
+      <div class="warning-title">⚠️ 作者可能的盲點或爭議點</div>
+      <ul class="styled-list" style="margin-top:0;">
+        <li>溝通分析（TA）是 1960 年代的理論，近代心理學對其部分假設有所修正和質疑</li>
+        <li>書中提供大量技巧，但改變說話習慣需要數個月的刻意練習，短期效果有限</li>
+        <li>對於高度創傷性的關係或嚴重依戀問題，單靠改變說話技術可能不足夠</li>
+        <li>「不受傷害」的前提假設雙方都有能力理性選擇——對於操控性人格障礙的對方，這可能過於樂觀</li>
+        <li>韓國文化脈絡中的某些例子在台灣可能需要調整，職場階級文化的差異值得注意</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ==================== 第二階段 ==================== -->
+  <div class="phase-section">
+    <div class="phase-header phase-2-header">
+      <div class="phase-icon">🌐</div>
+      <div class="phase-header-text">
+        <h2>第二階段：公眾認知萃取</h2>
+        <p>大眾記住了什麼 × 最常被引用 × 最常被誤解 × 最有爭議</p>
+      </div>
+    </div>
+
+    <div class="card card-accent-mint">
+      <div class="phase-label phase-2">🎯 大眾記住了什麼</div>
+      <ul class="styled-list mint">
+        <li>在韓國入選「2022年年度書籍」，網路教育影片點閱數超過兩百萬次，是韓國相當暢銷的溝通實用書</li>
+        <li>「PAC 三角形」的視覺概念廣泛流傳——「現在你是在用父母、成人還是小孩在說話？」成為流行語</li>
+        <li>「先安頓內在，才能好好說話」這個概念被許多讀者視為最大啟示</li>
+        <li>在三星電子、韓國電力公社等大企業的企業教育中被採用，被定位為職場溝通工具書</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="phase-label phase-2">💬 最常被引用的觀點</div>
+      <div class="quote-box">
+        <div class="quote-mark">"</div>
+        <div class="quote-text">說話就像運動，是一種需要用身體熟悉的技術。光是「知道」怎麼說話，沒有辦法讓你真正說好話——需要的是持續訓練，直到那個方式成為你的本能。</div>
+      </div>
+      <ul class="styled-list mint">
+        <li>「溝通的核心在於選擇你想與對方建立什麼關係」</li>
+        <li>「說話說不好，很多時候不是因為不懂技術，而是因為你不知道自己當下的狀態」</li>
+        <li>「I'm OK, You're OK——這四個字，是所有健康關係的基礎」</li>
+        <li>「撫慰是人類的基本需求：被看見的渴望，是比食物更根本的東西」</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="phase-label phase-2">🌀 最常被誤解 & 最有爭議的部分</div>
+      <div class="controversy-box">
+        <div class="controversy-title">🔶 最常被誤解</div>
+        <ul class="styled-list" style="margin-top:0">
+          <li>以為「成人自我（A）」就是要「冷靜、沒有情緒」——實際上成人自我可以充分感受情緒，只是不被情緒淹沒</li>
+          <li>把「不傷害人」誤解為「永遠說軟話」——書的本質是讓你有意識地選擇說話方式，包括必要時清楚表達不同意</li>
+          <li>認為學了 PAC 就能完全控制對話結果——實際上你只能管理自己的部分，無法控制對方的反應</li>
+        </ul>
+      </div>
+      <div class="warning-box" style="margin-top:1rem;">
+        <div class="warning-title">⚠️ 最有爭議</div>
+        <ul class="styled-list" style="margin-top:0">
+          <li>溝通分析（TA）在學術心理學界中不算主流，其「自我狀態」概念的科學基礎有爭議</li>
+          <li>書中有些技巧被批評為「過於套路化」，在真實複雜的關係中可能顯得刻意</li>
+          <li>部分讀者認為書過於強調「調整自己」，忽略了在不健康關係中可能需要「離開」</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="phase-label phase-2">🎯 「這本書真正的核心被記住了嗎？」</div>
+      <div class="gold-card">
+        <div class="label">AI 書僮的判斷</div>
+        <div class="insight">⚡ 技巧被記住了，哲學沒被記住。</div>
+        <p style="margin-top:1rem; font-size:0.9rem; color:#7A5010; line-height:1.7;">大眾記住了 PAC 三角形和溝通技巧，但書的最深層訊息是：<strong>「所有溝通問題，根本上都是一個人與自己的關係問題。」</strong>你如何說話，反映你如何看待自己和他人（I'm OK/Not-OK）。改變溝通的終極途徑不是學技術，而是更新你的人生態度。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 第三階段 ==================== -->
+  <div class="phase-section">
+    <div class="phase-header phase-3-header">
+      <div class="phase-icon">🌿</div>
+      <div class="phase-header-text">
+        <h2>第三階段：Rex 個人化轉化</h2>
+        <p>抗拒點 × 盲點 × 核心金句 × 即時行動 × 30天落地系統</p>
+      </div>
+    </div>
+
+    <!-- Rex 可能會抗拒的部分 -->
+    <div class="card card-accent-coral">
+      <div class="phase-label phase-3">🛡️ Rex 可能會抗拒的部分</div>
+      <ul class="styled-list">
+        <li><strong>「需要持續訓練，不能速成」</strong>——Rex 習慣找最有效率的方法，「慢慢訓練」的框架可能讓他沒有耐心</li>
+        <li><strong>「PAC 理論的學術性」</strong>——溝通分析有自己的術語體系，Rex 可能嫌太「理論」</li>
+        <li><strong>「承認自己有時在用兒童自我說話」</strong>——這對一個重視專業形象的創業者來說，可能是有點刺耳的洞見</li>
+        <li><strong>「撫慰（Stroke）的接收練習」</strong>——人情經濟玩家習慣「給」，不習慣坦然「接受」讚美和關心</li>
+      </ul>
+    </div>
+
+    <!-- Rex 最容易忽略的部分 -->
+    <div class="card">
+      <div class="phase-label phase-3">👁️ Rex 最容易忽略的部分</div>
+      <div class="warning-box">
+        <div class="warning-title">⚠️ 最大盲點</div>
+        <p style="font-size:0.9rem; color:#8A4A4A; line-height:1.7;">
+          <strong>「隱藏交流（Ulterior Transaction）」</strong>——Rex 長期在社群經濟中操作，已經非常擅長表面說A、暗示B的隱藏交流。問題是：你可能在商業中習慣這樣，卻無意識地把同樣模式帶進親密關係——讓伴侶或朋友總覺得「說的跟想的不同」，卻說不清楚哪裡奇怪。
+        </p>
+      </div>
+      <ul class="styled-list" style="margin-top:1rem;">
+        <li>忽略負向撫慰（批評、忽視）的累積效應——以為不說什麼傷害性的話就足夠了，卻忘記「不給正向撫慰」本身就是傷害</li>
+        <li>把高效溝通等同於好溝通——快速、精準的商業溝通風格在親密關係中可能讓人感到被「處理」而非被「連結」</li>
+        <li>自己的 Egogram 可能偏向高 CP（批評型父母）+ 高 A（成人）——在管理上有效，但在關係中讓人感到壓力</li>
+      </ul>
+    </div>
+
+    <!-- 核心金句 -->
+    <div class="gold-card" style="margin-bottom:1.5rem;">
+      <div class="label">Rex 的核心金句</div>
+      <div class="insight">「你說的每句話，<br>都在告訴對方：<br>你覺得自己幾分、對方幾分。」</div>
+      <p style="margin-top:1rem; font-size:0.85rem; color:#7A5010;">— 在說話前問：「我現在的 OK/Not-OK 態度是什麼？」如果你覺得自己比對方高，說出來的話會帶刺；如果你覺得自己比對方低，說出來的話會沒力量。</p>
+    </div>
+
+    <!-- 3個即時可行行動 -->
+    <div class="card">
+      <div class="phase-label phase-3">⚡ 3 個即時可行的行動（各 20 分鐘內完成）</div>
+      <div class="action-box">
+        <div class="action-title">🔥 行動 1：自我狀態掃描（10分鐘）</div>
+        <p style="font-size:0.88rem; color:#3A7A68; line-height:1.7;">回想今天的三段對話，判斷當時自己主要在哪個自我狀態（P父母/A成人/C兒童）。特別注意：什麼情況讓你切換了狀態？是被觸發的？還是主動選擇的？</p>
+      </div>
+      <div class="action-box">
+        <div class="action-title">💌 行動 2：給一個真實的正向撫慰（5分鐘）</div>
+        <p style="font-size:0.88rem; color:#3A7A68; line-height:1.7;">今天對一個你在乎的人，給一個不帶目的的正向撫慰——不是為了鼓勵他做某件事，而是純粹讓他知道「你的存在對我有意義」。要具體、要真誠。</p>
+      </div>
+      <div class="action-box">
+        <div class="action-title">🔄 行動 3：對話目的清查（5分鐘）</div>
+        <p style="font-size:0.88rem; color:#3A7A68; line-height:1.7;">在今天下一個重要對話前，先問自己：「我說這些的目的是什麼？我想建立什麼樣的關係？」把答案寫下來。這個小動作可以讓你從「反射型說話」切換到「成人自我說話」。</p>
+      </div>
+    </div>
+
+    <!-- 30天落地練習 -->
+    <div class="card">
+      <div class="phase-label phase-3">📅 30 天落地練習系統</div>
+      <p style="font-size:0.88rem; color:#5A4A4A; margin-bottom:1.2rem; line-height:1.7;">記住：說話技術是需要身體熟悉的訓練，不是讀完就會。每週一個核心練習，每天 20 分鐘刻意訓練。</p>
+      <div class="week-grid">
+        <div class="week-card">
+          <div class="week-label">第一週｜自我診斷週（Day 1-7）</div>
+          <div class="week-task">每天晚上做「PAC 日誌」：記錄今天有哪三個對話，分別處於什麼自我狀態。不評判，只觀察。這週的目標是建立「自我觀察」的習慣——能看見自己在哪個狀態，是一切改變的前提。</div>
+          <div class="week-check">✅ 週末檢核：你在哪個狀態花最多時間？出乎意料嗎？</div>
+        </div>
+        <div class="week-card">
+          <div class="week-label">第二週｜撫慰練習週（Day 8-14）</div>
+          <div class="week-task">每天至少給一個「不帶條件的正向撫慰」——不是因為對方做了什麼，而是因為他是他。練習坦然接受別人給你的正向撫慰（不要立刻說「沒有啦」或轉移話題）。</div>
+          <div class="week-check">✅ 週末檢核：給撫慰容易，還是接受撫慰容易？</div>
+        </div>
+        <div class="week-card">
+          <div class="week-label">第三週｜交流模式識別週（Day 15-21）</div>
+          <div class="week-task">練習在每次出現緊張或誤解時，問：「這是哪種交流？是互補（順暢）、交叉（衝突）、還是隱藏（雙層）？」不需要當下解決，先識別。識別了，就有機會選擇不同的回應。</div>
+          <div class="week-check">✅ 週末檢核：你發現了什麼反覆出現的交叉交流模式？</div>
+        </div>
+        <div class="week-card">
+          <div class="week-label">第四週｜說話轉化週（Day 22-30）</div>
+          <div class="week-task">練習「換句話說」：把一句你習慣說的「批評型父母」語言，重新從「成人自我」說一次。例如：把「你怎麼這樣」換成「當___發生時，我感到___，我需要___」。每天一句，寫下來記錄。</div>
+          <div class="week-check">✅ 月底檢核：你覺得對話的質量有沒有微小改變？</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 特別給Rex的補充 -->
+    <div class="card card-accent-coral">
+      <div class="phase-label phase-3" style="background:linear-gradient(135deg,#FFE8D5,#FFD8C0); color:#9A5020;">🎯 特別給人情經濟玩家的洞見</div>
+      <div class="quote-box" style="border-left-color:var(--coral);">
+        <div class="quote-mark" style="color:var(--coral);">"</div>
+        <div class="quote-text">Rex 的強項是「關係就是資本」的人情經濟思維，但 TA 框架提醒：如果你的撫慰（Stroke）大多是「帶有目的的」，即使你意識不到，對方在潛意識中也會感受到這層「交換」的氣息——這會讓真實的親密感維持在一個固定的深度，無法更深入。</div>
+      </div>
+      <p style="font-size:0.9rem; color:#6A4A3A; line-height:1.7;">要升級的下一步：<strong>練習「不換取任何東西」的純粹連結</strong>——不是因為對方有用，而是因為他這個人本身值得被好好對待。這才是讓關係資本真正增值的秘密。</p>
+    </div>
+  </div>
+
+  <div class="report-footer">
+    📖 AI 書僮 2.0 × 不受傷害也不傷害人的說話練習 分析報告 ｜ 生成於 2026.03.19<br>
+    <span style="opacity:0.6; font-size:0.75rem;">本報告融合書本深讀、公眾認知萃取與個人化轉化三階段方法論</span>
+  </div>
+
+</div>
+</body>
+</html>
