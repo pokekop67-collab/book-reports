@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒分析｜童年情感忽視</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #f0f5fd 0%, #e8edf8 25%, #f8edf5 60%, #fdf0f5 100%);
+    min-height: 100vh;
+    color: #353050;
+    line-height: 1.8;
+  }
+  .hero {
+    background: linear-gradient(135deg, #6A85C8 0%, #C87EC8 50%, #D4849A 100%);
+    color: white;
+    padding: 60px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+  }
+  .hero-label { font-size: 13px; letter-spacing: 4px; text-transform: uppercase; opacity: 0.85; margin-bottom: 16px; }
+  .hero h1 { font-family: 'Noto Serif TC', serif; font-size: clamp(24px, 4.5vw, 44px); font-weight: 600; margin-bottom: 12px; text-shadow: 0 2px 8px rgba(0,0,0,0.15); }
+  .hero-sub { font-size: 15px; opacity: 0.9; margin-bottom: 8px; }
+  .hero-author { font-size: 14px; opacity: 0.75; }
+
+  .container { max-width: 860px; margin: 0 auto; padding: 40px 20px; }
+
+  .phase-label {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase;
+    padding: 6px 16px; border-radius: 20px; margin-bottom: 20px;
+  }
+  .phase-1 { background: rgba(106,133,200,0.15); color: #4A65A8; }
+  .phase-2 { background: rgba(200,126,200,0.15); color: #A050A8; }
+  .phase-3 { background: rgba(212,132,154,0.15); color: #C4607A; }
+
+  .card {
+    background: rgba(255,255,255,0.78);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 36px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(255,255,255,0.9);
+    box-shadow: 0 8px 32px rgba(106,133,200,0.1);
+  }
+  .card h2 {
+    font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 600;
+    color: #353050; margin-bottom: 20px; padding-bottom: 12px;
+    border-bottom: 2px solid rgba(106,133,200,0.2);
+  }
+  .card h3 { font-size: 16px; font-weight: 700; color: #6A85C8; margin-top: 24px; margin-bottom: 12px; }
+  .card p { margin-bottom: 14px; font-size: 15px; }
+  .card ul { padding-left: 0; list-style: none; }
+  .card ul li {
+    padding: 10px 0 10px 28px; position: relative; font-size: 15px;
+    border-bottom: 1px solid rgba(106,133,200,0.08);
+  }
+  .card ul li:last-child { border-bottom: none; }
+  .card ul li::before { content: '◆'; position: absolute; left: 0; color: #6A85C8; font-size: 10px; top: 14px; }
+
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(106,133,200,0.1), rgba(200,126,200,0.08));
+    border-left: 4px solid #6A85C8; border-radius: 0 16px 16px 0;
+    padding: 20px 24px; margin: 20px 0; font-size: 15px;
+  }
+
+  .key-def {
+    background: linear-gradient(135deg, rgba(106,133,200,0.08), rgba(212,132,154,0.08));
+    border-radius: 20px;
+    padding: 28px;
+    margin: 20px 0;
+    text-align: center;
+  }
+  .key-def .big-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #4A65A8;
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+  .key-def p { font-size: 15px; color: #5a5070; margin: 0; }
+
+  .parent-types {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+    margin-top: 16px;
+  }
+  .parent-type {
+    background: rgba(255,255,255,0.6);
+    border-radius: 16px;
+    padding: 18px;
+    border: 1px solid rgba(106,133,200,0.15);
+  }
+  .parent-type .emoji { font-size: 24px; margin-bottom: 8px; }
+  .parent-type h4 { font-size: 13px; font-weight: 700; color: #4A65A8; margin-bottom: 6px; }
+  .parent-type p { font-size: 12px; color: #5a5070; margin: 0; }
+
+  .effect-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .effect-item {
+    background: rgba(200,126,200,0.07);
+    border-radius: 14px;
+    padding: 16px;
+    border-left: 3px solid #C87EC8;
+  }
+  .effect-item .num { font-size: 11px; font-weight: 700; color: #A050A8; letter-spacing: 1px; margin-bottom: 4px; }
+  .effect-item h4 { font-size: 14px; font-weight: 700; color: #353050; margin-bottom: 6px; }
+  .effect-item p { font-size: 12px; color: #5a5070; margin: 0; }
+
+  .quiz-preview {
+    background: rgba(255,255,255,0.5);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 20px 0;
+    border: 1px dashed rgba(106,133,200,0.3);
+  }
+  .quiz-preview h4 { font-size: 14px; font-weight: 700; color: #4A65A8; margin-bottom: 14px; }
+  .quiz-q { font-size: 14px; color: #4a4060; padding: 8px 0; border-bottom: 1px solid rgba(106,133,200,0.1); }
+  .quiz-q:last-child { border-bottom: none; }
+
+  .insight-card {
+    background: rgba(106,133,200,0.07);
+    border-radius: 16px; padding: 20px; margin: 14px 0;
+  }
+  .insight-card .label {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #6A85C8;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+
+  .heal-steps {
+    counter-reset: heal;
+  }
+  .heal-step {
+    background: rgba(255,255,255,0.55);
+    border-radius: 16px;
+    padding: 20px 20px 20px 64px;
+    margin-bottom: 14px;
+    position: relative;
+    border: 1px solid rgba(106,133,200,0.12);
+  }
+  .heal-step::before {
+    counter-increment: heal;
+    content: counter(heal);
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, #6A85C8, #C87EC8);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .heal-step h4 { font-size: 14px; font-weight: 700; color: #4A65A8; margin-bottom: 6px; }
+  .heal-step p { font-size: 13px; color: #5a5070; margin: 0; }
+
+  .gold-box {
+    background: linear-gradient(135deg, #6A85C8, #C87EC8, #D4849A);
+    border-radius: 20px; padding: 28px; text-align: center; color: white; margin: 24px 0;
+  }
+  .gold-box .quote-text {
+    font-family: 'Noto Serif TC', serif; font-size: 20px; font-weight: 600;
+    line-height: 1.6; margin-bottom: 8px;
+  }
+  .gold-box .quote-sub { font-size: 13px; opacity: 0.85; }
+
+  .action-grid {
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px; margin-top: 16px;
+  }
+  .action-item {
+    background: rgba(255,255,255,0.65); border-radius: 16px; padding: 18px;
+    border: 1px solid rgba(106,133,200,0.15);
+  }
+  .action-item .tag { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #4A65A8; margin-bottom: 8px; }
+  .action-item p { font-size: 13px; color: #4a4060; margin: 0; }
+
+  .week-block {
+    background: rgba(255,255,255,0.5); border-radius: 16px;
+    padding: 20px; margin: 12px 0; border-left: 4px solid;
+  }
+  .week-block.w1 { border-color: #6A85C8; }
+  .week-block.w2 { border-color: #9880C8; }
+  .week-block.w3 { border-color: #C87EC8; }
+  .week-block.w4 { border-color: #D4849A; }
+  .week-block .week-label {
+    font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: #888; margin-bottom: 6px;
+  }
+  .week-block h4 { font-size: 15px; font-weight: 700; color: #353050; margin-bottom: 8px; }
+  .week-block p { font-size: 14px; color: #5a5070; margin: 0; }
+
+  .resist-box { background: rgba(212,132,154,0.1); border-radius: 16px; padding: 20px; margin: 16px 0; }
+  .ignore-box { background: rgba(106,133,200,0.1); border-radius: 16px; padding: 20px; margin: 16px 0; }
+
+  .warning-box {
+    background: rgba(200,126,200,0.1);
+    border: 1px solid rgba(200,126,200,0.2);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 16px 0;
+  }
+  .warning-box .w-title { font-weight: 700; color: #A050A8; font-size: 14px; margin-bottom: 8px; }
+
+  .section-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(106,133,200,0.3), rgba(200,126,200,0.3), rgba(212,132,154,0.3), transparent);
+    margin: 40px 0;
+  }
+
+  footer { text-align: center; padding: 40px 20px; font-size: 13px; color: rgba(53,48,80,0.5); }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-label">📖 AI 書僮 2.0 · 書醒分析報告 · 書9</div>
+  <h1>童年情感忽視：<br>為何我們總是渴望親密，卻又難以承受？</h1>
+  <div class="hero-sub">Running on Empty: Overcome Your Childhood Emotional Neglect</div>
+  <div class="hero-author">鍾妮斯・韋伯（Jonice Webb）著</div>
+</div>
+
+<div class="container">
+
+  <!-- PHASE 1 -->
+  <div class="phase-label phase-1">🔍 第一階段 · 書本深讀</div>
+
+  <div class="card">
+    <h2>全書架構摘要</h2>
+
+    <div class="key-def">
+      <div class="big-text">童年情感忽視（CEN）不是發生了什麼，<br>而是什麼「沒有」發生。</div>
+      <p>當父母未能充分回應孩子的情感需求，孩子的情感就被教導成無關緊要。他們長大成為功能正常、卻內心空虛的成年人——不知道自己哪裡出了問題，只知道某些東西永遠缺失了。</p>
+    </div>
+
+    <h3>架構脈絡</h3>
+    <ul>
+      <li><strong>楔子｜發現蹤跡：</strong>韋伯描述她如何「發現」CEN的概念——在無數個案中看見同一個不可見的傷。這本書是為那些「什麼都不缺，但就是覺得哪裡不對」的人寫的。</li>
+      <li><strong>第一部｜認識情感忽視：</strong>定義CEN、與一般「創傷」區別（CEN是缺席，不是事件）、提出22題自我評量問卷（ENQ）。</li>
+      <li><strong>第二部｜12 種情感忽視父母類型：</strong>詳細分析造成CEN的父母類型，從自戀型、權威型、放縱型，到成癮型、憂鬱型、為你著想但缺乏自覺型，每種配合案例說明。</li>
+      <li><strong>第三部｜CEN成年人的十大特徵：</strong>空虛感、反依賴、不切實際的自我評價、虧待自己、罪惡感與羞恥感、針對自己的憤怒、極力隱藏情感、無力滋養自他、缺乏自我紀律、述情障礙。</li>
+      <li><strong>第四部｜療癒之路：</strong>六個步驟的療癒系統——識別、接受、自我慈悲、連結、解釋CEN給他人、前行。含大量練習與具體工具。</li>
+      <li><strong>第五部｜打破循環：</strong>如何不把CEN傳遞給下一代——給現任父母的指引。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>作者核心主張</h2>
+    <div class="highlight-box">
+      <strong>核心命題（一句話版）：</strong><br>
+      你今天的空虛感、自我懷疑、情感麻木，很可能不是你的錯——而是童年時父母的情感缺席，在你的心理地基裡留下了一個沒人告訴你存在的洞。但這個洞是可以被填補的。
+    </div>
+    <ul>
+      <li><strong>CEN是最常見也最不被辨識的童年傷：</strong>它不留下記憶（因為什麼都沒發生），但影響成年後的所有親密關係、自我認知與情緒調節能力。</li>
+      <li><strong>情感是基本的生命燃料：</strong>孩子需要情感被「回應」，才能學會辨識、接受、並調節自己的情緒。被忽視的孩子長大不會用情感——但情感仍在，只是被深埋了。</li>
+      <li><strong>療癒是可能的，但需要有意識的工作：</strong>CEN不是命運，通過辨識模式、培養自我慈悲、學習情感語言，成年後仍然可以補上童年的空缺。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>12 種情感忽視父母類型</h2>
+    <div class="parent-types">
+      <div class="parent-type">
+        <div class="emoji">👑</div>
+        <h4>自戀型</h4>
+        <p>孩子是父母自我延伸，孩子的需求附屬於父母的自我感覺。</p>
+      </div>
+      <div class="parent-type">
+        <div class="emoji">📏</div>
+        <h4>權威型</h4>
+        <p>服從即愛，規則凌駕感受，孩子學會「我的感覺不重要」。</p>
+      </div>
+      <div class="parent-type">
+        <div class="emoji">🛋️</div>
+        <h4>放縱型</h4>
+        <p>過多自由，缺乏回饋與界限，孩子沒有機會學習自我管理。</p>
+      </div>
+      <div class="parent-type">
+        <div class="emoji">😔</div>
+        <h4>憂鬱/焦慮型</h4>
+        <p>父母的情緒耗盡全部空間，孩子學會「我不能有需求」。</p>
+      </div>
+      <div class="parent-type">
+        <div class="emoji">🍾</div>
+        <h4>成癮型</h4>
+        <p>物質成癮讓父母情感缺席，孩子在不穩定中學會不依賴。</p>
+      </div>
+      <div class="parent-type">
+        <div class="emoji">💔</div>
+        <h4>單親/喪偶型</h4>
+        <p>悲傷與壓力佔滿父母，孩子的情感需求被無意間忽略。</p>
+      </div>
+      <div class="parent-type">
+        <div class="emoji">🏆</div>
+        <h4>成就導向型</h4>
+        <p>只在乎成就，情感被視為干擾，孩子學會「達成才有價值」。</p>
+      </div>
+      <div class="parent-type">
+        <div class="emoji">🔒</div>
+        <h4>情感恐懼型</h4>
+        <p>父母本身不舒適於情感表達，無法給予孩子情感確認。</p>
+      </div>
+      <div class="parent-type">
+        <div class="emoji">🌊</div>
+        <h4>特殊需求型</h4>
+        <p>病患手足或特殊需求佔盡父母注意力，其他孩子被遺落。</p>
+      </div>
+      <div class="parent-type">
+        <div class="emoji">⚔️</div>
+        <h4>虐待型</h4>
+        <p>即使未達虐待程度，但恐懼氣氛讓孩子無法安全表達感受。</p>
+      </div>
+      <div class="parent-type">
+        <div class="emoji">🌍</div>
+        <h4>文化/宗教框架型</h4>
+        <p>嚴格的文化或宗教規範壓制個人情感表達，情感被視為弱點。</p>
+      </div>
+      <div class="parent-type">
+        <div class="emoji">💛</div>
+        <h4>愛你但缺乏自覺型</h4>
+        <p>最常見。父母真的愛孩子，但自己也是CEN受害者，不知道如何回應情感。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>CEN 成年人的十大特徵</h2>
+    <div class="effect-list">
+      <div class="effect-item">
+        <div class="num">特徵 01</div>
+        <h4>空虛感</h4>
+        <p>莫名的內心空洞感，像是缺少什麼，但說不清缺什麼。</p>
+      </div>
+      <div class="effect-item">
+        <div class="num">特徵 02</div>
+        <h4>反依賴</h4>
+        <p>以不需要別人為榮，尋求幫助讓自己感到羞恥或困難。</p>
+      </div>
+      <div class="effect-item">
+        <div class="num">特徵 03</div>
+        <h4>不切實際的自我評價</h4>
+        <p>無法正確辨識自己的優點與弱點，傾向低估或高估。</p>
+      </div>
+      <div class="effect-item">
+        <div class="num">特徵 04</div>
+        <h4>虧待自己</h4>
+        <p>給別人的同情自己得不到，對別人的關懷回到自己就消失。</p>
+      </div>
+      <div class="effect-item">
+        <div class="num">特徵 05</div>
+        <h4>罪惡感與羞恥感</h4>
+        <p>覺得自己「有問題」，為自己有需求感到羞愧。</p>
+      </div>
+      <div class="effect-item">
+        <div class="num">特徵 06</div>
+        <h4>針對自己的憤怒</h4>
+        <p>把問題的根源永遠指向自己，自我批評超過批評他人。</p>
+      </div>
+      <div class="effect-item">
+        <div class="num">特徵 07</div>
+        <h4>隱藏真實情感</h4>
+        <p>不讓人看到真正的感受，甚至對最親近的人也戴著面具。</p>
+      </div>
+      <div class="effect-item">
+        <div class="num">特徵 08</div>
+        <h4>難以滋養自己與他人</h4>
+        <p>不知道如何照顧自己的情感需求，也難以在關係中提供深度的情感支持。</p>
+      </div>
+      <div class="effect-item">
+        <div class="num">特徵 09</div>
+        <h4>缺乏自我紀律</h4>
+        <p>自我管理困難——不是懶惰，而是對自我的照顧本能被削弱了。</p>
+      </div>
+      <div class="effect-item">
+        <div class="num">特徵 10</div>
+        <h4>述情障礙</h4>
+        <p>無法辨識、命名、或理解自己的情緒——情感的語言從未學會。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>療癒六步驟</h2>
+    <div class="heal-steps">
+      <div class="heal-step">
+        <h4>辨識：我有 CEN</h4>
+        <p>承認並辨識童年情感忽視確實發生在自己身上，這是改變的起點。不是為了責怪父母，而是為了理解自己。</p>
+      </div>
+      <div class="heal-step">
+        <h4>接受：情感是真實且有意義的</h4>
+        <p>開始練習承認並接受自己的情緒，而不是立刻壓抑或否定它們。「我感到難過」是合法的，不需要馬上解決。</p>
+      </div>
+      <div class="heal-step">
+        <h4>自我慈悲：停止針對自己的批評</h4>
+        <p>把對別人的慈悲也給自己一些。你沒有問題——你只是在一個沒有情感燃料的環境裡長大。</p>
+      </div>
+      <div class="heal-step">
+        <h4>連結：允許他人進入</h4>
+        <p>練習讓信任的人看見自己的真實感受。反依賴是一道保護牆，但也把真正的親密擋在外面。</p>
+      </div>
+      <div class="heal-step">
+        <h4>解釋：告訴重要的人</h4>
+        <p>對伴侶、親友解釋CEN如何影響了你，讓他們理解你的某些行為背後的原因，建立更真實的連結。</p>
+      </div>
+      <div class="heal-step">
+        <h4>前行：重新補充情感燃料</h4>
+        <p>持續練習情感識別、自我照顧、深度連結，為自己補充童年未得到的情感養分。這需要時間，但完全可行。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>隱含的底層假設與爭議點</h2>
+
+    <h3>底層假設</h3>
+    <ul>
+      <li>情感需求是普遍人類需求，不因文化差異而消失——儘管表達方式不同。</li>
+      <li>成年期可以補充童年缺失的情感發展——心理可塑性是真實的，但書中對難度的描述相對輕描淡寫。</li>
+      <li>父母的「意圖」不能免除「影響」——即使父母是充滿愛的，但情感缺席的傷仍然真實發生。</li>
+    </ul>
+
+    <h3>爭議點與盲點</h3>
+    <ul>
+      <li><strong>概念過於寬泛：</strong>「情感忽視」定義範圍極廣，幾乎任何人都能從22題問卷中找到一些「是」的答案，有過度病理化日常養育困難之嫌。</li>
+      <li><strong>文化偏差：</strong>書中的「理想情感回應」標準深受西方中產階級、個人主義文化影響。集體主義文化中的養育方式（如亞洲家庭）可能被誤判為「情感忽視」。</li>
+      <li><strong>缺乏嚴格實驗研究支持：</strong>CEN作為獨立的臨床概念，其診斷效度尚未獲得主流心理學研究完全確認。</li>
+      <li><strong>可能強化受害者思維：</strong>對某些讀者，CEN的框架可能提供一個方便的解釋而阻礙主動改變——「我這樣都是因為父母」的陷阱。</li>
+    </ul>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- PHASE 2 -->
+  <div class="phase-label phase-2">🌐 第二階段 · 公眾認知萃取</div>
+
+  <div class="card">
+    <h2>這本書在大眾世界被記住的是什麼？</h2>
+
+    <h3>💬 最常被引用的觀點</h3>
+    <ul>
+      <li>「CEN是不可見的傷——它是發生在你身上的缺席，而非事件」——這個框架讓無數人有了第一次「被命名」的感覺。</li>
+      <li>22題自我評量問卷（ENQ）——被大量轉貼，成為最常用的「自我診斷」工具。</li>
+      <li>「愛你的孩子，和感受你的孩子，是截然不同的兩件事。」——心理諮詢圈最常引用的金句。</li>
+      <li>「反依賴」的概念——讓很多習慣「不麻煩別人」的人突然看見自己行為背後的傷。</li>
+    </ul>
+
+    <h3>🔄 最常被誤解的部分</h3>
+    <div class="insight-card">
+      <div class="label">誤解 1</div>
+      <p><strong>誤解：</strong>「我有CEN，所以我的父母傷害了我，他們應該為此負責。」<br>
+      <strong>真相：</strong>韋伯明確強調，大多數CEN父母自己也是CEN的受害者，他們的忽視通常不是惡意的，而是無意識的複製。本書不是控訴父母的工具，而是幫助自己療癒的地圖。</p>
+    </div>
+    <div class="insight-card">
+      <div class="label">誤解 2</div>
+      <p><strong>誤解：</strong>「CEN只發生在問題家庭裡。」<br>
+      <strong>真相：</strong>最常見的CEN類型是「愛你但缺乏自覺的父母」——他們充滿愛，但自己也沒有學過如何回應情感。正常的、功能健全的家庭也能製造CEN。</p>
+    </div>
+    <div class="insight-card">
+      <div class="label">誤解 3</div>
+      <p><strong>誤解：</strong>「做完ENQ問卷就知道有沒有CEN了。」<br>
+      <strong>真相：</strong>問卷是入口，不是診斷。療癒的核心在於療癒六步驟的持續實踐，問卷只是開啟覺察的起點。</p>
+    </div>
+
+    <h3>⚡ 最有爭議的部分</h3>
+    <ul>
+      <li>CEN作為臨床概念的科學效度——在心理健康社群中存在爭議，部分治療師認為與「依附創傷」、「C-PTSD」等概念重疊，不需要另立新名。</li>
+      <li>22題問卷的廣泛傳播可能讓人自我診斷而忽略尋求專業幫助。</li>
+      <li>文化適用性問題——亞洲讀者使用時需特別謹慎，避免把文化差異誤讀為病理。</li>
+    </ul>
+
+    <h3>🎯 核心被記住了嗎？</h3>
+    <div class="highlight-box">
+      <strong>判斷：問卷被記住，療癒路徑被忽略。</strong><br><br>
+      大多數讀者記住的是「CEN是什麼」和「我有沒有CEN」（透過問卷），但書中最有價值的部分——六步驟療癒系統、如何具體實踐情感語言、如何不把CEN傳遞給下一代——卻鮮少被深入討論。「被診斷」的滿足感讓很多讀者停在辨識階段，沒有繼續走向療癒。
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- PHASE 3 -->
+  <div class="phase-label phase-3">🎯 第三階段 · Rex 個人化轉化</div>
+
+  <div class="card">
+    <h2>Rex，這本書在說你</h2>
+
+    <div class="warning-box">
+      <div class="w-title">⚠️ 閱讀前的重要提醒</div>
+      <p>這本書很可能讓你對「自己為何如此」有很多新的理解，但請避免兩個陷阱：1) 用CEN解釋一切而停止行動；2) 開始責怪父母而非療癒自己。韋伯的核心訊息是：<strong>過去不可改變，但你現在可以選擇。</strong></p>
+    </div>
+
+    <h3>🚧 Rex 可能會抗拒的部分</h3>
+    <div class="resist-box">
+      <p><strong>「允許自己被幫助」——Rex 的反依賴傾向。</strong></p>
+      <p>創辦人的身份需要自給自足、解決問題。對Rex來說，「不麻煩別人」可能是自豪的標誌。但韋伯說：反依賴不是力量，它是一個學會「我不值得被幫助」的孩子長大後的樣子。在「人情經濟」的語境裡，Rex可能很擅長給予，但真的擅長接受嗎？</p>
+      <p><strong>「情感本身是有意義的」——Rex 偏好效率。</strong></p>
+      <p>對於快速移動的實戰者，「情感處理」很容易被視為浪費時間。但述情障礙（感受不到情緒）正是社群連結最大的隱形障礙——你以為自己在深度連結，對方卻感受到一堵牆。</p>
+    </div>
+
+    <h3>🕳️ Rex 最容易忽略的部分</h3>
+    <div class="ignore-box">
+      <p><strong>「給自己的慈悲」——Rex 對自己比對別人嚴苛。</strong></p>
+      <p>在幫助他人、在社群中給予支持時，Rex可能是慷慨的。但當自己面對失敗或弱點，同樣的慷慨是否回到了自己身上？CEN最常見的效應之一，就是對他人同情、對自己苛求。</p>
+      <p><strong>「忙碌可以是一種情感迴避」。</strong></p>
+      <p>維持高強度的工作節奏，在有意或無意間，讓你不需要面對內心的感受。這不是批評效率——而是問：在那些安靜的時刻，你能不能與自己的情感共處，而不是馬上找事情填滿？</p>
+    </div>
+
+    <div class="gold-box">
+      <div class="quote-text">「我的情感是真實的，<br>不是障礙，是導航系統。」</div>
+      <div class="quote-sub">——Rex 可以每天對自己說的話</div>
+    </div>
+
+    <h3>⚡ 3 個即時可行的行動（各 20 分鐘內）</h3>
+    <div class="action-grid">
+      <div class="action-item">
+        <div class="tag">行動 01 · 15分鐘</div>
+        <p>完成書中的22題ENQ自我評量，誠實回答。不是為了「診斷自己」，而是找出哪些題目的「是」讓你最有感——那就是你的起點。把那幾題寫下來。</p>
+      </div>
+      <div class="action-item">
+        <div class="tag">行動 02 · 10分鐘</div>
+        <p>今天結束前，設定一個鬧鐘，到了時間問自己：「我現在感覺怎麼樣？」試著用具體的詞語描述（不是「還好」，而是焦慮/滿足/疲倦/孤獨）。這是述情障礙療癒的第一步。</p>
+      </div>
+      <div class="action-item">
+        <div class="tag">行動 03 · 20分鐘</div>
+        <p>回想一個你最近需要幫助但沒有開口的時刻。寫下：「如果我開口了，最壞的情況是什麼？」然後問自己這個最壞情況的機率是多少，以及你是否願意冒這個風險。</p>
+      </div>
+    </div>
+
+    <h3>📅 30 天落地練習系統</h3>
+
+    <div class="week-block w1">
+      <div class="week-label">第一週｜命名情感</div>
+      <h4>主題：學會說出自己的感受</h4>
+      <p>每天設定兩個「情感打卡」時間（早上起床 + 晚上睡前）。每次只做一件事：命名你當下的情緒。用最具體的詞（不是「好」或「不好」）。建立自己的情感詞彙。可以用情感輪（Emotion Wheel）輔助。<br>
+      <strong>週末檢核：</strong>你最常出現哪種情緒？有沒有哪種情緒你完全說不出名字？</p>
+    </div>
+
+    <div class="week-block w2">
+      <div class="week-label">第二週｜自我慈悲練習</div>
+      <h4>主題：用對朋友的方式對待自己</h4>
+      <p>每天找一次你對自己苛刻的時刻（批評自己犯錯、責怪自己的某個決定），然後問：「如果是我最好的朋友犯了同樣的事，我會怎麼說？」把那句話說給自己聽。<br>
+      <strong>週末檢核：</strong>這一週你最常批評自己什麼？那個批評是事實還是習慣？</p>
+    </div>
+
+    <div class="week-block w3">
+      <div class="week-label">第三週｜練習接受</div>
+      <h4>主題：讓別人進來</h4>
+      <p>每天找一個機會「接受」某樣東西——可以是幫助、讚美、關心。不要馬上說「不用了」或「沒什麼」。試著說「謝謝，我很感激」，然後讓那個感激真的落地，感受一下被接受是什麼感覺。<br>
+      <strong>週末檢核：</strong>接受的時候有沒有出現不舒適感？那個不舒適來自哪裡？</p>
+    </div>
+
+    <div class="week-block w4">
+      <div class="week-label">第四週｜關係中的情感透明</div>
+      <h4>主題：讓一個人真正看見你</h4>
+      <p>選擇一個你信任的人（伴侶/老友），每天分享一個真實的感受——不是成就或計畫，而是一個情緒。可以很小：「我今天有點擔心某件事」。目標是讓關係有情感的流動，而非只有資訊交換。<br>
+      <strong>月末總結：</strong>這個月你有沒有感受到任何親密關係有了質的變化？那個變化從何而來？</p>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  AI 書僮 2.0 · 書醒分析系統 · 書9｜童年情感忽視<br>
+  <span style="opacity:0.5">Jonice Webb · Running on Empty: Overcome Your Childhood Emotional Neglect</span>
+</footer>
+
+</body>
+</html>
