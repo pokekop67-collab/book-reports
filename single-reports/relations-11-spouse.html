@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒分析 | 配偶使用說明書（夫婦腦）</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #F5EEF8 0%, #EDE6F5 30%, #FAE8EC 70%, #FDF2F4 100%);
+    min-height: 100vh;
+    color: #3D2B3D;
+    padding: 40px 20px;
+    line-height: 1.8;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .book-header {
+    text-align: center;
+    padding: 60px 40px 40px;
+    background: rgba(255,255,255,0.55);
+    backdrop-filter: blur(20px);
+    border-radius: 32px;
+    border: 1px solid rgba(155,126,200,0.2);
+    margin-bottom: 40px;
+    box-shadow: 0 8px 40px rgba(212,132,154,0.12);
+  }
+
+  .book-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #9B7EC8, #D4849A);
+    color: white;
+    padding: 6px 20px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  .book-header h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2D1F3D;
+    line-height: 1.4;
+    margin-bottom: 16px;
+  }
+
+  .book-meta {
+    color: #7B6478;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .book-meta span {
+    display: inline-block;
+    margin: 4px 8px;
+    background: rgba(155,126,200,0.12);
+    padding: 4px 12px;
+    border-radius: 12px;
+  }
+
+  .phase-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+  }
+
+  .phase-1 { background: linear-gradient(135deg, rgba(212,132,154,0.2), rgba(212,132,154,0.1)); color: #C06080; border: 1px solid rgba(212,132,154,0.3); }
+  .phase-2 { background: linear-gradient(135deg, rgba(155,126,200,0.2), rgba(155,126,200,0.1)); color: #7058B0; border: 1px solid rgba(155,126,200,0.3); }
+  .phase-3 { background: linear-gradient(135deg, rgba(100,160,200,0.2), rgba(100,160,200,0.1)); color: #3078A8; border: 1px solid rgba(100,160,200,0.3); }
+
+  .section-card {
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(16px);
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 24px rgba(155,126,200,0.08);
+  }
+
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2D1F3D;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 2px solid rgba(155,126,200,0.25);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title .icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+
+  .icon-purple { background: linear-gradient(135deg, #9B7EC8, #B090D8); }
+  .icon-pink { background: linear-gradient(135deg, #D4849A, #E8A0B0); }
+  .icon-blue { background: linear-gradient(135deg, #6AA0C8, #88B8D8); }
+
+  .core-claim {
+    background: linear-gradient(135deg, rgba(155,126,200,0.08), rgba(212,132,154,0.08));
+    border-left: 4px solid #9B7EC8;
+    border-radius: 0 16px 16px 0;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #2D1F3D;
+    font-style: italic;
+  }
+
+  .brain-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  @media (max-width: 600px) {
+    .brain-compare { grid-template-columns: 1fr; }
+  }
+
+  .brain-card {
+    border-radius: 16px;
+    padding: 24px;
+  }
+
+  .brain-female {
+    background: linear-gradient(135deg, rgba(212,132,154,0.12), rgba(212,132,154,0.06));
+    border: 1px solid rgba(212,132,154,0.25);
+  }
+
+  .brain-male {
+    background: linear-gradient(135deg, rgba(100,140,200,0.12), rgba(100,140,200,0.06));
+    border: 1px solid rgba(100,140,200,0.25);
+  }
+
+  .brain-label {
+    font-weight: 700;
+    font-size: 0.95rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .brain-female .brain-label { color: #B05070; }
+  .brain-male .brain-label { color: #305888; }
+
+  .brain-points { list-style: none; }
+  .brain-points li {
+    font-size: 0.88rem;
+    color: #4A3A5A;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    line-height: 1.6;
+  }
+  .brain-points li:last-child { border-bottom: none; }
+
+  .concept-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  @media (max-width: 600px) {
+    .concept-grid { grid-template-columns: 1fr; }
+  }
+
+  .concept-card {
+    background: rgba(255,255,255,0.7);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(155,126,200,0.15);
+  }
+
+  .concept-number {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #9B7EC8;
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  .concept-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2D1F3D;
+    margin-bottom: 8px;
+  }
+
+  .concept-desc {
+    font-size: 0.9rem;
+    color: #5A4A5A;
+    line-height: 1.7;
+  }
+
+  .assumption-item, .blindspot-item {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+
+  .tag {
+    flex-shrink: 0;
+    padding: 3px 10px;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .tag-pink { background: rgba(212,132,154,0.15); color: #B05570; }
+  .tag-purple { background: rgba(155,126,200,0.15); color: #6840A8; }
+  .tag-orange { background: rgba(220,160,80,0.15); color: #A06020; }
+  .tag-blue { background: rgba(100,160,220,0.15); color: #2060A0; }
+
+  .perception-row {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+    align-items: start;
+  }
+
+  .perception-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .label-remember { background: rgba(212,132,154,0.15); color: #B05570; }
+  .label-cite { background: rgba(155,126,200,0.15); color: #6840A8; }
+  .label-misread { background: rgba(220,160,80,0.15); color: #A06020; }
+  .label-dispute { background: rgba(100,160,220,0.15); color: #2060A0; }
+  .label-judge { background: rgba(80,180,120,0.15); color: #206840; }
+
+  .perception-content {
+    font-size: 0.9rem;
+    color: #4A3A4A;
+    line-height: 1.7;
+    padding-top: 4px;
+  }
+
+  .rex-resist, .rex-ignore {
+    background: rgba(255,255,255,0.6);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(100,160,220,0.2);
+  }
+
+  .rex-resist h4 { color: #C04060; }
+  .rex-ignore h4 { color: #6840A8; }
+  .rex-resist h4, .rex-ignore h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  .golden-sentence {
+    background: linear-gradient(135deg, #9B7EC8 0%, #D4849A 100%);
+    border-radius: 20px;
+    padding: 28px 32px;
+    text-align: center;
+    margin: 24px 0;
+    box-shadow: 0 8px 30px rgba(155,126,200,0.3);
+  }
+
+  .golden-label {
+    color: rgba(255,255,255,0.8);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  .golden-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: white;
+    line-height: 1.6;
+  }
+
+  .action-list { list-style: none; margin-top: 16px; }
+
+  .action-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+
+  .action-number {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #9B7EC8, #D4849A);
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .action-content strong {
+    display: block;
+    font-size: 0.95rem;
+    color: #2D1F3D;
+    margin-bottom: 4px;
+  }
+
+  .action-content p {
+    font-size: 0.85rem;
+    color: #5A4A5A;
+    line-height: 1.6;
+  }
+
+  .week-block {
+    background: rgba(255,255,255,0.6);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+    border-left: 4px solid;
+  }
+
+  .week-block:nth-child(1) { border-color: #9B7EC8; }
+  .week-block:nth-child(2) { border-color: #D4849A; }
+  .week-block:nth-child(3) { border-color: #6AA0C8; }
+  .week-block:nth-child(4) { border-color: #80C8A0; }
+
+  .week-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #2D1F3D;
+    margin-bottom: 10px;
+  }
+
+  .week-days {
+    font-size: 0.88rem;
+    color: #4A3A5A;
+    line-height: 1.7;
+  }
+
+  .checkpoint {
+    margin-top: 10px;
+    background: rgba(155,126,200,0.08);
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.82rem;
+    color: #7058A8;
+    font-weight: 500;
+  }
+
+  .summary-box {
+    background: rgba(255,255,255,0.5);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #4A3A4A;
+  }
+
+  .seven-year-box {
+    background: linear-gradient(135deg, rgba(155,126,200,0.1), rgba(212,132,154,0.1));
+    border: 1px solid rgba(155,126,200,0.2);
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 16px 0;
+  }
+
+  .seven-year-title {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: #6840A8;
+    margin-bottom: 10px;
+  }
+
+  .phase-divider {
+    text-align: center;
+    margin: 48px 0 32px;
+  }
+
+  .phase-divider::before {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(135deg, #9B7EC8, #D4849A);
+    margin: 0 auto 16px;
+    border-radius: 2px;
+  }
+
+  p { margin-bottom: 12px; }
+  p:last-child { margin-bottom: 0; }
+  ul { padding-left: 20px; }
+  li { margin-bottom: 8px; font-size: 0.9rem; color: #4A3A4A; line-height: 1.7; }
+  strong { color: #2D1F3D; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="book-header">
+    <div class="book-badge">書 11 ｜ AI 書僮 2.0 分析報告</div>
+    <h1>配偶使用說明書<br>夫婦腦</h1>
+    <div class="book-meta">
+      <span>✍️ 作者：黒川伊保子（Kurokawa Ihoko）</span>
+      <span>🧠 腦科學 × 婚姻關係</span>
+      <span>📚 三階段深讀</span>
+    </div>
+  </div>
+
+  <!-- ===== PHASE 1 ===== -->
+  <div class="phase-divider">
+    <div class="phase-label phase-1">📖 第一階段：書本深讀</div>
+  </div>
+
+  <!-- 全書摘要 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-purple">📋</span>
+      全書摘要（邏輯架構）
+    </h2>
+    <div class="summary-box">
+      <p>作者黒川伊保子是日本 AI 研究員出身的感性調研公司執行長，以腦科學角度研究男女語言差異與婚姻關係。本書從「為什麼相愛的人最終變得最不相容」這個生物學悖論出發，用腦科學解釋夫妻之間幾乎一切的摩擦根源。</p>
+    </div>
+    <div class="summary-box">
+      <strong>📐 架構邏輯（兩大部分）</strong>
+      <ul style="margin-top:10px;">
+        <li><strong>第一部：夫妻的定律</strong> ——以腦科學視角解析男女腦的本質差異（胼胝體、費洛蒙、空間認知、語言模式），說明為何「越相愛的人個性越不相容」，並提出婚姻的七年週期定律。</li>
+        <li><strong>第二部：再一次求婚</strong> ——以實際的夫妻對話和生活場景為案例，提供具體的「夫婦腦攻略」，讓兩人在理解差異後找到共處之道，包括如何把「危機」轉為「羈絆增強」的機會。</li>
+      </ul>
+    </div>
+    <div class="summary-box">
+      <p><strong>核心結論：</strong>夫妻之所以水火不容，不是因為選錯人，而是因為「選對了人」——費洛蒙媒合的是基因互補性最高的人，而基因互補性越高，日常反應模式差異越大。夫妻的衝突是自然秩序，理解這個事實本身就是最大的解脫。</p>
+    </div>
+  </div>
+
+  <!-- 男女腦對比 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-purple">🧠</span>
+      男腦 vs 女腦：核心差異一覽
+    </h2>
+    <div class="brain-compare">
+      <div class="brain-card brain-female">
+        <div class="brain-label">🌸 女性腦</div>
+        <ul class="brain-points">
+          <li>胼胝體（左右腦連結）厚 20%，感受即時化為語言</li>
+          <li>以「共鳴」為溝通目的，說話是情緒消化方式</li>
+          <li>仔細檢視物體表面，察覺細微變化</li>
+          <li>一天需要消化 2 萬個單字量</li>
+          <li>說話缺少主詞、代名詞多＝對伴侶的深度一體感</li>
+          <li>戀愛的「情人眼中出西施」期限約三年，後啟動挑剔模式</li>
+        </ul>
+      </div>
+      <div class="brain-card brain-male">
+        <div class="brain-label">💙 男性腦</div>
+        <ul class="brain-points">
+          <li>胼胝體較細薄，左右腦分工明確，傾向局部使用</li>
+          <li>以「解決問題」為溝通目的，說話傳遞資訊</li>
+          <li>掌握空間整體，善長空間認知但忽略身邊細節</li>
+          <li>需要每天至少 30 分鐘「什麼都不想的放空時間」</li>
+          <li>有強烈的鈍感力（不察覺對方表情變化的能力）</li>
+          <li>感情如悶燒柴火，不會因「開關切斷」而突然消失</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 作者核心主張 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-purple">💡</span>
+      作者核心主張
+    </h2>
+    <div class="core-claim">
+      越是讓彼此「一見鍾情」的費洛蒙組合，在個性上的適合度就越低。夫妻的衝突是生物學的必然，不是感情失敗的證明。理解「夫婦腦」的差異，才能把誤解從「攻擊」變成「理解」，把「煩躁」變成「心疼那個曾經傻傻愛你的兩個人」。
+    </div>
+    <div class="core-claim" style="border-left-color: #D4849A;">
+      不要把配偶想成「能讓你幸福快樂的夥伴」，而要把對方理解為「反應模式與你完全不同的優秀求生夥伴」——這個認知轉換，能化解九成的婚姻挫折感。
+    </div>
+  </div>
+
+  <!-- 關鍵觀念 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-purple">🔑</span>
+      最重要的 8 個關鍵觀念
+    </h2>
+    <div class="concept-grid">
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 01</div>
+        <div class="concept-title">費洛蒙悖論</div>
+        <div class="concept-desc">讓人心動的費洛蒙，傳遞的是基因免疫抗體的互補訊號。越互補的基因，日常反應差異越大。「愛到不可自拔」= 個性最不合的組合。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 02</div>
+        <div class="concept-title">七年週期定律</div>
+        <div class="concept-desc">人類骨髓液七年汰換一次，免疫系統隨之重設。結婚第 7、14、21、28 年是婚姻的天然危機點——「心動」消失、「融合」才剛開始。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 03</div>
+        <div class="concept-title">女性的警戒解除期</div>
+        <div class="concept-desc">女性對特定對象的「戀愛開關」只持續三年（生殖週期）。三年後自動切換為「挑剔模式」。婚姻的智慧是在三年內建立愛情以外的友情與敬意。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 04</div>
+        <div class="concept-title">男性的放空需求</div>
+        <div class="concept-desc">男性腦需要每天至少 30 分鐘的無意識放空，才能整理資訊、消除壓力。打斷男人放空 = 剝奪其基本認知需求，是夫妻衝突的主要觸發點之一。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 05</div>
+        <div class="concept-title">女性溝通的真正目的</div>
+        <div class="concept-desc">女性說話是為了「共鳴與情緒消化」，不是資訊交換。當妻子說「好痛」，她要的是「啊，怎麼了？」而不是「那個廚房中島十年前就在那了」。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 06</div>
+        <div class="concept-title">鈍感力的生物學意義</div>
+        <div class="concept-desc">男性「眼前人變了卻沒發現」是先天的，不是不在乎。這是遠古打獵時保持高度專注、忽略次要刺激的生存能力。對全世界丈夫都適用。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 07</div>
+        <div class="concept-title">被質問時的最佳回應</div>
+        <div class="concept-desc">被另一半質問時，「質問的一方是受傷的人」。先道歉、先關照對方的感受，再解釋理由。這個順序的改變，能讓衝突逆轉為加深羈絆的機會。</div>
+      </div>
+      <div class="concept-card">
+        <div class="concept-number">CONCEPT 08</div>
+        <div class="concept-title">夫妻視角的天然錯位</div>
+        <div class="concept-desc">女性看眼前細節，男性掃視整體空間。兩人出遊永遠在說「不同的東西」，是視覺生物學差異，不是誰對誰錯。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 七年週期詳解 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-purple">🔄</span>
+      婚姻七年週期：完整地圖
+    </h2>
+    <div class="seven-year-box">
+      <div class="seven-year-title">第 7 年：心動消失，融合開始</div>
+      <p style="font-size:0.9rem; color:#4A3A5A;">免疫系統「接受」對方氣味為環境的一部分，心跳不再加速。這是危機，也是真正的夫妻關係開始。對外的吸引力最強，離婚決心最多發生在這時。</p>
+    </div>
+    <div class="seven-year-box">
+      <div class="seven-year-title">第 14 年：第二次週期</div>
+      <p style="font-size:0.9rem; color:#4A3A5A;">孩子長大、個人目標重新評估，再次陷入「我真的要跟這個人一輩子嗎」的質疑。多忍耐一年，往往有意外的正向轉機。</p>
+    </div>
+    <div class="seven-year-box">
+      <div class="seven-year-title">第 21 年：認同危機期</div>
+      <p style="font-size:0.9rem; color:#4A3A5A;">人生中期的重新定向，加上對婚姻的長期疲憊，離婚率再度升高。但也是許多夫妻重新發現彼此的節點。</p>
+    </div>
+    <div class="seven-year-box">
+      <div class="seven-year-title">第 28 年：最深的厭倦</div>
+      <p style="font-size:0.9rem; color:#4A3A5A;">熟齡離婚（「黃昏離婚」）最集中的時期。孩子離巢後，兩人第一次直面彼此，才發現已經習慣了「不對話的平行存在」。這是最後也是最重要的考驗。</p>
+    </div>
+  </div>
+
+  <!-- 底層假設 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-purple">🔍</span>
+      隱含但未明說的底層假設
+    </h2>
+    <div class="assumption-item">
+      <span class="tag tag-purple">假設 1</span>
+      <p class="perception-content">男女的腦差異是生物決定的，而非社會建構的——書中對男女腦的描述大量使用「天生如此」的框架，幾乎不討論教育、文化、角色期待的影響。</p>
+    </div>
+    <div class="assumption-item">
+      <span class="tag tag-pink">假設 2</span>
+      <p class="perception-content">異性戀婚姻是默認的關係模型——全書的「夫婦腦」框架建立在男女腦差異上，對同性伴侶、非典型性別認同的關係完全沒有討論。</p>
+    </div>
+    <div class="assumption-item">
+      <span class="tag tag-orange">假設 3</span>
+      <p class="perception-content">「理解即解決」——作者相信，只要理解腦科學原理，夫妻摩擦就能化解。但情緒的傷痛往往不是「理解」就能消除的。</p>
+    </div>
+    <div class="assumption-item">
+      <span class="tag tag-blue">假設 4</span>
+      <p class="perception-content">婚姻是值得維持的——書中雖然中立呈現，但整體框架傾向「讓婚姻持續下去」，對「有些婚姻確實應該結束」的情況著墨很少。</p>
+    </div>
+  </div>
+
+  <!-- 盲點與爭議 -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-purple">⚠️</span>
+      作者可能的盲點或爭議點
+    </h2>
+    <div class="blindspot-item">
+      <span class="tag tag-orange">爭議 1</span>
+      <p class="perception-content"><strong>性別本質主義爭議：</strong>「男腦/女腦」的二元框架在當代神經科學中備受質疑。多數研究顯示，個體差異遠大於性別差異，而語言、溝通風格更多是社會化的結果。</p>
+    </div>
+    <div class="blindspot-item">
+      <span class="tag tag-orange">爭議 2</span>
+      <p class="perception-content"><strong>可能合理化性別不平等：</strong>「男人天生鈍感、需要放空時間」的說法，在某些讀者看來，可能被用來為男性不做家事、不察覺伴侶需求找藉口。</p>
+    </div>
+    <div class="blindspot-item">
+      <span class="tag tag-orange">爭議 3</span>
+      <p class="perception-content"><strong>費洛蒙理論的科學性存疑：</strong>書中對費洛蒙和免疫遺傳學（MHC）的描述雖有部分科學依據，但大幅簡化了複雜的生物機制，部分陳述超出現有科學共識。</p>
+    </div>
+    <div class="blindspot-item">
+      <span class="tag tag-orange">爭議 4</span>
+      <p class="perception-content"><strong>日本文化脈絡的局限：</strong>許多例子深度植根於日本傳統夫妻關係（如「一家之主」的碗、妻子料理家務的假設），對性別角色更平等的家庭並不完全適用。</p>
+    </div>
+  </div>
+
+  <!-- ===== PHASE 2 ===== -->
+  <div class="phase-divider">
+    <div class="phase-label phase-2">🌐 第二階段：公眾認知萃取</div>
+  </div>
+
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-purple">📡</span>
+      這本書在大眾世界被如何記住？
+    </h2>
+
+    <div class="perception-row">
+      <span class="perception-label label-remember">被記住的</span>
+      <p class="perception-content">「夫妻越相愛越不合，是生物設計的」這個顛覆性觀點最廣為人知。「七年之癢有科學根據」也高度流傳。日本讀者尤其喜歡「男人需要放空時間，不是在懶」的部分——終於有科學說法讓妻子理解丈夫。</p>
+    </div>
+
+    <div class="perception-row">
+      <span class="perception-label label-cite">最常引用</span>
+      <p class="perception-content">「被質問時，質問的一方是受傷的人，要先道歉再解釋」這段是黒川伊保子作品中最廣為引用的段落之一。另外「女性說話是消化情緒的方式，不是求你解決問題」也常被台灣讀者引用。</p>
+    </div>
+
+    <div class="perception-row">
+      <span class="perception-label label-misread">最常誤解</span>
+      <p class="perception-content">最大的誤解是把「男腦/女腦」當作絕對分類，認為「所有男性都這樣、所有女性都那樣」。作者的本意是「傾向性」而非「絕對性」，但輕讀者往往拿它來強化刻板印象。</p>
+    </div>
+
+    <div class="perception-row">
+      <span class="perception-label label-dispute">最有爭議</span>
+      <p class="perception-content">「男性天生需要放空時間所以不做家事是可以被理解的」這個詮釋，在女性主義觀點的讀者群中引發強烈反彈，認為這是在為男性的家務不平等提供「科學背書」。</p>
+    </div>
+
+    <div class="perception-row">
+      <span class="perception-label label-judge">核心被記住了嗎？</span>
+      <p class="perception-content"><strong>部分被記住，但核心精神常被誤用。</strong> 作者最深的用意是：「理解差異 → 把對方的行為從『讓我受傷』重新詮釋為『這是他的本能』 → 因此產生溫柔」。但很多讀者停在「我的另一半這樣是正常的」這個接受層，而沒有進一步發展出「我可以主動設計更好的互動」的行動力。</p>
+    </div>
+  </div>
+
+  <!-- ===== PHASE 3 ===== -->
+  <div class="phase-divider">
+    <div class="phase-label phase-3">🎯 第三階段：Rex 個人化轉化</div>
+  </div>
+
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-blue">🛡️</span>
+      Rex 可能會抗拒的部分
+    </h2>
+    <div class="rex-resist">
+      <h4>抗拒點 1：「這本書是寫給婚姻的，跟商業關係無關」</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">Rex 可能把這本書定位為「婚姻指南」而快速掃過，但「男性腦的溝通模式 vs 女性腦的溝通模式」在商業場景中完全適用——理解不同神經類型的溝通風格，是高效協作的基礎。</p>
+    </div>
+    <div class="rex-resist">
+      <h4>抗拒點 2：「男腦女腦的分類太籠統」</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">作為思考清晰的實戰者，Rex 可能會覺得「男腦/女腦」的框架過於簡化。這個抗拒是對的，但不要因此丟掉裡面有用的溝通洞察——把它當作「傾向性地圖」而非「絕對規律」來用。</p>
+    </div>
+    <div class="rex-resist">
+      <h4>抗拒點 3：「費洛蒙科學我存疑」</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">書中的費洛蒙/基因論述確實有科學誇大的問題。Rex 可以跳過這部分，聚焦在「溝通模式差異」和「七年週期的關係設計」兩個更有實用價值的框架。</p>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-blue">🎯</span>
+      Rex 最容易忽略的部分
+    </h2>
+    <div class="rex-ignore">
+      <h4>容易忽略：「被質問時先道歉再解釋」的功率</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">Rex 重視人情關係，但在被重要的人質問或指責時，忙碌的人很容易先開口解釋或辯解（效率思維）。這個順序的改變——「先承認對方的感受，再給出理由」——能把一次潛在的關係損耗變成關係加分的機會。</p>
+    </div>
+    <div class="rex-ignore">
+      <h4>容易忽略：「允許對方有不說話的空間」在關係中的巨大價值</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">作為一個社群平台的經營者，Rex 習慣活躍互動、持續輸出。但對某些重要的關係（配偶、長期夥伴），有時候最好的連結不是話語，而是不說話地並肩存在。這是他最不習慣的親密模式，但可能是最有效的。</p>
+    </div>
+    <div class="rex-ignore">
+      <h4>容易忽略：七年週期的「主動設計」機會</h4>
+      <p style="font-size:0.9rem; color:#4A3A4A;">既然七年週期是已知的生物規律，Rex 完全可以提前「設計」關係更新點——在危機到來前主動重新求婚、製造「初戀感」的儀式，而不是等到危機發生才被動應對。</p>
+    </div>
+  </div>
+
+  <!-- Golden Sentence -->
+  <div class="golden-sentence">
+    <div class="golden-label">✨ REX 核心金句</div>
+    <div class="golden-text">
+      「最深的關係不需要說話就能連結，<br>
+      最難的關係不是差異本身，<br>
+      而是把差異當成背叛。<br>
+      懂對方的腦，才是真的懂對方。」
+    </div>
+  </div>
+
+  <!-- 3 Immediate Actions -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-blue">⚡</span>
+      3 個即時可行的行動（各 20 分鐘內）
+    </h2>
+    <ul class="action-list">
+      <li>
+        <div class="action-item">
+          <div class="action-number">1</div>
+          <div class="action-content">
+            <strong>今天回家先什麼都不問，靜靜陪著（15 分鐘）</strong>
+            <p>無論關係是伴侶、父母還是親密友人——今天到家後，先給自己和對方 15 分鐘的沉默共存，不急著說話。觀察這個空間對關係氣氛有什麼影響。這是男性腦「放空」需求的反向理解練習。</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="action-item">
+          <div class="action-number">2</div>
+          <div class="action-content">
+            <strong>在下一次被質問或批評時，先說「對不起」再解釋（5 分鐘 × 練習 3 次）</strong>
+            <p>刻意在今天找一個機會練習「先道歉感受、再解釋事實」的順序。不用是大事，日常小事也可以。練習說：「讓你有這個感受，我很抱歉。」然後再說事情的來龍去脈。感受一下對方反應的不同。</p>
+          </div>
+        </div>
+      </li>
+      <li>
+        <div class="action-item">
+          <div class="action-number">3</div>
+          <div class="action-content">
+            <strong>盤點一下你和重要他人處於「第幾年」（10 分鐘）</strong>
+            <p>在筆記本上寫下你最重要的幾段長期關係（婚姻、長期夥伴）目前是第幾年。對照七年週期，判斷你是否在危機節點附近。如果是，現在就是主動更新這段關係的最佳時機。</p>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 30-Day Practice -->
+  <div class="section-card">
+    <h2 class="section-title">
+      <span class="icon icon-blue">📅</span>
+      30 天落地練習系統（每天 20-30 分鐘）
+    </h2>
+
+    <div class="week-block">
+      <div class="week-title">第一週｜理解：重新詮釋關係中的摩擦</div>
+      <div class="week-days">
+        <strong>Day 1-2：</strong>讀書中「費洛蒙 + 七年週期」部分，把自己重要的長期關係放進這個框架來看。<br>
+        <strong>Day 3-4：</strong>回想最近三次讓你感到困惑或不舒服的對話，用「男腦/女腦差異」或「反應模式差異」重新解讀。這次的衝突，有多少比例是「腦的差異」而非「態度問題」？<br>
+        <strong>Day 5-6：</strong>記下本週你觀察到的關係能量——哪些互動消耗你，哪些補充你？<br>
+        <strong>Day 7：</strong>寫下一句對重要他人的「重新理解的話」——不一定要說出口，但要真的相信。
+      </div>
+      <div class="checkpoint">📍 週檢核：我把哪個讓我惱怒的行為，重新詮釋為「這是他的腦的方式」了？</div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">第二週｜溝通：調整互動模式</div>
+      <div class="week-days">
+        <strong>Day 8-10：</strong>連續三天，在重要關係中練習「被說話時先聽完，不急著解決問題或反駁」。觀察對方的表情和能量變化。<br>
+        <strong>Day 11-12：</strong>刻意給對方（或給自己）在互動中一段不被打擾的沉默時間。<br>
+        <strong>Day 13-14：</strong>在一次衝突或質問中，練習「先道歉感受，再解釋事實」的順序。記下結果。
+      </div>
+      <div class="checkpoint">📍 週檢核：「先道歉感受」這個動作，我本週用了幾次？效果如何？</div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">第三週｜設計：主動更新關係</div>
+      <div class="week-days">
+        <strong>Day 15-17：</strong>為你的一段重要長期關係，設計一個「關係更新儀式」——可以是一次久違的出遊、一頓認真準備的飯、一封寫給對方的手寫信。不用大，但要有心。<br>
+        <strong>Day 18-19：</strong>做這個儀式，觀察並記下對方的反應和自己的感受。<br>
+        <strong>Day 20-21：</strong>反思：什麼樣的「關係更新」頻率，對你這個忙碌的人是可持續的？
+      </div>
+      <div class="checkpoint">📍 週檢核：我主動更新了哪段關係？我願意把「關係設計」變成季度性習慣嗎？</div>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">第四週｜整合：把洞察轉為長期系統</div>
+      <div class="week-days">
+        <strong>Day 22-25：</strong>把「先道歉感受」和「允許沉默」設定為你的預設溝通選項。每天晚上 5 分鐘，回顧今天有幾次做到、幾次沒做到。<br>
+        <strong>Day 26-28：</strong>和重要他人進行一次「關係對話」——不是吵架，而是主動問：「你最近有什麼需求是我沒有注意到的？」<br>
+        <strong>Day 29-30：</strong>為接下來的重要關係（婚姻年份、合作年份）規劃「七年設計地圖」——你會在哪個節點主動更新？
+      </div>
+      <div class="checkpoint">📍 月總結：我的「人情資本」裡，哪段關係因為這個月的行動而增值了？記下來，繼續做。</div>
+    </div>
+  </div>
+
+  <div style="text-align:center; padding: 24px 0; color: #9B7EC8; font-size: 0.85rem; letter-spacing: 1px;">
+    書醒分析報告 · AI 書僮 2.0 · 叡思影像 × 關係深讀計畫
+  </div>
+
+</div>
+</body>
+</html>
