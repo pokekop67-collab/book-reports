@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>能動 × TOC 十步深度分析</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--a:#4A90C4;--a2:#5BAD7E;--ec:#E0935A;--r:#D46868;--pur:#7E6EAD;--bg:linear-gradient(135deg,#EDF4FB 0%,#F0F7F2 50%,#EEF0FB 100%);--card:rgba(255,255,255,.72);--t:#1E2A38;--t2:#5A6A78;--tl:#A0B0BC;--bdr:rgba(74,144,196,.14)}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Sans TC',sans-serif;font-weight:300;background:var(--bg);color:var(--t);line-height:1.85;padding:40px 20px}
+.c{max-width:960px;margin:0 auto}
+.hero{text-align:center;padding:70px 30px;background:var(--card);backdrop-filter:blur(20px);border-radius:32px;border:1px solid rgba(255,255,255,.8);box-shadow:0 20px 60px rgba(0,0,0,.07);margin-bottom:28px}
+.badge{display:inline-block;background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;padding:6px 20px;border-radius:50px;font-size:.78rem;letter-spacing:2px;margin-bottom:18px}
+.hero h1{font-family:'Noto Serif TC',serif;font-size:2.5rem;font-weight:700;background:linear-gradient(135deg,var(--a),var(--a2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:10px}
+.hero .sub{color:var(--t2);font-size:.95rem}
+.toc{background:var(--card);backdrop-filter:blur(10px);border-radius:24px;border:1px solid rgba(255,255,255,.7);box-shadow:0 8px 32px rgba(0,0,0,.06);padding:28px;margin-bottom:24px}
+.toc h3{font-family:'Noto Serif TC',serif;color:var(--a);font-size:1rem;margin-bottom:14px}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px}
+.toc a{display:block;padding:8px 14px;border-radius:12px;font-size:.82rem;color:var(--t2);text-decoration:none;background:rgba(74,144,196,.06);border:1px solid rgba(74,144,196,.12);transition:all .2s}
+.toc a:hover{background:rgba(74,144,196,.14);color:var(--a)}
+section{background:var(--card);backdrop-filter:blur(10px);border-radius:24px;border:1px solid rgba(255,255,255,.7);box-shadow:0 8px 32px rgba(0,0,0,.06);padding:36px 32px;margin-bottom:24px;scroll-margin-top:20px}
+.st{font-family:'Noto Serif TC',serif;font-size:1.3rem;font-weight:700;color:var(--t);margin-bottom:20px;padding-bottom:12px;border-bottom:2px solid var(--bdr);display:flex;align-items:center;gap:10px}
+.sh{font-family:'Noto Serif TC',serif;font-size:.95rem;font-weight:700;color:var(--a);margin:22px 0 10px}
+p{margin-bottom:10px;font-size:.88rem;line-height:1.9}
+.hl{border-radius:14px;padding:16px 18px;margin:12px 0}
+.hl.bl{background:rgba(74,144,196,.07);border-left:4px solid var(--a)}
+.hl.gr{background:rgba(91,173,126,.07);border-left:4px solid var(--a2)}
+.hl.ec{background:rgba(224,147,90,.07);border-left:4px solid var(--ec)}
+.hl.re{background:rgba(212,104,104,.07);border-left:4px solid var(--r)}
+.hl.pu{background:rgba(126,110,173,.07);border-left:4px solid var(--pur)}
+table{width:100%;border-collapse:separate;border-spacing:0;margin:12px 0;background:rgba(255,255,255,.5);border-radius:14px;overflow:hidden;font-size:.83rem}
+th{background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;padding:9px 14px;text-align:left;font-weight:500;font-size:.77rem}
+td{padding:8px 14px;border-bottom:1px solid rgba(0,0,0,.04);line-height:1.7;vertical-align:top}
+tr:last-child td{border-bottom:none}
+.bk{background:rgba(255,255,255,.5);border-radius:16px;padding:20px;margin-bottom:14px;border:1px solid rgba(255,255,255,.4)}
+.bk h3{font-family:'Noto Serif TC',serif;font-size:.95rem;font-weight:700;color:var(--a);margin-bottom:8px}
+.tree{font-family:'Noto Sans TC',monospace;font-size:.8rem;line-height:1.8;background:rgba(255,255,255,.6);border-radius:14px;padding:18px;overflow-x:auto;border:1px solid rgba(74,144,196,.1)}
+.tag{display:inline-block;padding:2px 9px;border-radius:10px;font-size:.7rem;font-weight:600;margin-left:6px}
+.tag.sv{background:rgba(74,144,196,.15);color:var(--a)}.tag.pv{background:rgba(212,104,104,.15);color:var(--r)}.tag.tv{background:rgba(224,147,90,.15);color:var(--ec)}.tag.v{background:rgba(91,173,126,.15);color:var(--a2)}
+.ec-box{display:grid;grid-template-columns:1fr 80px 1fr;gap:12px;align-items:center;margin:16px 0}
+.ec-node{background:rgba(255,255,255,.7);border-radius:14px;padding:14px;font-size:.82rem;text-align:center;border:2px solid rgba(74,144,196,.2);line-height:1.6}
+.ec-node.goal{border-color:var(--a2);background:rgba(91,173,126,.07)}
+.ec-node.need{border-color:var(--a);background:rgba(74,144,196,.06)}
+.ec-node.want{border-color:var(--ec);background:rgba(224,147,90,.06)}
+.ec-arrow{text-align:center;font-size:1.2rem;color:var(--t2)}
+.step-num{display:inline-block;width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,var(--a),var(--a2));color:#fff;font-size:.75rem;font-weight:700;text-align:center;line-height:28px;margin-right:8px;flex-shrink:0}
+footer{text-align:center;padding:40px 20px;color:var(--tl);font-size:.82rem}
+@media(max-width:640px){section{padding:20px 14px}.hero{padding:46px 14px}.hero h1{font-size:1.9rem}.ec-box{grid-template-columns:1fr;}.ec-arrow{transform:rotate(90deg)}}
+</style>
+</head>
+<body>
+<div class="c">
+
+<div class="hero">
+  <span class="badge">TOC 限制理論 × 十步深度分析</span>
+  <h1>能動 × TOC</h1>
+  <p class="sub">用限制理論解構「稳态生存逻辑」——找出卡住你的真正制約，並設計突破路徑</p>
+  <p style="margin-top:10px;font-size:.8rem;color:var(--tl)">萬維鋼講義 × IO Map × CRT × EC × FRT × PrT × TrT</p>
+</div>
+
+<div class="toc">
+  <h3>📋 十步目錄</h3>
+  <div class="toc-grid">
+    <a href="#s1">① IO Map 目標定義</a>
+    <a href="#s2">② UDE 不良現象清單</a>
+    <a href="#s3">③ CRT 現況實境樹</a>
+    <a href="#s4">④ 根因確認</a>
+    <a href="#s5">⑤ EC 蒸發雲</a>
+    <a href="#s6">⑥ 打破假設</a>
+    <a href="#s7">⑦ FRT 未來實境樹</a>
+    <a href="#s8">⑧ 負面分支預防</a>
+    <a href="#s9">⑨ PrT 前提樹</a>
+    <a href="#s10">⑩ TrT 行動計畫</a>
+  </div>
+</div>
+
+<!-- STEP 1: IO Map -->
+<section id="s1">
+  <h2 class="st"><span class="step-num">1</span>IO Map｜系統目標定義</h2>
+  <div class="hl bl">
+    <strong>系統邊界：</strong>一個想在現代高波動世界取得好結果的個人——他/她繼承了「稳态生存逻辑」的觀念，正試圖突破。
+  </div>
+  <div class="sh">終極目標（Goal）</div>
+  <div class="hl gr">在高波動世界裡，作為一個能動者（agent），調用工具創造非線性的成果，而非作為工具被他人調用。</div>
+  <div class="sh">關鍵成功因素（CSF）</div>
+  <table>
+    <thead><tr><th>#</th><th>CSF</th><th>必要條件（NC）</th><th>標記</th></tr></thead>
+    <tbody>
+      <tr><td>CSF1</td><td><strong>能動性（Agency）</strong><br>主動選擇方向，而非響應他人需求</td><td>有獨立判斷；能承受群體壓力；不以「聽話」為目標</td><td><span class="tag pv">待驗證</span></td></tr>
+      <tr><td>CSF2</td><td><strong>複雜思維模型</strong><br>理解系統的非線性、槓桿、複利</td><td>持續學習非指標知識；能識別系統結構；拒絕線性努力觀</td><td><span class="tag pv">待驗證</span></td></tr>
+      <tr><td>CSF3</td><td><strong>可接受波動</strong><br>在不確定性中行動，而非等萬事俱備</td><td>對失敗有正確認知；有足夠的資本緩衝；實踐 MVP 心態</td><td><span class="tag pv">待驗證</span></td></tr>
+      <tr><td>CSF4</td><td><strong>價值創造導向</strong><br>從「我能為誰解決什麼問題」出發，而非追指標</td><td>理解市場機制；能識別真實需求；不以資歷換機會</td><td><span class="tag pv">待驗證</span></td></tr>
+    </tbody>
+  </table>
+  <p style="font-size:.8rem;color:var(--t2)">⚠️ 以上 CSF 基於文章內容推論，需帶回個人情境驗證</p>
+</section>
+
+<!-- STEP 2: UDE -->
+<section id="s2">
+  <h2 class="st"><span class="step-num">2</span>UDE｜不良現象清單</h2>
+  <p>從文章中提取的「讓現代人扼腕」的真實現象：</p>
+  <table>
+    <thead><tr><th>#</th><th>不良現象（UDE）</th><th>文章出處</th><th>來源</th></tr></thead>
+    <tbody>
+      <tr><td>U1</td><td>努力了卻沒有好結果——把外部世界當整體，認為努力就應該有回報</td><td>「努力其实就是把外部世界当成了一个整体……并没有一个神灵看你努力就给你发奖励」</td><td><span class="tag sv">原文</span></td></tr>
+      <tr><td>U2</td><td>等萬事俱備才行動——害怕失敗，無法接受初級版本推出市場</td><td>「有的人非得要完美的计划，希望万事俱备才行动，其实就是害怕失败」</td><td><span class="tag sv">原文</span></td></tr>
+      <tr><td>U3</td><td>以忙碌為榮，實際是無效勞動——姿勢成為成果，態度替代能力</td><td>「如果服从是一种业绩，态度就成了能力，姿势就成了成果」</td><td><span class="tag sv">原文</span></td></tr>
+      <tr><td>U4</td><td>達成指標後覺得世界欠我——不思考創造什麼價值，只想索取</td><td>「指标主义的言下之意是既然我达成了这个指标，世界就应该给我相应的待遇」</td><td><span class="tag sv">原文</span></td></tr>
+      <tr><td>U5</td><td>「聽話」的孩子長大後讓父母最擔心——在現代世界缺乏自主性</td><td>「那个从小被你夸听话的孩子，搞不好就成了假装学习、无效忙碌……的孩子」</td><td><span class="tag sv">原文</span></td></tr>
+      <tr><td>U6</td><td>零和思維——把他人視為競爭對手，默認防禦姿態</td><td>「人们会下意识地把他人当成竞争对手而不是合作伙伴，默认防御姿态」</td><td><span class="tag sv">原文</span></td></tr>
+      <tr><td>U7</td><td>「枪打出头鸟」——在注意力稀缺時代選擇隱身，錯過所有機會</td><td>「为什么家长们还在向孩子灌输'枪打出头鸟'的老道理……因为他们仍然害怕被人嫉妒」</td><td><span class="tag sv">原文</span></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- STEP 3: CRT -->
+<section id="s3">
+  <h2 class="st"><span class="step-num">3</span>CRT｜現況實境樹</h2>
+  <p>從 UDE 往上追因果，找到共同根因：</p>
+  <div class="tree">
+<strong>最高層因果（根因）</strong>
+  │
+  ▼
+【文化滯後（Cultural Lag）】[原文] [推論]
+  觀念的更新比物質條件慢，人的思維停留在匱乏/穩態時代
+  │
+  ├── → 稳态生存逻辑三大基因仍在運作
+  │         ├── 資源匱乏心態 → 風險厭惡 → [U2] 等萬事俱備才行動
+  │         │                          → [U1] 努力就應有回報（線性思維）
+  │         │
+  │         ├── 強從眾 → 聽話被獎勵 → [U5] 聽話孩子缺乏自主
+  │         │          → 姿態替代成果 → [U3] 以忙碌為榮
+  │         │          → 出頭被懲罰 → [U7] 選擇隱身
+  │         │
+  │         └── 簡單思維模型 → 指標崇拜 → [U4] 達指標就應有待遇
+  │                          → 零和假設 → [U6] 他人是競爭對手
+  │
+  └── → 稳态生存逻辑被道德化（最大「政策制約」）[推論]
+            觀念不只是策略，而是「對不對」的道德標準
+            → 即使知道有問題，也難以質疑（觸碰道德禁忌）
+            → 所有 UDE 都有道德保護殼，改變阻力巨大
+  </div>
+  <div class="hl ec" style="margin-top:14px">
+    <strong>⚠️ 重要發現：</strong>這棵 CRT 顯示文章的七個 UDE 有<strong>兩個共同根因</strong>：<br>
+    1. <strong>文化滯後</strong>——時代已變，觀念未更新（物理制約：認知來源不足）<br>
+    2. <strong>道德化</strong>——稳态生存逻辑被裝進道德框架（政策制約：不可質疑）<br>
+    <br>根因 2 比根因 1 更難突破——你可以接受新知識，但你需要先「被允許」質疑道德。
+  </div>
+</section>
+
+<!-- STEP 4: 根因確認 -->
+<section id="s4">
+  <h2 class="st"><span class="step-num">4</span>根因確認｜哪個是真正的制約</h2>
+  <div class="sh">兩個根因的性質對比</div>
+  <table>
+    <thead><tr><th>根因</th><th>類型</th><th>文章是否提供解法</th><th>突破難度</th></tr></thead>
+    <tbody>
+      <tr><td><strong>文化滯後（認知不足）</strong></td><td>物理制約（知識）</td><td>✅ 是——文章本身就是解法（提供新觀念）</td><td>★★☆☆☆ 讀書可解</td></tr>
+      <tr><td><strong>道德化（觀念被神聖化）</strong></td><td>政策制約（範式）</td><td>⚠️ 部分——只點出問題，未提供突破機制</td><td>★★★★☆ 需要痛苦反思</td></tr>
+    </tbody>
+  </table>
+  <div class="hl bl">
+    <strong>TOC 判斷：</strong>真正的「最大制約」是<strong>道德化的稳态生存逻辑</strong>（政策制約）。<br><br>
+    文化滯後（知識不足）只要讀書就能解決，但「道德化」是一個內化的禁令——你不只是不知道，你是被教導說「質疑這個是不對的」。這需要的不是新知識，而是一次允許自己質疑「對錯標準本身」的時刻。<br><br>
+    作者在文章結尾說：「也许人非得经过痛苦反思，把稳态生存逻辑解构掉，才能脱胎换骨。」這個「痛苦」說的就是這個——道德框架的重估。
+  </div>
+</section>
+
+<!-- STEP 5: EC -->
+<section id="s5">
+  <h2 class="st"><span class="step-num">5</span>EC｜蒸發雲（核心衝突）</h2>
+  <p>找出卡住個人無法突破稳态生存逻辑的核心衝突：</p>
+  <div class="ec-box">
+    <div>
+      <div class="ec-node need" style="margin-bottom:12px">
+        <strong>需求 B</strong><br>需要能動性、差異化、承擔波動
+      </div>
+      <div class="ec-node want">
+        <strong>行動 D</strong><br>打破稳态生存逻辑<br>冒險 / 出頭 / 創造波動
+      </div>
+    </div>
+    <div class="ec-arrow">⟵ A ⟶</div>
+    <div>
+      <div class="ec-node need" style="margin-bottom:12px">
+        <strong>需求 C</strong><br>需要群體接納、安全感、社會支持
+      </div>
+      <div class="ec-node want" style="border-color:var(--r);background:rgba(212,104,104,.05)">
+        <strong>行動 D'</strong><br>遵循稳态生存逻辑<br>聽話 / 低調 / 隨大流
+      </div>
+    </div>
+  </div>
+  <div class="ec-node goal" style="text-align:center;padding:16px;margin-bottom:16px">
+    <strong>共同目標 A</strong><br>在現代世界活得好——有成果、有意義、不焦慮
+  </div>
+  <table>
+    <thead><tr><th>箭頭</th><th>假設（隱藏的因果邏輯）</th><th>是否可挑戰</th></tr></thead>
+    <tbody>
+      <tr><td>A←B</td><td>要在現代世界活得好，必須有能動性和差異化策略 [推論]</td><td>✅ 文章已論證</td></tr>
+      <tr><td>B←D</td><td>要有能動性，就必須打破稳态生存逻辑，接受風險和波動 [推論]</td><td>⚠️ 是否有「低風險的打破方式」？</td></tr>
+      <tr><td>A←C</td><td>要活得好，必須有群體接納和社會支持（孤立是真實代價） [推論]</td><td>⭐ <strong>關鍵假設：這個是真的，但可以重新定義「群體」</strong></td></tr>
+      <tr><td>C←D'</td><td><strong>要有群體接納，就必須遵循群體的稳态生存逻辑</strong> [推論]</td><td>⭐ <strong>最可挑戰的假設！</strong></td></tr>
+      <tr><td>D ↔ D'</td><td>打破稳态生存逻辑 和 遵循稳态生存逻辑 不能同時做 [推論]</td><td>⚠️ 可以部分同時（在某些領域打破，某些領域順從）</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- STEP 6: 打破假設 -->
+<section id="s6">
+  <h2 class="st"><span class="step-num">6</span>打破假設｜注入解設計</h2>
+  <div class="bk">
+    <h3>⭐ 最可挑戰的假設：「要有群體接納，就必須遵循這個群體的稳态生存逻辑」</h3>
+    <div class="hl gr">
+      <strong>為什麼這個假設可以打破：</strong><br>
+      這個假設預設了只有一個「群體」——你出生的那個群體（家庭、同學、鄰居）。<br>
+      但現代互聯網讓人可以加入基於「價值觀和目標」而非「地緣和出身」的群體。<br><br>
+      你可以同時：<br>
+      ① 在舊群體裡維持基本的表面和諧（部分遵循表面行為）<br>
+      ② 在新群體裡練習能動性（完全打破稳态生存逻辑）<br><br>
+      這打破了「必須在一個群體裡完全一致」的假設。
+    </div>
+  </div>
+  <div class="bk">
+    <h3>⭐ 次要假設：「打破稳态生存逻辑必須一次完成」</h3>
+    <div class="hl bl">
+      <strong>注入解：漸進式去稳态化</strong><br>
+      文章說「也许人非得经过痛苦反思才能脱胎换骨」，但這不代表是一次性的大轉變。<br>
+      你可以先在低代價的決策上練習能動性，再逐漸擴大到高代價決策。<br>
+      MVP 邏輯不只適用於產品，也適用於自我改變：<strong>最小可行的「不聽話」</strong>。
+    </div>
+  </div>
+  <div class="bk">
+    <h3>🎯 注入解（Injection）</h3>
+    <div class="hl ec">
+      <strong>I1：選擇性群體切換</strong>——找到一個認同能動性的新群體（社群、導師、圈子），在那裡練習打破稳态生存逻辑，同時不正面對抗舊群體。
+    </div>
+    <div class="hl ec">
+      <strong>I2：小賭博策略</strong>——每週做一個「不聽話」的低代價決定，累積「失敗也不會怎樣」的真實記憶，重寫風險厭惡的神經迴路。
+    </div>
+    <div class="hl ec">
+      <strong>I3：道德重新定位</strong>——把「我是能動者」當成新的道德框架：不是「聽話才是好人」，而是「我調用工具服務他人才是好人」。用新的道德敘事取代舊的。
+    </div>
+  </div>
+</section>
+
+<!-- STEP 7: FRT -->
+<section id="s7">
+  <h2 class="st"><span class="step-num">7</span>FRT｜未來實境樹</h2>
+  <p>如果三個注入解全部實施，系統會如何演進？</p>
+  <div class="tree">
+<strong>注入解實施後的因果推演</strong>
+
+I1（選擇性群體切換）
+  → 找到一個能動性導向的新社群
+  → 獲得「打破稳态生存逻辑是正常的」的社會驗證 [推論]
+  → 舊群體的眼光壓力降低（因為有新群體支撐） [推論]
+  → D' 的壓力減弱，D 的可行性提升 [推論]
+
+I2（小賭博策略）
+  → 每週一個低代價「不聽話」行動
+  → 累積「失敗沒有預期嚴重」的真實記憶 [推論]
+  → 風險評估基準重寫（從想像的最壞情況 → 真實後果）[推論]
+  → 風險厭惡降低，MVP 心態建立 [推論]
+  → [U2] 等萬事俱備才行動 → 消除
+
+I3（道德重新定位）
+  → 「我能為誰創造什麼價值」成為自我評估標準
+  → 指標崇拜失去道德基礎 [推論]
+  → [U4] 達指標就應有待遇 → 消除
+  → [U3] 以忙碌為榮 → 轉為以創造價值為榮 [推論]
+
+三者合力：
+  → 能動者身份認同建立
+  → 可接受的波動增加
+  → 創造非線性成果的機率提升 [推論]
+  → 目標 A 達成：在高波動世界活得好
+  </div>
+  <div class="hl gr">
+    <strong>FRT 驗證結論：</strong>三個注入解在邏輯上互相增強，不互相矛盾。I1 提供社會支撐，I2 提供認知重寫，I3 提供道德正當性——三者缺一會讓改變更難。
+  </div>
+</section>
+
+<!-- STEP 8: 負面分支 -->
+<section id="s8">
+  <h2 class="st"><span class="step-num">8</span>負面分支｜預防非預期副作用</h2>
+  <table>
+    <thead><tr><th>注入解</th><th>可能的負面分支</th><th>預防措施</th></tr></thead>
+    <tbody>
+      <tr><td><strong>I1 群體切換</strong></td><td>與舊群體（家人）關係惡化；被認為「看不起人」[待驗證]</td><td>維持表面儀式（回家吃飯、節慶參與），不在舊群體裡直接傳播新觀念</td></tr>
+      <tr><td><strong>I2 小賭博策略</strong></td><td>選錯「低代價」標準，實際承擔了高代價；樂觀偏差 [待驗證]</td><td>每次行動前問：「最壞的情況是什麼？我有能力承受嗎？」承受不了就不算低代價</td></tr>
+      <tr><td><strong>I3 道德重新定位</strong></td><td>走向另一個極端——「我只要創造價值，其他規則我都不管」[待驗證]</td><td>能動性 ≠ 無視他人；「能動者」是調用工具解決問題，不是不負責任的行動者</td></tr>
+      <tr><td><strong>整體方向</strong></td><td>高波動世界裡增加波動，但自身資本不足以承擔波動 [待驗證]</td><td>先建立基本的財務/社會安全網，再有意識地增加波動；別在只有一千元時大賭</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- STEP 9: PrT -->
+<section id="s9">
+  <h2 class="st"><span class="step-num">9</span>PrT｜前提樹（障礙與里程碑）</h2>
+  <p>要實現注入解，必須克服哪些障礙？</p>
+  <div class="bk">
+    <h3>🚧 實現 I1（找到能動性導向的新群體）</h3>
+    <table>
+      <thead><tr><th>障礙</th><th>中間目標（IO）</th></tr></thead>
+      <tbody>
+        <tr><td>不知道這樣的社群在哪裡</td><td>每週探索一個新的線上/線下社群，觀察成員的思維模式</td></tr>
+        <tr><td>進入新社群感到陌生，難以建立關係</td><td>先從「創作者/輸出者」角色進入——分享觀點比沉默更快建立連結</td></tr>
+        <tr><td>舊群體與新群體時間衝突</td><td>明確劃定「新群體時間」——即使每週 3 小時也算</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="bk">
+    <h3>🚧 實現 I2（小賭博策略）</h3>
+    <table>
+      <thead><tr><th>障礙</th><th>中間目標（IO）</th></tr></thead>
+      <tbody>
+        <tr><td>不知道什麼算「低代價」的不聽話</td><td>先列出你日常中所有因為「別人會怎麼看」而做的決定，最小的一個就是起點</td></tr>
+        <tr><td>即使代價小，仍然焦慮</td><td>先做「完全只影響自己」的決定（穿什麼衣服、選什麼課外書、早上做什麼）</td></tr>
+        <tr><td>做了以後沒有記錄，記憶不更新</td><td>寫下「最壞預期 vs 實際後果」——每次都記，讓大腦看到數據</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="bk">
+    <h3>🚧 實現 I3（道德重新定位）</h3>
+    <table>
+      <thead><tr><th>障礙</th><th>中間目標（IO）</th></tr></thead>
+      <tbody>
+        <tr><td>質疑舊道德框架會引發罪惡感</td><td>先從「歷史化」入手——把這些觀念放回它們誕生的歷史脈絡，理解為什麼合理（接納），再問它現在是否還適用（重估）</td></tr>
+        <tr><td>不知道新的道德框架是什麼</td><td>從「我能為誰創造什麼價值」開始，每天問一次，讓它成為習慣性的自我詢問</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- STEP 10: TrT -->
+<section id="s10">
+  <h2 class="st"><span class="step-num">10</span>TrT｜行動計畫（轉換樹）</h2>
+  <div class="sh">第一週：識別與命名（不改變行動，只改變看法）</div>
+  <table>
+    <thead><tr><th>行動</th><th>目的</th><th>成功標準</th></tr></thead>
+    <tbody>
+      <tr><td>列出你日常中的「稳态生存逻辑」表現——你因為「別人這樣做」而做的三件事</td><td>讓制約可見</td><td>有一個具體清單，不是模糊感覺</td></tr>
+      <tr><td>對每件事問：「如果沒有群體壓力，我會怎麼選？」</td><td>打開選擇空間</td><td>至少一個答案和現在的行為不同</td></tr>
+      <tr><td>找一個你認識的「能動者」（可以是現實或書中人物），研究他/她做了什麼不同的事</td><td>建立參照點</td><td>有一個具體的反例可以參考</td></tr>
+    </tbody>
+  </table>
+  <div class="sh">第一個月：小賭博實驗（I2 落地）</div>
+  <div class="hl bl">
+    選出一個「最小代價的不從眾」行動，在一個月內每週執行一次。<br>
+    每次執行後記錄：<strong>預期最壞情況 → 實際後果 → 差距</strong>。<br>
+    一個月後回顧：你的風險評估是否改變了？
+  </div>
+  <div class="sh">三個月：群體結構調整（I1 落地）</div>
+  <div class="hl gr">
+    找到並加入一個新的社群（線上或線下），這個社群的成員對「冒險、出頭、創造波動」有正面態度。<br>
+    在那裡輸出你的想法（不只是消費），讓自己成為那個群體的一部分。
+  </div>
+  <div class="sh">半年：道德框架重建（I3 落地）</div>
+  <div class="hl pu">
+    每週問一次：「這週我幫誰解決了什麼問題？」<br>
+    半年後回顧：你的「對錯標準」有沒有從「聽不聽話」移動到「創不創造價值」？<br>
+    這是 I3 的成功標準。
+  </div>
+
+  <div class="bk" style="margin-top:20px">
+    <h3>📌 TOC 五聚焦步驟回顧</h3>
+    <table>
+      <thead><tr><th>步驟</th><th>在「能動」這篇文章的應用</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1. 識別制約</strong></td><td>最大制約 = 稳态生存逻辑被道德化（政策制約）</td></tr>
+        <tr><td><strong>2. 充分利用制約</strong></td><td>在不正面對抗舊道德的前提下，找到道德框架的邊緣地帶開始行動</td></tr>
+        <tr><td><strong>3. 其他遷就制約</strong></td><td>在舊群體裡維持基本表面儀式，不讓舊制約反彈干擾</td></tr>
+        <tr><td><strong>4. 提升制約</strong></td><td>I1 + I2 + I3 三個注入解逐步執行，提升能動性容量</td></tr>
+        <tr><td><strong>5. 回到 Step 1</strong></td><td>能動性提升後，新的制約可能出現（複雜思維模型不足、資本不足等），重新識別</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="hl re" style="margin-top:16px">
+    <strong>⚠️ TOC 最終提醒：</strong><br>
+    這份分析的 UDE 和因果鏈都來自文章本身，尚未對應你個人的真實情境。<br>
+    帶著這份分析，找出你自己的「稳态生存逻辑在哪裡最強」——那才是你個人系統的真正制約。
+  </div>
+</section>
+
+<footer>
+  <div>🐉 龍龍 × TOC 十步深度分析系統</div>
+  <p style="margin-top:6px">能動 × 限制理論 | IO Map → CRT → EC → FRT → PrT → TrT</p>
+</footer>
+
+</div>
+</body>
+</html>
