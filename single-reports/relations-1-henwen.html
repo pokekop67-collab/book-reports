@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>恆溫關係 × 三階段深讀報告</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rose: #D4849A;
+    --lavender: #9B7EC8;
+    --rose-light: #F5D5DE;
+    --lavender-light: #D8CCEF;
+    --sage: #8BA888;
+    --warm-white: #FFF9F5;
+    --card-bg: rgba(255, 255, 255, 0.75);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #FFF5F7 0%, #F8F0FF 40%, #F0F5FF 70%, #FFF5F0 100%);
+    min-height: 100vh;
+    color: #3D2B3D;
+    line-height: 1.8;
+    padding: 2rem 1rem;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; }
+
+  /* Header */
+  .book-header {
+    text-align: center;
+    padding: 3rem 2rem 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .book-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--rose), var(--lavender));
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    margin-bottom: 1.2rem;
+  }
+
+  .book-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 2.8rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--rose), var(--lavender));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+  }
+
+  .book-subtitle {
+    font-size: 1.1rem;
+    color: #7A6A8A;
+    font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  .book-meta {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    font-size: 0.85rem;
+    color: #9A8AAA;
+  }
+
+  .book-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  /* Phase Labels */
+  .phase-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.5rem;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 1.5rem;
+  }
+
+  .phase-1 { background: linear-gradient(135deg, #FFE0E8, #FFD0DC); color: #C0607A; }
+  .phase-2 { background: linear-gradient(135deg, #E8E0FF, #D8CCEF); color: #6A4A9A; }
+  .phase-3 { background: linear-gradient(135deg, #D0F0E8, #C0E8D8); color: #3A8A6A; }
+
+  /* Section Headers */
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  /* Cards */
+  .card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 4px 24px rgba(150, 100, 180, 0.08);
+  }
+
+  .card-accent-rose {
+    border-left: 4px solid var(--rose);
+  }
+
+  .card-accent-lavender {
+    border-left: 4px solid var(--lavender);
+  }
+
+  .card-accent-sage {
+    border-left: 4px solid var(--sage);
+  }
+
+  /* Phase sections */
+  .phase-section {
+    margin-bottom: 3rem;
+  }
+
+  .phase-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem 2rem;
+    border-radius: 24px;
+  }
+
+  .phase-1-header { background: linear-gradient(135deg, rgba(255,200,215,0.4), rgba(255,220,235,0.3)); }
+  .phase-2-header { background: linear-gradient(135deg, rgba(200,180,255,0.4), rgba(220,205,255,0.3)); }
+  .phase-3-header { background: linear-gradient(135deg, rgba(180,230,200,0.4), rgba(200,240,220,0.3)); }
+
+  .phase-icon {
+    font-size: 2rem;
+  }
+
+  .phase-header-text h2 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+  }
+
+  .phase-header-text p {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin-top: 0.2rem;
+  }
+
+  /* Concept Cards */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .concept-card {
+    background: rgba(255,255,255,0.8);
+    border-radius: 18px;
+    padding: 1.3rem;
+    border: 1px solid rgba(255,255,255,0.9);
+  }
+
+  .concept-number {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--rose);
+    margin-bottom: 0.5rem;
+  }
+
+  .concept-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #3D2B4D;
+  }
+
+  .concept-desc {
+    font-size: 0.88rem;
+    color: #6A5A7A;
+    line-height: 1.7;
+  }
+
+  /* Quote */
+  .quote-box {
+    background: linear-gradient(135deg, rgba(212,132,154,0.12), rgba(155,126,200,0.12));
+    border-radius: 20px;
+    padding: 1.8rem 2rem;
+    margin: 1.5rem 0;
+    border-left: 4px solid var(--rose);
+    position: relative;
+  }
+
+  .quote-mark {
+    font-size: 4rem;
+    line-height: 0;
+    color: var(--rose);
+    opacity: 0.3;
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+  }
+
+  .quote-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.1rem;
+    font-style: italic;
+    color: #4A3A5A;
+    line-height: 1.8;
+    padding-left: 1rem;
+  }
+
+  /* Lists */
+  .styled-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .styled-list li {
+    padding: 0.7rem 0 0.7rem 2rem;
+    position: relative;
+    border-bottom: 1px solid rgba(150,100,180,0.08);
+    font-size: 0.93rem;
+    color: #5A4A6A;
+    line-height: 1.7;
+  }
+
+  .styled-list li:last-child { border-bottom: none; }
+
+  .styled-list li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    color: var(--rose);
+    font-size: 0.7rem;
+    top: 0.95rem;
+  }
+
+  .styled-list.lavender li::before { color: var(--lavender); }
+  .styled-list.sage li::before { color: var(--sage); content: '◆'; }
+
+  /* Tag chips */
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .tag {
+    background: rgba(212,132,154,0.15);
+    color: #A0507A;
+    border-radius: 50px;
+    padding: 0.3rem 0.9rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid rgba(212,132,154,0.3);
+  }
+
+  .tag.lavender {
+    background: rgba(155,126,200,0.15);
+    color: #6040A0;
+    border-color: rgba(155,126,200,0.3);
+  }
+
+  /* Action box */
+  .action-box {
+    background: linear-gradient(135deg, rgba(180,230,200,0.2), rgba(200,240,220,0.15));
+    border-radius: 20px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    border: 1px solid rgba(138,168,136,0.3);
+  }
+
+  .action-title {
+    font-weight: 700;
+    color: var(--sage);
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  /* Gold card for key insight */
+  .gold-card {
+    background: linear-gradient(135deg, rgba(255,220,150,0.3), rgba(255,200,100,0.15));
+    border-radius: 20px;
+    padding: 1.8rem;
+    border: 1px solid rgba(220,170,50,0.3);
+    text-align: center;
+  }
+
+  .gold-card .label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #B08020;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.8rem;
+  }
+
+  .gold-card .insight {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #7A5010;
+    line-height: 1.6;
+  }
+
+  /* 30-day grid */
+  .week-grid {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .week-card {
+    background: rgba(255,255,255,0.7);
+    border-radius: 18px;
+    padding: 1.2rem 1.5rem;
+    border-left: 4px solid;
+  }
+
+  .week-card:nth-child(1) { border-color: #F4A0B5; }
+  .week-card:nth-child(2) { border-color: #B4A0D4; }
+  .week-card:nth-child(3) { border-color: #A0C4B0; }
+  .week-card:nth-child(4) { border-color: #F4C4A0; }
+
+  .week-label {
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.7rem;
+  }
+
+  .week-card:nth-child(1) .week-label { color: #C06080; }
+  .week-card:nth-child(2) .week-label { color: #7050A8; }
+  .week-card:nth-child(3) .week-label { color: #408060; }
+  .week-card:nth-child(4) .week-label { color: #C08020; }
+
+  .week-task {
+    font-size: 0.88rem;
+    color: #5A4A6A;
+    line-height: 1.7;
+  }
+
+  .week-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.8rem;
+    font-size: 0.8rem;
+    color: var(--sage);
+    font-weight: 600;
+  }
+
+  /* Warning/blindspot box */
+  .warning-box {
+    background: rgba(255,200,200,0.2);
+    border: 1px solid rgba(200,100,100,0.25);
+    border-radius: 18px;
+    padding: 1.3rem 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .warning-title {
+    font-weight: 700;
+    color: #B06060;
+    font-size: 0.9rem;
+    margin-bottom: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  /* footer */
+  .report-footer {
+    text-align: center;
+    padding: 2rem;
+    color: #9A8AAA;
+    font-size: 0.8rem;
+    border-top: 1px solid rgba(150,100,180,0.1);
+    margin-top: 3rem;
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(150,100,180,0.2), transparent);
+    margin: 2rem 0;
+  }
+
+  /* Summary bar */
+  .summary-bar {
+    background: linear-gradient(135deg, var(--rose), var(--lavender));
+    border-radius: 20px;
+    padding: 1.8rem 2rem;
+    color: white;
+    margin-bottom: 1.5rem;
+  }
+
+  .summary-bar h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    opacity: 0.9;
+  }
+
+  .summary-bar p {
+    font-size: 0.93rem;
+    line-height: 1.8;
+    opacity: 0.92;
+  }
+
+  .controversy-box {
+    background: rgba(255,210,180,0.2);
+    border: 1px solid rgba(220,140,80,0.25);
+    border-radius: 18px;
+    padding: 1.3rem 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .controversy-title {
+    font-weight: 700;
+    color: #A06030;
+    font-size: 0.9rem;
+    margin-bottom: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  @media (max-width: 600px) {
+    .book-title { font-size: 2rem; }
+    .concept-grid { grid-template-columns: 1fr; }
+    .card { padding: 1.3rem; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="book-header">
+    <div class="book-badge">📖 AI 書僮 2.0 × 三階段深讀報告</div>
+    <h1 class="book-title">恆溫關係</h1>
+    <p class="book-subtitle">讓愛維持恆溫的關係科學</p>
+    <div class="book-meta">
+      <span>👥 作者：John Gottman & Julie Schwartz Gottman</span>
+      <span>🔬 主題：婚姻關係科學</span>
+      <span>📅 報告日期：2026.03.19</span>
+    </div>
+  </div>
+
+  <!-- ==================== 第一階段 ==================== -->
+  <div class="phase-section">
+    <div class="phase-header phase-1-header">
+      <div class="phase-icon">🔬</div>
+      <div class="phase-header-text">
+        <h2>第一階段：書本深讀</h2>
+        <p>架構解析 × 核心主張 × 關鍵觀念 × 底層假設 × 盲點爭議</p>
+      </div>
+    </div>
+
+    <!-- 全書摘要 -->
+    <div class="card card-accent-rose">
+      <div class="phase-label phase-1">📋 全書摘要</div>
+      <p style="font-size:0.93rem; color:#5A4A6A; line-height:1.8; margin-bottom:1rem;">
+        高特曼夫妻檔花了數十年在「愛的實驗室」研究超過 3,000 對夫妻，追蹤部分個案長達 20 年。他們用科學數據和數學模型，預測一對伴侶是否能幸福廝守。
+      </p>
+      <p style="font-size:0.93rem; color:#5A4A6A; line-height:1.8; margin-bottom:1rem;">
+        本書的核心結構是一個「七天行動計畫」，每天聚焦一個建立健康關係的核心元素：好奇心（了解伴侶的內心世界）、讚賞與欽佩、轉向而非轉身離開、連結的爭取（Bids for Connection）、衝突管理、共同意義建構、親密感的維持。
+      </p>
+      <p style="font-size:0.93rem; color:#5A4A6A; line-height:1.8;">
+        全書最震撼的洞見是：<strong style="color:#C0607A;">愛情的敗壞不是因為大爭吵，而是因為日常小事的漠視與輕視。</strong>愛情需要的是每天幾秒鐘的小動作——一個吻、一個問候、一句讚美——而非情人節花束或巴黎之旅。
+      </p>
+    </div>
+
+    <!-- 作者核心主張 -->
+    <div class="card">
+      <div class="phase-label phase-1">💡 作者核心主張</div>
+      <div class="summary-bar">
+        <h3>一句話總結：</h3>
+        <p>愛不只是感覺，更是每天主動實踐的行為；關係的好壞，決定於無數細小日常的累積，而非少數重大時刻。透過科學方法可以預測、建立、修復愛情。</p>
+      </div>
+      <ul class="styled-list">
+        <li>他們能以 <strong>90% 的準確度</strong>預測一對伴侶是否會分手，僅憑 15 分鐘的互動觀察</li>
+        <li>成功伴侶的差別不在「有沒有衝突」，而在「如何修復衝突」</li>
+        <li>愛的地圖（Love Maps）——對伴侶內心世界的了解深度——是關係品質的核心指標</li>
+        <li>「連結的爭取」（Bids for Connection）若長期被忽視，是關係崩解最主要的起因</li>
+      </ul>
+    </div>
+
+    <!-- 5-8個關鍵觀念 -->
+    <div class="card">
+      <div class="phase-label phase-1">🗝️ 最重要的 7 個關鍵觀念</div>
+      <div class="concept-grid">
+        <div class="concept-card">
+          <div class="concept-number">KEY 01</div>
+          <div class="concept-title">愛的地圖（Love Maps）</div>
+          <div class="concept-desc">對伴侶的內心世界保持好奇——他們的夢想、恐懼、喜好、日常——是所有親密的基礎。成功伴侶不斷更新彼此的「愛的地圖」。</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-number">KEY 02</div>
+          <div class="concept-title">連結的爭取（Bids for Connection）</div>
+          <div class="concept-desc">每次伴侶試圖建立連結（問問題、分享故事、尋求安慰），都是一次「爭取」。你的回應是「面對、轉身、或對抗」決定了關係走向。</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-number">KEY 03</div>
+          <div class="concept-title">欽佩與讚賞系統</div>
+          <div class="concept-desc">主動找到並大聲說出伴侶令你欽佩的地方，不能假設對方「知道」你愛他。讚賞是關係的氧氣，而非可有可無的點心。</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-number">KEY 04</div>
+          <div class="concept-title">關係的四騎士（反面教材）</div>
+          <div class="concept-desc">蔑視（Contempt）、批評（Criticism）、防禦（Defensiveness）、築牆（Stonewalling）是預測關係崩解最準確的四個指標，其中蔑視最致命。</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-number">KEY 05</div>
+          <div class="concept-title">小事才是大事</div>
+          <div class="concept-desc">關係的品質由無數芝麻小事累積而成：每天早晨的告別之吻、下班後的問候、睡前的對話。忽略小事等於慢慢拆解關係的基礎。</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-number">KEY 06</div>
+          <div class="concept-title">衝突管理而非解決</div>
+          <div class="concept-desc">69% 的伴侶衝突是「永久性問題」——無法解決，只能管理。成功伴侶學會帶著差異共存，而不執著於「誰對誰錯」。</div>
+        </div>
+        <div class="concept-card">
+          <div class="concept-number">KEY 07</div>
+          <div class="concept-title">共同意義與儀式感</div>
+          <div class="concept-desc">建立屬於兩人的故事、傳統、儀式和夢想，是創造深層親密感的方式。關係需要共同的意義系統，不只是日常功能性的分工。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 底層假設 -->
+    <div class="card card-accent-lavender">
+      <div class="phase-label phase-1" style="background: linear-gradient(135deg, #E8E0FF, #D8CCEF); color: #6A4A9A;">🔍 隱含但未明說的底層假設</div>
+      <ul class="styled-list lavender">
+        <li>假設「愛情是可以被科學化測量的」——即愛情有客觀可測的指標，而非純主觀的感受</li>
+        <li>假設雙方都有意願且有能力學習和改變，即關係困境是「技能問題」而非「本質問題」</li>
+        <li>假設異質婚姻（傳統伴侶關係）的研究結果可以普遍套用到所有關係類型</li>
+        <li>假設情緒健康的人可以有意識地選擇「面對」而非「逃避」——但若有創傷或依戀障礙呢？</li>
+        <li>假設衝突本身是中性的，關鍵只在「如何吵」——但某些關係中衝突本身就是不對等權力結構的展現</li>
+      </ul>
+    </div>
+
+    <!-- 盲點與爭議 -->
+    <div class="warning-box">
+      <div class="warning-title">⚠️ 作者可能的盲點或爭議點</div>
+      <ul class="styled-list" style="margin-top:0;">
+        <li>研究樣本以西方中產階級異性戀夫妻為主，跨文化適用性存疑</li>
+        <li>「七天計畫」的框架有過度簡化複雜關係動態的風險</li>
+        <li>研究以觀察為主，因果關係難以確立——快樂伴侶是因為做了這些行為而快樂，還是因為快樂才更容易做這些行為？</li>
+        <li>對「愛的意志」的強調可能忽略結構性問題：工作壓力、貧困、身心障礙等外部因素同樣影響關係品質</li>
+        <li>有研究者指出高特曼的預測準確率在獨立複製時有所降低</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ==================== 第二階段 ==================== -->
+  <div class="phase-section">
+    <div class="phase-header phase-2-header">
+      <div class="phase-icon">🌐</div>
+      <div class="phase-header-text">
+        <h2>第二階段：公眾認知萃取</h2>
+        <p>大眾記住了什麼 × 最常被引用 × 最常被誤解 × 最有爭議</p>
+      </div>
+    </div>
+
+    <div class="card card-accent-lavender">
+      <div class="phase-label phase-2">🎯 大眾記住了什麼</div>
+      <ul class="styled-list lavender">
+        <li>「四騎士」（蔑視、批評、防禦、築牆）——這是被引用最廣的概念，幾乎等同高特曼的代名詞</li>
+        <li>「6 秒鐘的吻」「愛的存款」等行為建議被大量轉傳於社群媒體</li>
+        <li>「高特曼能在 15 分鐘內預測離婚率」這個說法廣泛流傳，帶來大量媒體關注</li>
+        <li>《Eight Dates》（本書英文名）作為提升伴侶對話深度的工具書，廣受婚姻治療師推薦</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="phase-label phase-2">💬 最常被引用的觀點</div>
+      <div class="quote-box">
+        <div class="quote-mark">"</div>
+        <div class="quote-text">成功婚姻的祕密不在於找到完美的伴侶，而在於不斷選擇你已擁有的那個人。愛是一個動詞，不只是名詞。</div>
+      </div>
+      <ul class="styled-list lavender">
+        <li>蔑視（Contempt）是關係的最大殺手——遠比爭吵本身更危險</li>
+        <li>正向與負向互動的「5:1黃金比例」——幸福伴侶的正向互動是負向的五倍</li>
+        <li>「連結的爭取」——每一次微小的連結嘗試都攸關關係的存亡</li>
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="phase-label phase-2">🌀 最常被誤解 & 最有爭議的部分</div>
+      <div class="controversy-box">
+        <div class="controversy-title">🔶 最常被誤解</div>
+        <ul class="styled-list" style="margin-top:0">
+          <li>很多人以為「高特曼方法」是指「多讚美、少批評」——但真正的核心是「深度了解伴侶的內心世界」</li>
+          <li>以為「不衝突 = 好關係」——高特曼明確指出，衝突本身不是問題，迴避衝突才是</li>
+          <li>將「5:1比例」誤用為「每吵一次就要讚美五次」，忽略了這是整體關係質量的比率</li>
+        </ul>
+      </div>
+      <div class="warning-box" style="margin-top:1rem;">
+        <div class="warning-title">⚠️ 最有爭議</div>
+        <ul class="styled-list" style="margin-top:0">
+          <li>「離婚預測」的準確率在學術複製研究中有所爭議，部分學者質疑其方法論</li>
+          <li>書中建議的「約會話題」在台灣文化中有時顯得生硬，需本地化調整</li>
+          <li>西方個人主義框架對於集體主義文化中的伴侶關係適用性有限</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="phase-label phase-2">🎯 「這本書真正的核心被記住了嗎？」</div>
+      <div class="gold-card">
+        <div class="label">AI 書僮的判斷</div>
+        <div class="insight">❌ 只記住了表層。</div>
+        <p style="margin-top:1rem; font-size:0.9rem; color:#7A5010; line-height:1.7;">大眾記住的是「四騎士」和「6秒吻」這類具體技巧，卻忘了書的真正核心：<strong>「對伴侶保持持續的好奇心」</strong>才是一切的基礎。沒有深厚的愛的地圖，任何技術都只是表演，無法真正讓關係升溫。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 第三階段 ==================== -->
+  <div class="phase-section">
+    <div class="phase-header phase-3-header">
+      <div class="phase-icon">🌿</div>
+      <div class="phase-header-text">
+        <h2>第三階段：Rex 個人化轉化</h2>
+        <p>抗拒點 × 盲點 × 核心金句 × 即時行動 × 30天落地系統</p>
+      </div>
+    </div>
+
+    <!-- Rex 可能會抗拒的部分 -->
+    <div class="card card-accent-sage">
+      <div class="phase-label phase-3">🛡️ Rex 可能會抗拒的部分</div>
+      <ul class="styled-list sage">
+        <li><strong>「每天都要做小動作」</strong>——Rex 習慣戰略性佈局，對「日常小事」這種說法可能感到「太平凡、沒效率」</li>
+        <li><strong>「聊那些問題比工作更重要」</strong>——作為創業者，Rex 很容易讓事業擠掉關係的優先序，合理化自己「現在很忙」</li>
+        <li><strong>「衝突是親密的一部分」</strong>——人情經濟玩家傾向維持表面和諧，避免正面衝突破壞關係資本</li>
+        <li><strong>「愛的地圖需要持續更新」</strong>——Rex 可能以為「我很了解他/她」就夠了，忽略了伴侶每天都在改變</li>
+      </ul>
+    </div>
+
+    <!-- Rex 最容易忽略的部分 -->
+    <div class="card">
+      <div class="phase-label phase-3">👁️ Rex 最容易忽略的部分</div>
+      <div class="warning-box">
+        <div class="warning-title">⚠️ 最大盲點</div>
+        <p style="font-size:0.9rem; color:#8A4A4A; line-height:1.7;">
+          <strong>「連結的爭取被忽視的累積效應」</strong>——Rex 因忙碌可能長期「轉身」而非「面對」伴侶的微小連結爭取（一個「今天怎樣？」、一個輕碰肩膀）。每一次轉身都是一個小小的心傷，積累下來就是關係的雪崩。這是個不會立即爆炸、但緩慢致命的問題。
+        </p>
+      </div>
+      <ul class="styled-list sage" style="margin-top:1rem;">
+        <li>忽略欽佩表達——認為「對方應該知道」自己被欣賞，卻從來不說出口</li>
+        <li>把「不吵架」誤解為「關係好」——實際上可能只是雙方都在避免真實接觸</li>
+      </ul>
+    </div>
+
+    <!-- 核心金句 -->
+    <div class="gold-card" style="margin-bottom:1.5rem;">
+      <div class="label">Rex 的核心金句</div>
+      <div class="insight">「關係是最重要的事業，<br>每天的小投資，才是最大的複利。」</div>
+      <p style="margin-top:1rem; font-size:0.85rem; color:#7A5010;">— 對 Rex 說：你懂商業複利，關係也一樣。每天 5 分鐘的真實連結，勝過每年一次的大型道歉。</p>
+    </div>
+
+    <!-- 3個即時可行行動 -->
+    <div class="card">
+      <div class="phase-label phase-3">⚡ 3 個即時可行的行動（各 20 分鐘內完成）</div>
+      <div class="action-box">
+        <div class="action-title">🔥 行動 1：更新愛的地圖（10分鐘）</div>
+        <p style="font-size:0.88rem; color:#4A6A5A; line-height:1.7;">今晚問伴侶 3 個你真的不確定答案的問題——不是日常事務，而是「你現在最在意什麼？」「你最近有什麼夢想或擔心？」然後只聽，不評論、不解決。</p>
+      </div>
+      <div class="action-box">
+        <div class="action-title">💌 行動 2：具體說出欽佩（5分鐘）</div>
+        <p style="font-size:0.88rem; color:#4A6A5A; line-height:1.7;">找到伴侶今天做的一件具體小事，說出你欽佩的理由。不是「謝謝你」，而是「我很欽佩你能___，因為___。」具體、真誠、當面說。</p>
+      </div>
+      <div class="action-box">
+        <div class="action-title">🔄 行動 3：6秒吻實驗（20秒）</div>
+        <p style="font-size:0.88rem; color:#4A6A5A; line-height:1.7;">高特曼建議每天一次至少 6 秒的吻（不是忙碌告別吻）。今天就開始——這個簡單的肢體語言可以在神經層次重置伴侶的壓力系統。</p>
+      </div>
+    </div>
+
+    <!-- 30天落地練習 -->
+    <div class="card">
+      <div class="phase-label phase-3">📅 30 天落地練習系統</div>
+      <p style="font-size:0.88rem; color:#5A4A6A; margin-bottom:1.2rem; line-height:1.7;">每天 20 分鐘，不需要完美，只需要出現。每週一個主題，週末有檢核點。</p>
+      <div class="week-grid">
+        <div class="week-card">
+          <div class="week-label">第一週｜好奇心週（Day 1-7）</div>
+          <div class="week-task">每天選一個時間（晚餐後或睡前）問伴侶一個「愛的地圖問題」。書中有現成清單，或自己設計。目標：發現至少 5 個你不知道的事。</div>
+          <div class="week-check">✅ 週末檢核：你這週了解到什麼新鮮事？</div>
+        </div>
+        <div class="week-card">
+          <div class="week-label">第二週｜欽佩週（Day 8-14）</div>
+          <div class="week-task">每天至少一次具體說出欽佩。可以是文字訊息，但最好是當面說。同時開始注意自己是否在「轉向」還是「面對」伴侶的連結爭取。</div>
+          <div class="week-check">✅ 週末檢核：這週說了幾次欽佩？感覺如何？</div>
+        </div>
+        <div class="week-card">
+          <div class="week-label">第三週｜衝突管理週（Day 15-21）</div>
+          <div class="week-task">練習在下一次衝突中先「暫停」——在說話前做 20 分鐘的冷卻（研究顯示心率超過 100 時無法理性溝通）。事後複盤：是技能問題還是永久性差異？</div>
+          <div class="week-check">✅ 週末檢核：有沒有一次成功地暫停然後重啟？</div>
+        </div>
+        <div class="week-card">
+          <div class="week-label">第四週｜共同意義週（Day 22-30）</div>
+          <div class="week-task">設計一個屬於你們的新儀式——可以是週末早晨的咖啡時間、每月一次的戶外探索、睡前的一個感謝。讓它成為你們關係的品牌記憶。</div>
+          <div class="week-check">✅ 月底檢核：你們創造了什麼新的「我們的事」？</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="report-footer">
+    📖 AI 書僮 2.0 × 恆溫關係分析報告 ｜ 生成於 2026.03.19<br>
+    <span style="opacity:0.6; font-size:0.75rem;">本報告融合書本深讀、公眾認知萃取與個人化轉化三階段方法論</span>
+  </div>
+
+</div>
+</body>
+</html>
