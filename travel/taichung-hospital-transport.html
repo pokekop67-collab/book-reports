@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🚆 台中榮總就醫交通規劃</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-primary: #2D3436;
+      --text-secondary: #636E72;
+      --text-light: #B2BEC3;
+      --card-shadow: rgba(0, 0, 0, 0.08);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Noto Sans TC', -apple-system, sans-serif;
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--text-primary);
+      background: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container { max-width: 900px; margin: 0 auto; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 60px 40px 50px;
+      margin-bottom: 28px;
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(20px);
+      border-radius: 32px;
+      border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.07);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(102,126,234,0.15), transparent 70%);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -40px; left: -40px;
+      width: 160px; height: 160px;
+      background: radial-gradient(circle, rgba(240,147,251,0.15), transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-icon { font-size: 3.5rem; margin-bottom: 16px; display: block; }
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 500;
+      background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .hero .subtitle { font-size: 1.1rem; color: var(--text-secondary); font-weight: 300; }
+    .hero .meta { margin-top: 20px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .meta-pill {
+      background: rgba(102,126,234,0.1);
+      color: #667eea;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-size: 0.88rem;
+      font-weight: 400;
+      border: 1px solid rgba(102,126,234,0.2);
+    }
+
+    /* Cards */
+    .card {
+      background: rgba(255,255,255,0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+      padding: 36px 32px;
+      margin-bottom: 24px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.12); }
+
+    .section-title {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      margin-bottom: 22px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid rgba(102,126,234,0.12);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Stats */
+    .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 28px; }
+    .stat-mini {
+      background: rgba(255,255,255,0.8);
+      border-radius: 16px;
+      padding: 20px 16px;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    .stat-mini .num {
+      font-size: 1.9rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+    }
+    .stat-mini .lbl { font-size: 0.8rem; color: var(--text-light); margin-top: 4px; }
+
+    /* Recommendation */
+    .rec-box {
+      background: linear-gradient(135deg, rgba(102,126,234,0.07), rgba(240,147,251,0.07));
+      border-radius: 20px;
+      padding: 24px 28px;
+      border: 1px solid rgba(102,126,234,0.12);
+    }
+    .rec-box h3 { font-size: 1.05rem; font-weight: 500; color: #667eea; margin-bottom: 10px; }
+    .rec-box ul { padding-left: 20px; }
+    .rec-box li { margin-bottom: 8px; font-size: 0.93rem; color: var(--text-secondary); }
+    .rec-box li::marker { color: #667eea; }
+
+    /* Table */
+    .tbl-wrap { overflow-x: auto; border-radius: 16px; }
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      background: rgba(255,255,255,0.5);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    thead th {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      padding: 13px 14px;
+      font-weight: 400;
+      font-size: 0.88rem;
+      text-align: center;
+      letter-spacing: 0.03em;
+    }
+    thead th:first-child { text-align: left; }
+    tbody td {
+      padding: 13px 14px;
+      border-bottom: 1px solid rgba(0,0,0,0.04);
+      text-align: center;
+      font-size: 0.92rem;
+      vertical-align: middle;
+    }
+    tbody td:first-child { text-align: left; }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: rgba(102,126,234,0.04); }
+
+    /* Row styles */
+    .row-best td { background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(240,147,251,0.05)) !important; }
+    .row-ok td { background: rgba(135,206,235,0.06); }
+    .row-warn td { background: rgba(255,200,150,0.1); }
+
+    /* Badges */
+    .badge {
+      display: inline-block;
+      padding: 3px 11px;
+      border-radius: 12px;
+      font-size: 0.78rem;
+      font-weight: 400;
+    }
+    .badge-express { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+    .badge-local { background: rgba(135,206,235,0.3); color: #4a90c4; border: 1px solid rgba(135,206,235,0.5); }
+    .badge-fast { background: rgba(221,160,221,0.3); color: #9b59b6; border: 1px solid rgba(221,160,221,0.5); }
+    .badge-bus { background: rgba(46,213,115,0.2); color: #27ae60; border: 1px solid rgba(46,213,115,0.3); }
+    .badge-brt { background: rgba(255,165,2,0.2); color: #e67e22; border: 1px solid rgba(255,165,2,0.3); }
+
+    /* Times */
+    .time-dep { font-weight: 500; color: #667eea; font-size: 1rem; }
+    .time-arr { font-weight: 500; color: #764ba2; font-size: 1rem; }
+    .price { color: var(--text-secondary); font-size: 0.88rem; }
+
+    /* Warning box */
+    .warn-box {
+      background: rgba(255,200,100,0.1);
+      border-radius: 14px;
+      padding: 16px 20px;
+      border-left: 4px solid #f39c12;
+      margin-top: 18px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+    .info-box {
+      background: rgba(102,126,234,0.07);
+      border-radius: 14px;
+      padding: 16px 20px;
+      border-left: 4px solid #667eea;
+      margin-top: 18px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    /* Section divider */
+    .mode-divider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 28px 0 20px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+    .mode-divider::before, .mode-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(102,126,234,0.15);
+    }
+
+    /* Bus route pills */
+    .bus-routes { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+    .bus-pill {
+      background: rgba(255,255,255,0.9);
+      border: 1px solid rgba(102,126,234,0.2);
+      border-radius: 12px;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+    }
+    .bus-pill strong { color: #667eea; font-weight: 500; }
+    .bus-pill span { color: var(--text-secondary); font-size: 0.82rem; margin-left: 4px; }
+
+    /* Bus stop info */
+    .stop-info {
+      background: rgba(255,255,255,0.8);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin: 16px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+    .stop-icon { font-size: 1.6rem; flex-shrink: 0; margin-top: 2px; }
+    .stop-info h4 { font-size: 0.95rem; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+    .stop-info p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; }
+
+    /* Timeline */
+    .timeline { position: relative; padding-left: 28px; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 8px; top: 8px; bottom: 8px;
+      width: 2px;
+      background: linear-gradient(to bottom, #667eea, #f093fb);
+      border-radius: 1px;
+    }
+    .tl-item { position: relative; margin-bottom: 22px; }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-dot {
+      position: absolute;
+      left: -24px; top: 5px;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #667eea, #f093fb);
+      border: 2px solid white;
+      box-shadow: 0 2px 8px rgba(102,126,234,0.3);
+    }
+    .tl-dot.green { background: linear-gradient(135deg, #00b09b, #96c93d); }
+    .tl-time { font-size: 1.05rem; font-weight: 500; color: #667eea; margin-bottom: 2px; }
+    .tl-desc { color: var(--text-secondary); font-size: 0.92rem; }
+    .tl-note { font-size: 0.83rem; color: var(--text-light); margin-top: 2px; }
+
+    /* Comparison table note */
+    .note-text { font-size: 0.85rem; color: var(--text-light); margin-top: 16px; text-align: center; }
+
+    footer {
+      text-align: center;
+      padding: 32px;
+      color: var(--text-light);
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 600px) {
+      .hero { padding: 40px 20px; }
+      .hero h1 { font-size: 1.8rem; }
+      .card { padding: 24px 18px; }
+      .stat-row { gap: 10px; }
+      .stat-mini .num { font-size: 1.5rem; }
+      thead th, tbody td { padding: 10px 9px; font-size: 0.82rem; }
+    }
+
+    @media print {
+      body { background: white; padding: 0; }
+      .card { box-shadow: none; border: 1px solid #eee; page-break-inside: avoid; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <header class="hero">
+    <span class="hero-icon">🏥</span>
+    <h1>台中榮總就醫交通規劃</h1>
+    <p class="subtitle">苗栗出發 → 台中火車站 → 台中榮總（台灣大道四段 1650 號）</p>
+    <div class="meta">
+      <span class="meta-pill">📅 2026 年 3 月 23 日（一）</span>
+      <span class="meta-pill">⏰ 11:00 前插卡報到</span>
+      <span class="meta-pill">🚆 苗栗→台中 + 🚌/🚕 轉乘</span>
+    </div>
+  </header>
+
+  <!-- Quick Stats + Recommendation -->
+  <div class="card">
+    <div class="stat-row">
+      <div class="stat-mini">
+        <div class="num">32<span style="font-size:0.9rem">分</span></div>
+        <div class="lbl">火車最快車程</div>
+      </div>
+      <div class="stat-mini">
+        <div class="num">~25<span style="font-size:0.9rem">分</span></div>
+        <div class="lbl">計程車到榮總</div>
+      </div>
+      <div class="stat-mini">
+        <div class="num">~45<span style="font-size:0.9rem">分</span></div>
+        <div class="lbl">公車到榮總</div>
+      </div>
+    </div>
+
+    <div class="rec-box">
+      <h3>⭐ 龍龍推薦最佳組合</h3>
+      <ul>
+        <li>搭 <strong>自強(3000) 161</strong>（07:30 出發，08:03 到台中），只要 32 分鐘</li>
+        <li>到台中站後直接搭計程車，約 <strong>08:35 前後</strong>抵達台中榮總</li>
+        <li>距離 11 點報到有超過 <strong>85 分鐘緩衝</strong>，從容不迫</li>
+        <li>若想省錢搭公車：307 或 300幹線，約 45 分鐘，$20</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Train Schedule -->
+  <div class="card">
+    <h2 class="section-title">🚂 第一段：苗栗 → 台中（火車）</h2>
+    <p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:18px;">資料來源：台鐵官網 2026/03/23 實際時刻表</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>車種 / 車次</th>
+            <th>苗栗出發</th>
+            <th>台中抵達</th>
+            <th>車程</th>
+            <th>全票</th>
+            <th>訂票</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-ok">
+            <td><span class="badge badge-fast">區間快</span> 2005</td>
+            <td><span class="time-dep">07:09</span></td>
+            <td><span class="time-arr">07:57</span></td>
+            <td>48 分</td>
+            <td><span class="price">$114</span></td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-local">區間</span> 2123</td>
+            <td><span class="time-dep">07:24</span></td>
+            <td><span class="time-arr">08:25</span></td>
+            <td>61 分</td>
+            <td><span class="price">$114</span></td>
+            <td>—</td>
+          </tr>
+          <tr class="row-best">
+            <td><span class="badge badge-express">自強(3000)</span> 161 ⭐</td>
+            <td><span class="time-dep">07:30</span></td>
+            <td><span class="time-arr">08:03</span></td>
+            <td><strong>32 分</strong></td>
+            <td><span class="price">$177</span></td>
+            <td>✅ 需訂</td>
+          </tr>
+          <tr>
+            <td><span class="badge badge-local">區間</span> 2133</td>
+            <td><span class="time-dep">08:19</span></td>
+            <td><span class="time-arr">09:17</span></td>
+            <td>58 分</td>
+            <td><span class="price">$114</span></td>
+            <td>—</td>
+          </tr>
+          <tr class="row-ok">
+            <td><span class="badge badge-express">自強</span> 105</td>
+            <td><span class="time-dep">08:44</span></td>
+            <td><span class="time-arr">09:26</span></td>
+            <td>41 分</td>
+            <td><span class="price">$177</span></td>
+            <td>✅ 需訂</td>
+          </tr>
+          <tr class="row-warn">
+            <td><span class="badge badge-local">區間</span> 2143 ⚠️</td>
+            <td><span class="time-dep">09:22</span></td>
+            <td><span class="time-arr">10:19</span></td>
+            <td>57 分</td>
+            <td><span class="price">$114</span></td>
+            <td>—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Bus Section -->
+  <div class="card">
+    <h2 class="section-title">🚌 第二段：台中站 → 台中榮總（公車）</h2>
+    <p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:20px;">資料來源：Google Maps 路線規劃（台中市公車）</p>
+
+    <!-- Route 1: Best Bus -->
+    <div class="stop-info">
+      <div class="stop-icon">🟢</div>
+      <div>
+        <h4>路線 A｜最推薦公車 — 約 42 分鐘 · $20</h4>
+        <p>
+          <strong>搭車站牌：</strong>臺中車站(臺灣大道)——出火車站往右走約 2 分鐘（120 公尺）<br>
+          <strong>可搭路線：</strong>307 / 301 / 304 / 308副線 / 328<br>
+          <strong>下車站：</strong>福安(專用道)——約搭 23 分（15 站）<br>
+          <strong>下車後：</strong>步行約 17 分鐘（1.2 公里）至台中榮總<br>
+          <strong>班距：</strong>每 9 分鐘一班　<strong>票價：</strong>$20
+        </p>
+      </div>
+    </div>
+
+    <!-- Route 2: BRT -->
+    <div class="stop-info">
+      <div class="stop-icon">🟡</div>
+      <div>
+        <h4>路線 B｜臺灣大道幹線 — 約 49 分鐘 · $20</h4>
+        <p>
+          <strong>搭車站牌：</strong>臺中後火車站——需走到火車站後站（約 5 分鐘）<br>
+          <strong>可搭路線：</strong>300臺灣大道幹線 / 306 / 310<br>
+          <strong>下車後：</strong>步行約 25 分鐘至台中榮總<br>
+          <strong>班距：</strong>每 12 分鐘　<strong>票價：</strong>$20<br>
+          <strong>注意：</strong>下車後步行距離較長，不建議優先選擇
+        </p>
+      </div>
+    </div>
+
+    <!-- Route 3 -->
+    <div class="stop-info">
+      <div class="stop-icon">⚪</div>
+      <div>
+        <h4>路線 C｜其他路線 — 約 49–55 分鐘</h4>
+        <p>
+          <strong>可搭路線：</strong>324 / 323 / 325 / 308 / 45<br>
+          <strong>總車程：</strong>49–55 分鐘（含步行）<br>
+          <strong>適合：</strong>等不到 A 路線時的備用選項
+        </p>
+      </div>
+    </div>
+
+    <div class="info-box">
+      💡 <strong>公車 vs 計程車：</strong>公車雖然省錢（$20 vs $250–350），但需步行 17–25 分鐘才能到達榮總大門。若行動不便或趕時間，建議直接搭計程車到正門口。
+    </div>
+  </div>
+
+  <!-- Master Timing Table -->
+  <div class="card">
+    <h2 class="section-title">📊 完整到達時間對照表</h2>
+    <p style="color:var(--text-secondary);font-size:0.88rem;margin-bottom:18px;">含計程車與公車兩種接駁方式，一表對照</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>火車班次</th>
+            <th>台中到站</th>
+            <th>🚕 計程車<br><small style="font-weight:300;opacity:0.85">（約 25 分）</small></th>
+            <th>🚌 公車 307<br><small style="font-weight:300;opacity:0.85">（約 45 分）</small></th>
+            <th>距 11 點<br>（計程車）</th>
+            <th>建議</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="row-ok">
+            <td>區間快 2005（07:09出發）</td>
+            <td><span class="time-arr">07:57</span></td>
+            <td>約 08:30</td>
+            <td>約 08:50</td>
+            <td>2.5 小時</td>
+            <td>✅ 最早到</td>
+          </tr>
+          <tr class="row-best">
+            <td><strong>⭐ 自強 161（07:30出發）</strong></td>
+            <td><span class="time-arr">08:03</span></td>
+            <td><strong>約 08:35</strong></td>
+            <td>約 08:55</td>
+            <td>2.5 小時</td>
+            <td>⭐ 最推薦</td>
+          </tr>
+          <tr>
+            <td>區間 2123（07:24出發）</td>
+            <td><span class="time-arr">08:25</span></td>
+            <td>約 08:55</td>
+            <td>約 09:15</td>
+            <td>2 小時</td>
+            <td>✅ 很好</td>
+          </tr>
+          <tr>
+            <td>區間 2133（08:19出發）</td>
+            <td><span class="time-arr">09:17</span></td>
+            <td>約 09:50</td>
+            <td>約 10:10</td>
+            <td>70 分鐘</td>
+            <td>✅ 還行</td>
+          </tr>
+          <tr class="row-ok">
+            <td>自強 105（08:44出發）</td>
+            <td><span class="time-arr">09:26</span></td>
+            <td>約 10:00</td>
+            <td>約 10:20</td>
+            <td>60 分鐘</td>
+            <td>✅ 勉強OK</td>
+          </tr>
+          <tr class="row-warn">
+            <td>區間 2143（09:22出發）⚠️</td>
+            <td><span class="time-arr">10:19</span></td>
+            <td>約 10:50</td>
+            <td>⛔ 11:10</td>
+            <td>10 分鐘</td>
+            <td>❌ 太險</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="warn-box">
+      ⚠️ <strong>注意：公車搭到最晚只能是 08:44 出發的自強 105</strong>——10:20 才能到榮總，緩衝僅 40 分鐘。若塞車或走路慢，很容易踩線。搭公車的話，建議選 08:19 以前出發的火車。
+    </div>
+
+    <p class="note-text">計程車時間：台中站→台中榮總約 20–30 分鐘，NT$250–350　｜　公車時間：含等車、搭車、步行至榮總大門</p>
+  </div>
+
+  <!-- Recommended Plan (Taxi) -->
+  <div class="card">
+    <h2 class="section-title">🗓 推薦行程安排（計程車版）</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">07:20 前</div>
+        <div class="tl-desc">🏠 抵達苗栗火車站，購票候車</div>
+        <div class="tl-note">建議提前 10 分鐘到站</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">07:30</div>
+        <div class="tl-desc">🚆 自強(3000) 161 出發（$177，需提前訂票）</div>
+        <div class="tl-note">山線直達台中，32 分鐘最快</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">08:03</div>
+        <div class="tl-desc">🚉 抵達台中火車站</div>
+        <div class="tl-note">出站後叫計程車，直接說「台中榮總」</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">08:05</div>
+        <div class="tl-desc">🚕 搭計程車前往台中榮總（約 $280–350）</div>
+        <div class="tl-note">台灣大道四段 1650 號，約 20–30 分鐘</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot green"></div>
+        <div class="tl-time">08:35 前後</div>
+        <div class="tl-desc">🏥 抵達台中榮總，從容插卡報到</div>
+        <div class="tl-note">距 11 點還有 85+ 分鐘緩衝 ✨</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Recommended Plan (Bus) -->
+  <div class="card">
+    <h2 class="section-title">🗓 推薦行程安排（公車版）</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">07:20 前</div>
+        <div class="tl-desc">🏠 抵達苗栗火車站，購票候車</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">07:30</div>
+        <div class="tl-desc">🚆 自強(3000) 161 出發（建議最晚選這班）</div>
+        <div class="tl-note">搭公車需更多時間，火車越早越好</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">08:03</div>
+        <div class="tl-desc">🚉 抵達台中火車站</div>
+        <div class="tl-note">出站後往右走約 2 分鐘到「臺中車站(臺灣大道)」站牌</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">08:05–08:15</div>
+        <div class="tl-desc">🚌 搭 307 / 301 / 304 / 308副線 / 328 公車</div>
+        <div class="tl-note">每 9 分鐘一班，$20，搭 15 站（約 23 分）</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-time">08:28–08:38</div>
+        <div class="tl-desc">🛑 在「福安(專用道)」下車</div>
+        <div class="tl-note">步行約 17 分鐘（1.2 公里）前往台中榮總</div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot green"></div>
+        <div class="tl-time">08:50–09:00</div>
+        <div class="tl-desc">🏥 抵達台中榮總</div>
+        <div class="tl-note">距 11 點約有 2 小時緩衝，完全沒問題 ✨</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tips -->
+  <div class="card">
+    <h2 class="section-title">💡 小提醒</h2>
+    <ul style="padding-left: 22px; color: var(--text-secondary);">
+      <li style="margin-bottom:12px">🎫 <strong>自強號需要訂票</strong>——今天就用「台鐵 e 訂通」App 預訂，避免上車無位</li>
+      <li style="margin-bottom:12px">🚕 <strong>計程車最方便</strong>：出台中站後直接說「台中榮總」，司機都知道，約 $280–350</li>
+      <li style="margin-bottom:12px">🚌 <strong>搭公車省錢但要走路</strong>：下車後需步行 17 分鐘（1.2 公里）才到榮總大門，若行動不便請選計程車</li>
+      <li style="margin-bottom:12px">💳 <strong>健保卡</strong>記得帶，插卡報到用</li>
+      <li style="margin-bottom:12px">🌧 雨天或塞車都會影響公車時間，建議多抓 15 分鐘緩衝</li>
+      <li style="margin-bottom:0">📍 台中榮總地址：<strong>台中市西屯區台灣大道四段 1650 號</strong></li>
+    </ul>
+  </div>
+
+  <footer>
+    <p>🐉 龍龍 × 台鐵官方時刻表 × Google Maps 公車路線 • 2026/03/22 製作</p>
+    <p style="margin-top:4px;font-size:0.8rem">資料以台鐵官網及台中市公車動態為準，建議出發前再次確認班次</p>
+  </footer>
+
+</div>
+</body>
+</html>
