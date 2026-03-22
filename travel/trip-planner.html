@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🏥 台中榮總行程規劃器</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --purple: #667eea;
+      --pink: #f093fb;
+      --green: #00b09b;
+      --orange: #f39c12;
+      --red: #e74c3c;
+      --text: #2D3436;
+      --sub: #636E72;
+      --light: #B2BEC3;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+      font-weight: 300;
+      background: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+      min-height: 100vh;
+      padding: 32px 16px 60px;
+      color: var(--text);
+    }
+    .wrap { max-width: 680px; margin: 0 auto; }
+
+    /* Hero */
+    .hero {
+      text-align: center;
+      padding: 48px 32px 40px;
+      margin-bottom: 24px;
+      background: rgba(255,255,255,0.65);
+      backdrop-filter: blur(20px);
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.8);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.07);
+    }
+    .hero-icon { font-size: 3rem; display: block; margin-bottom: 12px; }
+    .hero h1 {
+      font-size: 2rem;
+      font-weight: 500;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+    .hero p { color: var(--sub); font-size: 0.95rem; }
+
+    /* Input Card */
+    .input-card {
+      background: rgba(255,255,255,0.8);
+      border-radius: 24px;
+      border: 1px solid rgba(255,255,255,0.6);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.07);
+      padding: 32px 28px;
+      margin-bottom: 24px;
+    }
+    .input-label {
+      font-size: 0.88rem;
+      font-weight: 500;
+      color: var(--sub);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      display: block;
+    }
+    .time-input-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .time-input {
+      flex: 1;
+      min-width: 160px;
+      padding: 16px 20px;
+      font-size: 2rem;
+      font-weight: 400;
+      font-family: 'Noto Sans TC', sans-serif;
+      border: 2px solid rgba(102,126,234,0.2);
+      border-radius: 16px;
+      background: rgba(255,255,255,0.9);
+      color: var(--purple);
+      text-align: center;
+      outline: none;
+      transition: border-color 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .time-input:focus { border-color: var(--purple); }
+    .calc-btn {
+      padding: 16px 28px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: white;
+      border: none;
+      border-radius: 16px;
+      font-size: 1.05rem;
+      font-weight: 500;
+      font-family: 'Noto Sans TC', sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+    }
+    .calc-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(102,126,234,0.35); }
+    .calc-btn:active { transform: translateY(0); }
+
+    .params {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .param-item {
+      background: rgba(102,126,234,0.06);
+      border-radius: 12px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .param-item .val { font-size: 1.3rem; font-weight: 500; color: var(--purple); }
+    .param-item .lbl { font-size: 0.75rem; color: var(--light); margin-top: 2px; }
+
+    /* Results */
+    #result { display: none; }
+    .result-card {
+      background: rgba(255,255,255,0.75);
+      backdrop-filter: blur(10px);
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.5);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.07);
+      padding: 28px 24px;
+      margin-bottom: 20px;
+      transition: transform 0.3s;
+    }
+    .result-card:hover { transform: translateY(-3px); }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid rgba(102,126,234,0.1);
+    }
+
+    /* Timeline */
+    .tl { position: relative; padding-left: 36px; }
+    .tl::before {
+      content: '';
+      position: absolute;
+      left: 10px; top: 6px; bottom: 6px;
+      width: 2px;
+      border-radius: 1px;
+    }
+    .tl-step { position: relative; margin-bottom: 18px; }
+    .tl-step:last-child { margin-bottom: 0; }
+    .tl-dot {
+      position: absolute;
+      left: -30px; top: 4px;
+      width: 16px; height: 16px;
+      border-radius: 50%;
+      border: 2.5px solid white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+    .tl-t {
+      font-size: 1.05rem;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .tl-d { font-size: 0.9rem; color: var(--sub); }
+    .tl-n { font-size: 0.8rem; color: var(--light); margin-top: 1px; }
+
+    /* Train options */
+    .train-option {
+      border-radius: 16px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      border: 1.5px solid transparent;
+      cursor: default;
+      transition: transform 0.2s;
+    }
+    .train-option:hover { transform: translateY(-2px); }
+    .train-option:last-child { margin-bottom: 0; }
+    .train-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+    .train-left { display: flex; align-items: center; gap: 8px; }
+    .badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 10px;
+      font-size: 0.75rem;
+      font-weight: 400;
+    }
+    .badge-express { background: linear-gradient(135deg,var(--purple),#764ba2); color: white; }
+    .badge-local { background: rgba(135,206,235,0.3); color: #4a90c4; border: 1px solid rgba(135,206,235,0.5); }
+    .badge-fast { background: rgba(221,160,221,0.3); color: #9b59b6; border: 1px solid rgba(221,160,221,0.5); }
+    .badge-ok { background: rgba(46,213,115,0.15); color: #27ae60; border: 1px solid rgba(46,213,115,0.3); font-size:0.8rem; padding: 2px 10px; border-radius: 10px; }
+    .badge-warn { background: rgba(243,156,18,0.15); color: #e67e22; border: 1px solid rgba(243,156,18,0.3); font-size:0.8rem; padding: 2px 10px; border-radius: 10px; }
+    .badge-danger { background: rgba(231,76,60,0.12); color: var(--red); border: 1px solid rgba(231,76,60,0.25); font-size:0.8rem; padding: 2px 10px; border-radius: 10px; }
+    .badge-best { background: linear-gradient(135deg,rgba(102,126,234,0.15),rgba(240,147,251,0.15)); color: var(--purple); border: 1px solid rgba(102,126,234,0.25); font-size:0.8rem; padding: 2px 10px; border-radius: 10px; }
+    .train-times { font-size: 1rem; color: var(--sub); }
+    .train-times .dep { color: var(--purple); font-weight: 500; }
+    .train-times .arr { color: #764ba2; font-weight: 500; }
+    .train-result {
+      background: rgba(255,255,255,0.7);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 0.88rem;
+      color: var(--sub);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .train-result .hosp { font-weight: 500; }
+    .train-result .deadline-ok { color: #27ae60; }
+    .train-result .deadline-warn { color: #e67e22; }
+    .train-result .deadline-no { color: var(--red); }
+
+    /* Transport tabs */
+    .transport-tabs { display: flex; gap: 10px; margin-bottom: 18px; flex-wrap: wrap; }
+    .t-tab {
+      flex: 1;
+      min-width: 120px;
+      background: rgba(255,255,255,0.8);
+      border-radius: 14px;
+      padding: 14px 16px;
+      text-align: center;
+      border: 1.5px solid rgba(102,126,234,0.15);
+      cursor: default;
+    }
+    .t-tab .t-icon { font-size: 1.6rem; margin-bottom: 4px; }
+    .t-tab .t-name { font-size: 0.82rem; color: var(--sub); }
+    .t-tab .t-time { font-size: 1.1rem; font-weight: 500; color: var(--purple); margin-top: 2px; }
+    .t-tab .t-price { font-size: 0.78rem; color: var(--light); }
+
+    /* Status banner */
+    .status-banner {
+      border-radius: 16px;
+      padding: 18px 22px;
+      margin-bottom: 20px;
+      font-size: 1rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .status-banner.ok { background: rgba(0,176,155,0.1); color: #009b86; border: 1.5px solid rgba(0,176,155,0.25); }
+    .status-banner.warn { background: rgba(243,156,18,0.1); color: #c0821a; border: 1.5px solid rgba(243,156,18,0.25); }
+    .status-banner.no { background: rgba(231,76,60,0.08); color: var(--red); border: 1.5px solid rgba(231,76,60,0.2); }
+    .status-icon { font-size: 1.5rem; flex-shrink: 0; }
+
+    /* No trains */
+    .no-train {
+      text-align: center;
+      padding: 32px;
+      color: var(--light);
+      font-size: 0.95rem;
+    }
+
+    /* Footer note */
+    .foot-note {
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--light);
+      margin-top: 8px;
+      padding: 0 16px;
+    }
+
+    /* Separator */
+    .sep {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--light);
+      letter-spacing: 0.08em;
+      margin: 6px 0 16px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 32px 16px 8px;
+      color: var(--light);
+      font-size: 0.82rem;
+    }
+  </style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- Hero -->
+  <header class="hero">
+    <span class="hero-icon">🏥</span>
+    <h1>台中榮總行程規劃器</h1>
+    <p>輸入從家出發的時間，自動算出全程時刻表</p>
+  </header>
+
+  <!-- Input -->
+  <div class="input-card">
+    <label class="input-label">⏰ 我從家出發的時間</label>
+    <div class="time-input-row">
+      <input type="time" class="time-input" id="departTime" value="07:00">
+      <button class="calc-btn" onclick="calculate()">🚀 開始規劃</button>
+    </div>
+
+    <div class="params">
+      <div class="param-item">
+        <div class="val">15<small style="font-size:0.8rem">分</small></div>
+        <div class="lbl">走到火車站</div>
+      </div>
+      <div class="param-item">
+        <div class="val">5<small style="font-size:0.8rem">分</small></div>
+        <div class="lbl">走到月台</div>
+      </div>
+      <div class="param-item">
+        <div class="val">11:00</div>
+        <div class="lbl">報到截止</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="result">
+
+    <!-- Status Banner -->
+    <div id="statusBanner" class="status-banner ok">
+      <span class="status-icon" id="statusIcon">✅</span>
+      <span id="statusText">可以準時到達！</span>
+    </div>
+
+    <!-- Step 1: Home → Station -->
+    <div class="result-card">
+      <div class="card-title">🏠 第一段：從家出發 → 苗栗火車站</div>
+      <div class="tl" id="tlHome">
+        <!-- JS inject -->
+      </div>
+    </div>
+
+    <!-- Step 2: Train Options -->
+    <div class="result-card">
+      <div class="card-title">🚂 第二段：苗栗 → 台中（可搭班次）</div>
+      <div id="trainOptions">
+        <!-- JS inject -->
+      </div>
+    </div>
+
+    <!-- Step 3: Taichung to Hospital -->
+    <div class="result-card" id="step3Card" style="display:none;">
+      <div class="card-title">🚕🚌 第三段：台中站 → 台中榮總</div>
+      <div class="transport-tabs" id="transportTabs">
+        <!-- JS inject -->
+      </div>
+      <div id="busTimeline">
+        <!-- JS inject -->
+      </div>
+    </div>
+
+    <p class="foot-note">時刻表資料：台鐵官網 2026/03/23 · 公車資料：Google Maps（台中市公車）<br>實際班次請出發前再確認</p>
+  </div>
+
+</div>
+
+<footer>🐉 龍龍製作 · 2026/03/22</footer>
+
+<script>
+// ── 資料 ──────────────────────────────────────
+const TRAINS = [
+  { type: '區間快', badge: 'fast', no: '2005', dep: '07:09', arr: '07:57', min: 48,  price: 114, booking: false },
+  { type: '區間',   badge: 'local', no: '2123', dep: '07:24', arr: '08:25', min: 61,  price: 114, booking: false },
+  { type: '自強(3000)', badge: 'express', no: '161',  dep: '07:30', arr: '08:03', min: 32,  price: 177, booking: true  },
+  { type: '區間',   badge: 'local', no: '2133', dep: '08:19', arr: '09:17', min: 58,  price: 114, booking: false },
+  { type: '自強',   badge: 'express', no: '105',  dep: '08:44', arr: '09:26', min: 41,  price: 177, booking: true  },
+  { type: '區間',   badge: 'local', no: '2143', dep: '09:22', arr: '10:19', min: 57,  price: 114, booking: false },
+];
+
+const WALK_HOME_TO_STATION = 15;   // 從家走到火車站
+const WALK_TO_PLATFORM     = 5;    // 走到月台
+const PLATFORM_BUFFER      = 3;    // 上車前緩衝
+const DEADLINE_MIN          = 11 * 60; // 11:00 → 660分
+
+// 台中站 → 台中榮總
+const TAXI_MIN   = 25; // 計程車
+const BUS_WALK1  = 2;  // 走到站牌
+const BUS_WAIT   = 9;  // 最長等車（每9分一班）
+const BUS_RIDE   = 23; // 搭車
+const BUS_WALK2  = 17; // 走到榮總
+
+// ── 工具函式 ──────────────────────────────────
+function toMin(hhmm) {
+  const [h, m] = hhmm.split(':').map(Number);
+  return h * 60 + m;
+}
+function toHHMM(min) {
+  const h = Math.floor(min / 60);
+  const m = min % 60;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}`;
+}
+function addMin(hhmm, delta) {
+  return toHHMM(toMin(hhmm) + delta);
+}
+function minUntilDeadline(arrMin) {
+  return DEADLINE_MIN - arrMin;
+}
+function deadlineLabel(arrMin) {
+  const diff = minUntilDeadline(arrMin);
+  if (diff >= 60) return { cls: 'deadline-ok', txt: `距 11:00 還有 ${Math.floor(diff/60)} 小時 ${diff%60} 分` };
+  if (diff >= 15) return { cls: 'deadline-warn', txt: `距 11:00 還有 ${diff} 分鐘` };
+  if (diff >= 0)  return { cls: 'deadline-no',  txt: `距 11:00 只剩 ${diff} 分鐘（非常緊！）` };
+  return { cls: 'deadline-no', txt: `超過 11:00 約 ${Math.abs(diff)} 分鐘 ❌` };
+}
+function dotColor(type) {
+  if (type === 'home') return '#667eea';
+  if (type === 'train') return '#764ba2';
+  if (type === 'done') return '#00b09b';
+  if (type === 'warn') return '#f39c12';
+  return '#667eea';
+}
+function makeDot(type) {
+  return `<div class="tl-dot" style="background:${dotColor(type)};"></div>`;
+}
+function makeStep(time, desc, note, dotType='home') {
+  return `<div class="tl-step">
+    ${makeDot(dotType)}
+    <div class="tl-t">${time}</div>
+    <div class="tl-d">${desc}</div>
+    ${note ? `<div class="tl-n">${note}</div>` : ''}
+  </div>`;
+}
+
+// ── Main calculate ────────────────────────────
+function calculate() {
+  const raw = document.getElementById('departTime').value;
+  if (!raw) return;
+
+  const departMin = toMin(raw);
+  const arrStationMin  = departMin + WALK_HOME_TO_STATION;
+  const arrPlatformMin = arrStationMin + WALK_TO_PLATFORM;
+  const readyMin       = arrPlatformMin + PLATFORM_BUFFER;
+
+  // 找可搭班次
+  const catchable = TRAINS.filter(t => toMin(t.dep) >= readyMin);
+
+  // ── 第一段時間軸 ──
+  let tlHtml = `<div class="tl" style="">`;
+  tlHtml += makeStep(toHHMM(departMin), '🏠 從家出發', '', 'home');
+  tlHtml += makeStep(toHHMM(arrStationMin), '🚉 抵達苗栗火車站', '走路 15 分鐘', 'home');
+  tlHtml += makeStep(toHHMM(arrPlatformMin), '🛤 走到月台', '站內步行 5 分鐘，稍作準備', 'home');
+  tlHtml += makeStep(toHHMM(readyMin), '✅ 最早可以搭乘的時刻', `${toHHMM(readyMin)} 以後出發的班次都可以搭`, 'train');
+  tlHtml += '</div>';
+  document.getElementById('tlHome').innerHTML = tlHtml;
+
+  // ── 第二段：可搭班次 ──
+  let trainHtml = '';
+  if (catchable.length === 0) {
+    trainHtml = `<div class="no-train">😢 此時間已無班次可搭，請提早出發</div>`;
+  } else {
+    catchable.forEach((t, i) => {
+      const arrMin = toMin(t.arr);
+      const taxiArrMin = arrMin + TAXI_MIN;
+      const busArrMin  = arrMin + BUS_WALK1 + BUS_WAIT + BUS_RIDE + BUS_WALK2;
+      const taxiDl = deadlineLabel(taxiArrMin);
+      const busDl  = deadlineLabel(busArrMin);
+
+      let statusBadge = '';
+      if (i === 0 && taxiArrMin < DEADLINE_MIN) statusBadge = '<span class="badge badge-best">⭐ 建議搭這班</span>';
+      else if (taxiArrMin < DEADLINE_MIN - 30) statusBadge = '<span class="badge badge-ok">✅ 充裕</span>';
+      else if (taxiArrMin < DEADLINE_MIN) statusBadge = '<span class="badge badge-warn">⚠️ 略緊</span>';
+      else statusBadge = '<span class="badge badge-danger">❌ 來不及</span>';
+
+      const bg = i === 0 
+        ? 'background:linear-gradient(135deg,rgba(102,126,234,0.08),rgba(240,147,251,0.06));border-color:rgba(102,126,234,0.2);'
+        : taxiArrMin >= DEADLINE_MIN 
+          ? 'background:rgba(231,76,60,0.05);border-color:rgba(231,76,60,0.15);'
+          : 'background:rgba(255,255,255,0.6);border-color:rgba(102,126,234,0.1);';
+
+      const waitMin = toMin(t.dep) - readyMin;
+      const waitTxt = waitMin <= 0 ? '立刻可以搭' : `等 ${waitMin} 分鐘後出發`;
+
+      trainHtml += `
+      <div class="train-option" style="${bg}">
+        <div class="train-header">
+          <div class="train-left">
+            <span class="badge badge-${t.badge}">${t.type}</span>
+            <strong>${t.no}</strong>
+            ${statusBadge}
+          </div>
+          <div style="font-size:0.82rem;color:var(--light);">${t.booking ? '📋 需訂票' : '🎫 可現買'}</div>
+        </div>
+        <div class="train-times">
+          <span class="dep">苗栗 ${t.dep}</span>
+          <span style="color:var(--light);margin:0 6px;">→</span>
+          <span class="arr">台中 ${t.arr}</span>
+          <span style="color:var(--light);font-size:0.85rem;margin-left:8px;">${t.min} 分 · $${t.price}</span>
+        </div>
+        <div style="font-size:0.8rem;color:var(--light);margin:4px 0 10px;">${waitTxt}</div>
+        <div class="train-result">
+          <span>🚕 計程車到榮總：<strong class="hosp">${toHHMM(taxiArrMin)}</strong></span>
+          <span class="${taxiDl.cls}">${taxiDl.txt}</span>
+          <span style="width:100%;border-top:1px solid rgba(0,0,0,0.05);padding-top:6px;">🚌 公車到榮總：<strong class="hosp">${toHHMM(busArrMin)}</strong>（含等車）</span>
+          <span class="${busDl.cls}">${busDl.txt}</span>
+        </div>
+      </div>`;
+    });
+  }
+  document.getElementById('trainOptions').innerHTML = trainHtml;
+
+  // ── 第三段：選最早那班算詳細流程 ──
+  if (catchable.length > 0) {
+    const best = catchable[0];
+    const arrTCMin = toMin(best.arr);
+
+    // Taxi timeline
+    const taxiDepMin  = arrTCMin + 2;
+    const taxiArrMin  = arrTCMin + TAXI_MIN;
+    const taxiDl      = deadlineLabel(taxiArrMin);
+
+    // Bus timeline
+    const busStop1Min = arrTCMin + BUS_WALK1;
+    const busDepMin   = busStop1Min + BUS_WAIT;
+    const busStop2Min = busDepMin + BUS_RIDE;
+    const busArrMin   = busStop2Min + BUS_WALK2;
+    const busDl       = deadlineLabel(busArrMin);
+
+    // Transport tabs
+    document.getElementById('transportTabs').innerHTML = `
+      <div class="t-tab">
+        <div class="t-icon">🚕</div>
+        <div class="t-name">計程車（推薦）</div>
+        <div class="t-time">約 25 分</div>
+        <div class="t-price">NT$280–350</div>
+      </div>
+      <div class="t-tab">
+        <div class="t-icon">🚌</div>
+        <div class="t-name">公車 307</div>
+        <div class="t-time">約 42–51 分</div>
+        <div class="t-price">NT$20</div>
+      </div>`;
+
+    // Detailed timelines
+    document.getElementById('busTimeline').innerHTML = `
+      <div style="font-size:0.82rem;font-weight:500;color:var(--sub);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:14px;">
+        以最早班次（${best.type} ${best.no}）抵達台中為例
+      </div>
+
+      <div style="font-size:0.9rem;font-weight:500;color:var(--purple);margin-bottom:10px;">🚕 計程車路線</div>
+      <div class="tl" style="margin-bottom:22px;">
+        ${makeStep(best.arr, `🚉 抵達台中火車站`, `搭 ${best.type} ${best.no}`, 'train')}
+        ${makeStep(toHHMM(taxiDepMin), '🚕 出站叫計程車', '直接說「台中榮總」，司機都知道', 'home')}
+        ${makeStep(toHHMM(taxiArrMin), `🏥 抵達台中榮總`, `<span class="${taxiDl.cls}">${taxiDl.txt}</span>`, 'done')}
+      </div>
+
+      <div class="sep">── ── ──</div>
+
+      <div style="font-size:0.9rem;font-weight:500;color:var(--purple);margin-bottom:10px;">🚌 公車路線（307 / 301 / 304 / 308副線 / 328）</div>
+      <div class="tl">
+        ${makeStep(best.arr, `🚉 抵達台中火車站`, `搭 ${best.type} ${best.no}`, 'train')}
+        ${makeStep(toHHMM(busStop1Min), '🦶 步行至公車站牌', '臺中車站(臺灣大道)，約 2 分鐘 · 120 公尺', 'home')}
+        ${makeStep(toHHMM(busDepMin), '🚌 搭公車出發（最晚班估算）', '307/301/304/308副線/328，每 9 分一班，$20', 'home')}
+        ${makeStep(toHHMM(busStop2Min), '🛑 在「福安(專用道)」下車', '約搭 23 分（15 站）', 'home')}
+        ${makeStep(toHHMM(busArrMin), `🏥 步行抵達台中榮總`, `<span class="${busDl.cls}">${busDl.txt}</span>`, 'done')}
+      </div>
+    `;
+    document.getElementById('step3Card').style.display = '';
+  }
+
+  // ── 總體狀態 ──
+  let overallOk = false;
+  let overallWarn = false;
+  if (catchable.length > 0) {
+    const best = catchable[0];
+    const taxiArr = toMin(best.arr) + TAXI_MIN;
+    if (taxiArr < DEADLINE_MIN - 30) overallOk = true;
+    else if (taxiArr < DEADLINE_MIN) overallWarn = true;
+  }
+
+  const banner = document.getElementById('statusBanner');
+  const icon   = document.getElementById('statusIcon');
+  const txt    = document.getElementById('statusText');
+  banner.className = 'status-banner';
+  if (catchable.length === 0) {
+    banner.classList.add('no');
+    icon.textContent = '❌';
+    txt.textContent = '這個時間已沒有班次可以準時到達，請提早出發！';
+  } else if (overallOk) {
+    banner.classList.add('ok');
+    icon.textContent = '✅';
+    const best = catchable[0];
+    const taxiArr = toMin(best.arr) + TAXI_MIN;
+    const diff = minUntilDeadline(taxiArr);
+    txt.textContent = `搭 ${best.type} ${best.no}（${best.dep} 出發），預計 ${toHHMM(taxiArr)} 到達榮總，距 11:00 還有 ${diff} 分鐘`;
+  } else if (overallWarn) {
+    banner.classList.add('warn');
+    icon.textContent = '⚠️';
+    const best = catchable[0];
+    const taxiArr = toMin(best.arr) + TAXI_MIN;
+    const diff = minUntilDeadline(taxiArr);
+    txt.textContent = `可以趕到，但時間較緊（差 ${diff} 分鐘）。建議搭計程車，不要搭公車`;
+  } else {
+    banner.classList.add('no');
+    icon.textContent = '❌';
+    txt.textContent = '以現有班次計算，計程車接駁也來不及在 11:00 前到達';
+  }
+
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// 預設計算一次
+window.addEventListener('load', () => calculate());
+</script>
+</body>
+</html>
