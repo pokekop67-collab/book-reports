@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒深度分析｜Building the Intentional University</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600&display=swap');
+:root{--p:#1a365d;--s:#2b6cb0;--a:#63b3ed;--bg:#f0f7ff;--card:#fff;--text:#2d3748;--m:#718096;--border:#bee3f8;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;}
+.hero{background:linear-gradient(135deg,#1a365d 0%,#2b6cb0 60%,#4299e1 100%);color:#fff;padding:60px 20px 100px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;width:500px;height:500px;background:rgba(255,255,255,.04);border-radius:50%;top:-150px;right:-100px;}
+.hero .book-tag{display:inline-block;background:rgba(255,255,255,.2);border-radius:999px;padding:5px 16px;font-size:.8rem;margin-bottom:16px;letter-spacing:.1em;}
+.hero h1{font-size:2rem;font-weight:900;margin-bottom:8px;font-family:'Noto Serif TC',serif;}
+.hero .subtitle{opacity:.85;font-size:.9rem;max-width:600px;margin:0 auto 20px;}
+.hero-meta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.hero-meta span{background:rgba(255,255,255,.15);border-radius:8px;padding:5px 14px;font-size:.8rem;}
+.toc{background:#fff;padding:16px;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.08);}
+.toc-inner{max-width:860px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.toc-label{font-weight:900;font-size:.8rem;color:var(--p);}
+.toc a{color:var(--m);text-decoration:none;font-size:.78rem;padding:3px 8px;border-radius:6px;transition:.2s;}
+.toc a:hover{background:#ebf8ff;color:var(--p);}
+.wrap{max-width:860px;margin:0 auto;padding:40px 16px 80px;}
+.step{margin-bottom:40px;}
+.step-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+.step-num{background:linear-gradient(135deg,var(--p),var(--s));color:#fff;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.88rem;flex-shrink:0;}
+.step-title{font-size:1.2rem;font-weight:900;font-family:'Noto Serif TC',serif;}
+.step-subtitle{font-size:.82rem;color:var(--m);margin-top:2px;}
+.card{background:#fff;border-radius:14px;padding:20px;margin-bottom:14px;box-shadow:0 2px 14px rgba(0,0,0,.06);border:1.5px solid var(--border);}
+.card-title{font-weight:900;font-size:.9rem;color:var(--p);margin-bottom:10px;}
+.item{display:flex;gap:10px;margin-bottom:8px;font-size:.88rem;line-height:1.7;align-items:flex-start;}
+.dot{width:8px;height:8px;background:var(--s);border-radius:50%;flex-shrink:0;margin-top:7px;}
+.h{background:linear-gradient(120deg,rgba(66,153,225,.25),rgba(66,153,225,.1));padding:2px 6px;border-radius:4px;font-weight:700;}
+.quote{font-family:'Noto Serif TC',serif;font-size:.92rem;line-height:1.8;color:#2c5282;background:#ebf8ff;border-left:4px solid var(--s);padding:14px 18px;border-radius:0 10px 10px 0;margin:10px 0;}
+.tag{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:700;margin:3px;}
+.tag-hc{background:#e2e8f0;color:#2d3748;}
+.tag-insight{background:#bee3f8;color:#2c5282;}
+.tag-domain{background:#c6f6d5;color:#276749;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.domain-card{background:var(--bg);border-radius:12px;padding:16px;border:2px solid var(--border);}
+.domain-card .d-title{font-weight:900;font-size:.92rem;color:var(--p);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+.domain-card .d-abbr{background:var(--p);color:#fff;padding:2px 8px;border-radius:4px;font-size:.75rem;font-family:monospace;}
+.principle-box{background:linear-gradient(135deg,#ebf8ff,#fff);border:1.5px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;}
+.principle-num{font-size:1.8rem;font-weight:900;color:var(--border);line-height:1;}
+.principle-title{font-weight:900;color:var(--p);font-size:.95rem;margin-bottom:4px;}
+.insight-box{background:#fff;border:2px solid var(--s);border-radius:14px;padding:18px;margin-bottom:12px;}
+.insight-num{font-size:2rem;font-weight:900;color:var(--border);}
+.insight-title{font-weight:900;font-size:1rem;color:var(--p);margin-bottom:6px;}
+.insight-body{font-size:.87rem;line-height:1.7;}
+.action-card{border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:4px solid;}
+.action-now{background:#f0fff4;border-color:#48bb78;}
+.action-week{background:#ebf8ff;border-color:#4299e1;}
+.action-month{background:#fffaf0;border-color:#f6ad55;}
+.missing{background:#fffaf0;border:1.5px dashed #f6ad55;border-radius:12px;padding:14px 16px;margin-bottom:10px;font-size:.87rem;}
+.missing-title{font-weight:900;color:#c05621;margin-bottom:6px;}
+.toc-table{width:100%;border-collapse:collapse;font-size:.82rem;}
+.toc-table th{background:var(--p);color:#fff;padding:8px 12px;text-align:left;}
+.toc-table td{padding:8px 12px;border-bottom:1px solid var(--border);vertical-align:top;}
+.toc-table tr:nth-child(even) td{background:#f7fbff;}
+@media(max-width:600px){.grid2{grid-template-columns:1fr;}.hero h1{font-size:1.5rem;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="book-tag">📚 書醒系統 11步深度分析</div>
+  <h1>Building the Intentional University<br>Minerva and the Future of Higher Education</h1>
+  <div class="subtitle">Edited by Stephen M. Kosslyn & Ben Nelson | MIT Press, 2017 | 457頁 | 27章</div>
+  <div class="hero-meta">
+    <span>🎓 學術論述型</span>
+    <span>🌐 英文原著</span>
+    <span>📖 高等教育改革宣言</span>
+    <span>⭐ 系統完整度：極高</span>
+  </div>
+</div>
+
+<div class="toc">
+  <div class="toc-inner">
+    <span class="toc-label">目錄：</span>
+    <a href="#s1">①資料卡</a>
+    <a href="#s2">②核心命題</a>
+    <a href="#s3">③主題分析</a>
+    <a href="#s4">④敘事弧線</a>
+    <a href="#s5">⑤整合洞見</a>
+    <a href="#s6">⑥缺席分析</a>
+    <a href="#s7">⑦AI視角</a>
+    <a href="#s8">⑧行動轉化</a>
+    <a href="#s9">⑨個人化</a>
+    <a href="#s10">⑩書庫卡片</a>
+    <a href="#s11">⑪一句話</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- Step 1 -->
+<div class="step" id="s1">
+  <div class="step-header">
+    <div class="step-num">01</div>
+    <div><div class="step-title">📚 書籍資料卡</div><div class="step-subtitle">基礎背景建立</div></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">📖 基本資訊</div>
+      <div class="item"><div class="dot"></div><div><strong>書名：</strong>Building the Intentional University</div></div>
+      <div class="item"><div class="dot"></div><div><strong>副標：</strong>Minerva and the Future of Higher Education</div></div>
+      <div class="item"><div class="dot"></div><div><strong>編者：</strong>Stephen M. Kosslyn & Ben Nelson；序言：Senator Bob Kerrey</div></div>
+      <div class="item"><div class="dot"></div><div><strong>出版：</strong>MIT Press, 2017</div></div>
+      <div class="item"><div class="dot"></div><div><strong>規模：</strong>457頁，27章，3大部分 + 附錄</div></div>
+      <div class="item"><div class="dot"></div><div><strong>類型：</strong>📖 學術研究型 × 💼 機構設計型</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">👥 核心編者</div>
+      <div class="item"><div class="dot"></div><div><strong>Stephen M. Kosslyn：</strong>哈佛心理學教授（認知神經科學），密涅瓦創校學術長，學習科學權威</div></div>
+      <div class="item"><div class="dot"></div><div><strong>Ben Nelson：</strong>密涅瓦大學創辦人，前 Snapfish CEO，教育改革實踐者</div></div>
+      <div class="item"><div class="dot"></div><div><strong>貢獻者：</strong>27位，涵蓋學術、行政、技術、心理健康等各域</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">📋 完整目錄結構</div>
+    <table class="toc-table">
+      <tr><th>章節</th><th>標題</th><th>作者</th></tr>
+      <tr><td>Foreword</td><td>Higher Education in the 21st Century</td><td>Senator Bob Kerrey</td></tr>
+      <tr><td>Preface</td><td>The Minerva Journey</td><td>Ben Nelson</td></tr>
+      <tr><td colspan="3" style="background:#1a365d;color:#fff;padding:8px 12px;font-weight:700;">Part I — What We Teach and Why</td></tr>
+      <tr><td>Ch.1</td><td>Why We Need a New Kind of Higher Education</td><td>Kosslyn & Nelson</td></tr>
+      <tr><td>Ch.2</td><td>Practical Knowledge</td><td>Kosslyn</td></tr>
+      <tr><td>Ch.3</td><td>Foundations of the Curriculum</td><td>Nelson & Kosslyn</td></tr>
+      <tr><td>Ch.4</td><td>A New Look at General Education</td><td>Fost</td></tr>
+      <tr><td>Ch.5</td><td>Multimodal Communications (MC)</td><td>Brown, Gardner, Levitin</td></tr>
+      <tr><td>Ch.6</td><td>Formal Analyses & Critical Thinking (FA)</td><td>Levitt, Holman et al.</td></tr>
+      <tr><td>Ch.7</td><td>Empirical Analyses & Creative Thinking (EA)</td><td>Gahl & Chandler</td></tr>
+      <tr><td>Ch.8</td><td>Complex Systems & Effective Interaction (CS)</td><td>Genone & Van Buskirk</td></tr>
+      <tr><td>Ch.9</td><td>A New Look at Majors & Concentrations</td><td>Chandler, Kosslyn, Genone</td></tr>
+      <tr><td colspan="3" style="background:#1a365d;color:#fff;padding:8px 12px;font-weight:700;">Part II — How We Teach</td></tr>
+      <tr><td>Ch.10</td><td>Unlearning to Learn</td><td>Kosslyn, Goldberg, Cannon</td></tr>
+      <tr><td>Ch.11</td><td>The Science of Learning</td><td>Kosslyn</td></tr>
+      <tr><td>Ch.12</td><td>Fully Active Learning</td><td>Fost, Levitt, Kosslyn</td></tr>
+      <tr><td>Ch.13</td><td>Team-Teaching & Structured Learning</td><td>Fost, Chandler et al.</td></tr>
+      <tr><td>Ch.14</td><td>Teaching from Lesson Plans</td><td>Chandler, Kosslyn et al.</td></tr>
+      <tr><td>Ch.15</td><td>The Active Learning Forum (ALF)</td><td>Katzman, Regan, Bader-Natal</td></tr>
+      <tr><td>Ch.16</td><td>Building Lesson Plans for 21st Century</td><td>Bader-Natal, Fost, Genone</td></tr>
+      <tr><td>Ch.17</td><td>Assessing Student Learning</td><td>Levitt, Bader-Natal, Chandler</td></tr>
+      <tr><td colspan="3" style="background:#1a365d;color:#fff;padding:8px 12px;font-weight:700;">Part III — Creating a New Institution</td></tr>
+      <tr><td>Ch.18-27</td><td>品牌、招生、文化融合、心理健康、商業模式、認證…</td><td>各負責人</td></tr>
+      <tr><td>Appendix A</td><td><strong>Habits of Mind and Foundational Concepts（完整HC清單）</strong></td><td>—</td></tr>
+      <tr><td>Appendix B</td><td>Mission, Principles, and Practices</td><td>—</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- Step 2 -->
+<div class="step" id="s2">
+  <div class="step-header">
+    <div class="step-num">02</div>
+    <div><div class="step-title">🎯 核心命題</div><div class="step-subtitle">問題 × 論點 × 方法</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">❓ 問題（核心挑戰）</div>
+    <div class="quote">How would you organize the structure of a university if you were to start from scratch today?<br><cite>— Senator Bob Kerrey, Foreword</cite></div>
+    <div class="item"><div class="dot"></div><div>全球領導者嚴重短缺，現有大學卻仍在重複幾百年前的教學模式</div></div>
+    <div class="item"><div class="dot"></div><div>大課演講 + 孤立式考試 → 知識無法遷移、無法持久</div></div>
+    <div class="item"><div class="dot"></div><div>傳統大學成本無限膨脹（校園建設、終身教職、行政膨脹），但教育成效沒有相應提升</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">💡 論點（核心主張）</div>
+    <div class="quote">真正有用的教育，應該從「第一原理」出發，以培養<strong>思考習慣（Habits of Mind）</strong>為核心，用<strong>完全主動學習</strong>取代被動演講，打造出真正能遷移、持久的學習成果。</div>
+  </div>
+  <div class="card">
+    <div class="card-title">🔬 方法論</div>
+    <div class="item"><div class="dot"></div><div><span class="tag tag-insight">第一原理法</span> 拒絕沿用傳統，每個設計都回歸「這樣做的理由是什麼？」</div></div>
+    <div class="item"><div class="dot"></div><div><span class="tag tag-insight">學習科學</span> Kosslyn 的認知神經科學：間隔重複、主動提取、轉移遷移</div></div>
+    <div class="item"><div class="dot"></div><div><span class="tag tag-insight">多人協作論述</span> 27位專家各自負責一個面向，形成完整系統</div></div>
+    <div class="item"><div class="dot"></div><div><span class="tag tag-insight">實踐驗證</span> 不只是理論，而是真正建起了一所大學來測試這些想法</div></div>
+  </div>
+</div>
+
+<!-- Step 3 -->
+<div class="step" id="s3">
+  <div class="step-header">
+    <div class="step-num">03</div>
+    <div><div class="step-title">📖 主題式分析</div><div class="step-subtitle">四大 HC 領域 + 教學設計核心</div></div>
+  </div>
+  
+  <div class="card">
+    <div class="card-title">🧭 四大 HC 領域（Appendix A 完整系統）</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div class="domain-card">
+        <div class="d-title"><span class="d-abbr">FA</span> Formal Analysis — 批判思考</div>
+        <div class="item"><div class="dot"></div><div>評估論據、識別前提、統計推論、貝葉斯思維</div></div>
+        <div class="item"><div class="dot"></div><div>HC標籤：#confidenceintervals #correlation #regression #bayes</div></div>
+        <div class="item"><div class="dot"></div><div>核心能力：知道「這個說法有多可信」</div></div>
+      </div>
+      <div class="domain-card">
+        <div class="d-title"><span class="d-abbr">EA</span> Empirical Analysis — 創意思考</div>
+        <div class="item"><div class="dot"></div><div>假說建立、研究設計、系統思維、創新解決</div></div>
+        <div class="item"><div class="dot"></div><div>HC標籤：#hypothesisdevelopment #systemsthinking #optimization</div></div>
+        <div class="item"><div class="dot"></div><div>核心能力：設計可驗證的解法</div></div>
+      </div>
+      <div class="domain-card">
+        <div class="d-title"><span class="d-abbr">MC</span> Multimodal Communication — 有效溝通</div>
+        <div class="item"><div class="dot"></div><div>清晰論點、受眾導向、非語言溝通、說服技術</div></div>
+        <div class="item"><div class="dot"></div><div>HC標籤：#thesis #organization #audience #cognitivepersuasion</div></div>
+        <div class="item"><div class="dot"></div><div>核心能力：任何形式都能精準傳達</div></div>
+      </div>
+      <div class="domain-card">
+        <div class="d-title"><span class="d-abbr">CS</span> Complex Systems — 有效互動</div>
+        <div class="item"><div class="dot"></div><div>談判、衝突解決、團隊領導、道德判斷、自我認知</div></div>
+        <div class="item"><div class="dot"></div><div>HC標籤：#negotiation #debatestrategy #emotionaliq #selfawareness</div></div>
+        <div class="item"><div class="dot"></div><div>核心能力：在複雜人際系統中有效行動</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚙️ 完全主動學習（Fully Active Learning）</div>
+    <div class="item"><div class="dot"></div><div><span class="h">100% 課程為研討課（Seminar）</span>，每班最多 19 人，無大課演講</div></div>
+    <div class="item"><div class="dot"></div><div>學生每堂課都必須積極參與——教授不只知道每個學生的名字，更知道他的學習狀況</div></div>
+    <div class="item"><div class="dot"></div><div><span class="h">主動提取記憶</span>（active retrieval）> 被動聆聽，學習科學實證遠更有效</div></div>
+    <div class="item"><div class="dot"></div><div>評量以 HC 為單位，持續性（formative）而非總結性（summative）</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">🌐 城市即校園（City as Campus）</div>
+    <div class="item"><div class="dot"></div><div>沒有固定校園，節省數億美元建設成本</div></div>
+    <div class="item"><div class="dot"></div><div>四年在 7 個城市（舊金山→首爾→孟買→柏林→布宜諾斯艾利斯→倫敦→台北），每城市一學期</div></div>
+    <div class="item"><div class="dot"></div><div>城市 = 最大的學習案例庫，沉浸式多文化學習</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📱 ALF — Active Learning Forum（核心技術）</div>
+    <div class="item"><div class="dot"></div><div>密涅瓦自建的線上同步學習平台，所有課都在此進行</div></div>
+    <div class="item"><div class="dot"></div><div>每堂課全程錄影，教授可回放分析學生的 HC 應用</div></div>
+    <div class="item"><div class="dot"></div><div>學生可在系統中追蹤自己每個 HC 的所有應用記錄 + 教授評語</div></div>
+    <div class="item"><div class="dot"></div><div>跨時區、跨城市，讓全球學生同步學習</div></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">💰 顛覆性商業模式（Ch.27）</div>
+    <div class="item"><div class="dot"></div><div>建設成本：不到傳統大學一棟大樓的造價，就達到完全自給自足</div></div>
+    <div class="item"><div class="dot"></div><div>避免的五大傳統成本：校園建設、體育設施、研究補貼、終身教職膨脹、行政無限擴張</div></div>
+    <div class="item"><div class="dot"></div><div>耶魯 1963年 15% A等→2013年 68% A等 = 學術膨脹的典型，密涅瓦不走這條路</div></div>
+  </div>
+</div>
+
+<!-- Step 4 -->
+<div class="step" id="s4">
+  <div class="step-header">
+    <div class="step-num">04</div>
+    <div><div class="step-title">📐 敘事弧線</div></div>
+  </div>
+  <div class="card">
+    <div class="item"><div class="dot"></div><div><strong>起點（問題）：</strong>高等教育用幾百年前的模式培育 21 世紀的領導者，這是根本性的錯配</div></div>
+    <div class="item"><div class="dot"></div><div><strong>願景（解方）：</strong>如果從零開始設計一所大學，每個決定都基於第一原理，結果會是什麼？</div></div>
+    <div class="item"><div class="dot"></div><div><strong>建構（How）：</strong>Part I 教什麼→Part II 怎麼教→Part III 怎麼建立一所機構</div></div>
+    <div class="item"><div class="dot"></div><div><strong>驗證（Result）：</strong>前三屆申請人超過 5 萬人，錄取率低於哈佛，並通過正式認證</div></div>
+    <div class="item"><div class="dot"></div><div><strong>呼籲（Mission）：</strong>「For the Sake of the World」— 密涅瓦不只是一所大學，而是一個示範：好的教育是可能的</div></div>
+  </div>
+</div>
+
+<!-- Step 5 -->
+<div class="step" id="s5">
+  <div class="step-header">
+    <div class="step-num">05</div>
+    <div><div class="step-title">💎 整合洞見（Top 8）</div></div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">01</div>
+    <div class="insight-title">教育的問題不在缺乏知識，而在缺乏「能遷移的智慧」</div>
+    <div class="insight-body">傳統大學以為知識累積 = 教育成功，但真正的衡量標準是：這個人能把在 A 情境學到的東西用到 B 情境嗎？HC 系統的全部設計，就是為了最大化這種遷移能力（transfer）。</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">02</div>
+    <div class="insight-title">「有意向的大學」（Intentional University）= 每個決定都有理由</div>
+    <div class="insight-body">傳統大學的很多設計是歷史遺留，沒有人問「為什麼要這樣做」。密涅瓦的答案是：一切基於第一原理，每個課程設計、每個政策都必須能說出清晰的教育理由。</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">03</div>
+    <div class="insight-title">學習科學有明確答案：主動 > 被動，間隔 > 集中，應用 > 記憶</div>
+    <div class="insight-body">Kosslyn 的 Ch.11 直接從認知神經科學研究出發，點名演講 + 考試是「已知無效」的教學方式。學生在 6個月後忘記 90%，這不是學生的問題，是教學設計的問題。</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">04</div>
+    <div class="insight-title">HC 標籤系統 = 讓「隱性思維能力」變成「可見、可評量、可練習」</div>
+    <div class="insight-body">#correlation（相關性）、#counterargument（反論）這類標籤，讓抽象的「批判思考」變成具體的行為。學生和老師有了共同語言，學習才能真正發生。</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">05</div>
+    <div class="insight-title">大學的真正成本不是學費，而是「無用的學習」</div>
+    <div class="insight-body">Ben Nelson 算出：傳統大學的真實成本 = 校園建設 + 研究補貼 + 行政膨脹 + 終身教職 + 學術膨脹（Grade Inflation）。把這些全部去掉，優質教育可以用極低成本提供。</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">06</div>
+    <div class="insight-title">認證系統是最大的創新障礙，比任何技術障礙都難突破</div>
+    <div class="insight-body">Ch.26 揭示：在美國，做心臟移植手術比設計一個全新教學方法更容易獲得許可。現行認證體系保護的是現有機構，而不是教育質量。密涅瓦花費數年才得到認證。</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">07</div>
+    <div class="insight-title">多文化沉浸學習不是「好體驗」，而是核心課程設計</div>
+    <div class="insight-body">在柏林學 CS（複雜系統），在首爾學 MC（多模態溝通），不是因為這些城市有名，而是每個城市提供了最真實的學習情境。城市 = 最大的案例庫。</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">08</div>
+    <div class="insight-title">「For the Sake of the World」— 教育的目的不是就業，而是世界的未來</div>
+    <div class="insight-body">密涅瓦的使命宣言：Nurturing critical wisdom for the sake of the world。這不只是口號，而是所有課程設計的最終錨點：我們培養的不是找工作的機器，而是能解決人類最複雜問題的人。</div>
+  </div>
+</div>
+
+<!-- Step 6 -->
+<div class="step" id="s6">
+  <div class="step-header">
+    <div class="step-num">06</div>
+    <div><div class="step-title">🔍 缺席分析</div></div>
+  </div>
+  <div class="missing">
+    <div class="missing-title">⚠️ 缺席①：長期追蹤數據</div>
+    書出版時（2017）密涅瓦大學只有三屆學生，缺乏10-20年後的追蹤研究——HC 訓練是否真的改變了學生的職涯表現？</div>
+  <div class="missing">
+    <div class="missing-title">⚠️ 缺席②：大規模複製的挑戰</div>
+    密涅瓦的模式高度依賴 ALF 技術、精挑細選的學生、全球移動能力。對於大多數大學，這套系統的複製性存疑。
+  </div>
+  <div class="missing">
+    <div class="missing-title">⚠️ 缺席③：社交媒體與注意力經濟的影響</div>
+    2017年書中對「完全主動學習」的挑戰很少提及算法時代對學生注意力的衝擊，這是現實中最大的阻力。
+  </div>
+  <div class="missing">
+    <div class="missing-title">⚠️ 缺席④：城市學習的陰暗面</div>
+    城市浸泡學習對特定學生（內向者、有心理健康挑戰者、家庭背景不利者）可能造成不成比例的壓力，書中較少討論。
+  </div>
+</div>
+
+<!-- Step 7 -->
+<div class="step" id="s7">
+  <div class="step-header">
+    <div class="step-num">07</div>
+    <div><div class="step-title">🤖 AI 時代視角</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">🎯 HC 系統在 AI 時代更重要，不是更不重要</div>
+    <div class="item"><div class="dot"></div><div>AI 取代了知識記憶的需求，讓 HC 的核心主張（思考 > 記憶）更加正確</div></div>
+    <div class="item"><div class="dot"></div><div>#bayes、#correlation 這類 FA 能力在 AI 時代成為「評估 AI 輸出品質」的元技能</div></div>
+    <div class="item"><div class="dot"></div><div>CS 領域的 #selfawareness、#emotionaliq 是 AI 最難複製的人類優勢</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">⚡ ALF 平台可能是 AI 教育最好的原型</div>
+    <div class="item"><div class="dot"></div><div>每個 HC 標籤都可以成為 AI 評量的標準——AI 讀取對話記錄，自動評估學生的 HC 應用品質</div></div>
+    <div class="item"><div class="dot"></div><div>密涅瓦的課程設計哲學（小班+主動+即時回饋）與 AI 個人化學習高度契合</div></div>
+  </div>
+</div>
+
+<!-- Step 8 -->
+<div class="step" id="s8">
+  <div class="step-header">
+    <div class="step-num">08</div>
+    <div><div class="step-title">⚡ 行動轉化</div></div>
+  </div>
+  <div class="action-card action-now">
+    <div style="font-weight:900;color:#276749;margin-bottom:6px;">🟢 今天就能做</div>
+    <div class="item"><div class="dot"></div><div>閱讀 Appendix A 的完整 HC 清單，選出 3 個你想在未來 30 天刻意練習的 HC 標籤</div></div>
+    <div class="item"><div class="dot"></div><div>回想你最近一次「覺得上了什麼課但什麼都不記得」——對照密涅瓦的學習科學原則，找出哪裡出問題</div></div>
+  </div>
+  <div class="action-card action-week">
+    <div style="font-weight:900;color:#2b6cb0;margin-bottom:6px;">🔵 本週啟動</div>
+    <div class="item"><div class="dot"></div><div>把你下週要做的一件重要事，用「第一原理」重新拆解：這樣做的根本理由是什麼？如果從零開始，你會怎麼設計？</div></div>
+    <div class="item"><div class="dot"></div><div>找一個你正在教（或學）的東西，問：「這個知識能遷移到什麼其他情境？」如果答不出來，重新設計學習方式</div></div>
+  </div>
+  <div class="action-card action-month">
+    <div style="font-weight:900;color:#c05621;margin-bottom:6px;">🟡 長期建立</div>
+    <div class="item"><div class="dot"></div><div>設計一個你自己的「HC 練習系統」：每天記錄一個你使用過的思考習慣，一個月後回顧哪些習慣變強了</div></div>
+    <div class="item"><div class="dot"></div><div>如果你是教育工作者：用密涅瓦的「Fully Active Learning」原則改造你的一個課程或工作坊</div></div>
+  </div>
+</div>
+
+<!-- Step 9 -->
+<div class="step" id="s9">
+  <div class="step-header">
+    <div class="step-num">09</div>
+    <div><div class="step-title">🔭 個人化透鏡</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">💼 機構/組織設計視角</div>
+    <div class="item"><div class="dot"></div><div>密涅瓦 = 史上最成功的「從第一原理重新設計組織」案例之一，比許多商業書更有操作價值</div></div>
+    <div class="item"><div class="dot"></div><div>Ch.27 的成本分析 = 任何初創機構設計的必讀：你的固定成本裡，有多少是「傳統遺留」而非「真正必要」？</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">📚 與《全球人才搶著學》的對照</div>
+    <div class="item"><div class="dot"></div><div>此書（英文）是機構設計的「系統原理」，中文書是「系統實踐」——兩書合讀，從根到葉</div></div>
+    <div class="item"><div class="dot"></div><div>英文書提供了 HC 的完整清單（Appendix A），中文書只呈現了問題解決相關的 HC</div></div>
+    <div class="item"><div class="dot"></div><div>英文書解釋「為什麼這樣設計」，中文書示範「這樣用的現實效果」</div></div>
+  </div>
+</div>
+
+<!-- Step 10 -->
+<div class="step" id="s10">
+  <div class="step-header">
+    <div class="step-num">10</div>
+    <div><div class="step-title">📇 書庫卡片</div></div>
+  </div>
+  <div class="card">
+    <div style="font-family:monospace;font-size:.85rem;line-height:2;color:#4a5568;">
+      <strong>書名：</strong>Building the Intentional University<br>
+      <strong>核心主張：</strong>從第一原理設計大學，以 HC 思考習慣為核心，以完全主動學習為方法<br>
+      <strong>四大 HC 領域：</strong>FA（批判思考）× EA（創意思考）× MC（有效溝通）× CS（有效互動）<br>
+      <strong>顛覆性設計：</strong>無校園、100% 研討課（&lt;20人）、城市即校園、ALF 平台、HC 標籤評量<br>
+      <strong>最銳利的一刀：</strong>演講 + 考試是「已知無效」的教學，但全球大學仍在使用<br>
+      <strong>連結：</strong>學習科學 / 第一原理 / 知識遷移理論 / 《全球人才搶著學》中文實踐版<br>
+      <strong>適合推薦給：</strong>教育工作者、課程設計師、任何想「從零重新設計學習」的人
+    </div>
+  </div>
+</div>
+
+<!-- Step 11 -->
+<div class="step" id="s11">
+  <div class="step-header">
+    <div class="step-num">11</div>
+    <div><div class="step-title">✨ 一句話精髓</div></div>
+  </div>
+  <div class="quote" style="font-size:1.15rem;padding:24px 28px;">
+    如果你能從零開始設計教育，每個決定都問「為什麼要這樣做」——答案很可能和現在所有大學都在做的完全不同。密涅瓦證明了這一點。
+  </div>
+</div>
+
+</div>
+</body>
+</html>
