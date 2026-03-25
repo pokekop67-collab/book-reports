@@ -1,0 +1,2279 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>超級大腦讀書法 — Emotion Hacks 深度解構</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ===== KOREAN DESIGN SYSTEM ===== */
+:root {
+  --bg-primary: #FAFBFD;
+  --bg-warm: #FFF8F3;
+  --bg-cool: #F4F7FF;
+  --bg-mint: #F0FAF7;
+  --bg-lavender: #F6F3FF;
+  --bg-peach: #FFF5F0;
+  --bg-card: #FFFFFF;
+  --bg-dark: #1B1D2A;
+  --bg-dark-card: rgba(255,255,255,0.06);
+
+  --accent-blue: #4A7CFF;
+  --accent-coral: #FF6B6B;
+  --accent-mint: #2ECDA7;
+  --accent-purple: #8B5CF6;
+  --accent-amber: #F59E0B;
+  --accent-rose: #EC4899;
+  --accent-sky: #38BDF8;
+  --accent-teal: #14B8A6;
+
+  --text-primary: #1A1A2E;
+  --text-secondary: #6B7280;
+  --text-muted: #9CA3AF;
+  --text-white: #FFFFFF;
+  --text-white-secondary: rgba(255,255,255,0.65);
+
+  --border-light: rgba(0,0,0,0.06);
+  --border-card: rgba(0,0,0,0.04);
+
+  --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-md: 0 8px 30px rgba(0,0,0,0.06);
+  --shadow-lg: 0 20px 60px rgba(0,0,0,0.08);
+  --shadow-xl: 0 30px 80px rgba(0,0,0,0.10);
+  --shadow-glow-blue: 0 8px 40px rgba(74,124,255,0.15);
+  --shadow-glow-coral: 0 8px 40px rgba(255,107,107,0.15);
+  --shadow-glow-mint: 0 8px 40px rgba(46,205,167,0.15);
+  --shadow-glow-purple: 0 8px 40px rgba(139,92,246,0.15);
+
+  --radius-sm: 12px;
+  --radius-md: 20px;
+  --radius-lg: 28px;
+  --radius-xl: 36px;
+  --radius-full: 9999px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-primary);
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #1B1D2A 0%, #2D1B4E 35%, #1B3A5C 70%, #1B2D3A 100%);
+  overflow: hidden;
+  padding: 60px 24px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(139,92,246,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(74,124,255,0.10) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(236,72,153,0.08) 0%, transparent 50%);
+  animation: heroFloat 20s ease-in-out infinite;
+}
+
+@keyframes heroFloat {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(2%, -1%) rotate(1deg); }
+  66% { transform: translate(-1%, 1%) rotate(-0.5deg); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 800px;
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: var(--radius-full);
+  padding: 10px 24px;
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.75);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+.hero-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  font-weight: 700;
+  color: var(--text-white);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.hero-title-en {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(1rem, 2vw, 1.3rem);
+  font-weight: 300;
+  color: rgba(255,255,255,0.45);
+  letter-spacing: 0.15em;
+  margin-bottom: 32px;
+}
+
+.hero-author {
+  font-size: 1.05rem;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 12px;
+  font-weight: 300;
+}
+
+.hero-method {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, rgba(139,92,246,0.25), rgba(74,124,255,0.25));
+  border: 1px solid rgba(139,92,246,0.3);
+  border-radius: var(--radius-full);
+  padding: 12px 28px;
+  color: rgba(255,255,255,0.85);
+  font-size: 0.9rem;
+  margin-top: 40px;
+  letter-spacing: 0.05em;
+}
+
+.hero-divider {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  margin: 32px auto;
+}
+
+/* Floating orbs */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.4;
+  animation: orbFloat 15s ease-in-out infinite;
+}
+.orb-1 { width: 300px; height: 300px; background: rgba(139,92,246,0.3); top: 10%; left: 5%; animation-delay: 0s; }
+.orb-2 { width: 200px; height: 200px; background: rgba(74,124,255,0.3); bottom: 15%; right: 10%; animation-delay: -5s; }
+.orb-3 { width: 250px; height: 250px; background: rgba(236,72,153,0.2); top: 60%; left: 60%; animation-delay: -10s; }
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(20px, -30px); }
+  50% { transform: translate(-15px, 20px); }
+  75% { transform: translate(25px, 10px); }
+}
+
+/* ===== NAVIGATION ===== */
+.toc-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250,251,253,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-light);
+  padding: 0 24px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.toc-nav::-webkit-scrollbar { height: 0; }
+
+.toc-nav-inner {
+  display: flex;
+  gap: 4px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 0;
+}
+
+.toc-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: all 0.25s ease;
+}
+
+.toc-link:hover {
+  background: rgba(74,124,255,0.08);
+  color: var(--accent-blue);
+}
+
+.toc-link .num {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: rgba(0,0,0,0.04);
+}
+
+/* ===== SECTIONS ===== */
+.section {
+  padding: 100px 24px;
+}
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: 60px;
+}
+
+.section-number {
+  font-family: 'Inter', sans-serif;
+  font-size: 4.5rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 12px;
+  opacity: 0.08;
+}
+
+.section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.3;
+  margin-bottom: 16px;
+}
+
+.section-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  font-weight: 300;
+  max-width: 650px;
+  line-height: 1.9;
+}
+
+/* ===== CARDS ===== */
+.card {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-card);
+  box-shadow: var(--shadow-md);
+  padding: 40px;
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-3px);
+}
+
+.card-sm {
+  padding: 28px;
+  border-radius: var(--radius-md);
+}
+
+/* ===== PROFILE CARD ===== */
+.profile-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .profile-card { grid-template-columns: 1fr; gap: 32px; }
+}
+
+.profile-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.profile-item:last-child { border-bottom: none; }
+
+.profile-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.profile-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+.profile-value {
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+/* ===== STAGE CARDS ===== */
+.stages-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.stage-card {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+@media (max-width: 640px) {
+  .stage-card { grid-template-columns: 1fr; gap: 16px; }
+}
+
+.stage-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 3rem;
+  font-weight: 900;
+  line-height: 1;
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stage-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.stage-chapters {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  margin-bottom: 10px;
+  font-family: 'Inter', sans-serif;
+}
+
+.stage-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ===== TABLE ===== */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-light);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+thead th {
+  background: var(--bg-cool);
+  padding: 16px 20px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  border-bottom: 2px solid var(--border-light);
+  white-space: nowrap;
+}
+
+tbody td {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: top;
+}
+
+tbody tr:last-child td { border-bottom: none; }
+
+tbody tr:hover {
+  background: rgba(74,124,255,0.02);
+}
+
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.tag-blue { background: rgba(74,124,255,0.1); color: var(--accent-blue); }
+.tag-coral { background: rgba(255,107,107,0.1); color: var(--accent-coral); }
+.tag-mint { background: rgba(46,205,167,0.1); color: #0d9472; }
+.tag-purple { background: rgba(139,92,246,0.1); color: var(--accent-purple); }
+.tag-amber { background: rgba(245,158,11,0.1); color: #b45309; }
+.tag-rose { background: rgba(236,72,153,0.1); color: var(--accent-rose); }
+
+/* ===== THESIS ===== */
+.thesis-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .thesis-grid { grid-template-columns: 1fr; }
+}
+
+.thesis-card {
+  text-align: center;
+  padding: 48px 32px;
+}
+
+.thesis-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  margin: 0 auto 20px;
+}
+
+.thesis-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+
+.thesis-text {
+  font-size: 1.05rem;
+  line-height: 1.8;
+  font-weight: 400;
+}
+
+/* ===== CHAPTER ANALYSIS ===== */
+.chapter-grid {
+  display: grid;
+  gap: 32px;
+}
+
+.chapter-card {
+  border-left: 4px solid;
+  padding-left: 32px;
+}
+
+.chapter-tag {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.chapter-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.chapter-core {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  background: rgba(0,0,0,0.02);
+  border-radius: var(--radius-sm);
+  font-style: italic;
+}
+
+.insight-list {
+  list-style: none;
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.insight-list li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.insight-list li::before {
+  content: '💡';
+  flex-shrink: 0;
+  font-size: 0.85rem;
+}
+
+.action-box, .check-box, .link-box {
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  line-height: 1.7;
+  margin-bottom: 10px;
+}
+
+.action-box {
+  background: rgba(46,205,167,0.06);
+  border-left: 3px solid var(--accent-mint);
+}
+
+.check-box {
+  background: rgba(245,158,11,0.06);
+  border-left: 3px solid var(--accent-amber);
+}
+
+.link-box {
+  background: rgba(74,124,255,0.06);
+  border-left: 3px solid var(--accent-blue);
+}
+
+.box-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+
+/* ===== DARK SECTION ===== */
+.section-dark {
+  background: linear-gradient(160deg, #1B1D2A 0%, #1E2A3A 50%, #1B2235 100%);
+  color: var(--text-white);
+}
+
+.section-dark .section-subtitle {
+  color: var(--text-white-secondary);
+}
+
+.dark-card {
+  background: var(--bg-dark-card);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  backdrop-filter: blur(10px);
+}
+
+.dark-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text-white);
+}
+
+.dark-card p, .dark-card li {
+  color: var(--text-white-secondary);
+  font-size: 0.92rem;
+  line-height: 1.8;
+}
+
+/* ===== CONTRADICTION PAIRS ===== */
+.contra-pair {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 24px;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+@media (max-width: 768px) {
+  .contra-pair { grid-template-columns: 1fr; }
+}
+
+.contra-side {
+  padding: 24px;
+  border-radius: var(--radius-md);
+  font-size: 0.92rem;
+  line-height: 1.7;
+}
+
+.contra-vs {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--bg-cool);
+}
+
+.contra-resolution {
+  padding: 20px 24px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(74,124,255,0.06), rgba(139,92,246,0.06));
+  border-left: 4px solid var(--accent-purple);
+  font-size: 0.92rem;
+  line-height: 1.8;
+  margin-bottom: 40px;
+}
+
+/* ===== CAUSAL CHAIN ===== */
+.causal-chain {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 20px 0;
+}
+
+.chain-node {
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  font-size: 0.85rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.chain-arrow {
+  font-size: 1.2rem;
+  color: var(--text-muted);
+}
+
+/* ===== META PRINCIPLES ===== */
+.meta-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 24px;
+}
+
+.meta-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.meta-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 5rem;
+  font-weight: 900;
+  position: absolute;
+  top: -10px;
+  right: -5px;
+  opacity: 0.04;
+  line-height: 1;
+}
+
+.meta-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+.meta-chapters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.meta-chapters span {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.68rem;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  background: rgba(0,0,0,0.04);
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.meta-desc {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ===== FREQUENCY ===== */
+.freq-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.freq-label {
+  width: 150px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.freq-track {
+  flex: 1;
+  height: 8px;
+  background: rgba(0,0,0,0.04);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.freq-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 1s ease;
+}
+
+.freq-count {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  width: 40px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+/* ===== PRIORITY ===== */
+.priority-list {
+  display: grid;
+  gap: 20px;
+  counter-reset: priority;
+}
+
+.priority-item {
+  display: grid;
+  grid-template-columns: 60px 1fr;
+  gap: 24px;
+  align-items: start;
+  counter-increment: priority;
+}
+
+.priority-rank {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  line-height: 1;
+  text-align: center;
+}
+
+.priority-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  margin-bottom: 6px;
+}
+
+.priority-reason {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ===== SCENARIO MATRIX ===== */
+.scenario-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.scenario-card {
+  border-top: 4px solid;
+}
+
+.scenario-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.scenario-refs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 12px;
+}
+
+.scenario-refs span {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.scenario-action {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ===== ACTION ===== */
+.action-timeline {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .action-timeline { grid-template-columns: 1fr; }
+}
+
+.action-period {
+  text-align: center;
+  padding: 40px 28px;
+}
+
+.action-period-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.action-list {
+  list-style: none;
+  text-align: left;
+  display: grid;
+  gap: 12px;
+}
+
+.action-list li {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+
+/* ===== NARRATIVE ARC ===== */
+.arc-container {
+  position: relative;
+  padding: 40px 0;
+}
+
+.arc-steps {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  position: relative;
+}
+
+@media (max-width: 768px) {
+  .arc-steps { grid-template-columns: 1fr; }
+}
+
+.arc-step {
+  text-align: center;
+  padding: 24px 16px;
+  border-radius: var(--radius-md);
+  position: relative;
+}
+
+.arc-step-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.arc-step-text {
+  font-size: 0.88rem;
+  line-height: 1.7;
+}
+
+.arc-arrow {
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+  color: var(--text-muted);
+}
+
+/* ===== RESOURCES ===== */
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.resource-card {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.resource-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+
+.resource-dir {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.resource-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.resource-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  text-align: center;
+  padding: 80px 24px;
+  background: var(--bg-dark);
+  color: var(--text-white-secondary);
+  font-size: 0.85rem;
+  line-height: 2;
+}
+
+.footer-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.5rem;
+  color: var(--text-white);
+  margin-bottom: 16px;
+}
+
+/* ===== HACK GROUP ===== */
+.hack-group {
+  margin-bottom: 48px;
+}
+
+.hack-group-title {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hack-list-compact {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 12px;
+}
+
+.hack-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  background: rgba(0,0,0,0.015);
+  border: 1px solid var(--border-card);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  transition: all 0.2s ease;
+}
+
+.hack-item:hover {
+  background: rgba(74,124,255,0.03);
+  border-color: rgba(74,124,255,0.1);
+}
+
+.hack-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 800;
+  min-width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+/* ===== EMOTION TABLE ===== */
+.emotion-table-wrap {
+  overflow-x: auto;
+}
+
+.emotion-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 6px;
+}
+
+.emotion-table th {
+  background: transparent;
+  border: none;
+  padding: 10px 16px;
+  font-size: 0.72rem;
+}
+
+.emotion-table td {
+  background: var(--bg-card);
+  border: none;
+  padding: 14px 16px;
+  font-size: 0.88rem;
+}
+
+.emotion-table td:first-child { border-radius: 12px 0 0 12px; }
+.emotion-table td:last-child { border-radius: 0 12px 12px 0; }
+
+/* ===== INSIGHTS SECTION ===== */
+.insights-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+@media (max-width: 768px) {
+  .insights-grid { grid-template-columns: 1fr; }
+}
+
+.insight-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.insight-card p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  line-height: 1.8;
+}
+
+/* ===== FLOW DIAGRAM ===== */
+.flow-diagram {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding: 40px 20px;
+  background: linear-gradient(135deg, rgba(74,124,255,0.04), rgba(139,92,246,0.04));
+  border-radius: var(--radius-lg);
+  margin: 32px 0;
+}
+
+.flow-node {
+  padding: 14px 24px;
+  border-radius: var(--radius-full);
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.flow-arrow {
+  font-size: 1.3rem;
+  color: var(--text-muted);
+}
+
+/* ===== VIDEO SECTION ===== */
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+.video-card {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.video-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+}
+
+.video-type {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 2px;
+}
+
+.video-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.video-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* ===== ABSENT ANALYSIS ===== */
+.absent-grid {
+  display: grid;
+  gap: 20px;
+}
+
+.absent-card {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+
+.absent-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  background: rgba(255,107,107,0.08);
+}
+
+.absent-title {
+  font-weight: 700;
+  font-size: 0.98rem;
+  margin-bottom: 6px;
+}
+
+.absent-desc {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+/* ===== WORLDVIEW QUOTE ===== */
+.worldview-quote {
+  text-align: center;
+  padding: 48px 40px;
+  background: linear-gradient(135deg, rgba(139,92,246,0.06), rgba(74,124,255,0.06));
+  border-radius: var(--radius-lg);
+  margin: 40px 0;
+}
+
+.worldview-quote blockquote {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--accent-purple);
+  margin-bottom: 12px;
+}
+
+.worldview-quote cite {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  font-style: normal;
+}
+
+/* ===== UTILITIES ===== */
+.mt-24 { margin-top: 24px; }
+.mt-40 { margin-top: 40px; }
+.mb-16 { margin-bottom: 16px; }
+.mb-24 { margin-bottom: 24px; }
+.mb-32 { margin-bottom: 32px; }
+.mb-40 { margin-bottom: 40px; }
+.gap-20 { gap: 20px; }
+
+.text-gradient-blue {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-coral {
+  background: linear-gradient(135deg, var(--accent-coral), var(--accent-rose));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-mint {
+  background: linear-gradient(135deg, var(--accent-mint), var(--accent-teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-warm { background: var(--bg-warm); }
+.bg-cool { background: var(--bg-cool); }
+.bg-mint { background: var(--bg-mint); }
+.bg-lavender { background: var(--bg-lavender); }
+.bg-peach { background: var(--bg-peach); }
+
+.color-blue { color: var(--accent-blue); }
+.color-coral { color: var(--accent-coral); }
+.color-mint { color: var(--accent-mint); }
+.color-purple { color: var(--accent-purple); }
+.color-amber { color: var(--accent-amber); }
+.color-rose { color: var(--accent-rose); }
+</style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ 超級大腦讀書法 · 全域交叉比對分析</div>
+    <h1 class="hero-title">Emotion Hacks</h1>
+    <p class="hero-title-en">50 WAYS TO FEEL BETTER FAST</p>
+    <div class="hero-divider"></div>
+    <p class="hero-author">Dr. Ryan Martin — 威斯康辛大學 · 憤怒研究25年 · TED 360萬+觀看</p>
+    <div class="hero-method">🧠 四層十二模組 · 深度解構報告</div>
+  </div>
+</section>
+
+<!-- ===== STICKY NAV ===== -->
+<nav class="toc-nav">
+  <div class="toc-nav-inner">
+    <a href="#m01" class="toc-link"><span class="num">01</span>資料卡</a>
+    <a href="#m02" class="toc-link"><span class="num">02</span>認知遞進</a>
+    <a href="#m03" class="toc-link"><span class="num">03</span>清單速覽</a>
+    <a href="#m04" class="toc-link"><span class="num">04</span>核心命題</a>
+    <a href="#m05" class="toc-link"><span class="num">05</span>逐章解析</a>
+    <a href="#m06" class="toc-link"><span class="num">06</span>整合洞見</a>
+    <a href="#m07" class="toc-link"><span class="num">07</span>隱藏連結</a>
+    <a href="#m08" class="toc-link"><span class="num">08</span>行動轉化</a>
+    <a href="#m09" class="toc-link"><span class="num">09</span>相關影片</a>
+    <a href="#m10" class="toc-link"><span class="num">10</span>敘事弧線</a>
+    <a href="#m11" class="toc-link"><span class="num">11</span>個人透鏡</a>
+    <a href="#m12" class="toc-link"><span class="num">12</span>延伸資源</a>
+  </div>
+</nav>
+
+<!-- ================================================================ -->
+<!-- 🏗️ 結構層 -->
+<!-- ================================================================ -->
+
+<!-- ===== MODULE 01: 書籍資料卡 ===== -->
+<section id="m01" class="section bg-warm">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">01</div>
+      <p class="section-label color-coral">BOOK PROFILE</p>
+      <h2 class="section-title">📚 書籍資料卡</h2>
+      <p class="section-subtitle">一本由憤怒研究專家寫的全情緒管理指南</p>
+    </div>
+
+    <div class="card">
+      <div class="profile-card">
+        <div>
+          <div class="profile-item">
+            <div class="profile-icon" style="background: rgba(74,124,255,0.1);">👤</div>
+            <div>
+              <div class="profile-label">作者</div>
+              <div class="profile-value"><strong>Dr. Ryan Martin</strong>（「憤怒教授 The Anger Professor」）<br>威斯康辛大學綠灣分校 藝術、人文與社會科學學院 院長<br>研究憤怒與情緒超過 25 年，約 600+ 學術發表引用 Gross 框架</div>
+            </div>
+          </div>
+          <div class="profile-item">
+            <div class="profile-icon" style="background: rgba(139,92,246,0.1);">📖</div>
+            <div>
+              <div class="profile-label">其他著作</div>
+              <div class="profile-value">《Why We Get Mad》(2021)、《How to Deal with Angry People》(2023)</div>
+            </div>
+          </div>
+          <div class="profile-item">
+            <div class="profile-icon" style="background: rgba(236,72,153,0.1);">🎤</div>
+            <div>
+              <div class="profile-label">TED 演講</div>
+              <div class="profile-value">「Why We Get Mad — And Why It's Healthy」<br>3,600,000+ 觀看次數</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="profile-item">
+            <div class="profile-icon" style="background: rgba(46,205,167,0.1);">🧬</div>
+            <div>
+              <div class="profile-label">智識源頭</div>
+              <div class="profile-value">
+                <strong>James J. Gross</strong>（Stanford）— 情緒調節過程模型<br>
+                <strong>認知行為治療（CBT）</strong> — 認知重評核心<br>
+                <strong>正念/ACT 傳統</strong> — 接納與觀察<br>
+                <strong>演化心理學</strong> — 情緒的適應功能
+              </div>
+            </div>
+          </div>
+          <div class="profile-item">
+            <div class="profile-icon" style="background: rgba(245,158,11,0.1);">🎯</div>
+            <div>
+              <div class="profile-label">一句話定位</div>
+              <div class="profile-value" style="font-weight:600;">將學術情緒調節理論翻譯為 50 個可立即操作的日常微調策略，讓任何人都能在情緒生成的每個階段找到介入點。</div>
+            </div>
+          </div>
+          <div class="profile-item">
+            <div class="profile-icon" style="background: rgba(255,107,107,0.1);">📊</div>
+            <div>
+              <div class="profile-label">書籍結構</div>
+              <div class="profile-value">8 章 · 2 部分 · 50 個 Hack<br>結構：理論基礎（Ch1-2）→ 實踐指南（Ch3-8）<br>每個 Hack 含：故事 → 研究證據 → 操作指南</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MODULE 02: 認知遞進設計 ===== -->
+<section id="m02" class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">02</div>
+      <p class="section-label color-blue">COGNITIVE PROGRESSION</p>
+      <h2 class="section-title">🧠 認知遞進設計</h2>
+      <p class="section-subtitle">作者為什麼用這個順序？章節排列暗藏的教學邏輯</p>
+    </div>
+
+    <!-- Why We Feel Model Diagram -->
+    <div class="flow-diagram">
+      <div class="flow-node" style="background: rgba(255,107,107,0.12); color: #c0392b;">🔥 刺激 Stimulus</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-node" style="background: rgba(245,158,11,0.12); color: #b45309;">💫 情緒狀態 Mood</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-node" style="background: rgba(139,92,246,0.12); color: #7c3aed;">🔍 詮釋 Interpretation</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-node" style="background: rgba(74,124,255,0.12); color: #4a7cff;">💓 感受 Feeling</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-node" style="background: rgba(46,205,167,0.12); color: #0d9472;">🗣️ 表達 Expression</div>
+    </div>
+
+    <div class="stages-grid">
+      <div class="card">
+        <div class="stage-card">
+          <div class="stage-num">01</div>
+          <div>
+            <div class="stage-name">概念植入期</div>
+            <div class="stage-chapters">Ch 1–2 · Part One: Introduction</div>
+            <div class="stage-desc">先用 TikTok 故事鉤住讀者（「運動不能解決憤怒」的反直覺），再系統性介紹 Why We Feel Model。這個順序是刻意的：先製造認知衝突（你以為運動有用？），再給你理論框架理解為什麼。Martin 在此建立全書的核心比喻——情緒是三因素交匯的產物，不是被動反應。</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="stage-card">
+          <div class="stage-num">02</div>
+          <div>
+            <div class="stage-name">元認知校準期</div>
+            <div class="stage-chapters">Ch 3 · Big Picture Hacks（Hack 1-3）</div>
+            <div class="stage-desc">在進入具體技巧之前，先教你「看懂自己的情緒運作」——繪製情緒圖、辨識模式、記錄日誌。這不是隨便的安排：如果你不知道自己的情緒在哪個環節出了問題，後面 47 個 Hack 你根本不知道該從哪裡開始。這三個 Hack 是全書的「診斷工具」。</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="stage-card">
+          <div class="stage-num">03</div>
+          <div>
+            <div class="stage-name">上游預防期</div>
+            <div class="stage-chapters">Ch 4–5 · Stimulus + Mood Hacks（Hack 4-16）</div>
+            <div class="stage-desc">順序嚴格遵循 Gross 的「前因聚焦」邏輯：先處理刺激（你能選擇、修改或轉移注意力的觸發事件），再處理身心狀態（睡眠、飲食、運動）。作者的隱含訊息是：最有效的情緒管理發生在情緒被觸發之前。預防永遠優於治療。</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="stage-card">
+          <div class="stage-num">04</div>
+          <div>
+            <div class="stage-name">認知重構期</div>
+            <div class="stage-chapters">Ch 6 · Interpretation Hacks（Hack 17-34）</div>
+            <div class="stage-desc">這是全書最大的章節（18 個 Hack），因為 Martin 認為詮釋是情緒的最強預測因子。放在中間而非開頭是刻意的：你需要先理解模型（階段1-2）和上游因素（階段3），才能有效做認知重構。如果直接從詮釋開始，讀者會誤以為情緒管理只是「換個想法」。</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="stage-card">
+          <div class="stage-num">05</div>
+          <div>
+            <div class="stage-name">下游管理 + 轉化輸出期</div>
+            <div class="stage-chapters">Ch 7–8 · Feeling + Expression Hacks（Hack 35-50）</div>
+            <div class="stage-desc">最後才處理「情緒已經發生了怎麼辦」和「如何表達」。這個順序傳遞了一個核心訊息：如果你做好了上游工作（階段3-4），下游的情緒會自然減輕。但即便情緒已經爆發，你仍有工具可用——呼吸、接地、正念、寫作、溝通。全書以 Hack 50「尋求更廣泛的改變」結尾，從個人情緒管理升級到社會行動。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MODULE 03: 完整清單速覽 ===== -->
+<section id="m03" class="section bg-cool">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">03</div>
+      <p class="section-label color-purple">OVERVIEW MATRIX</p>
+      <h2 class="section-title">📋 完整清單速覽</h2>
+      <p class="section-subtitle">50 個 Hack 的全景矩陣——對應情緒生成模型的五個階段</p>
+    </div>
+
+    <div class="table-wrap card" style="padding:0; overflow:hidden;">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:50px;">#</th>
+            <th>Hack 名稱</th>
+            <th>一句話精華</th>
+            <th>階段</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>1</strong></td><td>繪製情緒圖</td><td>把情緒拆解為刺激→詮釋→感受→表達，找出可介入環節</td><td><span class="tag tag-blue">元認知</span></td></tr>
+          <tr><td><strong>2</strong></td><td>辨識情緒模式</td><td>追蹤自己反覆出現的情緒反應迴路</td><td><span class="tag tag-blue">元認知</span></td></tr>
+          <tr><td><strong>3</strong></td><td>記錄情緒日誌</td><td>用數據看見情緒的趨勢與觸發條件</td><td><span class="tag tag-blue">元認知</span></td></tr>
+          <tr><td><strong>4</strong></td><td>明智選擇情境</td><td>能避開的負面觸發就避開——恐怖片原則的生活推廣</td><td><span class="tag tag-coral">刺激</span></td></tr>
+          <tr><td><strong>5</strong></td><td>掌控情境</td><td>無法避免時，修改情境中可控的部分</td><td><span class="tag tag-coral">刺激</span></td></tr>
+          <tr><td><strong>6</strong></td><td>擁抱健康分心</td><td>策略性轉移注意力，不是逃避而是選擇焦點</td><td><span class="tag tag-coral">刺激</span></td></tr>
+          <tr><td><strong>7</strong></td><td>留意記憶</td><td>記憶會重新激活情緒，覺察記憶即覺察觸發器</td><td><span class="tag tag-coral">刺激</span></td></tr>
+          <tr><td><strong>8</strong></td><td>善用想像力</td><td>用想像預演困難或重建敘事</td><td><span class="tag tag-coral">刺激</span></td></tr>
+          <tr><td><strong>9</strong></td><td>好好吃</td><td>低血糖→攻擊性上升，「hangry」有研究支持</td><td><span class="tag tag-amber">狀態</span></td></tr>
+          <tr><td><strong>10</strong></td><td>優先睡眠</td><td>睡眠不足直接削弱前額葉的情緒調節功能</td><td><span class="tag tag-amber">狀態</span></td></tr>
+          <tr><td><strong>11</strong></td><td>規律運動</td><td>預防性運動好，但情緒爆發時運動可能反效果</td><td><span class="tag tag-amber">狀態</span></td></tr>
+          <tr><td><strong>12</strong></td><td>注意飲品</td><td>酒精、咖啡因、脫水都影響情緒穩定性</td><td><span class="tag tag-amber">狀態</span></td></tr>
+          <tr><td><strong>13</strong></td><td>親近自然</td><td>自然環境降低負面情緒強度</td><td><span class="tag tag-amber">狀態</span></td></tr>
+          <tr><td><strong>14</strong></td><td>管理壓力</td><td>慢性壓力是情緒過度反應的溫床</td><td><span class="tag tag-amber">狀態</span></td></tr>
+          <tr><td><strong>15</strong></td><td>接觸藝術</td><td>藝術參與提供情緒出口與反思空間</td><td><span class="tag tag-amber">狀態</span></td></tr>
+          <tr><td><strong>16</strong></td><td>覺察當下狀態</td><td>知道自己累了/餓了，就知道反應可能被放大</td><td><span class="tag tag-amber">狀態</span></td></tr>
+          <tr><td><strong>17</strong></td><td>解構世界觀</td><td>你的信任/懷疑鏡片無意識過濾所有資訊</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>18</strong></td><td>去掉標籤</td><td>「混蛋」vs.「做了讓我不舒服的事」——標籤鎖死理解</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>19</strong></td><td>避免災難化</td><td>最壞情況想像→實際強度放大效應</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>20</strong></td><td>重聚焦計畫</td><td>從「太糟了」轉向「接下來怎麼做」</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>21</strong></td><td>避免過度概括</td><td>「每次都這樣」→「這次發生了」</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>22</strong></td><td>避免錯置歸因</td><td>分清他的錯/情境結果/我的部分</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>23</strong></td><td>辨識核心信念</td><td>找出「我不夠好」等驅動詮釋的底層假設</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>24</strong></td><td>檢查應得感</td><td>不合理預期→現實不符時憤怒</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>25</strong></td><td>應對反芻</td><td>打斷反覆咀嚼負面想法的迴圈</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>26</strong></td><td>挑戰自我要求</td><td>「我應該要...」的不合理內在規則製造罪惡感</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>27</strong></td><td>正向重評</td><td>找到同一事件的其他真實面向，不是自欺</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>28</strong></td><td>適當接納</td><td>接納≠放棄，是承認現實後決定如何前進</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>29</strong></td><td>放入更大視角</td><td>五年後我還會在意嗎？</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>30</strong></td><td>重聚焦正面</td><td>不是忽略壞的，是平衡注意力分配</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>31</strong></td><td>不要個人化</td><td>他遲到可能因為塞車，不是不重視你</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>32</strong></td><td>別期待他人改變</td><td>減少因他人不改變而產生的挫折感</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>33</strong></td><td>意見≠事實</td><td>「他故意的」是判斷不是事實</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>34</strong></td><td>別否定正面</td><td>允許自己承認好的結果，別自動打折</td><td><span class="tag tag-purple">詮釋</span></td></tr>
+          <tr><td><strong>35</strong></td><td>對情境開放學習</td><td>情緒在告訴你什麼？別急著壓制</td><td><span class="tag tag-mint">感受</span></td></tr>
+          <tr><td><strong>36</strong></td><td>對自己開放學習</td><td>為什麼我對這件事反應這麼大？</td><td><span class="tag tag-mint">感受</span></td></tr>
+          <tr><td><strong>37</strong></td><td>接地練習</td><td>5-4-3-2-1 五感技巧回到當下</td><td><span class="tag tag-mint">感受</span></td></tr>
+          <tr><td><strong>38</strong></td><td>建立咒語</td><td>用一句話在情緒高漲時錨定自己</td><td><span class="tag tag-mint">感受</span></td></tr>
+          <tr><td><strong>39</strong></td><td>感受是否合理</td><td>有效情緒值得傾聽，無效的需重新評估</td><td><span class="tag tag-mint">感受</span></td></tr>
+          <tr><td><strong>40</strong></td><td>深呼吸</td><td>啟動副交感神經，最基本的生理調節</td><td><span class="tag tag-mint">感受</span></td></tr>
+          <tr><td><strong>41</strong></td><td>擁抱不適</td><td>不適≠危險，情緒會過去</td><td><span class="tag tag-mint">感受</span></td></tr>
+          <tr><td><strong>42</strong></td><td>正念練習</td><td>不帶評判地觀察情緒，不被帶走</td><td><span class="tag tag-mint">感受</span></td></tr>
+          <tr><td><strong>43</strong></td><td>拉遠視角</td><td>心理距離可降低情緒強度</td><td><span class="tag tag-mint">感受</span></td></tr>
+          <tr><td><strong>44</strong></td><td>避免運動與宣洩</td><td>打沙包洩憤會增加攻擊性——宣洩假說已被推翻</td><td><span class="tag tag-mint">感受</span></td></tr>
+          <tr><td><strong>45</strong></td><td>寫下來</td><td>表達性書寫幫助理解自己的故事弧線</td><td><span class="tag tag-rose">表達</span></td></tr>
+          <tr><td><strong>46</strong></td><td>果斷溝通</td><td>在被動與攻擊之間找到中間地帶</td><td><span class="tag tag-rose">表達</span></td></tr>
+          <tr><td><strong>47</strong></td><td>問題解決</td><td>結構化地定義問題→列選項→評估→執行</td><td><span class="tag tag-rose">表達</span></td></tr>
+          <tr><td><strong>48</strong></td><td>導入創作</td><td>將破壞性能量轉化為建設性的藝術輸出</td><td><span class="tag tag-rose">表達</span></td></tr>
+          <tr><td><strong>49</strong></td><td>社會支持</td><td>不是被修復，是被理解和連結</td><td><span class="tag tag-rose">表達</span></td></tr>
+          <tr><td><strong>50</strong></td><td>尋求廣泛改變</td><td>個人情緒→系統改變的動力，行動主義可以是健康表達</td><td><span class="tag tag-rose">表達</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MODULE 04: 核心命題 ===== -->
+<section id="m04" class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">04</div>
+      <p class="section-label color-mint">CORE THESIS</p>
+      <h2 class="section-title">🎯 核心命題</h2>
+    </div>
+
+    <div class="thesis-grid">
+      <div class="card thesis-card">
+        <div class="thesis-icon" style="background: rgba(255,107,107,0.1);">❓</div>
+        <div class="thesis-label">問題 QUESTION</div>
+        <div class="thesis-text">在充滿壓力的世界中，為什麼我們對情緒如此無力？除了「去運動」之外，我們還能做什麼來改善日常情緒體驗？</div>
+      </div>
+      <div class="card thesis-card">
+        <div class="thesis-icon" style="background: rgba(139,92,246,0.1);">💎</div>
+        <div class="thesis-label">論點 ARGUMENT</div>
+        <div class="thesis-text">情緒不是被動發生的，而是刺激、身心狀態和詮釋三者交匯的產物。你在情緒生成的每一個階段——從事前預防到事後表達——都有介入和調控的能力。</div>
+      </div>
+      <div class="card thesis-card">
+        <div class="thesis-icon" style="background: rgba(46,205,167,0.1);">🔬</div>
+        <div class="thesis-label">方法 METHOD</div>
+        <div class="thesis-text">以 James Gross 的情緒調節過程模型為骨架，將學術研究翻譯為 50 個可操作的日常微調策略，每個 Hack 都由故事→研究→操作指南三段結構支撐。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 🔬 深度層 -->
+<!-- ================================================================ -->
+
+<!-- ===== MODULE 05: 逐章五維解析 ===== -->
+<section id="m05" class="section bg-lavender">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">05</div>
+      <p class="section-label color-purple">CHAPTER ANALYSIS</p>
+      <h2 class="section-title">📖 逐章五維解析</h2>
+      <p class="section-subtitle">每章的核心論點、關鍵洞見、可操作行動與跨章連結</p>
+    </div>
+
+    <div class="chapter-grid">
+
+      <!-- Ch1 -->
+      <div class="card chapter-card" style="border-color: var(--accent-blue);">
+        <div class="chapter-tag color-blue">CHAPTER 01</div>
+        <div class="chapter-title">Introducing the Hacks to Feel Better Fast</div>
+        <div class="chapter-core">🎯 你不是只有「去運動」一個選項——有近乎無限的日常微調可以顯著改善情緒健康。</div>
+        <ul class="insight-list">
+          <li>TikTok 上「四件我絕不做的事」引爆爭議，揭示大眾對情緒管理的認知盲區</li>
+          <li>一位網友的絕望留言——「如果運動不行，我就真的沒選項了」——直接推動了本書寫作</li>
+          <li>小改變大影響：日常生活中的微小調整可以對情緒健康產生巨大效果</li>
+        </ul>
+        <div class="action-box"><div class="box-label color-mint">🔧 立即可用</div>列出你目前用來管理情緒的所有方法，然後問自己：這是我知道的全部嗎？</div>
+        <div class="check-box"><div class="box-label color-amber">❓ 自我檢核</div>你是否也像那位網友一樣，覺得自己的情緒管理工具箱只有一兩個工具？</div>
+        <div class="link-box"><div class="box-label color-blue">🔗 章間連結</div>為 Ch2 的理論模型提供「為什麼需要它」的情感動機；Ch1 的反直覺論點（運動 ≠ 萬能）在 Hack 11 和 Hack 44 中被深度展開。</div>
+      </div>
+
+      <!-- Ch2 -->
+      <div class="card chapter-card" style="border-color: var(--accent-purple);">
+        <div class="chapter-tag color-purple">CHAPTER 02</div>
+        <div class="chapter-title">How and Why We Feel</div>
+        <div class="chapter-core">🎯 情緒 = 刺激 × 身心狀態 × 詮釋 → 情緒感受 → 情緒表達——你在每一步都能介入。</div>
+        <ul class="insight-list">
+          <li>Why We Feel Model 是全書的操作系統——後面 50 個 Hack 全部掛在這個模型的五個節點上</li>
+          <li>情緒的三元素：生理激發 + 可預測思維 + 行為衝動，三者同時存在但你未必都能意識到</li>
+          <li>Gross 的五種策略（情境選擇/修正、注意力部署、認知重評、反應調節）被翻譯為本書的六大章節分類</li>
+        </ul>
+        <div class="action-box"><div class="box-label color-mint">🔧 立即可用</div>下次你有強烈情緒時，用三秒鐘問：觸發了什麼？我當時狀態如何？我怎麼解讀的？</div>
+        <div class="check-box"><div class="box-label color-amber">❓ 自我檢核</div>你是否把情緒當成「事情造成的」而忽略了自己的詮釋在其中的角色？</div>
+        <div class="link-box"><div class="box-label color-blue">🔗 章間連結</div>核心框架——Ch3-8 的所有 Hack 都是這個模型不同節點的具體操作。Ch6（詮釋 Hack）直接對應 Gross 的「認知重評」。</div>
+      </div>
+
+      <!-- Ch3 -->
+      <div class="card chapter-card" style="border-color: var(--accent-sky);">
+        <div class="chapter-tag" style="color: var(--accent-sky);">CHAPTER 03</div>
+        <div class="chapter-title">Big Picture Hacks（Hack 1-3）</div>
+        <div class="chapter-core">🎯 在學習任何技巧之前，先學會「看懂」你自己的情緒運作模式。</div>
+        <ul class="insight-list">
+          <li>繪製情緒圖是把模型從理論變成個人診斷工具——你的情緒在哪個環節最容易出問題？</li>
+          <li>情緒模式識別揭示「我每次遇到X就會Y」的固定迴路，迴路被看見才能被打斷</li>
+          <li>情緒日誌不是記流水帳，而是為自己建立情緒的「數據儀表板」</li>
+        </ul>
+        <div class="action-box"><div class="box-label color-mint">🔧 立即可用</div>今天回想一次最近的情緒事件，用 Why We Feel Model 畫出它的完整路徑。</div>
+        <div class="check-box"><div class="box-label color-amber">❓ 自我檢核</div>你能說出自己最常見的三個情緒模式嗎？如果不能，Hack 2 和 3 是你的起點。</div>
+        <div class="link-box"><div class="box-label color-blue">🔗 章間連結</div>這三個 Hack 是後續所有章節的「入口」——幫你判斷該優先使用 Ch4-8 的哪些 Hack。</div>
+      </div>
+
+      <!-- Ch4 -->
+      <div class="card chapter-card" style="border-color: var(--accent-coral);">
+        <div class="chapter-tag color-coral">CHAPTER 04</div>
+        <div class="chapter-title">Stimulus Hacks（Hack 4-8）</div>
+        <div class="chapter-core">🎯 你以為觸發事件不可控——但你可以選擇、修改和策略性地轉移注意力。</div>
+        <ul class="insight-list">
+          <li>恐怖電影原則的推廣：你會因為怕而不看恐怖片，但卻沒把同樣的邏輯用到其他生活領域</li>
+          <li>記憶不是被動回放——它本身就是一個情緒觸發器，可以被管理</li>
+          <li>「健康的分心」不是逃避問題，而是策略性地控制注意力的焦點</li>
+        </ul>
+        <div class="action-box"><div class="box-label color-mint">🔧 立即可用</div>列出你生活中三個經常讓你不開心的情境，然後問：哪些可以避開？哪些可以修改？</div>
+        <div class="check-box"><div class="box-label color-amber">❓ 自我檢核</div>你是否在自動接受所有觸發事件而沒有考慮過你可以選擇不參與？</div>
+        <div class="link-box"><div class="box-label color-blue">🔗 章間連結</div>對應 Gross 的「情境選擇」和「情境修正」。與 Ch5（狀態管理）形成「上游雙保險」。</div>
+      </div>
+
+      <!-- Ch5 -->
+      <div class="card chapter-card" style="border-color: var(--accent-amber);">
+        <div class="chapter-tag color-amber">CHAPTER 05</div>
+        <div class="chapter-title">Mood Hacks（Hack 9-16）</div>
+        <div class="chapter-core">🎯 你的身心狀態是情緒反應的放大器或緩衝器——照顧身體就是在管理情緒。</div>
+        <ul class="insight-list">
+          <li>「hangry」有嚴謹研究支持：低血糖與攻擊行為正相關，甚至與州級暴力犯罪率相關</li>
+          <li>Hack 11 的核心區分：預防性運動（好）vs. 情緒爆發時運動（可能強化負面情緒）——這與 Hack 44 形成呼應</li>
+          <li>Hack 16 是全章的後設工具：「知道自己累了」本身就能防止過度反應</li>
+        </ul>
+        <div class="action-box"><div class="box-label color-mint">🔧 立即可用</div>在情緒爆發前，先問自己：我現在餓嗎？累嗎？壓力大嗎？——狀態檢查可以攔截 50% 的過度反應。</div>
+        <div class="check-box"><div class="box-label color-amber">❓ 自我檢核</div>你上一次對人發火，有多大程度是因為事件本身，又有多大程度是因為你當時狀態很差？</div>
+        <div class="link-box"><div class="box-label color-blue">🔗 章間連結</div>安全帶比喻：Ch4 是選路線，Ch5 是繫安全帶——兩者都是在事故發生前的預防。Hack 11 和 Hack 44 形成全書最具爭議性的論點對。</div>
+      </div>
+
+      <!-- Ch6 -->
+      <div class="card chapter-card" style="border-color: var(--accent-purple);">
+        <div class="chapter-tag color-purple">CHAPTER 06</div>
+        <div class="chapter-title">Interpretation Hacks（Hack 17-34）</div>
+        <div class="chapter-core">🎯 你的情緒反應的對象不是事件本身，而是你對事件的詮釋——改變詮釋就改變情緒。</div>
+        <ul class="insight-list">
+          <li>保齡球館故事揭示核心洞見：兩個人看同一個事件，完全不同的詮釋，完全不同的情緒反應</li>
+          <li>18 個 Hack 本質上是一份「認知扭曲完全手冊」——災難化、過度概括、錯置歸因、反芻等</li>
+          <li>核心原則是「準確思考」而非「正向思考」——如果事情真的很糟，把它描述為很糟是健康的</li>
+        </ul>
+        <div class="action-box"><div class="box-label color-mint">🔧 立即可用</div>下次你很生氣時，找出你的核心想法，然後問：這是事實還是我的判斷？有沒有其他同樣合理的解讀？</div>
+        <div class="check-box"><div class="box-label color-amber">❓ 自我檢核</div>你最常落入的認知陷阱是哪一個？災難化？個人化？過度概括？反芻？</div>
+        <div class="link-box"><div class="box-label color-blue">🔗 章間連結</div>直接對應 Gross 的「認知重評」——全書最大的章節因為 Martin 認為詮釋是最強的情緒預測因子。與 Ch7（情緒感受）形成「想法→感受」的因果鏈。</div>
+      </div>
+
+      <!-- Ch7 -->
+      <div class="card chapter-card" style="border-color: var(--accent-mint);">
+        <div class="chapter-tag color-mint">CHAPTER 07</div>
+        <div class="chapter-title">Emotional Feeling Hacks（Hack 35-44）</div>
+        <div class="chapter-core">🎯 情緒已經被觸發時，目標不是消滅它，而是保持穩定、專注和有意圖。</div>
+        <ul class="insight-list">
+          <li>Hack 35-36 翻轉常見做法：不急著壓制情緒，而是先「聽聽情緒在告訴你什麼」</li>
+          <li>Hack 41 引入 ACT 觀點：不適≠危險，情緒不適是人生的正常部分，不需要立即修復</li>
+          <li>Hack 44 是全書最具爭議的觀點：宣洩假說已被研究推翻，打東西不會「釋放」憤怒，反而會強化攻擊性</li>
+        </ul>
+        <div class="action-box"><div class="box-label color-mint">🔧 立即可用</div>建立你的個人咒語（Hack 38），在情緒高漲時用一句話錨定自己，例如「這會過去的」或「我可以選擇我的回應」。</div>
+        <div class="check-box"><div class="box-label color-amber">❓ 自我檢核</div>你在情緒高漲時的第一反應是壓制它還是傾聽它？你有沒有讓情緒告訴你一些重要的事？</div>
+        <div class="link-box"><div class="box-label color-blue">🔗 章間連結</div>Hack 44 與 Hack 11（Ch5）呼應形成「運動-宣洩」的完整論述。Hack 42（正念）和 Ch6 的認知重評相互補充——一個改變觀察方式，一個改變思考內容。</div>
+      </div>
+
+      <!-- Ch8 -->
+      <div class="card chapter-card" style="border-color: var(--accent-rose);">
+        <div class="chapter-tag color-rose">CHAPTER 08</div>
+        <div class="chapter-title">Emotional Expression Hacks（Hack 45-50）</div>
+        <div class="chapter-core">🎯 情緒表達不是要壓制，而是學會用反映你的價值觀的方式表達，而非自動化衝動。</div>
+        <ul class="insight-list">
+          <li>表達性書寫研究（2014）：寫作組在自我理解方面顯著優於對照組——關鍵不是發洩，而是敘事建構</li>
+          <li>Hack 50 將個人情緒管理升級到社會層面：如果你的憤怒源於不公正，行動主義是最健康的表達</li>
+          <li>全章隱含的訊息：表達情緒是為了溝通和改變，不是為了釋放壓力</li>
+        </ul>
+        <div class="action-box"><div class="box-label color-mint">🔧 立即可用</div>今晚花 20 分鐘做表達性書寫——不是記流水帳，而是寫下你的感受和你對這些感受的理解。</div>
+        <div class="check-box"><div class="box-label color-amber">❓ 自我檢核</div>你的情緒表達方式反映了你的價值觀嗎？還是你在衝動反應後才後悔？</div>
+        <div class="link-box"><div class="box-label color-blue">🔗 章間連結</div>Hack 45（寫作）和 Hack 48（創作）回應了 Hack 44 對宣洩的批判——建設性的輸出取代了破壞性的發洩。Hack 50 呼應 Ch1 的TED演講「為什麼憤怒是健康的」。</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== MODULE 06: 四類整合洞見 ===== -->
+<section id="m06" class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">06</div>
+      <p class="section-label color-amber">INTEGRATED INSIGHTS</p>
+      <h2 class="section-title">💡 四類整合洞見</h2>
+      <p class="section-subtitle">隱藏的邏輯線、作者潛台詞、框架邊界，以及與其他經典的知識對話</p>
+    </div>
+
+    <div class="insights-grid">
+      <div class="card">
+        <div class="insight-card-title">🧵 6.1 隱藏的邏輯線</div>
+        <p><strong>「上游優先」原則。</strong>Martin 沒有明說，但章節排列揭示了一個清晰的優先序：預防（Ch4-5）→ 認知重構（Ch6）→ 感受管理（Ch7）→ 表達（Ch8）。他花最多篇幅在「詮釋」上（18個Hack），暗示：如果你只能改善一件事，改善你的思考方式投資報酬率最高。另一條隱藏邏輯：Ch1 的 TikTok 故事 → Ch5 的 Hack 11 → Ch7 的 Hack 44 形成一條貫穿全書的「運動迷思破解鏈」。</p>
+      </div>
+      <div class="card">
+        <div class="insight-card-title">🎭 6.2 作者的潛台詞</div>
+        <p><strong>Martin 是 CBT 陣營的人。</strong>全書的預設立場是「改變想法可以改變感受」——這是 CBT 的核心信條。他對身體取向的情緒管理（如體感覺察、創傷釋放運動）幾乎沒有著墨。另一個潛台詞：他以憤怒研究起家，所以全書的例子和研究偏向憤怒和攻擊性，悲傷和哀傷的篇幅相對較少。結語中的個人坦白（自己也沒做到很多 Hack）暗示：他把這本書也當作自我提醒的工具。</p>
+      </div>
+      <div class="card">
+        <div class="insight-card-title">⚠️ 6.3 批判與邊界</div>
+        <p><strong>框架在什麼情況下失效？</strong>（1）創傷：對 PTSD 患者，「改變想法」可能不夠，身體層面的介入（如 EMDR、體感覺察）可能必要。（2）嚴重精神疾病：重度憂鬱或焦慮症不能只靠 Hack，需要專業治療。（3）結構性壓迫：Hack 50 承認了這一點，但全書仍以個人責任為主軸。（4）文化脈絡：情緒表達的「健康」標準可能因文化而異。（5）50 個 Hack 的扁平列表沒有嚴格的因果層次，容易讓讀者以為它們是等價的（但其實不是）。</p>
+      </div>
+      <div class="card">
+        <div class="insight-card-title">🗣️ 6.4 知識對話</div>
+        <p><strong>同意</strong> James Gross 的過程模型（這是全書骨架）。<strong>延伸</strong> Aaron Beck 的認知治療——Ch6 本質上是 CBT 認知扭曲的通俗化翻譯。<strong>部分借鑑</strong> ACT（Hack 28, 41）的接納取向。<strong>隱性反對</strong>佛洛依德式宣洩理論——Hack 44 直接用研究推翻了「打沙包洩憤有用」的觀點。<strong>缺少對話</strong>：Van der Kolk 的《The Body Keeps the Score》所代表的身體取向情緒治療傳統。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 🕸️ 交叉比對層 -->
+<!-- ================================================================ -->
+
+<!-- ===== MODULE 07: 隱藏連結網絡 ===== -->
+<section id="m07" class="section-dark section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number" style="color: rgba(255,255,255,0.06);">07</div>
+      <p class="section-label" style="color: var(--accent-sky);">HIDDEN CONNECTIONS</p>
+      <h2 class="section-title" style="color: var(--text-white);">🕸️ 隱藏連結網絡</h2>
+      <p class="section-subtitle">全域交叉比對後浮現的深層結構——人類線性閱讀幾乎不可能自行建立的連結</p>
+    </div>
+
+    <!-- 7.1 表面矛盾組 -->
+    <h3 style="color:var(--accent-sky); font-size:1.1rem; margin-bottom:24px; font-family:'Inter',sans-serif; letter-spacing:0.05em;">7.1 表面矛盾組</h3>
+
+    <div class="dark-card mb-32">
+      <div class="dark-card-title">矛盾組 1：運動是好的 vs. 運動是有害的</div>
+      <p style="margin-bottom:12px;"><strong style="color:var(--accent-mint);">Hack 11：</strong>規律運動對情緒健康有整體益處</p>
+      <p style="margin-bottom:16px;"><strong style="color:var(--accent-coral);">Hack 44：</strong>情緒高漲時運動和宣洩會強化負面情緒</p>
+      <p><strong style="color:var(--accent-sky);">深層統一：</strong>運動的時機決定效果。預防性（非情緒觸發的）運動建構情緒韌性；反應性（為了「發洩」的）運動強化交感神經激發狀態。統一原則：<em>意圖決定效果——同一行為在不同動機下有相反結果。</em></p>
+      <p style="margin-top:12px;"><strong style="color:var(--accent-amber);">切換判斷：</strong>平時（規律運動）→ Hack 11；情緒爆發時（想用運動發洩）→ 改用 Hack 37/40/42。</p>
+    </div>
+
+    <div class="dark-card mb-32">
+      <div class="dark-card-title">矛盾組 2：接納 vs. 改變</div>
+      <p style="margin-bottom:12px;"><strong style="color:var(--accent-mint);">Hack 28/41：</strong>接納不適，允許情緒存在</p>
+      <p style="margin-bottom:16px;"><strong style="color:var(--accent-coral);">Hack 17-27：</strong>積極改變你的詮釋來減少負面情緒</p>
+      <p><strong style="color:var(--accent-sky);">深層統一：</strong>對可控的事用「改變」（認知重評），對不可控的事用「接納」。統一原則：<em>Serenity Prayer 的情緒版——智慧在於分辨什麼可以改變、什麼需要接納。</em></p>
+    </div>
+
+    <div class="dark-card mb-40">
+      <div class="dark-card-title">矛盾組 3：傾聽情緒 vs. 質疑情緒</div>
+      <p style="margin-bottom:12px;"><strong style="color:var(--accent-mint);">Hack 35-36：</strong>對情緒保持開放，從中學習</p>
+      <p style="margin-bottom:16px;"><strong style="color:var(--accent-coral);">Hack 39：</strong>問自己感受是否合理（可能無效）</p>
+      <p><strong style="color:var(--accent-sky);">深層統一：</strong>先傾聽（Hack 35-36），再評估（Hack 39）。統一原則：<em>情緒是信號不是命令——先接收信號，再判斷信號是否準確。</em></p>
+    </div>
+
+    <!-- 7.2 隱形因果鏈 -->
+    <h3 style="color:var(--accent-sky); font-size:1.1rem; margin-bottom:24px; font-family:'Inter',sans-serif; letter-spacing:0.05em;">7.2 隱形因果鏈</h3>
+
+    <div class="dark-card mb-32">
+      <div class="dark-card-title">因果鏈 1 — 身體→認知→情緒→行為 全鏈路</div>
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:16px 0;">
+        <span style="padding:8px 16px; border-radius:20px; background:rgba(245,158,11,0.15); color:#fbbf24; font-size:0.85rem; font-weight:600;">Hack 9-12 身體照護</span>
+        <span style="color:var(--text-white-secondary);">→</span>
+        <span style="padding:8px 16px; border-radius:20px; background:rgba(139,92,246,0.15); color:#a78bfa; font-size:0.85rem; font-weight:600;">Hack 16 覺察狀態</span>
+        <span style="color:var(--text-white-secondary);">→</span>
+        <span style="padding:8px 16px; border-radius:20px; background:rgba(139,92,246,0.15); color:#a78bfa; font-size:0.85rem; font-weight:600;">Hack 17-34 詮釋修正</span>
+        <span style="color:var(--text-white-secondary);">→</span>
+        <span style="padding:8px 16px; border-radius:20px; background:rgba(46,205,167,0.15); color:#34d399; font-size:0.85rem; font-weight:600;">Hack 35-42 感受管理</span>
+        <span style="color:var(--text-white-secondary);">→</span>
+        <span style="padding:8px 16px; border-radius:20px; background:rgba(236,72,153,0.15); color:#f472b6; font-size:0.85rem; font-weight:600;">Hack 45-50 建設性表達</span>
+      </div>
+      <p>跳過身體照護（Hack 9-12）→ 前額葉功能受損 → 認知重評失敗 → 情緒過度反應 → 衝動表達。整條鏈路的基礎是生理狀態。</p>
+    </div>
+
+    <div class="dark-card mb-40">
+      <div class="dark-card-title">因果鏈 2 — 反芻螺旋</div>
+      <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap; margin:16px 0;">
+        <span style="padding:8px 16px; border-radius:20px; background:rgba(255,107,107,0.15); color:#fca5a5; font-size:0.85rem; font-weight:600;">Hack 19 災難化</span>
+        <span style="color:var(--text-white-secondary);">→</span>
+        <span style="padding:8px 16px; border-radius:20px; background:rgba(255,107,107,0.15); color:#fca5a5; font-size:0.85rem; font-weight:600;">Hack 25 反芻</span>
+        <span style="color:var(--text-white-secondary);">→</span>
+        <span style="padding:8px 16px; border-radius:20px; background:rgba(255,107,107,0.15); color:#fca5a5; font-size:0.85rem; font-weight:600;">Hack 14 壓力上升</span>
+        <span style="color:var(--text-white-secondary);">→</span>
+        <span style="padding:8px 16px; border-radius:20px; background:rgba(255,107,107,0.15); color:#fca5a5; font-size:0.85rem; font-weight:600;">Hack 10 睡眠惡化</span>
+        <span style="color:var(--text-white-secondary);">→ 🔄</span>
+      </div>
+      <p>災難化思考 → 引發反芻 → 壓力升高 → 睡眠品質下降 → 前額葉功能受損 → 更容易災難化 → 循環加劇。打破此循環的最有效切入點：Hack 25（打斷反芻）或 Hack 10（強制優先睡眠）。</p>
+    </div>
+
+    <!-- 7.3 元原則萃取 -->
+    <h3 style="color:var(--accent-sky); font-size:1.1rem; margin-bottom:24px; font-family:'Inter',sans-serif; letter-spacing:0.05em;">7.3 元原則萃取</h3>
+
+    <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap:20px; margin-bottom:40px;">
+      <div class="dark-card">
+        <div style="font-family:'Inter',sans-serif; font-size:0.7rem; font-weight:800; color:var(--accent-sky); letter-spacing:0.15em; margin-bottom:8px;">META PRINCIPLE 01</div>
+        <div class="dark-card-title">意圖性原則</div>
+        <p>涵蓋：Hack 4, 5, 6, 8, 11, 44, 45, 46<br><br>同一行為（運動、回憶、書寫、溝通）在不同意圖下有完全不同的效果。無意圖的反應 vs. 有意圖的行動——差異不在行為本身，而在驅動行為的心理模式。</p>
+      </div>
+      <div class="dark-card">
+        <div style="font-family:'Inter',sans-serif; font-size:0.7rem; font-weight:800; color:var(--accent-sky); letter-spacing:0.15em; margin-bottom:8px;">META PRINCIPLE 02</div>
+        <div class="dark-card-title">準確性原則</div>
+        <p>涵蓋：Hack 17-34 全部<br><br>目標不是「正向思考」而是「準確思考」。不是把壞事想成好事，而是消除思考中的系統性偏差——災難化、過度概括、個人化、標籤化都是偏差而非思考。</p>
+      </div>
+      <div class="dark-card">
+        <div style="font-family:'Inter',sans-serif; font-size:0.7rem; font-weight:800; color:var(--accent-sky); letter-spacing:0.15em; margin-bottom:8px;">META PRINCIPLE 03</div>
+        <div class="dark-card-title">基底狀態原則</div>
+        <p>涵蓋：Hack 9, 10, 11, 12, 13, 14, 16<br><br>你的身體狀態是所有認知和情緒過程的地基。睡眠不足、飢餓、脫水——這些不是「軟性因素」，而是直接影響前額葉功能的硬性約束。基底不穩，上層建築必然崩塌。</p>
+      </div>
+      <div class="dark-card">
+        <div style="font-family:'Inter',sans-serif; font-size:0.7rem; font-weight:800; color:var(--accent-sky); letter-spacing:0.15em; margin-bottom:8px;">META PRINCIPLE 04</div>
+        <div class="dark-card-title">信號而非命令原則</div>
+        <p>涵蓋：Hack 35, 36, 39, 41, 50<br><br>情緒是資訊傳遞系統，不是行為命令系統。恐懼告訴你「這裡可能有危險」（信號），但不意味著你一定要逃跑（命令）。先接收信號，再決定如何回應。</p>
+      </div>
+    </div>
+
+    <!-- 7.4 頻率分析 -->
+    <h3 style="color:var(--accent-sky); font-size:1.1rem; margin-bottom:24px; font-family:'Inter',sans-serif; letter-spacing:0.05em;">7.4 頻率分析</h3>
+
+    <div class="dark-card mb-32">
+      <div style="display:grid; gap:18px;">
+        <div class="freq-bar">
+          <div class="freq-label" style="color:var(--text-white);">認知偏差修正</div>
+          <div class="freq-track" style="background:rgba(255,255,255,0.06);"><div class="freq-fill" style="width:72%; background:linear-gradient(90deg,var(--accent-purple),var(--accent-blue));"></div></div>
+          <div class="freq-count" style="color:var(--text-white-secondary);">18章</div>
+        </div>
+        <div class="freq-bar">
+          <div class="freq-label" style="color:var(--text-white);">身心狀態維護</div>
+          <div class="freq-track" style="background:rgba(255,255,255,0.06);"><div class="freq-fill" style="width:32%; background:linear-gradient(90deg,var(--accent-amber),var(--accent-coral));"></div></div>
+          <div class="freq-count" style="color:var(--text-white-secondary);">8章</div>
+        </div>
+        <div class="freq-bar">
+          <div class="freq-label" style="color:var(--text-white);">情緒感受管理</div>
+          <div class="freq-track" style="background:rgba(255,255,255,0.06);"><div class="freq-fill" style="width:40%; background:linear-gradient(90deg,var(--accent-mint),var(--accent-teal));"></div></div>
+          <div class="freq-count" style="color:var(--text-white-secondary);">10章</div>
+        </div>
+        <div class="freq-bar">
+          <div class="freq-label" style="color:var(--text-white);">行為/表達策略</div>
+          <div class="freq-track" style="background:rgba(255,255,255,0.06);"><div class="freq-fill" style="width:24%; background:linear-gradient(90deg,var(--accent-rose),var(--accent-coral));"></div></div>
+          <div class="freq-count" style="color:var(--text-white-secondary);">6章</div>
+        </div>
+        <div class="freq-bar">
+          <div class="freq-label" style="color:var(--text-white);">情境控制</div>
+          <div class="freq-track" style="background:rgba(255,255,255,0.06);"><div class="freq-fill" style="width:20%; background:linear-gradient(90deg,var(--accent-sky),var(--accent-blue));"></div></div>
+          <div class="freq-count" style="color:var(--text-white-secondary);">5章</div>
+        </div>
+        <div class="freq-bar">
+          <div class="freq-label" style="color:var(--text-white);">元認知/自我觀察</div>
+          <div class="freq-track" style="background:rgba(255,255,255,0.06);"><div class="freq-fill" style="width:12%; background:linear-gradient(90deg,#a78bfa,#818cf8);"></div></div>
+          <div class="freq-count" style="color:var(--text-white-secondary);">3章</div>
+        </div>
+      </div>
+      <div style="margin-top:28px; text-align:center; padding:20px; background:rgba(139,92,246,0.08); border-radius:16px;">
+        <p style="font-size:0.82rem; color:var(--text-white-secondary); margin-bottom:8px;">一句話概括作者世界觀</p>
+        <p style="font-family:'Noto Serif TC',serif; font-size:1.15rem; color:var(--text-white); font-weight:700;">「改變你的想法，你就改變了你的感受——但前提是你的身體狀態允許你的大腦正常運作。」</p>
+      </div>
+    </div>
+
+    <!-- 7.5 缺席分析 -->
+    <h3 style="color:var(--accent-sky); font-size:1.1rem; margin-bottom:24px; font-family:'Inter',sans-serif; letter-spacing:0.05em;">7.5 缺席分析</h3>
+
+    <div style="display:grid; gap:16px; margin-bottom:40px;">
+      <div class="dark-card">
+        <div class="dark-card-title">🚫 缺席 1：身體取向的情緒處理</div>
+        <p>Somatic Experiencing、EMDR、創傷釋放運動（TRE）等身體層面的情緒處理方式完全缺席。Martin 的框架是純認知取向的——假設你可以「想通」情緒問題。但 Van der Kolk 等人的研究顯示，創傷記憶儲存在身體中，認知重評可能不夠。搭配《The Body Keeps the Score》可補上此缺口。</p>
+      </div>
+      <div class="dark-card">
+        <div class="dark-card-title">🚫 缺席 2：關係動力學</div>
+        <p>50 個 Hack 幾乎全是個人視角。但許多情緒問題根植於關係模式（依附風格、溝通模式、權力動態）。Hack 46（果斷溝通）和 Hack 49（社會支持）觸及了表面，但沒有深入關係系統。搭配 John Gottman 或 Sue Johnson 的關係取向著作可補上。</p>
+      </div>
+      <div class="dark-card">
+        <div class="dark-card-title">🚫 缺席 3：正向情緒的主動培養</div>
+        <p>全書聚焦在「減少/管理負面情緒」，但幾乎沒有討論如何主動培養正向情緒（如感恩、敬畏、心流）。Martin Seligman 的正向心理學和 Mihaly Csikszentmihalyi 的心流研究可以填補此空白。</p>
+      </div>
+      <div class="dark-card">
+        <div class="dark-card-title">🚫 缺席 4：神經科學的深度</div>
+        <p>雖然提到了杏仁核和前額葉，但沒有深入討論多迷走神經理論（Polyvagal Theory）、神經可塑性等機制。Stephen Porges 的多迷走神經理論可以解釋為什麼某些 Hack（深呼吸、接地）有效——因為它們直接影響自律神經系統的狀態。</p>
+      </div>
+    </div>
+
+    <!-- 7.6 實踐優先序 -->
+    <h3 style="color:var(--accent-sky); font-size:1.1rem; margin-bottom:24px; font-family:'Inter',sans-serif; letter-spacing:0.05em;">7.6 實踐優先序（如果只能內化5個）</h3>
+
+    <div style="display:grid; gap:16px; margin-bottom:40px;">
+      <div class="dark-card" style="display:grid; grid-template-columns:60px 1fr; gap:20px;">
+        <div style="font-family:'Inter',sans-serif; font-size:2.5rem; font-weight:900; color:var(--accent-sky); text-align:center;">1</div>
+        <div>
+          <div class="dark-card-title">Hack 1：繪製情緒圖</div>
+          <p>最高優先，因為它是所有其他 Hack 的「導航系統」。不知道自己的情緒在哪個環節出問題，就無法選擇正確的工具。投入 5 分鐘畫一張圖，節省你在錯誤 Hack 上浪費的小時。</p>
+        </div>
+      </div>
+      <div class="dark-card" style="display:grid; grid-template-columns:60px 1fr; gap:20px;">
+        <div style="font-family:'Inter',sans-serif; font-size:2.5rem; font-weight:900; color:var(--accent-mint); text-align:center;">2</div>
+        <div>
+          <div class="dark-card-title">Hack 16：覺察當下狀態</div>
+          <p>因果鏈的關鍵節點——「知道自己累了」本身就能攔截大量過度反應。是 Ch5 所有身體照護 Hack 的「啟動鍵」：你先覺察到狀態不好，才會去吃東西/休息/喝水。</p>
+        </div>
+      </div>
+      <div class="dark-card" style="display:grid; grid-template-columns:60px 1fr; gap:20px;">
+        <div style="font-family:'Inter',sans-serif; font-size:2.5rem; font-weight:900; color:var(--accent-purple); text-align:center;">3</div>
+        <div>
+          <div class="dark-card-title">Hack 19：避免災難化</div>
+          <p>在 18 個詮釋 Hack 中，災難化是最常見且破壞力最大的思維陷阱。它直接觸發反芻（Hack 25）、壓力上升（Hack 14）和睡眠惡化（Hack 10），是惡性循環的常見起點。</p>
+        </div>
+      </div>
+      <div class="dark-card" style="display:grid; grid-template-columns:60px 1fr; gap:20px;">
+        <div style="font-family:'Inter',sans-serif; font-size:2.5rem; font-weight:900; color:var(--accent-amber); text-align:center;">4</div>
+        <div>
+          <div class="dark-card-title">Hack 40：深呼吸</div>
+          <p>最簡單、最快速、永遠可用的生理調節工具。不需要任何準備或工具，直接啟動副交感神經系統。當其他 Hack 都太複雜時，這個永遠在那裡。</p>
+        </div>
+      </div>
+      <div class="dark-card" style="display:grid; grid-template-columns:60px 1fr; gap:20px;">
+        <div style="font-family:'Inter',sans-serif; font-size:2.5rem; font-weight:900; color:var(--accent-rose); text-align:center;">5</div>
+        <div>
+          <div class="dark-card-title">Hack 45：寫下來</div>
+          <p>打通「感受→理解→表達」的完整通道。2014年研究支持。書寫同時啟動了多個 Hack 的效果：它是一種正念練習（Hack 42）、一種自我學習（Hack 36）、也是一種情緒表達（Ch8 核心）。一個行為觸發多重效益。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7.7 情境決策矩陣 -->
+    <h3 style="color:var(--accent-sky); font-size:1.1rem; margin-bottom:24px; font-family:'Inter',sans-serif; letter-spacing:0.05em;">7.7 情境決策矩陣</h3>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:16px;">
+      <div class="dark-card" style="border-top:3px solid var(--accent-coral);">
+        <div style="font-weight:700; margin-bottom:12px; color:var(--text-white);">🔥 正在爆怒</div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(255,107,107,0.15); color:#fca5a5;">Hack 40</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(255,107,107,0.15); color:#fca5a5;">Hack 37</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(255,107,107,0.15); color:#fca5a5;">Hack 38</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(255,107,107,0.15); color:#fca5a5;">Hack 6</span>
+        </div>
+        <p>深呼吸→接地→用咒語錨定→暫時轉移注意力。<strong style="color:var(--accent-coral);">不要：</strong>運動、打東西、發訊息。</p>
+      </div>
+      <div class="dark-card" style="border-top:3px solid var(--accent-blue);">
+        <div style="font-weight:700; margin-bottom:12px; color:var(--text-white);">😰 焦慮不安</div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(74,124,255,0.15); color:#93b4ff;">Hack 19</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(74,124,255,0.15); color:#93b4ff;">Hack 20</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(74,124,255,0.15); color:#93b4ff;">Hack 29</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(74,124,255,0.15); color:#93b4ff;">Hack 42</span>
+        </div>
+        <p>停止災難化→轉向計畫→放入更大視角→正念觀察焦慮本身。</p>
+      </div>
+      <div class="dark-card" style="border-top:3px solid var(--accent-purple);">
+        <div style="font-weight:700; margin-bottom:12px; color:var(--text-white);">😢 持續低落</div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(139,92,246,0.15); color:#c4b5fd;">Hack 3</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(139,92,246,0.15); color:#c4b5fd;">Hack 36</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(139,92,246,0.15); color:#c4b5fd;">Hack 45</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(139,92,246,0.15); color:#c4b5fd;">Hack 49</span>
+        </div>
+        <p>記錄情緒日誌→對自己開放學習→寫下感受→尋求社會支持。先理解再行動。</p>
+      </div>
+      <div class="dark-card" style="border-top:3px solid var(--accent-mint);">
+        <div style="font-weight:700; margin-bottom:12px; color:var(--text-white);">🔄 反覆想同一件事</div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(46,205,167,0.15); color:#6ee7b7;">Hack 25</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(46,205,167,0.15); color:#6ee7b7;">Hack 6</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(46,205,167,0.15); color:#6ee7b7;">Hack 20</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(46,205,167,0.15); color:#6ee7b7;">Hack 47</span>
+        </div>
+        <p>辨認反芻→用健康分心打斷→轉向計畫→結構化問題解決。</p>
+      </div>
+      <div class="dark-card" style="border-top:3px solid var(--accent-amber);">
+        <div style="font-weight:700; margin-bottom:12px; color:var(--text-white);">😤 對人際衝突煩躁</div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(245,158,11,0.15); color:#fcd34d;">Hack 31</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(245,158,11,0.15); color:#fcd34d;">Hack 32</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(245,158,11,0.15); color:#fcd34d;">Hack 18</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(245,158,11,0.15); color:#fcd34d;">Hack 46</span>
+        </div>
+        <p>不個人化→放下期待別人改變→去掉標籤→果斷溝通表達需求。</p>
+      </div>
+      <div class="dark-card" style="border-top:3px solid var(--accent-rose);">
+        <div style="font-weight:700; margin-bottom:12px; color:var(--text-white);">🛡️ 長期情緒韌性建構</div>
+        <div style="display:flex; gap:6px; flex-wrap:wrap; margin-bottom:12px;">
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(236,72,153,0.15); color:#f9a8d4;">Hack 9-13</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(236,72,153,0.15); color:#f9a8d4;">Hack 11</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(236,72,153,0.15); color:#f9a8d4;">Hack 2</span>
+          <span style="font-size:0.7rem; padding:3px 10px; border-radius:20px; background:rgba(236,72,153,0.15); color:#f9a8d4;">Hack 42</span>
+        </div>
+        <p>身體照護基礎→規律預防性運動→辨識情緒模式→建立正念習慣。這是「繫安全帶」策略。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- 🚀 轉化層 -->
+<!-- ================================================================ -->
+
+<!-- ===== MODULE 08: 行動轉化 ===== -->
+<section id="m08" class="section bg-mint">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">08</div>
+      <p class="section-label" style="color: #0d9472;">ACTION PLAN</p>
+      <h2 class="section-title">🎬 行動轉化</h2>
+      <p class="section-subtitle">三個時間維度的具體行動——本週、本月、長期</p>
+    </div>
+
+    <div class="action-timeline">
+      <div class="card action-period" style="border-top:4px solid var(--accent-mint);">
+        <div class="action-period-label color-mint">本週啟動</div>
+        <ul class="action-list">
+          <li>✅ 用 Why We Feel Model 繪製一次最近的情緒事件（Hack 1），找出你的主要卡點在哪個階段</li>
+          <li>✅ 設定「狀態檢查」鬧鐘——每天下午 3 點問自己：我現在餓嗎？累嗎？壓力大嗎？（Hack 16）</li>
+          <li>✅ 今晚做一次 20 分鐘的表達性書寫——不是記流水帳，而是探索一個近期的情緒體驗（Hack 45）</li>
+        </ul>
+      </div>
+      <div class="card action-period" style="border-top:4px solid var(--accent-blue);">
+        <div class="action-period-label color-blue">本月實驗</div>
+        <ul class="action-list">
+          <li>🔄 建立情緒日誌習慣（Hack 3）——每晚用 2 分鐘記錄：今天最強的情緒是什麼？觸發了什麼？我怎麼解讀的？</li>
+          <li>🔄 練習「認知偵探」——每次有強烈負面情緒時，問自己三個問題：這是事實還是判斷？（Hack 33）有沒有其他解讀？（Hack 27）五年後我還在意嗎？（Hack 29）</li>
+        </ul>
+      </div>
+      <div class="card action-period" style="border-top:4px solid var(--accent-purple);">
+        <div class="action-period-label color-purple">長期追蹤</div>
+        <ul class="action-list">
+          <li>📊 追蹤指標：每週回顧情緒日誌，計算「過度反應次數」——定義為事後覺得反應強度不符合事件嚴重性的次數。目標：每月減少 20%</li>
+          <li>📊 每月重新做一次 Hack 2（辨識情緒模式），觀察你的模式是否在改變</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MODULE 09: 相關影片 ===== -->
+<section id="m09" class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">09</div>
+      <p class="section-label color-coral">RELATED MEDIA</p>
+      <h2 class="section-title">🎥 相關影片與資源</h2>
+    </div>
+
+    <div class="video-grid">
+      <div class="card card-sm">
+        <div class="video-card">
+          <div class="video-icon" style="background:rgba(255,107,107,0.1);">🎤</div>
+          <div>
+            <div class="video-type">TED TALK</div>
+            <div class="video-title">Why We Get Mad — And Why It's Healthy</div>
+            <div class="video-desc">Ryan Martin · 3.6M+ 觀看 · 本書的知識源頭，解釋為什麼憤怒是健康的進化產物</div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-sm">
+        <div class="video-card">
+          <div class="video-icon" style="background:rgba(139,92,246,0.1);">🎙️</div>
+          <div>
+            <div class="video-type">PODCAST</div>
+            <div class="video-title">Truth, Lies and Work — Emotion Hacks</div>
+            <div class="video-desc">Spotify · 2025 · Martin 討論為什麼情緒是資訊而非緊急狀況，小的上游決策如何影響數小時後的感受</div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-sm">
+        <div class="video-card">
+          <div class="video-icon" style="background:rgba(46,205,167,0.1);">📻</div>
+          <div>
+            <div class="video-type">NPR</div>
+            <div class="video-title">Ryan Martin: Why Do We Need Anger?</div>
+            <div class="video-desc">TED Radio Hour · 深入探討憤怒的適應功能與健康表達</div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-sm">
+        <div class="video-card">
+          <div class="video-icon" style="background:rgba(245,158,11,0.1);">✍️</div>
+          <div>
+            <div class="video-type">SUBSTACK</div>
+            <div class="video-title">Emotion Hacks from the Anger Professor</div>
+            <div class="video-desc">angerprofessor.substack.com · 每週研究導向的情緒管理內容，延伸本書主題</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MODULE 10: 敘事弧線 ===== -->
+<section id="m10" class="section bg-peach">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">10</div>
+      <p class="section-label color-coral">NARRATIVE ARC</p>
+      <h2 class="section-title">📈 敘事弧線</h2>
+      <p class="section-subtitle">整本書的情緒設計——作者如何帶著你走過一段認知旅程</p>
+    </div>
+
+    <div class="arc-steps">
+      <div class="card arc-step" style="border-top:4px solid var(--accent-coral);">
+        <div class="arc-step-label color-coral">起點 ENTRY</div>
+        <div class="arc-step-text">讀者帶著「我只會一兩招」的無力感和「去運動就好」的錯誤信念進入</div>
+      </div>
+      <div class="card arc-step" style="border-top:4px solid var(--accent-amber);">
+        <div class="arc-step-label color-amber">破壞 DISRUPT</div>
+        <div class="arc-step-text">Ch1-2 拆除「情緒不可控」和「運動萬能」的信念，揭示情緒是可介入的多階段過程</div>
+      </div>
+      <div class="card arc-step" style="border-top:4px solid var(--accent-purple);">
+        <div class="arc-step-label color-purple">最低點 NADIR</div>
+        <div class="arc-step-text">Ch6 讓讀者面對自己的認知扭曲（18 種！），可能短暫感到「原來我的思考有這麼多問題」</div>
+      </div>
+      <div class="card arc-step" style="border-top:4px solid var(--accent-mint);">
+        <div class="arc-step-label color-mint">重建 REBUILD</div>
+        <div class="arc-step-text">Ch7-8 提供具體的感受管理和表達工具，從認知到行動的完整路徑，賦予讀者掌控感</div>
+      </div>
+      <div class="card arc-step" style="border-top:4px solid var(--accent-blue);">
+        <div class="arc-step-label color-blue">著陸 LANDING</div>
+        <div class="arc-step-text">結語的坦白：連作者自己也沒全做到。最終訊息：不求完美，只求有意識地持續改善</div>
+      </div>
+    </div>
+
+    <div style="text-align:center; margin-top:32px; padding:24px; background:rgba(139,92,246,0.06); border-radius:var(--radius-lg);">
+      <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:8px;">情緒設計</p>
+      <p style="font-size:1.05rem; font-weight:600;">無力感 → 認知衝擊 → 框架重建 → 工具賦能 → 自我接納的降落</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MODULE 11: 個人化透鏡 ===== -->
+<section id="m11" class="section">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">11</div>
+      <p class="section-label color-purple">PERSONAL LENS</p>
+      <h2 class="section-title">🔮 個人化透鏡</h2>
+      <p class="section-subtitle">針對不同身份和場景的實踐轉化</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:20px;">
+      <div class="card">
+        <h4 style="margin-bottom:16px;">👩‍💼 職場工作者</h4>
+        <ul class="action-list">
+          <li>📌 會議前做 Hack 16（狀態檢查）——知道自己狀態差就降低反應強度</li>
+          <li>📌 收到刺激郵件時用 Hack 20（重聚焦計畫）而非立即回覆</li>
+          <li>📌 對同事的行為用 Hack 31（不個人化）和 Hack 33（意見≠事實）</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4 style="margin-bottom:16px;">👨‍👩‍👧 家長</h4>
+        <ul class="action-list">
+          <li>📌 孩子哭鬧時先 Hack 40（深呼吸）再回應，避免情緒傳染</li>
+          <li>📌 用 Hack 1（繪製情緒圖）教孩子理解自己的情緒</li>
+          <li>📌 對伴侶用 Hack 46（果斷溝通）取代被動攻擊或壓抑</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4 style="margin-bottom:16px;">🎓 學生</h4>
+        <ul class="action-list">
+          <li>📌 考試焦慮時用 Hack 19（避免災難化）+ Hack 29（更大視角）</li>
+          <li>📌 社交壓力用 Hack 31（不個人化）——別人的態度通常不是針對你</li>
+          <li>📌 用 Hack 45（表達性書寫）作為日常情緒整理工具</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h4 style="margin-bottom:16px;">🧘 自我成長者</h4>
+        <ul class="action-list">
+          <li>📌 把 Hack 2（辨識模式）和 Hack 23（核心信念）作為深度自我探索的工具</li>
+          <li>📌 用 Hack 41（擁抱不適）和 Hack 42（正念）培養情緒韌性</li>
+          <li>📌 Hack 50（尋求廣泛改變）——當個人成長遇到系統性障礙時，行動是出路</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== MODULE 12: 延伸資源 ===== -->
+<section id="m12" class="section bg-cool">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-number">12</div>
+      <p class="section-label color-blue">FURTHER READING</p>
+      <h2 class="section-title">📚 延伸資源</h2>
+      <p class="section-subtitle">五個方向的閱讀延伸——上游、平行、延伸、對立、互補</p>
+    </div>
+
+    <div class="resource-grid">
+      <div class="card card-sm">
+        <div class="resource-card">
+          <div class="resource-icon" style="background:rgba(139,92,246,0.1);">⬆️</div>
+          <div>
+            <div class="resource-dir">上游 UPSTREAM</div>
+            <div class="resource-title">Emotion Regulation (Gross, 2002)</div>
+            <div class="resource-desc">James Gross 的學術原作——本書所有框架的源頭，適合想看原始研究的讀者</div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-sm">
+        <div class="resource-card">
+          <div class="resource-icon" style="background:rgba(74,124,255,0.1);">↔️</div>
+          <div>
+            <div class="resource-dir">平行 PARALLEL</div>
+            <div class="resource-title">Feeling Good — David Burns</div>
+            <div class="resource-desc">CBT 的經典通俗讀物，與本書 Ch6 高度重疊但更系統化，10 種認知扭曲的完整手冊</div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-sm">
+        <div class="resource-card">
+          <div class="resource-icon" style="background:rgba(46,205,167,0.1);">📗</div>
+          <div>
+            <div class="resource-dir">延伸 EXTENSION</div>
+            <div class="resource-title">Why We Get Mad — Ryan Martin</div>
+            <div class="resource-desc">Martin 的前作，深入探討憤怒的科學、功能和健康表達——本書是從憤怒擴展到全情緒的升級版</div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-sm">
+        <div class="resource-card">
+          <div class="resource-icon" style="background:rgba(255,107,107,0.1);">⚡</div>
+          <div>
+            <div class="resource-dir">對立 COUNTER</div>
+            <div class="resource-title">The Body Keeps the Score — Van der Kolk</div>
+            <div class="resource-desc">身體取向的創傷治療——直接挑戰本書「改變想法就能改變感受」的預設，認為創傷儲存在身體中</div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-sm">
+        <div class="resource-card">
+          <div class="resource-icon" style="background:rgba(236,72,153,0.1);">🧩</div>
+          <div>
+            <div class="resource-dir">互補 COMPLEMENT</div>
+            <div class="resource-title">Flourish — Martin Seligman</div>
+            <div class="resource-desc">補上本書缺席的「正向情緒主動培養」——不只減少負面，還要增加正面（PERMA 模型）</div>
+          </div>
+        </div>
+      </div>
+      <div class="card card-sm">
+        <div class="resource-card">
+          <div class="resource-icon" style="background:rgba(245,158,11,0.1);">🔗</div>
+          <div>
+            <div class="resource-dir">互補 COMPLEMENT</div>
+            <div class="resource-title">The Polyvagal Theory — Stephen Porges</div>
+            <div class="resource-desc">補上神經科學深度——解釋為什麼深呼吸和接地有效，多迷走神經如何調節自律神經狀態</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="footer-title">超級大腦讀書法 · 完整解構報告</div>
+  <p>Emotion Hacks: 50 Ways to Feel Better Fast — Dr. Ryan Martin</p>
+  <p style="margin-top:16px; font-size:0.78rem; opacity:0.5;">四層十二模組 · 全域交叉比對分析<br>Generated with Super Brain Reading Method</p>
+</footer>
+
+</body>
+</html>
