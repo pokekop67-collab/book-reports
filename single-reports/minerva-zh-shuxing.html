@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒深度分析｜全球人才搶著學！密涅瓦的思考習慣訓練</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600&display=swap');
+:root{
+  --p:#764ba2;--s:#667eea;--a:#f093fb;
+  --bg:#faf8ff;--card:#fff;--text:#2d3748;--m:#718096;
+  --ok:#48bb78;--warn:#f6ad55;--bad:#fc8181;
+  --border:#e9d8fd;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;}
+.hero{background:linear-gradient(135deg,#764ba2 0%,#667eea 50%,#f093fb 100%);color:#fff;padding:60px 20px 100px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;width:500px;height:500px;background:rgba(255,255,255,.06);border-radius:50%;top:-150px;right:-100px;}
+.hero .book-tag{display:inline-block;background:rgba(255,255,255,.2);border-radius:999px;padding:5px 16px;font-size:.8rem;margin-bottom:16px;letter-spacing:.1em;}
+.hero h1{font-size:2.2rem;font-weight:900;margin-bottom:8px;font-family:'Noto Serif TC',serif;}
+.hero .subtitle{opacity:.85;font-size:.95rem;max-width:500px;margin:0 auto 20px;}
+.hero-meta{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.hero-meta span{background:rgba(255,255,255,.15);border-radius:8px;padding:5px 14px;font-size:.8rem;}
+.toc{background:#fff;border-radius:0;padding:20px 16px;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 20px rgba(0,0,0,.08);}
+.toc-inner{max-width:860px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+.toc-label{font-weight:900;font-size:.8rem;color:var(--p);flex-shrink:0;}
+.toc a{color:var(--m);text-decoration:none;font-size:.78rem;padding:3px 8px;border-radius:6px;transition:.2s;}
+.toc a:hover{background:#eef2ff;color:var(--p);}
+.wrap{max-width:860px;margin:0 auto;padding:40px 16px 80px;}
+.step{margin-bottom:40px;}
+.step-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;padding-bottom:14px;border-bottom:2px solid var(--border);}
+.step-num{background:linear-gradient(135deg,var(--p),var(--s));color:#fff;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.88rem;flex-shrink:0;}
+.step-title{font-size:1.2rem;font-weight:900;font-family:'Noto Serif TC',serif;}
+.step-subtitle{font-size:.82rem;color:var(--m);margin-top:2px;}
+.card{background:#fff;border-radius:14px;padding:20px;margin-bottom:14px;box-shadow:0 2px 14px rgba(0,0,0,.06);border:1.5px solid var(--border);}
+.card-title{font-weight:900;font-size:.9rem;color:var(--p);margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+.item{display:flex;gap:10px;margin-bottom:8px;font-size:.88rem;line-height:1.7;align-items:flex-start;}
+.dot{width:8px;height:8px;background:var(--p);border-radius:50%;flex-shrink:0;margin-top:7px;}
+.h{background:linear-gradient(120deg,rgba(240,147,251,.3),rgba(240,147,251,.1));padding:2px 6px;border-radius:4px;font-weight:700;}
+.quote{font-family:'Noto Serif TC',serif;font-size:.92rem;line-height:1.8;color:#4a5568;background:#f9f5ff;border-left:4px solid var(--p);padding:14px 18px;border-radius:0 10px 10px 0;margin:10px 0;}
+.quote cite{display:block;font-size:.78rem;color:var(--m);margin-top:6px;font-style:normal;}
+.tag{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:700;margin:3px;}
+.tag-method{background:#e9d8fd;color:#6b46c1;}
+.tag-insight{background:#bee3f8;color:#2c5282;}
+.tag-action{background:#c6f6d5;color:#276749;}
+.tag-warn{background:#feebc8;color:#c05621;}
+.tag-concept{background:#fed7e2;color:#97266d;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px;}
+.mini-card{background:var(--bg);border-radius:10px;padding:14px;}
+.mini-card .mc-title{font-weight:900;font-size:.82rem;color:var(--p);margin-bottom:6px;}
+.mini-card .mc-body{font-size:.82rem;line-height:1.6;}
+.hc-box{background:linear-gradient(135deg,#f9f5ff,#eef2ff);border:1.5px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px;}
+.hc-tag{font-family:monospace;background:var(--p);color:#fff;padding:2px 8px;border-radius:4px;font-size:.78rem;font-weight:700;}
+.hc-name{font-weight:900;font-size:.95rem;margin:8px 0 4px;}
+.hc-desc{font-size:.85rem;line-height:1.6;color:#4a5568;}
+.hc-example{font-size:.82rem;background:#fff;padding:10px 12px;border-radius:8px;margin-top:8px;color:#553c9a;border-left:3px solid var(--p);}
+.rating{display:flex;gap:6px;align-items:center;}
+.stars{color:#f6ad55;font-size:1.1rem;}
+.insight-box{background:linear-gradient(135deg,#f9f5ff,#fff);border:2px solid var(--p);border-radius:14px;padding:18px;margin-bottom:12px;}
+.insight-num{font-size:2rem;font-weight:900;color:var(--border);line-height:1;}
+.insight-title{font-weight:900;font-size:1rem;color:var(--p);margin-bottom:6px;}
+.insight-body{font-size:.87rem;line-height:1.7;}
+.action-card{border-radius:12px;padding:14px 16px;margin-bottom:10px;border-left:4px solid;}
+.action-now{background:#f0fff4;border-color:#48bb78;}
+.action-week{background:#ebf8ff;border-color:#4299e1;}
+.action-month{background:#fff5f5;border-color:#fc8181;}
+.missing{background:#fffaf0;border:1.5px dashed #f6ad55;border-radius:12px;padding:14px 16px;margin-bottom:10px;font-size:.87rem;}
+.missing-title{font-weight:900;color:#c05621;margin-bottom:6px;}
+@media(max-width:600px){.grid2,.grid3{grid-template-columns:1fr;}.hero h1{font-size:1.6rem;}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="book-tag">📚 書醒系統 11步深度分析</div>
+  <h1>全球人才搶著學！<br>密涅瓦的思考習慣訓練</h1>
+  <div class="subtitle">李佳達 × 劉劭穎 × 黃禮宏｜三位密涅瓦 MDA 2022 級學生的實踐報告</div>
+  <div class="hero-meta">
+    <span>🧠 方法實踐型</span>
+    <span>🇹🇼 繁體中文</span>
+    <span>📖 思考習慣 HC 系統</span>
+    <span>⭐ 洞見密度：高</span>
+  </div>
+</div>
+
+<div class="toc">
+  <div class="toc-inner">
+    <span class="toc-label">目錄：</span>
+    <a href="#s1">①資料卡</a>
+    <a href="#s2">②核心命題</a>
+    <a href="#s3">③主題分析</a>
+    <a href="#s4">④敘事弧線</a>
+    <a href="#s5">⑤整合洞見</a>
+    <a href="#s6">⑥缺席分析</a>
+    <a href="#s7">⑦AI視角</a>
+    <a href="#s8">⑧行動轉化</a>
+    <a href="#s9">⑨個人化</a>
+    <a href="#s10">⑩書庫卡片</a>
+    <a href="#s11">⑪一句話</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- Step 1 -->
+<div class="step" id="s1">
+  <div class="step-header">
+    <div class="step-num">01</div>
+    <div><div class="step-title">📚 書籍資料卡</div><div class="step-subtitle">基礎背景建立</div></div>
+  </div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">📖 基本資訊</div>
+      <div class="item"><div class="dot"></div><div><strong>書名：</strong>全球人才搶著學！密涅瓦的思考習慣訓練</div></div>
+      <div class="item"><div class="dot"></div><div><strong>作者：</strong>李佳達、劉劭穎、黃禮宏（三人均為密涅瓦大學 MDA 2022 級）</div></div>
+      <div class="item"><div class="dot"></div><div><strong>類型：</strong>🔧 方法實踐型</div></div>
+      <div class="item"><div class="dot"></div><div><strong>語言：</strong>繁體中文</div></div>
+      <div class="item"><div class="dot"></div><div><strong>版權敏感度：</strong>中</div></div>
+    </div>
+    <div class="card">
+      <div class="card-title">👥 作者背景</div>
+      <div class="item"><div class="dot"></div><div><strong>李佳達：</strong>律師出身、哈佛訪問學人，曾任政務委員幕僚，主理青創政策；世界觀學院創辦人</div></div>
+      <div class="item"><div class="dot"></div><div><strong>劉劭穎：</strong>急診科醫師轉型醫療教育者，擅長遊戲化課程設計</div></div>
+      <div class="item"><div class="dot"></div><div><strong>黃禮宏：</strong>傳產資深國外業務，在跨國商業實境中活用 HC 思考習慣</div></div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-title">🏫 密涅瓦大學背景</div>
+    <div class="item"><div class="dot"></div><div>2014 年由 Ben Nelson 創辦於矽谷，首批錄取率低於哈佛，申請人數破 50,000</div></div>
+    <div class="item"><div class="dot"></div><div>沒有固定校園，4 年在全球 7 座城市移動學習（舊金山→首爾→孟買→柏林→布宜諾斯艾利斯→倫敦→台北）</div></div>
+    <div class="item"><div class="dot"></div><div>核心教學法：<span class="h">思考習慣訓練法（HC, Habits of Mind and Foundational Concepts）</span></div></div>
+    <div class="item"><div class="dot"></div><div>此書為 MDA（決策科學碩士班）課程的中文世界第一本實踐報告</div></div>
+  </div>
+</div>
+
+<!-- Step 2 -->
+<div class="step" id="s2">
+  <div class="step-header">
+    <div class="step-num">02</div>
+    <div><div class="step-title">🎯 核心命題</div><div class="step-subtitle">問題 × 論點 × 方法</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">❓ 問題（讀者的痛點）</div>
+    <div class="quote">
+      我們花了人生最多時間在學校，但每次社會上遇到未知困難，回頭找學校所學，卻往往什麼有用的都找不到。教育，出了什麼問題？
+      <cite>— 李佳達（菜鳥法務長困境）</cite>
+    </div>
+    <div class="item"><div class="dot"></div><div>只有 11% 的企業認為學校有幫學生做好進入社會的準備（蓋洛普調查）</div></div>
+    <div class="item"><div class="dot"></div><div>傳統教育教了錯的東西（知識堆積），又用錯的方法教（演講 + 考試），6個月後遺忘 90%</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">💡 論點（作者的核心主張）</div>
+    <div class="quote">未來的學習不是學知識，而在於培養<strong>應對未知的智慧</strong>——也就是可以自動浮現、開始運作的<strong>思考習慣</strong>。</div>
+    <div class="item"><div class="dot"></div><div>HC 系統：用 <span class="h">#標籤</span> 把思考行為化、可練習、可評量、可遷移</div></div>
+    <div class="item"><div class="dot"></div><div>思考習慣 = 跨學科武器庫，一旦養成，在法律、醫療、商業都能通用</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">🔬 方法（論證路徑）</div>
+    <div class="item"><div class="dot"></div><div><span class="tag tag-method">案例法</span> 三作者各自用真實職場/生活案例示範 HC 工具如何使用</div></div>
+    <div class="item"><div class="dot"></div><div><span class="tag tag-method">實踐紀錄</span> 課堂筆記 + 作業回饋 + 教授評語系統</div></div>
+    <div class="item"><div class="dot"></div><div><span class="tag tag-method">歸納法</span> 從不同行業（法務、醫療、製造業）的相同問題中歸納出 HC 工具的通用性</div></div>
+  </div>
+</div>
+
+<!-- Step 3 -->
+<div class="step" id="s3">
+  <div class="step-header">
+    <div class="step-num">03</div>
+    <div><div class="step-title">📖 主題式分析</div><div class="step-subtitle">六大核心 HC 工具深挖</div></div>
+  </div>
+
+  <div class="hc-box">
+    <span class="hc-tag">#問對問題</span>
+    <div class="hc-name">HC①：問對問題（Right Problem）</div>
+    <div class="hc-desc">
+      問題解決的起點。先精確定義「現況是什麼」「理想狀態是什麼」「兩者之間的障礙是什麼」，才不會先射箭再畫靶。
+    </div>
+    <div class="hc-example">
+      💼 案例：廠商延誤交期，同事討論「怎麼對付廠商」。#問對問題後發現真正問題是「達到出貨標準並通過驗收」。發現只要2週自己解決，不需要花精力跟廠商爭。
+    </div>
+    <div class="hc-example">
+      🏥 案例：隔離病房發現病毒殘留，直覺開教育訓練。#問對問題後發現應改變「是否有活性病毒」的檢測標準，而非追求零病毒殘留。
+    </div>
+  </div>
+
+  <div class="hc-box">
+    <span class="hc-tag">#限制條件</span>
+    <div class="hc-name">HC②：限制條件 vs 障礙（Constraint vs Obstacle）</div>
+    <div class="hc-desc">
+      在問題中，有些事情是你「難以改變」的限制（#constraint），有些是你「可以清除」的障礙。先框定限制條件，才能聚焦在有效的行動上。
+    </div>
+    <div class="hc-example">
+      🌐 案例：疫調 APP 設計。隱私權保障、便利性、傳播性 = #限制條件（不能逾越）。真正可調整的只剩「蒐集最少但夠用的資訊」→ 設計出簡訊實聯制。
+    </div>
+    <div class="hc-example">
+      💑 人際應用：「改變別人」= 一種 #限制條件。把改變別人當限制後，心力自然放在「我自己能做什麼改變」，跳脫無效迴圈。
+    </div>
+  </div>
+
+  <div class="hc-box">
+    <span class="hc-tag">#拆解問題</span>
+    <div class="hc-name">HC③：拆解問題（Decompose the Problem）</div>
+    <div class="hc-desc">
+      問題太大時，把它拆成更小、可獨立處理的子問題。強迫問題具體化，避免在模糊中討論。
+    </div>
+    <div class="hc-example">
+      📱 案例：網路遊戲成癮 → 拆成手機、網路、遊戲三個方向，分別評估各自的 #限制條件，才能找到唯一可控的介入點。
+    </div>
+    <div class="hc-example">
+      👶 案例：育兒焦慮「要給孩子最好的」→ 拆成：物質條件 × 陪伴品質 × 不同年齡段需求 → 發現關鍵不是錢，而是相處品質。
+    </div>
+  </div>
+
+  <div class="hc-box">
+    <span class="hc-tag">#差距分析</span>
+    <div class="hc-name">HC④：差距分析（Gap Analysis）</div>
+    <div class="hc-desc">
+      在想新解方之前，先看現有解方夠不夠用，或能否稍作修改。避免重造輪子，也能提高效率。
+    </div>
+    <div class="hc-example">
+      🔧 案例：廠商問題。先問「我們自己設計、自己跑，能做到嗎？」同事說頂多2週。這個差距分析直接讓原本卡關2個月的問題找到出口。
+    </div>
+  </div>
+
+  <div class="hc-box">
+    <span class="hc-tag">#類比</span>
+    <div class="hc-name">HC⑤：類比思考（Analogies）</div>
+    <div class="hc-desc">
+      從其他領域的相似情境，借用已驗證的解決方案。跨領域移轉，是創意的核心。
+    </div>
+    <div class="hc-example">
+      🏛️ 案例：青年創業政策 → 參考科學園區「單一窗口」概念，讓創業家能快速找到適合自己的政策。
+    </div>
+    <div class="hc-example">
+      🌿 案例：荷蘭大麻合法化使年輕人反而不想嘗試 → 類比：讓遊戲成為「大人的東西」可降低對年輕人的吸引力。
+    </div>
+  </div>
+
+  <div class="hc-box">
+    <span class="hc-tag">#捷思法</span>
+    <div class="hc-name">HC⑥：捷思法（Heuristic）</div>
+    <div class="hc-desc">
+      在資訊不完全的情況下做決策的策略。兩個常見操作：①把合理想法推向不合理的極限；②想像某變量降為零。
+    </div>
+    <div class="hc-example">
+      🎮 案例：遊戲沉迷問題 → 推到極限：未成年人一進遊戲就滿等 → 發現沒有挑戰 = 沒有樂趣 → 引導思考真正問題不在時間而在滿足感。
+    </div>
+    <div class="hc-example">
+      🌾 案例：糧食短缺 + 土地變量降為零 → 跳出「農作物長在土地」的框架 → 水耕法、其他介質。
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">⚙️ HC 系統的學習機制（密涅瓦教學設計）</div>
+    <div class="item"><div class="dot"></div><div><span class="h">命名（Name it）</span>：給行為一個#標籤，才能討論、溝通、回顧</div></div>
+    <div class="item"><div class="dot"></div><div><span class="h">主張（Claim it）</span>：能識別「我現在正在用這個習慣」</div></div>
+    <div class="item"><div class="dot"></div><div><span class="h">追求（Aim it）</span>：反覆刻意練習後，形成個人化的強化版本</div></div>
+    <div class="item"><div class="dot"></div><div>評分以 HC 為單位（1-5分），教授從課堂錄影、作業中評估HC應用品質</div></div>
+    <div class="item"><div class="dot"></div><div>學生可在系統中看到所有使用過某HC的記錄 + 教授評語，越用越強</div></div>
+  </div>
+</div>
+
+<!-- Step 4 -->
+<div class="step" id="s4">
+  <div class="step-header">
+    <div class="step-num">04</div>
+    <div><div class="step-title">📐 敘事弧線</div><div class="step-subtitle">書的故事結構</div></div>
+  </div>
+  <div class="card">
+    <div class="item"><div class="dot"></div><div><strong>起點（痛點）：</strong>教育與現實嚴重脫節——學了很多卻用不上，社會上的問題在學校找不到答案</div></div>
+    <div class="item"><div class="dot"></div><div><strong>轉折（發現）：</strong>三位作者在各自職涯遇到瓶頸後，分別進入密涅瓦 MDA，接觸 HC 系統</div></div>
+    <div class="item"><div class="dot"></div><div><strong>深化（學習）：</strong>不是學「答案」，而是學「思考工具」——#問對問題、#限制條件、#類比……</div></div>
+    <div class="item"><div class="dot"></div><div><strong>回饋（應用）：</strong>把 HC 工具帶回各自的場域（法律談判、醫院管理、國際業務），每個案例都是真實的現場</div></div>
+    <div class="item"><div class="dot"></div><div><strong>呼籲（使命）：</strong>這些工具不應只在密涅瓦大學，台灣（和全球）的教育需要這樣的改革</div></div>
+  </div>
+</div>
+
+<!-- Step 5 -->
+<div class="step" id="s5">
+  <div class="step-header">
+    <div class="step-num">05</div>
+    <div><div class="step-title">💎 整合洞見（Top 8）</div><div class="step-subtitle">跨章節連結，書中最有力的觀點</div></div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">01</div>
+    <div class="insight-title">先問問題，再想答案——這個順序決定了你的天花板</div>
+    <div class="insight-body">傳統教育從小訓練我們找「標準答案」，但現實世界的問題沒有標準答案，有的只是「你有沒有問對問題」。絕大多數組織在第一天就開始找解法，但從沒問過「我們真正要解決的是什麼？」這一問可能省去幾個月的無效努力。</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">02</div>
+    <div class="insight-title">限制條件不是桎梏，是聚焦的框架</div>
+    <div class="insight-body">知道「什麼是我不能改變的」，反而讓思考更自由——因為你終於知道力氣要用在哪裡。蠟燭在容器中會塑形，沒有容器的火焰什麼都燒不出來。</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">03</div>
+    <div class="insight-title">「改變別人」是你最大的限制條件</div>
+    <div class="insight-body">人際關係的所有困境幾乎都源於一個錯誤假設：「對方應該按我的期望改變」。但這是最難改變的 #限制條件。把心力放回自己，不是妥協，而是最有效率的行動策略。</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">04</div>
+    <div class="insight-title">真正的學習是能夠遷移的學習</div>
+    <div class="insight-body">Grammarly 的故事完美示範：從「偵測抄襲」到「提升寫作品質」，問題定義不同，產品就完全不同。知識如果不能從一個脈絡遷移到另一個脈絡，就只是儲存，不是學習。</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">05</div>
+    <div class="insight-title">解決方案必須先問：「so what？然後呢？」</div>
+    <div class="insight-body">防弊（抓抄襲）和興利（提升寫作能力）都是「解決問題」，但深度不同。不斷追問「然後呢？」可以讓你從治標走向治本，從百萬走向百億。</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">06</div>
+    <div class="insight-title">思考習慣是跨學科武器庫，而非學科本身</div>
+    <div class="insight-body">法律、醫療、製造業三位作者都用了相同的 #問對問題、#限制條件、#拆解問題，卻解決了完全不同領域的問題。這正是 HC 系統的核心設計：工具是跨域的，應用是情境化的。</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">07</div>
+    <div class="insight-title">#audience（受眾）是一切溝通的前提</div>
+    <div class="insight-body">隔離14天，買了遊戲機還是滿足不了孩子，因為孩子要的是「跟爸媽一起玩的互動」。溝通之前，先問「對方要的是什麼」，不要只想「我能給什麼」。</div>
+  </div>
+  <div class="insight-box">
+    <div class="insight-num">08</div>
+    <div class="insight-title">思考習慣是用進廢退的，不是學完就有</div>
+    <div class="insight-body">密涅瓦的評分系統允許同一個 HC 被重複評分 10 幾次。思考習慣如同肌肉，越練越強；長期不用，越來越弱。這是對「一次性考試評量」最根本的批判。</div>
+  </div>
+</div>
+
+<!-- Step 6 -->
+<div class="step" id="s6">
+  <div class="step-header">
+    <div class="step-num">06</div>
+    <div><div class="step-title">🔍 缺席分析</div><div class="step-subtitle">書中「沒說」或「說不清」的地方</div></div>
+  </div>
+  <div class="missing">
+    <div class="missing-title">⚠️ 缺席①：HC 系統如何應對情緒性決策？</div>
+    書中案例多為理性、邏輯性決策情境。當一個人處於高壓、憤怒或恐懼中，#問對問題的能力會大幅下降，書中對此著墨不多。
+  </div>
+  <div class="missing">
+    <div class="missing-title">⚠️ 缺席②：如何獨自學習 HC 而不在密涅瓦的課堂？</div>
+    書中的案例是在「有教授即時回饋」的環境下練習 HC，但讀者自學時缺乏回饋機制，書中沒有提供替代方案。
+  </div>
+  <div class="missing">
+    <div class="missing-title">⚠️ 缺席③：HC 的「邊界」在哪裡？</div>
+    書中聚焦問題解決的 HC，但密涅瓦完整系統還包含批判思考、創意思考、有效溝通、有效互動。本書介紹的只是冰山一角，對讀者可能造成「以為這就是全部」的誤解。
+  </div>
+  <div class="missing">
+    <div class="missing-title">⚠️ 缺席④：遷移失敗的案例</div>
+    書中只有「HC 成功應用」的正面案例，缺乏「HC 用了但沒效」的反例，讓讀者難以了解這套系統的限制和邊界條件。
+  </div>
+</div>
+
+<!-- Step 7 -->
+<div class="step" id="s7">
+  <div class="step-header">
+    <div class="step-num">07</div>
+    <div><div class="step-title">🤖 AI 視角評析</div><div class="step-subtitle">這本書在 AI 時代的意義</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">🎯 AI 最難替代的部分，正是 HC 的核心</div>
+    <div class="item"><div class="dot"></div><div>AI 擅長：在已知問題框架內找答案。HC 訓練的是：<span class="h">框架問題本身</span>——問對問題這件事，AI 需要人類給出prompt，但人類自己不一定問得對</div></div>
+    <div class="item"><div class="dot"></div><div>#限制條件 的判斷需要情境理解、價值排序、倫理判斷，這些都是 AI 的弱項</div></div>
+    <div class="item"><div class="dot"></div><div>HC 系統恰恰訓練了「如何與 AI 更好地協作」——因為你能更清晰地定義問題、拆解任務、設定約束</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">⚡ 潛在風險：AI 讓 HC 練習機會減少</div>
+    <div class="item"><div class="dot"></div><div>當 AI 可以快速「給出答案」，學習者可能跳過#問對問題的掙扎過程，失去最關鍵的認知訓練</div></div>
+    <div class="item"><div class="dot"></div><div>HC 的核心是「刻意練習 + 即時回饋」，AI 可以提供回饋，但無法強迫人類承受「不確定性中的思考」</div></div>
+  </div>
+</div>
+
+<!-- Step 8 -->
+<div class="step" id="s8">
+  <div class="step-header">
+    <div class="step-num">08</div>
+    <div><div class="step-title">⚡ 行動轉化</div><div class="step-subtitle">讀完這本書可以做什麼</div></div>
+  </div>
+  <div class="action-card action-now">
+    <div style="font-weight:900;color:#276749;margin-bottom:6px;">🟢 今天就能做（0-24小時）</div>
+    <div class="item"><div class="dot"></div><div>下一次開會遇到問題討論時，在腦中默念：「我們真正要解決的問題是什麼？」（#問對問題）</div></div>
+    <div class="item"><div class="dot"></div><div>列出你目前卡住的一個問題，區分裡面有哪些是「限制條件」（不能改）、哪些是「障礙」（可以清除）</div></div>
+  </div>
+  <div class="action-card action-week">
+    <div style="font-weight:900;color:#2b6cb0;margin-bottom:6px;">🔵 本週可以啟動</div>
+    <div class="item"><div class="dot"></div><div>為自己的「思考工具箱」建立一份清單，先記下這6個 HC：#問對問題、#限制條件、#拆解問題、#差距分析、#類比、#捷思法</div></div>
+    <div class="item"><div class="dot"></div><div>選一個過去解決過的問題，回頭用 HC 架構重新分析，看看當時哪步做對了、哪步走彎了</div></div>
+  </div>
+  <div class="action-card action-month">
+    <div style="font-weight:900;color:#c53030;margin-bottom:6px;">🔴 建立長期習慣</div>
+    <div class="item"><div class="dot"></div><div>建立「問題日誌」：每週記錄一個你遇到的問題，標注使用了哪個 HC，結果如何</div></div>
+    <div class="item"><div class="dot"></div><div>找一位夥伴互相給 HC 應用的回饋——密涅瓦的核心是即時回饋，自學需要創造回饋迴路</div></div>
+  </div>
+</div>
+
+<!-- Step 9 -->
+<div class="step" id="s9">
+  <div class="step-header">
+    <div class="step-num">09</div>
+    <div><div class="step-title">🔭 個人化透鏡</div><div class="step-subtitle">這本書對你意味著什麼</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">💼 商業策略視角</div>
+    <div class="item"><div class="dot"></div><div>Grammarly 的故事 = 產品策略的最佳案例：先定義對的問題，才有對的產品</div></div>
+    <div class="item"><div class="dot"></div><div>#差距分析 是 MVP 思維的精華——現有方案夠用嗎？只差一點點就行，不要從頭重造</div></div>
+    <div class="item"><div class="dot"></div><div>在制定策略前，先跑一次 #問對問題 + #限制條件，可以省去 80% 的錯誤方向</div></div>
+  </div>
+  <div class="card">
+    <div class="card-title">🧠 TOC 限制理論視角</div>
+    <div class="item"><div class="dot"></div><div>#限制條件 與 TOC 的「制約」高度相通——系統中有些東西是制約，有些是可改善的非制約</div></div>
+    <div class="item"><div class="dot"></div><div>#問對問題 = TOC 的 CRT（當前現實樹）的起點：精確描述問題，才能找到根因</div></div>
+    <div class="item"><div class="dot"></div><div>HC 系統可以視為 TOC 思考工具的「輕量版普及化」，更易於日常應用</div></div>
+  </div>
+</div>
+
+<!-- Step 10 -->
+<div class="step" id="s10">
+  <div class="step-header">
+    <div class="step-num">10</div>
+    <div><div class="step-title">📇 書庫卡片</div><div class="step-subtitle">永久知識筆記</div></div>
+  </div>
+  <div class="card">
+    <div style="font-family:monospace;font-size:.85rem;line-height:2;color:#4a5568;">
+      <strong>書名：</strong>全球人才搶著學！密涅瓦的思考習慣訓練<br>
+      <strong>核心概念：</strong>HC（Habits of Mind）— 可標籤化、可練習、可遷移的思考習慣系統<br>
+      <strong>最重要工具：</strong>#問對問題 × #限制條件 × #拆解問題 × #差距分析 × #類比 × #捷思法<br>
+      <strong>學習設計原則：</strong>Name it → Claim it → Aim it（命名→主張→追求）<br>
+      <strong>書中最銳利的一刀：</strong>「我們用錯的方式，教了錯的東西」<br>
+      <strong>連結：</strong>TOC 限制理論 / 《The Perfect Story》故事框架 / 設計思考<br>
+      <strong>適合推薦給：</strong>教育工作者、管理者、想提升決策品質的任何人
+    </div>
+  </div>
+</div>
+
+<!-- Step 11 -->
+<div class="step" id="s11">
+  <div class="step-header">
+    <div class="step-num">11</div>
+    <div><div class="step-title">✨ 一句話精髓</div><div class="step-subtitle">整本書的靈魂</div></div>
+  </div>
+  <div class="quote" style="font-size:1.15rem;padding:24px 28px;">
+    真正的教育，不是給你答案，而是給你一套讓答案自動浮現的思考習慣——而這些習慣，是你這輩子帶得走的武器。
+  </div>
+</div>
+
+</div>
+</body>
+</html>
