@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>密涅瓦解題超級大腦</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700&display=swap');
+:root{
+  --p:#764ba2;--s:#667eea;--a:#f093fb;
+  --g1:#764ba2;--g2:#667eea;--g3:#f093fb;
+  --bg:#f5f0ff;--card:#fff;--text:#2d3748;--m:#718096;
+  --border:#e9d8fd;--ok:#48bb78;--warn:#f6ad55;
+  --step-active:linear-gradient(135deg,#764ba2,#667eea);
+  --step-done:#48bb78;--step-todo:#e2e8f0;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ── SPLASH ── */
+#splash{
+  position:fixed;inset:0;background:linear-gradient(135deg,#1a1a2e,#16213e,#0f3460);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  z-index:9999;transition:opacity .6s,transform .6s;
+}
+#splash.hide{opacity:0;pointer-events:none;}
+.splash-brain{font-size:5rem;animation:pulse 1.5s ease-in-out infinite;}
+@keyframes pulse{0%,100%{transform:scale(1);}50%{transform:scale(1.1);}}
+.splash-title{font-size:1.8rem;font-weight:900;color:#fff;margin:16px 0 8px;font-family:'Noto Serif TC',serif;}
+.splash-sub{color:rgba(255,255,255,.65);font-size:.9rem;max-width:320px;text-align:center;margin-bottom:32px;}
+.splash-btn{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;border:none;padding:14px 36px;border-radius:999px;font-size:1rem;font-weight:700;cursor:pointer;font-family:'Noto Sans TC',sans-serif;transition:.2s;box-shadow:0 4px 20px rgba(118,75,162,.5);}
+.splash-btn:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(118,75,162,.6);}
+
+/* ── LAYOUT ── */
+.app{max-width:840px;margin:0 auto;padding:24px 16px 80px;}
+.header{text-align:center;padding:24px 0 32px;}
+.header .logo{font-size:2.4rem;margin-bottom:8px;}
+.header h1{font-size:1.5rem;font-weight:900;font-family:'Noto Serif TC',serif;background:linear-gradient(135deg,var(--g1),var(--g2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.header p{font-size:.85rem;color:var(--m);margin-top:4px;}
+
+/* ── STEPPER ── */
+.stepper{display:flex;align-items:center;margin-bottom:32px;overflow-x:auto;padding:4px 0;}
+.step-item{display:flex;flex-direction:column;align-items:center;flex:1;min-width:60px;}
+.step-circle{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.8rem;transition:.3s;flex-shrink:0;}
+.step-circle.todo{background:var(--step-todo);color:var(--m);}
+.step-circle.active{background:var(--step-active);color:#fff;box-shadow:0 2px 12px rgba(118,75,162,.4);}
+.step-circle.done{background:var(--step-done);color:#fff;}
+.step-label{font-size:.65rem;color:var(--m);margin-top:4px;text-align:center;max-width:60px;line-height:1.3;}
+.step-label.active{color:var(--p);font-weight:700;}
+.step-connector{flex:1;height:2px;background:var(--step-todo);margin-bottom:18px;transition:.3s;min-width:12px;}
+.step-connector.done{background:var(--step-done);}
+
+/* ── CARD ── */
+.card{background:var(--card);border-radius:20px;padding:28px;margin-bottom:20px;box-shadow:0 4px 24px rgba(118,75,162,.08);border:1.5px solid var(--border);}
+.card-header{display:flex;align-items:flex-start;gap:14px;margin-bottom:20px;}
+.hc-pill{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;padding:4px 12px;border-radius:999px;font-size:.72rem;font-weight:900;font-family:monospace;white-space:nowrap;}
+.card-title{font-size:1.1rem;font-weight:900;font-family:'Noto Serif TC',serif;}
+.card-sub{font-size:.8rem;color:var(--m);margin-top:3px;}
+.card-icon{font-size:1.6rem;flex-shrink:0;margin-top:2px;}
+
+/* ── INPUTS ── */
+textarea,input[type=text]{
+  width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--border);
+  font-family:'Noto Sans TC',sans-serif;font-size:.88rem;line-height:1.7;color:var(--text);
+  background:#fdf9ff;transition:.2s;resize:vertical;
+}
+textarea:focus,input[type=text]:focus{outline:none;border-color:var(--p);box-shadow:0 0 0 3px rgba(118,75,162,.15);}
+textarea{min-height:90px;}
+.field{margin-bottom:16px;}
+.field label{display:block;font-weight:700;font-size:.82rem;margin-bottom:6px;color:#553c9a;}
+.field-hint{font-size:.76rem;color:var(--m);margin-top:4px;}
+
+/* ── HC EXAMPLE BOX ── */
+.hc-example{background:linear-gradient(135deg,#f9f5ff,#eef2ff);border-radius:12px;padding:14px 16px;font-size:.82rem;line-height:1.7;margin-bottom:16px;border-left:3px solid var(--p);}
+.hc-example strong{color:var(--p);}
+
+/* ── TAG CHIPS ── */
+.chip-group{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:10px;}
+.chip{padding:6px 14px;border-radius:999px;font-size:.78rem;cursor:pointer;transition:.2s;border:1.5px solid transparent;font-weight:500;}
+.chip.constraint{background:#faf5ff;border-color:#d6bcfa;color:#6b46c1;}
+.chip.obstacle{background:#f0fff4;border-color:#9ae6b4;color:#276749;}
+.chip.chip-selected.constraint{background:#d6bcfa;color:#44337a;}
+.chip.chip-selected.obstacle{background:#9ae6b4;color:#1c4532;}
+
+/* ── BUTTONS ── */
+.btn-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:20px;}
+.btn{padding:12px 24px;border-radius:12px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:'Noto Sans TC',sans-serif;transition:.2s;border:none;}
+.btn-primary{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;box-shadow:0 2px 12px rgba(118,75,162,.3);}
+.btn-primary:hover{transform:translateY(-1px);box-shadow:0 4px 20px rgba(118,75,162,.4);}
+.btn-secondary{background:#f3e8ff;color:var(--p);border:1.5px solid var(--border);}
+.btn-secondary:hover{background:#e9d8fd;}
+.btn-ghost{background:transparent;color:var(--m);border:1.5px solid var(--border);}
+.btn-ghost:hover{background:#f3e8ff;color:var(--p);}
+
+/* ── PROGRESS BAR ── */
+.progress-bar{height:4px;background:#e9d8fd;border-radius:999px;margin-bottom:24px;overflow:hidden;}
+.progress-fill{height:100%;background:linear-gradient(90deg,var(--g1),var(--g2));border-radius:999px;transition:width .4s ease;}
+
+/* ── REPORT ── */
+.report{background:#fff;border-radius:20px;padding:32px;box-shadow:0 4px 24px rgba(0,0,0,.1);}
+.report-header{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;margin:-32px -32px 28px;padding:28px 32px;border-radius:20px 20px 0 0;}
+.report-title{font-size:1.4rem;font-weight:900;font-family:'Noto Serif TC',serif;margin-bottom:4px;}
+.report-meta{font-size:.8rem;opacity:.8;}
+.report-section{margin-bottom:24px;border-radius:12px;overflow:hidden;border:1.5px solid var(--border);}
+.rs-header{padding:12px 16px;font-weight:900;font-size:.88rem;display:flex;align-items:center;gap:8px;}
+.rs-body{padding:14px 16px;font-size:.87rem;line-height:1.7;}
+.rs-item{display:flex;gap:10px;margin-bottom:8px;align-items:flex-start;}
+.rs-dot{width:8px;height:8px;border-radius:50%;background:var(--p);flex-shrink:0;margin-top:7px;}
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:.72rem;font-weight:700;margin-right:4px;}
+.badge-c{background:#e9d8fd;color:#553c9a;}
+.badge-o{background:#c6f6d5;color:#276749;}
+.badge-sol{background:#bee3f8;color:#2c5282;}
+.score-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;}
+.score-item{background:var(--bg);padding:8px 14px;border-radius:10px;font-size:.8rem;text-align:center;}
+.score-val{font-size:1.2rem;font-weight:900;color:var(--p);}
+.score-lbl{font-size:.7rem;color:var(--m);}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(60px);background:#2d3748;color:#fff;padding:10px 20px;border-radius:10px;font-size:.84rem;transition:.3s;opacity:0;z-index:9000;}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;}
+
+/* ── ANIMATIONS ── */
+.slide-in{animation:slideIn .35s ease;}
+@keyframes slideIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── STEP PANELS ── */
+.step-panel{display:none;}
+.step-panel.active{display:block;}
+
+@media(max-width:520px){
+  .card{padding:20px;}
+  .report-header{margin:-20px -20px 20px;padding:20px;}
+  .report{padding:20px;}
+}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-brain">🧠</div>
+  <div class="splash-title">密涅瓦解題超級大腦</div>
+  <div class="splash-sub">融合 HC 思考習慣系統，帶你從「問對問題」到「找到解方」的完整工具</div>
+  <button class="splash-btn" onclick="startApp()">開始解題 →</button>
+  <div style="color:rgba(255,255,255,.35);font-size:.72rem;margin-top:20px;">基於《全球人才搶著學》×《Building the Intentional University》</div>
+</div>
+
+<!-- APP -->
+<div class="app" id="app" style="display:none;">
+  <div class="header">
+    <div class="logo">🧠</div>
+    <h1>密涅瓦解題超級大腦</h1>
+    <p>6步 HC 思考流程 — 讓任何問題都能被清晰拆解</p>
+  </div>
+
+  <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+
+  <div class="stepper" id="stepper"></div>
+
+  <!-- STEP 0: 問題描述 -->
+  <div class="step-panel" id="panel-0">
+    <div class="card slide-in">
+      <div class="card-header">
+        <div class="card-icon">📝</div>
+        <div>
+          <div class="hc-pill">起點</div>
+          <div class="card-title">描述你的問題</div>
+          <div class="card-sub">先把腦中的混亂倒出來，不用完美，越真實越好</div>
+        </div>
+      </div>
+      <div class="hc-example">
+        💡 <strong>密涅瓦原則：</strong>大多數人一有問題就直接跳到解方——這是最大的陷阱。先把問題說清楚，才有資格談解方。
+      </div>
+      <div class="field">
+        <label>你目前面對的問題是什麼？</label>
+        <textarea id="q0_problem" placeholder="例：公司業績一直沒辦法成長，團隊努力但客戶數量停滯，我不知道問題出在哪裡..." rows="4"></textarea>
+      </div>
+      <div class="field">
+        <label>這個問題存在多久了？</label>
+        <input type="text" id="q0_duration" placeholder="例：大約半年">
+      </div>
+      <div class="field">
+        <label>你之前試過什麼方法？效果如何？</label>
+        <textarea id="q0_tried" placeholder="例：試過增加廣告投放、改過定價，但效果都不明顯..." rows="3"></textarea>
+        <div class="field-hint">若無嘗試，可填「尚未」</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-primary" onclick="goStep(1)">開始分析 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 1: 問對問題 -->
+  <div class="step-panel" id="panel-1">
+    <div class="card slide-in">
+      <div class="card-header">
+        <div class="card-icon">🎯</div>
+        <div>
+          <div class="hc-pill">#問對問題</div>
+          <div class="card-title">釐清真正的問題</div>
+          <div class="card-sub">「初始狀態 → 目標狀態」之間的距離，才是問題的本質</div>
+        </div>
+      </div>
+      <div class="hc-example">
+        💡 <strong>愛因斯坦說：</strong>「如果給我 1 小時解決問題，我會用 55 分鐘想問題，5 分鐘想解法。」#問對問題 要求你把「現況」和「目標」都說得非常具體——不能只是形容詞。
+      </div>
+      <div class="field">
+        <label>現況（越具體越好）</label>
+        <textarea id="q1_current" placeholder="例：每月新客戶約 20 人，過去 6 個月都沒有突破，轉換率約 2%..." rows="3"></textarea>
+        <div class="field-hint">加入數字、頻率、程度，讓現況可被衡量</div>
+      </div>
+      <div class="field">
+        <label>理想狀態（你真正想達到的）</label>
+        <textarea id="q1_ideal" placeholder="例：3 個月內每月新客戶達到 50 人，轉換率提升至 5%..." rows="3"></textarea>
+        <div class="field-hint">目標要具體，避免「更好」「有所改善」這類模糊說法</div>
+      </div>
+      <div class="field">
+        <label>兩者之間的主要障礙是？</label>
+        <textarea id="q1_gap" placeholder="例：不清楚為什麼潛在客戶沒有轉換，可能是定位問題或銷售流程問題..." rows="3"></textarea>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="goStep(0)">← 上一步</button>
+        <button class="btn btn-primary" onclick="goStep(2)">繼續 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2: 限制條件 -->
+  <div class="step-panel" id="panel-2">
+    <div class="card slide-in">
+      <div class="card-header">
+        <div class="card-icon">🔒</div>
+        <div>
+          <div class="hc-pill">#限制條件</div>
+          <div class="card-title">區分限制條件 vs 障礙</div>
+          <div class="card-sub">不是所有問題都值得解決——先框出邊界，才能聚焦</div>
+        </div>
+      </div>
+      <div class="hc-example">
+        💡 <strong>關鍵區分：</strong>
+        <br><span style="color:#6b46c1">🔒 限制條件</span>＝難以改變、必須遵守的邊界（法律、預算上限、時間、不能改變的人）
+        <br><span style="color:#276749">🎯 障礙</span>＝可以想辦法排除的阻力
+        <br>把心力放在障礙上，不要浪費資源試圖改變限制條件。
+      </div>
+      <div class="field">
+        <label>🔒 限制條件（你「不能」或「很難」改變的）</label>
+        <textarea id="q2_constraints" placeholder="例：預算上限 10 萬元以內；不能增加人手；必須在 Q3 結束前完成..." rows="3"></textarea>
+        <div class="field-hint">常見限制：時間、金錢、法規、無法改變的人、物理條件</div>
+      </div>
+      <div class="field">
+        <label>🎯 障礙（你「可以」想辦法清除的）</label>
+        <textarea id="q2_obstacles" placeholder="例：客戶不了解我們的產品價值；銷售頁面轉換率太低；沒有系統性的客戶追蹤..." rows="3"></textarea>
+        <div class="field-hint">這些才是你接下來要解決的</div>
+      </div>
+      <div class="field">
+        <label>哪個障礙是最關鍵的？（選一個）</label>
+        <input type="text" id="q2_key_obstacle" placeholder="例：客戶不了解產品價值，導致轉換率低">
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="goStep(1)">← 上一步</button>
+        <button class="btn btn-primary" onclick="goStep(3)">繼續 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: 拆解問題 -->
+  <div class="step-panel" id="panel-3">
+    <div class="card slide-in">
+      <div class="card-header">
+        <div class="card-icon">🔧</div>
+        <div>
+          <div class="hc-pill">#拆解問題 × #差距分析</div>
+          <div class="card-title">拆解 + 盤點現有資源</div>
+          <div class="card-sub">把大問題切成可行動的小塊，再看現有資源是否夠用</div>
+        </div>
+      </div>
+      <div class="hc-example">
+        💡 <strong>#拆解問題：</strong>把核心障礙拆成更小的子問題。<br>
+        💡 <strong>#差距分析：</strong>在想新解方之前，先問「現有方案夠用嗎？只要稍作修改就行嗎？」避免重造輪子。
+      </div>
+      <div class="field">
+        <label>把核心障礙拆解成 2-4 個子問題</label>
+        <textarea id="q3_sub1" placeholder="子問題 ①：例：客戶不知道我們的產品存在（認知問題）" rows="2"></textarea>
+        <textarea id="q3_sub2" placeholder="子問題 ②：例：客戶知道但不信任我們（信任問題）" rows="2" style="margin-top:8px;"></textarea>
+        <textarea id="q3_sub3" placeholder="子問題 ③（可選）：例：客戶信任但購買流程太複雜（體驗問題）" rows="2" style="margin-top:8px;"></textarea>
+      </div>
+      <div class="field">
+        <label>差距分析：你現有的資源/方案中，哪些可以直接用或稍作改造？</label>
+        <textarea id="q3_gap" placeholder="例：已有 email 名單 500 人還未善加利用；LinkedIn 頁面已存在但內容過時；有一位客戶可以提供推薦信..." rows="3"></textarea>
+        <div class="field-hint">很多問題只差「用好現有的」，不需要從零開始</div>
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="goStep(2)">← 上一步</button>
+        <button class="btn btn-primary" onclick="goStep(4)">繼續 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4: 解方 -->
+  <div class="step-panel" id="panel-4">
+    <div class="card slide-in">
+      <div class="card-header">
+        <div class="card-icon">💡</div>
+        <div>
+          <div class="hc-pill">#類比 × #捷思法</div>
+          <div class="card-title">找創意解方</div>
+          <div class="card-sub">用兩個工具打開思路，然後評估最佳解</div>
+        </div>
+      </div>
+      <div class="hc-example">
+        💡 <strong>#類比：</strong>找其他領域有沒有類似的問題已被解決？把那個解法借過來。<br>
+        💡 <strong>#捷思法之「以終為始」：</strong>想像問題已完美解決，倒推你現在需要做什麼。<br>
+        💡 <strong>#捷思法之「推向極限」：</strong>把一個合理想法推到不合理的極端，往往能看到新的可能。
+      </div>
+      <div class="field">
+        <label>🔗 類比思考：哪個行業/公司曾解決過類似問題？他們怎麼做的？</label>
+        <textarea id="q4_analogy" placeholder="例：Airbnb 解決了「陌生人不信任」問題，用雙向評分系統建立信任。我可以借用評分/案例展示的概念..." rows="3"></textarea>
+      </div>
+      <div class="field">
+        <label>🎯 以終為始：如果問題完美解決，那一天會是什麼樣子？倒推需要什麼？</label>
+        <textarea id="q4_reverse" placeholder="例：完美解決的樣子：客戶主動推薦、轉換率 8%。需要：口碑機制、清晰的價值主張、簡單的購買流程..." rows="3"></textarea>
+      </div>
+      <div class="field">
+        <label>⚡ 你的三個解方候選（各寫一句話）</label>
+        <input type="text" id="q4_sol1" placeholder="解方①：">
+        <input type="text" id="q4_sol2" placeholder="解方②：" style="margin-top:8px;">
+        <input type="text" id="q4_sol3" placeholder="解方③：" style="margin-top:8px;">
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="goStep(3)">← 上一步</button>
+        <button class="btn btn-primary" onclick="goStep(5)">繼續 →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5: 驗證 So What -->
+  <div class="step-panel" id="panel-5">
+    <div class="card slide-in">
+      <div class="card-header">
+        <div class="card-icon">✅</div>
+        <div>
+          <div class="hc-pill">So What? 然後呢？</div>
+          <div class="card-title">驗證與行動計畫</div>
+          <div class="card-sub">解方要有「然後呢」，才能確認沒有失焦</div>
+        </div>
+      </div>
+      <div class="hc-example">
+        💡 <strong>Grammarly 的啟示：</strong>偵測抄襲（防弊）→ 「然後呢？」→ 提升寫作品質（興利）→ 130億美元估值。不斷追問「然後呢」，讓你從治標走向治本。
+      </div>
+      <div class="field">
+        <label>選出你最想執行的解方（複製貼上或改寫）</label>
+        <textarea id="q5_chosen" placeholder="例：先建立 5 個客戶成功案例，製作成短影片放在官網..." rows="2"></textarea>
+      </div>
+      <div class="field">
+        <label>這個解方執行後，「然後呢？」— 對整體問題的影響是？</label>
+        <textarea id="q5_sowhat" placeholder="例：有案例後，潛在客戶會更信任，轉換率提升，口碑開始累積，然後不需要再大量投廣告..." rows="3"></textarea>
+      </div>
+      <div class="field">
+        <label>失焦風險：這個解方有沒有可能「解決了問題但帶來更大的問題」？</label>
+        <textarea id="q5_risk" placeholder="例：過度依賴個別客戶案例，若這幾個客戶後來有負評，會傷害品牌信任...（無風險也可填「目前看不到明顯風險」）" rows="2"></textarea>
+      </div>
+      <div class="field">
+        <label>第一步行動（具體到明天能執行）</label>
+        <input type="text" id="q5_action1" placeholder="例：明天聯繫 3 位現有客戶，詢問是否願意提供使用心得">
+      </div>
+      <div class="field">
+        <label>如何驗證解方有效？（衡量指標）</label>
+        <input type="text" id="q5_metric" placeholder="例：2週後轉換率提升至 3% 以上，或收到 5 個以上客戶推薦">
+      </div>
+      <div class="btn-row">
+        <button class="btn btn-ghost" onclick="goStep(4)">← 上一步</button>
+        <button class="btn btn-primary" onclick="generateReport()">🧠 生成解題報告</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- REPORT -->
+  <div class="step-panel" id="panel-report">
+    <div class="report slide-in" id="reportContent"></div>
+    <div class="btn-row" style="margin-top:16px;">
+      <button class="btn btn-secondary" onclick="printReport()">🖨️ 列印/儲存</button>
+      <button class="btn btn-ghost" onclick="restart()">🔄 重新解題</button>
+    </div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+const STEPS = [
+  {label:'描述問題',hc:'起點'},
+  {label:'問對問題',hc:'#問對問題'},
+  {label:'限制條件',hc:'#限制條件'},
+  {label:'拆解問題',hc:'#拆解問題'},
+  {label:'找解方',hc:'#類比/#捷思'},
+  {label:'驗證',hc:'So What'},
+];
+
+let currentStep = 0;
+
+function startApp(){
+  document.getElementById('splash').classList.add('hide');
+  document.getElementById('app').style.display='block';
+  buildStepper();
+  showPanel(0);
+}
+
+function buildStepper(){
+  const s = document.getElementById('stepper');
+  s.innerHTML = '';
+  STEPS.forEach((step, i) => {
+    const item = document.createElement('div');
+    item.className = 'step-item';
+    item.id = 'step-item-'+i;
+    item.innerHTML = `
+      <div class="step-circle todo" id="step-circle-${i}">${i+1}</div>
+      <div class="step-label" id="step-label-${i}">${step.label}</div>
+    `;
+    s.appendChild(item);
+    if(i < STEPS.length - 1){
+      const conn = document.createElement('div');
+      conn.className = 'step-connector';
+      conn.id = 'step-conn-'+i;
+      s.appendChild(conn);
+    }
+  });
+}
+
+function updateStepper(step){
+  STEPS.forEach((_, i) => {
+    const circle = document.getElementById('step-circle-'+i);
+    const label = document.getElementById('step-label-'+i);
+    if(i < step){ circle.className='step-circle done'; circle.innerHTML='✓'; }
+    else if(i === step){ circle.className='step-circle active'; circle.innerHTML=i+1; }
+    else{ circle.className='step-circle todo'; circle.innerHTML=i+1; }
+    label.className = i === step ? 'step-label active' : 'step-label';
+    if(i < STEPS.length-1){
+      document.getElementById('step-conn-'+i).className = i < step ? 'step-connector done' : 'step-connector';
+    }
+  });
+}
+
+function showPanel(step){
+  document.querySelectorAll('.step-panel').forEach(p => p.classList.remove('active'));
+  const panel = document.getElementById('panel-'+step);
+  if(panel){ panel.classList.add('active'); }
+  updateStepper(step);
+  const pct = step <= 5 ? Math.round((step / 6) * 100) : 100;
+  document.getElementById('progressFill').style.width = pct + '%';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+function goStep(step){
+  if(!validateStep(currentStep)) return;
+  currentStep = step;
+  showPanel(step);
+}
+
+function validateStep(step){
+  const checks = {
+    0: [['q0_problem','請描述你的問題']],
+    1: [['q1_current','請描述現況'],['q1_ideal','請描述理想狀態']],
+    2: [['q2_constraints','請列出限制條件（可填「無明顯限制」）'],['q2_obstacles','請列出可排除的障礙'],['q2_key_obstacle','請選出最關鍵的障礙']],
+    3: [['q3_sub1','請拆解至少一個子問題']],
+    4: [['q4_sol1','請至少寫出一個解方']],
+    5: [['q5_chosen','請選出你要執行的解方'],['q5_action1','請寫下第一步行動']],
+  };
+  const toCheck = checks[step] || [];
+  for(const [id, msg] of toCheck){
+    const el = document.getElementById(id);
+    if(el && !el.value.trim()){
+      el.focus();
+      showToast('⚠️ ' + msg);
+      el.style.borderColor = '#fc8181';
+      setTimeout(()=>el.style.borderColor='',2000);
+      return false;
+    }
+  }
+  return true;
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2500);
+}
+
+function g(id){ return (document.getElementById(id)||{}).value||''; }
+
+function generateReport(){
+  if(!validateStep(5)) return;
+  currentStep = 6;
+
+  const date = new Date().toLocaleDateString('zh-TW',{year:'numeric',month:'long',day:'numeric'});
+
+  const subs = [g('q3_sub1'), g('q3_sub2'), g('q3_sub3')].filter(s=>s.trim());
+  const sols = [g('q4_sol1'), g('q4_sol2'), g('q4_sol3')].filter(s=>s.trim());
+
+  const html = `
+    <div class="report-header">
+      <div class="report-title">🧠 密涅瓦解題報告</div>
+      <div class="report-meta">${date} ｜ 完成 HC 6步分析流程</div>
+    </div>
+
+    <div class="report-section">
+      <div class="rs-header" style="background:#f9f5ff;color:#553c9a;">📝 問題背景</div>
+      <div class="rs-body">
+        <div class="rs-item"><div class="rs-dot"></div><div><strong>原始問題：</strong>${g('q0_problem')}</div></div>
+        ${g('q0_duration') ? `<div class="rs-item"><div class="rs-dot"></div><div><strong>持續時間：</strong>${g('q0_duration')}</div></div>` : ''}
+        ${g('q0_tried') ? `<div class="rs-item"><div class="rs-dot"></div><div><strong>曾嘗試：</strong>${g('q0_tried')}</div></div>` : ''}
+      </div>
+    </div>
+
+    <div class="report-section">
+      <div class="rs-header" style="background:#f9f5ff;color:#553c9a;">🎯 <span style="font-family:monospace;font-size:.85em;">#問對問題</span> — 問題重新定義</div>
+      <div class="rs-body">
+        <div class="rs-item"><div class="rs-dot"></div><div><strong>現況：</strong>${g('q1_current')}</div></div>
+        <div class="rs-item"><div class="rs-dot"></div><div><strong>目標狀態：</strong>${g('q1_ideal')}</div></div>
+        <div class="rs-item"><div class="rs-dot"></div><div><strong>核心障礙：</strong>${g('q1_gap')}</div></div>
+      </div>
+    </div>
+
+    <div class="report-section">
+      <div class="rs-header" style="background:#faf5ff;color:#6b46c1;">🔒 <span style="font-family:monospace;font-size:.85em;">#限制條件</span> — 邊界框架</div>
+      <div class="rs-body">
+        <div class="rs-item"><div class="rs-dot"></div><div><span class="badge badge-c">限制條件</span>${g('q2_constraints')}</div></div>
+        <div class="rs-item"><div class="rs-dot"></div><div><span class="badge badge-o">可排除障礙</span>${g('q2_obstacles')}</div></div>
+        <div class="rs-item"><div class="rs-dot"></div><div><strong>🎯 最關鍵障礙：</strong><em>${g('q2_key_obstacle')}</em></div></div>
+      </div>
+    </div>
+
+    <div class="report-section">
+      <div class="rs-header" style="background:#f0f7ff;color:#2c5282;">🔧 <span style="font-family:monospace;font-size:.85em;">#拆解問題 × #差距分析</span></div>
+      <div class="rs-body">
+        <strong>子問題拆解：</strong>
+        ${subs.map((s,i)=>`<div class="rs-item"><div class="rs-dot"></div><div>子問題${i+1}：${s}</div></div>`).join('')}
+        ${g('q3_gap') ? `<div class="rs-item" style="margin-top:8px;"><div class="rs-dot"></div><div><strong>現有可用資源：</strong>${g('q3_gap')}</div></div>` : ''}
+      </div>
+    </div>
+
+    <div class="report-section">
+      <div class="rs-header" style="background:#f0fff4;color:#276749;">💡 <span style="font-family:monospace;font-size:.85em;">#類比 × #捷思法</span> — 解方候選</div>
+      <div class="rs-body">
+        ${g('q4_analogy') ? `<div class="rs-item"><div class="rs-dot"></div><div><strong>類比參考：</strong>${g('q4_analogy')}</div></div>` : ''}
+        ${g('q4_reverse') ? `<div class="rs-item"><div class="rs-dot"></div><div><strong>以終為始：</strong>${g('q4_reverse')}</div></div>` : ''}
+        <div style="margin-top:10px;"><strong>解方候選：</strong></div>
+        ${sols.map((s,i)=>`<div class="rs-item"><div class="rs-dot"></div><div><span class="badge badge-sol">解方${i+1}</span>${s}</div></div>`).join('')}
+      </div>
+    </div>
+
+    <div class="report-section">
+      <div class="rs-header" style="background:#fff8e1;color:#c05621;">✅ So What? 然後呢？— 驗證與行動</div>
+      <div class="rs-body">
+        <div class="rs-item"><div class="rs-dot"></div><div><strong>選定解方：</strong>${g('q5_chosen')}</div></div>
+        <div class="rs-item"><div class="rs-dot"></div><div><strong>然後呢：</strong>${g('q5_sowhat')}</div></div>
+        ${g('q5_risk') ? `<div class="rs-item"><div class="rs-dot"></div><div><strong>⚠️ 失焦風險：</strong>${g('q5_risk')}</div></div>` : ''}
+        <div style="background:#f0fff4;border-radius:10px;padding:14px;margin-top:12px;">
+          <div style="font-weight:900;color:#276749;margin-bottom:6px;">🚀 第一步行動</div>
+          <div>${g('q5_action1')}</div>
+          ${g('q5_metric') ? `<div style="margin-top:8px;font-size:.82rem;color:#718096;">📊 驗證指標：${g('q5_metric')}</div>` : ''}
+        </div>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#f9f5ff,#ebf8ff);border-radius:14px;padding:18px;margin-top:20px;border:1.5px solid #c3dafe;">
+      <div style="font-weight:900;color:#553c9a;margin-bottom:10px;">🧠 HC 思考習慣 — 本次使用清單</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <span style="background:#764ba2;color:#fff;padding:4px 12px;border-radius:999px;font-size:.76rem;font-family:monospace;">#問對問題</span>
+        <span style="background:#553c9a;color:#fff;padding:4px 12px;border-radius:999px;font-size:.76rem;font-family:monospace;">#限制條件</span>
+        <span style="background:#44337a;color:#fff;padding:4px 12px;border-radius:999px;font-size:.76rem;font-family:monospace;">#拆解問題</span>
+        <span style="background:#2d3748;color:#fff;padding:4px 12px;border-radius:999px;font-size:.76rem;font-family:monospace;">#差距分析</span>
+        <span style="background:#2b6cb0;color:#fff;padding:4px 12px;border-radius:999px;font-size:.76rem;font-family:monospace;">#類比</span>
+        <span style="background:#276749;color:#fff;padding:4px 12px;border-radius:999px;font-size:.76rem;font-family:monospace;">#捷思法</span>
+      </div>
+      <div style="font-size:.75rem;color:#718096;margin-top:10px;">基於《全球人才搶著學！密涅瓦的思考習慣訓練》×《Building the Intentional University》</div>
+    </div>
+  `;
+
+  document.getElementById('reportContent').innerHTML = html;
+  document.querySelectorAll('.step-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-report').classList.add('active');
+  document.getElementById('progressFill').style.width='100%';
+  updateStepper(6);
+  window.scrollTo({top:0,behavior:'smooth'});
+  showToast('🎉 解題報告生成完成！');
+}
+
+function printReport(){
+  window.print();
+}
+
+function restart(){
+  if(!confirm('確定要重新開始？目前的內容將會清除。')) return;
+  document.querySelectorAll('textarea, input[type=text]').forEach(el=>el.value='');
+  currentStep = 0;
+  showPanel(0);
+}
+</script>
+</body>
+</html>
