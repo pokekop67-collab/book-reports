@@ -1,0 +1,1781 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>關係書庫聯合深度分析｜書醒系統</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --lavender: #7E6EAD;
+    --lavender-light: #A895CC;
+    --lavender-pale: #EDE8F5;
+    --rose-gold: #C47B8A;
+    --rose-light: #E8A5B0;
+    --rose-pale: #FAF0F2;
+    --cream: #FDFBF7;
+    --powder-blue: #DDE8F0;
+    --text-dark: #3A3550;
+    --text-mid: #6B637A;
+    --text-light: #9B93A8;
+    --glass-white: rgba(255,255,255,0.75);
+    --glass-border: rgba(255,255,255,0.5);
+    --shadow-soft: 0 8px 32px rgba(126,110,173,0.12);
+    --shadow-card: 0 4px 20px rgba(126,110,173,0.1);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #F8F5FF 0%, #EDE8F5 25%, #E8EEF5 50%, #FAF0F2 75%, #FDF8FF 100%);
+    color: var(--text-dark);
+    min-height: 100vh;
+    line-height: 1.8;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(135deg, rgba(126,110,173,0.85) 0%, rgba(196,123,138,0.75) 100%);
+    padding: 80px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.06'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50px;
+    padding: 6px 20px;
+    font-size: 13px;
+    color: #fff;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+    backdrop-filter: blur(8px);
+  }
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(28px, 5vw, 48px);
+    color: #fff;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.15);
+  }
+  .hero-subtitle {
+    font-size: 16px;
+    color: rgba(255,255,255,0.85);
+    max-width: 600px;
+    margin: 0 auto 30px;
+  }
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .stat-item {
+    text-align: center;
+    color: #fff;
+  }
+  .stat-num {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    display: block;
+  }
+  .stat-label { font-size: 13px; opacity: 0.8; }
+
+  /* ── NAVIGATION ── */
+  .toc {
+    background: var(--glass-white);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 0 40px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 20px rgba(126,110,173,0.1);
+  }
+  .toc-inner {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .toc-inner::-webkit-scrollbar { display: none; }
+  .toc-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 16px 20px;
+    font-size: 13px;
+    color: var(--text-mid);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    font-weight: 500;
+  }
+  .toc-link:hover {
+    color: var(--lavender);
+    border-bottom-color: var(--lavender);
+  }
+
+  /* ── LAYOUT ── */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 40px;
+  }
+  @media (max-width: 768px) {
+    .container { padding: 40px 20px; }
+    .hero { padding: 60px 20px 40px; }
+    .toc { padding: 0 20px; }
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+  .part-label {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--lavender), var(--rose-gold));
+    color: #fff;
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 5px 16px;
+    border-radius: 50px;
+    margin-bottom: 14px;
+    font-weight: 600;
+  }
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(24px, 4vw, 36px);
+    color: var(--text-dark);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .section-desc {
+    color: var(--text-mid);
+    font-size: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  /* ── GLASS CARD ── */
+  .glass-card {
+    background: var(--glass-white);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .glass-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+  }
+
+  /* ── PART 1: BOOK MAP ── */
+  .quadrant-container {
+    position: relative;
+    background: var(--glass-white);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 50px 40px;
+    box-shadow: var(--shadow-soft);
+    margin-bottom: 50px;
+    overflow: hidden;
+  }
+  .quadrant-bg {
+    position: absolute;
+    inset: 50px 40px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 0;
+  }
+  .q-cell {
+    border: 1px dashed rgba(126,110,173,0.2);
+  }
+  .quadrant-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-dark);
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  .axis-label {
+    position: absolute;
+    font-size: 12px;
+    color: var(--lavender);
+    font-weight: 600;
+    letter-spacing: 1px;
+    background: rgba(237,232,245,0.8);
+    padding: 4px 12px;
+    border-radius: 50px;
+  }
+  .axis-top { top: 15px; left: 50%; transform: translateX(-50%); }
+  .axis-bottom { bottom: 15px; left: 50%; transform: translateX(-50%); }
+  .axis-left { left: 10px; top: 50%; transform: translateY(-50%) rotate(-90deg); }
+  .axis-right { right: 10px; top: 50%; transform: translateY(-50%) rotate(90deg); }
+
+  .quadrant-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 0;
+    border: 2px solid rgba(126,110,173,0.3);
+    border-radius: 16px;
+    overflow: hidden;
+    margin: 40px 20px;
+  }
+  .q-section {
+    padding: 25px;
+    min-height: 200px;
+  }
+  .q-section:nth-child(1) { background: rgba(237,232,245,0.5); border-right: 1px solid rgba(126,110,173,0.2); border-bottom: 1px solid rgba(126,110,173,0.2); }
+  .q-section:nth-child(2) { background: rgba(250,240,242,0.5); border-bottom: 1px solid rgba(126,110,173,0.2); }
+  .q-section:nth-child(3) { background: rgba(221,232,240,0.4); border-right: 1px solid rgba(126,110,173,0.2); }
+  .q-section:nth-child(4) { background: rgba(253,248,255,0.5); }
+  .q-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text-light);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .q-books { display: flex; flex-direction: column; gap: 8px; }
+  .q-book {
+    background: rgba(255,255,255,0.8);
+    border-radius: 10px;
+    padding: 8px 12px;
+    font-size: 13px;
+    color: var(--text-dark);
+    border-left: 3px solid var(--lavender);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .q-book.rose { border-left-color: var(--rose-gold); }
+  .q-book.blue { border-left-color: #6A9EC5; }
+  .q-book-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--lavender);
+    min-width: 18px;
+  }
+  .q-book.rose .q-book-num { color: var(--rose-gold); }
+  .q-book.blue .q-book-num { color: #6A9EC5; }
+  .axis-labels {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 10px;
+  }
+  .axis-h {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 25px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--lavender);
+    letter-spacing: 1px;
+    margin-bottom: -5px;
+  }
+  .axis-v-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 10px;
+  }
+  .axis-v-label {
+    writing-mode: vertical-rl;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--rose-gold);
+    letter-spacing: 1px;
+    text-align: center;
+  }
+
+  /* ── BOOK CARDS GRID ── */
+  .books-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 50px;
+  }
+  .book-card {
+    background: var(--glass-white);
+    border: 1px solid var(--glass-border);
+    border-radius: 18px;
+    padding: 22px;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .book-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--lavender), var(--rose-gold));
+  }
+  .book-card:hover { transform: translateY(-3px); }
+  .book-num {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--lavender);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+  .book-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  .book-author {
+    font-size: 12px;
+    color: var(--text-light);
+    margin-bottom: 12px;
+  }
+  .book-question {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.7;
+    padding: 10px 14px;
+    background: rgba(126,110,173,0.06);
+    border-radius: 10px;
+    border-left: 3px solid var(--lavender-light);
+    font-style: italic;
+  }
+
+  /* ── READING ORDER ── */
+  .reading-order {
+    background: var(--glass-white);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 40px;
+    box-shadow: var(--shadow-soft);
+  }
+  .reading-order-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .reading-phases {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  .phase {
+    border-radius: 16px;
+    padding: 22px;
+  }
+  .phase-1 { background: linear-gradient(135deg, rgba(237,232,245,0.8), rgba(221,232,240,0.6)); }
+  .phase-2 { background: linear-gradient(135deg, rgba(250,240,242,0.8), rgba(237,232,245,0.6)); }
+  .phase-3 { background: linear-gradient(135deg, rgba(221,232,240,0.8), rgba(253,248,255,0.6)); }
+  .phase-4 { background: linear-gradient(135deg, rgba(253,248,255,0.8), rgba(250,240,242,0.6)); }
+  .phase-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--lavender);
+    margin-bottom: 6px;
+  }
+  .phase-name {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 12px;
+  }
+  .phase-books { display: flex; flex-direction: column; gap: 6px; }
+  .phase-book {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--text-mid);
+  }
+  .phase-arrow {
+    color: var(--rose-gold);
+    font-size: 14px;
+    margin-top: 2px;
+  }
+  .phase-why {
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--text-light);
+    font-style: italic;
+    line-height: 1.6;
+  }
+
+  /* ── PART 2: THEMES ── */
+  .theme-section {
+    margin-bottom: 60px;
+  }
+  .theme-header {
+    background: linear-gradient(135deg, var(--lavender) 0%, var(--rose-gold) 100%);
+    border-radius: 20px 20px 0 0;
+    padding: 30px 35px;
+    color: #fff;
+  }
+  .theme-num {
+    font-size: 11px;
+    letter-spacing: 3px;
+    opacity: 0.8;
+    margin-bottom: 8px;
+  }
+  .theme-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .theme-proposition {
+    font-size: 15px;
+    opacity: 0.9;
+    font-style: italic;
+    line-height: 1.6;
+  }
+  .theme-body {
+    background: var(--glass-white);
+    border: 1px solid var(--glass-border);
+    border-top: none;
+    border-radius: 0 0 20px 20px;
+    padding: 35px;
+    box-shadow: var(--shadow-card);
+  }
+  .dialogue-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+    margin-bottom: 30px;
+  }
+  .dialogue-card {
+    border-radius: 14px;
+    padding: 20px;
+    position: relative;
+  }
+  .dc-lavender { background: rgba(237,232,245,0.7); border: 1px solid rgba(126,110,173,0.2); }
+  .dc-rose { background: rgba(250,240,242,0.7); border: 1px solid rgba(196,123,138,0.2); }
+  .dc-blue { background: rgba(221,232,240,0.7); border: 1px solid rgba(106,158,197,0.2); }
+  .dc-cream { background: rgba(253,251,247,0.7); border: 1px solid rgba(155,147,168,0.2); }
+  .dc-book-name {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .dc-lavender .dc-book-name { color: var(--lavender); }
+  .dc-rose .dc-book-name { color: var(--rose-gold); }
+  .dc-blue .dc-book-name { color: #5A8FAA; }
+  .dc-cream .dc-book-name { color: var(--text-mid); }
+  .dc-text {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  .insight-box {
+    background: linear-gradient(135deg, rgba(126,110,173,0.08), rgba(196,123,138,0.06));
+    border: 1px solid rgba(126,110,173,0.2);
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 20px;
+  }
+  .insight-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--lavender);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .insight-text {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 16px;
+    color: var(--text-dark);
+    line-height: 1.8;
+    font-weight: 600;
+  }
+
+  .tension-box {
+    background: linear-gradient(135deg, rgba(196,123,138,0.08), rgba(126,110,173,0.06));
+    border: 1px solid rgba(196,123,138,0.2);
+    border-radius: 16px;
+    padding: 25px;
+  }
+  .tension-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--rose-gold);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .tension-text {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  /* ── PART 3: TENSION MAP ── */
+  .tension-item {
+    background: var(--glass-white);
+    border: 1px solid var(--glass-border);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 25px;
+    box-shadow: var(--shadow-card);
+  }
+  .vs-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .vs-side {
+    flex: 1;
+    min-width: 180px;
+  }
+  .vs-book {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-light);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+  }
+  .vs-claim {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark);
+  }
+  .vs-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding: 10px;
+  }
+  .vs-badge {
+    background: linear-gradient(135deg, var(--lavender), var(--rose-gold));
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border-radius: 50px;
+  }
+  .tension-analysis {
+    font-size: 14px;
+    color: var(--text-mid);
+    line-height: 1.8;
+    padding: 16px 20px;
+    background: rgba(237,232,245,0.4);
+    border-radius: 12px;
+    margin-bottom: 12px;
+  }
+  .tension-resolution {
+    font-size: 14px;
+    color: var(--text-dark);
+    line-height: 1.8;
+    padding: 16px 20px;
+    background: rgba(196,123,138,0.07);
+    border-radius: 12px;
+    border-left: 3px solid var(--rose-gold);
+  }
+  .tension-resolution-label {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--rose-gold);
+    letter-spacing: 1px;
+    margin-bottom: 6px;
+  }
+
+  /* ── PART 4: LEVEL-5 INSIGHTS ── */
+  .mega-insight {
+    background: linear-gradient(135deg, rgba(126,110,173,0.1), rgba(196,123,138,0.08));
+    border: 2px solid rgba(126,110,173,0.25);
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  .mega-insight::before {
+    content: attr(data-num);
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 80px;
+    font-weight: 700;
+    color: rgba(126,110,173,0.08);
+    line-height: 1;
+  }
+  .mega-insight-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: var(--lavender);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .mega-insight-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(18px, 3vw, 24px);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  .mega-insight-body {
+    font-size: 15px;
+    color: var(--text-mid);
+    line-height: 1.9;
+  }
+  .mega-insight-body p { margin-bottom: 12px; }
+  .highlight-quote {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 17px;
+    color: var(--lavender);
+    font-weight: 600;
+    font-style: italic;
+    padding: 16px 20px;
+    border-left: 4px solid var(--lavender-light);
+    background: rgba(126,110,173,0.06);
+    border-radius: 0 12px 12px 0;
+    margin: 16px 0;
+    line-height: 1.6;
+  }
+
+  /* ── PART 5: PERSONAL PATHS ── */
+  .type-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+  }
+  .type-card {
+    border-radius: 20px;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  .type-a { background: linear-gradient(135deg, #EDE8F5, #DDD5F0); border: 1px solid rgba(126,110,173,0.25); }
+  .type-b { background: linear-gradient(135deg, #FAF0F2, #F0D8DE); border: 1px solid rgba(196,123,138,0.25); }
+  .type-c { background: linear-gradient(135deg, #DDE8F0, #C8DCE8); border: 1px solid rgba(106,158,197,0.25); }
+  .type-d { background: linear-gradient(135deg, #FDF8FF, #EDE8F5); border: 1px solid rgba(126,110,173,0.2); }
+  .type-e { background: linear-gradient(135deg, #F0F8F0, #D8ECD8); border: 1px solid rgba(100,160,100,0.25); }
+  .type-emoji {
+    font-size: 40px;
+    margin-bottom: 14px;
+    display: block;
+  }
+  .type-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    color: var(--lavender);
+  }
+  .type-b .type-label, .type-b .path-step-dot { color: var(--rose-gold); }
+  .type-c .type-label, .type-c .path-step-dot { color: #5A8FAA; }
+  .type-d .type-label, .type-d .path-step-dot { color: #8A6EAD; }
+  .type-e .type-label, .type-e .path-step-dot { color: #5A9A5A; }
+  .type-name {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+  }
+  .type-desc {
+    font-size: 13px;
+    color: var(--text-mid);
+    margin-bottom: 18px;
+    line-height: 1.6;
+  }
+  .path-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: var(--text-light);
+    margin-bottom: 10px;
+  }
+  .path-steps { display: flex; flex-direction: column; gap: 8px; }
+  .path-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text-dark);
+    line-height: 1.5;
+  }
+  .path-step-dot {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--lavender);
+    background: rgba(126,110,173,0.15);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .path-step-content { flex: 1; }
+  .path-step-book { font-weight: 700; }
+  .path-step-why { color: var(--text-light); font-size: 12px; }
+
+  /* ── PART 6: ACTIONS ── */
+  .actions-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 18px;
+  }
+  .action-card {
+    background: var(--glass-white);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.2s;
+  }
+  .action-card:hover { transform: translateY(-3px); }
+  .action-book {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--lavender);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .action-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .action-desc {
+    font-size: 13px;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+  .action-tag {
+    display: inline-block;
+    margin-top: 10px;
+    background: rgba(126,110,173,0.1);
+    color: var(--lavender);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 50px;
+  }
+
+  /* ── DIVIDER ── */
+  .section-divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(126,110,173,0.3), rgba(196,123,138,0.3), transparent);
+    margin: 60px 0;
+    border-radius: 2px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: linear-gradient(135deg, rgba(126,110,173,0.9), rgba(196,123,138,0.8));
+    padding: 40px;
+    text-align: center;
+    color: rgba(255,255,255,0.9);
+  }
+  .footer-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .footer-desc { font-size: 14px; opacity: 0.8; }
+
+  /* ── UTILS ── */
+  .tag {
+    display: inline-block;
+    background: rgba(126,110,173,0.12);
+    color: var(--lavender);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 3px 12px;
+    border-radius: 50px;
+    margin: 3px;
+  }
+  .tag.rose { background: rgba(196,123,138,0.12); color: var(--rose-gold); }
+  .tag.blue { background: rgba(106,158,197,0.12); color: #5A8FAA; }
+  em { color: var(--lavender); font-style: normal; font-weight: 600; }
+  strong { color: var(--text-dark); }
+
+  .scroll-hint {
+    text-align: center;
+    font-size: 12px;
+    color: var(--text-light);
+    margin-top: -30px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">📚 書醒聯合深度分析 · 2026</div>
+  <h1>關係的完整地圖<br>12本書的聯合洞見</h1>
+  <p class="hero-subtitle">從依戀理論到神經科學，從內在小孩到溝通技術——這12本書共同描繪了一張你從未看過的完整關係地圖</p>
+  <div class="hero-stats">
+    <div class="stat-item"><span class="stat-num">12</span><span class="stat-label">本核心書籍</span></div>
+    <div class="stat-item"><span class="stat-num">5</span><span class="stat-label">大跨書主題</span></div>
+    <div class="stat-item"><span class="stat-num">3</span><span class="stat-label">Level-5 整合洞見</span></div>
+    <div class="stat-item"><span class="stat-num">5</span><span class="stat-label">個人化閱讀路徑</span></div>
+  </div>
+</section>
+
+<!-- NAVIGATION -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a class="toc-link" href="#part1">🗺️ 書庫地圖</a>
+    <a class="toc-link" href="#part2">💬 五大主題</a>
+    <a class="toc-link" href="#part3">⚡ 張力地圖</a>
+    <a class="toc-link" href="#part4">🔮 聯合洞見</a>
+    <a class="toc-link" href="#part5">🧭 個人路徑</a>
+    <a class="toc-link" href="#part6">✅ 行動萃取</a>
+  </div>
+</nav>
+
+<div class="container">
+
+<!-- ════════════════════════════════════════════
+     PART 1: 書庫全景地圖
+════════════════════════════════════════════ -->
+<section id="part1">
+  <div class="section-header">
+    <div class="part-label">PART 01</div>
+    <h2 class="section-title">🗺️ 書庫全景地圖</h2>
+    <p class="section-desc">12本書在「關係宇宙」中的座標定位、各自主攻的核心問題，以及最佳閱讀順序</p>
+  </div>
+
+  <!-- 象限圖 -->
+  <div class="glass-card" style="margin-bottom: 40px;">
+    <h3 class="quadrant-title">📐 主題象限定位圖</h3>
+    <div class="axis-h">
+      <span>← 個人內在</span>
+      <span>伴侶關係 →</span>
+    </div>
+    <div class="quadrant-grid">
+      <!-- 象限一：自我理解 × 個人內在 -->
+      <div class="q-section">
+        <div class="q-section-label">⬆️↙️ 自我理解 × 個人內在</div>
+        <div class="q-books">
+          <div class="q-book"><span class="q-book-num">#2</span> The Adult Chair｜三椅子模型</div>
+          <div class="q-book"><span class="q-book-num">#4</span> 內在小孩快樂，你才快樂</div>
+          <div class="q-book"><span class="q-book-num">#9</span> 童年情感忽視</div>
+        </div>
+      </div>
+      <!-- 象限二：自我理解 × 伴侶關係 -->
+      <div class="q-section">
+        <div class="q-section-label">⬆️↗️ 自我理解 × 伴侶關係</div>
+        <div class="q-books">
+          <div class="q-book rose"><span class="q-book-num">#6</span> 孤獨的冷漠｜逃避型依戀</div>
+          <div class="q-book rose"><span class="q-book-num">#7</span> 愛能長久嗎？｜熟悉與慾望</div>
+          <div class="q-book rose"><span class="q-book-num">#5</span> 奇蹟迴圈｜能量療癒</div>
+        </div>
+      </div>
+      <!-- 象限三：關係技術 × 個人內在 -->
+      <div class="q-section">
+        <div class="q-section-label">⬇️↙️ 關係技術 × 個人內在</div>
+        <div class="q-books">
+          <div class="q-book blue"><span class="q-book-num">#3</span> 不受傷害也不傷害人的說話練習</div>
+          <div class="q-book blue"><span class="q-book-num">#12</span> 高敏感卻不受傷的七日練習</div>
+          <div class="q-book blue"><span class="q-book-num">#10</span> 逆轉不和諧人際關係</div>
+        </div>
+      </div>
+      <!-- 象限四：關係技術 × 伴侶關係 -->
+      <div class="q-section">
+        <div class="q-section-label">⬇️↗️ 關係技術 × 伴侶關係</div>
+        <div class="q-books">
+          <div class="q-book"><span class="q-book-num">#1</span> 恆溫關係｜Gottman 七天處方</div>
+          <div class="q-book"><span class="q-book-num">#8</span> 深刻認識一個人</div>
+          <div class="q-book"><span class="q-book-num">#11</span> 配偶使用說明書｜夫婦腦</div>
+        </div>
+      </div>
+    </div>
+    <div class="axis-h">
+      <span></span>
+      <span>↕ 縱軸：自我理解（上）↔ 關係技術（下）</span>
+      <span></span>
+    </div>
+  </div>
+
+  <!-- 12本書的主攻問題 -->
+  <h3 style="font-family: 'Noto Serif TC', serif; font-size: 22px; font-weight: 700; color: var(--text-dark); margin-bottom: 25px; display: flex; align-items: center; gap: 10px;">❓ 每本書的主攻問題</h3>
+  <div class="books-grid">
+    <div class="book-card">
+      <div class="book-num">BOOK 01</div>
+      <div class="book-title">恆溫關係<br><small style="font-weight:400;font-size:13px;">The Love Prescription</small></div>
+      <div class="book-author">John & Julie Gottman</div>
+      <div class="book-question">「愛需要每天主動澆水——你上次真正轉向伴侶，是什麼時候？」</div>
+    </div>
+    <div class="book-card">
+      <div class="book-num">BOOK 02</div>
+      <div class="book-title">The Adult Chair</div>
+      <div class="book-author">Michelle Chalfant</div>
+      <div class="book-question">「你現在坐在哪張椅子上？是受傷的孩子、叛逆的青少年，還是真正的成人？」</div>
+    </div>
+    <div class="book-card">
+      <div class="book-num">BOOK 03</div>
+      <div class="book-title">不受傷害也不傷害人的說話練習</div>
+      <div class="book-author">（非暴力溝通系列）</div>
+      <div class="book-question">「你的語言在建造橋樑，還是在挖護城河？」</div>
+    </div>
+    <div class="book-card">
+      <div class="book-num">BOOK 04</div>
+      <div class="book-title">內在小孩快樂，你才快樂</div>
+      <div class="book-author">內在小孩療癒系列</div>
+      <div class="book-question">「你和自己的關係，就是你所有關係的母版——你是怎麼對待自己的？」</div>
+    </div>
+    <div class="book-card">
+      <div class="book-num">BOOK 05</div>
+      <div class="book-title">奇蹟迴圈：療癒身心靈的光能量</div>
+      <div class="book-author">（日本療癒系）</div>
+      <div class="book-question">「你的關係困境，是否有更深的能量層次在運作，而你還沒意識到？」</div>
+    </div>
+    <div class="book-card">
+      <div class="book-num">BOOK 06</div>
+      <div class="book-title">孤獨的冷漠：逃避型依戀障礙的分析與修復</div>
+      <div class="book-author">岡田尊司</div>
+      <div class="book-question">「明明事業有成，卻在親密關係裡感到窒息——這是性格還是依戀模式？」</div>
+    </div>
+    <div class="book-card">
+      <div class="book-num">BOOK 07</div>
+      <div class="book-title">愛能長久嗎？<br><small style="font-weight:400;font-size:13px;">Can Love Last</small></div>
+      <div class="book-author">Stephen A. Mitchell</div>
+      <div class="book-question">「你愛的是那個人，還是你對那個人的認知？熟悉是愛的歸宿，還是慾望的墳墓？」</div>
+    </div>
+    <div class="book-card">
+      <div class="book-num">BOOK 08</div>
+      <div class="book-title">深刻認識一個人<br><small style="font-weight:400;font-size:13px;">How to Know a Person</small></div>
+      <div class="book-author">David Brooks</div>
+      <div class="book-question">「你最近一次真正看見另一個人——而不是你對他的投影——是什麼時候？」</div>
+    </div>
+    <div class="book-card">
+      <div class="book-num">BOOK 09</div>
+      <div class="book-title">童年情感忽視<br><small style="font-weight:400;font-size:13px;">Running on Empty</small></div>
+      <div class="book-author">Jonice Webb</div>
+      <div class="book-question">「你渴望親密，卻不知道自己的情感需求是什麼——那個空洞，從哪裡來？」</div>
+    </div>
+    <div class="book-card">
+      <div class="book-num">BOOK 10</div>
+      <div class="book-title">逆轉不和諧人際關係，從此難受、痛苦全數終結！</div>
+      <div class="book-author">實用關係策略</div>
+      <div class="book-question">「難相處的關係能逆轉嗎？還是你需要先轉變的是你自己？」</div>
+    </div>
+    <div class="book-card">
+      <div class="book-num">BOOK 11</div>
+      <div class="book-title">配偶使用說明書（夫婦腦）</div>
+      <div class="book-author">黒川伊保子</div>
+      <div class="book-question">「你和伴侶說的是同一種語言嗎？還是你們的大腦根本就在平行宇宙運作？」</div>
+    </div>
+    <div class="book-card">
+      <div class="book-num">BOOK 12</div>
+      <div class="book-title">高敏感卻不受傷的七日練習</div>
+      <div class="book-author">根本裕幸</div>
+      <div class="book-question">「高度敏感是詛咒還是天賦？你能在不關閉自己的情況下，不被關係消耗嗎？」</div>
+    </div>
+  </div>
+
+  <!-- 閱讀順序建議 -->
+  <div class="reading-order">
+    <h3 class="reading-order-title">📖 最佳閱讀順序建議</h3>
+    <p style="color: var(--text-mid); font-size: 14px; margin-bottom: 25px;">從自我認識開始，再進入關係技術。跳過根基直接學技術，就像在沙地蓋高樓。</p>
+    <div class="reading-phases">
+      <div class="phase phase-1">
+        <div class="phase-label">PHASE 1｜地基</div>
+        <div class="phase-name">🌱 認識你的根源</div>
+        <div class="phase-books">
+          <div class="phase-book"><span class="phase-arrow">①</span><div><strong>童年情感忽視</strong><br><small>先理解「空洞」從哪裡來</small></div></div>
+          <div class="phase-book"><span class="phase-arrow">②</span><div><strong>The Adult Chair</strong><br><small>看見你現在坐的是哪張椅子</small></div></div>
+          <div class="phase-book"><span class="phase-arrow">③</span><div><strong>內在小孩快樂，你才快樂</strong><br><small>開始療癒的第一步</small></div></div>
+        </div>
+        <div class="phase-why">為什麼先讀這三本？因為所有關係困境都指向同一個源頭——你和自己的關係。</div>
+      </div>
+      <div class="phase phase-2">
+        <div class="phase-label">PHASE 2｜理解</div>
+        <div class="phase-name">🔍 理解關係的本質</div>
+        <div class="phase-books">
+          <div class="phase-book"><span class="phase-arrow">④</span><div><strong>孤獨的冷漠</strong><br><small>理解依戀模式的根</small></div></div>
+          <div class="phase-book"><span class="phase-arrow">⑤</span><div><strong>愛能長久嗎？</strong><br><small>重新思考「愛」的本質</small></div></div>
+          <div class="phase-book"><span class="phase-arrow">⑥</span><div><strong>深刻認識一個人</strong><br><small>學習真正「看見」</small></div></div>
+        </div>
+        <div class="phase-why">這三本讓你對關係的理解從表淺到深層——依戀、慾望、看見，是三把核心鑰匙。</div>
+      </div>
+      <div class="phase phase-3">
+        <div class="phase-label">PHASE 3｜技術</div>
+        <div class="phase-name">🛠️ 建立關係工具箱</div>
+        <div class="phase-books">
+          <div class="phase-book"><span class="phase-arrow">⑦</span><div><strong>配偶使用說明書</strong><br><small>理解生理差異，降低衝突</small></div></div>
+          <div class="phase-book"><span class="phase-arrow">⑧</span><div><strong>不受傷害也不傷害人的說話練習</strong><br><small>升級溝通語言</small></div></div>
+          <div class="phase-book"><span class="phase-arrow">⑨</span><div><strong>逆轉不和諧人際關係</strong><br><small>難關係的實戰策略</small></div></div>
+        </div>
+        <div class="phase-why">有了根基與理解，技術才能真正落地。沒有前兩階段，技術只是表演。</div>
+      </div>
+      <div class="phase phase-4">
+        <div class="phase-label">PHASE 4｜整合</div>
+        <div class="phase-name">✨ 整合與日常維繫</div>
+        <div class="phase-books">
+          <div class="phase-book"><span class="phase-arrow">⑩</span><div><strong>恆溫關係</strong><br><small>每天的小處方，維繫愛的溫度</small></div></div>
+          <div class="phase-book"><span class="phase-arrow">⑪</span><div><strong>高敏感卻不受傷的七日練習</strong><br><small>設立邊界，保護自己的敏感</small></div></div>
+          <div class="phase-book"><span class="phase-arrow">⑫</span><div><strong>奇蹟迴圈</strong><br><small>整合身心靈的能量層次</small></div></div>
+        </div>
+        <div class="phase-why">最後三本是整合與維繫：一本給愛情，一本給自己，一本給更深的靈性層次。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════════════
+     PART 2: 五大跨書主題
+════════════════════════════════════════════ -->
+<section id="part2">
+  <div class="section-header">
+    <div class="part-label">PART 02</div>
+    <h2 class="section-title">💬 五大跨書主題</h2>
+    <p class="section-desc">當這12本書放在同一個房間裡對話，它們在爭論什麼、在哪裡達成共識？</p>
+  </div>
+
+  <!-- 主題一 -->
+  <div class="theme-section">
+    <div class="theme-header">
+      <div class="theme-num">THEME 01</div>
+      <div class="theme-title">親密的悖論 🌊</div>
+      <div class="theme-proposition">我們渴望親密，但親密本身讓我們不舒服——這不是矛盾，這是人類最深的困境</div>
+    </div>
+    <div class="theme-body">
+      <p style="color: var(--text-mid); font-size: 14px; margin-bottom: 20px;">三本書從三個不同角度，共同描繪了同一個悖論：</p>
+      <div class="dialogue-grid">
+        <div class="dialogue-card dc-lavender">
+          <div class="dc-book-name">📖 童年情感忽視（Jonice Webb）</div>
+          <div class="dc-text">情感忽視讓孩子學會了一件事：「我的情感需求不重要。」長大後，他們不是不渴望親密，而是對自己的渴望本身感到陌生、羞恥，甚至恐慌。<em>親密到來時，他們的系統會自動拉響警報</em>——因為親密意味著暴露，而暴露曾經是危險的。</div>
+        </div>
+        <div class="dialogue-card dc-rose">
+          <div class="dc-book-name">📖 孤獨的冷漠（岡田尊司）</div>
+          <div class="dc-text">逃避型依戀者並不缺乏對關係的渴望——他們只是把這個渴望鎖進了更深的地方。表面的冷漠和距離感，是一套精密的防禦系統。<em>社會上的成功、工作上的投入，都是繞過親密需求的替代策略。</em>問題是：這個策略讓他們在關係中愈來愈孤獨。</div>
+        </div>
+        <div class="dialogue-card dc-blue">
+          <div class="dc-book-name">📖 愛能長久嗎？（Stephen Mitchell）</div>
+          <div class="dc-text">Mitchell 翻轉了問題：親密的威脅，不是陌生，而是太熟悉。<em>熟悉感殺死慾望</em>——當我們把伴侶變成一個「已知存在」，我們就失去了對他的渴望。悖論是：我們追求的安全感，正是殺死我們所渴望的那種激情的兇手。</div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">💡 整合洞見</div>
+        <div class="insight-text">親密的悖論有兩個層次：第一層是「我渴望親密，但親密讓我感到危險」（CEN × 逃避型）；第二層是「我達到了親密，但親密讓慾望消失」（Mitchell）。<br><br>這意味著人類在關係中面對的是一個雙重困境：<em>靠近太痛，太近又失去吸引力</em>。解法不是在兩端之間找平衡點，而是理解：第一層需要療癒（讓親密變得安全），第二層需要創造（在熟悉中保持驚奇）。這是完全不同的工作，但都是必要的。</div>
+      </div>
+
+      <div class="tension-box">
+        <div class="tension-label">⚡ 最強張力</div>
+        <div class="tension-text">Webb 和岡田說：「你需要慢慢靠近，讓親密變得安全。」<br>Mitchell 說：「你靠得太近了——距離才是慾望的氧氣。」<br><br>這兩種建議在表面上是衝突的，但它們服務的是不同階段的人：<strong>靠近不夠的人需要先練習安全的親密；太熟悉的人需要重新創造神秘感。</strong>關鍵是正確診斷你現在在哪個困境裡。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主題二 -->
+  <div class="theme-section">
+    <div class="theme-header" style="background: linear-gradient(135deg, #8A6EAD 0%, #B87890 100%);">
+      <div class="theme-num">THEME 02</div>
+      <div class="theme-title">過去如何劫持現在 ⏳</div>
+      <div class="theme-proposition">童年的傷，不會自動癒合——它會偽裝成你的「個性」，在成人關係中一再重演</div>
+    </div>
+    <div class="theme-body">
+      <div class="dialogue-grid">
+        <div class="dialogue-card dc-lavender">
+          <div class="dc-book-name">📖 The Adult Chair（Michelle Chalfant）</div>
+          <div class="dc-text">Chalfant 的三椅子模型是這個主題最精確的地圖：<em>受傷的孩子椅</em>（0-7歲的傷和信念）、<em>青少年椅</em>（用反應、防禦、上癮來應對）、<em>成人椅</em>（從當下做出選擇的能力）。大多數人在激烈的關係衝突中，實際上是以孩子的視角在反應——但他們以為自己在以成人的方式溝通。</div>
+        </div>
+        <div class="dialogue-card dc-rose">
+          <div class="dc-book-name">📖 內在小孩快樂，你才快樂</div>
+          <div class="dc-text">外在關係的品質，是內在小孩狀態的投影。<em>你對伴侶的要求，往往是你的內在小孩對當年父母的要求。</em>你在關係中感到的憤怒、委屈、恐懼——大部分的能量來自童年，只是借用了現在的情境來釋放。理解這個，是停止讓伴侶「替父母還債」的第一步。</div>
+        </div>
+        <div class="dialogue-card dc-blue">
+          <div class="dc-book-name">📖 童年情感忽視（Jonice Webb）</div>
+          <div class="dc-text">CEN 最隱形的特點是：它不像虐待那樣留下明顯的傷痕。父母可能非常愛你，卻無意間沒有回應你的情感。<em>長大後，你學會了用高自我要求來填補那個空洞</em>，卻對自己的情感需求感到陌生。這種陌生感在關係中的表現，是無法命名自己想要什麼，也無法接收對方給予的愛。</div>
+        </div>
+        <div class="dialogue-card dc-cream">
+          <div class="dc-book-name">📖 孤獨的冷漠（岡田尊司）</div>
+          <div class="dc-text">逃避型依戀的形成，是童年時「情感需求得不到回應」的重複經驗的結果。孩子學到的結論是：<em>「靠近只會失望，不如靠近自己。」</em>這個結論在成年後被神經系統「記住」，成為自動反應——即使理智上知道這段關係是安全的，身體仍然會觸發退縮機制。</div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">💡 整合洞見</div>
+        <div class="insight-text">這四本書共同揭示了一個核心機制：<em>童年的學習，是神經迴路層次的學習——不是認知可以輕易覆蓋的。</em><br><br>你在關係中的「個性」——控制欲、冷漠、過度依賴、情緒爆發——很可能不是你「天生如此」，而是你當年最聰明的生存策略。問題是，這些策略在童年是必要的，在成人關係中卻成了障礙。<br><br><em>修復的起點不是「改變行為」，而是「帶著慈悲理解那個行為從哪裡來」。</em></div>
+      </div>
+
+      <div class="tension-box">
+        <div class="tension-label">⚡ 最強張力</div>
+        <div class="tension-text">這四本書都同意「過去在劫持現在」，但在修復方法上有微妙分歧：<br>• Chalfant 強調：讓成人椅的你「持有」那個受傷的孩子——是整合，不是消除<br>• 內在小孩系列強調：讓孩子得到它當年沒有得到的愛<br>• Webb 強調：先學會識別和命名自己的情感<br>• 岡田強調：依戀模式的改變需要時間和安全的關係環境<br><br><strong>衝突點：你能靠自己療癒，還是你需要伴侶的參與？</strong>大多數這類書籍的隱含假設是「自我療癒」，但岡田的逃避型研究顯示，改變依戀模式往往需要一段真實的安全依戀關係作為媒介。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主題三 -->
+  <div class="theme-section">
+    <div class="theme-header" style="background: linear-gradient(135deg, #6A9EC5 0%, #8A7EBD 100%);">
+      <div class="theme-num">THEME 03</div>
+      <div class="theme-title">看見的力量 👁️</div>
+      <div class="theme-proposition">真正看見一個人，不是一種技巧——是一種愛的姿態，也是所有溝通問題的根本解法</div>
+    </div>
+    <div class="theme-body">
+      <div class="dialogue-grid">
+        <div class="dialogue-card dc-blue">
+          <div class="dc-book-name">📖 深刻認識一個人（David Brooks）</div>
+          <div class="dc-text">Brooks 的核心論點：我們活在一個「關注度稀缺」的時代，每個人都渴望被真正看見，卻很少有人知道怎麼做到。<em>真正的看見需要放下自己的議程，進入對方的現實。</em>最強大的問句不是「發生了什麼事？」而是「這對你意味著什麼？」——後者邀請對方進入自己的內心世界，而不只是描述外部事件。</div>
+        </div>
+        <div class="dialogue-card dc-lavender">
+          <div class="dc-book-name">📖 恆溫關係（Gottman）</div>
+          <div class="dc-text">Gottman 40年研究的核心發現之一，是「轉向」（Turning toward）的重要性：當伴侶發出情感連結的邀請（有時只是一句「你看那只鳥」），你是轉向他、轉離他，還是無視他？<em>成功的伴侶會在日常的微小時刻轉向對方</em>——這些微小的「看見」，累積成深厚的信任儲備。</div>
+        </div>
+        <div class="dialogue-card dc-rose">
+          <div class="dc-book-name">📖 配偶使用說明書（黒川伊保子）</div>
+          <div class="dc-text">黒川從神經科學角度提供了「看見」的生物學解釋：<em>你必須先理解對方的大腦如何運作，才能真正「看見」他的需求</em>，而不是把自己的框架投影到對方身上。女性說「好累」時，她不需要解決方案，她需要的是被看見這份疲倦本身。理解這個，是「看見」的起點。</div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">💡 整合洞見</div>
+        <div class="insight-text">這三本書從三個維度定義了「看見」：<br><br>• Brooks 定義的是<em>深度的看見</em>——進入對方的內心世界，理解事情對他的意義<br>• Gottman 定義的是<em>日常的看見</em>——在微小的時刻轉向對方的情感邀請<br>• 黒川定義的是<em>結構性的看見</em>——理解對方大腦的運作方式，才能正確解讀他的需求<br><br><em>三者缺一不可。</em>只有結構性理解（黒川），你會理解但不會行動；只有日常轉向（Gottman），你會行動但可能方向錯誤；只有深度看見（Brooks），你會理解對方的心，但可能忽略日常累積的小裂縫。</div>
+      </div>
+
+      <div class="tension-box">
+        <div class="tension-label">⚡ 最強張力</div>
+        <div class="tension-text">Brooks 強調「放下自己的議程」才能真正看見對方，但黒川指出男女大腦的差異是結構性的——你根本不可能完全「進入」另一種大腦的運作方式。<br><br><strong>真正的看見，是承認你永遠無法完全理解對方，同時仍然持續嘗試——帶著謙遜的好奇心，而非以為自己已經「懂了」。</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主題四 -->
+  <div class="theme-section">
+    <div class="theme-header" style="background: linear-gradient(135deg, #5A9A8A 0%, #7E8EAD 100%);">
+      <div class="theme-num">THEME 04</div>
+      <div class="theme-title">身體、能量與關係 🌿</div>
+      <div class="theme-proposition">關係不只發生在大腦裡——它同時在身體、神經系統、和能量場域裡被經歷和調節</div>
+    </div>
+    <div class="theme-body">
+      <div class="dialogue-grid">
+        <div class="dialogue-card dc-lavender">
+          <div class="dc-book-name">📖 高敏感卻不受傷的七日練習（根本裕幸）</div>
+          <div class="dc-text">HSP（高敏感人格）的核心特質是：神經系統的過度敏感。他們不只是「想太多」，而是<em>身體在細胞層次上接收到更多的刺激信號</em>。在關係中，這意味著他們比一般人更容易被對方的情緒感染、更容易被言語傷到、也需要更多的獨處時間來恢復能量。不是軟弱，是生理構造。</div>
+        </div>
+        <div class="dialogue-card dc-rose">
+          <div class="dc-book-name">📖 奇蹟迴圈：療癒身心靈的光能量</div>
+          <div class="dc-text">這本書將關係問題拉到更廣的維度：<em>你帶進關係的，不只是你的心理，還有你的能量場域</em>。長期壓抑的情緒、創傷、負向信念，都會在能量層次上影響你如何在關係中被吸引、如何被對待、如何對待對方。療癒需要涵蓋身體、情緒、心理和靈性四個層次。</div>
+        </div>
+        <div class="dialogue-card dc-blue">
+          <div class="dc-book-name">📖 配偶使用說明書（黒川伊保子）</div>
+          <div class="dc-text">黒川從最實際的神經科學角度切入：大腦的生理結構決定了溝通模式。<em>男性大腦的問題解決迴路和女性大腦的情感同步迴路，是進化出來的不同硬體</em>——不是對錯問題，是生物差異。理解這個，不是要接受限制，而是要在正確的位置施力。</div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">💡 整合洞見</div>
+        <div class="insight-text">這三本書共同挑戰了一個主流假設：「關係問題是認知和行為層次的問題，只要想清楚、做對了就好。」<br><br>它們指出的是：<em>你的神經系統、你的身體感受、你的能量狀態，都是關係的參與者</em>——而且往往比你的理性思維更早、更深地影響關係的走向。<br><br>實際意義：高敏感者在關係中設立邊界，不是「自私」而是必要的神經系統護理；伴侶溝通的失敗，很多時候不是「不夠愛」而是「大腦硬體不同」；某些反覆出現的關係模式，可能有身體或能量層次的根源需要從那個層次介入。</div>
+      </div>
+
+      <div class="tension-box">
+        <div class="tension-label">⚡ 最強張力</div>
+        <div class="tension-text">黒川的神經科學角度（生物決定論傾向）和奇蹟迴圈的能量療癒角度（靈性轉化傾向）站在認識論的兩端。前者說「大腦結構如此，理解並適應它」；後者說「能量和信念可以根本性地改變你的關係現實」。<br><br><strong>整合觀點：兩者都在指向同一個事實——關係不只是認知問題——但給出了不同的「更深層次」定義。實用主義的立場是：先理解生物層次的限制（黒川），再探索是否有更深的療癒空間（奇蹟迴圈）。</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 主題五 -->
+  <div class="theme-section">
+    <div class="theme-header" style="background: linear-gradient(135deg, #C47B8A 0%, #7E6EAD 100%);">
+      <div class="theme-num">THEME 05</div>
+      <div class="theme-title">修復的可能性 🌸</div>
+      <div class="theme-proposition">關係的傷可以修復——但「修復」的路徑，比大多數人想像的更複雜、也更深刻</div>
+    </div>
+    <div class="theme-body">
+      <div class="dialogue-grid">
+        <div class="dialogue-card dc-lavender">
+          <div class="dc-book-name">📖 恆溫關係（Gottman）</div>
+          <div class="dc-text">Gottman 的研究提供了最實證的修復路徑：<em>愛是每天的微小行動，不是偶爾的盛大宣示。</em>七天處方的邏輯是：關係的修復不需要戲劇性的突破，只需要持續的微小轉向。衝突後的修復嘗試（哪怕是一個愚蠢的玩笑）比衝突本身更能預測關係的長期健康。</div>
+        </div>
+        <div class="dialogue-card dc-rose">
+          <div class="dc-book-name">📖 不受傷害也不傷害人的說話練習</div>
+          <div class="dc-text">語言是關係修復最直接的工具，也是最容易被忽視的。<em>非暴力溝通的核心不是「說好聽的話」，而是學會說「真話」而不傷人</em>——區分觀察和評判、感受和想法、需求和策略。大多數關係衝突，不是因為問題本身，而是因為討論問題的方式本身成了另一個問題。</div>
+        </div>
+        <div class="dialogue-card dc-blue">
+          <div class="dc-book-name">📖 逆轉不和諧人際關係</div>
+          <div class="dc-text">這本書提供的是最實用的策略視角：<em>難相處的關係，往往需要先改變你自己的應對方式，才能改變關係的動力</em>。你無法控制對方，但你可以改變你的反應——而你的反應改變，往往會意外地改變對方的行為。這不是「討好」，而是打破舊的互動迴路。</div>
+        </div>
+        <div class="dialogue-card dc-cream">
+          <div class="dc-book-name">📖 The Adult Chair（Chalfant）</div>
+          <div class="dc-text">Chalfant 的修復路徑是最根本的：<em>所有真正的修復，都必須從「成人椅」出發</em>。如果你在受傷的孩子椅上試圖修復關係，你只是在用童年的恐懼和需求操控對方，即使方式看起來很成熟。從成人椅出發的修復，帶著責任感、邊界感，和對對方獨立存在的尊重。</div>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-label">💡 整合洞見</div>
+        <div class="insight-text">這四本書共同構成了一個修復的「層次模型」：<br><br>🔹 <em>最表層：語言技術</em>（不受傷害的說話練習）——說話方式改變，衝突頻率下降<br>🔹 <em>第二層：行為策略</em>（逆轉不和諧 × Gottman）——持續的微小行動，重建信任<br>🔹 <em>第三層：內在狀態</em>（Adult Chair）——從什麼位置出發修復，決定修復的品質<br>🔹 <em>最深層：根源療癒</em>（與前述主題連結）——如果根源沒有被觸及，表層的修復會反覆失效<br><br>修復不是一個行動，而是一個從外到內、從技術到根源的持續過程。</div>
+      </div>
+
+      <div class="tension-box">
+        <div class="tension-label">⚡ 最強張力</div>
+        <div class="tension-text">Gottman 說：「持續的小行動就是愛，修復不需要大突破。」<br>Adult Chair 說：「如果你的內在小孩在操控你，你的小行動可能不是愛而是焦慮依附的表現。」<br><br><strong>解法：先問「我現在從哪張椅子出發做這件事？」如果答案是成人椅，繼續；如果答案是受傷的孩子椅，先回到自己，再行動。</strong></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════════════
+     PART 3: 最強張力地圖
+════════════════════════════════════════════ -->
+<section id="part3">
+  <div class="section-header">
+    <div class="part-label">PART 03</div>
+    <h2 class="section-title">⚡ 最強張力地圖</h2>
+    <p class="section-desc">12本書之間最有趣的衝突與矛盾——這些張力本身就是珍貴的洞見</p>
+  </div>
+
+  <!-- 張力一 -->
+  <div class="tension-item">
+    <div class="vs-header">
+      <div class="vs-side">
+        <div class="vs-book">愛能長久嗎？｜Stephen Mitchell</div>
+        <div class="vs-claim">「熟悉感是愛情最大的敵人——距離製造慾望」</div>
+      </div>
+      <div class="vs-divider">
+        <div class="vs-badge">VS</div>
+      </div>
+      <div class="vs-side">
+        <div class="vs-book">恆溫關係｜Gottman</div>
+        <div class="vs-claim">「持續的小互動和轉向，才是愛情的命脈」</div>
+      </div>
+    </div>
+    <div class="tension-analysis">
+      Mitchell 的論點是：安全感和激情存在根本張力——越熟悉，越少慾望。他建議在熟悉中創造「重新看見」的神秘感。Gottman 的40年研究卻發現：穩定、可預測的情感連結是幸福婚姻的基礎——每天轉向伴侶的情感邀請，才能建立深厚的信任儲備。兩人似乎站在完全相反的立場。
+    </div>
+    <div class="tension-resolution">
+      <div class="tension-resolution-label">🔮 整合解讀</div>
+      Mitchell 和 Gottman 在說不同的事：Gottman 研究的是「關係的穩定性」（什麼讓婚姻不解體）；Mitchell 研究的是「關係的活力」（什麼讓愛情保持激情）。<strong>一段好的長期關係，需要 Gottman 的安全基礎（穩定的日常連結）作為土壤，也需要 Mitchell 的神秘感（重新看見）作為養分。兩者不是選擇，而是缺一不可的雙軸。</strong>
+    </div>
+  </div>
+
+  <!-- 張力二 -->
+  <div class="tension-item">
+    <div class="vs-header">
+      <div class="vs-side">
+        <div class="vs-book">配偶使用說明書｜黒川伊保子</div>
+        <div class="vs-claim">「理解大腦差異、接受現實、降低不必要的期待」</div>
+      </div>
+      <div class="vs-divider">
+        <div class="vs-badge">VS</div>
+      </div>
+      <div class="vs-side">
+        <div class="vs-book">逆轉不和諧人際關係 × Adult Chair × 說話練習</div>
+        <div class="vs-claim">「關係是可以被改變和修復的——你需要主動介入」</div>
+      </div>
+    </div>
+    <div class="tension-analysis">
+      黒川的論點有強烈的「接受派」色彩：男女大腦本就不同，很多衝突根本不需要解決，只需要理解和接受。但另外幾本書的立場是積極的改變者：關係模式可以被打破，溝通方式可以被改善，只要你願意做工。
+    </div>
+    <div class="tension-resolution">
+      <div class="tension-resolution-label">🔮 整合解讀</div>
+      <strong>接受和改變不是二選一，而是需要先正確區分「什麼是可以改變的，什麼是需要接受的」。</strong> 黒川告訴你：大腦的硬體差異是結構性的，要接受。Adult Chair 告訴你：你的反應模式是後天學習的，可以改變。正確使用這兩個框架：接受結構性差異，改變學習來的模式——而不是反過來，試圖改變對方的大腦，卻接受自己受傷的反應模式。
+    </div>
+  </div>
+
+  <!-- 張力三 -->
+  <div class="tension-item">
+    <div class="vs-header">
+      <div class="vs-side">
+        <div class="vs-book">內在小孩快樂，你才快樂 × The Adult Chair</div>
+        <div class="vs-claim">「內在小孩需要被療癒——這是關係幸福的根本」</div>
+      </div>
+      <div class="vs-divider">
+        <div class="vs-badge">VS</div>
+      </div>
+      <div class="vs-side">
+        <div class="vs-book">關係療癒論的普遍假設</div>
+        <div class="vs-claim">「你不能靠伴侶療癒自己的傷——那是你自己的責任」</div>
+      </div>
+    </div>
+    <div class="tension-analysis">
+      許多療癒書籍（包括 Adult Chair 和內在小孩系列）強調：自我療癒是關係健康的前提。但岡田的逃避型依戀研究顯示：改變依戀模式往往需要在真實的安全關係中發生。你能自己療癒，還是你需要伴侶的幫助？
+    </div>
+    <div class="tension-resolution">
+      <div class="tension-resolution-label">🔮 整合解讀</div>
+      <strong>答案是：兩者都需要，但順序很重要。</strong> 你需要自己做足夠的療癒工作，才不會讓伴侶成為你唯一的療癒來源（那是一種隱性的巨大壓力）；但你的療癒最終需要在真實的關係中得到驗證和深化——理論上的療癒，在第一次親密衝突時往往會崩潰。Chalfant 的成人椅，是你在關係中療癒的「責任方」；而安全的伴侶關係，是讓舊的神經迴路有機會真正改寫的「環境條件」。
+    </div>
+  </div>
+
+  <!-- 張力四 -->
+  <div class="tension-item">
+    <div class="vs-header">
+      <div class="vs-side">
+        <div class="vs-book">童年情感忽視（Webb）× 孤獨的冷漠（岡田）</div>
+        <div class="vs-claim">「情感回避是防禦機制——需要慢慢解除」</div>
+      </div>
+      <div class="vs-divider">
+        <div class="vs-badge">VS</div>
+      </div>
+      <div class="vs-side">
+        <div class="vs-book">高敏感卻不受傷（根本裕幸）</div>
+        <div class="vs-claim">「有時候，保護自己的敏感才是正確的——邊界是愛，不是回避」</div>
+      </div>
+    </div>
+    <div class="tension-analysis">
+      CEN 和逃避型依戀的框架，容易讓人把所有的「保持距離」都解讀為需要被解除的防禦機制。但高敏感者的研究指出：某種程度的自我保護是必要的，高敏感者如果完全沒有邊界，會在關係中精疲力竭。
+    </div>
+    <div class="tension-resolution">
+      <div class="tension-resolution-label">🔮 整合解讀</div>
+      <strong>區分「恐懼驅動的回避」和「智慧驅動的邊界」是關鍵。</strong> 逃避型的距離感，通常來自恐懼：「靠近會受傷。」高敏感者的邊界，來自自我認識：「我知道自己需要多少空間才能保持健康。」前者需要療癒和勇氣；後者需要被尊重和維護。問自己：「我保持距離，是因為恐懼？還是因為我清楚知道自己的需求？」
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════════════
+     PART 4: 三個 Level-5 整合洞見
+════════════════════════════════════════════ -->
+<section id="part4">
+  <div class="section-header">
+    <div class="part-label">PART 04</div>
+    <h2 class="section-title">🔮 聯合洞見</h2>
+    <p class="section-desc">這12本書放在一起看，浮現出什麼是每本書單獨無法呈現的洞見？</p>
+  </div>
+
+  <div class="mega-insight" data-num="①">
+    <div class="mega-insight-label">✨ LEVEL-5 整合洞見 #01</div>
+    <div class="mega-insight-title">「關係困境」的真正層次結構：為什麼你反覆卡在同一個地方</div>
+    <div class="mega-insight-body">
+      <p>這12本書各自提供了「關係困境的解決方案」，但把它們放在一起，我們可以看到一個沒有任何一本書完整呈現的層次結構：</p>
+      <div class="highlight-quote">
+        關係困境的根源，同時存在於四個層次：神經生物（大腦硬體）→ 依戀模式（童年學習的關係程式）→ 內在狀態（你現在坐在哪張椅子）→ 溝通行為（你說了什麼、做了什麼）。
+      </div>
+      <p>大多數人只在第四層努力（改變說話方式、行為策略），卻發現效果短暫——因為更深的層次沒有改變，新的行為只是在舊的地基上裝修。</p>
+      <p>整合這12本書的洞見是：<em>有效的關係改變，需要同時在多個層次介入</em>，而不是找到那個「最好的技巧」。黒川幫你理解第一層；岡田和Webb幫你看清第二層；Chalfant和內在小孩系列幫你工作於第三層；說話練習、Gottman和逆轉不和諧幫你在第四層建立新技術。</p>
+      <p>最重要的發現：<em>你必須知道自己卡在哪個層次，才能在正確的層次介入。</em>在第一層的問題（大腦差異）上使用第四層的解法（溝通技巧），就像在硬體問題上不停重新安裝軟體——永遠都修不好。</p>
+    </div>
+  </div>
+
+  <div class="mega-insight" data-num="②">
+    <div class="mega-insight-label">✨ LEVEL-5 整合洞見 #02</div>
+    <div class="mega-insight-title">「自我」和「關係」不是兩件事——它們是同一個鏡子的兩面</div>
+    <div class="mega-insight-body">
+      <p>這12本書可以被粗分為「自我療癒類」（Adult Chair、內在小孩、CEN、孤獨的冷漠）和「關係技術類」（Gottman、說話練習、配偶使用說明書），但把它們放在一起，會看到一個更深的洞見：</p>
+      <div class="highlight-quote">
+        你和伴侶的關係，是你和自己的關係的外部投影——這不是比喻，而是神經科學意義上的事實。你在關係中被觸發的，幾乎都是你內在未被整合的部分。
+      </div>
+      <p>這意味著：當你的伴侶「讓你生氣」時，那個憤怒的能量通常有70%來自你的過去，30%才是當下的衝突本身。Mitchell說的「我們把伴侶變成已知的存在」，Webb說的「對自己的情感需求感到陌生」，岡田說的「迴避型的人在社會上成功但在親密關係孤獨」——這些都在說同一件事：你和自己的關係的品質，決定了你在關係中能接受什麼、能給予什麼。</p>
+      <p>整合洞見：<em>「修復關係」和「療癒自己」不是兩個平行的項目，而是同一個迴圈的兩個節點。</em>療癒自己讓你能進入更深的關係；更深的關係又觸發更深的療癒。問題是：你必須有足夠的「成人椅資源」（Chalfant）來在這個迴圈中保持穩定，而不是在迴圈裡失控。</p>
+    </div>
+  </div>
+
+  <div class="mega-insight" data-num="③">
+    <div class="mega-insight-label">✨ LEVEL-5 整合洞見 #03</div>
+    <div class="mega-insight-title">愛的時態問題：關係同時需要根植過去、活在當下、保持對未知的開放</div>
+    <div class="mega-insight-body">
+      <p>這12本書分別強調關係的不同時態：</p>
+      <p>• 過去時態（CEN、Adult Chair、內在小孩、孤獨的冷漠）：理解和療癒童年留下的程式<br>• 現在時態（Gottman、說話練習、配偶使用說明書）：今天、此刻的微小行動和溝通<br>• 未來/神秘時態（Mitchell、深刻認識一個人、奇蹟迴圈）：保持對對方「還不知道」的好奇</p>
+      <div class="highlight-quote">
+        一段真正深厚的關係，需要同時活在三個時態裡：帶著對過去的理解（不是被它控制），全然活在當下（Gottman 的每日小轉向），同時保持對彼此「未知面」的好奇（Mitchell 的重新看見）。
+      </div>
+      <p>這是這12本書單獨都說不完整的洞見：<em>許多關係治療只強調「活在當下」，卻忽略了過去的傷會在當下持續干擾；許多療癒工作只強調「處理過去」，卻忽略了如果你太沉浸在過去，你會錯過當下真實的伴侶。</em></p>
+      <p>最成熟的關係狀態是：我知道我帶著我的歷史（但我不被它驅使）；我全神貫注在此時此刻的你（Brooks 的「看見」）；我知道我還不完全認識你，我對這種神秘感保持開放（Mitchell 的重新看見）。這三者並存，才是真正的愛的成熟形態。</p>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════════════
+     PART 5: 個人化應用系統
+════════════════════════════════════════════ -->
+<section id="part5">
+  <div class="section-header">
+    <div class="part-label">PART 05</div>
+    <h2 class="section-title">🧭 個人化應用系統</h2>
+    <p class="section-desc">你屬於哪種關係困境類型？從這裡找到你最需要的閱讀路徑</p>
+  </div>
+
+  <div class="type-grid">
+    <!-- 類型A -->
+    <div class="type-card type-a">
+      <span class="type-emoji">💗</span>
+      <div class="type-label">TYPE A</div>
+      <div class="type-name">渴望親密，但感到焦慮</div>
+      <div class="type-desc">你很想靠近，但靠近了又怕受傷。在關係裡過度敏感，容易過度解讀對方的行為，需要頻繁確認對方還愛你。</div>
+      <div class="path-label">📖 推薦閱讀路徑</div>
+      <div class="path-steps">
+        <div class="path-step">
+          <div class="path-step-dot">1</div>
+          <div class="path-step-content">
+            <span class="path-step-book">童年情感忽視</span>
+            <div class="path-step-why">理解焦慮依附的根源——那個「我不夠好」的信念從哪裡來</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="path-step-dot">2</div>
+          <div class="path-step-content">
+            <span class="path-step-book">內在小孩快樂，你才快樂</span>
+            <div class="path-step-why">療癒那個渴望被愛但恐懼被拋棄的內在小孩</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="path-step-dot">3</div>
+          <div class="path-step-content">
+            <span class="path-step-book">The Adult Chair</span>
+            <div class="path-step-why">學習從成人椅回應，而不是從恐懼的孩子椅反應</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="path-step-dot">4</div>
+          <div class="path-step-content">
+            <span class="path-step-book">恆溫關係</span>
+            <div class="path-step-why">建立安全感的日常實踐，讓親密成為習慣而非威脅</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 類型B -->
+    <div class="type-card type-b">
+      <span class="type-emoji">🧊</span>
+      <div class="type-label">TYPE B</div>
+      <div class="type-name">在關係中感到疏離/冷漠</div>
+      <div class="type-desc">你在關係裡保持距離，不太表達情感，工作和目標比人際關係更讓你有安全感。深層的孤獨感揮之不去。</div>
+      <div class="path-label">📖 推薦閱讀路徑</div>
+      <div class="path-steps">
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(196,123,138,0.15);">1</div>
+          <div class="path-step-content">
+            <span class="path-step-book">孤獨的冷漠</span>
+            <div class="path-step-why">認識逃避型依戀——理解自己的模式，不是「個性」是學習來的防禦</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(196,123,138,0.15);">2</div>
+          <div class="path-step-content">
+            <span class="path-step-book">童年情感忽視</span>
+            <div class="path-step-why">找到情感陌生感的源頭，學習命名自己的情感</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(196,123,138,0.15);">3</div>
+          <div class="path-step-content">
+            <span class="path-step-book">深刻認識一個人</span>
+            <div class="path-step-why">從「看見對方」開始——比表達自己的情感更容易入手</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(196,123,138,0.15);">4</div>
+          <div class="path-step-content">
+            <span class="path-step-book">The Adult Chair</span>
+            <div class="path-step-why">讓成人椅的你，對那個需要距離的孩子帶著慈悲，而不是繼續壓制</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 類型C -->
+    <div class="type-card type-c">
+      <span class="type-emoji">💬</span>
+      <div class="type-label">TYPE C</div>
+      <div class="type-name">說話常常傷到對方或被傷害</div>
+      <div class="type-desc">溝通是你最頭痛的問題。你說的和你想說的不一樣，或者對方說的總是讓你感覺受傷，明明沒有惡意卻頻繁引發衝突。</div>
+      <div class="path-label">📖 推薦閱讀路徑</div>
+      <div class="path-steps">
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(106,158,197,0.2); color:#5A8FAA;">1</div>
+          <div class="path-step-content">
+            <span class="path-step-book">配偶使用說明書</span>
+            <div class="path-step-why">先理解大腦層次的差異——很多溝通失敗不是誤解，是硬體不同</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(106,158,197,0.2); color:#5A8FAA;">2</div>
+          <div class="path-step-content">
+            <span class="path-step-book">不受傷害也不傷害人的說話練習</span>
+            <div class="path-step-why">升級你的溝通語言——區分觀察、感受、需求和請求</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(106,158,197,0.2); color:#5A8FAA;">3</div>
+          <div class="path-step-content">
+            <span class="path-step-book">The Adult Chair</span>
+            <div class="path-step-why">衝突時問自己：我現在從哪張椅子說話？孩子椅的話語讓問題惡化</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(106,158,197,0.2); color:#5A8FAA;">4</div>
+          <div class="path-step-content">
+            <span class="path-step-book">深刻認識一個人</span>
+            <div class="path-step-why">學習在溝通中真正「聽見」對方，而不只是準備你的下一句回應</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 類型D -->
+    <div class="type-card type-d">
+      <span class="type-emoji">🌅</span>
+      <div class="type-label">TYPE D</div>
+      <div class="type-name">伴侶關係失去熱情</div>
+      <div class="type-desc">你和伴侶感情穩定，但已經沒有當初的激情。像室友多過像戀人。日子過得可以，但你記得愛情本來應該有不同的感覺。</div>
+      <div class="path-label">📖 推薦閱讀路徑</div>
+      <div class="path-steps">
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(126,110,173,0.15);">1</div>
+          <div class="path-step-content">
+            <span class="path-step-book">愛能長久嗎？</span>
+            <div class="path-step-why">理解「熟悉殺死慾望」的機制，重新思考激情的本質</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(126,110,173,0.15);">2</div>
+          <div class="path-step-content">
+            <span class="path-step-book">恆溫關係</span>
+            <div class="path-step-why">從今天起，用7天的小處方重建日常情感連結</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(126,110,173,0.15);">3</div>
+          <div class="path-step-content">
+            <span class="path-step-book">深刻認識一個人</span>
+            <div class="path-step-why">重新練習「看見」你的伴侶——他今天仍然有你不知道的面向</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(126,110,173,0.15);">4</div>
+          <div class="path-step-content">
+            <span class="path-step-book">配偶使用說明書</span>
+            <div class="path-step-why">從生物學理解對方，降低長期積累的挫敗感</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 類型E -->
+    <div class="type-card type-e">
+      <span class="type-emoji">🌊</span>
+      <div class="type-label">TYPE E</div>
+      <div class="type-name">高敏感，容易被關係消耗</div>
+      <div class="type-desc">你感受力很強，容易被對方的情緒帶走。關係讓你又渴望又疲憊。需要大量獨處時間充電，卻又擔心這樣的自己很難相處。</div>
+      <div class="path-label">📖 推薦閱讀路徑</div>
+      <div class="path-steps">
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(100,160,100,0.2); color:#5A9A5A;">1</div>
+          <div class="path-step-content">
+            <span class="path-step-book">高敏感卻不受傷的七日練習</span>
+            <div class="path-step-why">先正名：高敏感不是弱點，是特質。從七天練習開始建立防護</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(100,160,100,0.2); color:#5A9A5A;">2</div>
+          <div class="path-step-content">
+            <span class="path-step-book">不受傷害也不傷害人的說話練習</span>
+            <div class="path-step-why">學習如何表達邊界，讓「我需要時間」這句話不傷害關係</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(100,160,100,0.2); color:#5A9A5A;">3</div>
+          <div class="path-step-content">
+            <span class="path-step-book">The Adult Chair</span>
+            <div class="path-step-why">分辨「保護性邊界」和「恐懼性回避」——兩者感覺相似，性質不同</div>
+          </div>
+        </div>
+        <div class="path-step">
+          <div class="path-step-dot" style="background:rgba(100,160,100,0.2); color:#5A9A5A;">4</div>
+          <div class="path-step-content">
+            <span class="path-step-book">奇蹟迴圈</span>
+            <div class="path-step-why">從能量層次照顧自己，找到維持敏感而不被耗盡的整合方法</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════════════
+     PART 6: 行動萃取
+════════════════════════════════════════════ -->
+<section id="part6">
+  <div class="section-header">
+    <div class="part-label">PART 06</div>
+    <h2 class="section-title">✅ 行動萃取</h2>
+    <p class="section-desc">每本書貢獻一個「今天就能做的一個行動」——不需要讀完整本書，就能開始改變</p>
+  </div>
+
+  <div class="actions-grid">
+    <div class="action-card">
+      <div class="action-book">📗 恆溫關係｜Gottman</div>
+      <div class="action-title">今天說一件你欣賞伴侶的事</div>
+      <div class="action-desc">不是讚美他做了什麼，而是你欣賞他「是什麼樣的人」。比如：「我很欣賞你面對困難時還能保持幽默感。」Gottman 的研究顯示，表達欣賞是建立「愛的儲備金」最直接的方式。</div>
+      <span class="action-tag">⏱ 5分鐘</span>
+    </div>
+
+    <div class="action-card">
+      <div class="action-book">📗 The Adult Chair｜Chalfant</div>
+      <div class="action-title">下次衝突前，問自己「我現在幾歲？」</div>
+      <div class="action-desc">當你感受到強烈的情緒被觸發時，在行動前問自己：「現在說話的我，是幾歲的感覺？」如果答案不是成年人，先暫停，做三次深呼吸，讓成人椅的你回到主控台。</div>
+      <span class="action-tag">⏱ 即時可用</span>
+    </div>
+
+    <div class="action-card">
+      <div class="action-book">📗 不受傷害也不傷害人</div>
+      <div class="action-title">把「你總是」換成「我感到」</div>
+      <div class="action-desc">今天只練習一件事：當你想說「你總是……」或「你從來不……」時，暫停，改成「當……發生時，我感到……」。這個小改變，可以把一半的防禦性衝突消解掉。</div>
+      <span class="action-tag">⏱ 即時可用</span>
+    </div>
+
+    <div class="action-card">
+      <div class="action-book">📗 內在小孩快樂，你才快樂</div>
+      <div class="action-title">今天做一件純粹讓你快樂的事</div>
+      <div class="action-desc">不是「有意義的事」，不是「應該做的事」，而是那個小時候的你會很開心的事——吃你最喜歡的冰淇淋、亂塗鴉、放一首老歌大聲唱。這是對內在小孩最簡單的滋養。</div>
+      <span class="action-tag">⏱ 10-30分鐘</span>
+    </div>
+
+    <div class="action-card">
+      <div class="action-book">📗 奇蹟迴圈</div>
+      <div class="action-title">掃描你的身體，找出關係中的「緊繃點」</div>
+      <div class="action-desc">閉上眼睛，想想讓你在關係中感到困難的那件事，然後掃描你的身體：哪裡緊了？胸口？肩膀？胃部？把注意力放在那裡，問它：「你想告訴我什麼？」不需要有答案，只是聆聽。</div>
+      <span class="action-tag">⏱ 5分鐘</span>
+    </div>
+
+    <div class="action-card">
+      <div class="action-book">📗 孤獨的冷漠｜岡田尊司</div>
+      <div class="action-title">今天讓一個人「稍微靠近」一點</div>
+      <div class="action-desc">如果你是逃避型，不需要一次改變所有事。今天只允許一個人多靠近你一步：分享一個你通常不說的小想法、讓伴侶多了解你一個面向。一小步，也算數。</div>
+      <span class="action-tag">⏱ 即時可用</span>
+    </div>
+
+    <div class="action-card">
+      <div class="action-book">📗 愛能長久嗎？｜Mitchell</div>
+      <div class="action-title">今天問伴侶一個你不知道答案的問題</div>
+      <div class="action-desc">不是「你今天過得怎樣」，而是一個真的讓你好奇的問題：「你最近在想什麼讓你最興奮的事？」「如果你可以做任何事，你會做什麼？」對方永遠比你以為的更神秘。</div>
+      <span class="action-tag">⏱ 10分鐘對話</span>
+    </div>
+
+    <div class="action-card">
+      <div class="action-book">📗 深刻認識一個人｜Brooks</div>
+      <div class="action-title">今天問一個「這對你意味著什麼？」</div>
+      <div class="action-desc">當對方告訴你一件事時，不要急著回應或給建議。問：「這對你來說意味著什麼？」然後只是聽，不評判，不打斷。Brooks說，這是最強大的問句——它邀請對方進入自己的內心。</div>
+      <span class="action-tag">⏱ 即時可用</span>
+    </div>
+
+    <div class="action-card">
+      <div class="action-book">📗 童年情感忽視｜Webb</div>
+      <div class="action-title">今天問自己「我現在感覺如何？」並認真回答</div>
+      <div class="action-desc">不是「還好」或「沒什麼」——認真回答。給自己60秒，試著說出比「好」或「不好」更精確的感受詞：是疲倦？是輕微的焦慮？是某種難以言說的不安？能命名情感，是情感智識的起點。</div>
+      <span class="action-tag">⏱ 1分鐘</span>
+    </div>
+
+    <div class="action-card">
+      <div class="action-book">📗 逆轉不和諧人際關係</div>
+      <div class="action-title">今天選擇不回應一個刺激性言語</div>
+      <div class="action-desc">在某一個你通常會反擊或防禦的時刻，有意識地選擇：不立即反應。可以說「讓我想想」，然後離開那個對話30分鐘。打破舊的互動迴路，從一次不回應開始。</div>
+      <span class="action-tag">⏱ 即時可用</span>
+    </div>
+
+    <div class="action-card">
+      <div class="action-book">📗 配偶使用說明書｜黒川伊保子</div>
+      <div class="action-title">今天說一次「真的很辛苦呢」</div>
+      <div class="action-desc">當伴侶抱怨或訴說困難時，忍住給建議的衝動（不管你是男是女），先說：「真的很辛苦呢。」然後停下來。這三個字，很多人等了好幾年。</div>
+      <span class="action-tag">⏱ 即時可用</span>
+    </div>
+
+    <div class="action-card">
+      <div class="action-book">📗 高敏感卻不受傷｜根本裕幸</div>
+      <div class="action-title">今天設立一個「能量恢復」的時間區塊</div>
+      <div class="action-desc">在今天的行程裡，找出30分鐘的獨處和靜默時間——不看手機、不和人說話、只是讓神經系統休息。高敏感者的電池比一般人消耗更快，這不是奢侈，是必要的維護。</div>
+      <span class="action-tag">⏱ 30分鐘</span>
+    </div>
+
+  </div><!-- /actions-grid -->
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ════════════════════════════════════════════
+     CLOSING: 整合宣言
+════════════════════════════════════════════ -->
+<section style="text-align: center; padding: 40px 20px 20px;">
+  <div class="glass-card" style="max-width: 700px; margin: 0 auto; padding: 50px 40px;">
+    <div style="font-size: 48px; margin-bottom: 20px;">🌸</div>
+    <h3 style="font-family: 'Noto Serif TC', serif; font-size: 26px; font-weight: 700; color: var(--text-dark); margin-bottom: 20px; line-height: 1.4;">關係，是你遇見自己<br>最誠實的那面鏡子</h3>
+    <p style="color: var(--text-mid); font-size: 16px; line-height: 1.9; margin-bottom: 25px;">這12本書沒有一本是萬靈丹。它們是12個手電筒，照亮了同一片黑暗的不同角落。最深的洞見，在它們的交界處——在你開始理解，「為什麼我在關係中反覆卡住」的那一刻，改變就已經開始了。</p>
+    <div class="highlight-quote" style="text-align: left;">
+      你不需要讀完所有12本書。你只需要找到那本現在最能說出你心裡話的那本——然後，認真讀完它，帶著你從這份分析獲得的視角，讓它帶你更深一層。
+    </div>
+    <p style="color: var(--text-light); font-size: 13px; margin-top: 25px; letter-spacing: 1px;">
+      📚 書醒聯合深度分析系統｜12本關係書籍｜2026
+    </p>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-title">📚 書醒系統｜關係書庫聯合分析</div>
+  <p class="footer-desc">12本書 · 5大主題 · 3個Level-5洞見 · 5條個人化路徑 · 12個即時行動<br>
+  由書醒聯合深度分析師生成 · 繁體中文 · 2026</p>
+</footer>
+
+</body>
+</html>
