@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>書醒分析｜$100M Leads</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans TC',sans-serif;color:#2d3748;line-height:1.8;}
+.wrap{max-width:860px;margin:0 auto;padding:32px 16px 80px;}
+.toc{background:#fff;padding:12px 16px;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.08);}
+.toc-inner{max-width:860px;margin:0 auto;display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.toc a{color:#718096;text-decoration:none;font-size:.74rem;padding:2px 7px;border-radius:5px;transition:.2s;}
+.toc a:hover{background:var(--light);color:var(--p);}
+.step{margin-bottom:36px;}
+.step-hd{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--border);}
+.sn{background:linear-gradient(135deg,var(--p),var(--s));color:#fff;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.82rem;flex-shrink:0;}
+.st{font-size:1.1rem;font-weight:900;font-family:'Noto Serif TC',serif;}
+.ss{font-size:.78rem;color:#718096;margin-top:2px;}
+.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);border:1.5px solid var(--border);}
+.ct{font-weight:900;font-size:.88rem;color:var(--p);margin-bottom:10px;}
+.it{display:flex;gap:9px;margin-bottom:7px;font-size:.87rem;line-height:1.7;align-items:flex-start;}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--p);flex-shrink:0;margin-top:8px;}
+.hl{font-weight:700;padding:1px 5px;border-radius:4px;background:var(--light);}
+.q{font-family:'Noto Serif TC',serif;font-size:.9rem;line-height:1.8;color:#4a5568;background:var(--light);border-left:4px solid var(--p);padding:12px 16px;border-radius:0 10px 10px 0;margin:8px 0;}
+.insight{background:#fff;border-radius:14px;padding:18px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);border-left:4px solid var(--p);}
+.in{font-size:2rem;font-weight:900;color:var(--border);line-height:1;}
+.it2{font-weight:900;font-size:.95rem;color:var(--p);margin-bottom:6px;}
+.ib{font-size:.86rem;line-height:1.7;}
+.action{border-radius:12px;padding:13px 16px;margin-bottom:9px;border-left:4px solid;}
+.a1{background:#f0fff4;border-color:#48bb78;}
+.a2{background:var(--light);border-color:var(--p);}
+.a3{background:#fffaf0;border-color:#f6ad55;}
+.missing{background:#fffaf0;border:1.5px dashed #f6ad55;border-radius:12px;padding:12px 15px;margin-bottom:9px;font-size:.86rem;}
+.mt{font-weight:900;color:#c05621;margin-bottom:5px;}
+.formula{background:linear-gradient(135deg,var(--light),#fff);border:2px solid var(--p);border-radius:14px;padding:18px;text-align:center;margin:12px 0;}
+.formula-text{font-size:1rem;font-weight:900;color:var(--p);font-family:monospace;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.core4{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;}
+.c4{border-radius:12px;padding:16px;border:2px solid var(--border);}
+.c4 .c4n{font-size:1.4rem;font-weight:900;color:var(--p);}
+.c4 .c4t{font-weight:900;font-size:.88rem;margin:4px 0;}
+.c4 .c4d{font-size:.8rem;color:#718096;line-height:1.5;}
+@media(max-width:540px){.grid2,.core4{grid-template-columns:1fr;}.hero h1{font-size:1.4rem;}}
+
+:root{--p:#2193b0;--s:#6dd5ed;--border:#bee3f8;--light:#ebf8ff;--bg:#f0f9ff;}
+body{background:var(--bg);}
+.hero{background:linear-gradient(135deg,#0c4a6e 0%,#2193b0 50%,#6dd5ed 100%);color:#fff;padding:52px 20px 70px;text-align:center;}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 14px;font-size:.76rem;margin-bottom:12px;}
+.hero h1{font-size:1.9rem;font-weight:900;font-family:'Noto Serif TC',serif;margin-bottom:6px;}
+.hero p{opacity:.85;font-size:.88rem;max-width:480px;margin:0 auto 18px;}
+.hero-meta{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
+.hero-meta span{background:rgba(255,255,255,.15);border-radius:8px;padding:4px 12px;font-size:.78rem;}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="tag">📚 書醒系統 11步深度分析</div>
+  <h1>$100M Leads<br>讓陌生人主動想買你的東西</h1>
+  <p>Alex Hormozi · Acquisition.com Volume II · 2023</p>
+  <div class="hero-meta">
+    <span>📣 流量獲客型</span><span>🇺🇸 英文原著</span><span>📊 獲客聖經</span><span>⭐ 可操作性：極高</span>
+  </div>
+</div>
+<div class="toc"><div class="toc-inner">
+  <span style="font-weight:900;font-size:.76rem;color:var(--p)">目錄：</span>
+  <a href="#s1">①資料卡</a><a href="#s2">②核心命題</a><a href="#s3">③主題分析</a>
+  <a href="#s4">④敘事弧</a><a href="#s5">⑤洞見</a><a href="#s6">⑥缺席</a>
+  <a href="#s7">⑦AI視角</a><a href="#s8">⑧行動</a><a href="#s11">⑪一句話</a>
+</div></div>
+<div class="wrap">
+
+<div class="step" id="s1">
+  <div class="step-hd"><div class="sn">01</div><div><div class="st">📚 書籍資料卡</div><div class="ss">基礎背景建立</div></div></div>
+  <div class="grid2">
+    <div class="card"><div class="ct">📖 基本資訊</div>
+      <div class="it"><div class="dot"></div><div><b>書名：</b>$100M Leads: How to Get Strangers To Want To Buy Your Stuff</div></div>
+      <div class="it"><div class="dot"></div><div><b>作者：</b>Alex Hormozi</div></div>
+      <div class="it"><div class="dot"></div><div><b>出版：</b>Acquisition.com, 2023</div></div>
+      <div class="it"><div class="dot"></div><div><b>規模：</b>385頁，Acquisition.com Volume II</div></div>
+      <div class="it"><div class="dot"></div><div><b>前提：</b>讀完 $100M Offers 再讀此書效果最佳</div></div>
+    </div>
+    <div class="card"><div class="ct">📐 本書定位</div>
+      <div class="it"><div class="dot"></div><div>Offers 解決「賣什麼」，Leads 解決「讓誰看到」</div></div>
+      <div class="it"><div class="dot"></div><div>核心等式：<span class="hl">更多人 × 好提案 = 更多業績</span></div></div>
+      <div class="it"><div class="dot"></div><div>沒有潛在客戶，最好的提案也等於零</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="step" id="s2">
+  <div class="step-hd"><div class="sn">02</div><div><div class="st">🎯 核心命題</div></div></div>
+  <div class="q">「It's hard to be poor with leads bangin' down your door.」<br>— Hormozi 家族座右銘</div>
+  <div class="formula">
+    <div style="font-size:.8rem;color:#718096;margin-bottom:8px;">獲客核心等式</div>
+    <div class="formula-text">業績 ∝ 看到你提案的合適人數</div>
+    <div style="font-size:.78rem;color:#718096;margin-top:8px;">所有廣告、內容、外聯，本質都是增加這個數字</div>
+  </div>
+</div>
+
+<div class="step" id="s3">
+  <div class="step-hd"><div class="sn">03</div><div><div class="st">📖 主題分析：Core Four × Lead Getters</div></div></div>
+  
+  <div class="card"><div class="ct">🎯 Core Four — 四種廣告方式（每個人都能用）</div>
+  <div class="core4">
+    <div class="c4" style="background:#f0fff4;border-color:#9ae6b4;">
+      <div class="c4n">①</div><div class="c4t">Warm Outreach 暖聯繫</div>
+      <div class="c4d">聯繫你已認識的人。成本最低、轉換最高。先把現有人脈用盡，再談其他方式。</div>
+    </div>
+    <div class="c4" style="background:var(--light);border-color:var(--border);">
+      <div class="c4n">②</div><div class="c4t">Post Free Content 免費內容</div>
+      <div class="c4d">分享你的專業讓陌生人認識你。Puddles→Ponds→Lakes→Oceans 先成為小池塘之王。</div>
+    </div>
+    <div class="c4" style="background:#fff5f5;border-color:#fed7d7;">
+      <div class="c4n">③</div><div class="c4t">Cold Outreach 冷聯繫</div>
+      <div class="c4d">主動接觸陌生潛在客戶。需要量大、個人化。先從你能解決的問題找名單。</div>
+    </div>
+    <div class="c4" style="background:#fffaf0;border-color:#feebc8;">
+      <div class="c4n">④</div><div class="c4t">Run Paid Ads 付費廣告</div>
+      <div class="c4d">花錢買速度。先用免費方式驗證提案，再用廣告放大已驗證的訊息。</div>
+    </div>
+  </div></div>
+
+  <div class="card"><div class="ct">🧲 Lead Magnet — 免費換接觸機會</div>
+    <div class="it"><div class="dot"></div><div>提供高價值的免費內容/服務，換取潛在客戶的注意力或聯繫方式</div></div>
+    <div class="it"><div class="dot"></div><div>好的 Lead Magnet：解決客戶一個具體問題，同時讓他們知道你能解決更多問題</div></div>
+    <div class="it"><div class="dot"></div><div><span class="hl">免費內容的品質，直接影響付費客戶對你的評價</span></div></div>
+    <div class="it"><div class="dot"></div><div>公式：Engaged Lead = 看到你的提案 + 已經從你這裡獲得價值的人</div></div>
+  </div>
+
+  <div class="card"><div class="ct">📈 內容策略：Puddles → Ponds → Lakes → Oceans</div>
+    <div class="it"><div class="dot"></div><div><b>水坑（Puddle）：</b>極度利基——「台中南屯區水電工」，成為最小範圍內的第一名</div></div>
+    <div class="it"><div class="dot"></div><div><b>池塘（Pond）：</b>擴大到類別——「台中水電工」</div></div>
+    <div class="it"><div class="dot"></div><div><b>湖泊（Lake）：</b>再擴大——「台灣室內裝修」</div></div>
+    <div class="it"><div class="dot"></div><div><b>海洋（Ocean）：</b>通用商業——但此時你已有足夠的可信度競爭</div></div>
+    <div class="it"><div class="dot"></div><div>關鍵：<span class="hl">大多數人太早試圖游在海洋裡，然後在水坑裡溺死</span></div></div>
+  </div>
+
+  <div class="card"><div class="ct">🚀 Lead Getters — 讓別人幫你找客戶（規模化）</div>
+    <div class="it"><div class="dot"></div><div><b>客戶介紹：</b>最高品質的潛在客戶，轉換率最高，成本最低</div></div>
+    <div class="it"><div class="dot"></div><div><b>員工：</b>讓業務員用你的方法找客戶，複製你的獲客能力</div></div>
+    <div class="it"><div class="dot"></div><div><b>代理商：</b>外包獲客功能，速度快但品質控管難</div></div>
+    <div class="it"><div class="dot"></div><div><b>聯盟夥伴：</b>讓有相同受眾的人幫你推薦，雙贏結構</div></div>
+  </div>
+
+  <div class="card"><div class="ct">✍️ 內容創作七大原則</div>
+    <div class="it"><div class="dot"></div><div>分享「我怎麼做」而不是「你應該怎麼做」——後者顯得說教</div></div>
+    <div class="it"><div class="dot"></div><div>重複你的核心訊息——觀眾看到第 5 次才真正記住，你已經說膩了他們才剛開始看</div></div>
+    <div class="it"><div class="dot"></div><div>「沒有太長，只有太無聊」——注意力不是問題，無聊才是</div></div>
+    <div class="it"><div class="dot"></div><div>內容 = 業務員的工具箱，記錄哪些內容解決哪些顧慮</div></div>
+    <div class="it"><div class="dot"></div><div>手動發文比預排效果好——即時的責任感讓你更用心</div></div>
+  </div>
+</div>
+
+<div class="step" id="s4">
+  <div class="step-hd"><div class="sn">04</div><div><div class="st">📐 敘事弧線</div></div></div>
+  <div class="card">
+    <div class="it"><div class="dot"></div><div><b>起點：</b>有好產品，有好提案，但沒有人知道你的存在——這是大多數中小企業主的真實困境</div></div>
+    <div class="it"><div class="dot"></div><div><b>系統：</b>Core Four × Lead Getters = 一個可以持續運作的獲客機器</div></div>
+    <div class="it"><div class="dot"></div><div><b>進階：</b>從「你自己找客戶」進化到「讓系統找客戶」</div></div>
+    <div class="it"><div class="dot"></div><div><b>終局：</b>潛在客戶敲門的速度，決定了你能賺多少錢</div></div>
+  </div>
+</div>
+
+<div class="step" id="s5">
+  <div class="step-hd"><div class="sn">05</div><div><div class="st">💎 整合洞見 Top 8</div></div></div>
+  <div class="insight"><div class="in">01</div><div class="it2">廣告的本質是「付費讓更多合適的人看到你的提案」</div>
+    <div class="ib">所有獲客方式——內容、廣告、外聯——本質都是同一件事：增加看到你提案的合適人數。這個認知讓你不再迷失在戰術細節中。</div></div>
+  <div class="insight"><div class="in">02</div><div class="it2">免費內容的價值，會被計算進付費產品的 ROI</div>
+    <div class="ib">付費客戶更可能消費你的免費內容。如果你的免費內容很爛，他們對付費產品的評價也會下降。把免費內容做好，是在保護你的付費產品。</div></div>
+  <div class="insight"><div class="in">03</div><div class="it2">先成為水坑之王，再去游大海</div>
+    <div class="ib">在小市場中建立可信度和案例，然後用這些可信度進入更大的市場。大多數人跳過這一步，然後永遠在大海裡沉沒。</div></div>
+  <div class="insight"><div class="in">04</div><div class="it2">Lead Magnet 是最便宜的廣告</div>
+    <div class="ib">提供真正有價值的免費東西，比任何付費廣告都更有效率。因為它讓潛在客戶在還沒付錢之前，就已經體驗到你的價值。</div></div>
+  <div class="insight"><div class="in">05</div><div class="it2">Warm Outreach 是被忽視的金礦</div>
+    <div class="ib">絕大多數人一開始就想做廣告，但忽略了現有人脈。Hormozi 說：把現有認識的人用盡之前，不需要花一分廣告費。</div></div>
+  <div class="insight"><div class="in">06</div><div class="it2">「Open to Goal」廣告框架：永遠知道要開多少廣告</div>
+    <div class="ib">設定收入目標 → 回推需要多少客戶 → 回推需要多少潛在客戶 → 決定需要投入多少廣告預算。讓廣告決策變成數學，而不是感覺。</div></div>
+  <div class="insight"><div class="in">07</div><div class="it2">「你的銷售員最好的武器是你的內容」</div>
+    <div class="ib">整理你最有效的內容，標注它解決什麼顧慮。然後讓業務員在銷售前後發給潛在客戶，讓內容幫你預先回答問題。</div></div>
+  <div class="insight"><div class="in">08</div><div class="it2">Lead Getters 是從線性到指數的關鍵</div>
+    <div class="ib">你自己找客戶是線性成長。讓員工、代理商、聯盟夥伴幫你找客戶，才是指數成長的起點。</div></div>
+</div>
+
+<div class="step" id="s6">
+  <div class="step-hd"><div class="sn">06</div><div><div class="st">🔍 缺席分析</div></div></div>
+  <div class="missing"><div class="mt">⚠️ 缺席①：如何維持內容品質的持續性</div>書中強調持續產出內容，但對「如何在創作疲乏時維持品質」幾乎沒有著墨。</div>
+  <div class="missing"><div class="mt">⚠️ 缺席②：品牌與獲客的長期平衡</div>書的框架偏向「直接轉換」，對品牌資產的長期建立討論不足。</div>
+  <div class="missing"><div class="mt">⚠️ 缺席③：不同文化背景的適用性</div>書中案例幾乎全為北美市場，Cold Outreach 和 Paid Ads 的策略在不同文化的適用程度需要驗證。</div>
+</div>
+
+<div class="step" id="s7">
+  <div class="step-hd"><div class="sn">07</div><div><div class="st">🤖 AI 時代視角</div></div></div>
+  <div class="card">
+    <div class="it"><div class="dot"></div><div><b>AI 讓 Cold Outreach 個人化成為可能：</b>以前發 1000 封一樣的冷郵件，現在 AI 可以讓每封都感覺客製化</div></div>
+    <div class="it"><div class="dot"></div><div><b>內容生產速度提高，但分辨度也提高：</b>AI 讓每個人都能快速產內容，但真正有深度的個人經驗分享反而更稀缺更有價值</div></div>
+    <div class="it"><div class="dot"></div><div><b>Puddle 策略在 AI 時代更重要：</b>AI 讓大量泛用內容氾濫，利基深耕反而是唯一的差異化路徑</div></div>
+  </div>
+</div>
+
+<div class="step" id="s8">
+  <div class="step-hd"><div class="sn">08</div><div><div class="st">⚡ 行動轉化</div></div></div>
+  <div class="action a1"><div style="font-weight:900;color:#276749;margin-bottom:5px;">🟢 今天</div>
+    <div class="it"><div class="dot"></div><div>列出 20 個你認識的人，他們或他們身邊的人可能需要你的服務</div></div>
+    <div class="it"><div class="dot"></div><div>問自己：「我的水坑是哪裡？」找到你最有可能在 90 天內成為第一名的小市場</div></div>
+  </div>
+  <div class="action a2"><div style="font-weight:900;color:var(--p);margin-bottom:5px;">🔴 本週</div>
+    <div class="it"><div class="dot"></div><div>設計一個 Lead Magnet：免費解決目標客戶一個具體問題，讓他們體驗你的能力</div></div>
+    <div class="it"><div class="dot"></div><div>開始每週發一篇「我怎麼做XX」的內容（不是「你應該怎麼做」）</div></div>
+  </div>
+  <div class="action a3"><div style="font-weight:900;color:#c05621;margin-bottom:5px;">🟡 長期</div>
+    <div class="it"><div class="dot"></div><div>建立 Lead Getter 系統：設計推薦機制，讓滿意的客戶幫你介紹下一個客戶</div></div>
+    <div class="it"><div class="dot"></div><div>用「Open to Goal」計算每月廣告預算：收入目標 → 客戶數 → 潛在客戶數 → 廣告費</div></div>
+  </div>
+</div>
+
+<div class="step" id="s11">
+  <div class="step-hd"><div class="sn">11</div><div><div class="st">✨ 一句話精髓</div></div></div>
+  <div class="q" style="font-size:1.1rem;padding:20px 24px;">
+    你不缺好產品，你缺的是<b>讓足夠多的合適人看到它</b>——一切獲客方式，本質都是在解決這一件事。
+  </div>
+</div>
+
+</div></body></html>
