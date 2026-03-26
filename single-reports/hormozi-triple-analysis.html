@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Hormozi $100M 三部曲對照分析</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700&display=swap');
+:root{--r:#e53e3e;--b:#2193b0;--y:#d97706;--bg:#1a1a2e;--card:#fff;--text:#2d3748;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans TC',sans-serif;background:#f7f8fc;color:var(--text);line-height:1.8;}
+.hero{background:linear-gradient(135deg,#c53030 0%,#1a365d 35%,#2193b0 65%,#92400e 100%);color:#fff;padding:56px 20px 76px;text-align:center;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(255,255,255,.06),transparent);}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 14px;font-size:.76rem;margin-bottom:14px;}
+.hero h1{font-size:2rem;font-weight:900;font-family:'Noto Serif TC',serif;margin-bottom:6px;}
+.hero p{opacity:.82;font-size:.88rem;max-width:520px;margin:0 auto 20px;}
+.books{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+.bpill{padding:8px 16px;border-radius:10px;font-size:.82rem;font-weight:700;border:1.5px solid rgba(255,255,255,.3);}
+.toc{background:#fff;padding:12px 16px;border-bottom:2px solid #e2e8f0;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.08);}
+.toc-inner{max-width:960px;margin:0 auto;display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.toc a{color:#718096;text-decoration:none;font-size:.74rem;padding:2px 7px;border-radius:5px;}
+.toc a:hover{background:#f3f4f6;}
+.wrap{max-width:960px;margin:0 auto;padding:32px 16px 80px;}
+.sec{margin-bottom:40px;}
+.sec-hd{display:flex;align-items:center;gap:12px;margin-bottom:18px;padding-bottom:12px;border-bottom:2px solid #e2e8f0;}
+.sec-num{background:linear-gradient(135deg,#c53030,#2193b0,#92400e);color:#fff;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.82rem;flex-shrink:0;}
+.sec-title{font-size:1.15rem;font-weight:900;font-family:'Noto Serif TC',serif;}
+.tri{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
+.r-card{border-radius:14px;padding:16px;border:1.5px solid;}
+.r-c{background:#fff5f5;border-color:#fed7d7;}
+.b-c{background:#ebf8ff;border-color:#bee3f8;}
+.y-c{background:#fffbeb;border-color:#fde68a;}
+.badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.72rem;font-weight:900;color:#fff;margin-bottom:8px;}
+.r-b{background:var(--r);}
+.b-b{background:var(--b);}
+.y-b{background:var(--y);}
+.card-t{font-weight:900;font-size:.88rem;margin-bottom:8px;}
+.it{display:flex;gap:8px;margin-bottom:6px;font-size:.85rem;line-height:1.7;align-items:flex-start;}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:8px;}
+.dr{background:var(--r);}.db{background:var(--b);}.dy{background:var(--y);}
+.both-c{background:linear-gradient(135deg,#fff5f5,#ebf8ff,#fffbeb);border:2px solid #e2e8f0;border-radius:14px;padding:18px;margin-bottom:14px;}
+.insight-box{background:#fff;border-radius:14px;padding:18px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);}
+.ib-num{font-size:1.8rem;font-weight:900;line-height:1;}
+.ib-title{font-weight:900;font-size:.95rem;margin-bottom:6px;}
+.ib-body{font-size:.86rem;line-height:1.7;}
+.table-wrap{overflow-x:auto;margin-bottom:14px;}
+table{width:100%;border-collapse:collapse;font-size:.84rem;}
+th{padding:10px 12px;text-align:left;color:#fff;}
+th:first-child{background:#4a5568;}
+th.th-r{background:var(--r);}th.th-b{background:var(--b);}th.th-y{background:var(--y);}
+td{padding:10px 12px;border-bottom:1px solid #e2e8f0;vertical-align:top;}
+tr:nth-child(even) td{background:#f8f9fc;}
+.links{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px;}
+.lbtn{padding:11px 20px;border-radius:10px;font-weight:900;font-size:.84rem;text-decoration:none;color:#fff;transition:.2s;}
+.lbtn:hover{opacity:.85;}
+.lb-r{background:var(--r);}.lb-b{background:var(--b);}.lb-y{background:var(--y);}
+.sys-box{background:linear-gradient(135deg,#1a202c,#2d3748);color:#fff;border-radius:16px;padding:24px;margin-bottom:16px;text-align:center;}
+.sys-title{font-weight:900;font-size:1.2rem;font-family:'Noto Serif TC',serif;margin-bottom:14px;}
+.sys-flow{display:flex;justify-content:center;align-items:center;gap:8px;flex-wrap:wrap;}
+.sys-item{padding:10px 18px;border-radius:10px;font-weight:900;font-size:.88rem;}
+.si-r{background:var(--r);}.si-b{background:var(--b);}.si-y{background:var(--y);}
+.sys-arrow{font-size:1.2rem;opacity:.6;}
+@media(max-width:600px){.tri{grid-template-columns:1fr;}.hero h1{font-size:1.5rem;}.books{gap:8px;}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="tag">📚 書醒系統 × 三書對照深度分析</div>
+  <h1>Hormozi $100M 三部曲解構</h1>
+  <p>從提案設計 → 獲客系統 → 商業模式——三本書合讀才能看到完整的致富邏輯</p>
+  <div class="books">
+    <div class="bpill" style="background:rgba(229,62,62,.3);">📕 $100M Offers</div>
+    <div class="bpill" style="background:rgba(33,147,176,.3);">📘 $100M Leads</div>
+    <div class="bpill" style="background:rgba(217,119,6,.3);">📙 $100M Money Models</div>
+  </div>
+</div>
+<div class="toc"><div class="toc-inner">
+  <span style="font-weight:900;font-size:.76rem;">對照：</span>
+  <a href="#s1">定位</a><a href="#s2">核心公式</a><a href="#s3">完整系統</a>
+  <a href="#s4">對比表</a><a href="#s5">整合洞見</a><a href="#s6">行動路線</a><a href="#links">單書連結</a>
+</div></div>
+<div class="wrap">
+
+<div class="sec" id="s1">
+  <div class="sec-hd"><div class="sec-num">01</div><div class="sec-title">📌 三書定位關係</div></div>
+  <div class="tri">
+    <div class="r-card">
+      <span class="badge r-b">📕 Offers</span>
+      <div class="card-t">賣什麼？</div>
+      <div class="it"><div class="dot dr"></div><div>設計讓人「拒絕很蠢」的提案</div></div>
+      <div class="it"><div class="dot dr"></div><div>核心工具：Grand Slam Offer + 價值方程式</div></div>
+      <div class="it"><div class="dot dr"></div><div>解決：為什麼客戶不願意付更多錢</div></div>
+    </div>
+    <div class="b-card">
+      <span class="badge b-b">📘 Leads</span>
+      <div class="card-t">讓誰看到？</div>
+      <div class="it"><div class="dot db"></div><div>建立讓陌生人認識你的獲客系統</div></div>
+      <div class="it"><div class="dot db"></div><div>核心工具：Core Four + Lead Getters</div></div>
+      <div class="it"><div class="dot db"></div><div>解決：為什麼沒有足夠的潛在客戶</div></div>
+    </div>
+    <div class="y-card">
+      <span class="badge y-b">📙 Money Models</span>
+      <div class="card-t">怎麼收費？</div>
+      <div class="it"><div class="dot dy"></div><div>設計讓錢持續流入的付款結構</div></div>
+      <div class="it"><div class="dot dy"></div><div>核心工具：6種商業模式</div></div>
+      <div class="it"><div class="dot dy"></div><div>解決：為什麼業績不穩定或不夠高</div></div>
+    </div>
+  </div>
+  <div class="both-c">
+    <div style="font-weight:900;margin-bottom:8px;">🔗 三書的依存關係</div>
+    <div class="it"><div class="dot" style="background:#4a5568;"></div><div><b>Offers 是基礎：</b>沒有好提案，再多流量也白費；Money Models 也無法發揮</div></div>
+    <div class="it"><div class="dot" style="background:#4a5568;"></div><div><b>Leads 是加速器：</b>好提案 × 更多人看到 = 指數成長</div></div>
+    <div class="it"><div class="dot" style="background:#4a5568;"></div><div><b>Money Models 是乘數：</b>相同的提案和流量，更好的收費結構讓收入翻倍</div></div>
+    <div class="it"><div class="dot" style="background:#4a5568;"></div><div>建議閱讀順序：<b>Offers → Leads → Money Models</b>（就是出版順序）</div></div>
+  </div>
+</div>
+
+<div class="sec" id="s2">
+  <div class="sec-hd"><div class="sec-num">02</div><div class="sec-title">⚡ 三書核心公式對照</div></div>
+  <div class="table-wrap">
+    <table>
+      <tr><th>面向</th><th class="th-r">📕 Offers</th><th class="th-b">📘 Leads</th><th class="th-y">📙 Money Models</th></tr>
+      <tr><td><b>核心問題</b></td><td>為什麼客戶不付更多？</td><td>為什麼沒有足夠客戶？</td><td>為什麼收入不穩定？</td></tr>
+      <tr><td><b>核心公式</b></td><td>價值=(夢想×可能性)÷(時間×努力)</td><td>業績 ∝ 合適人看到提案的數量</td><td>收入 = 客戶數 × 終身價值</td></tr>
+      <tr><td><b>主要工具</b></td><td>Grand Slam Offer / 保證設計</td><td>Core Four / Lead Magnets</td><td>訂閱/預付/先試後付/Upsell</td></tr>
+      <tr><td><b>最反直覺洞見</b></td><td>漲價 = 提高服務品質的動力</td><td>免費內容讓付費客戶更滿意</td><td>改收費方式比改產品更快翻倍</td></tr>
+      <tr><td><b>一句話核心</b></td><td>讓說不比說好更痛苦</td><td>讓更多合適的人知道你</td><td>讓同一個客戶付更多次</td></tr>
+    </table>
+  </div>
+</div>
+
+<div class="sec" id="s3">
+  <div class="sec-hd"><div class="sec-num">03</div><div class="sec-title">🏗️ Hormozi 完整商業系統</div></div>
+  <div class="sys-box">
+    <div class="sys-title">從零到 $100M 的完整邏輯鏈</div>
+    <div class="sys-flow">
+      <div class="sys-item si-r">①設計提案<br><small>Grand Slam Offer</small></div>
+      <div class="sys-arrow">→</div>
+      <div class="sys-item si-b">②建立流量<br><small>Core Four</small></div>
+      <div class="sys-arrow">→</div>
+      <div class="sys-item" style="background:#4a5568;">③成交銷售<br><small>讓潛在客戶說好</small></div>
+      <div class="sys-arrow">→</div>
+      <div class="sys-item si-y">④最大化收入<br><small>Money Models</small></div>
+      <div class="sys-arrow">→</div>
+      <div class="sys-item" style="background:#276749;">⑤規模化<br><small>Lead Getters</small></div>
+    </div>
+    <div style="font-size:.78rem;opacity:.6;margin-top:12px;">三本書對應①③②④⑤——中間的「成交」是需要另外學習的技能</div>
+  </div>
+</div>
+
+<div class="sec" id="s5">
+  <div class="sec-hd"><div class="sec-num">05</div><div class="sec-title">💎 合讀才能看到的整合洞見</div></div>
+  
+  <div class="insight-box" style="border-left:4px solid var(--r);">
+    <div class="ib-num" style="color:#fed7d7;">01</div>
+    <div class="ib-title">三本書是同一個系統，缺一不可</div>
+    <div class="ib-body">只讀 Offers 而不做 Leads = 有好貨沒人知道。只做 Leads 沒有好提案 = 把流量帶到一個爛攤子。只改 Money Models 沒有好提案 = 再花俏的收費結構都撐不住差的產品。三者缺一，整個系統就漏水。</div>
+  </div>
+
+  <div class="insight-box" style="border-left:4px solid var(--b);">
+    <div class="ib-num" style="color:#bee3f8;">02</div>
+    <div class="ib-title">「讓客戶感覺不買更虧」貫穿三本書</div>
+    <div class="ib-body">Offers：提案設計讓說不比說好更痛苦。Leads：免費內容讓人在還沒付錢前就獲得了價值。Money Models：先試後付讓付款成為「確認滿意」而非「承擔風險」。三本書都在消除客戶說「不」的理由。</div>
+  </div>
+
+  <div class="insight-box" style="border-left:4px solid var(--y);">
+    <div class="ib-num" style="color:#fde68a;">03</div>
+    <div class="ib-title">Hormozi 系統的底層假設：誠實創造財富</div>
+    <div class="ib-body">三本書的所有工具都建立在「你真的能交付承諾的價值」這個前提上。Grand Slam Offer 要求你真的能幫客戶實現夢想；保證設計要求你對結果有信心；免費內容要求你真的有東西可以分享。沒有這個基礎，所有工具都會反噬。</div>
+  </div>
+
+  <div class="insight-box" style="border-left:4px solid #4a5568;">
+    <div class="ib-num" style="color:#e2e8f0;">04</div>
+    <div class="ib-title">Hormozi 三部曲 vs 傳統商學院的差距</div>
+    <div class="ib-body">傳統商學院教：4P（Product, Price, Place, Promotion）。Hormozi 教的是：先設計提案讓人無法拒絕（Product+Price），再建立系統讓人找到你（Promotion+Place），再設計付款結構讓收入最大化（Price的延伸）。更直接，更可操作，更適合中小企業。</div>
+  </div>
+</div>
+
+<div class="sec" id="s6">
+  <div class="sec-hd"><div class="sec-num">06</div><div class="sec-title">⚡ 三個月行動路線圖</div></div>
+  <div class="both-c">
+    <div style="font-weight:900;margin-bottom:12px;">📅 建議學習與執行順序</div>
+    <div class="it"><div class="dot" style="background:var(--r);"></div><div><b>第 1 個月（Offers）：</b>用價值方程式重新評估你的核心服務。設計一個 Grand Slam Offer，把定價提高 50%，並加入強力保證。測試市場反應。</div></div>
+    <div class="it"><div class="dot" style="background:var(--b);"></div><div><b>第 2 個月（Leads）：</b>啟動 Warm Outreach（聯繫現有人脈）。開始在你的「水坑」發布每週一篇內容。設計一個 Lead Magnet 測試轉換率。</div></div>
+    <div class="it"><div class="dot" style="background:var(--y);"></div><div><b>第 3 個月（Money Models）：</b>為現有客戶設計預付/訂閱選項。加入 Upsell 流程。計算你的 LTV，根據 LTV 決定廣告預算。</div></div>
+  </div>
+</div>
+
+<div class="sec" id="links">
+  <div class="sec-hd"><div class="sec-num">🔗</div><div class="sec-title">單書深度報告</div></div>
+  <div class="links">
+    <a href="hormozi-offers-shuxing.html" class="lbtn lb-r">📕 $100M Offers 完整分析 →</a>
+    <a href="hormozi-leads-shuxing.html" class="lbtn lb-b">📘 $100M Leads 完整分析 →</a>
+    <a href="hormozi-money-models-shuxing.html" class="lbtn lb-y">📙 Money Models 完整分析 →</a>
+  </div>
+</div>
+
+</div></body></html>
