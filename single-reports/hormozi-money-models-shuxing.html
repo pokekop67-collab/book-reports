@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>書醒分析｜$100M Money Models</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;600;700&display=swap');
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans TC',sans-serif;color:#2d3748;line-height:1.8;}
+.wrap{max-width:860px;margin:0 auto;padding:32px 16px 80px;}
+.toc{background:#fff;padding:12px 16px;border-bottom:2px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(0,0,0,.08);}
+.toc-inner{max-width:860px;margin:0 auto;display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.toc a{color:#718096;text-decoration:none;font-size:.74rem;padding:2px 7px;border-radius:5px;transition:.2s;}
+.toc a:hover{background:var(--light);color:var(--p);}
+.step{margin-bottom:36px;}
+.step-hd{display:flex;align-items:flex-start;gap:12px;margin-bottom:16px;padding-bottom:12px;border-bottom:2px solid var(--border);}
+.sn{background:linear-gradient(135deg,var(--p),var(--s));color:#fff;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.82rem;flex-shrink:0;}
+.st{font-size:1.1rem;font-weight:900;font-family:'Noto Serif TC',serif;}
+.ss{font-size:.78rem;color:#718096;margin-top:2px;}
+.card{background:#fff;border-radius:14px;padding:18px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);border:1.5px solid var(--border);}
+.ct{font-weight:900;font-size:.88rem;color:var(--p);margin-bottom:10px;}
+.it{display:flex;gap:9px;margin-bottom:7px;font-size:.87rem;line-height:1.7;align-items:flex-start;}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--p);flex-shrink:0;margin-top:8px;}
+.hl{font-weight:700;padding:1px 5px;border-radius:4px;background:var(--light);}
+.q{font-family:'Noto Serif TC',serif;font-size:.9rem;line-height:1.8;color:#4a5568;background:var(--light);border-left:4px solid var(--p);padding:12px 16px;border-radius:0 10px 10px 0;margin:8px 0;}
+.insight{background:#fff;border-radius:14px;padding:18px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);border-left:4px solid var(--p);}
+.in{font-size:2rem;font-weight:900;color:var(--border);line-height:1;}
+.it2{font-weight:900;font-size:.95rem;color:var(--p);margin-bottom:6px;}
+.ib{font-size:.86rem;line-height:1.7;}
+.action{border-radius:12px;padding:13px 16px;margin-bottom:9px;border-left:4px solid;}
+.a1{background:#f0fff4;border-color:#48bb78;}
+.a2{background:var(--light);border-color:var(--p);}
+.a3{background:#fffaf0;border-color:#f6ad55;}
+.missing{background:#fffaf0;border:1.5px dashed #f6ad55;border-radius:12px;padding:12px 15px;margin-bottom:9px;font-size:.86rem;}
+.mt{font-weight:900;color:#c05621;margin-bottom:5px;}
+.formula{background:linear-gradient(135deg,var(--light),#fff);border:2px solid var(--p);border-radius:14px;padding:18px;text-align:center;margin:12px 0;}
+.formula-text{font-size:1rem;font-weight:900;color:var(--p);font-family:monospace;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.model-box{border-radius:12px;padding:16px;margin-bottom:10px;border:2px solid var(--border);}
+@media(max-width:540px){.grid2{grid-template-columns:1fr;}.hero h1{font-size:1.4rem;}}
+
+:root{--p:#d97706;--s:#f59e0b;--border:#fde68a;--light:#fffbeb;--bg:#fefce8;}
+body{background:var(--bg);}
+.hero{background:linear-gradient(135deg,#92400e 0%,#d97706 50%,#fbbf24 100%);color:#fff;padding:52px 20px 70px;text-align:center;}
+.hero .tag{display:inline-block;background:rgba(255,255,255,.18);border-radius:999px;padding:4px 14px;font-size:.76rem;margin-bottom:12px;}
+.hero h1{font-size:1.9rem;font-weight:900;font-family:'Noto Serif TC',serif;margin-bottom:6px;}
+.hero p{opacity:.85;font-size:.88rem;max-width:480px;margin:0 auto 18px;}
+.hero-meta{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
+.hero-meta span{background:rgba(255,255,255,.15);border-radius:8px;padding:4px 12px;font-size:.78rem;}
+</style>
+</head>
+<body>
+<div class="hero">
+  <div class="tag">📚 書醒系統 11步深度分析</div>
+  <h1>$100M Money Models<br>如何設計讓錢持續流入的商業模式</h1>
+  <p>Alex Hormozi · Acquisition.com Volume III</p>
+  <div class="hero-meta">
+    <span>💰 商業模式型</span><span>🇺🇸 英文原著</span><span>📊 定價設計聖經</span><span>⭐ 可操作性：極高</span>
+  </div>
+</div>
+<div class="toc"><div class="toc-inner">
+  <span style="font-weight:900;font-size:.76rem;color:var(--p)">目錄：</span>
+  <a href="#s1">①資料卡</a><a href="#s2">②核心命題</a><a href="#s3">③主題分析</a>
+  <a href="#s4">④敘事弧</a><a href="#s5">⑤洞見</a><a href="#s6">⑥缺席</a>
+  <a href="#s7">⑦AI視角</a><a href="#s8">⑧行動</a><a href="#s11">⑪一句話</a>
+</div></div>
+<div class="wrap">
+
+<div class="step" id="s1">
+  <div class="step-hd"><div class="sn">01</div><div><div class="st">📚 書籍資料卡</div></div></div>
+  <div class="grid2">
+    <div class="card"><div class="ct">📖 基本資訊</div>
+      <div class="it"><div class="dot"></div><div><b>書名：</b>$100M Money Models: How To Make Money</div></div>
+      <div class="it"><div class="dot"></div><div><b>作者：</b>Alex Hormozi</div></div>
+      <div class="it"><div class="dot"></div><div><b>系列：</b>Acquisition.com Volume III</div></div>
+      <div class="it"><div class="dot"></div><div><b>前提：</b>Offers（賣什麼）+ Leads（讓誰看到）之後，接著解決「怎麼賣才最賺」</div></div>
+    </div>
+    <div class="card"><div class="ct">📐 本書核心觀點</div>
+      <div class="it"><div class="dot"></div><div>相同的產品，不同的「付款結構」可以讓收入差 3-10 倍</div></div>
+      <div class="it"><div class="dot"></div><div><span class="hl">商業模式本身就是一種 Offer（提案設計）</span></div></div>
+      <div class="it"><div class="dot"></div><div>讓現有客戶持續購買，遠比開發新客戶更划算</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="step" id="s2">
+  <div class="step-hd"><div class="sn">02</div><div><div class="st">🎯 核心命題</div></div></div>
+  <div class="q">「你賣什麼」比不上「你怎麼賣」——付款結構、定價框架、收費方式，決定了你能收多少錢，以及客戶願不願意付。</div>
+  <div class="formula">
+    <div style="font-size:.8rem;color:#718096;margin-bottom:8px;">Money Model 核心邏輯</div>
+    <div class="formula-text">最大化每位客戶的終身價值 × 最小化獲取成本</div>
+  </div>
+</div>
+
+<div class="step" id="s3">
+  <div class="step-hd"><div class="sn">03</div><div><div class="st">📖 主題分析：六大商業模式工具</div></div></div>
+
+  <div class="model-box" style="background:#fffbeb;">
+    <div style="font-weight:900;color:var(--p);margin-bottom:6px;">💳 模式①：Buy X Get Y Free — 買多送多，重新框架價格</div>
+    <div class="it"><div class="dot"></div><div>「買一年送半年」 ≠ 打折，而是「買一年的價值，同時獲得免費獎勵」</div></div>
+    <div class="it"><div class="dot"></div><div>感知邏輯：免費的東西感覺比折扣更有價值，即使總金額相同</div></div>
+    <div class="it"><div class="dot"></div><div>延長留存時間：客戶停留越久，你有更多機會交叉銷售</div></div>
+  </div>
+
+  <div class="model-box" style="background:#f0fff4;">
+    <div style="font-weight:900;color:#276749;margin-bottom:6px;">⏰ 模式②：Pay Less Now or Pay More Later — 先試後付</div>
+    <div class="it"><div class="dot"></div><div>客戶可以選擇：現在打折付 $97，或試完再付 $297</div></div>
+    <div class="it"><div class="dot"></div><div>消除客戶最大阻力：「如果不好我怎麼辦？」變成「不好就不用付」</div></div>
+    <div class="it"><div class="dot"></div><div>反直覺：大多數人選擇試完再付，但試完後大多數人願意付</div></div>
+    <div class="it"><div class="dot"></div><div><span class="hl">讓滿意度驅動付款，而不是讓付款驅動試用</span></div></div>
+  </div>
+
+  <div class="model-box" style="background:#ebf8ff;">
+    <div style="font-weight:900;color:#2b6cb0;margin-bottom:6px;">🔄 模式③：訂閱制 / 預付制 — 現金流優化</div>
+    <div class="it"><div class="dot"></div><div>訂閱制：穩定的可預測收入，降低業務波動</div></div>
+    <div class="it"><div class="dot"></div><div>預付制：讓客戶預付長期服務，立即獲得現金流</div></div>
+    <div class="it"><div class="dot"></div><div>關鍵：預付客戶是最好的客戶——他們花錢最多，最願意再買</div></div>
+    <div class="it"><div class="dot"></div><div>「他們的錢包已經『更新』，正等著把錢花出去」</div></div>
+  </div>
+
+  <div class="model-box" style="background:#fff5f5;">
+    <div style="font-weight:900;color:#c53030;margin-bottom:6px;">📈 模式④：Upsell / Downsell — 最大化每次交易</div>
+    <div class="it"><div class="dot"></div><div>客戶在購買後的當下，是最容易追加銷售的時機</div></div>
+    <div class="it"><div class="dot"></div><div>Upsell：在客戶同意購買後，提供更高層級的選項</div></div>
+    <div class="it"><div class="dot"></div><div>Downsell：如果拒絕，提供入門版選項，不讓客戶空手離開</div></div>
+    <div class="it"><div class="dot"></div><div>每個「是」都打開下一個「是」的可能</div></div>
+  </div>
+
+  <div class="model-box" style="background:#f9f5ff;">
+    <div style="font-weight:900;color:#6b46c1;margin-bottom:6px;">🎯 模式⑤：只買一次的客戶 — 讓那一次最大化</div>
+    <div class="it"><div class="dot"></div><div>有些市場（如觀光客）的客戶只會購買一次</div></div>
+    <div class="it"><div class="dot"></div><div>策略：把那一次購買的金額最大化，提供完整配套</div></div>
+    <div class="it"><div class="dot"></div><div>「只有一次機會，就讓那一發子彈最重」</div></div>
+  </div>
+
+  <div class="model-box" style="background:#f0fdf4;">
+    <div style="font-weight:900;color:#166534;margin-bottom:6px;">💎 模式⑥：高現金流緊急方案 — 快速取得資金</div>
+    <div class="it"><div class="dot"></div><div>向現有客戶提供「預付優惠」，快速取得現金流</div></div>
+    <div class="it"><div class="dot"></div><div>限制販賣數量，避免過度承諾損害交付能力</div></div>
+    <div class="it"><div class="dot"></div><div>適合需要快速現金的階段，不適合長期策略</div></div>
+  </div>
+</div>
+
+<div class="step" id="s4">
+  <div class="step-hd"><div class="sn">04</div><div><div class="st">📐 敘事弧線</div></div></div>
+  <div class="card">
+    <div class="it"><div class="dot"></div><div><b>起點：</b>大多數企業主只知道「賣一次收一次錢」，完全沒有設計收費結構</div></div>
+    <div class="it"><div class="dot"></div><div><b>洞見：</b>相同的服務，不同的付款框架，可以讓客戶感知的價值完全不同</div></div>
+    <div class="it"><div class="dot"></div><div><b>系統：</b>六種模式覆蓋不同業務情境，選對工具等於找到錢的槓桿</div></div>
+    <div class="it"><div class="dot"></div><div><b>終局：</b>商業模式設計好，錢自然會持續流入，而不是靠每次銷售拼命</div></div>
+  </div>
+</div>
+
+<div class="step" id="s5">
+  <div class="step-hd"><div class="sn">05</div><div><div class="st">💎 整合洞見 Top 8</div></div></div>
+  <div class="insight"><div class="in">01</div><div class="it2">「怎麼賣」比「賣什麼」更影響收入</div>
+    <div class="ib">相同的服務用不同的付款框架，客戶的感知價值和付費意願可以差距 3-10 倍。大多數人花 90% 的精力在產品上，卻忽略了定價結構設計。</div></div>
+  <div class="insight"><div class="in">02</div><div class="it2">免費的東西比折扣更有吸引力</div>
+    <div class="ib">「買一年送半年免費」比「買一年打七折」感覺更划算，即使總金額相同。人類的心理對「免費」的反應比對「便宜」更強烈。</div></div>
+  <div class="insight"><div class="in">03</div><div class="it2">預付客戶是最好的客戶</div>
+    <div class="ib">已經預付的客戶在心理上已經投入，最願意再買其他東西。別因為他們已經付了錢就不再賣給他們——他們的錢包已準備好了。</div></div>
+  <div class="insight"><div class="in">04</div><div class="it2">消除購買風險 = 提高成交率</div>
+    <div class="ib">「先試後付」把所有風險從客戶身上移走。沒有風險的決定很容易做。這不是打折，而是讓滿意度驅動付款。</div></div>
+  <div class="insight"><div class="in">05</div><div class="it2">Upsell 的最佳時機是「成交的那一刻」</div>
+    <div class="ib">客戶剛說「好」的當下，他的決策模式處於開放狀態。這是提供更高層級選項的最佳時機，比任何其他時間都更有效。</div></div>
+  <div class="insight"><div class="in">06</div><div class="it2">Business Model = Offer 的延伸</div>
+    <div class="ib">$100M Offers 設計你的產品提案，Money Models 設計你的付款提案。兩者合在一起，才是完整的「讓客戶說好」的系統。</div></div>
+  <div class="insight"><div class="in">07</div><div class="it2">留存 > 新客（成本上）</div>
+    <div class="ib">開發一個新客戶的成本，是維持現有客戶的 5-25 倍。大多數企業把 90% 的精力放在獲客，卻忽略了留存——這是最大的漏水點。</div></div>
+  <div class="insight"><div class="in">08</div><div class="it2">現金流是企業存活的氧氣</div>
+    <div class="ib">預付制和訂閱制解決的不只是收入問題，而是讓企業有可預測的現金流，才能做長期投資和規劃。沒有現金流，再好的生意都可能死在路上。</div></div>
+</div>
+
+<div class="step" id="s6">
+  <div class="step-hd"><div class="sn">06</div><div><div class="st">🔍 缺席分析</div></div></div>
+  <div class="missing"><div class="mt">⚠️ 缺席①：數位產品 vs 服務型業務的差異</div>書中案例混合了實體商品、服務、數位產品，對不同類型業務的適用邏輯差異說明不夠清晰。</div>
+  <div class="missing"><div class="mt">⚠️ 缺席②：法律與合規風險</div>部分付款模式（如先試後付）在不同地區可能有消費者保護法規的限制，書中幾乎沒有提到。</div>
+  <div class="missing"><div class="mt">⚠️ 缺席③：如何選擇適合自己業務的模式</div>書中列出多種模式，但如何判斷「我的業務最適合哪種組合」缺乏決策框架。</div>
+</div>
+
+<div class="step" id="s7">
+  <div class="step-hd"><div class="sn">07</div><div><div class="st">🤖 AI 時代視角</div></div></div>
+  <div class="card">
+    <div class="it"><div class="dot"></div><div><b>AI 訂閱制的崛起：</b>幾乎所有 AI 工具都採用訂閱制，Money Models 的訂閱框架直接適用</div></div>
+    <div class="it"><div class="dot"></div><div><b>個人化定價成為可能：</b>AI 可以分析客戶行為，動態調整哪種付款模式對不同客戶最有效</div></div>
+    <div class="it"><div class="dot"></div><div><b>先試後付的爆發：</b>AI 服務的「免費試用」本質就是 Pay Less Now or Pay More Later，這個模式已成業界標準</div></div>
+  </div>
+</div>
+
+<div class="step" id="s8">
+  <div class="step-hd"><div class="sn">08</div><div><div class="st">⚡ 行動轉化</div></div></div>
+  <div class="action a1"><div style="font-weight:900;color:#276749;margin-bottom:5px;">🟢 今天</div>
+    <div class="it"><div class="dot"></div><div>列出你的主要服務，問：「我能不能設計一個預付選項？」即使只是提供 3 個月預付有小折扣</div></div>
+    <div class="it"><div class="dot"></div><div>想想：客戶購買後，我有沒有立即提供 Upsell 的機會？</div></div>
+  </div>
+  <div class="action a2"><div style="font-weight:900;color:var(--p);margin-bottom:5px;">🔴 本週</div>
+    <div class="it"><div class="dot"></div><div>設計一個「先試後付」方案：讓潛在客戶先體驗，滿意再付全款</div></div>
+    <div class="it"><div class="dot"></div><div>設計 Buy X Get Y：買主要服務，贈送相關加值（不是折扣，而是免費獲得）</div></div>
+  </div>
+  <div class="action a3"><div style="font-weight:900;color:#c05621;margin-bottom:5px;">🟡 長期</div>
+    <div class="it"><div class="dot"></div><div>建立訂閱制或保留費模式，讓收入可預測</div></div>
+    <div class="it"><div class="dot"></div><div>計算你的客戶終身價值（LTV），根據 LTV 決定你能負擔多少獲客成本</div></div>
+  </div>
+</div>
+
+<div class="step" id="s11">
+  <div class="step-hd"><div class="sn">11</div><div><div class="st">✨ 一句話精髓</div></div></div>
+  <div class="q" style="font-size:1.1rem;padding:20px 24px;">
+    改變你<b>如何收費</b>，不改變你提供什麼——這是讓收入翻倍最快的方法，而且不需要任何新客戶。
+  </div>
+</div>
+
+</div></body></html>
