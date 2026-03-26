@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>12本關係書籍 — 超級大腦讀書法深度解構報告</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Inter:wght@300;400;700;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-weight: 400;
+  line-height: 2;
+  color: #2d2d2d;
+  background: linear-gradient(135deg, #f8f6ff 0%, #fff5f8 50%, #fffaf0 100%);
+  min-height: 100vh;
+}
+
+.container { max-width: 1100px; margin: 0 auto; padding: 20px; }
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 80px 40px;
+  margin-bottom: 40px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border-radius: 32px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 70%, rgba(155, 138, 184, 0.15) 0%, transparent 50%),
+              radial-gradient(circle at 70% 30%, rgba(232, 180, 184, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+.hero h1 {
+  font-family: 'Inter', 'Noto Sans TC', sans-serif;
+  font-size: 3.2em;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #e8b4b8 0%, #d4a8d0 50%, #9b8ab8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+.hero .subtitle {
+  font-size: 1.3em;
+  font-weight: 300;
+  color: rgba(255,255,255,0.7);
+  letter-spacing: 0.05em;
+  margin-bottom: 20px;
+}
+.hero .meta {
+  font-size: 0.9em;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.1em;
+}
+
+/* Section Headers */
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 60px 0 30px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgba(155, 138, 184, 0.2);
+}
+.section-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 3.5em;
+  font-weight: 900;
+  background: linear-gradient(135deg, #9b8ab8 0%, #e8b4b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+}
+.section-title {
+  font-size: 1.6em;
+  font-weight: 700;
+  color: #2d2d2d;
+}
+.section-label {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.75em;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #9b8ab8;
+}
+
+/* Cards */
+.card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  padding: 40px;
+  margin-bottom: 24px;
+  box-shadow: 0 10px 60px rgba(155, 138, 184, 0.08);
+  border: 1px solid rgba(155, 138, 184, 0.1);
+}
+.card h3 {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: #4a3f6b;
+  margin-bottom: 15px;
+}
+.card h4 {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #6b5b8d;
+  margin: 20px 0 10px;
+}
+
+/* Dark Cards */
+.card-dark {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+  color: #e0e0e0;
+  border: 1px solid rgba(155, 138, 184, 0.2);
+}
+.card-dark h3 { color: #d4a8d0; }
+.card-dark h4 { color: #e8b4b8; }
+
+/* Book Cards */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+.book-card {
+  background: rgba(255,255,255,0.9);
+  border-radius: 20px;
+  padding: 30px;
+  border-left: 4px solid;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+}
+.book-card:hover { transform: translateY(-5px); }
+.book-card:nth-child(1) { border-color: #ff6b6b; }
+.book-card:nth-child(2) { border-color: #feca57; }
+.book-card:nth-child(3) { border-color: #48dbfb; }
+.book-card:nth-child(4) { border-color: #ff9ff3; }
+.book-card:nth-child(5) { border-color: #54a0ff; }
+.book-card:nth-child(6) { border-color: #5f27cd; }
+.book-card:nth-child(7) { border-color: #01a3a4; }
+.book-card:nth-child(8) { border-color: #f368e0; }
+.book-card:nth-child(9) { border-color: #ff6348; }
+.book-card:nth-child(10) { border-color: #7bed9f; }
+.book-card:nth-child(11) { border-color: #70a1ff; }
+.book-card:nth-child(12) { border-color: #eccc68; }
+.book-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 2em;
+  font-weight: 900;
+  color: rgba(0,0,0,0.08);
+  float: right;
+  line-height: 1;
+}
+.book-title {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: #2d2d2d;
+  margin-bottom: 5px;
+}
+.book-author {
+  font-size: 0.85em;
+  color: #888;
+  margin-bottom: 10px;
+}
+.book-desc {
+  font-size: 0.9em;
+  color: #555;
+  line-height: 1.8;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.92em;
+}
+th {
+  background: linear-gradient(135deg, #9b8ab8 0%, #7b6b9b 100%);
+  color: #fff;
+  padding: 14px 18px;
+  text-align: left;
+  font-weight: 500;
+}
+td {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(155, 138, 184, 0.1);
+  vertical-align: top;
+}
+tr:nth-child(even) { background: rgba(155, 138, 184, 0.04); }
+tr:hover { background: rgba(155, 138, 184, 0.08); }
+
+/* Highlight boxes */
+.insight-box {
+  background: linear-gradient(135deg, #f0ebf8 0%, #f8f0f5 100%);
+  border-left: 4px solid #9b8ab8;
+  border-radius: 12px;
+  padding: 25px 30px;
+  margin: 20px 0;
+}
+.contradiction-box {
+  background: linear-gradient(135deg, #fff0f0 0%, #f0f0ff 100%);
+  border-left: 4px solid #e8b4b8;
+  border-radius: 12px;
+  padding: 25px 30px;
+  margin: 20px 0;
+}
+.action-box {
+  background: linear-gradient(135deg, #f0f8f0 0%, #f0f5f8 100%);
+  border-left: 4px solid #a8b5a0;
+  border-radius: 12px;
+  padding: 25px 30px;
+  margin: 20px 0;
+}
+
+/* Tags */
+.tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: 500;
+  margin: 3px;
+}
+.tag-purple { background: #f0ebf8; color: #6b5b8d; }
+.tag-pink { background: #fce4ec; color: #c2185b; }
+.tag-blue { background: #e3f2fd; color: #1565c0; }
+.tag-green { background: #e8f5e9; color: #2e7d32; }
+.tag-orange { background: #fff3e0; color: #e65100; }
+
+/* List styles */
+.styled-list {
+  list-style: none;
+  padding: 0;
+}
+.styled-list li {
+  padding: 8px 0 8px 30px;
+  position: relative;
+}
+.styled-list li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: #9b8ab8;
+}
+
+/* Emoji section markers */
+.emoji-marker {
+  font-size: 1.5em;
+  margin-right: 10px;
+  vertical-align: middle;
+}
+
+/* Flow chart */
+.flow-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 20px 0;
+  font-size: 0.95em;
+}
+.flow-box {
+  background: linear-gradient(135deg, #9b8ab8 0%, #7b6b9b 100%);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: 12px;
+  text-align: center;
+  font-weight: 500;
+}
+.flow-arrow {
+  color: #9b8ab8;
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+/* Priority ranking */
+.priority-item {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  padding: 20px;
+  margin: 10px 0;
+  background: rgba(255,255,255,0.7);
+  border-radius: 16px;
+  border: 1px solid rgba(155, 138, 184, 0.1);
+}
+.priority-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.5em;
+  font-weight: 900;
+  background: linear-gradient(135deg, #9b8ab8 0%, #e8b4b8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1;
+  min-width: 50px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 40px;
+  color: #999;
+  font-size: 0.85em;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 768px) {
+  .hero h1 { font-size: 2em; }
+  .hero { padding: 40px 20px; }
+  .card { padding: 25px; }
+  .section-num { font-size: 2.5em; }
+  .book-grid { grid-template-columns: 1fr; }
+  table { font-size: 0.8em; }
+  td, th { padding: 10px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<!-- ==================== HERO ==================== -->
+<div class="hero">
+  <div class="meta">SUPER BRAIN READING METHOD V2 — CROSS-BOOK ANALYSIS</div>
+  <h1>12本關係書籍<br>全域交叉比對報告</h1>
+  <div class="subtitle">從依戀理論到腦科學，從精神分析到日常實踐<br>拆解人類關係的完整密碼</div>
+  <div class="meta">2026.03.26 ✦ 超級大腦讀書法 ✦ 四層十二模組架構</div>
+</div>
+
+<!-- ==================== 模組 01：書籍資料卡 ==================== -->
+<div class="section-header">
+  <div class="section-num">01</div>
+  <div>
+    <div class="section-label">STRUCTURE LAYER — BOOK PROFILES</div>
+    <div class="section-title">書籍資料卡</div>
+  </div>
+</div>
+
+<div class="book-grid">
+  <div class="book-card">
+    <div class="book-num">01</div>
+    <div class="book-title">不受傷害也不傷害人的說話練習</div>
+    <div class="book-author">林珢珉 — 韓國溝通專家，13年諮詢經驗</div>
+    <div class="book-desc"><strong>智識源頭：</strong>Eric Berne 溝通分析理論（TA）、Aaron Lazare 道歉理論<br><strong>一句話定位：</strong>用五種自我狀態地圖，找到既不傷人也不傷己的說話方式</div>
+  </div>
+  <div class="book-card">
+    <div class="book-num">02</div>
+    <div class="book-title">內在小孩快樂，你才快樂</div>
+    <div class="book-author">吉本芭娜娜 × 平良愛綾 — 作家與荷歐波諾波諾實踐者</div>
+    <div class="book-desc"><strong>智識源頭：</strong>夏威夷 Ho'oponopono 療法、莫兒娜·納拉瑪庫·西蒙娜<br><strong>一句話定位：</strong>所有問題都是內在記憶的重播，清理記憶就是療癒一切</div>
+  </div>
+  <div class="book-card">
+    <div class="book-num">03</div>
+    <div class="book-title">奇蹟迴圈：療癒身心靈的光能量</div>
+    <div class="book-author">丸山修寬 — 日本醫師，融合醫學與靈性療癒</div>
+    <div class="book-desc"><strong>智識源頭：</strong>卡巴拉（Kabbalah）、意識三重結構<br><strong>一句話定位：</strong>讓自我、潛意識、高我牽手形成迴圈，啟動自我療癒的光能量</div>
+  </div>
+  <div class="book-card">
+    <div class="book-num">04</div>
+    <div class="book-title">深刻認識一個人</div>
+    <div class="book-author">David Brooks — 紐約時報專欄作家</div>
+    <div class="book-desc"><strong>智識源頭：</strong>建構主義心理學、Anil Seth 感知理論、五大人格特質<br><strong>一句話定位：</strong>每個人都是獨特的「觀點」，深刻認識一個人是最高的道德行為</div>
+  </div>
+  <div class="book-card">
+    <div class="book-num">05</div>
+    <div class="book-title">孤獨的冷漠</div>
+    <div class="book-author">岡田尊司 — 精神科醫師，依戀障礙系列作者</div>
+    <div class="book-desc"><strong>智識源頭：</strong>John Bowlby 依戀理論、Harry Harlow 恆河猴實驗<br><strong>一句話定位：</strong>逃避型依戀不是性格缺陷而是可修復的創傷模式</div>
+  </div>
+  <div class="book-card">
+    <div class="book-num">06</div>
+    <div class="book-title">逆轉不和諧人際關係</div>
+    <div class="book-author">以「煩惱三角」(Drama Triangle) 為核心框架</div>
+    <div class="book-desc"><strong>智識源頭：</strong>Stephen Karpman 戲劇三角理論<br><strong>一句話定位：</strong>所有人際痛苦來自受害者/迫害者/拯救者三角循環，跳出框架才能終結痛苦</div>
+  </div>
+  <div class="book-card">
+    <div class="book-num">07</div>
+    <div class="book-title">配偶使用說明書【夫婦腦】</div>
+    <div class="book-author">黑川伊保子 — 腦科學家，感性調研公司執行長</div>
+    <div class="book-desc"><strong>智識源頭：</strong>AI研究→語言感性研究→男女腦差異研究<br><strong>一句話定位：</strong>夫妻的合不來是生殖適合度的演化設計，理解腦差異就能化危為機</div>
+  </div>
+  <div class="book-card">
+    <div class="book-num">08</div>
+    <div class="book-title">高敏感卻不受傷的七日練習</div>
+    <div class="book-author">根本裕幸 — 心理諮詢師，17年臨床經驗</div>
+    <div class="book-desc"><strong>智識源頭：</strong>Elaine Aron HSP理論、自我肯定感研究<br><strong>一句話定位：</strong>高敏感的根源在原生家庭，七日建構自我本位思維即可轉化</div>
+  </div>
+  <div class="book-card">
+    <div class="book-num">09</div>
+    <div class="book-title">童年情感忽視</div>
+    <div class="book-author">Jonice Webb — 臨床心理學家</div>
+    <div class="book-desc"><strong>智識源頭：</strong>原創概念 CEN (Childhood Emotional Neglect)<br><strong>一句話定位：</strong>傷害你的不是「發生了什麼」，而是「沒有發生什麼」</div>
+  </div>
+  <div class="book-card">
+    <div class="book-num">10</div>
+    <div class="book-title">愛能長久嗎？</div>
+    <div class="book-author">Stephen A. Mitchell — 關係取向精神分析創始人</div>
+    <div class="book-desc"><strong>智識源頭：</strong>佛洛伊德→對佛洛伊德的挑戰、Winnicott、哲學與文學<br><strong>一句話定位：</strong>浪漫的消退不是自然規律，而是我們為了安全感主動「降級」愛情</div>
+  </div>
+  <div class="book-card">
+    <div class="book-num">11</div>
+    <div class="book-title">恆溫關係</div>
+    <div class="book-author">John & Julie Gottman — 50年婚姻研究，「愛的實驗室」創辦人</div>
+    <div class="book-desc"><strong>智識源頭：</strong>數學預測模型、40,000+對伴侶研究數據<br><strong>一句話定位：</strong>愛藏在日常芝麻小事裡，七天微行動就能逆轉關係</div>
+  </div>
+  <div class="book-card">
+    <div class="book-num">12</div>
+    <div class="book-title">The Adult Chair</div>
+    <div class="book-author">Michelle Chalfant — 心理治療師與教練</div>
+    <div class="book-desc"><strong>智識源頭：</strong>發展心理學、Ego理論、正念與靈性整合<br><strong>一句話定位：</strong>三張椅子映照三個發展階段，五大支柱帶你活出成人版自我</div>
+  </div>
+</div>
+
+<!-- ==================== 模組 02：認知遞進設計 ==================== -->
+<div class="section-header">
+  <div class="section-num">02</div>
+  <div>
+    <div class="section-label">STRUCTURE LAYER — COGNITIVE PROGRESSION</div>
+    <div class="section-title">12本書的認知遞進設計</div>
+  </div>
+</div>
+
+<div class="card">
+<h3>如果這12本書是一門課程，最佳閱讀順序</h3>
+<p>將12本書重新排列為五個認知階段，每個階段為下一階段鋪墊：</p>
+
+<div class="flow-container">
+  <div class="flow-box">第一階段<br>認識傷口</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">第二階段<br>理解模式</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">第三階段<br>療癒自我</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">第四階段<br>連結他人</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">第五階段<br>活出愛</div>
+</div>
+
+<h4>第一階段：認識傷口（童年 → 依戀 → 忽視）</h4>
+<p><span class="tag tag-pink">童年情感忽視</span> <span class="tag tag-pink">孤獨的冷漠</span> <span class="tag tag-pink">The Adult Chair Part 1</span></p>
+<p>先理解「沒有發生的事」（CEN）如何塑造了你的依戀形式（逃避型），以及這些模式如何固化為你的「兒童椅」和「青少年椅」。三本書從不同角度描繪同一個核心現象：早期關係經驗如何決定成年後的關係品質。</p>
+
+<h4>第二階段：理解模式（Drama → 溝通 → 敏感）</h4>
+<p><span class="tag tag-orange">逆轉不和諧人際關係</span> <span class="tag tag-orange">不受傷害也不傷害人的說話練習</span> <span class="tag tag-orange">高敏感卻不受傷的七日練習</span></p>
+<p>認識傷口之後，理解這些傷口如何在日常互動中表現為「煩惱三角」的角色扮演、五種自我狀態的失衡溝通、以及高敏感帶來的過度在意他人。</p>
+
+<h4>第三階段：療癒自我（內在小孩 → 迴圈 → 成人椅）</h4>
+<p><span class="tag tag-green">內在小孩快樂，你才快樂</span> <span class="tag tag-green">奇蹟迴圈</span> <span class="tag tag-green">The Adult Chair Part 2</span></p>
+<p>三種不同路徑的自我療癒：荷歐波諾波諾的「清理」、三重意識的「迴圈」、以及五大支柱（擁有現實、自我慈悲、感受情緒、面對觸發、設定界限）。方法不同，目標一致——與內在自我和解。</p>
+
+<h4>第四階段：連結他人（認識人 → 理解腦差異 → 愛的哲學）</h4>
+<p><span class="tag tag-blue">深刻認識一個人</span> <span class="tag tag-blue">配偶使用說明書</span> <span class="tag tag-blue">愛能長久嗎</span></p>
+<p>療癒自我之後，學習如何真正「看見」另一個人（Brooks），理解男女腦的根本差異（黑川），並從精神分析的深度理解「愛為何危險又珍貴」（Mitchell）。</p>
+
+<h4>第五階段：活出愛（恆溫實踐）</h4>
+<p><span class="tag tag-purple">恆溫關係</span></p>
+<p>最後落地為七天的具體實踐，將所有理解轉化為日常微行動。Gottman 夫婦50年數據驗證的方法，是全部知識的行動收束。</p>
+</div>
+
+<!-- ==================== 模組 03：完整清單速覽 ==================== -->
+<div class="section-header">
+  <div class="section-num">03</div>
+  <div>
+    <div class="section-label">STRUCTURE LAYER — OVERVIEW MATRIX</div>
+    <div class="section-title">12本書速覽矩陣</div>
+  </div>
+</div>
+
+<div class="card" style="overflow-x: auto;">
+<table>
+<thead>
+<tr>
+  <th>#</th>
+  <th>書名</th>
+  <th>核心框架</th>
+  <th>切入角度</th>
+  <th>實用程度</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>01</td><td>不受傷害也不傷害人的說話練習</td><td>TA溝通分析 / Egogram / Stroke</td><td>溝通技術</td><td>極高</td></tr>
+<tr><td>02</td><td>內在小孩快樂，你才快樂</td><td>Ho'oponopono / 清理 / Unihipili</td><td>靈性療癒</td><td>中</td></tr>
+<tr><td>03</td><td>奇蹟迴圈</td><td>三重意識迴圈 / 卡巴拉 / 丹田</td><td>身心靈整合</td><td>中</td></tr>
+<tr><td>04</td><td>深刻認識一個人</td><td>建構主義 / 照亮者模型 / Big Five</td><td>人際理解</td><td>高</td></tr>
+<tr><td>05</td><td>孤獨的冷漠</td><td>依戀理論 / 安全堡壘 / 正念</td><td>心理病理</td><td>高</td></tr>
+<tr><td>06</td><td>逆轉不和諧人際關係</td><td>Drama Triangle / 3F反應</td><td>人際動力學</td><td>極高</td></tr>
+<tr><td>07</td><td>配偶使用說明書</td><td>男女腦差異 / 生殖適合度</td><td>腦科學</td><td>極高</td></tr>
+<tr><td>08</td><td>高敏感卻不受傷的七日練習</td><td>自我肯定感 / 自我本位 / 原生家庭</td><td>自我建構</td><td>極高</td></tr>
+<tr><td>09</td><td>童年情感忽視</td><td>CEN / 12種父母 / 10大特徵</td><td>童年創傷</td><td>極高</td></tr>
+<tr><td>10</td><td>愛能長久嗎</td><td>浪漫降級 / 安全-激情悖論</td><td>精神分析</td><td>中（理論深）</td></tr>
+<tr><td>11</td><td>恆溫關係</td><td>愛的實驗室 / 7天計畫 / Love Map</td><td>實證研究</td><td>極高</td></tr>
+<tr><td>12</td><td>The Adult Chair</td><td>三椅模型 / 五大支柱</td><td>發展心理</td><td>高</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ==================== 模組 04：核心命題 ==================== -->
+<div class="section-header">
+  <div class="section-num">04</div>
+  <div>
+    <div class="section-label">STRUCTURE LAYER — CORE THESIS</div>
+    <div class="section-title">12本書的共同核心命題</div>
+  </div>
+</div>
+
+<div class="card-dark card">
+<h3>問題：為什麼我們如此渴望連結，卻又在連結中反覆受傷？</h3>
+<h4>論點：12本書共同指向一個答案——</h4>
+<p style="font-size:1.2em; color: #e8b4b8; margin: 20px 0;">我們用童年學到的生存策略去經營成年的關係。這些策略在兒時保護了我們，在成年後卻成為關係的毒藥。療癒的核心不是「學會新技巧」，而是「看見舊模式」，然後有意識地選擇不同的回應方式。</p>
+<h4>方法：三條平行路徑</h4>
+<ul class="styled-list" style="color: #ccc;">
+  <li><strong>認知路徑</strong>（理解）—— Brooks、岡田、Webb、Mitchell 教你理解人類關係的深層結構</li>
+  <li><strong>行為路徑</strong>（練習）—— Gottman、林珢珉、根本裕幸 教你用具體行動改變關係</li>
+  <li><strong>存在路徑</strong>（存有）—— 荷歐波諾波諾、迴圈、Adult Chair 教你從根源轉化存在狀態</li>
+</ul>
+</div>
+
+<!-- ==================== 模組 05：逐章五維解析 ==================== -->
+<div class="section-header">
+  <div class="section-num">05</div>
+  <div>
+    <div class="section-label">DEEP LAYER — CHAPTER-BY-CHAPTER ANALYSIS</div>
+    <div class="section-title">逐章五維解析（12本書精華萃取）</div>
+  </div>
+</div>
+
+<!-- Book 01 -->
+<div class="card">
+<h3>01《不受傷害也不傷害人的說話練習》— 林珢珉</h3>
+
+<h4>Part 1：觀察溝通方式</h4>
+<p><span class="emoji-marker">🎯</span><strong>一句話核心：</strong>你的人際痛苦不是因為「說了什麼」，而是因為「用哪種自我狀態說的」。</p>
+<ul class="styled-list">
+<li><strong>洞見1：</strong>每個人內在有五種自我狀態（CP/NP/A/FC/AC），溝通品質取決於當下啟動了哪一種</li>
+<li><strong>洞見2：</strong>同樣的行為，不同的內在感受——「感受到的情緒」比行為本身更重要</li>
+<li><strong>洞見3：</strong>人類需要「安撫」(Stroke)才能生存，即使是負面安撫也比完全被忽視好</li>
+</ul>
+<p><span class="emoji-marker">🔧</span><strong>立即可用：</strong>今天就畫出自己的 Egogram（五種自我狀態能量分布圖），找出最高和最低的自我狀態</p>
+<p><span class="emoji-marker">❓</span><strong>自我檢核：</strong>你在壓力下最常啟動的是哪一種自我狀態？CP的指責？AC的順從？還是FC的情緒爆發？</p>
+
+<h4>Part 2-3：理解自己與對話類型</h4>
+<p><span class="emoji-marker">🎯</span><strong>一句話核心：</strong>把同樣的話說得更好聽，核心是「認同→梳理情緒→正向表達」三步驟。</p>
+<ul class="styled-list">
+<li><strong>洞見1：</strong>真誠道歉的四階段：認錯→後悔→解釋→賠償（必須用理性成人A的狀態）</li>
+<li><strong>洞見2：</strong>請求≠強迫，以養育型父母NP的態度讓對方「欣然」而非「無奈」地同意</li>
+<li><strong>洞見3：</strong>鏡像神經元證明同理心是天生本能，但需要有意識地啟動</li>
+</ul>
+<p><span class="emoji-marker">🔧</span><strong>立即可用：</strong>下次想批評時，先用NP狀態的語言重新包裝：「我注意到...」而非「你怎麼又...」</p>
+<p><span class="emoji-marker">🔗</span><strong>章間連結：</strong>Egogram 的AC（順應型兒童）= Adult Chair 的 Adolescent Chair = Drama Triangle 的受害者角色</p>
+</div>
+
+<!-- Book 05 -->
+<div class="card">
+<h3>05《孤獨的冷漠》— 岡田尊司</h3>
+
+<h4>第一章：「新人種」的誕生？</h4>
+<p><span class="emoji-marker">🎯</span><strong>一句話核心：</strong>逃避型依戀不是性格，而是依戀系統「受到壓抑、機能不彰」的狀態。</p>
+<ul class="styled-list">
+<li><strong>洞見1：</strong>依戀形式分為安全型vs不安全型（焦慮型/逃避型/恐懼·逃避型/未解決型）</li>
+<li><strong>洞見2：</strong>遺傳因素只占1/4，3/4取決於後天環境，尤其是一歲半前的養育經驗</li>
+<li><strong>洞見3：</strong>逃避型的本質不是「不想要親密」，而是「害怕親密帶來的長久責任束縛」</li>
+</ul>
+<p><span class="emoji-marker">🔧</span><strong>立即可用：</strong>做書末35題依戀形式診斷測驗，了解自己的依戀類型</p>
+
+<h4>後半部：克服與修復</h4>
+<p><span class="emoji-marker">🎯</span><strong>一句話核心：</strong>修復的關鍵是找到一個能成為「安全堡壘」的人——全盤接納你的存在。</p>
+<ul class="styled-list">
+<li><strong>洞見1：</strong>正念治療比認知療法更適合依戀不穩定者（因認知療法的「指出偏差」會加深自我否定）</li>
+<li><strong>洞見2：</strong>照顧其他生命（包括動物）能刺激衰退的依戀系統</li>
+<li><strong>洞見3：</strong>將決心「說出口」，經過公開淬鍊會產生比內心默念更強大的承諾力量</li>
+</ul>
+<p><span class="emoji-marker">❓</span><strong>自我檢核：</strong>你生命中是否有一個真正的「安全堡壘」——不論你做什麼，都全盤接納你的人？</p>
+<p><span class="emoji-marker">🔗</span><strong>章間連結：</strong>安全堡壘 = Gottman 的「恆溫」基礎 = Adult Chair 的成人椅能量 = 荷歐波諾波諾的「與內在小孩建立安全連結」</p>
+</div>
+
+<!-- Book 09 -->
+<div class="card">
+<h3>09《童年情感忽視》— Jonice Webb</h3>
+
+<h4>第一部：空轉的開始</h4>
+<p><span class="emoji-marker">🎯</span><strong>一句話核心：</strong>傷害你的不是「發生了什麼」，而是「沒有發生什麼」——那些你不記得的缺席。</p>
+<ul class="styled-list">
+<li><strong>洞見1：</strong>12種情感忽視型父母（自戀型/威權型/放任型/成癮型/憂鬱型/工作狂型/完美導向型等）</li>
+<li><strong>洞見2：</strong>情感忽視的隱形性：受害者往往出生在「看似美滿」的家庭，因此更容易自責</li>
+<li><strong>洞見3：</strong>情感忽視 ≠ 虐待。最善良的父母也可能在某些面向忽視了孩子的情感需求</li>
+</ul>
+<p><span class="emoji-marker">🔧</span><strong>立即可用：</strong>做書中22題 ENQ（情感忽視測驗），分數越高代表影響越大</p>
+
+<h4>成人後的十大特徵</h4>
+<p><span class="emoji-marker">🎯</span><strong>一句話核心：</strong>CEN成人的核心困境是「情感失能」——無法辨識、管理和表達自己的情緒。</p>
+<ul class="styled-list">
+<li><strong>洞見1：</strong>空虛感、反依賴、罪惡感、與人疏離——這些症狀經常被誤診為憂鬱症或焦慮症</li>
+<li><strong>洞見2：</strong>CEN患者在自己與他人之間築起一道「情感的牆」，保護自己也阻隔了親密</li>
+<li><strong>洞見3：</strong>情緒是訊息而非干擾——重新學會把情緒當作內在的GPS導航系統</li>
+</ul>
+<p><span class="emoji-marker">❓</span><strong>自我檢核：</strong>你是否經常覺得心裡空虛、難以辨識自己的感受、對尋求幫助感到為難？</p>
+<p><span class="emoji-marker">🔗</span><strong>章間連結：</strong>CEN的「情感的牆」= 岡田的「逃避型依戀的冷漠外殼」= Adult Chair 的「青少年椅的面具」</p>
+</div>
+
+<!-- Book 11 -->
+<div class="card">
+<h3>11《恆溫關係》— John & Julie Gottman</h3>
+
+<h4>前言＋七天計畫</h4>
+<p><span class="emoji-marker">🎯</span><strong>一句話核心：</strong>愛藏在日常芝麻小事裡，七天微行動就能逆轉關係。</p>
+<ul class="styled-list">
+<li><strong>洞見1：</strong>Day 1-2 愛的地圖（Love Map）——真正了解伴侶，像繪製不斷更新的地形圖</li>
+<li><strong>洞見2：</strong>Day 3 負面濾鏡（Negative Filter）——大腦預設掃描負面，需要主動訓練正向掃描</li>
+<li><strong>洞見3：</strong>87%的伴侶衝突無法解決，因為根植於更深層的人生夢想與價值觀</li>
+</ul>
+<p><span class="emoji-marker">🔧</span><strong>立即可用：</strong>下載 Gottman Card Decks APP（免費），今晚問伴侶一個開放式問題</p>
+
+<h4>愛的實驗室核心發現</h4>
+<p><span class="emoji-marker">🎯</span><strong>一句話核心：</strong>幸福伴侶86%的時間「轉向」對方的連結需求，不幸福伴侶只有33%。</p>
+<ul class="styled-list">
+<li><strong>洞見1：</strong>「轉向」(turning toward) vs「背離」(turning away)——每次伴侶發出小小的連結信號，你的回應決定關係走向</li>
+<li><strong>洞見2：</strong>15分鐘就能以九成準確度預測一對伴侶是否會幸福長守</li>
+<li><strong>洞見3：</strong>最苦於掙扎的伴侶實際上收穫最多改變——不是太早也不是太遲</li>
+</ul>
+<p><span class="emoji-marker">❓</span><strong>自我檢核：</strong>今天伴侶向你發出幾次「連結需求」（分享趣事、請求幫忙、尋求安慰）？你轉向了幾次？</p>
+<p><span class="emoji-marker">🔗</span><strong>章間連結：</strong>Gottman 的「轉向」= TA理論的「正面安撫」= Brooks 的「照亮者」行為 = 岡田的「安全堡壘的回應」</p>
+</div>
+
+<!-- Book 06 -->
+<div class="card">
+<h3>06《逆轉不和諧人際關係》— Drama Triangle</h3>
+
+<h4>第一章：煩惱三角的三個角色</h4>
+<p><span class="emoji-marker">🎯</span><strong>一句話核心：</strong>受害者、迫害者、拯救者——三種角色看似不同，實則都出自恐懼與低自我肯定感。</p>
+<ul class="styled-list">
+<li><strong>洞見1：</strong>迫害者的三種模式：指責、先下手為強、控制——很多迫害者其實是「前受害者」</li>
+<li><strong>洞見2：</strong>拯救者看似好人，實際是為了填補自己的無價值感，會導致受害者失去自主解決的能力（共依存）</li>
+<li><strong>洞見3：</strong>受害者的3F反應：Flight（逃跑）、Freeze（僵住）、Fight（戰鬥）——行動的原動力是「不安」而非「想要」</li>
+</ul>
+<p><span class="emoji-marker">🔧</span><strong>立即可用：</strong>回想最近一次人際衝突，辨識自己扮演了哪個角色（受害者/迫害者/拯救者）</p>
+
+<h4>第二章：跳出三角</h4>
+<p><span class="emoji-marker">🎯</span><strong>一句話核心：</strong>不是在三角中解決問題，而是從「問題焦點」轉向「自我焦點」，為自己的幸福負責。</p>
+<ul class="styled-list">
+<li><strong>洞見1：</strong>拯救者不只是人——酒精、賭博、購物、工作都能扮演「拯救者」角色功能</li>
+<li><strong>洞見2：</strong>三者共同點：(1)基於害怕行動 (2)沒為自己的幸福負責 (3)自我肯定感低</li>
+<li><strong>洞見3：</strong>受害者心態循環：焦點在問題 → 感到不安 → 做出消除不安的行動 → 回到焦點在問題</li>
+</ul>
+<p><span class="emoji-marker">❓</span><strong>自我檢核：</strong>你在家庭中最常扮演哪個角色？在職場呢？在友誼中呢？三者是否相同？</p>
+<p><span class="emoji-marker">🔗</span><strong>章間連結：</strong>受害者角色 = TA的AC（順應型兒童）= Adult Chair的兒童椅恐懼反應 = 高敏感者的討好模式</p>
+</div>
+
+<!-- Book 02, 03, 04, 07, 08, 10, 12 condensed -->
+<div class="card">
+<h3>其餘7本書精華速覽</h3>
+
+<h4>02《內在小孩快樂，你才快樂》</h4>
+<p><span class="emoji-marker">🎯</span>核心：所有問題源自內在記憶的重播。四句清理箴言（對不起/請原諒我/謝謝你/我愛你）對內在小孩說。</p>
+<p><span class="emoji-marker">🔧</span>可用：每天對內在小孩說四句箴言，不帶期待地清理。百分之百負責不是為了自責，而是取回主導權。</p>
+
+<h4>03《奇蹟迴圈》</h4>
+<p><span class="emoji-marker">🎯</span>核心：自我、潛意識、高我三者牽手形成迴圈，啟動療癒光能量。關鍵是將意識從頭腦轉移到肚臍（丹田）。</p>
+<p><span class="emoji-marker">🔧</span>可用：閉眼微笑，在心中說「高我/潛意識，我愛你，謝謝你」，三者牽手30秒-3分鐘。不帶期待。</p>
+
+<h4>04《深刻認識一個人》</h4>
+<p><span class="emoji-marker">🎯</span>核心：每個人用整個生命在看世界。要理解「他如何詮釋經歷」而非只看「他經歷了什麼」。</p>
+<p><span class="emoji-marker">🔧</span>可用：SLANT傾聽法（坐直/傾身/提問/點頭/注視）。問開放式問題讓對方當主角，不怕停頓。</p>
+
+<h4>07《配偶使用說明書》</h4>
+<p><span class="emoji-marker">🎯</span>核心：夫妻不合是生殖適合度的演化設計。女性腦重「情緒共鳴」，男性腦重「問題解決」與「階位次序」。</p>
+<p><span class="emoji-marker">🔧</span>可用：女性腦想撒嬌時不要解決問題，只需說「好痛喔」。尊重男性腦的階位需求（出菜順序法則）。</p>
+
+<h4>08《高敏感卻不受傷的七日練習》</h4>
+<p><span class="emoji-marker">🎯</span>核心：高敏感的根源在原生家庭（過度干涉的母親/冷淡的母親/嚴厲的父親/缺乏叛逆期）。</p>
+<p><span class="emoji-marker">🔧</span>可用：七日路徑：注意當下自己→回顧過去→回顧家庭→提升自我肯定感→建立正向關係→轉化敏感為強項→實踐真正想做的事。</p>
+
+<h4>10《愛能長久嗎》</h4>
+<p><span class="emoji-marker">🎯</span>核心：浪漫的消退不是自然規律，而是我們為了安全感主動「降級」愛情。愛的能力就是容忍和修復憎恨的能力。</p>
+<p><span class="emoji-marker">🔧</span>可用：反思自己是否在無意識地把伴侶「變得平凡」。理想化與現實需要共存，不必二選一。</p>
+
+<h4>12《The Adult Chair》</h4>
+<p><span class="emoji-marker">🎯</span>核心：三張椅子（兒童0-6/青少年7-24/成人25+）+ 五大支柱（擁有現實/自我慈悲/感受情緒/面對觸發/設界限）。</p>
+<p><span class="emoji-marker">🔧</span>可用：觸發工作七步驟——發生什麼→身體感覺→核心情緒→核心信念根源→當下真相→新信念→擁有新信念。</p>
+</div>
+
+<!-- ==================== 模組 06：四類整合洞見 ==================== -->
+<div class="section-header">
+  <div class="section-num">06</div>
+  <div>
+    <div class="section-label">DEEP LAYER — INTEGRATED INSIGHTS</div>
+    <div class="section-title">四類整合洞見</div>
+  </div>
+</div>
+
+<div class="card">
+<h3>6.1 隱藏的邏輯線 — 作者們沒有明說但刻意設計的結構</h3>
+
+<div class="insight-box">
+<h4>邏輯線 A：三重意識的跨文化共識</h4>
+<p>五個不同文化背景的體系，不約而同地提出「三層意識」結構：</p>
+<table>
+<thead><tr><th>體系</th><th>第一層（本能/兒童）</th><th>第二層（防禦/社會化）</th><th>第三層（覺醒/整合）</th></tr></thead>
+<tbody>
+<tr><td>TA溝通分析 (#01)</td><td>兒童自我 (C)</td><td>父母自我 (P)</td><td>成人自我 (A)</td></tr>
+<tr><td>荷歐波諾波諾 (#02)</td><td>內在小孩 (Unihipili)</td><td>表意識 (Uhane)</td><td>高我 (Aumakua)</td></tr>
+<tr><td>奇蹟迴圈 (#03)</td><td>潛意識</td><td>自我（表意識）</td><td>高我</td></tr>
+<tr><td>Adult Chair (#12)</td><td>兒童椅 (0-6)</td><td>青少年椅 (7-24)</td><td>成人椅 (25+)</td></tr>
+<tr><td>Drama Triangle (#06)</td><td>受害者（恐懼驅動）</td><td>迫害者/拯救者（防禦）</td><td>跳出三角（覺察）</td></tr>
+</tbody>
+</table>
+<p><strong>隱藏洞見：</strong>第二層（防禦/社會化）是所有人際問題的根源——它在童年保護了我們，在成年後卻成為枷鎖。所有療癒方法的本質都是「穿越第二層，讓第一層和第三層直接連結」。</p>
+</div>
+
+<div class="insight-box">
+<h4>邏輯線 B：12本書暗藏的「由內而外」順序</h4>
+<p>表面上12本書各自獨立，但它們暗合了一個由內而外的同心圓結構：</p>
+<p><strong>最內圈（與自己的關係）：</strong>#02 內在小孩、#03 迴圈、#08 七日練習、#09 童年情感忽視、#12 Adult Chair</p>
+<p><strong>中間圈（與特定他人的關係）：</strong>#01 說話練習、#05 依戀修復、#07 配偶使用說明書、#10 愛能長久嗎、#11 恆溫關係</p>
+<p><strong>最外圈（與所有人的關係）：</strong>#04 深刻認識一個人、#06 逆轉不和諧人際關係</p>
+<p><strong>隱藏洞見：</strong>最內圈的書最多（5本），暗示所有作者的共識：修復外在關係必須從修復與自己的關係開始。</p>
+</div>
+</div>
+
+<div class="card">
+<h3>6.2 作者的潛台詞 — 隱含假設與偏見</h3>
+
+<div class="insight-box">
+<p><strong>假設1：「改變始於個人」</strong> — 12本書都假設讀者有改變的意願和能力。但在嚴重的創傷（PTSD、解離症）或精神疾病情境下，自助閱讀的效果有限，可能需要專業介入。</p>
+</div>
+<div class="insight-box">
+<p><strong>假設2：「關係的核心是兩個人」</strong> — 幾乎所有書都聚焦在二人關係（尤其是伴侶關係）。但許多人的關係困境來自更複雜的系統（大家庭、職場政治、社群網路），這些書沒有深入處理。</p>
+</div>
+<div class="insight-box">
+<p><strong>假設3：「東亞與西方的隱形文化差距」</strong> — 日韓作者（林珢珉、黑川、根本、丸山、吉本、岡田）傾向「和諧」取向，強調適應與包容；西方作者（Webb、Mitchell、Brooks、Chalfant、Gottman）傾向「表達」取向，強調界限與情感表達。讀者需要根據自己的文化脈絡選擇適用的建議。</p>
+</div>
+</div>
+
+<div class="card">
+<h3>6.3 批判與邊界 — 框架在什麼情況下可能失效？</h3>
+
+<div class="insight-box">
+<p><strong>邊界1：《奇蹟迴圈》與《內在小孩》</strong> — 缺乏實證研究支持。迴圈療法和荷歐波諾波諾的效果主要來自個案報告和主觀經驗，沒有隨機對照實驗。對於需要科學依據的讀者，應優先參考 Gottman（50年數據）和岡田（大量臨床案例）。</p>
+</div>
+<div class="insight-box">
+<p><strong>邊界2：《配偶使用說明書》</strong> — 性別二元框架的局限。黑川的「男性腦/女性腦」分類基於統計平均值，不適用於所有個體，且完全未涵蓋非二元性別和同性伴侶。腦科學界對「男女腦差異」的研究結論也存在爭議。</p>
+</div>
+<div class="insight-box">
+<p><strong>邊界3：「百分之百負責」的危險</strong> — 荷歐波諾波諾的「百分之百負責」在家暴、性侵、權力不對等的情境下可能造成二次傷害。受害者不應為施暴者的行為負責。</p>
+</div>
+</div>
+
+<div class="card">
+<h3>6.4 知識對話 — 12本書與經典的關係</h3>
+
+<table>
+<thead><tr><th>本書</th><th>同意</th><th>反對/延伸</th></tr></thead>
+<tbody>
+<tr><td>#01 說話練習</td><td>延伸 Eric Berne 的 TA 理論，使其更貼近亞洲文化</td><td>比《非暴力溝通》更實際但理論深度較淺</td></tr>
+<tr><td>#05 孤獨的冷漠</td><td>繼承 Bowlby 依戀理論、Ainsworth 陌生情境實驗</td><td>比 Amir Levine《依附》更深入病理學，但較少實用工具</td></tr>
+<tr><td>#09 童年情感忽視</td><td>與 Alice Miller《幸福童年的秘密》互補</td><td>Webb 專注「忽視」(neglect) 而非 Miller 的「虐待」(abuse)，填補了重要的概念空白</td></tr>
+<tr><td>#10 愛能長久嗎</td><td>回應並挑戰 Freud 的「性慾與愛意起源不同」</td><td>也回應了 Fromm《愛的藝術》未能處理的浪漫激情問題</td></tr>
+<tr><td>#11 恆溫關係</td><td>建立在 Gottman 自己的《七個讓愛延續的方法》之上</td><td>與 Esther Perel《親密陷阱》形成有趣對比——Gottman 重穩定，Perel 重激情</td></tr>
+<tr><td>#12 Adult Chair</td><td>融合 Erikson 發展階段論 + 正念靈性</td><td>比 IFS（內在家庭系統）更簡化，適合入門但深度有限</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ==================== 模組 07：交叉比對層 ==================== -->
+<div class="section-header">
+  <div class="section-num">07</div>
+  <div>
+    <div class="section-label">CROSS-REFERENCE LAYER — HIDDEN CONNECTIONS</div>
+    <div class="section-title">隱藏連結網絡（核心方法）</div>
+  </div>
+</div>
+
+<!-- 7.1 表面矛盾組 -->
+<div class="card">
+<h3>7.1 表面矛盾組</h3>
+
+<div class="contradiction-box">
+<h4>矛盾組 1：「以自我為中心」vs「深刻認識他人」</h4>
+<p><strong>根本裕幸（#08）</strong>主張建立「自我本位的思維」，把注意力從別人身上收回來。<br>
+<strong>David Brooks（#04）</strong>主張深刻認識一個人是最高的道德行為，要全心全意「看見」對方。</p>
+<p><strong>深層統一：</strong>兩者不矛盾——你必須先擁有穩固的自我（自我本位），才有能力真正「看見」他人。沒有自我的人看到的不是對方，而是自己投射的焦慮。根本裕幸解決的是「前提」，Brooks 處理的是「目標」。</p>
+<p><strong>切換判斷：</strong>如果你總是過度在意他人感受 → 先讀根本裕幸。如果你總是看不到他人 → 先讀 Brooks。</p>
+</div>
+
+<div class="contradiction-box">
+<h4>矛盾組 2：「安全感是關係基礎」vs「不可預測性是激情來源」</h4>
+<p><strong>岡田尊司（#05）& Gottman（#11）</strong>強調安全堡壘和穩定的日常微互動。<br>
+<strong>Mitchell（#10）</strong>指出安全感會殺死激情，我們甚至會主動「降級」浪漫。</p>
+<p><strong>深層統一：</strong>Mitchell 揭示了一個 Gottman 沒有處理的深層悖論。Gottman 的「恆溫」是必要的日常基礎，但 Mitchell 提醒我們不要把恆溫變成「麻木」。真正的恆溫不是溫度不變，而是在安全感中保持對彼此的好奇和驚喜。</p>
+<p><strong>切換判斷：</strong>關係正在冰點 → 用 Gottman 的方法回溫。關係穩定但乏味 → 用 Mitchell 的洞見注入活力。</p>
+</div>
+
+<div class="contradiction-box">
+<h4>矛盾組 3：「百分之百為自己負責」vs「問題來自童年不是你的錯」</h4>
+<p><strong>荷歐波諾波諾（#02）</strong>主張你經驗的一切百分之百是你的責任。<br>
+<strong>Webb（#09）& 岡田（#05）</strong>強調童年情感忽視和依戀創傷是父母造成的。</p>
+<p><strong>深層統一：</strong>Webb 和岡田處理的是「理解」（understanding）——理解問題的來源，讓你不再自責。荷歐波諾波諾處理的是「主導權」（agency）——承擔責任不是為了自責，而是為了取回改變的力量。先用 Webb 卸下羞恥感，再用清理取回主動權。</p>
+</div>
+</div>
+
+<!-- 7.2 隱形因果鏈 -->
+<div class="card">
+<h3>7.2 隱形因果鏈</h3>
+
+<div class="insight-box">
+<h4>因果鏈 1 — 從童年到關係破裂的完整路徑</h4>
+<div class="flow-container">
+  <div class="flow-box">童年情感忽視<br>(Webb #09)</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">逃避型依戀<br>(岡田 #05)</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">高敏感/低自我肯定<br>(根本 #08)</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">Drama Triangle<br>(#06)</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">溝通失衡<br>(林珢珉 #01)</div>
+</div>
+<p><strong>跳過任何一步的後果：</strong>只學溝通技巧（#01）而不處理依戀模式（#05），治標不治本。只理解依戀理論（#05）而不學實際溝通（#01），有知識無行動。</p>
+</div>
+
+<div class="insight-box">
+<h4>因果鏈 2 — 從療癒到長期關係的轉化路徑</h4>
+<div class="flow-container">
+  <div class="flow-box">認識內在小孩<br>(#02, #12)</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">建立安全堡壘<br>(#05)</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">理解腦差異<br>(#07)</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">日常微互動<br>(#11)</div>
+  <div class="flow-arrow">→</div>
+  <div class="flow-box">擁抱不確定性<br>(#10)</div>
+</div>
+</div>
+</div>
+
+<!-- 7.3 元原則萃取 -->
+<div class="card">
+<h3>7.3 元原則萃取 — 12本書「沒有明說的隱藏法則」</h3>
+
+<div class="insight-box">
+<h4>元原則 01：「被看見」是人類最根本的需求</h4>
+<p><strong>涵蓋：</strong>#01, #04, #05, #08, #09, #11, #12</p>
+<p>TA理論的「安撫」(Stroke)、Brooks 的「照亮者」、岡田的「安全堡壘」、根本的「自我肯定感」、Webb 的「情感回應」、Gottman 的「轉向」(turning toward)、Chalfant 的「見證」(witnessing)——全部指向同一件事：<strong>人需要被另一個人真正看見</strong>。情感忽視之所以致命，正是因為它剝奪了「被看見」的體驗。</p>
+</div>
+
+<div class="insight-box">
+<h4>元原則 02：療癒發生在「關係」中，而非「個人」中</h4>
+<p><strong>涵蓋：</strong>#02, #03, #05, #06, #10, #11, #12</p>
+<p>即使是看似獨自進行的清理（#02）和迴圈（#03），本質上也是在修復內在關係（與內在小孩、與潛意識的關係）。岡田明確指出「安全堡壘」必須是另一個人。Mitchell 認為愛本身就是在關係中被構建的。<strong>沒有任何療癒是完全獨自完成的。</strong></p>
+</div>
+
+<div class="insight-box">
+<h4>元原則 03：真正的改變從「觀察」開始，而非「行動」</h4>
+<p><strong>涵蓋：</strong>#01, #02, #03, #06, #08, #12</p>
+<p>所有書都強調「覺察」先於「改變」。林珢珉的 Egogram 是觀察工具、荷歐波諾波諾的清理從觀察記憶開始、迴圈的核心是觀察念頭如浮雲來去、Drama Triangle 要先識別自己扮演的角色、根本的七日練習從「專注當下的自己」開始、Adult Chair 的第一步是辨識自己坐在哪張椅子上。</p>
+</div>
+
+<div class="insight-box">
+<h4>元原則 04：小事 > 大事</h4>
+<p><strong>涵蓋：</strong>#01, #07, #08, #11</p>
+<p>Gottman 最有力的發現：愛藏在細節裡（the devil is in the details）。黑川的「出菜順序」、林珢珉的「把同樣的話說得好聽」、根本的「從第一天開始的小練習」——都指向同一個洞見：<strong>關係不是被大事件摧毀的，而是被無數微小忽略堆積成的冷漠所瓦解。</strong></p>
+</div>
+</div>
+
+<!-- 7.4 頻率分析 -->
+<div class="card">
+<h3>7.4 頻率分析 — 反覆出現的隱藏主題</h3>
+
+<table>
+<thead>
+<tr><th>隱藏主題</th><th>出現次數</th><th>涉及書籍</th><th>解讀</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>原生家庭的決定性影響</strong></td><td>9本</td><td>#01,02,05,06,07,08,09,11,12</td><td>幾乎所有作者都追溯到童年，這是12本書最強烈的共識</td></tr>
+<tr><td><strong>三重意識結構</strong></td><td>5本</td><td>#01,02,03,06,12</td><td>TA的PAC、荷歐波諾波諾的三重意識、迴圈的三者、三張椅子——不同體系殊途同歸</td></tr>
+<tr><td><strong>自我肯定感/自我價值</strong></td><td>7本</td><td>#01,05,06,08,09,11,12</td><td>缺乏自我價值感是幾乎所有關係問題的根源</td></tr>
+<tr><td><strong>身體感覺的重要性</strong></td><td>5本</td><td>#03,05,07,09,12</td><td>療癒不只在頭腦，更在身體——丹田、擁抱、肢體語言、情緒的身體感受</td></tr>
+<tr><td><strong>七天改變的承諾</strong></td><td>3本</td><td>#08,11,12（部分）</td><td>結構化的短期練習比長期模糊的努力更有效</td></tr>
+</tbody>
+</table>
+
+<div class="insight-box">
+<h4>一句話概括12位作者的集體世界觀：</h4>
+<p style="font-size: 1.15em; color: #4a3f6b; font-weight: 700;">「你在童年形成的保護機制，正是你成年後關係困境的根源。但只要你願意看見它、接納它、然後在一段安全的關係中練習不同的回應方式，一切都可以改變。」</p>
+</div>
+</div>
+
+<!-- 7.5 缺席分析 -->
+<div class="card">
+<h3>7.5 缺席分析 — 12本書「選擇不討論」的重要概念</h3>
+
+<div class="insight-box">
+<h4>缺席 1：權力不對等的結構性問題</h4>
+<p>12本書幾乎都假設關係雙方有對等的權力和改變意願。但現實中，許多關係困境來自結構性的權力不對等（經濟依賴、文化壓迫、家暴情境）。在這些情境下，「自我負責」和「理解對方」的建議可能反而成為壓迫的工具。</p>
+<p><strong>補充閱讀：</strong>Lundy Bancroft《Why Does He Do That?》</p>
+</div>
+
+<div class="insight-box">
+<h4>缺席 2：文化差異對關係的影響</h4>
+<p>12本書中有6本來自日本/韓國、4本來自美國、2本帶有靈性取向。但沒有任何一本深入討論文化如何塑造關係期待。亞洲的「和」文化與西方的「個人主義」會產生完全不同的關係挑戰。</p>
+</div>
+
+<div class="insight-box">
+<h4>缺席 3：科技對現代關係的衝擊</h4>
+<p>只有根本裕幸（#08）簡短提到社群媒體對高敏感者的影響。但12本書都沒有深入討論手機、社群媒體、線上約會如何根本性地改變了現代人建立和維護關係的方式。</p>
+</div>
+</div>
+
+<!-- 7.6 實踐優先序 -->
+<div class="card">
+<h3>7.6 實踐優先序 — 如果只能內化5個概念</h3>
+
+<div class="priority-item">
+  <div class="priority-num">1</div>
+  <div>
+    <strong>辨識你的依戀形式（#05 岡田尊司）</strong>
+    <p>這是所有改變的起點。不了解自己的依戀形式，所有其他努力都像在黑暗中摸索。做書末的依戀形式診斷測驗，知道自己是安全型、焦慮型、逃避型還是恐懼·逃避型。</p>
+  </div>
+</div>
+
+<div class="priority-item">
+  <div class="priority-num">2</div>
+  <div>
+    <strong>識別你的 Drama Triangle 角色（#06）</strong>
+    <p>一旦你能在衝突中即時覺察「我現在是受害者/迫害者/拯救者」，你就跳出了90%的人際痛苦循環。這是投資報酬率最高的單一概念。</p>
+  </div>
+</div>
+
+<div class="priority-item">
+  <div class="priority-num">3</div>
+  <div>
+    <strong>練習 Gottman 的「轉向」(#11)</strong>
+    <p>每天至少一次，當伴侶/朋友/家人發出連結需求時，選擇「轉向」而非「背離」。研究證實：幸福伴侶86%的時間轉向對方，不幸福伴侶只有33%。</p>
+  </div>
+</div>
+
+<div class="priority-item">
+  <div class="priority-num">4</div>
+  <div>
+    <strong>掌握「養育型父母」（NP）的說話方式（#01）</strong>
+    <p>五種自我狀態中，NP 最能建立關係又不造成傷害。練習用溫暖、包容、正向的語言回應他人，同時以理性成人（A）的態度處理衝突。</p>
+  </div>
+</div>
+
+<div class="priority-item">
+  <div class="priority-num">5</div>
+  <div>
+    <strong>每天與「內在小孩」對話5分鐘（#02, #12）</strong>
+    <p>不論你選擇荷歐波諾波諾的四句清理箴言，還是 Adult Chair 的內在小孩對話，每天花5分鐘關照自己最年幼、最脆弱的部分，是長期療癒的基石。</p>
+  </div>
+</div>
+</div>
+
+<!-- 7.7 情境決策矩陣 -->
+<div class="card">
+<h3>7.7 情境決策矩陣</h3>
+
+<table>
+<thead>
+<tr><th>你正面臨的情境</th><th>優先閱讀</th><th>核心行動</th></tr>
+</thead>
+<tbody>
+<tr><td>婚姻冷淡、想找回熱情</td><td>#11 恆溫關係 + #10 愛能長久嗎</td><td>先用 Gottman 7天計畫建立日常連結，再用 Mitchell 的洞見反思「你是否在無意識地降級浪漫」</td></tr>
+<tr><td>與伴侶溝通總是吵架</td><td>#01 說話練習 + #07 配偶使用說明書</td><td>學會用 NP 狀態說話，理解男女腦的對話差異（女性腦：先共鳴再解決；男性腦：先解決再共鳴）</td></tr>
+<tr><td>總是在關係中受傷</td><td>#09 童年情感忽視 + #05 孤獨的冷漠</td><td>做 CEN 自我評量表和依戀形式診斷，找到受傷模式的童年根源</td></tr>
+<tr><td>害怕親密、逃避承諾</td><td>#05 孤獨的冷漠 + #12 Adult Chair</td><td>理解逃避型依戀的運作機制，用三椅模型辨識觸發你逃避的是哪張椅子</td></tr>
+<tr><td>在人際關係中過度敏感</td><td>#08 七日練習 + #06 逆轉不和諧</td><td>七天建立自我本位，識別自己在 Drama Triangle 中扮演的角色</td></tr>
+<tr><td>想更深入了解一個人</td><td>#04 深刻認識一個人</td><td>用 Brooks 的提問技巧：好的問題 > 好的答案。練習「照亮者」而非「評判者」的角色</td></tr>
+<tr><td>內心空虛、不知道自己要什麼</td><td>#02 內在小孩 + #03 奇蹟迴圈</td><td>每天練習清理或迴圈，從頭腦回到身體，從思考回到感受</td></tr>
+<tr><td>親子關係困難</td><td>#09 童年情感忽視 + #07 配偶使用說明書（育兒部分）</td><td>理解12種情感忽視型父母，避免重蹈覆轍；用黑川的「先理解後教育」法</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ==================== 模組 08：行動轉化 ==================== -->
+<div class="section-header">
+  <div class="section-num">08</div>
+  <div>
+    <div class="section-label">TRANSFORMATION LAYER — ACTION PLAN</div>
+    <div class="section-title">行動轉化（三時間維度）</div>
+  </div>
+</div>
+
+<div class="card">
+<h3>本週啟動（3件事）</h3>
+<div class="action-box">
+<p><strong>1. 做兩份自我評量</strong><br>完成《童年情感忽視》的 ENQ 情感忽視測驗（22題），以及《孤獨的冷漠》書末的依戀形式診斷測驗（35題）。記下分數，寫下你的感受。</p>
+</div>
+<div class="action-box">
+<p><strong>2. 開始「轉向」練習</strong><br>每天記錄一次你「轉向」伴侶/朋友/家人的微行動（可以是一個問題、一句感謝、一個擁抱），以及一次你注意到自己差點「背離」但選擇轉向的時刻。</p>
+</div>
+<div class="action-box">
+<p><strong>3. 辨識你的 Egogram</strong><br>找出你五種自我狀態中能量最高和最低的各一種。本週特別留意你在壓力下最常啟動的是哪一種自我狀態。</p>
+</div>
+
+<h3>本月實驗（2個習慣）</h3>
+<div class="action-box">
+<p><strong>1. 每日內在小孩對話（5分鐘）</strong><br>早晨或睡前，閉眼對內在小孩說四句清理箴言，或用 Adult Chair 的方式問問年幼的自己需要什麼。持續30天記錄感受變化。</p>
+</div>
+<div class="action-box">
+<p><strong>2. 掃描正向行為</strong><br>參考 Gottman 的研究，每天至少找到伴侶/重要他人做對的3件事，並且用語言表達感謝。訓練大腦從「負面濾鏡」切換到「正向濾鏡」。</p>
+</div>
+
+<h3>長期追蹤（1個指標）</h3>
+<div class="action-box">
+<p><strong>「我能辨識並命名自己當下的情緒嗎？」</strong><br>根據12本書的交叉分析，這是所有關係能力的底層指標。每月自評一次（1-10分），追蹤你的情緒辨識能力是否在提升。當這個分數持續上升時，你的關係品質會自然改善。</p>
+</div>
+</div>
+
+<!-- ==================== 模組 09：相關影片 ==================== -->
+<div class="section-header">
+  <div class="section-num">09</div>
+  <div>
+    <div class="section-label">TRANSFORMATION LAYER — RELATED VIDEOS</div>
+    <div class="section-title">相關影片與延伸內容</div>
+  </div>
+</div>
+
+<div class="card">
+<h3>作者訪談與演講</h3>
+<table>
+<thead><tr><th>書籍</th><th>推薦影片</th><th>為什麼值得看</th></tr></thead>
+<tbody>
+<tr><td>#04 深刻認識一個人</td><td>David Brooks — TED Talk "The Social Animal" / PBS NewsHour 長期專欄</td><td>Brooks 的演講風格溫暖且充滿故事，能感受到他作為「照亮者」的實踐</td></tr>
+<tr><td>#05 孤獨的冷漠</td><td>岡田尊司 — NHK 紀錄片「依戀障礙」系列</td><td>日文內容，附日文字幕。看到真實的逃避型依戀案例比閱讀更有衝擊力</td></tr>
+<tr><td>#09 童年情感忽視</td><td>Jonice Webb — YouTube 頻道 "Dr. Jonice Webb" 系列短片</td><td>Webb 本人的解說比書更簡潔，每支影片聚焦一個 CEN 特徵，適合快速入門</td></tr>
+<tr><td>#10 愛能長久嗎</td><td>Stephen Mitchell — "Psychoanalytic Dialogues" 系列講座錄影</td><td>Mitchell 已過世（2000年），但其學術講座錄影展現了他思維的深度與魅力</td></tr>
+<tr><td>#11 恆溫關係</td><td>John Gottman — TED Talk "The Science of Love" / YouTube "The Gottman Institute" 頻道</td><td>Gottman 親自示範「愛的實驗室」的研究方法，能看到伴侶互動的真實錄影片段</td></tr>
+<tr><td>#12 Adult Chair</td><td>Michelle Chalfant — "The Adult Chair Podcast"（500+集）</td><td>Podcast 比書更深入，每集聚焦一個主題，有大量真實案例和聽眾提問</td></tr>
+</tbody>
+</table>
+
+<h3>主題相關 TED Talks</h3>
+<table>
+<thead><tr><th>演講</th><th>講者</th><th>與12本書的關聯</th></tr></thead>
+<tbody>
+<tr><td>"The Power of Vulnerability"</td><td>Brene Brown</td><td>與 Mitchell（#10）的「愛很危險」、Webb（#09）的「情感的牆」直接對話</td></tr>
+<tr><td>"How to Fix a Broken Heart"</td><td>Guy Winch</td><td>補充 Gottman（#11）未深入的「關係結束後的療癒」</td></tr>
+<tr><td>"Your Body Language May Shape Who You Are"</td><td>Amy Cuddy</td><td>呼應黑川（#07）的身體與腦的連結、迴圈（#03）的身體意識轉移</td></tr>
+<tr><td>"Rethinking Infidelity"</td><td>Esther Perel</td><td>挑戰 Gottman 的恆溫框架，補上12本書的「缺席」議題</td></tr>
+<tr><td>"The Danger of a Single Story"</td><td>Chimamanda Ngozi Adichie</td><td>呼應 Brooks（#04）的建構主義——每個人都是複雜的多重故事，不是單一標籤</td></tr>
+</tbody>
+</table>
+
+<h3>YouTube 搜尋建議</h3>
+<ul class="styled-list">
+<li>「attachment style avoidant」— 英文內容更豐富，有大量逃避型依戀的案例分析</li>
+<li>「childhood emotional neglect signs」— Webb 本人頻道 + 其他治療師的補充解說</li>
+<li>「Gottman four horsemen」— Gottman「末日四騎士」（批評、鄙視、防禦、築牆）是理解關係破壞的經典框架</li>
+<li>「drama triangle explained」— 多個治療師的視覺化解說，比書更容易理解</li>
+<li>「ho'oponopono meditation guided」— 引導式清理冥想，適合每天練習</li>
+</ul>
+</div>
+
+<!-- ==================== 模組 10：敘事弧線 ==================== -->
+<div class="section-header">
+  <div class="section-num">10</div>
+  <div>
+    <div class="section-label">TRANSFORMATION LAYER — NARRATIVE ARC</div>
+    <div class="section-title">12本書的集體敘事弧線</div>
+  </div>
+</div>
+
+<div class="card-dark card">
+<p style="text-align:center; font-size: 1.1em; color: #e8b4b8; margin-bottom: 20px;"><em>如果12本書是一部電影，它的劇本是這樣的：</em></p>
+
+<h4>起點：「我不知道為什麼，但就是覺得不對勁」</h4>
+<p>Webb 和 Chalfant 從這裡開始——感受到空虛、疏離、格格不入，但說不出原因。（空轉的開始）</p>
+
+<h4>第一次轉折：「原來是童年」</h4>
+<p>Webb 的 CEN、岡田的依戀理論、根本的原生家庭分析——讓讀者第一次看見問題的真正來源。驚訝與釋然並存。</p>
+
+<h4>最低點：「我的整個人際模式都是建立在恐懼之上」</h4>
+<p>Drama Triangle 揭示你一直在受害者/迫害者/拯救者之間打轉。Mitchell 告訴你，你甚至在無意識地「殺死」自己的愛情。岡田說，你愛上的人恰好是與你生殖適合度最高但性格最不合的人（黑川證實）。</p>
+
+<h4>轉機：「但模式是可以被打破的」</h4>
+<p>Gottman 50年的數據證明，最痛苦的伴侶收穫最多改變。荷歐波諾波諾說只要清理就好。迴圈說只要牽手就好。Adult Chair 說只要坐到正確的椅子就好。林珢珉說只要換個說法就好。</p>
+
+<h4>著陸：「愛是一種實踐，藏在每一天的小事中」</h4>
+<p>Gottman 的結論也是12本書的最終收束：愛不是什麼不得了的舉動，而是你所做的事。它是每天幾件芝麻小事的累積。只要投入正確的微小努力，就能帶來巨大的改變。</p>
+
+<p style="text-align: center; margin-top: 30px; font-size: 1.2em; color: #d4a8d0;">
+  認知黑暗 → 理解根源 → 觸底反彈 → 重建連結 → 日常中的愛
+</p>
+</div>
+
+<!-- ==================== 模組 11：個人化透鏡 ==================== -->
+<div class="section-header">
+  <div class="section-num">11</div>
+  <div>
+    <div class="section-label">TRANSFORMATION LAYER — PERSONALIZED LENS</div>
+    <div class="section-title">個人化透鏡 — 不同身份的場景轉化</div>
+  </div>
+</div>
+
+<div class="card">
+<h3>身份一：正在經營婚姻/長期關係的人</h3>
+<div class="insight-box">
+<p><strong>最優先閱讀：</strong>#11 恆溫關係 → #07 配偶使用說明書 → #10 愛能長久嗎</p>
+<p><strong>場景轉化：</strong></p>
+<ul class="styled-list">
+<li>Gottman 的「轉向」概念 → 每次伴侶說「你看那隻狗好可愛」時，放下手機回應，就是在「存款」</li>
+<li>黑川的「女性腦要共鳴」→ 下次太太抱怨工作，不要說「那你應該...」，先說「真的很辛苦耶」</li>
+<li>Mitchell 的「降級」概念 → 反思：你是否已經把伴侶當成室友而非戀人？是你主動讓愛情變無聊的</li>
+<li>Drama Triangle (#06) → 夫妻吵架時，辨識自己是在「迫害」（攻擊）還是「受害」（委屈），然後跳出三角</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<h3>身份二：單身、正在尋找關係的人</h3>
+<div class="insight-box">
+<p><strong>最優先閱讀：</strong>#05 孤獨的冷漠 → #09 童年情感忽視 → #12 Adult Chair</p>
+<p><strong>場景轉化：</strong></p>
+<ul class="styled-list">
+<li>岡田的依戀形式 → 先做依戀測驗。如果你是逃避型，你可能會被焦慮型吸引（因為他們主動追求），但這種組合最不穩定</li>
+<li>Webb 的 CEN → 如果你總是「選錯人」，可能是因為你的「選人標準」來自童年被忽視時形成的模式——你被「熟悉的感覺」而非「健康的感覺」吸引</li>
+<li>Chalfant 的三椅模型 → 約會時問自己「我現在坐在哪張椅子上？」兒童椅（尋找被愛）？青少年椅（戴著面具表演）？還是成人椅（真實呈現自己）？</li>
+<li>根本裕幸 (#08) → 如果你在約會中總是過度在意對方反應、不敢表達真實想法，你需要先建立「自我本位」</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<h3>身份三：父母 / 正在養育下一代的人</h3>
+<div class="insight-box">
+<p><strong>最優先閱讀：</strong>#09 童年情感忽視 → #05 孤獨的冷漠 → #07 配偶使用說明書（育兒部分）</p>
+<p><strong>場景轉化：</strong></p>
+<ul class="styled-list">
+<li>Webb 的12種忽視型父母 → 對照自己：你是否是「工作狂型」（物質充足但情感缺席）或「成就導向型」（只關注成績不關注感受）？</li>
+<li>岡田的依戀研究 → 一歲半前的養育品質決定孩子一生的依戀形式。增加肢體接觸和同理心回應，逃避型傾向的孩子也能轉為安全型</li>
+<li>黑川的「先理解後教育」→ 對孩子先說「我能理解你的心情」，然後再說「但那不是一個好行為」。順序不能反</li>
+<li>Chalfant 的兒童椅 → 你的孩子正在形成「路線圖」(0-6歲)。你此刻的情感回應，決定了這張地圖上寫著「世界是安全的」還是「世界是危險的」</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<h3>身份四：助人工作者（諮商師/教練/社工/老師）</h3>
+<div class="insight-box">
+<p><strong>最優先閱讀：</strong>#04 深刻認識一個人 → #06 逆轉不和諧人際關係 → #01 說話練習</p>
+<p><strong>場景轉化：</strong></p>
+<ul class="styled-list">
+<li>Brooks 的「照亮者」模型 → 你的角色不是「修理」個案，而是「照亮」他們看不見的自己。好的問題比好的答案更有力量</li>
+<li>Drama Triangle → 警覺自己是否掉入「拯救者」角色！代替個案解決問題反而削弱了他們的自主能力</li>
+<li>TA 的安撫理論 → 個案需要的不是更多建議，而是被「正面安撫」——被看見、被認可、被接納</li>
+<li>岡田的「安全堡壘」概念 → 作為助人者，你就是個案的安全堡壘。不侵犯對方的主體性，將一切交給對方的自主意願決定</li>
+</ul>
+</div>
+</div>
+
+<div class="card">
+<h3>身份五：正在處理原生家庭創傷的人</h3>
+<div class="insight-box">
+<p><strong>最優先閱讀：</strong>#09 童年情感忽視 → #12 Adult Chair → #02 內在小孩快樂，你才快樂</p>
+<p><strong>場景轉化：</strong></p>
+<ul class="styled-list">
+<li>Webb 的核心訊息 → 不是你的錯。你的父母給了他們所能給的最好的東西，但那不夠。承認這一點不是背叛，而是療癒的開始</li>
+<li>Chalfant 的觸發工作七步驟 → 每次被「觸發」（突然暴怒、莫名悲傷、過度反應）時，追溯到最早的記憶根源，找到核心信念並替換</li>
+<li>荷歐波諾波諾 → 對內在小孩說「對不起，我忽略你這麼久了。謝謝你一直撐著。我愛你。」這不是對父母說的，是對自己最脆弱的部分說的</li>
+<li>根本裕幸 (#08) → 回顧家庭關係：你的母親是過度干涉型還是冷淡型？你有經歷叛逆期嗎？這些問題的答案解釋了你現在的人際困境</li>
+</ul>
+</div>
+</div>
+
+<!-- ==================== 模組 12：延伸資源 ==================== -->
+<div class="section-header">
+  <div class="section-num">12</div>
+  <div>
+    <div class="section-label">TRANSFORMATION LAYER — EXTENDED RESOURCES</div>
+    <div class="section-title">延伸資源（五方向）</div>
+  </div>
+</div>
+
+<div class="card">
+<table>
+<thead>
+<tr><th>方向</th><th>推薦書籍</th><th>與12本書的關係</th></tr>
+</thead>
+<tbody>
+<tr><td><strong>上游</strong><br>（影響這些書的經典）</td><td>John Bowlby《依附》三部曲<br>Eric Berne《人間遊戲》<br>D.W. Winnicott《遊戲與現實》</td><td>依戀理論的源頭、TA理論的源頭、客體關係理論的源頭</td></tr>
+<tr><td><strong>平行</strong><br>（同類型佳作）</td><td>Amir Levine《依附》<br>Brene Brown《脆弱的力量》<br>Marshall Rosenberg《非暴力溝通》</td><td>比岡田更實用的依戀指南、與 Brooks 的照亮者互補、比林珢珉更系統的溝通法</td></tr>
+<tr><td><strong>延伸</strong><br>（作者其他作品）</td><td>Gottman《七個讓愛延續的方法》<br>Webb《童年情感忽視2》<br>Brooks《第二座山》</td><td>更深入的版本，適合讀完本書意猶未盡的讀者</td></tr>
+<tr><td><strong>對立</strong><br>（反對觀點）</td><td>Esther Perel《事務的真相》<br>Alain de Botton《愛的進化論》</td><td>挑戰「一夫一妻制是唯一答案」的預設，提供多元關係視角</td></tr>
+<tr><td><strong>互補</strong><br>（補上缺席的書）</td><td>Lundy Bancroft《他為什麼這樣做》<br>Gabor Mate《當身體說不》<br>Bessel van der Kolk《心靈的傷，身體會記住》</td><td>補上權力不對等、身體記憶、創傷的身體層面</td></tr>
+</tbody>
+</table>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<div class="footer">
+  <p>超級大腦讀書法 V2 — 12本關係書籍全域交叉比對報告</p>
+  <p>Generated 2026.03.26 ✦ 四層十二模組架構</p>
+  <p style="margin-top: 10px; font-size: 0.8em;">本報告將12本書從線性閱讀重組為全域交叉比對<br>發現人類線性閱讀時幾乎不可能自行建立的連結</p>
+</div>
+
+</div><!-- container -->
+</body>
+</html>
