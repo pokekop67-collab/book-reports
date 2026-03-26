@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>隱性優勢 — 超級大腦讀書法深度解構</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Noto+Serif+TC:wght@400;700;900&family=Inter:wght@300;400;500;700;900&display=swap');
+
+:root {
+  --bg: #FDFBF7;
+  --bg-warm: #F8F5EF;
+  --bg-card: #FFFFFF;
+  --bg-accent: #F3F0E8;
+  --text-primary: #1a1a2e;
+  --text-body: #3d3d56;
+  --text-secondary: #6b6b80;
+  --text-tertiary: #9b9bab;
+  --accent-indigo: #4f46e5;
+  --accent-violet: #7c3aed;
+  --accent-rose: #e11d48;
+  --accent-amber: #d97706;
+  --accent-emerald: #059669;
+  --accent-sky: #0284c7;
+  --accent-slate: #475569;
+  --border: rgba(0,0,0,0.06);
+  --border-strong: rgba(0,0,0,0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.06);
+  --shadow-lg: 0 10px 40px rgba(0,0,0,0.08);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Noto Sans TC', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text-body);
+  line-height: 2;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+/* ── Hero ── */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(160deg, #fef9ef 0%, #f5f0ff 40%, #eef7ff 70%, #fef9ef 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  width: 600px; height: 600px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(79,70,229,0.06) 0%, transparent 70%);
+  top: -100px; right: -100px;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(225,29,72,0.04) 0%, transparent 70%);
+  bottom: -80px; left: -80px;
+}
+
+.hero-content { max-width: 720px; padding: 40px; z-index: 1; }
+
+.hero .kicker {
+  font-size: 0.8em;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--accent-indigo);
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 3.8em;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 16px;
+}
+
+.hero .en-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1em;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: var(--text-tertiary);
+  margin-bottom: 24px;
+}
+
+.hero .subtitle {
+  font-size: 1.15em;
+  color: var(--text-secondary);
+  font-weight: 300;
+  line-height: 1.8;
+  max-width: 560px;
+  margin: 0 auto 24px;
+}
+
+.hero .author-line {
+  font-size: 0.9em;
+  color: var(--accent-violet);
+  font-weight: 500;
+}
+
+.hero .badge {
+  display: inline-block;
+  margin-top: 32px;
+  padding: 10px 28px;
+  border-radius: 100px;
+  border: 1.5px solid rgba(79,70,229,0.2);
+  font-size: 0.8em;
+  color: var(--accent-indigo);
+  letter-spacing: 0.12em;
+  font-weight: 500;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(10px);
+}
+
+/* ── Section ── */
+.section {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 72px 32px;
+}
+
+.section-header {
+  margin-bottom: 40px;
+}
+
+.section-label {
+  font-size: 0.7em;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--accent-indigo);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.section-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 4.5em;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 4px;
+  background: linear-gradient(135deg, var(--accent-indigo), var(--accent-violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.section h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.8em;
+  font-weight: 900;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.section h3 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.2em;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 36px 0 16px;
+  line-height: 1.5;
+}
+
+.section h4 {
+  font-size: 0.95em;
+  font-weight: 600;
+  color: var(--accent-indigo);
+  margin: 20px 0 8px;
+  letter-spacing: 0.02em;
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.3s;
+}
+
+.card:hover { box-shadow: var(--shadow-md); }
+
+.card.warm { background: var(--bg-warm); border-color: transparent; }
+.card.accent { background: linear-gradient(135deg, #faf5ff 0%, #f0f9ff 100%); border-color: rgba(79,70,229,0.1); }
+
+/* ── Divider ── */
+.divider-line {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--border-strong), transparent);
+}
+
+.divider-dot {
+  text-align: center;
+  padding: 24px 0;
+  color: var(--text-tertiary);
+  letter-spacing: 0.5em;
+  font-size: 0.7em;
+}
+
+/* ── Table ── */
+table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+
+th {
+  text-align: left;
+  padding: 10px 14px;
+  font-weight: 600;
+  font-size: 0.75em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-indigo);
+  border-bottom: 2px solid var(--border-strong);
+  background: var(--bg-warm);
+}
+
+td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.9em;
+  color: var(--text-body);
+  vertical-align: top;
+}
+
+tr:last-child td { border-bottom: none; }
+
+/* ── Tags ── */
+.tag {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.75em;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+.tag-indigo { background: #eef2ff; color: var(--accent-indigo); }
+.tag-violet { background: #f5f3ff; color: var(--accent-violet); }
+.tag-emerald { background: #ecfdf5; color: var(--accent-emerald); }
+.tag-amber { background: #fffbeb; color: var(--accent-amber); }
+.tag-rose { background: #fff1f2; color: var(--accent-rose); }
+.tag-sky { background: #f0f9ff; color: var(--accent-sky); }
+
+/* ── Insight boxes ── */
+.insight {
+  border-left: 3px solid var(--accent-indigo);
+  padding: 16px 24px;
+  margin: 16px 0;
+  background: #faf8ff;
+  border-radius: 0 12px 12px 0;
+  font-size: 0.95em;
+}
+
+.insight.rose { border-left-color: var(--accent-rose); background: #fff8f8; }
+.insight.violet { border-left-color: var(--accent-violet); background: #faf5ff; }
+.insight.emerald { border-left-color: var(--accent-emerald); background: #f0fdf9; }
+.insight.amber { border-left-color: var(--accent-amber); background: #fffcf0; }
+
+/* ── Chapter card ── */
+.ch-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  margin-bottom: 28px;
+  box-shadow: var(--shadow-sm);
+}
+
+.ch-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.2em;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 6px;
+  background: linear-gradient(135deg, var(--accent-rose), var(--accent-amber));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.ch-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 1.3em;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.ch-sub {
+  font-size: 0.85em;
+  color: var(--text-tertiary);
+  margin-bottom: 20px;
+}
+
+.dim { display: grid; gap: 14px; }
+.dim-row { display: flex; gap: 12px; align-items: flex-start; }
+.dim-icon { font-size: 1.1em; flex-shrink: 0; width: 24px; text-align: center; padding-top: 2px; }
+.dim-body { flex: 1; }
+.dim-label { font-weight: 600; font-size: 0.8em; color: var(--accent-indigo); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px; }
+
+/* ── Grid layouts ── */
+.g2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.g3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+
+@media (max-width: 768px) {
+  .g2, .g3 { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2.5em; }
+  .section { padding: 48px 20px; }
+  .section-num { font-size: 3em; }
+}
+
+/* ── Flow / Arc ── */
+.flow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 16px 0;
+}
+
+.flow-node {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.82em;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.flow-arrow { color: var(--text-tertiary); }
+
+/* ── Priority ── */
+.pri { display: flex; gap: 20px; padding: 20px 0; border-bottom: 1px solid var(--border); }
+.pri:last-child { border-bottom: none; }
+.pri-rank {
+  font-family: 'Inter', sans-serif;
+  font-size: 2em;
+  font-weight: 900;
+  color: var(--accent-amber);
+  flex-shrink: 0;
+  width: 36px;
+  line-height: 1;
+}
+
+/* ── Action cards ── */
+.act-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+}
+
+.act-card h4 { margin: 0 0 12px; }
+
+.act-card li {
+  font-size: 0.88em;
+  margin-bottom: 8px;
+  list-style: none;
+  padding-left: 18px;
+  position: relative;
+  color: var(--text-body);
+}
+
+.act-card li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--accent-emerald);
+  font-weight: 700;
+}
+
+/* ── Quote ── */
+.quote {
+  padding: 20px 28px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #faf5ff, #f0f9ff);
+  border: 1px solid rgba(124,58,237,0.1);
+  font-style: italic;
+  color: var(--text-secondary);
+  margin: 16px 0;
+  position: relative;
+}
+
+.quote::before {
+  content: '"';
+  font-family: 'Noto Serif TC', serif;
+  font-size: 3em;
+  position: absolute;
+  top: -4px; left: 16px;
+  color: rgba(124,58,237,0.15);
+  font-style: normal;
+}
+
+/* ── Footer ── */
+.footer {
+  text-align: center;
+  padding: 48px 32px;
+  color: var(--text-tertiary);
+  font-size: 0.8em;
+  letter-spacing: 0.1em;
+}
+
+/* ── Principle list ── */
+.principle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+}
+
+.principle-item {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg-warm);
+  border-radius: 10px;
+  align-items: flex-start;
+}
+
+.principle-num {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  font-size: 0.8em;
+  color: var(--accent-indigo);
+  flex-shrink: 0;
+  width: 24px;
+  padding-top: 1px;
+}
+
+.principle-text {
+  font-size: 0.88em;
+  color: var(--text-body);
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════ HERO ═══ -->
+<div class="hero">
+  <div class="hero-content">
+    <p class="kicker">超級大腦讀書法 · 四層十二模組全域交叉比對</p>
+    <h1>隱性優勢</h1>
+    <p class="en-title">EDGE — TURNING ADVERSITY INTO ADVANTAGE</p>
+    <p class="subtitle">限制可成為機會，弱點也可以成為獨特資產，<br>善用自己所有條件發光</p>
+    <p class="author-line">黃樂仁 Laura Huang 著 ｜ 朱靜女 譯</p>
+    <div class="badge">E · D · G · E — 提升價值 · 製造喜悅 · 導引定見 · 有效努力</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 01 書籍資料卡 ═══ -->
+<div class="divider-line"></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">🏗️ 結構層</div>
+    <div class="section-num">01</div>
+    <h2>書籍資料卡</h2>
+  </div>
+
+  <div class="card accent">
+    <table>
+      <tr><td style="width:110px; font-weight:600; color:var(--accent-indigo)">作者</td><td><strong>黃樂仁（Laura Huang）</strong>——哈佛商學院教授。台裔美國移民之女，母親帶著 22 美元赴美。曾任工程師、管理顧問、投資銀行家，研究領域為創投決策中的直覺與偏見。訪談超過 500 位創業者與 350 位投資人。</td></tr>
+      <tr><td style="font-weight:600; color:var(--accent-indigo)">出版</td><td>原文 Portfolio/Penguin 2020；繁中版天下雜誌 2021.01</td></tr>
+      <tr><td style="font-weight:600; color:var(--accent-indigo)">智識源頭</td><td>Gladwell《決斷2秒間》、Buffett「能力圈」、William James 自我意識理論、Festinger 認知失調理論、Benign Violation Theory（良性冒犯理論）、創業財務學</td></tr>
+      <tr><td style="font-weight:600; color:var(--accent-indigo)">一句話定位</td><td>在充滿偏見的世界裡，<strong>你不需要消除偏見——你需要學會翻轉與導引它</strong>。用 EDGE 四步法（提升 → 喜悅 → 導引 → 努力）讓你的劣勢成為獨有資產。</td></tr>
+    </table>
+  </div>
+
+  <h3>全書 13 項原則一覽</h3>
+  <div class="principle-grid">
+    <div class="principle-item"><div class="principle-num">#1</div><div class="principle-text">拚命努力自有成果。但現實未必如此。</div></div>
+    <div class="principle-item"><div class="principle-num">#2</div><div class="principle-text">重點不在全力以赴。找到你的基本特色，一切從此開始。</div></div>
+    <div class="principle-item"><div class="principle-num">#3</div><div class="principle-text">用獨特的方法發揮你的基本特色，到沒有人去的地方發展。</div></div>
+    <div class="principle-item"><div class="principle-num">#4</div><div class="principle-text">擁抱限制。限制帶來機會。</div></div>
+    <div class="principle-item"><div class="principle-num">#5</div><div class="principle-text">洞察力來自相信自己的直覺與經驗。</div></div>
+    <div class="principle-item"><div class="principle-num">#6</div><div class="principle-text">當人感到喜悅，才會讓你進門。</div></div>
+    <div class="principle-item"><div class="principle-num">#7</div><div class="principle-text">不要過度計劃。把目標放在保持彈性，找創造喜悅的機會。</div></div>
+    <div class="principle-item"><div class="principle-num">#8</div><div class="principle-text">忠於真誠。擁抱臨場即興的喜悅。</div></div>
+    <div class="principle-item"><div class="principle-num">#9</div><div class="principle-text">「做自己」，是要導引他人認識你所有光彩耀眼的樣貌。</div></div>
+    <div class="principle-item"><div class="principle-num">#10</div><div class="principle-text">了解別人如何看你。然後重新引導，他們應該如何看待你。</div></div>
+    <div class="principle-item"><div class="principle-num">#11</div><div class="principle-text">了解別人的看法與期待，導引別人認識真實的你。</div></div>
+    <div class="principle-item"><div class="principle-num">#12</div><div class="principle-text">重要的不是你從何處來，而是你將往何處去。引導別人該如何看待你的軌跡。</div></div>
+    <div class="principle-item"><div class="principle-num">#13</div><div class="principle-text">化逆境為優勢。</div></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 02 認知遞進 ═══ -->
+<div class="divider-line"></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">🏗️ 結構層</div>
+    <div class="section-num">02</div>
+    <h2>認知遞進設計——作者為什麼這樣安排章節</h2>
+  </div>
+
+  <div class="card">
+    <h4>🔹 破框階段（Ch 1）— 拆除「努力就會成功」的信念</h4>
+    <p>作者以長洲未來被排除出奧運代表隊的故事開篇，直接衝擊讀者最根深柢固的信念：努力不等於成功。龐加萊被提名 51 次諾貝爾獎卻從未獲獎、塞瑞麗娜的牛津夢碎——這些故事讓讀者認知鬆動，才願意接受新框架。<strong>設計意圖：沒有先破壞舊信念，讀者不會接受 EDGE 框架。</strong></p>
+  </div>
+
+  <div class="card">
+    <h4>🔹 Part I — 提升價值 Enrich（Ch 2-5）</h4>
+    <p>四章構成完整的「價值基礎設施」：找出基本特色（Ch2）→ 選對戰場（Ch3）→ 翻轉限制（Ch4）→ 訓練直覺（Ch5）。<strong>為什麼放在最前面？</strong>因為沒有真實價值做底盤，後面的喜悅與導引都是空談。作者從 Buc-ee's 的冰塊和廁所開始，到胡佛水壩的冷卻系統，再到品客洋芋片切法用在尿布上——從具象到抽象，每一步都在擴大讀者的「可能性空間」。</p>
+  </div>
+
+  <div class="card">
+    <h4>🔹 Part II — 製造喜悅 Delight（Ch 6-8）</h4>
+    <p>有了價值之後，問題變成「如何讓守門人開門？」。三章從理論到實踐：喜悅的本質（Ch6，良性冒犯理論）→ 即興的技術（Ch7，三要點＋原型框架）→ 情境的閱讀（Ch8，臨場微調）。<strong>設計意圖：</strong>從「我有貨」推進到「讓人願意打開門看看我的貨」。朱浩偉說服酷玩樂團的故事是本段的高潮——一封信翻轉「黃色」的含義。</p>
+  </div>
+
+  <div class="card">
+    <h4>🔹 Part III — 導引定見 Guide（Ch 9-12）</h4>
+    <p>門打開了，如何讓人正確理解你？四章最長也最深：自我認知（Ch9）→ 偏見解碼（Ch10）→ 形塑看法（Ch11）→ 軌跡構建（Ch12）。<strong>這是全書最沉重也最有力量的部分</strong>——海涅老師的金色星星、艾希莉在耶魯和貧民區之間的撕裂、碧雅翠絲從西班牙農村到路易威登。作者在此揭示：被看見的難度，往往大於有實力的難度。</p>
+  </div>
+
+  <div class="card">
+    <h4>🔹 Part IV — 有效努力 Effort（Ch 13）</h4>
+    <p>全書最短卻最關鍵的結尾。作者坦白她的「真正的第一份工作」——在弱勢學校教數學，四個月後離開。學生吉米的信、塞瑞麗娜女兒的中間名叫 Rhodes（羅德）——情感張力拉到最滿。<strong>放在最後的深意：</strong>努力不是起點而是放大器，它必須建立在前三者之上才有效。里沙伯的故事點出最終訊息：優勢的最大敵人是苦澀與怨懟。</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 03 清單速覽 ═══ -->
+<div class="divider-line"></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">🏗️ 結構層</div>
+    <div class="section-num">03</div>
+    <h2>完整清單速覽</h2>
+  </div>
+
+  <div class="card" style="overflow-x:auto;">
+    <table>
+      <thead><tr><th>#</th><th>標題</th><th>一句話精華</th><th>關鍵案例</th><th>階段</th></tr></thead>
+      <tbody>
+        <tr><td>前言</td><td>馬斯克的故事</td><td>一句「你很有錢嗎？」翻轉被趕出去的命運</td><td>馬斯克辦公室</td><td><span class="tag tag-rose">總論</span></td></tr>
+        <tr><td>01</td><td>努力未必會成功</td><td>偏見無處不在——看法決定特質，特質影響決定</td><td>長洲未來、塞瑞麗娜</td><td><span class="tag tag-rose">破框</span></td></tr>
+        <tr><td>02</td><td>掌握你的基本特色</td><td>找出能力圈核心兩三樣，少即是多</td><td>Buc-ee's、iPhone、巴菲特</td><td><span class="tag tag-indigo">提升價值</span></td></tr>
+        <tr><td>03</td><td>慧眼識破矛盾</td><td>去人少的地方發展，識破假機會</td><td>Theranos、華碩、台北湯包店</td><td><span class="tag tag-indigo">提升價值</span></td></tr>
+        <tr><td>04</td><td>從限制發掘機會</td><td>限制是創新燃料——零元反而更有創意</td><td>胡佛水壩、五美元實驗、奧迪賽車</td><td><span class="tag tag-indigo">提升價值</span></td></tr>
+        <tr><td>05</td><td>訓練你的第六感</td><td>指數思維取代線性，帶著解方找問題</td><td>CamelBak、拋棄式尿布、Zipcar</td><td><span class="tag tag-indigo">提升價值</span></td></tr>
+        <tr><td>06</td><td>意外之喜的力量</td><td>喜悅 = 驚喜＋無害——讓守門人卸下心防</td><td>酷玩樂團《黃色》、母親的珠寶店</td><td><span class="tag tag-emerald">製造喜悅</span></td></tr>
+        <tr><td>07</td><td>精心設計即興表現</td><td>三個要點＋原型框架，不過度計劃</td><td>雞隻隱形眼鏡、陶德報價、烏薩瑪</td><td><span class="tag tag-emerald">製造喜悅</span></td></tr>
+        <tr><td>08</td><td>臨場調整互動</td><td>閱讀情境線索，真誠非迎合</td><td>Spanx、凱西、彼得實習、愛瑞卡直播</td><td><span class="tag tag-emerald">製造喜悅</span></td></tr>
+        <tr><td>09</td><td>擁抱複雜多元的自我</td><td>做自己要擁抱所有面向，追方向不追絕對</td><td>海涅老師、庫奇、艾希莉·愛德華</td><td><span class="tag tag-violet">導引定見</span></td></tr>
+        <tr><td>10</td><td>偏見與刻板印象</td><td>主導連結，重新定位別人眼中的你</td><td>克莉絲·泰根、投資人的「熱情」謎</td><td><span class="tag tag-violet">導引定見</span></td></tr>
+        <tr><td>11</td><td>形塑別人的看法</td><td>找到自己的路——投資者自己也不知道要什麼</td><td>范納洽葡萄酒帝國、原始人飲食法</td><td><span class="tag tag-violet">導引定見</span></td></tr>
+        <tr><td>12</td><td>過去到未來的軌跡</td><td>你的非典型經歷是武器——構建別人理解你的方式</td><td>碧雅翠絲、舞會皇后、三種軌跡原型</td><td><span class="tag tag-violet">導引定見</span></td></tr>
+        <tr><td>13</td><td>升級版的認真努力</td><td>策略性努力：判讀燈號，決定衝刺或保留</td><td>步行捷徑、吉米的信、塞瑞麗娜</td><td><span class="tag tag-amber">有效努力</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 04 核心命題 ═══ -->
+<div class="divider-line"></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">🏗️ 結構層</div>
+    <div class="section-num">04</div>
+    <h2>核心命題</h2>
+  </div>
+
+  <div class="g3">
+    <div class="card warm">
+      <h4>❓ 問題</h4>
+      <p>在充滿偏見的世界裡——偏見不只是種族或性別，而是所有「看法→特質→決定」的鏈條——沒有典型優勢的人，如何為自己創造有利條件？</p>
+    </div>
+    <div class="card warm">
+      <h4>💡 論點</h4>
+      <p>優勢非天生——是透過 EDGE 四步法主動創造的。每一步有嚴格的先後順序：先有真實價值（E），才能讓人開門（D），門開了才能改變看法（G），看法正確後努力才有效（E）。</p>
+    </div>
+    <div class="card warm">
+      <h4>🔬 方法</h4>
+      <p>學術研究為骨（500+創業者、350+投資人、量化與質化）、平凡人故事為血肉（刻意選擇烏薩瑪而非名人）、作者自身台裔移民經歷為靈魂——書本身就是 EDGE 的活體示範。</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 05 逐章解析 ═══ -->
+<div class="divider-line"></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">🔬 深度層</div>
+    <div class="section-num">05</div>
+    <h2>逐章五維解析（精選關鍵章節）</h2>
+  </div>
+
+  <!-- Ch1 -->
+  <div class="ch-card">
+    <div class="ch-num">01</div>
+    <div class="ch-title">努力　未必會成功</div>
+    <div class="ch-sub">成功，有時會被偽裝成辛勤耕耘</div>
+    <div class="dim">
+      <div class="dim-row"><div class="dim-icon">🎯</div><div class="dim-body"><div class="dim-label">一句話核心</div>偏見無處不在、無人倖免——看法決定特質，特質影響決定。努力是必要條件，但從來不是充分條件。</div></div>
+      <div class="dim-row"><div class="dim-icon">💡</div><div class="dim-body"><div class="dim-label">3 關鍵洞見</div>① 長洲未來在全國錦標賽第三卻被踢出奧運——制度正當化讓既得利益者相信公平<br>② 15 秒就能形成對人格的強烈定見——而且幾乎不可逆<br>③ 「優勢盲點」：成功者因為一直享有特殊待遇，特殊待遇看起來就很正常</div></div>
+      <div class="dim-row"><div class="dim-icon">🔧</div><div class="dim-body"><div class="dim-label">立即可用</div>回想上次你被「快速判斷」的經驗。那個判斷是基於什麼線索？你能如何主動提供不同的線索？</div></div>
+      <div class="dim-row"><div class="dim-icon">❓</div><div class="dim-body"><div class="dim-label">自我檢核</div>你是否仍相信「只要夠努力就會成功」？這個信念是在保護你，還是在限制你？</div></div>
+      <div class="dim-row"><div class="dim-icon">🔗</div><div class="dim-body"><div class="dim-label">章間連結</div>為整本書的 EDGE 框架建立「為什麼需要」的必要性。長洲的故事在 Ch13 結尾呼應——她最終用 EDGE 式策略重返奧運。</div></div>
+    </div>
+  </div>
+
+  <!-- Ch2 -->
+  <div class="ch-card">
+    <div class="ch-num">02</div>
+    <div class="ch-title">掌握你的基本特色</div>
+    <div class="ch-sub">了解能力圈，打造專屬的舞台</div>
+    <div class="dim">
+      <div class="dim-row"><div class="dim-icon">🎯</div><div class="dim-body"><div class="dim-label">一句話核心</div>找出你的核心兩三項「基本特色」並深耕——蝙蝠俠也只有一兩項超能力。</div></div>
+      <div class="dim-row"><div class="dim-icon">💡</div><div class="dim-body"><div class="dim-label">3 關鍵洞見</div>① 創造價值 AND 讓別人相信你創造了價值——中間那個「而且」是全書核心張力<br>② Buc-ee's：從便宜冰塊和乾淨廁所起家，40% 營收來自延伸商品<br>③ 巴菲特的 B 女士：不懂股票但懂家具——能力圈的重點不是大小而是知道邊界</div></div>
+      <div class="dim-row"><div class="dim-icon">🔧</div><div class="dim-body"><div class="dim-label">立即可用</div>問自己：如果我是間加油站，我的「冰塊和廁所」是什麼？別人跟我往來時，最基本期望我提供什麼？</div></div>
+      <div class="dim-row"><div class="dim-icon">❓</div><div class="dim-body"><div class="dim-label">自我檢核</div>你是否在追求「全力以赴」，卻忽略了自己真正的核心特色？</div></div>
+      <div class="dim-row"><div class="dim-icon">🔗</div><div class="dim-body"><div class="dim-label">章間連結</div>為 Ch3「去哪個戰場」鋪墊——先知道武器才知道該去哪。Ch4「限制」則反向補充：弱點也是基本特色的一部分。</div></div>
+    </div>
+  </div>
+
+  <!-- Ch4 -->
+  <div class="ch-card">
+    <div class="ch-num">04</div>
+    <div class="ch-title">從限制發掘機會</div>
+    <div class="ch-sub">了解設定問題的技術，看見隱藏的機會</div>
+    <div class="dim">
+      <div class="dim-row"><div class="dim-icon">🎯</div><div class="dim-body"><div class="dim-label">一句話核心</div>限制是創新的燃料——企業育成中心因為「沒有限制」反而失敗了。</div></div>
+      <div class="dim-row"><div class="dim-icon">💡</div><div class="dim-body"><div class="dim-label">3 關鍵洞見</div>① 五美元實驗：不用種子資金的團隊賺最多——限制反而縮窄視野<br>② 胡佛水壩冷卻系統：面對「混凝土100年才能冷卻」的限制催生天才工法<br>③ 奧迪利曼賽車：「如果我們的車不是最快的，如何贏？」——重新設定問題比解決問題更重要</div></div>
+      <div class="dim-row"><div class="dim-icon">🔧</div><div class="dim-body"><div class="dim-label">立即可用</div>下次碰到限制時三步驟：①承認限制 ②問「如果把這當作零，什麼變成無限？」 ③問「我是否在妄下解方而非重新設定問題？」</div></div>
+      <div class="dim-row"><div class="dim-icon">❓</div><div class="dim-body"><div class="dim-label">自我檢核</div>你的限制是「別人設下的」還是「你自己加上的」？作者的四年級資優計劃故事——英語是她的母語，但校方限制她。</div></div>
+      <div class="dim-row"><div class="dim-icon">🔗</div><div class="dim-body"><div class="dim-label">章間連結</div>與 Ch5 拼湊型創新直接串聯；與 Ch9 自我意識構成對照——外在限制 vs 內在限制。流動晚宴的學生後來持續舉辦——限制激發的創意可以延續。</div></div>
+    </div>
+  </div>
+
+  <!-- Ch5 -->
+  <div class="ch-card">
+    <div class="ch-num">05</div>
+    <div class="ch-title">訓練你的第六感</div>
+    <div class="ch-sub">學習指數思維，帶著解方去找問題</div>
+    <div class="dim">
+      <div class="dim-row"><div class="dim-icon">🎯</div><div class="dim-body"><div class="dim-label">一句話核心</div>第六感不是神祕直覺——是用非線性方式連結經驗的可訓練能力。</div></div>
+      <div class="dim-row"><div class="dim-icon">💡</div><div class="dim-body"><div class="dim-label">3 關鍵洞見</div>① 拼湊型創新（Bricolage）= 馬蓋先式創新：品客切法→尿布、靜脈輸液袋→CamelBak<br>② 翻轉公式：把「被拒絕」從恐懼變成目標——設定「被拒18次」反而解放<br>③ 敘事與數字一致性：Zipcar 85%使用率——凌晨3點誰用車？數字和敘事搭不起來</div></div>
+      <div class="dim-row"><div class="dim-icon">🔧</div><div class="dim-body"><div class="dim-label">立即可用</div>3D列印思考法：把你最擅長的技能當成「解方」，列出它能解決的10個你從沒想過的問題。</div></div>
+      <div class="dim-row"><div class="dim-icon">❓</div><div class="dim-body"><div class="dim-label">自我檢核</div>你上次遇到有人說「這是個大好機會」時，有沒有做敘事與數字的一致性檢驗？</div></div>
+      <div class="dim-row"><div class="dim-icon">🔗</div><div class="dim-body"><div class="dim-label">章間連結</div>「敘事與數字」成為 Ch10-11 導引定見的分析工具。美髮師家暴培訓→指數思維→拼湊型創新→CamelBak：四個看似無關的案例實為同一認知結構。</div></div>
+    </div>
+  </div>
+
+  <!-- Ch6 -->
+  <div class="ch-card">
+    <div class="ch-num">06</div>
+    <div class="ch-title">意外之喜的力量</div>
+    <div class="ch-sub">開心才會卸下心防，打開機會之門</div>
+    <div class="dim">
+      <div class="dim-row"><div class="dim-icon">🎯</div><div class="dim-body"><div class="dim-label">一句話核心</div>喜悅 = 違和（偏離預期）+ 無害——兩者必須同時發生。</div></div>
+      <div class="dim-row"><div class="dim-icon">💡</div><div class="dim-body"><div class="dim-label">3 關鍵洞見</div>① 朱浩偉一封信翻轉《黃色》的歧視含義——「我是黃色，就要讓黃色美麗」，一小時內酷玩樂團回覆同意<br>② 作者母親逆向操作——從順從轉為「無禮的珠寶銷售員」→業績最佳→免租四年<br>③ 哈桑·敏哈吉：喜劇要有重點——高明的玩笑可以改變別人的心</div></div>
+      <div class="dim-row"><div class="dim-icon">🔧</div><div class="dim-body"><div class="dim-label">立即可用</div>每天觀察一件讓你「眼睛一亮」的事——分析它為什麼讓你開心、它的「違和」在哪裡、為什麼是「無害」的。</div></div>
+      <div class="dim-row"><div class="dim-icon">❓</div><div class="dim-body"><div class="dim-label">自我檢核</div>你上次讓別人真正驚喜是什麼時候？那個驚喜是出自真誠，還是出自計算？</div></div>
+      <div class="dim-row"><div class="dim-icon">🔗</div><div class="dim-body"><div class="dim-label">章間連結</div>前承 Part I 的「有價值」→後啟 Ch7-8 的「怎麼操作」。朱浩偉同時是 Part III「導引定見」的預告——他不只製造喜悅，更重新定義了「黃色」的含義。</div></div>
+    </div>
+  </div>
+
+  <!-- Ch12 -->
+  <div class="ch-card">
+    <div class="ch-num">12</div>
+    <div class="ch-title">過去到未來的軌跡</div>
+    <div class="ch-sub">說出自己獨特魅力的故事</div>
+    <div class="dim">
+      <div class="dim-row"><div class="dim-icon">🎯</div><div class="dim-body"><div class="dim-label">一句話核心</div>你的非典型軌跡就是最大武器——由你來構建別人理解你的方式，不要讓別人用他們的線索拼湊你。</div></div>
+      <div class="dim-row"><div class="dim-icon">💡</div><div class="dim-body"><div class="dim-label">3 關鍵洞見</div>① 三種基本軌跡：向上軌跡（穩定進步）、行進距離軌跡（走了多遠）、第二機會軌跡（從谷底翻轉）<br>② 「要當舞會皇后」——沒論文沒名校的作者被聘為華頓教授，因為她是「尚未完成的作品」<br>③ 碧雅翠絲：不會說德語→高盛→路易威登——把語言限制轉化為行進距離軌跡的魅力</div></div>
+      <div class="dim-row"><div class="dim-icon">🔧</div><div class="dim-body"><div class="dim-label">立即可用</div>畫出你的軌跡圖：起點在哪？轉折在哪？你走了多遠？用三種軌跡框架各寫一版自我介紹。</div></div>
+      <div class="dim-row"><div class="dim-icon">❓</div><div class="dim-body"><div class="dim-label">自我檢核</div>你是否在模仿別人的成功軌跡，而忽略了自己獨有的路線？你的「舞會皇后」光環在哪裡？</div></div>
+      <div class="dim-row"><div class="dim-icon">🔗</div><div class="dim-body"><div class="dim-label">章間連結</div>這是導引定見的終極工具——整合 Ch9 的多元自我和 Ch10-11 的偏見策略。碧雅翠絲的面試故事也呼應 Ch7 的精心即興和 Ch8 的情境閱讀。</div></div>
+    </div>
+  </div>
+
+  <!-- Ch13 -->
+  <div class="ch-card">
+    <div class="ch-num">13</div>
+    <div class="ch-title">升級版的認真努力</div>
+    <div class="ch-sub">投注心力成為韌性，強化優勢</div>
+    <div class="dim">
+      <div class="dim-row"><div class="dim-icon">🎯</div><div class="dim-body"><div class="dim-label">一句話核心</div>有效努力（effort）≠ 埋頭苦幹（hard work）——像判讀交通號誌一樣，知道何時衝刺何時保留。建立優勢的最佳時機，是你不再受限於苦澀與怨懟的時候。</div></div>
+      <div class="dim-row"><div class="dim-icon">💡</div><div class="dim-body"><div class="dim-label">3 關鍵洞見</div>① 步行捷徑比喻：走對角線、看燈號、判斷何時加速——努力需要策略<br>② 作者坦白她「拋棄了學生」——吉米的信是全書最動人的段落，揭示 EDGE 研究的真正起源<br>③ 里沙伯的放下：「這種怨懟讓我用有色眼光看待事物……在某個時刻我放下了，一切改變了」</div></div>
+      <div class="dim-row"><div class="dim-icon">🔧</div><div class="dim-body"><div class="dim-label">立即可用</div>盤點你目前的「努力清單」：哪些是在衝刺？哪些該保留？哪些需要完全放下？你有沒有在「紅燈」時還拼命跑？</div></div>
+      <div class="dim-row"><div class="dim-icon">❓</div><div class="dim-body"><div class="dim-label">自我檢核</div>你心中是否有苦澀與怨懟？它讓你看不見什麼機會？塞瑞麗娜的女兒中間名叫 Rhodes——你的夢想還在嗎？</div></div>
+      <div class="dim-row"><div class="dim-icon">🔗</div><div class="dim-body"><div class="dim-label">章間連結</div>回扣 Ch1 長洲未來（她用 EDGE 重返奧運）、Ch1 塞瑞麗娜（她女兒的名字留住了夢想）、Ch9 海涅老師（作者最終回歸數學）。全書首尾閉合。</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 06 四類洞見 ═══ -->
+<div class="divider-line"></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">🔬 深度層</div>
+    <div class="section-num">06</div>
+    <h2>四類整合洞見</h2>
+  </div>
+
+  <div class="card">
+    <h3>6.1 隱藏的邏輯線——書本身就是 EDGE 的實踐</h3>
+    <div class="insight">
+      作為台裔女性、非典型背景的哈佛教授，黃樂仁每一頁都在示範她自己的理論：<br><br>
+      <strong>E 提升價值</strong>：全書以嚴謹學術研究為基礎（500+創業者、350+投資人、頂尖期刊論文），但刻意不寫成學術論文——她選擇「平凡人的故事」而非名人案例。<br>
+      <strong>D 製造喜悅</strong>：馬斯克開篇、雞隻隱形眼鏡、光劍雨傘——每個章節都有出人意料的案例製造驚喜。<br>
+      <strong>G 導引定見</strong>：她的非典型學術軌跡（加州大學爾灣分校→華頓→哈佛）正是 Ch12 的活體示範。<br>
+      <strong>E 有效努力</strong>：坦白「真正的第一份工作」（高中教師）和「拋棄學生」的愧疚——用脆弱建立信任。<br><br>
+      <strong>作者從未在書中點破這一點。</strong>她讓讀者自己發現——這本身就是「製造喜悅」的實踐。
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>6.2 作者的潛台詞——對「功績主義」的深層批判</h3>
+    <div class="insight violet">
+      表面上，這是一本「教你成功」的書。但如果仔細讀 Ch1 的制度正當化理論、塞瑞麗娜的故事、推薦序中劉安婷在監獄的經歷，會發現作者的真正潛台詞是：<br><br>
+      <strong>「努力就會成功」這句話本身就是一種偏見——是既得利益者用來合理化不公平的敘事。</strong><br><br>
+      但她沒有走向憤怒或放棄。她的解方是：既然制度不會改變（至少不會很快改變），那就在不完美的制度中創造你自己的優勢。這是一種「務實的理想主義」。劉安婷在推薦序中精準總結：「它能給在限制中覺得沒有希望的人一些個體突破的盼望。」
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>6.3 批判與邊界——EDGE 在哪裡可能失效</h3>
+    <div class="insight rose">
+      <strong>① 倖存者偏差：</strong>書中案例都是最終成功者。有多少人同樣「擁抱限制」「製造喜悅」卻仍然失敗？作者在 Ch1 承認「制度不公平」，但在後續章節的案例選擇中又傾向樂觀。<br><br>
+      <strong>② 系統性壓迫的天花板：</strong>框架暗示個人可以翻轉偏見，但某些結構性不公平（制度性種族歧視、階級固化）可能超出個人的 EDGE 所能應對。塞瑞麗娜懷孕休學——不是因為她不夠 EDGE。<br><br>
+      <strong>③「製造喜悅」的權力不對等風險：</strong>在極端不對等的權力關係中（如職場霸凌），弱勢者「讓強者開心」可能淪為討好或自我貶抑。作者在 Ch8 區分了真誠與迎合，但邊界有時很模糊。<br><br>
+      <strong>④ 文化適用性：</strong>即興、幽默、真誠直言在美國商業文化中被高度重視，但在高權力距離、重視階級的文化中可能適得其反。作者雖有亞洲背景但大部分案例在美國語境中。<br><br>
+      <strong>⑤ 數位時代的盲點：</strong>2020 年出版，書中案例幾乎全是面對面互動。在遠端工作、社群媒體、AI 時代，如何在 Zoom 上「閱讀情境線索」？如何在 LinkedIn 上「構建軌跡」？
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>6.4 知識對話</h3>
+    <div class="insight emerald">
+      <strong>延伸</strong> Gladwell《決斷2秒間》：將「快速認知」從描述性概念升級為可訓練的「第六感」工具<br>
+      <strong>修正</strong> Sandberg《挺身而進》：不只要求弱勢者更勇敢，而是提供具體的導引策略<br>
+      <strong>反對</strong>「一萬小時定律」（Ericsson/Gladwell）：不是更多練習，而是更聰明的努力<br>
+      <strong>補充</strong> Duckworth《恆毅力》：光有毅力不夠，還需要策略性地選擇戰場<br>
+      <strong>同意</strong> Cialdini《影響力》的人際影響原則——但強調真誠而非操控<br>
+      <strong>深化</strong> William James 的自我理論：將 1890 年的「社會自我」概念帶入 21 世紀的職場語境
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 07 交叉比對 ═══ -->
+<div class="divider-line"></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">🕸️ 交叉比對層（核心方法）</div>
+    <div class="section-num">07</div>
+    <h2>隱藏連結網絡</h2>
+  </div>
+
+  <h3>7.1 表面矛盾組</h3>
+
+  <div class="card">
+    <h4>矛盾組 1：Ch2「聚焦基本特色」 ↔ Ch9「擁抱多元自我」</h4>
+    <p><strong>表面：</strong>Ch2 說收窄到 2-3 項核心；Ch9 說擁抱所有面向。到底是聚焦還是多元？</p>
+    <p style="color:var(--accent-indigo)"><strong>深層統一：</strong>Ch2 是「價值輸出」的聚焦（你提供什麼）；Ch9 是「自我認知」的開放（你是誰）。如鑽石多面但每次只折射一個角度的光。庫奇「為別人演一種，為自己演一種」是完美示範。</p>
+  </div>
+
+  <div class="card">
+    <h4>矛盾組 2：Ch4「限制是禮物」 ↔ Ch13「策略性選擇」</h4>
+    <p><strong>表面：</strong>Ch4 被動接受限制；Ch13 主動判讀燈號。</p>
+    <p style="color:var(--accent-indigo)"><strong>深層統一：</strong>「擁抱」≠「被動接受」。擁抱限制是把它當成工具而非障礙（主動面對），策略性努力是選擇如何使用這個工具（主動執行）。企業育成中心的失敗證明：沒有限制 = 沒有創新動力。</p>
+  </div>
+
+  <div class="card">
+    <h4>矛盾組 3：Ch8「真誠不迎合」 ↔ Ch10-11「導引別人的看法」</h4>
+    <p><strong>表面：</strong>Ch8 說不要迎合；Ch10-11 卻在教如何影響別人對你的看法——這不就是操控？</p>
+    <p style="color:var(--accent-indigo)"><strong>深層統一：</strong>「真誠悖論」——導引不是捏造虛假形象，而是選擇性地呈現真實的自己。愛瑞卡直播賣洗髮精是虛假迎合，范納洽用自己不拘一格的風格賣葡萄酒是真誠導引。差異在於：你是在偽裝成別人，還是在選擇展示哪一面的真實自己？</p>
+  </div>
+
+  <h3>7.2 隱形因果鏈</h3>
+
+  <div class="card">
+    <h4>因果鏈 1——EDGE 的嚴格先後順序（作者沒有明說但刻意設計）</h4>
+    <div class="flow">
+      <span class="flow-node" style="background:#eef2ff; color:var(--accent-indigo)">E 提升價值<br><small>你真的有東西</small></span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node" style="background:#ecfdf5; color:var(--accent-emerald)">D 製造喜悅<br><small>讓人願意開門</small></span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node" style="background:#f5f3ff; color:var(--accent-violet)">G 導引定見<br><small>讓人正確理解你</small></span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node" style="background:#fffbeb; color:var(--accent-amber)">E 有效努力<br><small>持續放大前三者</small></span>
+    </div>
+    <p><strong>跳過任何一步的後果：</strong>跳過 E（價值）→ 喜悅淪為討好，導引淪為操控。跳過 D（喜悅）→ 有價值但沒人給你機會展示。跳過 G（導引）→ 門開了但被誤解。</p>
+  </div>
+
+  <div class="card">
+    <h4>因果鏈 2——從劣勢到武器的翻轉路徑</h4>
+    <div class="flow">
+      <span class="flow-node" style="background:#fff1f2; color:var(--accent-rose)">辨識限制/偏見<br><small>Ch1, Ch4</small></span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node" style="background:#eef2ff; color:var(--accent-indigo)">找到核心特色<br><small>Ch2</small></span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node" style="background:#f5f3ff; color:var(--accent-violet)">擁抱多元自我<br><small>Ch9</small></span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node" style="background:#f0f9ff; color:var(--accent-sky)">構建獨特軌跡<br><small>Ch12</small></span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node" style="background:#ecfdf5; color:var(--accent-emerald)">翻轉偏見為資產<br><small>Ch10</small></span>
+    </div>
+    <p>全書最精彩的案例都循此路徑：斯庫達默（輟學→榮譽勳章）、朱浩偉（黃色歧視→黃色之美）、碧雅翠絲（不會說德語→行進距離軌跡→路易威登）、作者自己（非典型學者→舞會皇后→哈佛教授）。</p>
+  </div>
+
+  <h3>7.3 元原則萃取</h3>
+
+  <div class="card accent">
+    <h4>元原則 01——翻轉定律</h4>
+    <p style="font-size:0.85em; color:var(--text-tertiary)">涵蓋：Ch 1, 2, 3, 4, 5, 6, 9, 10, 12, 13 — 幾乎每一章</p>
+    <div class="insight violet">
+      <strong>每個看似劣勢的特質，都有一個對應的優勢面——關鍵在於你是否主動翻轉視角並掌控敘事。</strong><br>
+      輟學→榮譽勳章（斯庫達默）/ 不會德語→行進距離（碧雅翠絲）/ 黃色歧視→黃色之美（朱浩偉）/ 沒論文→尚未完成的作品（作者）/ 肥胖→品牌武器（泰根）/ 零美元→無限可能（五美元實驗）。<strong>這是全書最深層的統一原則——也是書名「Edge」（邊緣/優勢）雙關語的真正含義。</strong>
+    </div>
+  </div>
+
+  <div class="card accent">
+    <h4>元原則 02——主動掌控權定律</h4>
+    <p style="font-size:0.85em; color:var(--text-tertiary)">涵蓋：Ch 4, 6, 8, 9, 10, 11, 12</p>
+    <div class="insight violet">
+      <strong>不讓別人主導對你的定義——無論是你的限制、你的標籤、你的軌跡，還是你的價值。</strong><br>
+      誰先定義，誰就掌控敘事。Ch4：不要讓別人設下的限制決定你的可能性。Ch9：不讓偏見成為你的自我認知。Ch12：搶先構建軌跡。Ch10 泰根：主動展示妊娠紋。Ch11 范納洽：用非傳統風格賣葡萄酒。<strong>被動 = 被定義。主動 = 自己定義。</strong>
+    </div>
+  </div>
+
+  <div class="card accent">
+    <h4>元原則 03——真誠悖論</h4>
+    <p style="font-size:0.85em; color:var(--text-tertiary)">涵蓋：Ch 6, 7, 8, 10, 11</p>
+    <div class="insight violet">
+      <strong>最具策略性的行為，恰恰是最真誠的行為。迎合讓人防衛，真誠反而出人意料——而出人意料正是喜悅的核心。</strong><br>
+      愛瑞卡直播失敗（虛假）↔ 安東尼婭面試成功（誠實）↔ 彼得在私募的直言（真誠的膽量）↔ 作者對馬斯克的笑聲（自然反應）。研究數據支持：迎合他人興趣會增加焦慮與不真誠感，反而降低表現（Ch8 吉諾等人的研究）。
+    </div>
+  </div>
+
+  <h3>7.4 頻率分析</h3>
+  <div class="card" style="overflow-x:auto;">
+    <table>
+      <thead><tr><th>隱藏主題</th><th>出現頻率</th><th>解讀</th></tr></thead>
+      <tbody>
+        <tr><td><strong>亞裔/移民偏見經驗</strong></td><td>8+ 章</td><td>全書最強情感錨點。從母親 22 美元到四年級資優半錄取到海涅老師——作者用自身經歷證明框架的實戰性</td></tr>
+        <tr><td><strong>「別人不知道自己要什麼」</strong></td><td>6 章</td><td>投資人說要「熱情」但定義不一；面試官標準隨情境變；花式滑冰協會的選拔標準不一致——這是導引之所以可能的根本原因</td></tr>
+        <tr><td><strong>小人物 > 大企業</strong></td><td>7 章</td><td>刻意選擇 Buc-ee's、無名湯包店、垃圾清運公司、美髮師——而非 Google、Apple 的英雄故事。強化「隱性」優勢的概念</td></tr>
+        <tr><td><strong>非線性/指數/跳躍</strong></td><td>5 章</td><td>反覆對抗線性思維：品客→尿布、翻轉公式、帶著解方找問題——作者的認知風格本身就是非線性的</td></tr>
+        <tr><td><strong>女性困境</strong></td><td>6 章</td><td>長洲、作者母親、艾希莉、泰根、安東尼婭——女性案例比例高但從不說教，讓故事自己說話</td></tr>
+      </tbody>
+    </table>
+    <div class="quote" style="margin-top:16px">
+      <strong>一句話概括作者的世界觀：</strong>世界是為擅長展示自己的人設計的，但真正的價值往往藏在不起眼的地方——學會翻轉與導引，在不公平的規則中打出好牌，每個人都能發光。
+    </div>
+  </div>
+
+  <h3>7.5 缺席分析</h3>
+  <div class="card">
+    <h4>缺席 1：團隊/組織層面的 EDGE</h4>
+    <p>全書幾乎只討論「個人」如何創造優勢。領導者如何幫助團隊成員發揮各自的隱性優勢？管理者如何在組織中建立「翻轉文化」？搭配 <strong>Lencioni《團隊領導的五大障礙》</strong>或 <strong>Edmondson《無畏的組織》</strong>可補上。</p>
+  </div>
+  <div class="card">
+    <h4>缺席 2：EDGE 失敗案例的深度分析</h4>
+    <p>書中的「失敗」都是別人的（Theranos、Juicero），作者自己的挫折都最終轉化為成功。那些嘗試了 EDGE 但仍然失敗的人呢？哪些情境下 EDGE 不管用？搭配 <strong>Kahneman《快思慢想》</strong>的認知偏誤分析可補上。</p>
+  </div>
+  <div class="card">
+    <h4>缺席 3：數位與 AI 時代的 EDGE</h4>
+    <p>書中案例幾乎全是面對面互動。遠端工作如何「閱讀情境線索」？社群媒體上如何「製造喜悅」而非淪為愛瑞卡式的直播銷售？AI 可能加劇或改變偏見——EDGE 如何適應？</p>
+  </div>
+  <div class="card">
+    <h4>缺席 4：從「個人翻轉」到「制度改革」的橋梁</h4>
+    <p>作者在 Ch1 清楚說明制度不公平，但後續全力聚焦個人策略。從個人 EDGE 到集體推動制度改變之間，缺乏一座橋梁。劉安婷推薦序中的反思恰好補上了一部分。</p>
+  </div>
+
+  <h3>7.6 實踐優先序——如果只能內化 5 個概念</h3>
+  <div class="pri"><div class="pri-rank">1</div><div><strong>Ch2 — 找出你的基本特色</strong><br><span style="color:var(--text-secondary)">所有後續行動的根基。不知道自己的核心，一切都會失焦。<strong>行動：</strong>花 30 分鐘寫下被別人需要的 2-3 個核心理由。問身邊 3 個人：「你覺得我最不可替代的是什麼？」</span></div></div>
+  <div class="pri"><div class="pri-rank">2</div><div><strong>Ch4 — 翻轉你最大的限制</strong><br><span style="color:var(--text-secondary)">限制是最容易被忽略但 ROI 最高的資源。<strong>行動：</strong>寫下你最大的三個限制。每個限制旁邊寫：「這讓我看到別人看不到的_____」和「這迫使我發展了_____」。</span></div></div>
+  <div class="pri"><div class="pri-rank">3</div><div><strong>Ch12 — 構建你的軌跡</strong><br><span style="color:var(--text-secondary)">軌跡是導引他人最有力的工具——你不構建，別人會幫你構建（而且通常不利於你）。<strong>行動：</strong>用三種框架各寫一版自我介紹：向上軌跡版、行進距離版、第二機會版。找一個信任的人給你回饋。</span></div></div>
+  <div class="pri"><div class="pri-rank">4</div><div><strong>Ch7 — 精心即興的三要點法</strong><br><span style="color:var(--text-secondary)">操作性最強的技巧，明天就能用。<strong>行動：</strong>下次重要對話前只準備 3 個要點寫在便條上。不寫逐字稿。信任自己的即興能力。</span></div></div>
+  <div class="pri"><div class="pri-rank">5</div><div><strong>Ch5 — 敘事與數字的一致性檢驗</strong><br><span style="color:var(--text-secondary)">長期而言最能提升決策品質的思維工具。<strong>行動：</strong>每週用「敘事 vs 數字搭不搭」的框架分析一則新聞、一個商業提案、或你自己的人生計畫。</span></div></div>
+
+  <h3>7.7 情境決策矩陣</h3>
+  <div class="card" style="overflow-x:auto;">
+    <table>
+      <thead><tr><th>你的情境</th><th>最相關章節</th><th>行動路徑</th></tr></thead>
+      <tbody>
+        <tr><td><strong>求職 / 面試</strong></td><td>Ch 2, 7, 8, 12</td><td>確認基本特色 → 構建軌跡故事 → 準備三個要點 → 臨場閱讀面試官頻率</td></tr>
+        <tr><td><strong>被拒絕 / 遭遇失敗</strong></td><td>Ch 1, 4, 5, 13</td><td>承認世界不公平 → 把拒絕設為「數量目標」→ 翻轉公式思考 → 策略性保留精力</td></tr>
+        <tr><td><strong>遭遇偏見 / 被貼標籤</strong></td><td>Ch 6, 9, 10</td><td>不讓別人主導標籤 → 擁抱並翻轉（斯庫達默模式）→ 用喜悅打開對話空間</td></tr>
+        <tr><td><strong>創業 / 提案</strong></td><td>Ch 2, 3, 5, 7</td><td>確認基本特色 → 選不擁擠的市場 → 檢驗敘事與數字一致性 → 選對提案原型</td></tr>
+        <tr><td><strong>職場被忽視 / 升遷無望</strong></td><td>Ch 6, 8, 11, 12</td><td>製造喜悅引起注意 → 真誠表達 → 導引聚光燈 → 構建軌跡讓人看見潛力</td></tr>
+        <tr><td><strong>轉換跑道 / 重新出發</strong></td><td>Ch 3, 4, 9, 12</td><td>去不擁擠的新市場 → 擁抱新限制 → 擁抱多元自我 → 用行進距離軌跡說故事</td></tr>
+        <tr><td><strong>心中苦澀 / 失去動力</strong></td><td>Ch 1, 9, 13</td><td>承認痛苦存在 → 里沙伯的「放下」→ 重新定義努力 → 把苦澀轉化為膽識</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 08 行動轉化 ═══ -->
+<div class="divider-line"></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">🚀 轉化層</div>
+    <div class="section-num">08</div>
+    <h2>行動轉化 — 三時間維度</h2>
+  </div>
+
+  <div class="g3">
+    <div class="act-card">
+      <h4 style="color:var(--accent-emerald)">本週啟動（3 件事）</h4>
+      <ul>
+        <li>寫下你的「基本調味料」——你被需要的 2-3 個核心理由</li>
+        <li>辨識你最大的限制，完成填空：「這個限制讓我看到_____」</li>
+        <li>下次重要會議只準備 3 個要點，不寫逐字稿</li>
+      </ul>
+    </div>
+    <div class="act-card">
+      <h4 style="color:var(--accent-indigo)">本月實驗（2 個習慣）</h4>
+      <ul>
+        <li>每天觀察 1 個「讓你眼睛一亮」的事物並分析為什麼——訓練喜悅敏感度</li>
+        <li>每週用「敘事 vs 數字」框架分析 1 則新聞或提案</li>
+      </ul>
+    </div>
+    <div class="act-card">
+      <h4 style="color:var(--accent-amber)">長期追蹤（1 個指標）</h4>
+      <ul>
+        <li>追蹤「主動導引率」——每月有多少次你是主動構建別人對你的理解，而非被動接受別人的定義？目標逐月提升。</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 09 相關影片 ═══ -->
+<div class="divider-line"></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">🚀 轉化層</div>
+    <div class="section-num">09</div>
+    <h2>相關影片 — 延伸觀看指南</h2>
+  </div>
+
+  <div class="card">
+    <h4>🎤 作者訪談與演講</h4>
+    <p>• <strong>Laura Huang — Google Talks</strong>："Edge: Turning Adversity into Advantage"——最完整的作者自述，涵蓋馬斯克故事全貌與 EDGE 框架總覽<br>
+    • <strong>Laura Huang — Harvard Business Review IdeaCast</strong>——深入探討「第六感」研究如何從學術論文轉化為實用框架<br>
+    • <strong>Laura Huang — Talks at GS (Goldman Sachs)</strong>——聚焦創業者如何在投資人面前創造優勢，搭配 Ch5、Ch7 閱讀最佳<br>
+    • <strong>Laura Huang — Knowledge at Wharton Podcast</strong>——回顧她在華頓商學院的經歷，呼應 Ch12 軌跡構建</p>
+  </div>
+
+  <div class="card">
+    <h4>📺 書評與解說</h4>
+    <p>• <strong>The Art of Manliness Podcast #598</strong>："How to Gain an Edge in Everything You Do"——主持人深度訪談 Laura Huang，特別聚焦男性如何運用 EDGE（補足書中女性案例偏多的視角）<br>
+    • <strong>Next Big Idea Club — Book Bite</strong>："Edge by Laura Huang"——15 分鐘精華摘要，適合快速回顧全書核心<br>
+    • <strong>Blinkist Summary — Edge</strong>——結構化的章節精華，適合閱讀後複習</p>
+  </div>
+
+  <div class="card">
+    <h4>🎬 延伸內容（書中提及的人物）</h4>
+    <p>• <strong>Hasan Minhaj — Netflix《Homecoming King》</strong>——書中 Ch6 提到的喜劇演員，整場特輯就是「製造喜悅」的活體示範。他用幽默談種族歧視的方式，完美詮釋「良性冒犯理論」<br>
+    • <strong>Jon M. Chu（朱浩偉）— 訪談合集</strong>——搜尋 "Jon M. Chu Crazy Rich Asians Yellow Coldplay"，可找到他談論如何說服酷玩樂團的完整故事<br>
+    • <strong>Gary Vaynerchuk（范納洽）— Wine Library TV 早期影片</strong>——YouTube 搜尋 "Wine Library TV Episode 1"，可見他如何從零建立葡萄酒帝國的起點<br>
+    • <strong>Sara Blakely（Spanx 創辦人）— How I Built This Podcast</strong>——NPR 經典訪談，她如何在洗手間裡說服尼曼馬庫斯的採購</p>
+  </div>
+
+  <div class="card">
+    <h4>🎓 TED / 延伸演講</h4>
+    <p>• <strong>Brené Brown — "The Power of Vulnerability"</strong>——與 Ch9「擁抱複雜多元的自我」深度呼應。展示脆弱如何成為力量<br>
+    • <strong>Malcolm Gladwell — "The Unheard Story of David and Goliath"</strong>——隱性優勢的另一視角：弱者的優勢往往被低估<br>
+    • <strong>Amy Cuddy — "Your Body Language May Shape Who You Are"</strong>——與 Ch10-11「導引定見」互補，從肢體語言角度探討如何影響他人對你的看法<br>
+    • <strong>Chimamanda Ngozi Adichie — "The Danger of a Single Story"</strong>——與 Ch9、Ch12 呼應：單一敘事的危險，以及為什麼我們需要擁抱多元軌跡</p>
+  </div>
+
+  <div class="card warm">
+    <h4>🔍 搜尋建議</h4>
+    <p>• YouTube 搜尋：<code>"Laura Huang" Edge interview</code>、<code>"Laura Huang" gut feeling investors</code><br>
+    • Podcast 平台搜尋：<code>Laura Huang Edge</code>（Apple Podcasts / Spotify 均有多集訪談）<br>
+    • 學術論文：Google Scholar 搜尋 <code>Laura Huang entrepreneurship gut feel</code> 可找到她的原始研究</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 10 敘事弧線 ═══ -->
+<div class="divider-line"></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">🚀 轉化層</div>
+    <div class="section-num">10</div>
+    <h2>敘事弧線 — 整本書的情緒設計</h2>
+  </div>
+
+  <div class="card">
+    <div class="flow">
+      <span class="flow-node" style="background:#eef2ff; color:var(--accent-indigo)">📖 起點<br><small>努力就會成功</small></span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node" style="background:#fff1f2; color:var(--accent-rose)">💔 破壞<br><small>長洲被踢出、塞瑞麗娜的夢碎</small></span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node" style="background:#fef2f2; color:#991b1b">⬇ 最低點<br><small>Ch9 海涅老師的零顆金色星星</small></span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node" style="background:#f5f3ff; color:var(--accent-violet)">🔧 重建<br><small>EDGE 四步法逐步展開</small></span>
+      <span class="flow-arrow">→</span>
+      <span class="flow-node" style="background:#ecfdf5; color:var(--accent-emerald)">✨ 著陸<br><small>升級版努力 + 放下苦澀</small></span>
+    </div>
+    <p style="margin-top:16px;">
+      <strong>情緒設計解碼：</strong>讀者帶著「努力就能成功」的信念進入 → Ch1 用大量反例拆除此信念（龐加萊51次提名、塞瑞麗娜的老師竊笑）→ Ch9 用作者自己的海涅老師故事打到情緒最低點（14歲的她決定放棄數學）→ Ch6-12 逐步引入 EDGE 框架作為新希望 → Ch13 以「升級版努力」收尾，不是否定努力，而是升級努力的定義。<strong>最後一幕：塞瑞麗娜的女兒中間名叫 Rhodes（羅德獎學金）——夢想沒有消失，只是換了一種形式延續。</strong>
+    </p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 11 個人化透鏡 ═══ -->
+<div class="divider-line"></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">🚀 轉化層</div>
+    <div class="section-num">11</div>
+    <h2>個人化透鏡</h2>
+  </div>
+
+  <div class="g2">
+    <div class="card warm">
+      <h4>🧑‍💻 科技工作者的 EDGE</h4>
+      <p>• <strong>基本特色</strong> → 你的技術棧中最不可替代的 2 項？別追 100 種框架<br>
+      • <strong>識破假機會</strong> → 每個人都在追的 AI 熱點中，哪些是 Theranos 式的「敘事與數字不搭」？<br>
+      • <strong>製造喜悅</strong> → 技術 Demo 如何讓非技術人員眼睛一亮？（不是更多功能，是出人意料的體驗）<br>
+      • <strong>導引軌跡</strong> → 如何讓面試官看見你的非線性學習路徑，而非只看 GitHub 星星數？</p>
+    </div>
+    <div class="card warm">
+      <h4>🎓 學生 / 求職者的 EDGE</h4>
+      <p>• <strong>缺乏經驗 = 行進距離軌跡</strong>——碧雅翠絲從西班牙農村到路易威登<br>
+      • <strong>不知道要什麼 = 探索本身的價值</strong>——作者的指導教授：「你的非典型軌跡是武器」<br>
+      • <strong>面試</strong>：準備三個要點就好，別把自己變成機器人。彼得的「免費工作的人表現都很爛」<br>
+      • <strong>不是投更多履歷，而是投對地方</strong>——華碩不追高端市場，選擇被忽略的落後者市場</p>
+    </div>
+    <div class="card warm">
+      <h4>🏢 創業者的 EDGE</h4>
+      <p>• <strong>MVP = 你的冰塊和廁所</strong>——想想 Buc-ee's 如何從基本特色擴展<br>
+      • <strong>敘事與數字</strong> → Zipcar 85% 使用率搭不起來；你的商業計畫呢？<br>
+      • <strong>去不擁擠的市場</strong>——每個人都在追 AI？也許你的機會在「落後者」中<br>
+      • <strong>提案原型</strong> → 高概念式（一句話）、兩句式（電梯）、延長式（&lt;1分鐘）——Evernote vs C-Crete 的差異</p>
+    </div>
+    <div class="card warm">
+      <h4>👩‍💼 職場中的少數群體的 EDGE</h4>
+      <p>• <strong>翻轉標籤</strong>——斯庫達默：「在哪裡落地就在哪裡成長」<br>
+      • <strong>擁抱多重認同</strong>——艾希莉：背著耶魯背包去紐瓦克貧民區<br>
+      • <strong>主導敘事而非被動防守</strong>——泰根主動展示妊娠紋<br>
+      • <strong>放下苦澀</strong>——里沙伯：「怨懟讓我用有色眼光看待事物⋯⋯在某個時刻我放下了」</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ 12 延伸資源 ═══ -->
+<div class="divider-line"></div>
+<div class="section">
+  <div class="section-header">
+    <div class="section-label">🚀 轉化層</div>
+    <div class="section-num">12</div>
+    <h2>延伸資源 — 五方向</h2>
+  </div>
+
+  <div class="card" style="overflow-x:auto;">
+    <table>
+      <thead><tr><th>方向</th><th>書名 / 資源</th><th>為什麼需要</th></tr></thead>
+      <tbody>
+        <tr><td><span class="tag tag-indigo">上游</span></td><td>Gladwell《決斷2秒間》</td><td>「第六感」概念的智識源頭——理解直覺的科學基礎</td></tr>
+        <tr><td><span class="tag tag-indigo">上游</span></td><td>Kahneman《快思慢想》</td><td>認知偏誤的系統性分析——補上「偏見為何存在」的深層機制</td></tr>
+        <tr><td><span class="tag tag-emerald">平行</span></td><td>Adam Grant《反叛，改變世界的力量》</td><td>同樣探討非主流者如何創造影響力，從組織心理學切入</td></tr>
+        <tr><td><span class="tag tag-emerald">平行</span></td><td>Amy Cuddy《姿勢決定你是誰》</td><td>從肢體語言角度探討「導引他人看法」的科學</td></tr>
+        <tr><td><span class="tag tag-violet">延伸</span></td><td>Laura Huang 學術論文</td><td>書背後的實證研究——投資者第六感的量化分析、性別偏見對募資的影響</td></tr>
+        <tr><td><span class="tag tag-rose">對立</span></td><td>Taleb《黑天鵝效應》</td><td>挑戰「可以控制命運」的前提——有些成功純粹是運氣與隨機性</td></tr>
+        <tr><td><span class="tag tag-amber">互補</span></td><td>Edmondson《無畏的組織》</td><td>補上「團隊層面的 EDGE」——如何在組織中建立心理安全感讓多元聲音被聽見</td></tr>
+        <tr><td><span class="tag tag-amber">互補</span></td><td>Ibram X. Kendi《如何成為反種族主義者》</td><td>補上「從個人翻轉到制度改革」的橋梁</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>🎥 相關影片</h3>
+  <div class="card warm">
+    <p>• <strong>Laura Huang — Google Talks</strong>："Edge: Turning Adversity into Advantage"<br>
+    • <strong>Hasan Minhaj — Netflix《Homecoming King》</strong>——書中提到的喜劇演員，活生生的「製造喜悅」示範<br>
+    • <strong>Brené Brown — TED Talk</strong>："The Power of Vulnerability"（與 Ch9「擁抱多元自我」深度呼應）<br>
+    • <strong>Malcolm Gladwell — TED Talk</strong>："The Unheard Story of David and Goliath"（隱性優勢的另一視角）</p>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════ Footer ═══ -->
+<div class="divider-line"></div>
+<div class="footer">
+  <p>超級大腦讀書法 · 四層十二模組全域交叉比對分析</p>
+  <p style="margin-top:4px">深度讀兩遍後透徹產出 · Generated by Claude · 2026</p>
+</div>
+
+</body>
+</html>
