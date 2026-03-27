@@ -1,0 +1,1248 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SPSB 深度解析 — 談判後避免「自己人」扯後腿</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --ink: #0e0d0b;
+  --paper: #f5f0e8;
+  --cream: #ede7d7;
+  --warm-mid: #c8b99a;
+  --accent-red: #c03a2b;
+  --accent-amber: #d4820a;
+  --accent-teal: #1a7a6e;
+  --accent-blue: #1e4f8c;
+  --accent-purple: #5c3d8f;
+  --muted: #6b6355;
+  --border: rgba(14,13,11,0.12);
+  --border-strong: rgba(14,13,11,0.25);
+  --tag-bg: rgba(14,13,11,0.06);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: 'Noto Serif TC', serif;
+  font-size: 16px;
+  line-height: 1.85;
+  overflow-x: hidden;
+}
+
+/* HEADER */
+.masthead {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 3rem 2rem 2.5rem;
+  position: relative;
+  overflow: hidden;
+}
+.masthead::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 40px,
+    rgba(255,255,255,0.015) 40px,
+    rgba(255,255,255,0.015) 41px
+  );
+}
+.masthead-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  position: relative;
+}
+.masthead-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--warm-mid);
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.masthead-label::before {
+  content: '';
+  width: 32px;
+  height: 1px;
+  background: var(--warm-mid);
+}
+h1.title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 900;
+  line-height: 1.15;
+  color: #fff;
+  max-width: 700px;
+  margin-bottom: 1.5rem;
+}
+h1.title em {
+  color: var(--warm-mid);
+  font-style: italic;
+}
+.masthead-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  font-size: 13px;
+  color: var(--warm-mid);
+  font-family: 'JetBrains Mono', monospace;
+}
+.masthead-meta span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+/* BRAIN BADGE */
+.brain-badge {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  width: 72px;
+  height: 72px;
+  background: var(--accent-amber);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink);
+  line-height: 1.3;
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+
+/* NAV RAIL */
+.nav-rail {
+  background: var(--ink);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 0 2rem;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.nav-rail::-webkit-scrollbar { height: 0; }
+.nav-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+}
+.nav-item {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: rgba(245,240,232,0.5);
+  padding: 0.9rem 0;
+  margin-right: 1.8rem;
+  white-space: nowrap;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.nav-item:hover { color: var(--warm-mid); border-color: var(--accent-amber); }
+
+/* MAIN LAYOUT */
+.main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+/* SECTION */
+.section {
+  margin-bottom: 4rem;
+  animation: fadeUp 0.5s ease both;
+}
+.section:nth-child(2) { animation-delay: 0.05s; }
+.section:nth-child(3) { animation-delay: 0.1s; }
+.section:nth-child(4) { animation-delay: 0.15s; }
+.section:nth-child(5) { animation-delay: 0.2s; }
+.section:nth-child(6) { animation-delay: 0.25s; }
+.section:nth-child(7) { animation-delay: 0.3s; }
+.section:nth-child(8) { animation-delay: 0.35s; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--border);
+}
+.step-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  font-weight: 900;
+  color: var(--cream);
+  line-height: 1;
+  min-width: 2rem;
+}
+.step-title {
+  flex: 1;
+}
+.step-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.25rem;
+}
+.step-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--ink);
+}
+.step-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+/* HC TAGS */
+.hc {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  background: var(--tag-bg);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 6px;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.hc:hover { background: var(--cream); }
+.hc.red { background: rgba(192,58,43,0.08); border-color: rgba(192,58,43,0.25); color: var(--accent-red); }
+.hc.amber { background: rgba(212,130,10,0.08); border-color: rgba(212,130,10,0.3); color: var(--accent-amber); }
+.hc.teal { background: rgba(26,122,110,0.08); border-color: rgba(26,122,110,0.3); color: var(--accent-teal); }
+.hc.blue { background: rgba(30,79,140,0.08); border-color: rgba(30,79,140,0.3); color: var(--accent-blue); }
+.hc.purple { background: rgba(92,61,143,0.08); border-color: rgba(92,61,143,0.3); color: var(--accent-purple); }
+
+/* CHECKLIST */
+.checklist {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 8px;
+  padding: 1.5rem 1.75rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  line-height: 2;
+}
+.checklist-title {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--warm-mid);
+  margin-bottom: 0.8rem;
+}
+.check-row {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+  padding: 0.2rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  color: rgba(245,240,232,0.8);
+}
+.check-row:last-child { border-bottom: none; }
+.check-box {
+  color: var(--warm-mid);
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.check-key { color: var(--accent-amber); }
+.check-arrow { color: rgba(245,240,232,0.3); flex-shrink: 0; }
+
+/* PROSE */
+.prose p {
+  margin-bottom: 1rem;
+  color: #2a2822;
+}
+.prose strong { font-weight: 600; color: var(--ink); }
+.prose em { font-style: italic; }
+
+/* HIGHLIGHT BOX */
+.highlight-box {
+  border-left: 3px solid var(--accent-amber);
+  background: rgba(212,130,10,0.05);
+  padding: 1rem 1.25rem;
+  border-radius: 0 6px 6px 0;
+  margin: 1.25rem 0;
+}
+.highlight-box.red { border-color: var(--accent-red); background: rgba(192,58,43,0.04); }
+.highlight-box.teal { border-color: var(--accent-teal); background: rgba(26,122,110,0.04); }
+.highlight-box.blue { border-color: var(--accent-blue); background: rgba(30,79,140,0.04); }
+.highlight-box.purple { border-color: var(--accent-purple); background: rgba(92,61,143,0.04); }
+
+/* INFO ROW */
+.info-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 0.75rem 0;
+}
+
+/* CLAIMS TABLE */
+.claims-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin: 1.25rem 0;
+}
+.claims-table th {
+  background: var(--ink);
+  color: var(--warm-mid);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.6rem 0.9rem;
+  text-align: left;
+  font-weight: 500;
+}
+.claims-table td {
+  padding: 0.75rem 0.9rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.6;
+}
+.claims-table tr:last-child td { border-bottom: none; }
+.claims-table tr:nth-child(even) td { background: rgba(14,13,11,0.025); }
+.badge {
+  display: inline-block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  padding: 2px 7px;
+  border-radius: 20px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.badge-high { background: rgba(26,122,110,0.12); color: var(--accent-teal); }
+.badge-mid  { background: rgba(212,130,10,0.12); color: var(--accent-amber); }
+.badge-low  { background: rgba(192,58,43,0.12); color: var(--accent-red); }
+
+/* MATRIX */
+.matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border-strong);
+  border: 1px solid var(--border-strong);
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 1.5rem 0;
+}
+.matrix-cell {
+  background: var(--paper);
+  padding: 1.25rem;
+}
+.matrix-cell.coral { background: rgba(192,58,43,0.05); }
+.matrix-cell.blue  { background: rgba(30,79,140,0.05); }
+.matrix-cell.gray  { background: rgba(14,13,11,0.03); }
+.matrix-cell.teal  { background: rgba(26,122,110,0.05); }
+.matrix-role {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.matrix-role.coral { color: var(--accent-red); }
+.matrix-role.blue  { color: var(--accent-blue); }
+.matrix-role.gray  { color: var(--muted); }
+.matrix-role.teal  { color: var(--accent-teal); }
+.matrix-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+}
+.matrix-desc {
+  font-size: 13px;
+  color: #3a3730;
+  line-height: 1.7;
+  margin-bottom: 0.6rem;
+}
+.matrix-tip {
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--muted);
+  background: rgba(14,13,11,0.04);
+  border-radius: 4px;
+  padding: 0.5rem 0.6rem;
+  line-height: 1.5;
+}
+.matrix-axis {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  margin: 0.25rem 0 0.75rem;
+  padding: 0 0.5rem;
+}
+
+/* PAYOFF TABLE */
+.payoff-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 1.25rem 0;
+}
+.payoff-table th {
+  background: #1a1814;
+  color: var(--warm-mid);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 0.55rem 0.85rem;
+  text-align: left;
+  font-weight: 500;
+}
+.payoff-table td {
+  padding: 0.7rem 0.85rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.6;
+}
+.payoff-table tr:last-child td { border-bottom: none; }
+.rating-high { font-weight: 600; color: var(--accent-teal); }
+.rating-mid  { font-weight: 600; color: var(--accent-amber); }
+.rating-low  { font-weight: 600; color: var(--accent-red); }
+
+/* TENSION BOX */
+.tension {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.tension-side {
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 1.1rem 1.25rem;
+}
+.tension-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.4rem;
+}
+.tension-content {
+  font-size: 14px;
+  line-height: 1.65;
+}
+.tension-vs {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--warm-mid);
+  text-align: center;
+  background: var(--ink);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-style: italic;
+}
+
+/* ETHICS GRID */
+.ethics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.ethics-card {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.1rem;
+}
+.ethics-icon { font-size: 1.5rem; margin-bottom: 0.5rem; }
+.ethics-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+.ethics-verdict {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #3a3730;
+}
+
+/* SCORE CARD */
+.score-card {
+  background: var(--ink);
+  color: var(--paper);
+  border-radius: 10px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+}
+.score-header {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+  color: #fff;
+}
+.score-sub {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: var(--warm-mid);
+  margin-bottom: 1.5rem;
+}
+.score-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+.score-col h4 {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent-amber);
+  margin-bottom: 0.75rem;
+}
+.score-item {
+  display: flex;
+  gap: 0.5rem;
+  font-size: 13px;
+  margin-bottom: 0.6rem;
+  align-items: flex-start;
+  line-height: 1.6;
+  color: rgba(245,240,232,0.85);
+}
+.score-item::before {
+  content: '▸';
+  color: var(--warm-mid);
+  flex-shrink: 0;
+  margin-top: 0.05rem;
+}
+
+/* ACTION BOX */
+.action-box {
+  background: var(--accent-amber);
+  color: var(--ink);
+  border-radius: 10px;
+  padding: 1.75rem 2rem;
+  margin: 2rem 0;
+}
+.action-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+.action-text {
+  font-size: 14px;
+  line-height: 1.8;
+}
+.action-text strong { font-weight: 600; }
+
+/* HC CLOUD */
+.hc-cloud {
+  background: var(--cream);
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin: 1.5rem 0;
+}
+.hc-cloud-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+.hc-cloud-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+/* DIVIDER */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 3rem 0;
+}
+
+/* LOGIC FLAWS */
+.flaw-list {
+  list-style: none;
+  margin: 1rem 0;
+}
+.flaw-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem 1rem;
+  margin-bottom: 1.25rem;
+  align-items: start;
+}
+.flaw-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  background: var(--accent-red);
+  color: #fff;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+.flaw-body strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.flaw-body p { font-size: 13.5px; color: #3a3730; line-height: 1.7; }
+
+/* FOOTER */
+footer {
+  background: var(--ink);
+  color: var(--warm-mid);
+  text-align: center;
+  padding: 2rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+}
+
+/* RESPONSIVE */
+@media (max-width: 640px) {
+  .matrix { grid-template-columns: 1fr; }
+  .ethics-grid { grid-template-columns: 1fr; }
+  .tension { grid-template-columns: 1fr; }
+  .tension-vs { width: 100%; height: 32px; border-radius: 4px; }
+  .score-grid { grid-template-columns: 1fr; }
+  .brain-badge { display: none; }
+  h1.title { font-size: 1.75rem; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="masthead-inner">
+    <div class="masthead-label">Super Problem Solving Brain · Minerva HC System</div>
+    <h1 class="title">談判後，如何避免<br><em>「自己人」</em>扯後腿</h1>
+    <div class="masthead-meta">
+      <span>⊕ Alex／一談就贏</span>
+      <span>◉ 模式 A — 完整分析</span>
+      <span>◑ 95 HC 動態調用</span>
+      <span>◐ 2026.03.27</span>
+    </div>
+    <div class="brain-badge">SPSB<br>Mode A</div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav-rail">
+  <div class="nav-inner">
+    <a class="nav-item" href="#s0">Step 0 元認知</a>
+    <a class="nav-item" href="#s1">Step 1 問題診斷</a>
+    <a class="nav-item" href="#s2">Step 2 資訊審計</a>
+    <a class="nav-item" href="#s3">Step 3 推論品質</a>
+    <a class="nav-item" href="#s4">Step 4 系統思考</a>
+    <a class="nav-item" href="#s5">Step 5 框架評估</a>
+    <a class="nav-item" href="#s6">Step 6 溝通分析</a>
+    <a class="nav-item" href="#s7">Step 7 倫理審查</a>
+    <a class="nav-item" href="#verdict">綜合評分</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- ───────── STEP 0 ───────── -->
+<section class="section" id="s0">
+  <div class="section-header">
+    <div class="step-num">0</div>
+    <div class="step-title">
+      <span class="step-label">開始之前</span>
+      <div class="step-name">元認知防護罩啟動</div>
+    </div>
+    <div class="step-icon">🛡</div>
+  </div>
+
+  <div class="checklist">
+    <div class="checklist-title">啟動偏誤防護 · Bias Shield Active</div>
+    <div class="check-row"><span class="check-box">□</span><span><span class="check-key">#confirmation_bias</span> <span class="check-arrow">→</span> Alex 的政治立場（親執政黨）是否影響了案例選取？需刻意尋找反面論據</span></div>
+    <div class="check-row"><span class="check-box">□</span><span><span class="check-key">#source_quality</span> <span class="check-arrow">→</span> 文章幾乎全靠第一人稱自我佐證，需要警覺 n=1 問題</span></div>
+    <div class="check-row"><span class="check-box">□</span><span><span class="check-key">#attention_bias</span> <span class="check-arrow">→</span> 5+4+3 整齊結構，可能遮蔽更複雜的真實情況</span></div>
+    <div class="check-row"><span class="check-box">□</span><span><span class="check-key">#interpretive_bias</span> <span class="check-arrow">→</span> 個人職場背景是否讓某些建議看起來格外合理或荒謬？</span></div>
+    <div class="check-row"><span class="check-box">□</span><span><span class="check-key">#meta_knowledge</span> <span class="check-arrow">→</span> 我對「組織內部政治」的實際深度，能讓我評估到什麼程度？</span></div>
+  </div>
+</section>
+
+<!-- ───────── STEP 1 ───────── -->
+<section class="section" id="s1">
+  <div class="section-header">
+    <div class="step-num">1</div>
+    <div class="step-title">
+      <span class="step-label">問題診斷</span>
+      <div class="step-name">我到底在解決什麼？</div>
+    </div>
+    <div class="step-icon">🎯</div>
+  </div>
+
+  <div class="info-row">
+    <span class="hc blue">#right_problem</span>
+    <span class="hc blue">#gap_analysis</span>
+    <span class="hc blue">#levels_of_analysis</span>
+    <span class="hc blue">#variables</span>
+    <span class="hc blue">#purpose</span>
+  </div>
+
+  <div class="highlight-box blue">
+    <div class="prose">
+      <p><strong>真正的問題（#right_problem）</strong>：談判領域有一個嚴重的「最後一哩路」盲點。多數談判者把 100% 精力放在「對外談判」，卻忽略「對內維護」——在外面拿下的果實，被內部人吃掉。</p>
+      <p>這個問題比「談判技巧」更基本，也更少被討論。</p>
+    </div>
+  </div>
+
+  <table class="claims-table">
+    <thead>
+      <tr><th>分析維度</th><th>內容</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>目標狀態</strong></td>
+        <td>談判成果從「簽約」完整走到「落地執行」，中間不被內部力量蠶食</td>
+      </tr>
+      <tr>
+        <td><strong>現狀描述</strong></td>
+        <td>大多數人以為「老闆點頭」就是談判完成；但組織是個複雜生態，<em>同意 ≠ 配合</em></td>
+      </tr>
+      <tr>
+        <td><strong>關鍵差距</strong></td>
+        <td>談判者的「完成感」(contract signed) 與組織的「落地感」(implementation achieved) 之間，存在一個被嚴重低估的政治空間</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="prose">
+    <p><strong>#levels_of_analysis 多層次掃描：</strong></p>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;margin:0.75rem 0">
+    <div style="background:var(--cream);border-radius:6px;padding:0.9rem">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.4rem">個人層次</div>
+      <div style="font-size:13px;line-height:1.65">談判者的心態管理（心態 1-3）</div>
+    </div>
+    <div style="background:var(--cream);border-radius:6px;padding:0.9rem">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.4rem">人際層次</div>
+      <div style="font-size:13px;line-height:1.65">與不同類型同事的關係管理（做法 2）</div>
+    </div>
+    <div style="background:var(--cream);border-radius:6px;padding:0.9rem">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.4rem">組織層次</div>
+      <div style="font-size:13px;line-height:1.65">利害關係人矩陣與角色佈局（做法 1、3）</div>
+    </div>
+    <div style="background:var(--cream);border-radius:6px;padding:0.9rem">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.4rem">系統層次</div>
+      <div style="font-size:13px;line-height:1.65">內外談判作為槓桿的相互作用（做法 4）</div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── STEP 2 ───────── -->
+<section class="section" id="s2">
+  <div class="section-header">
+    <div class="step-num">2</div>
+    <div class="step-title">
+      <span class="step-label">資訊審計</span>
+      <div class="step-name">我知道什麼？不知道什麼？</div>
+    </div>
+    <div class="step-icon">📋</div>
+  </div>
+
+  <div class="info-row">
+    <span class="hc amber">#assertions</span>
+    <span class="hc amber">#source_quality</span>
+    <span class="hc amber">#information_needed</span>
+    <span class="hc amber">#sampling</span>
+    <span class="hc amber">#epistemology</span>
+  </div>
+
+  <table class="claims-table">
+    <thead>
+      <tr><th>主張類型</th><th>代表例子</th><th>確信度</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>事實性主張</strong></td>
+        <td>「談判後可能遭到內部阻撓」</td>
+        <td><span class="badge badge-high">高</span> 廣泛共鳴，符合職場常識</td>
+      </tr>
+      <tr>
+        <td><strong>推論性主張</strong></td>
+        <td>「創造反差比只做好人更有效」</td>
+        <td><span class="badge badge-mid">中</span> 個人經驗，需更多佐證</td>
+      </tr>
+      <tr>
+        <td><strong>價值性主張</strong></td>
+        <td>「你一定比阻撓你的人更會談判」</td>
+        <td><span class="badge badge-low">低</span> 鼓勵性論斷，非可驗證事實</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="highlight-box red">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-red);margin-bottom:0.6rem">#source_quality — 最大弱點</div>
+    <div class="prose">
+      <p>文章幾乎 100% 依靠 Alex 的個人軼事（n=1 到 n=少數），缺乏：</p>
+      <ul style="list-style:none;margin-top:0.5rem">
+        <li style="padding:0.2rem 0;font-size:14px">▹ 行為科學或組織心理學的學術支撐</li>
+        <li style="padding:0.2rem 0;font-size:14px">▹ 系統性的反面案例（策略「失敗」時是什麼情況？）</li>
+        <li style="padding:0.2rem 0;font-size:14px">▹ 對不同產業、文化背景的適用性說明</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="prose"><p><strong>#information_needed 關鍵資訊缺口：</strong></p></div>
+  <div style="display:flex;flex-direction:column;gap:0.5rem;margin:0.75rem 0">
+    <div style="display:flex;gap:0.75rem;align-items:flex-start;font-size:13.5px;line-height:1.65">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent-amber);background:rgba(212,130,10,0.1);padding:2px 7px;border-radius:3px;flex-shrink:0;margin-top:0.15rem">缺口 01</span>
+      <span>「創造負面形象以嚇阻對手」——有多少情況下反而造成更大傷害？</span>
+    </div>
+    <div style="display:flex;gap:0.75rem;align-items:flex-start;font-size:13.5px;line-height:1.65">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent-amber);background:rgba(212,130,10,0.1);padding:2px 7px;border-radius:3px;flex-shrink:0;margin-top:0.15rem">缺口 02</span>
+      <span>「讓自己沒有退路」——在高風險決策中是否有不適用的情境？</span>
+    </div>
+    <div style="display:flex;gap:0.75rem;align-items:flex-start;font-size:13.5px;line-height:1.65">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent-amber);background:rgba(212,130,10,0.1);padding:2px 7px;border-radius:3px;flex-shrink:0;margin-top:0.15rem">缺口 03</span>
+      <span>4種客戶類型的具體操作手冊在哪裡？文章只提到概念，未給落地步驟</span>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── STEP 3 ───────── -->
+<section class="section" id="s3">
+  <div class="section-header">
+    <div class="step-num">3</div>
+    <div class="step-title">
+      <span class="step-label">推論品質</span>
+      <div class="step-name">這個推理站得住腳嗎？</div>
+    </div>
+    <div class="step-icon">⚖️</div>
+  </div>
+
+  <div class="info-row">
+    <span class="hc red">#logical_fallacies</span>
+    <span class="hc red">#induction</span>
+    <span class="hc red">#plausibility</span>
+    <span class="hc red">#confirmation_bias</span>
+    <span class="hc red">#effect_size</span>
+  </div>
+
+  <div class="highlight-box teal">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-teal);margin-bottom:0.6rem">✅ 邏輯結構強項</div>
+    <div class="prose">
+      <p>「內部關係管理是談判的一部份」——這個論點在哈佛談判學派中有深厚基礎，Alex 的方向正確。</p>
+      <p>4種角色分類（主導者／阻擋者／旁觀者／擁護者）有清晰的內部一致性，與管理學 Power-Interest Grid 高度吻合。</p>
+    </div>
+  </div>
+
+  <div class="highlight-box red">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-red);margin-bottom:0.75rem">⚠️ 邏輯漏洞與謬誤</div>
+    <ul class="flaw-list">
+      <li class="flaw-item">
+        <div class="flaw-num">1</div>
+        <div class="flaw-body">
+          <strong>過度歸納（Hasty Generalization）</strong>
+          <p>「我用過這招、成效很好」→「你也應該這樣做」。Alex 承認刻意經營負面形象且最終交到朋友，但這個結果到底是因為「本質夠好」還是「策略奏效」？兩者難以分離，不能直接推導結論。</p>
+        </div>
+      </li>
+      <li class="flaw-item">
+        <div class="flaw-num">2</div>
+        <div class="flaw-body">
+          <strong>強化稻草人（Straw Man 反向操作）</strong>
+          <p>文章說「問 AI 或理論派只會給你『以誠待人』的廢話」——這是在打倒一個過度簡化的靶，以便凸顯自己的「實戰派」定位，而非真正反駁理論派的最強論點。</p>
+        </div>
+      </li>
+      <li class="flaw-item">
+        <div class="flaw-num">3</div>
+        <div class="flaw-body">
+          <strong>#confirmation_bias — 政治案例選取偏誤</strong>
+          <p>用藍白立委舉例，隱含了一個前提：執政黨的談判成果對台灣是好的。若讀者對這個前提存疑，整個類比就會動搖。</p>
+        </div>
+      </li>
+      <li class="flaw-item">
+        <div class="flaw-num">4</div>
+        <div class="flaw-body">
+          <strong>#effect_size — 「你一定比阻撓者更會談判」</strong>
+          <p>第 5 點是鼓勵性宣言，不是論證。現實中阻撓者可能是資深高層，在組織內的談判籌碼遠高於主談者。這個主張的適用條件被過度簡化。</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;margin:1rem 0">
+    <div style="background:rgba(26,122,110,0.06);border:1px solid rgba(26,122,110,0.2);border-radius:6px;padding:0.85rem;text-align:center">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent-teal);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.35rem">#plausibility</div>
+      <div style="font-size:1.2rem;margin-bottom:0.3rem">✅</div>
+      <div style="font-size:12px;color:#3a3730;line-height:1.5">內部阻撓是談判落地<br>主要風險——通過</div>
+    </div>
+    <div style="background:rgba(26,122,110,0.06);border:1px solid rgba(26,122,110,0.2);border-radius:6px;padding:0.85rem;text-align:center">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent-teal);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.35rem">#estimation</div>
+      <div style="font-size:1.2rem;margin-bottom:0.3rem">✅</div>
+      <div style="font-size:12px;color:#3a3730;line-height:1.5">量化主張數量級合理<br>雖未引述出處</div>
+    </div>
+    <div style="background:rgba(212,130,10,0.06);border:1px solid rgba(212,130,10,0.25);border-radius:6px;padding:0.85rem;text-align:center">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--accent-amber);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.35rem">#testability</div>
+      <div style="font-size:1.2rem;margin-bottom:0.3rem">⚠️</div>
+      <div style="font-size:12px;color:#3a3730;line-height:1.5">「創造反差」策略<br>目前難以量化驗證</div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── STEP 4 ───────── -->
+<section class="section" id="s4">
+  <div class="section-header">
+    <div class="step-num">4</div>
+    <div class="step-title">
+      <span class="step-label">系統思考</span>
+      <div class="step-name">全局是什麼樣子？</div>
+    </div>
+    <div class="step-icon">🌐</div>
+  </div>
+
+  <div class="info-row">
+    <span class="hc purple">#systems_dynamics</span>
+    <span class="hc purple">#emergent_properties</span>
+    <span class="hc purple">#networks</span>
+    <span class="hc purple">#game_theory</span>
+    <span class="hc purple">#multiple_causes</span>
+  </div>
+
+  <!-- MATRIX -->
+  <div class="matrix-axis">
+    <span>← 利益方向受損</span>
+    <span>利益方向受益 →</span>
+  </div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-align:center;margin-bottom:0.3rem">↑ 承受壓力較大</div>
+
+  <div class="matrix">
+    <div class="matrix-cell coral">
+      <div class="matrix-role coral">阻擋者</div>
+      <div class="matrix-sub">利益受損 · 壓力大</div>
+      <div class="matrix-desc">談判成果對其造成傷害的關係人，即使無惡意也可能主動阻礙執行。台灣現況：立院反對陣營是典型範例。</div>
+      <div class="matrix-tip">▸ 提前佈局，軟硬皆施<br>▸ 讓阻擋代價超過其動機</div>
+    </div>
+    <div class="matrix-cell blue">
+      <div class="matrix-role blue">主導者</div>
+      <div class="matrix-sub">利益一致 · 壓力最大</div>
+      <div class="matrix-desc">公司掌權者與最終決策者。利益最高，但也承受最大外部風險；主談手若凡事聽命行事，反而容易成為棄車保帥的棋子。</div>
+      <div class="matrix-tip">▸ 方向對齊，保持執行自主<br>▸ 避免淪為替罪羔羊</div>
+    </div>
+    <div class="matrix-cell gray">
+      <div class="matrix-role gray">旁觀者</div>
+      <div class="matrix-sub">利益中性 · 壓力小</div>
+      <div class="matrix-desc">三種次分類：自由派（真的不在乎）、騎牆派（趨炎附勢，最危險）、毒舌派（加油添醋，可被反利用）。</div>
+      <div class="matrix-tip">▸ 防騎牆派倒向阻擋者陣營<br>▸ 毒舌派可轉作放話管道</div>
+    </div>
+    <div class="matrix-cell teal">
+      <div class="matrix-role teal">擁護者</div>
+      <div class="matrix-sub">利益一致 · 壓力小</div>
+      <div class="matrix-desc">方向與主談者一致，但未感受到立即強制壓力。核心任務：確保他們不往旁觀者方向滑落，成為最後的安全墊。</div>
+      <div class="matrix-tip">▸ 強化認同，定期維繫<br>▸ 防止滑入橘色象限</div>
+    </div>
+  </div>
+  <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-align:center;margin-top:0.3rem">↓ 承受壓力較小</div>
+
+  <div class="highlight-box" style="margin-top:1.5rem">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-amber);margin-bottom:0.6rem">#systems_dynamics — 關鍵反饋迴路</div>
+    <div class="prose">
+      <p><strong>正反饋（良性循環）：</strong>談判成果愈好 → 主導者愈支持 → 阻擋者成本愈高 → 騎牆派倒向擁護者 → 落地愈順利 → 談判者聲望上升</p>
+      <p><strong>負反饋（惡性循環）：</strong>談判受阻 → 主導者信心動搖 → 擁護者滑向旁觀者 → 阻擋者氣焰大漲 → 主談者被棄車保帥</p>
+    </div>
+  </div>
+
+  <div class="highlight-box purple">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-purple);margin-bottom:0.6rem">#game_theory — 內外槓桿的囚徒困境</div>
+    <div class="prose">
+      <p>主談者若刻意「放水」給外部對手（以期之後用「重啟談判」撈更多），就形成了對公司的單向囚徒困境——短期個人利益 vs. 長期公司利益。Alex 坦言這種人確實存在，但未提供完整的制度性解方。</p>
+      <p><strong>#networks 洞察：</strong>旁觀者中的「騎牆派」是整個系統中最不穩定的節點。當他們超過臨界比例，會觸發「沈默螺旋」效應——讓阻擋者的聲音顯得比實際更強大。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── STEP 5 ───────── -->
+<section class="section" id="s5">
+  <div class="section-header">
+    <div class="step-num">5</div>
+    <div class="step-title">
+      <span class="step-label">框架評估</span>
+      <div class="step-name">5項做法的報酬矩陣</div>
+    </div>
+    <div class="step-icon">📊</div>
+  </div>
+
+  <div class="info-row">
+    <span class="hc amber">#payoffs</span>
+    <span class="hc amber">#utility</span>
+    <span class="hc amber">#first_principles</span>
+    <span class="hc amber">#best_alternatives</span>
+    <span class="hc amber">#optimization</span>
+  </div>
+
+  <table class="payoff-table">
+    <thead>
+      <tr><th>做法</th><th>期望效益</th><th>主要風險</th><th>適用條件</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>① 提前佈局</strong></td>
+        <td><span class="rating-high">極高</span><br>預防成本遠低於善後成本</td>
+        <td>若過早曝光手牌，反向暴露底線</td>
+        <td>幾乎所有情境，普適性最高</td>
+      </tr>
+      <tr>
+        <td><strong>② 關係管理（4類型）</strong></td>
+        <td><span class="rating-high">高</span><br>系統化而非隨機應對</td>
+        <td>算計型客戶察覺被「投其所好」可能反彈</td>
+        <td>長期合作關係，短期交易效果有限</td>
+      </tr>
+      <tr>
+        <td><strong>③ 利害關係人矩陣</strong></td>
+        <td><span class="rating-high">高</span><br>讓行動優先序更精準</td>
+        <td>分類本身有誤判風險，需動態更新</td>
+        <td>中大型組織，小型公司矩陣意義有限</td>
+      </tr>
+      <tr>
+        <td><strong>④ 運用槓桿</strong></td>
+        <td><span class="rating-mid">中</span><br>適當時機效果顯著</td>
+        <td><span style="color:var(--accent-red)">高</span>：對強勢對手（川普式）使用，反效果大</td>
+        <td>需評估對方的反制能力，切忌錯判</td>
+      </tr>
+      <tr>
+        <td><strong>⑤ 你比對手更會談判</strong></td>
+        <td><span class="rating-low">低-中</span><br>作為心態調整有用</td>
+        <td>自信過度可能導致輕敵，高層阻撓者籌碼可能更強</td>
+        <td>主談者確實具備相對優勢時</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="prose"><p style="font-weight:600">#first_principles — 最值得深究的張力：心態 3「讓自己沒有退路」</p></div>
+
+  <div class="tension">
+    <div class="tension-side">
+      <div class="tension-label">哈佛談判學派</div>
+      <div class="tension-content">永遠要有最佳替代方案（BATNA）。BATNA 愈強，談判力愈強。有退路才有底氣。</div>
+    </div>
+    <div class="tension-vs">vs</div>
+    <div class="tension-side">
+      <div class="tension-label">Alex 派</div>
+      <div class="tension-content">沒有退路讓你更拼命、更有韌性，不成功便成仁，戰意無雙才是勝出關鍵。</div>
+    </div>
+  </div>
+
+  <div class="highlight-box teal">
+    <div class="prose">
+      <p><strong>SPSB 解析：兩者並不必然矛盾。</strong>對外談判用 BATNA 增強籌碼；對內執行用「沒退路」激發鬥志。前者是理性策略，後者是心理戰術，互補而非互斥——但 Alex 沒有把這個區分說清楚，容易讓讀者誤用。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── STEP 6 ───────── -->
+<section class="section" id="s6">
+  <div class="section-header">
+    <div class="step-num">6</div>
+    <div class="step-title">
+      <span class="step-label">溝通分析</span>
+      <div class="step-name">文章本身如何說服你？</div>
+    </div>
+    <div class="step-icon">🎭</div>
+  </div>
+
+  <div class="info-row">
+    <span class="hc blue">#audience</span>
+    <span class="hc blue">#cognitive_persuasion</span>
+    <span class="hc blue">#emotional_persuasion</span>
+    <span class="hc blue">#nudge</span>
+    <span class="hc blue">#composition</span>
+  </div>
+
+  <div class="prose"><p>這篇文章本身就是一個絕佳的「說服結構」教材。</p></div>
+
+  <div style="display:flex;flex-direction:column;gap:0.75rem;margin:1.25rem 0">
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start">
+      <div style="background:var(--accent-red);color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 8px;border-radius:3px;white-space:nowrap;margin-top:0.1rem">Pathos</div>
+      <div style="font-size:14px;line-height:1.7">開篇用台美關稅談判＋軍購的政治時事「釣魚」，讓讀者先有情緒共鳴，再轉回職場情境——「先廣角、再縮焦」的標準 hook 技法</div>
+    </div>
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start">
+      <div style="background:var(--accent-blue);color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 8px;border-radius:3px;white-space:nowrap;margin-top:0.1rem">Logos</div>
+      <div style="font-size:14px;line-height:1.7">4種角色矩陣提供了邏輯框架，給讀者一種「系統性」的信任感，讓個人經驗看起來更接近普遍法則</div>
+    </div>
+    <div style="display:grid;grid-template-columns:auto 1fr;gap:1rem;align-items:start">
+      <div style="background:var(--accent-teal);color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;padding:3px 8px;border-radius:3px;white-space:nowrap;margin-top:0.1rem">Ethos</div>
+      <div style="font-size:14px;line-height:1.7">「我去哈佛讀 MBA」＋「我自己就是這樣做的」——高度個人品牌化的 ethos，依賴讀者對 Alex 過往的信任積累</div>
+    </div>
+  </div>
+
+  <div class="highlight-box red">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-red);margin-bottom:0.6rem">⚠️ 識破隱性議題：#nudge 精心設計</div>
+    <div class="prose">
+      <p>文章故意「拖」、故意不給完整答案（「篇幅有限，我只提其中兩點」）——這不只是篇幅問題，而是刻意製造<strong>預設稀缺感（Scarcity）</strong>，引導讀者對課程產生需求。</p>
+      <p>本文表面是談判實務文章，實際上也是一篇精心設計的<strong>課程招生文案</strong>。帶著這個認知去讀，才能分辨「實質洞見」與「行銷包裝」之間的界線。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── STEP 7 ───────── -->
+<section class="section" id="s7">
+  <div class="section-header">
+    <div class="step-num">7</div>
+    <div class="step-title">
+      <span class="step-label">倫理審查</span>
+      <div class="step-name">這樣做對嗎？</div>
+    </div>
+    <div class="step-icon">🧭</div>
+  </div>
+
+  <div class="info-row">
+    <span class="hc">#ethical_framing</span>
+    <span class="hc">#ethical_conflicts</span>
+    <span class="hc">#fairness</span>
+    <span class="hc">#responsibility</span>
+    <span class="hc">#open_mindedness</span>
+  </div>
+
+  <div class="ethics-grid">
+    <div class="ethics-card">
+      <div class="ethics-name">結果論</div>
+      <div class="ethics-verdict">若「創造負面形象」確實達成更好談判結果，結果論支持。但對組織文化的長期信任成本是負外部性，需一併計算。</div>
+    </div>
+    <div class="ethics-card">
+      <div class="ethics-name">義務論</div>
+      <div class="ethics-verdict">刻意讓對方誤以為你「無所不用其極」接近刻意誤導。若人人如此，組織信任將普遍崩潰，康德式標準難以支持。</div>
+    </div>
+    <div class="ethics-card">
+      <div class="ethics-name">德性論</div>
+      <div class="ethics-verdict">Alex 自承「若本質上就是爛人就另當別論」——他隱含承認，這些策略的倫理效力高度依賴使用者的品格底色。</div>
+    </div>
+  </div>
+
+  <div class="highlight-box purple">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent-purple);margin-bottom:0.6rem">#fairness — 適用階層限制（文章未充分說明）</div>
+    <div class="prose">
+      <p>Alex 的建議高度依賴「你有資訊優勢、你有談判能力優勢」的前提。但在實際組織中，被迫代表公司談判的基層員工，往往沒有足夠的資源或地位去執行這些策略。</p>
+      <p>這是一個重要的「適用階層」限制——文章未充分說明，讀者需自行評估自身的起始條件。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────── VERDICT ───────── -->
+<hr class="section-divider">
+
+<section class="section" id="verdict">
+  <div class="section-header">
+    <div class="step-num" style="color:var(--accent-amber)">★</div>
+    <div class="step-title">
+      <span class="step-label">SPSB 綜合輸出</span>
+      <div class="step-name">評分 · 洞見 · 行動建議</div>
+    </div>
+    <div class="step-icon">📍</div>
+  </div>
+
+  <div style="display:flex;align-items:center;gap:1rem;background:var(--cream);border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:1.5rem">
+    <div style="font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:var(--accent-amber);line-height:1">B+</div>
+    <div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:0.3rem">可信度評級 · Plausibility Rating</div>
+      <div style="font-size:15px;font-weight:600;color:var(--ink)">大致可靠，值得參考，需批判性吸收</div>
+      <div style="font-size:13px;color:var(--muted);margin-top:0.25rem">實戰洞見真實 · 理論支撐薄弱 · 行銷包裝明顯</div>
+    </div>
+  </div>
+
+  <div class="score-card">
+    <div class="score-header">深度評估結果</div>
+    <div class="score-sub">SPSB Full-Mode Analysis · 25 HCs Applied</div>
+    <div class="score-grid">
+      <div class="score-col">
+        <h4>✅ 最值得保留的洞見</h4>
+        <div class="score-item">「攘外先安內」的問題重定義 — 內部利害關係人管理才是談判落地的真正瓶頸（#right_problem）</div>
+        <div class="score-item">4種角色矩陣 — 將組織政治系統化，識別清晰，操作可執行性高（#variables）</div>
+        <div class="score-item">把「誰是內部客戶」與「他們的決策模式」連結 — 談判前佈局的實用框架（#audience）</div>
+      </div>
+      <div class="score-col">
+        <h4>⚠️ 最需補充的知識</h4>
+        <div class="score-item">定期更新矩陣分類——每個組織生態不同，一次分類不能終身適用（#bayesian_statistics）</div>
+        <div class="score-item">騎牆派動態追蹤是最值得投資的變數，文章著墨最少（#systems_dynamics）</div>
+        <div class="score-item">對外用 BATNA、對內用「無退路」應明確區分——互補而非互斥（#best_alternatives）</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="action-box">
+    <div class="action-title">🎯 現在就可以採取的行動</div>
+    <div class="action-text">
+      拿一張紙，畫出文章的 2×2 矩陣，把你現在職場上所有重要的關係人填進去，然後問自己三個問題：<br><br>
+      <strong>① 我的阻擋者有多少？他們的動機是什麼？</strong><br>
+      <strong>② 我的擁護者有沒有被我最近照顧到？</strong><br>
+      <strong>③ 我的騎牆派現在正在往哪個方向漂移？</strong><br><br>
+      這個動作本身，就是 Alex 整篇文章最核心的價值所在——不在於 5 項做法的清單，而在於你真正開始<em>看見</em>組織內部的政治地形。
+    </div>
+  </div>
+
+  <div class="hc-cloud">
+    <div class="hc-cloud-label">本次分析啟用的核心 HCs（25個）</div>
+    <div class="hc-cloud-tags">
+      <span class="hc blue">#right_problem</span><span class="hc blue">#gap_analysis</span><span class="hc blue">#levels_of_analysis</span><span class="hc blue">#variables</span><span class="hc blue">#purpose</span>
+      <span class="hc amber">#assertions</span><span class="hc amber">#source_quality</span><span class="hc amber">#information_needed</span><span class="hc amber">#sampling</span>
+      <span class="hc red">#logical_fallacies</span><span class="hc red">#induction</span><span class="hc red">#plausibility</span><span class="hc red">#confirmation_bias</span><span class="hc red">#effect_size</span>
+      <span class="hc purple">#systems_dynamics</span><span class="hc purple">#emergent_properties</span><span class="hc purple">#networks</span><span class="hc purple">#game_theory</span>
+      <span class="hc amber">#payoffs</span><span class="hc amber">#first_principles</span><span class="hc amber">#best_alternatives</span>
+      <span class="hc blue">#audience</span><span class="hc blue">#cognitive_persuasion</span><span class="hc blue">#nudge</span>
+      <span class="hc">#ethical_framing</span><span class="hc">#ethical_conflicts</span><span class="hc">#fairness</span>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  SPSB · Minerva HCs 思考習慣框架 · 模式 A 完整分析 · 2026.03.27
+</footer>
+
+</body>
+</html>
