@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>雙框架綜合分析 — 超越SPSB與TOC的新洞見</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,600;0,800;1,300;1,400&family=JetBrains+Mono:wght@300;400;500&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #faf8f4;
+  --bg2: #f2ede4;
+  --ink: #0f0e0c;
+  --muted: #6b6258;
+  --dim: #a09a91;
+  --border: rgba(15,14,12,0.1);
+  --border-mid: rgba(15,14,12,0.18);
+
+  /* SPSB = Warm amber/clay */
+  --s-hue: #b86d2b;
+  --s-bg: rgba(184,109,43,0.06);
+  --s-border: rgba(184,109,43,0.25);
+  --s-text: #8c4d12;
+
+  /* TOC = Cool teal */
+  --t-hue: #1a7a74;
+  --t-bg: rgba(26,122,116,0.06);
+  --t-border: rgba(26,122,116,0.25);
+  --t-text: #0d5c58;
+
+  /* SYNTHESIS = Deep indigo / violet */
+  --x-hue: #4a2d8f;
+  --x-bg: rgba(74,45,143,0.07);
+  --x-border: rgba(74,45,143,0.22);
+  --x-text: #35206e;
+  --x-accent: #6b45c8;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 15px;
+  line-height: 1.85;
+  overflow-x: hidden;
+}
+
+/* ── MASTHEAD ── */
+.masthead {
+  background: var(--bg2);
+  color: var(--ink);
+  padding: 5rem 2rem 4rem;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--border-mid);
+}
+.masthead::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 80% at 15% 50%, rgba(184,109,43,0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 80% at 85% 50%, rgba(26,122,116,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 50% 50%, rgba(74,45,143,0.1) 0%, transparent 70%);
+}
+.masthead::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 120px,
+    rgba(0,0,0,0.012) 120px,
+    rgba(0,0,0,0.012) 121px
+  );
+}
+.mh-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+.mh-eyebrow {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 2.5rem;
+  animation: fadeUp 0.6s ease both;
+}
+.pill {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+}
+.pill-s { background: rgba(184,109,43,0.1); border: 1px solid rgba(184,109,43,0.3); color: var(--s-text); }
+.pill-t { background: rgba(26,122,116,0.1); border: 1px solid rgba(26,122,116,0.3); color: var(--t-text); }
+.pill-x { background: rgba(74,45,143,0.1); border: 1px solid rgba(74,45,143,0.3); color: var(--x-text); }
+
+.mh-title {
+  font-family: 'Spectral', serif;
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.75rem;
+  color: var(--ink);
+  animation: fadeUp 0.7s ease 0.1s both;
+}
+.mh-title .highlight {
+  background: linear-gradient(135deg, var(--s-hue), var(--x-hue), var(--t-hue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.mh-sub {
+  font-size: 15px;
+  color: var(--muted);
+  max-width: 580px;
+  line-height: 1.75;
+  animation: fadeUp 0.7s ease 0.2s both;
+}
+.mh-sub strong { color: var(--ink); }
+
+/* FRAMEWORK LEGEND */
+.legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1px;
+  background: var(--border-mid);
+  border: 1px solid var(--border-mid);
+  border-radius: 8px;
+  margin-top: 3rem;
+  overflow: hidden;
+  animation: fadeUp 0.7s ease 0.3s both;
+}
+.legend-cell {
+  padding: 1.25rem 1.5rem;
+  background: var(--bg);
+}
+.legend-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.legend-label.s { color: var(--s-text); }
+.legend-label.t { color: var(--t-text); }
+.legend-label.x { color: var(--x-text); }
+.legend-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── NAV ── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(250,248,244,0.94);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-mid);
+  padding: 0 2rem;
+  overflow-x: auto;
+}
+.nav::-webkit-scrollbar { height: 0; }
+.nav-inner {
+  max-width: 960px;
+  margin: 0 auto;
+  display: flex;
+  gap: 0;
+}
+.nav-item {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--dim);
+  padding: 0.9rem 0;
+  margin-right: 1.5rem;
+  white-space: nowrap;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.nav-item:hover { color: var(--x-hue); border-color: var(--x-hue); }
+
+/* ── MAIN ── */
+.main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 4rem 2rem 6rem;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── INTRO ── */
+.intro-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border-mid);
+  border: 1px solid var(--border-mid);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 4rem;
+}
+.intro-cell {
+  padding: 1.75rem;
+}
+.intro-cell.s { background: var(--s-bg); }
+.intro-cell.t { background: var(--t-bg); }
+.intro-cell.center {
+  grid-column: 1 / -1;
+  background: var(--x-bg);
+  border-top: 1px solid var(--border-mid);
+  text-align: center;
+  padding: 1.25rem 2rem;
+}
+.intro-fw {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.intro-fw.s { color: var(--s-text); }
+.intro-fw.t { color: var(--t-text); }
+.intro-fw.x { color: var(--x-text); }
+.intro-finding {
+  font-size: 13.5px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+.intro-finding strong { color: var(--ink); }
+.merge-arrow {
+  font-family: 'Spectral', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--x-accent);
+}
+
+/* ── INSIGHT CARD ── */
+.insight-block {
+  margin-bottom: 5rem;
+  animation: fadeUp 0.5s ease both;
+}
+.insight-block:nth-child(1) { animation-delay: 0.05s; }
+.insight-block:nth-child(2) { animation-delay: 0.1s; }
+.insight-block:nth-child(3) { animation-delay: 0.15s; }
+.insight-block:nth-child(4) { animation-delay: 0.2s; }
+.insight-block:nth-child(5) { animation-delay: 0.25s; }
+.insight-block:nth-child(6) { animation-delay: 0.3s; }
+
+.insight-number {
+  font-family: 'Spectral', serif;
+  font-size: 6rem;
+  font-weight: 800;
+  line-height: 0.9;
+  color: var(--bg2);
+  margin-bottom: -1.5rem;
+  margin-left: -0.1rem;
+  user-select: none;
+}
+.insight-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+.insight-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--x-bg);
+  border: 1px solid var(--x-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  flex-shrink: 0;
+  margin-top: 0.15rem;
+}
+.insight-title {
+  font-family: 'Spectral', serif;
+  font-size: 1.65rem;
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--ink);
+  flex: 1;
+}
+.insight-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--x-accent);
+  margin-bottom: 0.4rem;
+  display: block;
+}
+
+/* SOURCE BARS */
+.source-bar {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  margin: 1rem 0;
+}
+.source-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  padding: 3px 9px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.src-s { background: var(--s-bg); border: 1px solid var(--s-border); color: var(--s-text); }
+.src-t { background: var(--t-bg); border: 1px solid var(--t-border); color: var(--t-text); }
+.src-x { background: var(--x-bg); border: 1px solid var(--x-border); color: var(--x-text); font-weight: 500; }
+.src-arrow { color: var(--dim); }
+
+/* CONVERGENCE BOX */
+.convergence {
+  background: linear-gradient(135deg, rgba(184,109,43,0.06), rgba(74,45,143,0.08), rgba(26,122,116,0.06));
+  border: 1px solid var(--x-border);
+  border-radius: 10px;
+  padding: 1.75rem;
+  margin: 1.5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.convergence::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--s-hue), var(--x-accent), var(--t-hue));
+}
+.conv-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--x-accent);
+  margin-bottom: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.conv-label::before {
+  content: '◈';
+  font-size: 12px;
+}
+.conv-text {
+  font-size: 15px;
+  color: var(--ink);
+  line-height: 1.85;
+  font-weight: 400;
+}
+.conv-text strong { color: var(--x-hue); font-weight: 600; }
+.conv-text em { font-style: italic; color: var(--muted); }
+
+/* FRAMEWORK PANELS */
+.fw-panels {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.25rem 0;
+}
+.fw-panel {
+  border-radius: 8px;
+  padding: 1.1rem 1.25rem;
+}
+.fw-panel.s { background: var(--s-bg); border: 1px solid var(--s-border); }
+.fw-panel.t { background: var(--t-bg); border: 1px solid var(--t-border); }
+.fw-panel-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.fw-panel.s .fw-panel-label { color: var(--s-text); }
+.fw-panel.t .fw-panel-label { color: var(--t-text); }
+.fw-panel-text { font-size: 13.5px; color: var(--muted); line-height: 1.7; }
+.fw-panel-text strong { color: var(--ink); }
+
+/* DIAGRAM: MIRROR PARADOX */
+.mirror-diagram {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1rem;
+  align-items: center;
+  margin: 1.5rem 0;
+}
+.mirror-side {
+  background: var(--bg2);
+  border: 1px solid var(--border-mid);
+  border-radius: 8px;
+  padding: 1rem;
+}
+.mirror-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--dim);
+  margin-bottom: 0.4rem;
+}
+.mirror-text { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.mirror-arrow {
+  font-family: 'Spectral', serif;
+  font-size: 2rem;
+  color: var(--x-border);
+  text-align: center;
+  user-select: none;
+}
+
+/* NESTED EC DIAGRAM */
+.nested-ec {
+  background: var(--bg2);
+  border: 1px solid var(--border-mid);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+}
+.nec-outer {
+  border: 1px dashed var(--s-border);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.nec-inner {
+  border: 1px dashed var(--t-border);
+  border-radius: 6px;
+  padding: 1rem;
+  margin-top: 0.75rem;
+}
+.nec-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.nec-outer .nec-label { color: var(--s-text); }
+.nec-inner .nec-label { color: var(--t-text); }
+.nec-text { color: var(--muted); line-height: 1.6; }
+
+/* PHASE TRANSITION DIAGRAM */
+.phase-track {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 1.5rem 0;
+  background: var(--bg2);
+  border: 1px solid var(--border-mid);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.phase-seg {
+  flex: 1;
+  padding: 0.9rem 1rem;
+  text-align: center;
+  border-right: 1px solid var(--border-mid);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.phase-seg:last-child { border-right: none; }
+.phase-seg.safe { background: rgba(63,185,80,0.06); }
+.phase-seg.warn { background: rgba(227,179,65,0.08); }
+.phase-seg.crit { background: rgba(244,112,103,0.08); }
+.phase-seg.flip { background: rgba(74,45,143,0.08); }
+.phase-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+.phase-seg.safe  .phase-label { color: #2d7a3a; }
+.phase-seg.warn  .phase-label { color: #8a6010; }
+.phase-seg.crit  .phase-label { color: #8a3028; }
+.phase-seg.flip  .phase-label { color: var(--x-text); }
+.phase-text { font-size: 11px; color: var(--muted); }
+.phase-arrow {
+  font-size: 16px;
+  color: var(--dim);
+  padding: 0 0.25rem;
+  flex-shrink: 0;
+}
+
+/* BATNA-SYNTHESIS TABLE */
+.dual-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 1.25rem 0;
+}
+.dual-table th {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.65rem 1rem;
+  text-align: left;
+  font-weight: 500;
+  border-bottom: 1px solid var(--border-mid);
+}
+.dual-table th:nth-child(1) { background: var(--s-bg); color: var(--s-text); }
+.dual-table th:nth-child(2) { background: var(--t-bg); color: var(--t-text); }
+.dual-table th:nth-child(3) { background: var(--x-bg); color: var(--x-text); }
+.dual-table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  line-height: 1.65;
+  color: var(--muted);
+  background: var(--bg);
+}
+.dual-table td strong { color: var(--ink); }
+.dual-table tr:last-child td { border-bottom: none; }
+
+/* POOGI CHAIN */
+.poogi-chain {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 1.5rem 0;
+}
+.poogi-step {
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 1rem;
+  align-items: start;
+}
+.poogi-line-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.poogi-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-top: 1rem;
+  flex-shrink: 0;
+}
+.poogi-line {
+  width: 2px;
+  flex: 1;
+  min-height: 24px;
+  margin-top: 2px;
+}
+.poogi-content {
+  padding: 0.75rem 0 1.25rem;
+}
+.poogi-phase {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.35rem;
+}
+.poogi-desc { font-size: 14px; color: var(--muted); line-height: 1.7; }
+.poogi-desc strong { color: var(--ink); }
+.poogi-new {
+  font-size: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--x-text);
+  background: var(--x-bg);
+  border: 1px solid var(--x-border);
+  border-radius: 4px;
+  padding: 0.4rem 0.7rem;
+  margin-top: 0.5rem;
+  display: inline-block;
+}
+
+/* KPI MATRIX */
+.kpi-matrix {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.kpi-cell {
+  background: var(--bg2);
+  border: 1px solid var(--border-mid);
+  border-radius: 8px;
+  padding: 1rem;
+}
+.kpi-cell.good { border-color: rgba(63,185,80,0.3); background: rgba(63,185,80,0.04); }
+.kpi-cell.bad  { border-color: rgba(244,112,103,0.3); background: rgba(244,112,103,0.04); }
+.kpi-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: 0.4rem;
+}
+.kpi-cell.good .kpi-label { color: #2d7a3a; }
+.kpi-cell.bad  .kpi-label { color: #8a3028; }
+.kpi-text { font-size: 13px; color: var(--muted); line-height: 1.65; }
+.kpi-text strong { color: var(--ink); }
+
+/* FINAL SYNTHESIS */
+.synthesis-finale {
+  background: var(--bg2);
+  color: var(--ink);
+  border: 1px solid var(--border-mid);
+  border-radius: 12px;
+  padding: 3rem;
+  margin: 3rem 0;
+  position: relative;
+  overflow: hidden;
+}
+.synthesis-finale::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--s-hue), var(--x-hue), var(--t-hue));
+}
+.synthesis-finale::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 50% 70% at 0% 50%, rgba(184,109,43,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 70% at 100% 50%, rgba(26,122,116,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 50% 50%, rgba(74,45,143,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.sf-inner { position: relative; z-index: 1; }
+.sf-kicker {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--x-text);
+  margin-bottom: 1rem;
+}
+.sf-title {
+  font-family: 'Spectral', serif;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 1.5rem;
+  color: var(--ink);
+}
+.sf-meta-insight {
+  font-size: 15px;
+  color: var(--muted);
+  line-height: 1.9;
+  max-width: 660px;
+}
+.sf-meta-insight strong { color: var(--ink); }
+.sf-meta-insight em { color: var(--x-text); font-style: italic; }
+.sf-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border-mid);
+  border: 1px solid var(--border-mid);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 2rem;
+}
+.sf-cell {
+  background: var(--bg);
+  padding: 1.25rem;
+}
+.sf-cell-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--x-text);
+  margin-bottom: 0.4rem;
+}
+.sf-cell-text {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.65;
+}
+.sf-cell-text strong { color: var(--ink); }
+
+/* DIVIDER */
+hr.sec-div {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 3rem 0;
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--border-mid);
+  padding: 2rem;
+  text-align: center;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--dim);
+  letter-spacing: 0.08em;
+  background: var(--bg2);
+}
+
+@media (max-width: 640px) {
+  .intro-grid { grid-template-columns: 1fr; }
+  .fw-panels { grid-template-columns: 1fr; }
+  .mirror-diagram { grid-template-columns: 1fr; }
+  .mirror-arrow { display: none; }
+  .kpi-matrix { grid-template-columns: 1fr; }
+  .sf-grid { grid-template-columns: 1fr; }
+  .dual-table { font-size: 12px; }
+  .phase-track { flex-direction: column; }
+  .phase-seg { border-right: none; border-bottom: 1px solid var(--border-mid); }
+  .phase-arrow { display: none; }
+  .mh-title { font-size: 2rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="mh-inner">
+    <div class="mh-eyebrow">
+      <span class="pill pill-s">SPSB · Minerva 95 HCs</span>
+      <span class="pill pill-t">TOC · Goldratt × Dettmer</span>
+      <span class="pill pill-x">× 雙框架綜合</span>
+    </div>
+    <h1 class="mh-title">
+      兩個框架都沒說清楚的事：<br>
+      <span class="highlight">六個新洞見</span>
+    </h1>
+    <p class="mh-sub">
+      SPSB 找到了邏輯漏洞，TOC 找到了根因。<br>
+      但兩個框架分開看時都有各自的盲點。<br>
+      <strong>當它們交叉比對，那些盲點反而成為最珍貴的發現。</strong>
+    </p>
+    <div class="legend">
+      <div class="legend-cell">
+        <div class="legend-label s">SPSB 帶來</div>
+        <div class="legend-text">偏誤識別、邏輯謬誤檢查、系統動力學、倫理層次分析</div>
+      </div>
+      <div class="legend-cell">
+        <div class="legend-label t">TOC 帶來</div>
+        <div class="legend-text">根因追溯、假設挖掘、注入解驗證、六層抗拒結構</div>
+      </div>
+      <div class="legend-cell">
+        <div class="legend-label x">交叉產生</div>
+        <div class="legend-text">單框架分析時彼此遮蔽的死角，在對照中浮現為新洞見</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="nav-item" href="#i1">鏡像悖論</a>
+    <a class="nav-item" href="#i2">根因的根因</a>
+    <a class="nav-item" href="#i3">相變臨界點</a>
+    <a class="nav-item" href="#i4">嵌套衝突雲</a>
+    <a class="nav-item" href="#i5">BATNA重新定義</a>
+    <a class="nav-item" href="#i6">POOGI下一步</a>
+    <a class="nav-item" href="#finale">綜合結論</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- CONVERGENCE INTRO -->
+<div class="intro-grid" style="margin-bottom:4rem;animation:fadeUp 0.6s ease both">
+  <div class="intro-cell s">
+    <div class="intro-fw s">SPSB 的主要發現</div>
+    <div class="intro-finding">文章有 <strong>4個邏輯漏洞</strong>，第5點「你比對手更會談判」是最弱的主張；「創造負面形象」的策略依賴一個難以量化的品格前提；文章本身有行銷包裝成分</div>
+  </div>
+  <div class="intro-cell t">
+    <div class="intro-fw t">TOC 的主要發現</div>
+    <div class="intro-finding">核心根因是 <strong>「誤以為簽約=任務完成」</strong>；注入解中有一個在 FRT 驗證失敗（第5點）；六層抗拒中第6層恐懼（怕老闆不高興）完全未被文章處理</div>
+  </div>
+  <div class="intro-cell center">
+    <div class="merge-arrow">↓ 兩個框架的發現對照之後 ↓</div>
+  </div>
+</div>
+
+<!-- ─── INSIGHT 1 ─── -->
+<div class="insight-block" id="i1">
+  <div class="insight-number">01</div>
+  <div class="insight-header">
+    <div class="insight-icon">🪞</div>
+    <div>
+      <span class="insight-subtitle">鏡像悖論</span>
+      <div class="insight-title">Alex 的文章犯了它所批評的那個錯誤</div>
+    </div>
+  </div>
+
+  <div class="source-bar">
+    <span class="source-tag src-s">SPSB #nudge 稀缺感設計</span>
+    <span class="source-tag src-arrow">+</span>
+    <span class="source-tag src-t">TOC 六層抗拒第6層缺口</span>
+    <span class="source-tag src-arrow">→</span>
+    <span class="source-tag src-x">✦ 新洞見</span>
+  </div>
+
+  <div class="fw-panels">
+    <div class="fw-panel s">
+      <div class="fw-panel-label">SPSB 發現</div>
+      <div class="fw-panel-text">文章故意不給完整答案（「篇幅有限只提兩點」）是精心設計的 <strong>#nudge</strong>，目的是讓讀者對課程產生需求。這是一篇對「外部讀者」的說服工程。</div>
+    </div>
+    <div class="fw-panel t">
+      <div class="fw-panel-label">TOC 發現</div>
+      <div class="fw-panel-text">六層抗拒分析顯示，第6層恐懼——「萬一我強勢佈局，老闆誤解我不聽話怎麼辦」——在文章中<strong>完全沒有被回應</strong>，這是最深的阻力來源。</div>
+    </div>
+  </div>
+
+  <div class="mirror-diagram">
+    <div class="mirror-side">
+      <div class="mirror-label">文章批評的錯誤</div>
+      <div class="mirror-text">談判者只管對外簽約，忘了管理對內落地</div>
+    </div>
+    <div class="mirror-arrow">≡</div>
+    <div class="mirror-side">
+      <div class="mirror-label">文章本身的錯誤</div>
+      <div class="mirror-text">作者只管對外說服讀者，忘了處理讀者內心最深的障礙（第6層恐懼）</div>
+    </div>
+  </div>
+
+  <div class="convergence">
+    <div class="conv-label">新洞見</div>
+    <div class="conv-text">
+      Alex 批評談判者「只顧外部、忽略內部」，但他的文章本身做了一模一樣的事——全力說服「讀者」這個外部對象，卻跳過了讀者心裡那個最真實的內部障礙。<br><br>
+      <strong>這不是諷刺，而是一個結構性的啟示：</strong>任何說服工作（文章、提案、談判）的最後一哩路，幾乎永遠是那個<em>沒被說出來的恐懼</em>，而不是技術上的不知道。解決「不知道怎麼做」遠比解決「知道但怕去做」容易得多。
+    </div>
+  </div>
+</div>
+
+<hr class="sec-div">
+
+<!-- ─── INSIGHT 2 ─── -->
+<div class="insight-block" id="i2">
+  <div class="insight-number">02</div>
+  <div class="insight-header">
+    <div class="insight-icon">⛏</div>
+    <div>
+      <span class="insight-subtitle">根因的根因</span>
+      <div class="insight-title">認知偏誤不是根因，計量系統才是</div>
+    </div>
+  </div>
+
+  <div class="source-bar">
+    <span class="source-tag src-s">SPSB #attention_bias #confirmation_bias</span>
+    <span class="source-tag src-arrow">+</span>
+    <span class="source-tag src-t">TOC 根因「誤以為簽約=任務完成」</span>
+    <span class="source-tag src-arrow">→</span>
+    <span class="source-tag src-x">✦ 新洞見</span>
+  </div>
+
+  <div class="fw-panels">
+    <div class="fw-panel s">
+      <div class="fw-panel-label">SPSB 發現</div>
+      <div class="fw-panel-text"><strong>#attention_bias</strong>：人的注意力天生傾向顯眼、可見的任務。「對外談判」有明確的截止日、對手、桌子；「對內佈局」是模糊的、無形的。</div>
+    </div>
+    <div class="fw-panel t">
+      <div class="fw-panel-label">TOC 發現</div>
+      <div class="fw-panel-text">CRT 根因是「誤以為簽約=任務完成」。但 TOC 也問：<strong>為什麼這個錯誤認知如此普遍？是什麼讓它持續存在？</strong>文章沒有繼續追問。</div>
+    </div>
+  </div>
+
+  <div class="convergence">
+    <div class="conv-label">新洞見</div>
+    <div class="conv-text">
+      認知偏誤（注意力偏向可見任務）解釋了「個人」為什麼會犯這個錯，但無法解釋為什麼<em>整個組織</em>、<em>每一代的談判者</em>都犯同樣的錯。這說明根因更深一層，是<strong>組織的 KPI 設計問題</strong>。
+    </div>
+  </div>
+
+  <div class="kpi-matrix">
+    <div class="kpi-cell bad">
+      <div class="kpi-label">⚠ 多數組織的計量方式</div>
+      <div class="kpi-text"><strong>合約金額</strong>、<strong>談判速度</strong>、<strong>條款優劣</strong>——這些都在簽約時就能衡量。<br><br>結果：談判者的績效在簽約那一刻就「完成了」，後續的落地問題變成別人的責任。</div>
+    </div>
+    <div class="kpi-cell good">
+      <div class="kpi-label">✓ 真正應該計量的是</div>
+      <div class="kpi-text"><strong>協議落地率</strong>、<strong>內部阻力量化</strong>、<strong>簽約後 90 天執行進度</strong>——但這些很難衡量，所以幾乎沒有組織在追蹤。<br><br>結果：這個缺失本身，就是「誤以為簽約=任務完成」這個根因的制度根源。</div>
+    </div>
+  </div>
+
+  <div class="convergence">
+    <div class="conv-label">實際行動含義</div>
+    <div class="conv-text">
+      要在組織層面根治這個問題，光靠「告訴談判者要提前佈局」是不夠的——因為系統計量方式不改變，個人就沒有動機去做不被計量的工作。<strong>Goldratt 的名言在此完全適用：「告訴我你怎麼衡量我，我就告訴你我會怎麼行動。」</strong>
+    </div>
+  </div>
+</div>
+
+<hr class="sec-div">
+
+<!-- ─── INSIGHT 3 ─── -->
+<div class="insight-block" id="i3">
+  <div class="insight-number">03</div>
+  <div class="insight-header">
+    <div class="insight-icon">🌊</div>
+    <div>
+      <span class="insight-subtitle">相變臨界點</span>
+      <div class="insight-title">騎牆派的倒戈不是線性的，而是有臨界點的</div>
+    </div>
+  </div>
+
+  <div class="source-bar">
+    <span class="source-tag src-s">SPSB #systems_dynamics #emergent_properties #networks</span>
+    <span class="source-tag src-arrow">+</span>
+    <span class="source-tag src-t">TOC CRT 中 U3「騎牆派倒向阻擋者」</span>
+    <span class="source-tag src-arrow">→</span>
+    <span class="source-tag src-x">✦ 新洞見</span>
+  </div>
+
+  <div class="fw-panels">
+    <div class="fw-panel s">
+      <div class="fw-panel-label">SPSB 發現</div>
+      <div class="fw-panel-text">騎牆派是系統中最不穩定的節點。<strong>#emergent_properties</strong>：當騎牆派比例超過某個臨界點，就可能觸發「沈默螺旋」，讓阻擋者的聲音顯得比實際更強大。</div>
+    </div>
+    <div class="fw-panel t">
+      <div class="fw-panel-label">TOC 發現</div>
+      <div class="fw-panel-text">TOC 的 CRT 把 U3 處理為一個「線性節點」——騎牆派倒向阻擋者 → 阻力擴大。但 CRT 的因果鏈假設都是線性的，無法捕捉<strong>非線性的臨界效應</strong>。</div>
+    </div>
+  </div>
+
+  <div style="margin:1.25rem 0">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--dim);margin-bottom:0.75rem">騎牆派倒戈的相變過程</div>
+    <div class="phase-track">
+      <div class="phase-seg safe">
+        <div class="phase-label">安全區</div>
+        <div class="phase-text">騎牆派 &lt;20%<br>倒向阻擋者<br>局面仍可控</div>
+      </div>
+      <div class="phase-arrow">→</div>
+      <div class="phase-seg warn">
+        <div class="phase-label">警戒區</div>
+        <div class="phase-text">騎牆派 20–40%<br>倒向阻擋者<br>輿論開始動搖</div>
+      </div>
+      <div class="phase-arrow">→</div>
+      <div class="phase-seg crit">
+        <div class="phase-label">臨界點</div>
+        <div class="phase-text">~40–50% 比例<br>社會壓力<br>正反饋啟動</div>
+      </div>
+      <div class="phase-arrow">→</div>
+      <div class="phase-seg flip">
+        <div class="phase-label">相變完成</div>
+        <div class="phase-text">沈默螺旋觸發<br>擁護者開始<br>沉默或倒戈</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="convergence">
+    <div class="conv-label">新洞見</div>
+    <div class="conv-text">
+      Alex 的文章和 TOC 分析都把騎牆派的處理放在「工作清單」裡，但其實這應該是<strong>監控指標</strong>，而不只是佈局目標。<br><br>
+      實際含義是：談判者應該持續監測騎牆派的比例，一旦超過某個組織特定的閾值，就應該把所有資源從「進攻阻擋者」切換到「穩住騎牆派」——因為臨界點之後的相變速度遠比任何人預期的快，而且難以逆轉。<strong>這是文章的「做法清單」完全沒有提到的動態監控邏輯。</strong>
+    </div>
+  </div>
+</div>
+
+<hr class="sec-div">
+
+<!-- ─── INSIGHT 4 ─── -->
+<div class="insight-block" id="i4">
+  <div class="insight-number">04</div>
+  <div class="insight-header">
+    <div class="insight-icon">☁️</div>
+    <div>
+      <span class="insight-subtitle">嵌套衝突雲</span>
+      <div class="insight-title">「主談者放水」是一個嵌套在主衝突雲裡的次級衝突</div>
+    </div>
+  </div>
+
+  <div class="source-bar">
+    <span class="source-tag src-s">SPSB #game_theory 囚徒困境</span>
+    <span class="source-tag src-arrow">+</span>
+    <span class="source-tag src-t">TOC EC 衝突雲 + U6 放水現象</span>
+    <span class="source-tag src-arrow">→</span>
+    <span class="source-tag src-x">✦ 新洞見</span>
+  </div>
+
+  <div class="fw-panels">
+    <div class="fw-panel s">
+      <div class="fw-panel-label">SPSB 發現</div>
+      <div class="fw-panel-text"><strong>#game_theory</strong>：主談者刻意放水，期待事後重啟撈更多，形成「個人利益 vs 公司利益」的囚徒困境。Alex 坦承此現象但未給制度性解方。</div>
+    </div>
+    <div class="fw-panel t">
+      <div class="fw-panel-label">TOC 發現</div>
+      <div class="fw-panel-text">TOC 的 EC 識別出主衝突：<strong>外部談判 vs 內部佈局</strong>，打破假設④後可以消解。但 U6（放水）的動機來源比 EC 顯示的更複雜。</div>
+    </div>
+  </div>
+
+  <div class="nested-ec">
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;color:var(--dim);margin-bottom:1rem">嵌套衝突雲結構</div>
+    <div class="nec-outer">
+      <div class="nec-label">主衝突雲（組織層）</div>
+      <div class="nec-text">A：談判代表成功完成使命<br>
+        D：全力投入對外談判 ⚡ D'：管理內部利害關係人<br>
+        <strong style="color:var(--s-text)">解方：打破假設④（佈局不必等到談判後）</strong>
+      </div>
+      <div class="nec-inner">
+        <div class="nec-label">次級衝突雲（個人層，嵌套在主衝突內）</div>
+        <div class="nec-text">A'：我個人的職涯安全<br>
+          E：展現談判成果最大化（KPI） ⚡ E'：不被公司事後清算<br>
+          <strong style="color:var(--t-text)">若主衝突未解，理性個體必然選擇「放水」作為自保</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="convergence">
+    <div class="conv-label">新洞見</div>
+    <div class="conv-text">
+      「主談者放水」不是道德問題，而是當主衝突雲（組織沒有解決內外管理的對立）持續存在時，<strong>理性個體的自我保護反應</strong>。<br><br>
+      這意味著：要解決「放水」問題，道德勸說或懲罰機制都是錯誤的切入點。正確的方法是<strong>先解決主衝突雲的假設④</strong>——當組織真正把「內部佈局」視為談判成功的一部份，主談者就沒有動機去放水了，因為他的勝利定義已經改變。<em>治標不如治本，而本在制度不在個人。</em>
+    </div>
+  </div>
+</div>
+
+<hr class="sec-div">
+
+<!-- ─── INSIGHT 5 ─── -->
+<div class="insight-block" id="i5">
+  <div class="insight-number">05</div>
+  <div class="insight-header">
+    <div class="insight-icon">⚔️</div>
+    <div>
+      <span class="insight-subtitle">BATNA 重新定義</span>
+      <div class="insight-title">「沒有退路」有兩種截然不同的形式，應用場景完全相反</div>
+    </div>
+  </div>
+
+  <div class="source-bar">
+    <span class="source-tag src-s">SPSB #best_alternatives BATNA 張力分析</span>
+    <span class="source-tag src-arrow">+</span>
+    <span class="source-tag src-t">TOC PrT 中間目標序列</span>
+    <span class="source-tag src-arrow">→</span>
+    <span class="source-tag src-x">✦ 新洞見</span>
+  </div>
+
+  <div class="fw-panels">
+    <div class="fw-panel s">
+      <div class="fw-panel-label">SPSB 發現</div>
+      <div class="fw-panel-text">「沒有退路」（Alex 心態 3）vs. BATNA（哈佛派）看似衝突。SPSB 指出兩者其實互補——但<strong>沒有說清楚在什麼情境下用哪個</strong>。</div>
+    </div>
+    <div class="fw-panel t">
+      <div class="fw-panel-label">TOC 發現</div>
+      <div class="fw-panel-text">PrT 的結構顯示：中間目標有依賴順序。<strong>不同的行動階段需要不同的心態</strong>——前期建立籌碼需要一種邏輯，後期執行需要另一種邏輯。</div>
+    </div>
+  </div>
+
+  <table class="dual-table">
+    <thead>
+      <tr>
+        <th>維度 / SPSB框架</th>
+        <th>對外談判 / TOC對應</th>
+        <th>✦ 合體定義</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>工具</strong></td>
+        <td>BATNA（最佳替代方案）</td>
+        <td>BATNA = <strong>對外談判的「有退路」之盾</strong>——有了更強的替代方案，你才能有底氣走人，這反而給了你留下來的力量</td>
+      </tr>
+      <tr>
+        <td><strong>心態</strong></td>
+        <td>「沒有退路，不成功便成仁」</td>
+        <td>沒退路 = <strong>對內執行的「無退路」之矛</strong>——把自己的成敗跟組織落地綁定，讓阻擋者知道你不會退縮</td>
+      </tr>
+      <tr>
+        <td><strong>階段</strong></td>
+        <td>PrT 中間目標 1–3（籌碼建立期）</td>
+        <td>用 BATNA 建立外部槓桿；同步用「無退路心態」建立內部聲譽</td>
+      </tr>
+      <tr>
+        <td><strong>階段</strong></td>
+        <td>PrT 中間目標 4–5（執行鞏固期）</td>
+        <td>BATNA 此時已不重要；「無退路」成為說服主導者和擁護者的情緒資本</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="convergence">
+    <div class="conv-label">新洞見</div>
+    <div class="conv-text">
+      BATNA 和「沒有退路」不是同一件事的兩面，而是<strong>談判時間軸上兩個不同節點的工具</strong>。在籌碼建立期，你需要 BATNA 來強化你的談判地位；在執行鞏固期，你需要「無退路心態」來展示你和結果的綁定深度。把兩者混用或對立，都會讓力量打折。<br><br>
+      <em>真正的談判高手知道在哪個節點切換工具，而不是全程只用一把錘子。</em>
+    </div>
+  </div>
+</div>
+
+<hr class="sec-div">
+
+<!-- ─── INSIGHT 6 ─── -->
+<div class="insight-block" id="i6">
+  <div class="insight-number">06</div>
+  <div class="insight-header">
+    <div class="insight-icon">🔄</div>
+    <div>
+      <span class="insight-subtitle">POOGI 下一步</span>
+      <div class="insight-title">「成功佈局」之後，新的瓶頸會轉移到哪裡？</div>
+    </div>
+  </div>
+
+  <div class="source-bar">
+    <span class="source-tag src-s">SPSB #systems_dynamics POOGI 持續改善</span>
+    <span class="source-tag src-arrow">+</span>
+    <span class="source-tag src-t">TOC 五聚焦步驟 Step 5「瓶頸轉移」</span>
+    <span class="source-tag src-arrow">→</span>
+    <span class="source-tag src-x">✦ 新洞見</span>
+  </div>
+
+  <div class="fw-panels">
+    <div class="fw-panel s">
+      <div class="fw-panel-label">SPSB 倫理審查發現</div>
+      <div class="fw-panel-text">文章缺乏「適用階層」說明。基層員工沒有資源執行這些策略；<strong>#fairness</strong>：建議的可行性依賴使用者的組織地位，這個前提文章迴避了。</div>
+    </div>
+    <div class="fw-panel t">
+      <div class="fw-panel-label">TOC Step 5 警告</div>
+      <div class="fw-panel-text">「不要讓慣性成為新的制約！」當一個瓶頸被突破，下一個瓶頸就會浮現。<strong>多數分析只分析到「阻擋者被控制」就停了</strong>，沒有繼續追問接下來會是什麼。</div>
+    </div>
+  </div>
+
+  <div class="poogi-chain">
+    <div class="poogi-step">
+      <div class="poogi-line-wrap">
+        <div class="poogi-dot" style="background:var(--dim);border:none"></div>
+        <div class="poogi-line" style="background:linear-gradient(to bottom, var(--dim), var(--s-hue))"></div>
+      </div>
+      <div class="poogi-content">
+        <div class="poogi-phase" style="color:var(--dim)">現狀（談判者常見終點）</div>
+        <div class="poogi-desc">阻擋者被成功控制，協議得以落地執行。<strong>多數人到這裡就認為「談判完成」了</strong>——又回到了文章所批評的那個錯誤思維。</div>
+      </div>
+    </div>
+    <div class="poogi-step">
+      <div class="poogi-line-wrap">
+        <div class="poogi-dot" style="background:var(--s-hue);border:none"></div>
+        <div class="poogi-line" style="background:linear-gradient(to bottom, var(--s-hue), var(--t-hue))"></div>
+      </div>
+      <div class="poogi-content">
+        <div class="poogi-phase" style="color:var(--s-text)">瓶頸轉移 1：擁護者惰性</div>
+        <div class="poogi-desc">佈局成功 → 阻擋者退縮 → 擁護者感受到的壓力消失 → <strong>擁護者開始滑回旁觀者象限</strong>。守住勝利果實的成本往往高於取得它的成本。</div>
+        <div class="poogi-new">→ 需要把「擁護者主動發聲」設為新的 PrT 目標</div>
+      </div>
+    </div>
+    <div class="poogi-step">
+      <div class="poogi-line-wrap">
+        <div class="poogi-dot" style="background:var(--t-hue);border:none"></div>
+        <div class="poogi-line" style="background:linear-gradient(to bottom, var(--t-hue), var(--x-hue))"></div>
+      </div>
+      <div class="poogi-content">
+        <div class="poogi-phase" style="color:var(--t-text)">瓶頸轉移 2：聲譽悖論</div>
+        <div class="poogi-desc">主談者因為「太會政治操作」而被標記為危險人物 → <strong>中立信任度下降</strong>，下次談判對外的籌碼反而減弱。「創造反差」策略的長期成本在此浮現。</div>
+        <div class="poogi-new">→ 需要「信任資本補充」策略來平衡</div>
+      </div>
+    </div>
+    <div class="poogi-step">
+      <div class="poogi-line-wrap">
+        <div class="poogi-dot" style="background:var(--x-hue);border:none"></div>
+      </div>
+      <div class="poogi-content">
+        <div class="poogi-phase" style="color:var(--x-text)">✦ 真正的 POOGI 下一步</div>
+        <div class="poogi-desc"><strong>從「讓阻擋者不能擋」升級到「讓擁護者主動推」</strong>——這是守轉攻的系統升級。不再只是防禦性的佈局，而是建立一個主動支持的生態。這需要完全不同的工具：#leadership_principles、#organizational_structure，而不只是談判技巧。</div>
+        <div class="poogi-new">→ 這才是這篇文章真正沒說完的後半段</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="convergence">
+    <div class="conv-label">新洞見</div>
+    <div class="conv-text">
+      Alex 的文章標題是「談判後如何避免被自己人扯後腿」，但如果換個 POOGI 視角，真正的問題其實是：<strong>「如何建立一個讓協議自然落地的組織生態」</strong>——這個問題不是靠個人技巧解決的，而是靠制度設計。<br><br>
+      文章的建議是「談判者個人要更聰明」，但 TOC + SPSB 的系統思考告訴我們，<em>真正的槓桿點在組織的計量系統和決策結構，而不是個人技能的精進。</em>
+    </div>
+  </div>
+</div>
+
+<!-- FINALE -->
+<section id="finale">
+  <div class="synthesis-finale">
+    <div class="sf-inner">
+      <div class="sf-kicker">雙框架綜合 · 終極洞見</div>
+      <h2 class="sf-title">這篇文章的真正問題，<br>不是它說錯了什麼，<br>而是它解決了哪個層次的問題。</h2>
+      <p class="sf-meta-insight">
+        Alex 的文章在<strong>個人技能層次</strong>給出了很好的答案：提前佈局、角色分類、軟硬皆施。<br><br>
+        但 SPSB × TOC 的交叉分析顯示，真正的根因有兩層比文章更深：<strong>組織計量系統的設計</strong>（讓談判者誤以為簽約是終點），以及<strong>制度性的囚徒困境</strong>（讓理性個體選擇放水）。<br><br>
+        <em>在系統沒有改變之前，一百個談判者學會這五個做法，也只是讓一百個人更擅長在一個壞系統裡求生存。</em>
+      </p>
+      <div class="sf-grid">
+        <div class="sf-cell">
+          <div class="sf-cell-num">洞見 01</div>
+          <div class="sf-cell-text">鏡像悖論：文章本身犯了它所批評的錯——只顧外部說服，跳過讀者的<strong>第6層內心恐懼</strong></div>
+        </div>
+        <div class="sf-cell">
+          <div class="sf-cell-num">洞見 02</div>
+          <div class="sf-cell-text">根因更深一層：不是認知偏誤，是<strong>組織計量系統</strong>讓簽約=完成這個錯誤永久存在</div>
+        </div>
+        <div class="sf-cell">
+          <div class="sf-cell-num">洞見 03</div>
+          <div class="sf-cell-text">騎牆派不是線性問題，是有<strong>相變臨界點</strong>的非線性系統，需要監控而非只是佈局</div>
+        </div>
+        <div class="sf-cell">
+          <div class="sf-cell-num">洞見 04</div>
+          <div class="sf-cell-text">「主談者放水」是<strong>嵌套衝突雲</strong>的理性反應，道德勸說無用，唯有打破主衝突假設才能根治</div>
+        </div>
+        <div class="sf-cell">
+          <div class="sf-cell-num">洞見 05</div>
+          <div class="sf-cell-text">BATNA 和「沒退路」是<strong>時間軸上不同節點的工具</strong>，前者用於建立籌碼，後者用於綁定執行</div>
+        </div>
+        <div class="sf-cell">
+          <div class="sf-cell-num">洞見 06</div>
+          <div class="sf-cell-text">文章沒說完的後半段：從「讓阻擋者不能擋」升級到<strong>「讓擁護者主動推」</strong>，這才是真正的 POOGI</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  SPSB × TOC 雙框架綜合分析 · Minerva HCs + Goldratt × Dettmer · 2026.03.27
+</footer>
+
+</body>
+</html>
