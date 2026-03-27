@@ -2,132 +2,94 @@
 <html lang="zh-TW">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>讀議｜談判後的內部阻力——三框架完整分析</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>讀議｜談判三框架分析</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:'Noto Sans TC',sans-serif;background:#f5f0e8;color:#1a1814;min-height:100vh;}
-
-.hero{background:linear-gradient(135deg,#0e0d0b 0%,#1c2535 60%,#0e1a0e 100%);color:#fff;padding:56px 24px 64px;text-align:center;position:relative;overflow:hidden;}
-.hero::before{content:'讀議';position:absolute;right:-0.05em;top:-0.1em;font-family:'Noto Serif TC',serif;font-size:clamp(7rem,18vw,14rem);font-weight:700;color:rgba(255,255,255,.04);line-height:1;pointer-events:none;}
-.hero-tag{display:inline-block;background:rgba(255,255,255,.12);border-radius:999px;padding:4px 14px;font-size:.74rem;letter-spacing:.12em;margin-bottom:14px;}
-.hero h1{font-family:'Noto Serif TC',serif;font-size:clamp(1.4rem,3.5vw,2rem);font-weight:700;line-height:1.4;margin-bottom:8px;}
-.hero p{opacity:.65;font-size:.85rem;max-width:480px;margin:0 auto 22px;}
-.hero-pills{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
-.pill{padding:5px 14px;border-radius:999px;font-size:.76rem;font-weight:500;border:1px solid rgba(255,255,255,.2);}
-
-.wrap{max-width:820px;margin:0 auto;padding:40px 20px 80px;}
-
-.section-label{font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#8a7a6a;margin-bottom:18px;}
-
-.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-bottom:40px;}
-.card{border-radius:14px;padding:22px;text-decoration:none;color:inherit;transition:.2s;display:flex;flex-direction:column;gap:10px;border:1.5px solid;}
-.card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.12);}
-
+body{font-family:sans-serif;background:#f5f0e8;color:#1a1814;}
+.hero{background:linear-gradient(135deg,#0e0d0b,#1c2535);color:#fff;padding:52px 24px 60px;text-align:center;}
+.tag{display:inline-block;background:rgba(255,255,255,.15);border-radius:999px;padding:4px 14px;font-size:.76rem;margin-bottom:14px;}
+.hero h1{font-size:1.8rem;font-weight:900;margin-bottom:8px;line-height:1.35;}
+.hero p{opacity:.7;font-size:.88rem;max-width:480px;margin:0 auto 20px;}
+.pills{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;}
+.pill{padding:5px 14px;border-radius:999px;font-size:.76rem;border:1px solid rgba(255,255,255,.25);}
+.wrap{max-width:820px;margin:0 auto;padding:36px 20px 60px;}
+.sec-label{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#8a7a6a;margin-bottom:16px;}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px;margin-bottom:36px;}
+.card{border-radius:14px;padding:20px;text-decoration:none;color:inherit;transition:.2s;display:flex;flex-direction:column;gap:8px;border:1.5px solid #ccc;}
+.card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(0,0,0,.1);}
 .card-spsb{background:#fdf6ed;border-color:#d4820a;}
-.card-spsb .card-accent{color:#d4820a;}
-.card-spsb:hover{border-color:#b36d08;}
-
-.card-toc{background:#070a0f;border-color:rgba(0,212,184,.35);color:#e8edf5;}
-.card-toc .card-accent{color:#00d4b8;}
-.card-toc .card-sub{color:#8a9ab5;}
-.card-toc:hover{border-color:rgba(0,212,184,.7);}
-
+.card-toc{background:#0d1117;border-color:rgba(0,212,184,.4);color:#e8edf5;}
 .card-synth{background:#faf8f4;border-color:#5c3d8f;}
-.card-synth .card-accent{color:#5c3d8f;}
-.card-synth:hover{border-color:#3d2070;}
-
-.card-icon{font-size:1.6rem;}
-.card-accent{font-weight:900;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;}
-.card-title{font-family:'Noto Serif TC',serif;font-weight:700;font-size:1rem;line-height:1.4;}
-.card-sub{font-size:.78rem;opacity:.65;line-height:1.5;}
-.card-arrow{font-size:.9rem;opacity:.5;margin-top:auto;}
-
-.flow{background:#fff;border-radius:16px;padding:24px;margin-bottom:32px;border:1.5px solid #e5ddd0;}
-.flow-title{font-weight:900;font-size:.88rem;color:#3d2d1e;margin-bottom:16px;}
-.flow-steps{display:flex;align-items:flex-start;gap:0;flex-wrap:wrap;}
-.flow-step{flex:1;min-width:140px;padding:12px 14px;border-radius:10px;font-size:.8rem;line-height:1.5;}
-.flow-arr{padding:0 8px;font-size:1rem;color:#ccc;align-self:center;flex-shrink:0;}
-.fs1{background:#fdf6ed;border:1px solid #f0c07a;}
-.fs2{background:#070a0f;border:1px solid rgba(0,212,184,.3);color:#e8edf5;}
-.fs3{background:#f5f0ff;border:1px solid #b39de0;}
-.fs-num{font-weight:900;font-size:.68rem;opacity:.6;margin-bottom:3px;}
-.fs-t{font-weight:700;}
-.fs-d{font-size:.73rem;opacity:.65;margin-top:2px;}
-
-.note{background:#fffbf0;border:1.5px solid #f0c07a;border-radius:12px;padding:16px 18px;font-size:.83rem;line-height:1.7;color:#5a4020;}
-.note-icon{font-size:1rem;margin-right:6px;}
-
-@media(max-width:520px){.flow-steps{flex-direction:column;}.flow-arr{transform:rotate(90deg);align-self:flex-start;padding:4px 14px;}}
+.ci{font-size:1.5rem;}
+.ca{font-weight:900;font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;}
+.cas{color:#d4820a;} .cat{color:#00d4b8;} .cay{color:#5c3d8f;}
+.ct{font-weight:700;font-size:.95rem;line-height:1.4;}
+.cd{font-size:.78rem;opacity:.65;line-height:1.5;}
+.carr{margin-top:auto;font-size:.85rem;opacity:.5;}
+.flow{background:#fff;border-radius:14px;padding:22px;margin-bottom:28px;border:1.5px solid #e5ddd0;}
+.flow-t{font-weight:900;font-size:.88rem;color:#3d2d1e;margin-bottom:14px;}
+.steps{display:flex;gap:0;align-items:stretch;flex-wrap:wrap;}
+.step{flex:1;min-width:130px;padding:12px 14px;border-radius:10px;font-size:.8rem;line-height:1.5;}
+.arr{padding:0 8px;color:#bbb;align-self:center;font-size:1.1rem;flex-shrink:0;}
+.s1{background:#fdf6ed;border:1px solid #f0c07a;}
+.s2{background:#0d1117;border:1px solid rgba(0,212,184,.3);color:#e8edf5;}
+.s3{background:#f5f0ff;border:1px solid #b39de0;}
+.sn{font-weight:900;font-size:.68rem;opacity:.6;margin-bottom:3px;}
+.st{font-weight:700;}
+.sd{font-size:.73rem;opacity:.6;margin-top:2px;}
+.note{background:#fffbf0;border:1.5px solid #f0c07a;border-radius:12px;padding:14px 16px;font-size:.82rem;line-height:1.7;color:#5a4020;}
+@media(max-width:520px){.steps{flex-direction:column;}.arr{transform:rotate(90deg);align-self:flex-start;padding:4px 14px;}}
 </style>
 </head>
 <body>
 <div class="hero">
-  <div class="hero-tag">📖 讀議 · 三框架深度分析</div>
+  <div class="tag">📖 讀議 · 三框架深度分析</div>
   <h1>談判後的內部阻力<br>為什麼「自己人」才是最大的關卡？</h1>
   <p>同一個核心問題，用 SPSB、TOC 限制理論、雙框架綜合三種視角全面解構</p>
-  <div class="hero-pills">
+  <div class="pills">
     <span class="pill">🎯 SPSB 框架</span>
     <span class="pill">⚙️ TOC 限制理論</span>
     <span class="pill">🔀 雙框架綜合</span>
   </div>
 </div>
-
 <div class="wrap">
-  <div class="section-label">三份分析報告</div>
+  <div class="sec-label">三份分析報告</div>
   <div class="cards">
     <a href="spsb-analysis.html" class="card card-spsb">
-      <div class="card-icon">🎯</div>
-      <div class="card-accent">SPSB 框架</div>
-      <div class="card-title">深度解析——談判後避免「自己人」扯後腿</div>
-      <div class="card-sub">用 Situation / Problem / Solution / Benefit 四層拆解執行端的阻力根源</div>
-      <div class="card-arrow">閱讀 →</div>
+      <div class="ci">🎯</div>
+      <div class="ca cas">SPSB 框架</div>
+      <div class="ct">深度解析——談判後避免「自己人」扯後腿</div>
+      <div class="cd">用 Situation / Problem / Solution / Benefit 四層拆解執行端阻力</div>
+      <div class="carr">閱讀 →</div>
     </a>
     <a href="toc-analysis.html" class="card card-toc">
-      <div class="card-icon">⚙️</div>
-      <div class="card-accent">TOC 限制理論</div>
-      <div class="card-title">談判後的內部阻力系統</div>
-      <div class="card-sub" style="color:#8a9ab5;">找到系統真正的瓶頸，而不是對所有問題一視同仁地解決</div>
-      <div class="card-arrow" style="color:#00d4b8;">閱讀 →</div>
+      <div class="ci">⚙️</div>
+      <div class="ca cat">TOC 限制理論</div>
+      <div class="ct">談判後的內部阻力系統</div>
+      <div class="cd" style="color:#8a9ab5;">找到系統真正的瓶頸，而不是對所有問題一視同仁</div>
+      <div class="carr" style="color:#00d4b8;">閱讀 →</div>
     </a>
     <a href="synthesis-analysis.html" class="card card-synth">
-      <div class="card-icon">🔀</div>
-      <div class="card-accent">雙框架綜合</div>
-      <div class="card-title">超越 SPSB 與 TOC 的新洞見</div>
-      <div class="card-sub">兩種框架的交叉洞察——看見單一框架看不到的東西</div>
-      <div class="card-arrow">閱讀 →</div>
+      <div class="ci">🔀</div>
+      <div class="ca cay">雙框架綜合</div>
+      <div class="ct">超越 SPSB 與 TOC 的新洞見</div>
+      <div class="cd">兩種框架的交叉洞察——看見單一框架看不到的東西</div>
+      <div class="carr">閱讀 →</div>
     </a>
   </div>
-
-  <div class="section-label">建議閱讀順序</div>
+  <div class="sec-label">建議閱讀順序</div>
   <div class="flow">
-    <div class="flow-title">⚡ 三份報告怎麼讀效果最好</div>
-    <div class="flow-steps">
-      <div class="flow-step fs1">
-        <div class="fs-num">STEP 1</div>
-        <div class="fs-t">SPSB 框架</div>
-        <div class="fs-d">先理解問題的表層結構與敘事脈絡</div>
-      </div>
-      <div class="flow-arr">→</div>
-      <div class="flow-step fs2">
-        <div class="fs-num">STEP 2</div>
-        <div class="fs-t">TOC 限制理論</div>
-        <div class="fs-d">找到系統真正的瓶頸與根本衝突</div>
-      </div>
-      <div class="flow-arr">→</div>
-      <div class="flow-step fs3">
-        <div class="fs-num">STEP 3</div>
-        <div class="fs-t">雙框架綜合</div>
-        <div class="fs-d">整合兩種視角，形成行動方案</div>
-      </div>
+    <div class="flow-t">⚡ 三份報告怎麼讀效果最好</div>
+    <div class="steps">
+      <div class="step s1"><div class="sn">STEP 1</div><div class="st">SPSB 框架</div><div class="sd">理解問題的表層結構與敘事脈絡</div></div>
+      <div class="arr">→</div>
+      <div class="step s2"><div class="sn">STEP 2</div><div class="st">TOC 限制理論</div><div class="sd">找到系統真正的瓶頸與根本衝突</div></div>
+      <div class="arr">→</div>
+      <div class="step s3"><div class="sn">STEP 3</div><div class="st">雙框架綜合</div><div class="sd">整合兩種視角，形成行動方案</div></div>
     </div>
   </div>
-
-  <div class="note">
-    <span class="note-icon">💡</span>
-    <strong>讀議主題：</strong>外部談判成功後，內部推進往往才是真正的挑戰。這三份報告從不同角度切入同一個核心問題——為什麼「自己人」會成為最大阻力，以及如何系統性地突破它。
-  </div>
+  <div class="note">💡 <strong>讀議主題：</strong>外部談判成功後，內部推進往往才是真正的挑戰。這三份報告從不同角度切入同一個核心問題——為什麼「自己人」會成為最大阻力，以及如何系統性地突破它。</div>
 </div>
 </body>
 </html>
