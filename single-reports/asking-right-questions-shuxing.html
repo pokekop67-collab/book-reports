@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒分析｜Asking the Right Questions</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+    min-height: 100vh;
+    color: #3a3a5c;
+    line-height: 1.8;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #667eea 0%, #f093fb 100%);
+    padding: 80px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%; left: -50%;
+    width: 200%; height: 200%;
+    background: radial-gradient(ellipse at center, rgba(255,255,255,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-emoji { font-size: 72px; display: block; margin-bottom: 20px; filter: drop-shadow(0 4px 12px rgba(0,0,0,0.2)); }
+  .hero-title {
+    font-size: clamp(28px, 5vw, 48px);
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+  .hero-subtitle {
+    font-size: clamp(14px, 2.5vw, 20px);
+    color: rgba(255,255,255,0.9);
+    font-weight: 300;
+    letter-spacing: 2px;
+  }
+  .hero-badge {
+    display: inline-block;
+    margin-top: 24px;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50px;
+    padding: 8px 24px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+  }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #a78bfa;
+    margin-bottom: 8px;
+  }
+
+  .section-title {
+    font-size: clamp(22px, 4vw, 32px);
+    font-weight: 900;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 24px;
+    line-height: 1.3;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 8px 32px rgba(102,126,234,0.08);
+    padding: 32px;
+    margin-bottom: 24px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 48px rgba(102,126,234,0.14);
+  }
+
+  .card-sm {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 20px rgba(102,126,234,0.06);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .book-info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+  }
+  .info-item {
+    background: linear-gradient(135deg, #f8f0ff, #e8f4fd);
+    border-radius: 14px;
+    padding: 18px 20px;
+    border: 1px solid rgba(167,139,250,0.2);
+  }
+  .info-label {
+    font-size: 11px;
+    color: #a78bfa;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .info-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: #3a3a5c;
+  }
+
+  .theme-card {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    border: 1px solid rgba(255,255,255,0.9);
+    box-shadow: 0 8px 40px rgba(102,126,234,0.10);
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+  .theme-header {
+    padding: 28px 32px 20px;
+    border-bottom: 1px solid rgba(167,139,250,0.15);
+  }
+  .theme-number {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #f093fb;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+  }
+  .theme-title-main {
+    font-size: clamp(18px, 3vw, 26px);
+    font-weight: 900;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.3;
+  }
+  .theme-body { padding: 24px 32px 32px; }
+
+  .layer-block {
+    margin-bottom: 20px;
+    padding: 18px 22px;
+    border-radius: 14px;
+    border-left: 4px solid;
+  }
+  .layer-l1 { background: #f0f7ff; border-color: #60a5fa; }
+  .layer-l2 { background: #f5f0ff; border-color: #a78bfa; }
+  .layer-l3 { background: linear-gradient(135deg, #fdf4ff, #f0f7ff); border-color: #f093fb; }
+  .layer-label {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .l1-label { color: #3b82f6; }
+  .l2-label { color: #8b5cf6; }
+  .l3-label { color: #e879f9; }
+
+  .quote {
+    font-style: italic;
+    color: #6b7280;
+    font-size: 14px;
+    border-left: 3px solid #e879f9;
+    padding-left: 14px;
+    margin: 12px 0;
+    line-height: 1.7;
+  }
+
+  .action-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .action-item {
+    background: linear-gradient(135deg, #f0fff4, #e8f4fd);
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid rgba(52,211,153,0.2);
+    font-size: 14px;
+  }
+  .action-item::before {
+    content: '⚡';
+    display: block;
+    font-size: 20px;
+    margin-bottom: 8px;
+  }
+
+  .check-list { list-style: none; }
+  .check-list li {
+    padding: 8px 0;
+    padding-left: 28px;
+    position: relative;
+    font-size: 14px;
+    color: #4b5563;
+    border-bottom: 1px solid rgba(167,139,250,0.1);
+  }
+  .check-list li:last-child { border-bottom: none; }
+  .check-list li::before {
+    content: '🔍';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    font-size: 14px;
+  }
+
+  .cross-book {
+    background: linear-gradient(135deg, #fef3c7, #fff7ed);
+    border-radius: 12px;
+    padding: 16px 18px;
+    border: 1px solid rgba(251,191,36,0.3);
+    font-size: 14px;
+    color: #92400e;
+    margin-top: 12px;
+  }
+  .cross-book::before {
+    content: '📚 跨書連結 · ';
+    font-weight: 700;
+  }
+
+  .critic-block {
+    background: linear-gradient(135deg, #fff1f2, #fff7ed);
+    border-radius: 12px;
+    padding: 16px 18px;
+    border: 1px solid rgba(251,113,133,0.2);
+    font-size: 14px;
+    color: #9f1239;
+    margin-top: 12px;
+  }
+  .critic-block::before {
+    content: '⚠️ 批判性評論 · ';
+    font-weight: 700;
+  }
+
+  .tag {
+    display: inline-block;
+    background: linear-gradient(135deg, #f3e8ff, #e0e7ff);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #7c3aed;
+    margin: 3px;
+    border: 1px solid rgba(167,139,250,0.3);
+  }
+
+  .arc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+  }
+  .arc-item {
+    border-radius: 16px;
+    padding: 20px 18px;
+    text-align: center;
+  }
+  .arc-item:nth-child(1) { background: linear-gradient(135deg, #dbeafe, #e0e7ff); }
+  .arc-item:nth-child(2) { background: linear-gradient(135deg, #fce7f3, #fee2e2); }
+  .arc-item:nth-child(3) { background: linear-gradient(135deg, #d1fae5, #e0f2fe); }
+  .arc-item:nth-child(4) { background: linear-gradient(135deg, #fef3c7, #fde68a); }
+  .arc-item:nth-child(5) { background: linear-gradient(135deg, #f3e8ff, #ddd6fe); }
+  .arc-emoji { font-size: 32px; display: block; margin-bottom: 8px; }
+  .arc-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #6b7280; text-transform: uppercase; margin-bottom: 6px; }
+  .arc-text { font-size: 13px; font-weight: 600; color: #374151; line-height: 1.4; }
+
+  .insight-block {
+    padding: 20px 24px;
+    border-radius: 16px;
+    margin-bottom: 16px;
+  }
+  .insight-block:nth-child(odd) { background: linear-gradient(135deg, #f5f3ff, #fdf4ff); }
+  .insight-block:nth-child(even) { background: linear-gradient(135deg, #f0f9ff, #ecfdf5); }
+  .insight-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+  .insight-title { font-size: 16px; font-weight: 800; color: #3a3a5c; margin-bottom: 8px; }
+  .insight-text { font-size: 14px; color: #4b5563; line-height: 1.7; }
+
+  .absence-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .absence-item {
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px dashed;
+  }
+  .absence-item:nth-child(1) { background: #fef2f2; border-color: #fca5a5; }
+  .absence-item:nth-child(2) { background: #fffbeb; border-color: #fcd34d; }
+  .absence-item:nth-child(3) { background: #f0fdf4; border-color: #86efac; }
+  .absence-icon { font-size: 28px; margin-bottom: 10px; display: block; }
+  .absence-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; color: #6b7280; }
+  .absence-text { font-size: 14px; line-height: 1.6; color: #374151; }
+
+  .action-timeline {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+  .timeline-item {
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+  }
+  .timeline-item:nth-child(1) { background: linear-gradient(135deg, #dbeafe, #bfdbfe); }
+  .timeline-item:nth-child(2) { background: linear-gradient(135deg, #d1fae5, #a7f3d0); }
+  .timeline-item:nth-child(3) { background: linear-gradient(135deg, #f3e8ff, #ddd6fe); }
+  .timeline-emoji { font-size: 36px; display: block; margin-bottom: 10px; }
+  .timeline-label { font-size: 11px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: #6b7280; margin-bottom: 10px; }
+  .timeline-title { font-size: 16px; font-weight: 800; color: #1f2937; margin-bottom: 10px; }
+  .timeline-text { font-size: 13px; color: #374151; line-height: 1.6; }
+
+  .book-card-final {
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    border-radius: 24px;
+    padding: 40px;
+    color: white;
+    margin-bottom: 32px;
+  }
+  .book-card-final h3 { font-size: 24px; font-weight: 900; margin-bottom: 16px; opacity: 0.95; }
+  .book-card-final p { font-size: 15px; opacity: 0.9; line-height: 1.8; }
+  .concept-pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .concept-pill {
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 20px;
+    padding: 5px 16px;
+    font-size: 13px;
+    color: white;
+    font-weight: 500;
+  }
+
+  .rating-stars { font-size: 28px; margin: 8px 0; }
+  .rating-label { font-size: 12px; opacity: 0.8; font-weight: 500; }
+
+  .toc {
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    border: 1px solid rgba(255,255,255,0.8);
+    padding: 28px 32px;
+    margin-bottom: 40px;
+  }
+  .toc h3 { font-size: 16px; font-weight: 800; color: #3a3a5c; margin-bottom: 16px; }
+  .toc-list { list-style: none; }
+  .toc-list li {
+    padding: 6px 0;
+    font-size: 14px;
+    color: #6b7280;
+    border-bottom: 1px solid rgba(167,139,250,0.1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .toc-list li:last-child { border-bottom: none; }
+  .toc-num {
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    color: white;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .divider {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(167,139,250,0.4), transparent);
+    margin: 40px 0;
+    border: none;
+  }
+
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 600px) { .two-col { grid-template-columns: 1fr; } }
+
+  .highlight-box {
+    background: linear-gradient(135deg, #fdf4ff, #f0f7ff);
+    border-radius: 16px;
+    padding: 20px 24px;
+    border-left: 5px solid #a78bfa;
+    margin: 16px 0;
+  }
+  .highlight-box strong { color: #7c3aed; }
+
+  .ai-box {
+    background: linear-gradient(135deg, #0f172a, #1e1b4b);
+    border-radius: 20px;
+    padding: 28px 32px;
+    color: white;
+    margin-bottom: 20px;
+  }
+  .ai-box h4 { font-size: 18px; font-weight: 800; margin-bottom: 12px; background: linear-gradient(135deg, #a78bfa, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .ai-box p { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.8; }
+  .ai-box .metaphor { font-size: 20px; font-weight: 700; color: #e879f9; margin: 16px 0 8px; }
+
+  .resource-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; }
+  .resource-item {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 16px;
+    padding: 18px 20px;
+    border: 1px solid rgba(167,139,250,0.2);
+    font-size: 13px;
+    color: #374151;
+  }
+  .resource-item strong { display: block; font-size: 14px; font-weight: 800; color: #3a3a5c; margin-bottom: 4px; }
+  .resource-item em { color: #a78bfa; font-style: normal; font-size: 12px; font-weight: 500; }
+
+  .footer {
+    text-align: center;
+    padding: 40px;
+    color: #a78bfa;
+    font-size: 13px;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 768px) {
+    .hero { padding: 60px 24px 40px; }
+    .container { padding: 24px 16px 60px; }
+    .card, .theme-body, .theme-header { padding: 20px; }
+    .book-card-final { padding: 28px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <span class="hero-emoji">🔍</span>
+  <div class="hero-title">Asking the Right Questions</div>
+  <div class="hero-subtitle">書醒深度分析 · A Guide to Critical Thinking</div>
+  <div class="hero-badge">M. Neil Browne &amp; Stuart M. Keeley · 書醒系統第 8 版</div>
+</div>
+
+<div class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h3>📋 分析目錄</h3>
+    <ul class="toc-list">
+      <li><span class="toc-num">1</span> 書籍資料卡</li>
+      <li><span class="toc-num">2</span> 核心命題</li>
+      <li><span class="toc-num">3</span> 主題深度分析（六大核心主題）</li>
+      <li><span class="toc-num">4</span> 敘事弧線</li>
+      <li><span class="toc-num">5</span> 整合洞見</li>
+      <li><span class="toc-num">6</span> 缺席分析</li>
+      <li><span class="toc-num">7</span> AI 視角</li>
+      <li><span class="toc-num">8</span> 行動轉化</li>
+      <li><span class="toc-num">9</span> 帶問題回去讀</li>
+      <li><span class="toc-num">10</span> 延伸資源</li>
+      <li><span class="toc-num">11</span> 書庫卡片</li>
+    </ul>
+  </div>
+
+  <!-- STEP 1: 書籍資料卡 -->
+  <div class="section-label">STEP 01</div>
+  <div class="section-title">📚 書籍資料卡</div>
+
+  <div class="card">
+    <div class="book-info-grid">
+      <div class="info-item">
+        <div class="info-label">書名</div>
+        <div class="info-value">Asking the Right Questions: A Guide to Critical Thinking</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">作者</div>
+        <div class="info-value">M. Neil Browne &amp; Stuart M. Keeley</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">版本</div>
+        <div class="info-value">第八版（8th Edition）</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">書籍類型</div>
+        <div class="info-value">批判性思考教科書 / 實用技能指南</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">適用場合</div>
+        <div class="info-value">大學課程、職場溝通、日常決策</div>
+      </div>
+      <div class="info-item">
+        <div class="info-label">核心章節數</div>
+        <div class="info-value">13 章 + 1 綜合練習章</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 24px;">
+      <div class="info-label">作者背景</div>
+      <p style="font-size: 14px; color: #4b5563; margin-top: 8px; line-height: 1.8;">
+        <strong>M. Neil Browne</strong> 與 <strong>Stuart M. Keeley</strong> 是美國知名批判性思考教育學者，累計執教批判思考超過 <strong>65 年</strong>。本書從大學新生到博士生均有採用，並被法律、英語、哲學、心理學、社會科學等多領域課程引用。書籍以「兩人合作65年教學經驗」為底氣，強調實踐重於理論、問題重於答案、思維過程重於結果。
+      </p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- STEP 2: 核心命題 -->
+  <div class="section-label">STEP 02</div>
+  <div class="section-title">🎯 核心命題</div>
+
+  <div class="two-col">
+    <div class="card">
+      <div class="section-label">核心問題</div>
+      <p style="font-size: 16px; font-weight: 700; color: #3a3a5c; line-height: 1.6;">在充斥著專家意見、廣告說辭、政治話術的世界裡，我們如何判斷「應該相信什麼」？</p>
+    </div>
+    <div class="card">
+      <div class="section-label">核心論點</div>
+      <p style="font-size: 16px; font-weight: 700; color: #3a3a5c; line-height: 1.6;">批判性思考不是攻擊別人的武器，而是一套系統性的<strong>提問技能</strong>，讓你主動建構自己的理性判斷。</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="section-label">方法論</div>
+    <p style="font-size: 15px; color: #4b5563; line-height: 1.8; margin-bottom: 16px;">作者提出一個由 <strong>11 個關鍵問題</strong>組成的批判思考框架，按序引導讀者從「理解論證」走向「評估論證」：</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+      <span class="tag">📌 議題與結論是什麼？</span>
+      <span class="tag">📌 理由是什麼？</span>
+      <span class="tag">📌 哪些詞語模糊不清？</span>
+      <span class="tag">📌 價值衝突與假設是什麼？</span>
+      <span class="tag">📌 描述性假設是什麼？</span>
+      <span class="tag">📌 推理有謬誤嗎？</span>
+      <span class="tag">📌 證據品質如何？</span>
+      <span class="tag">📌 有競爭性原因嗎？</span>
+      <span class="tag">📌 統計數字有誤導性嗎？</span>
+      <span class="tag">📌 有什麼重要資訊被省略？</span>
+      <span class="tag">📌 有哪些合理的結論？</span>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- STEP 3: 主題分析 -->
+  <div class="section-label">STEP 03</div>
+  <div class="section-title">🔬 主題深度分析</div>
+
+  <!-- THEME 1 -->
+  <div class="theme-card">
+    <div class="theme-header">
+      <div class="theme-number">THEME 01 · 思維模式</div>
+      <div class="theme-title-main">海綿 vs. 淘金者：你用哪種方式學習？</div>
+    </div>
+    <div class="theme-body">
+
+      <div class="layer-block layer-l1">
+        <div class="layer-label l1-label">L1 表層洞見</div>
+        <p style="font-size: 14px; color: #374151;">被動吸收資訊（海綿）vs. 主動提問篩選（淘金）是兩種根本不同的知識獲取模式。海綿型學習讓你積累知識，但讓別人決定你的信仰；淘金型學習讓你主動評估，形成真正屬於自己的判斷。</p>
+        <div class="quote">"The task is challenging and sometimes tedious, but the reward can be tremendous. To distinguish the gold from the gravel in a conversation requires you to ask frequent questions and to reflect on the answers."</div>
+      </div>
+
+      <div class="layer-block layer-l2">
+        <div class="layer-label l2-label">L2 中層洞見</div>
+        <p style="font-size: 14px; color: #374151;">這兩種模式並非對立，而是互補。沒有海綿積累的知識底蘊，淘金就無從判斷；但若只有海綿而沒有淘金，人就成為「資訊的木偶」，信仰被最後一個讀到的觀點所決定。真正的智識獨立需要兩者並用：先吸收，再評估。</p>
+      </div>
+
+      <div class="layer-block layer-l3">
+        <div class="layer-label l3-label">L3 深層洞見 [AI 原創]</div>
+        <p style="font-size: 14px; color: #374151;">海綿模式的最大危機不是無知，而是「有自信的無知」——一個全程海綿的人，往往對自己吸收的資訊最有信心，因為他從未質疑過它。在社群媒體時代，演算法充當超強效率的海綿，自動把我們最容易相信的東西源源不斷地送進腦中，讓「主動提問」的成本比任何歷史時代都高。<strong>批判思考在今天不只是技能，更是一種抵抗力。</strong></p>
+      </div>
+
+      <div class="critic-block">
+        作者以「淘金」為正面隱喻，暗示淘金是辛苦但值得的。但這個比喻忽略了：過度懷疑有其代價——在某些情境下（醫療急救、快速決策），「先思考再行動」反而有害。書中第一章也提到「Who cares?」的效率問題，但對如何分辨「值得質疑」與「不值得質疑」的邊界，著墨不夠充分。
+      </div>
+
+      <div class="cross-book">
+        與 Daniel Kahneman《快思慢想》（Thinking, Fast and Slow）對應：海綿型 ≈ 系統一（快速直覺），淘金型 ≈ 系統二（慢速理性）。Kahneman 的研究顯示，系統一雖有偏誤，但在熟悉情境中效率極高。Browne 的框架可視為「刻意啟動系統二」的練習系統。
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div class="section-label">立即可用行動（5-15分鐘）</div>
+        <div class="action-grid">
+          <div class="action-item">選一篇你今天讀過的文章，把每個段落的「結論」用一句話寫下來</div>
+          <div class="action-item">問自己：「為什麼作者這樣說？他提供了理由嗎？」——只需 5 分鐘</div>
+          <div class="action-item">對下一個你「看完就相信」的資訊，寫下 1 個質疑問題</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div class="section-label">自我檢核問題</div>
+        <ul class="check-list">
+          <li>我今天讀到的資訊，有多少是「海綿吸收」、多少是「淘金評估」？</li>
+          <li>我最近一次改變想法，是因為遇到了好理由，還是因為社會壓力？</li>
+          <li>我有沒有把批判思考用在「別人身上」，但在審視自己的信念時用了雙重標準？</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- THEME 2 -->
+  <div class="theme-card">
+    <div class="theme-header">
+      <div class="theme-number">THEME 02 · 論證結構</div>
+      <div class="theme-title-main">議題 × 結論 × 理由：論證的骨架</div>
+    </div>
+    <div class="theme-body">
+
+      <div class="layer-block layer-l1">
+        <div class="layer-label l1-label">L1 表層洞見</div>
+        <p style="font-size: 14px; color: #374151;">任何論證都有三個核心元素：<strong>議題</strong>（正在討論的問題）、<strong>結論</strong>（說話者想讓你相信的）、<strong>理由</strong>（支撐結論的根據）。找不到這三者，就無法公正地評估一個論點。</p>
+        <div class="quote">"We cannot critically evaluate until we find the conclusion! ... You cannot determine the worth of a conclusion until you identify the reasons."</div>
+      </div>
+
+      <div class="layer-block layer-l2">
+        <div class="layer-label l2-label">L2 中層洞見</div>
+        <p style="font-size: 14px; color: #374151;">「結論」與「意見」的差別在於：結論有理由支撐，意見沒有。這個區分看似簡單，但大多數日常討論都混淆了兩者——人們以「這是我的意見」來規避提供理由的責任，同時又以「這是事實」來偽裝未經支撐的結論。識別論證結構，是對話品質的基礎門檻。</p>
+      </div>
+
+      <div class="layer-block layer-l3">
+        <div class="layer-label l3-label">L3 深層洞見 [AI 原創]</div>
+        <p style="font-size: 14px; color: #374151;">書中特別提到「prescriptive issues（規範性議題）」vs「descriptive issues（描述性議題）」的區分。這個分類隱含了一個更深的哲學問題：人們之所以無法達成共識，往往不是因為「事實不清楚」，而是因為把「應該如何」的問題偽裝成「事實是什麼」的問題在爭論。<strong>政治辯論中大多數的「對話失效」，根源在於雙方在爭不同層次的問題。</strong></p>
+      </div>
+
+      <div class="critic-block">
+        書中對「議題」的處理較為線性——似乎每篇文章只有一個明確議題。但現實中，複雜的論述往往包含多層嵌套的議題（sub-issues），且結論可以同時回應多個議題。對於學術論文或政策白皮書的讀者，此框架需要擴展。
+      </div>
+
+      <div class="cross-book">
+        與 Aristotle《修辭學》（Rhetoric）對應：議題 ≈ 論題（stasis），結論 ≈ 命題（proposition），理由 ≈ 論據（logos）。兩千年前的辯論框架，與本書的現代版本驚人相似。
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div class="section-label">立即可用行動（5-15分鐘）</div>
+        <div class="action-grid">
+          <div class="action-item">拿起任一新聞評論，在三分鐘內找出議題、結論、理由</div>
+          <div class="action-item">在下次開會時，把同事的發言拆解成「結論 + 理由」格式</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div class="section-label">自我檢核問題</div>
+        <ul class="check-list">
+          <li>我上次說「我認為 X」，有沒有接著說「因為 Y」？</li>
+          <li>我能區分某個我相信的東西是「結論」還是「純意見」嗎？</li>
+          <li>我是否曾把某人的立場當成論點去反駁，而不是反駁他的理由？</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- THEME 3 -->
+  <div class="theme-card">
+    <div class="theme-header">
+      <div class="theme-number">THEME 03 · 語言陷阱</div>
+      <div class="theme-title-main">歧義：語言如何讓我們同意我們不同意的事</div>
+    </div>
+    <div class="theme-body">
+
+      <div class="layer-block layer-l1">
+        <div class="layer-label l1-label">L1 表層洞見</div>
+        <p style="font-size: 14px; color: #374151;">當論證中的關鍵詞有多種可能含義，且不同含義會影響你是否接受論點，就存在重要的歧義（significant ambiguity）。辨識歧義的方法：把不同含義代入論證，看是否影響說服力。</p>
+        <div class="quote">"A term or phrase is ambiguous when its meaning is so uncertain in the context of the argument we are examining that we need further clarification before we can judge the adequacy of the reasoning."</div>
+      </div>
+
+      <div class="layer-block layer-l2">
+        <div class="layer-label l2-label">L2 中層洞見</div>
+        <p style="font-size: 14px; color: #374151;">廣告商、政客最擅長「有目的的歧義」——選用能在你心中觸發最正面聯想的詞，讓你以為自己同意了什麼，實際上你只是被情緒引導。書中舉的政治語彙表格揭示了：幾乎所有「感覺良好」的政治用語（改革、自由、安全、進步）都是高度歧義的。</p>
+      </div>
+
+      <div class="layer-block layer-l3">
+        <div class="layer-label l3-label">L3 深層洞見 [AI 原創]</div>
+        <p style="font-size: 14px; color: #374151;">歧義的危險不只在於誤解，而在於「假共識」（illusory consensus）——當兩個人都說「我支持自由」，他們可能在說完全相反的事情，卻以為達成了共識。這種假共識是社會衝突的溫床：人們在同一個詞的旗幟下彼此靠近，然後在政策執行時爆發真正的分歧。<strong>清楚定義才是真正的尊重對話者。</strong></p>
+      </div>
+
+      <div class="critic-block">
+        書中把歧義主要描述為「需要澄清的問題」，但也承認某些歧義是故意保留的（如憲法）。然而對於「什麼時候保留歧義是合理的」討論不足。法律語言、外交用語中的刻意模糊，有時是實用智慧而非欺騙。
+      </div>
+
+      <div class="cross-book">
+        與 George Orwell《政治與英語》（Politics and the English Language）高度呼應：Orwell 主張模糊語言滋養欺騙，清晰寫作是政治誠信的表現。亦連結 Wittgenstein 語言哲學：「語言的邊界即思維的邊界」——我們用什麼詞，決定我們能思考什麼。
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div class="section-label">立即可用行動（5-15分鐘）</div>
+        <div class="action-grid">
+          <div class="action-item">列出你最常用的 3 個「高頻詞」（如：效率、成長、公平），為每個詞寫出 2 種不同定義</div>
+          <div class="action-item">看一則廣告，圈出所有模糊詞，問：「這個詞最好的定義是什麼？最壞的呢？」</div>
+          <div class="action-item">下次辯論前，先和對方確認：「我們說的 X，各自的定義是什麼？」</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div class="section-label">自我檢核問題</div>
+        <ul class="check-list">
+          <li>我是否曾因為一個詞「聽起來不錯」就接受了一個論點，而沒有追問它的具體含義？</li>
+          <li>我在寫作或說話時，是否確保關鍵詞有清楚定義？</li>
+          <li>我和別人的「分歧」，有多少其實是定義不同，而非真正的觀點對立？</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- THEME 4 -->
+  <div class="theme-card">
+    <div class="theme-header">
+      <div class="theme-number">THEME 04 · 隱藏假設</div>
+      <div class="theme-title-main">假設與價值衝突：論證中的隱形支柱</div>
+    </div>
+    <div class="theme-body">
+
+      <div class="layer-block layer-l1">
+        <div class="layer-label l1-label">L1 表層洞見</div>
+        <p style="font-size: 14px; color: #374151;">每個論證都依賴未明言的假設。<strong>價值假設（value assumptions）</strong>是指說話者優先偏好某些價值（如個人自由 vs 社會安全）；<strong>描述性假設（descriptive assumptions）</strong>是對世界如何運作的未言明信念。找出這些隱藏支柱，才能真正評估論證是否站得住腳。</p>
+        <div class="quote">"In all arguments, there will be certain ideas taken for granted by the writer. Typically, these ideas will not be stated. You will have to find them by reading between the lines."</div>
+      </div>
+
+      <div class="layer-block layer-l2">
+        <div class="layer-label l2-label">L2 中層洞見</div>
+        <p style="font-size: 14px; color: #374151;">大多數社會爭議（墮胎、槍枝管制、死刑）之所以無法被「解決」，是因為它們根植於<strong>不同的價值優先排序</strong>，而非不同的事實認知。當你拆解出雙方的價值假設，就會發現爭論不是「誰對誰錯」，而是「誰的優先順序更能反映我們共同的道德直覺」。這是一個更有成果的對話框架。</p>
+      </div>
+
+      <div class="layer-block layer-l3">
+        <div class="layer-label l3-label">L3 深層洞見 [AI 原創]</div>
+        <p style="font-size: 14px; color: #374151;">書中把假設分為「價值假設」與「描述性假設」，但這兩類邊界其實很模糊——例如「市場能解決問題」既是描述性假設（市場如何運作）也是價值假設（市場應該解決問題）。更深層的問題是：<strong>所有假設都是隱藏的，直到有人問出來為止</strong>。批判思考的核心任務，就是把所有人都假裝不需要問的問題，大聲問出來。這在高權力距離的文化中（如東亞）尤其具有社會代價。</p>
+      </div>
+
+      <div class="critic-block">
+        書中列出常見價值清單（autonomy, freedom, justice, equality 等），但未充分討論價值衝突的不可調和性（incommensurability）。Isaiah Berlin 的「價值多元論」指出，某些核心價值之間存在根本衝突，不可能找到「正確的優先排序」——這對書中隱含的「找到最佳理性結論」的樂觀主義是一個挑戰。
+      </div>
+
+      <div class="cross-book">
+        與 Jonathan Haidt《正義之心》（The Righteous Mind）深度呼應：Haidt 的道德基礎理論說明，保守派與自由派之所以「雞同鴨講」，正是因為他們激活了不同的道德基礎（價值假設）。本書的工具若與 Haidt 的研究結合，可以成為跨政治對話的絕佳實踐指南。
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div class="section-label">立即可用行動（5-15分鐘）</div>
+        <div class="action-grid">
+          <div class="action-item">找一個你強烈同意的論點，問：「我同意它，是因為它的理由好，還是因為它的價值假設和我一樣？」</div>
+          <div class="action-item">找一個你強烈反對的論點，列出它隱含的價值假設——能理解它們，不代表你必須接受</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div class="section-label">自我檢核問題</div>
+        <ul class="check-list">
+          <li>我最近一次說「這顯然是對的」，背後有什麼我沒說出口的假設？</li>
+          <li>我和某人的意見不合，我們的價值優先排序有什麼不同？</li>
+          <li>我是否曾把自己的價值假設當成「事實」，要求別人接受？</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- THEME 5 -->
+  <div class="theme-card">
+    <div class="theme-header">
+      <div class="theme-number">THEME 05 · 謬誤與證據</div>
+      <div class="theme-title-main">推理謬誤 × 證據品質：別被把戲耍了</div>
+    </div>
+    <div class="theme-body">
+
+      <div class="layer-block layer-l1">
+        <div class="layer-label l1-label">L1 表層洞見</div>
+        <p style="font-size: 14px; color: #374151;">謬誤（fallacy）是推理中的「把戲」——讓你以為理由支撐了結論，實際上只是轉移了注意力。書中涵蓋：Ad Hominem（攻擊人身）、訴諸情感（appeal to emotion）、Either-or（非此即彼）、Slippery Slope（滑坡論證）等。好的證據需通過：來源可信度、樣本代表性、研究設計嚴謹性等多重評估。</p>
+        <div class="quote">"A fallacy is a reasoning 'trick' that an author might use while trying to persuade you to accept a conclusion."</div>
+      </div>
+
+      <div class="layer-block layer-l2">
+        <div class="layer-label l2-label">L2 中層洞見</div>
+        <p style="font-size: 14px; color: #374151;">謬誤的真正危險不在於「明顯的謬誤」，而在於那些<strong>情感上令人滿足的謬誤</strong>。訴諸權威在科學界很常見，但如果我們停止追問「權威的依據是什麼」，整個知識體系就會變成「信仰的層疊」。書中提醒：個人見證（testimonials）是最弱的一種證據，卻是人類最容易被說服的機制。</p>
+      </div>
+
+      <div class="layer-block layer-l3">
+        <div class="layer-label l3-label">L3 深層洞見 [AI 原創]</div>
+        <p style="font-size: 14px; color: #374151;">書中把謬誤當成「需要識別和避免」的東西，但有一個更深的問題值得思考：<strong>謬誤之所以有效，是因為它們觸及了人類認知的真實弱點</strong>。這意味著識別謬誤不能只靠「知道它的名字」，還需要「在情緒被觸動的當下」保持自我覺察。這是認知科學與批判思考的交叉地帶——知道什麼是謬誤，和在現場不被謬誤說服，是兩種截然不同的能力。</p>
+      </div>
+
+      <div class="critic-block">
+        書中的謬誤清單相對傳統，缺乏對「新興數位謬誤」的討論——如演算法確認偏誤（filter bubble）、轉發即認可的社群媒體邏輯、用分享次數作為真實性證明等。這些是第 8 版（約 2007 年）後才大規模爆發的認知威脅。
+      </div>
+
+      <div class="cross-book">
+        與 Carl Sagan《魔鬼盤踞的世界》（The Demon-Haunted World）呼應：Sagan 提出「懷疑論工具箱」（Baloney Detection Kit），與本書的批判問題清單高度互補。Sagan 更著重科學方法，Browne 更著重日常論證——兩本合用，是絕佳的理性思維套餐。
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div class="section-label">立即可用行動（5-15分鐘）</div>
+        <div class="action-grid">
+          <div class="action-item">打開社群媒體，找出 3 則使用謬誤的貼文（不必公開批評，自己知道即可）</div>
+          <div class="action-item">下次有人引用「研究顯示」，問：「哪個研究？樣本多大？由誰資助？」</div>
+          <div class="action-item">練習「強行辯護」：選一個你不同意的立場，用最強的理由為它辯護 5 分鐘</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div class="section-label">自我檢核問題</div>
+        <ul class="check-list">
+          <li>我上次接受某個結論，是因為理由好，還是因為說話者很有魅力、很有名氣？</li>
+          <li>我是否曾用 Ad Hominem 攻擊一個我不喜歡的人的觀點，而非反駁他的論點？</li>
+          <li>當我說「所有人都知道 X」時，這是證據還是訴諸流行？</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- THEME 6 -->
+  <div class="theme-card">
+    <div class="theme-header">
+      <div class="theme-number">THEME 06 · 競爭原因與遺漏資訊</div>
+      <div class="theme-title-main">你看到的因果，真的成立嗎？</div>
+    </div>
+    <div class="theme-body">
+
+      <div class="layer-block layer-l1">
+        <div class="layer-label l1-label">L1 表層洞見</div>
+        <p style="font-size: 14px; color: #374151;">任何因果關係的聲明，都應該問：<strong>還有什麼其他原因能解釋同樣的現象？</strong>競爭性原因（rival causes）的存在不是否定結論，而是提醒你：研究者提出的解釋只是諸多可能中的一個。同時，說服者永遠只告訴你有利的資訊——你必須主動追問「什麼重要的事沒說？」</p>
+        <div class="quote">"The existence of multiple, plausible rival causes for events reduces our confidence in the cause originally offered by the author."</div>
+      </div>
+
+      <div class="layer-block layer-l2">
+        <div class="layer-label l2-label">L2 中層洞見</div>
+        <p style="font-size: 14px; color: #374151;">遺漏資訊不只是「壞人的欺騙手段」，更是人類溝通的結構性限制：時間不夠、注意力有限、說話者的視角有限、詮釋框架不同——這五個原因導致所有論述都必然是片段的。接受這一點不是悲觀，而是讓你永遠帶著「還有什麼我不知道的？」這個問題繼續學習。</p>
+      </div>
+
+      <div class="layer-block layer-l3">
+        <div class="layer-label l3-label">L3 深層洞見 [AI 原創]</div>
+        <p style="font-size: 14px; color: #374151;">書中討論「rival causes」時，主要聚焦於「反駁某一特定原因」。但更深層的洞見是：<strong>因果思維本身可能是一種認知偏誤</strong>。Nassim Taleb 的「黑天鵝」理論、David Hume 的因果懷疑論，都指向同一個方向：我們的大腦天生愛找模式、愛歸因，但現實中真正的「單一原因」極其罕見。<strong>高手的競爭原因思維，最終會走向「系統性思維」而非「線性因果」。</strong></p>
+      </div>
+
+      <div class="critic-block">
+        書中對統計欺騙的討論（第11章）相對表面——主要提及「基數效應」與「選擇性呈現」。但未深入貝葉斯推理、基率謬誤（base rate fallacy）、辛普森悖論（Simpson's paradox）等更複雜的統計陷阱，這些在現代數據驅動決策中極為常見。
+      </div>
+
+      <div class="cross-book">
+        與 Nassim Taleb《黑天鵝》、Nate Silver《訊號與雜訊》（The Signal and the Noise）呼應：競爭性原因思維 = 對單一敘事的不信任 = 預測謙遜（epistemic humility）。也連結 Charles Duhigg《為什麼我們這樣生活，那樣工作？》中對習慣迴路「原因 → 結果」線性思維的批判。
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div class="section-label">立即可用行動（5-15分鐘）</div>
+        <div class="action-grid">
+          <div class="action-item">看到任何「X 導致 Y」的聲明，問：「還有什麼其他解釋？」——列出 2-3 個</div>
+          <div class="action-item">對你正在做的某個決策，問：「我沒有考慮到什麼？誰的觀點我沒聽過？」</div>
+        </div>
+      </div>
+
+      <div style="margin-top: 16px;">
+        <div class="section-label">自我檢核問題</div>
+        <ul class="check-list">
+          <li>我最近做的一個決定，有沒有基於「相關性」但誤以為是「因果性」？</li>
+          <li>我在評估某個論點時，有沒有主動尋找相反的證據？</li>
+          <li>我今天接收的資訊，說話者的「動機」是什麼？他們想讓我相信什麼？</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- STEP 4: 敘事弧線 -->
+  <div class="section-label">STEP 04</div>
+  <div class="section-title">🌊 敘事弧線</div>
+
+  <div class="card">
+    <div class="arc-grid">
+      <div class="arc-item">
+        <span class="arc-emoji">🌱</span>
+        <div class="arc-label">起點</div>
+        <div class="arc-text">我們生活在「意見爆炸」的世界，每個人都在告訴你該相信什麼——但如何選擇？</div>
+      </div>
+      <div class="arc-item">
+        <span class="arc-emoji">⚡</span>
+        <div class="arc-label">破壞</div>
+        <div class="arc-text">被動吸收讓人成為思想木偶；情緒判斷讓人聽信謊言；對「答案」的渴望讓人止步於第一個合理的解釋</div>
+      </div>
+      <div class="arc-item">
+        <span class="arc-emoji">🔑</span>
+        <div class="arc-label">重建</div>
+        <div class="arc-text">系統性提問的 11 個批判問題，從找議題、找結論、找理由，到評估謬誤、競爭原因、遺漏資訊</div>
+      </div>
+      <div class="arc-item">
+        <span class="arc-emoji">🚀</span>
+        <div class="arc-label">推力</div>
+        <div class="arc-text">每章大量練習範例，學生可立即應用於真實爭議，並獲得即時反饋，建立正向學習迴圈</div>
+      </div>
+      <div class="arc-item">
+        <span class="arc-emoji">🏆</span>
+        <div class="arc-label">著陸</div>
+        <div class="arc-text">成為「強感批判思考者」——不只質疑別人，更質疑自己，在不確定中做出最佳決策</div>
+      </div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- STEP 5: 整合洞見 -->
+  <div class="section-label">STEP 05</div>
+  <div class="section-title">💡 整合洞見</div>
+
+  <div class="insight-block">
+    <span class="insight-icon">🧵</span>
+    <div class="insight-title">隱藏邏輯線：批判思考是一種倫理實踐</div>
+    <div class="insight-text">書中始終強調「strong-sense critical thinking」——把批判技能用在自己的信念上，而非只用來攻擊別人。這背後有一個隱藏的倫理主張：真正的知識誠信，要求你對自己和對別人用同樣的標準。這不只是認知技能，而是一種道德立場。</div>
+  </div>
+
+  <div class="insight-block">
+    <span class="insight-icon">🎭</span>
+    <div class="insight-title">作者潛台詞：謙遜是批判思考的基礎</div>
+    <div class="insight-text">全書反覆出現的主題是「不確定性」。「右答案的神話」一節明確指出：社會議題沒有唯一正確答案，我們的結論永遠只是基於現有資訊的「最佳猜測」。這種認識論謙遜（epistemic humility）是作者真正想傳達的核心精神。</div>
+  </div>
+
+  <div class="insight-block">
+    <span class="insight-icon">🌐</span>
+    <div class="insight-title">知識血緣：邏輯學 × 哲學 × 修辭學的交叉</div>
+    <div class="insight-text">本書是亞里斯多德邏輯傳統（形式論證）、蘇格拉底式問答法（Socratic questioning）、現代認知科學（偏誤與謬誤研究）的現代化融合。它把本來分散在不同學科的工具，整合成一個可操作的日常使用框架。</div>
+  </div>
+
+  <div class="insight-block">
+    <span class="insight-icon">⚠️</span>
+    <div class="insight-title">批判與邊界：批判思考的使用限制</div>
+    <div class="insight-text">批判思考的框架預設了一個「理性對話的場域」，但現實中，許多說服發生在不平等的權力關係、時間壓力、情緒操縱、媒體算法等條件下。書中工具在這些條件下效果有限，需要搭配「媒體素養」和「情緒調節」能力才能真正發揮作用。</div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- STEP 6: 缺席分析 -->
+  <div class="section-label">STEP 06</div>
+  <div class="section-title">🕳️ 缺席分析</div>
+
+  <div class="absence-card">
+    <div class="absence-item">
+      <span class="absence-icon">🚫</span>
+      <div class="absence-label">刻意迴避</div>
+      <div class="absence-text">本書幾乎不討論「何時不要批判思考」——作者深信批判思考永遠有益，但對於情緒性支持、藝術欣賞、親密關係等情境中，過度理性分析可能破壞連結的問題，缺乏討論。</div>
+    </div>
+    <div class="absence-item">
+      <span class="absence-icon">👁️</span>
+      <div class="absence-label">盲點缺席</div>
+      <div class="absence-text">書中假設所有論證都是「文字性的、線性的」。但視覺論證（圖片、影像）、音樂與情感論證、身體語言的說服力，幾乎完全缺席。在影音媒體主導的時代，這是重大盲點。</div>
+    </div>
+    <div class="absence-item">
+      <span class="absence-icon">⏳</span>
+      <div class="absence-label">時代缺席</div>
+      <div class="absence-text">本書對社群媒體、AI 生成內容、深偽（deepfake）、演算法個人化等數位時代的認知挑戰，幾乎沒有討論。批判思考在「資訊由算法篩選」的環境中，需要全新的升級版工具。</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- STEP 7: AI 視角 -->
+  <div class="section-label">STEP 07</div>
+  <div class="section-title">🤖 AI 視角</div>
+
+  <div class="ai-box">
+    <h4>📖 第 N+1 章：如果 AI 寫這本書的下一章</h4>
+    <p>「第 14 章：如何批判 AI 的推理？」——當 ChatGPT 告訴你一個結論時，你應該問的 11 個問題。AI 的「理由」往往是統計模式的產物，而非邏輯推導；它的「假設」是訓練資料的偏見；它的「遺漏資訊」是訓練截止日期之後的世界。批判思考的框架在 AI 時代不但沒有過時，反而更加迫切——因為 AI 是最精緻的「海綿型知識生產者」，它不質疑自己說的話。</p>
+
+    <div class="metaphor">🌊 一個比喻說完整本書</div>
+    <p>這本書就是一副「思維潛水鏡」：在清澈的水裡你不需要它，但當你潛入充滿沙塵的深水（媒體、政治、廣告、專家意見），沒有它你什麼都看不清楚。它不告訴你水裡有什麼，它只讓你的眼睛能夠睜開。</p>
+  </div>
+
+  <div class="card">
+    <div class="section-label">跨領域連結</div>
+    <p style="font-size: 14px; color: #4b5563; margin-bottom: 16px;">批判思考框架在多個領域的應用：</p>
+    <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+      <span class="tag">🧬 科學：假設檢驗 = 競爭原因評估</span>
+      <span class="tag">⚖️ 法律：辯護論證 = 理由評估</span>
+      <span class="tag">💼 商業：商業提案 = 假設 + 遺漏資訊分析</span>
+      <span class="tag">🏥 醫療：診斷 = 競爭性解釋篩選</span>
+      <span class="tag">🎨 藝術：評論 = 論證 + 價值假設揭露</span>
+      <span class="tag">🤖 AI：模型輸出 = 描述性假設 + 遺漏訓練資料</span>
+    </div>
+  </div>
+
+  <div class="highlight-box">
+    <strong>文化轉譯：</strong>在台灣、日本、韓國等高權力距離文化中，本書的「強感批判思考」需要額外的文化適應。質疑權威在東亞脈絡中有更高的社會代價，因此批判思考的應用往往需要從「私下思考」開始，再逐步發展成「公開對話的能力」。這不是思維的失敗，而是智慧的運用。
+  </div>
+
+  <hr class="divider">
+
+  <!-- STEP 8: 行動轉化 -->
+  <div class="section-label">STEP 08</div>
+  <div class="section-title">⚡ 行動轉化</div>
+
+  <div class="action-timeline">
+    <div class="timeline-item">
+      <span class="timeline-emoji">📅</span>
+      <div class="timeline-label">本週啟動</div>
+      <div class="timeline-title">建立「拆論證」習慣</div>
+      <div class="timeline-text">每天選 1 篇讀到的文章，花 5 分鐘找出：議題、結論、主要理由。不需要評估好壞，先練習識別結構。</div>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-emoji">📆</span>
+      <div class="timeline-label">本月實驗</div>
+      <div class="timeline-title">「強感批判思考」挑戰</div>
+      <div class="timeline-text">選 3 個你強烈相信的立場，用本書工具分析它們的假設和遺漏資訊。看看你的立場能否通過自己的批判。</div>
+    </div>
+    <div class="timeline-item">
+      <span class="timeline-emoji">📊</span>
+      <div class="timeline-label">長期追蹤指標</div>
+      <div class="timeline-title">觀念改變頻率</div>
+      <div class="timeline-text">每季記錄一次：「這三個月內，我因為好理由而改變的想法有哪些？」若數字為零，批判思考尚未內化。</div>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- STEP 9: 帶問題回去讀 -->
+  <div class="section-label">STEP 09</div>
+  <div class="section-title">❓ 帶問題回去讀</div>
+
+  <div class="two-col">
+    <div class="card">
+      <div style="font-size: 28px; margin-bottom: 12px;">🎯</div>
+      <div class="section-label">焦點問題一</div>
+      <p style="font-size: 15px; font-weight: 600; color: #3a3a5c; line-height: 1.6;">「弱感批判思考」（用批判技能捍衛既有立場）是否有正當的使用時機？一個律師為客戶辯護時，是在做弱感還是強感批判思考？</p>
+    </div>
+    <div class="card">
+      <div style="font-size: 28px; margin-bottom: 12px;">🌀</div>
+      <div class="section-label">焦點問題二</div>
+      <p style="font-size: 15px; font-weight: 600; color: #3a3a5c; line-height: 1.6;">書中說「no right answer to social controversies」，但批判思考又聲稱能找到「最佳答案」——這個張力如何解決？什麼樣的問題有「最佳答案」，什麼樣的只有「不同但都合理的答案」？</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="font-size: 28px; margin-bottom: 12px;">🔮</div>
+    <div class="section-label">焦點問題三</div>
+    <p style="font-size: 15px; font-weight: 600; color: #3a3a5c; line-height: 1.6;">在批判每個論證的「遺漏資訊」時，我們怎麼知道何時已經掌握了「足夠」的資訊來做決定？批判思考的終止條件是什麼？是否有可能因為「批判過頭」而無法決策？</p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- STEP 10: 延伸資源 -->
+  <div class="section-label">STEP 10</div>
+  <div class="section-title">📖 延伸資源</div>
+
+  <div class="resource-grid">
+    <div class="resource-item">
+      <strong>《快思慢想》</strong>
+      <em>Daniel Kahneman</em>
+      認知偏誤的科學基礎，批判思考的神經科學根源。
+    </div>
+    <div class="resource-item">
+      <strong>《正義之心》</strong>
+      <em>Jonathan Haidt</em>
+      道德心理學解釋為什麼價值假設如此難以跨越。
+    </div>
+    <div class="resource-item">
+      <strong>《魔鬼盤踞的世界》</strong>
+      <em>Carl Sagan</em>
+      科學式批判思考的精神導師，懷疑論工具箱。
+    </div>
+    <div class="resource-item">
+      <strong>《修辭學》</strong>
+      <em>Aristotle</em>
+      論證藝術的起源，理解 logos/ethos/pathos 三角。
+    </div>
+    <div class="resource-item">
+      <strong>《黑天鵝》</strong>
+      <em>Nassim Taleb</em>
+      對「單一因果」的最深入挑戰，競爭原因思維的極致版。
+    </div>
+    <div class="resource-item">
+      <strong>《訊號與雜訊》</strong>
+      <em>Nate Silver</em>
+      統計思維與預測科學，對抗統計欺騙的實用工具。
+    </div>
+    <div class="resource-item">
+      <strong>《這才是說服力》</strong>
+      <em>Phil Maymin</em>
+      說服技巧的批判性反思，從對方角度理解論證。
+    </div>
+    <div class="resource-item">
+      <strong>《批判性思考》</strong>
+      <em>Richard Paul & Linda Elder</em>
+      Asking the Right Questions 的學術姊妹作，更深入的理論框架。
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- STEP 11: 書庫卡片 -->
+  <div class="section-label">STEP 11</div>
+  <div class="section-title">🗂️ 書庫卡片</div>
+
+  <div class="book-card-final">
+    <h3>📚 Asking the Right Questions</h3>
+    <p><strong>核心論點：</strong>批判性思考是一套由 11 個關鍵問題組成的系統性技能，讓人在充斥意見的世界中主動建構理性判斷，而非被動接受他人的結論。</p>
+
+    <div style="margin-top: 20px; margin-bottom: 8px; opacity: 0.8; font-size: 12px; letter-spacing: 2px; text-transform: uppercase;">關鍵概念</div>
+    <div class="concept-pills">
+      <span class="concept-pill">海綿 vs. 淘金</span>
+      <span class="concept-pill">議題 × 結論 × 理由</span>
+      <span class="concept-pill">歧義識別</span>
+      <span class="concept-pill">價值假設</span>
+      <span class="concept-pill">描述性假設</span>
+      <span class="concept-pill">推理謬誤</span>
+      <span class="concept-pill">競爭性原因</span>
+      <span class="concept-pill">遺漏資訊</span>
+      <span class="concept-pill">弱感/強感批判思考</span>
+      <span class="concept-pill">二元思維陷阱</span>
+    </div>
+
+    <div style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 20px;">
+      <strong>AI 原創洞見摘要：</strong><br>
+      <span style="opacity: 0.9; font-size: 14px; line-height: 1.8;">① 「海綿模式」在演算法時代成為最大認知威脅——系統主動投餵你最愿意相信的東西。② 假共識（illusory consensus）是歧義的最大社會危害，比誤解更難發現。③ 謬誤之所以有效是因觸及認知弱點，知道名字 ≠ 在現場不被說服。④ 批判思考的最終形式是「競爭原因 → 系統思維」的升維。⑤ 本書是「思維潛水鏡」——不告訴你水裡有什麼，只讓眼睛能睜開。</span>
+    </div>
+
+    <div style="margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.3); padding-top: 20px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 16px; align-items: center;">
+      <div>
+        <div class="rating-label">推薦度</div>
+        <div class="rating-stars">⭐⭐⭐⭐⭐</div>
+        <div class="rating-label">5/5 · 每位知識工作者的必備基礎</div>
+      </div>
+      <div style="text-align: right;">
+        <div class="rating-label">最適合誰讀</div>
+        <div style="font-size: 14px; opacity: 0.9; margin-top: 4px; line-height: 1.6;">學生、教師、媒體工作者<br>管理者、公民、任何想獨立思考的人</div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 40px;">
+    <span class="tag">#批判思考</span>
+    <span class="tag">#邏輯</span>
+    <span class="tag">#論證分析</span>
+    <span class="tag">#媒體素養</span>
+    <span class="tag">#認知偏誤</span>
+    <span class="tag">#決策</span>
+    <span class="tag">#哲學</span>
+    <span class="tag">#教育</span>
+    <span class="tag">#溝通</span>
+    <span class="tag">#自我成長</span>
+  </div>
+
+</div>
+
+<div class="footer">
+  🔍 書醒分析系統 · Asking the Right Questions · M. Neil Browne &amp; Stuart M. Keeley<br>
+  分析深度：11 步驟完整版 · 2026 年製作
+</div>
+
+</body>
+</html>
