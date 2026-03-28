@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒分析｜Influence: The Psychology of Persuasion</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+    min-height: 100vh;
+    padding: 20px;
+    color: #333;
+    line-height: 1.8;
+  }
+
+  .container { max-width: 900px; margin: 0 auto; }
+
+  /* Hero */
+  .hero {
+    text-align: center;
+    padding: 60px 30px 40px;
+    margin-bottom: 30px;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 6px 20px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 2.4rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .hero .subtitle {
+    font-size: 1rem;
+    color: #888;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+  .hero .author {
+    font-size: 0.9rem;
+    color: #aaa;
+  }
+
+  /* Cards */
+  .card {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 24px rgba(102,126,234,0.08);
+  }
+
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .step-num {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Section titles */
+  h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #667eea;
+    margin: 24px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h2::before {
+    content: '';
+    display: inline-block;
+    width: 4px;
+    height: 16px;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    border-radius: 2px;
+  }
+  h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #444;
+    margin: 16px 0 8px;
+  }
+  p { margin-bottom: 10px; font-size: 0.95rem; color: #555; }
+
+  /* Principle Cards */
+  .principle-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  @media(max-width:600px){ .principle-grid { grid-template-columns: 1fr; } }
+  
+  .principle-card {
+    background: linear-gradient(135deg, rgba(102,126,234,0.06), rgba(240,147,251,0.06));
+    border: 1px solid rgba(102,126,234,0.15);
+    border-radius: 16px;
+    padding: 18px;
+  }
+  .principle-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 6px;
+  }
+  .principle-en {
+    font-size: 0.75rem;
+    color: #aaa;
+    margin-bottom: 10px;
+    font-weight: 400;
+  }
+
+  /* Quote blocks */
+  .quote {
+    background: linear-gradient(135deg, rgba(102,126,234,0.05), rgba(240,147,251,0.05));
+    border-left: 3px solid #667eea;
+    padding: 14px 18px;
+    border-radius: 0 12px 12px 0;
+    margin: 12px 0;
+    font-size: 0.9rem;
+    color: #555;
+    font-style: italic;
+  }
+
+  /* Tags */
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+  .tag {
+    background: linear-gradient(135deg, rgba(102,126,234,0.12), rgba(240,147,251,0.12));
+    color: #667eea;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 50px;
+    border: 1px solid rgba(102,126,234,0.2);
+  }
+
+  /* Insights */
+  .insight-block {
+    background: rgba(255,255,255,0.5);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin: 10px 0;
+    border: 1px solid rgba(102,126,234,0.1);
+  }
+  .insight-label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: #f093fb;
+    margin-bottom: 6px;
+  }
+
+  /* Action items */
+  .action-item {
+    display: flex;
+    gap: 12px;
+    margin: 8px 0;
+    align-items: flex-start;
+  }
+  .action-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    margin-top: 7px;
+    flex-shrink: 0;
+  }
+
+  /* Stars */
+  .stars { color: #f093fb; font-size: 1.1rem; }
+
+  /* Score pill */
+  .score-pill {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    color: white;
+    font-weight: 700;
+    font-size: 0.85rem;
+    padding: 4px 16px;
+    border-radius: 50px;
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(102,126,234,0.3), transparent);
+    margin: 20px 0;
+  }
+
+  /* Chapter nav */
+  .toc {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin: 16px 0;
+  }
+  .toc-item {
+    background: rgba(255,255,255,0.5);
+    border: 1px solid rgba(102,126,234,0.15);
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #667eea;
+    text-align: center;
+  }
+
+  /* Highlight box */
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+    border: 1px solid rgba(102,126,234,0.2);
+    border-radius: 16px;
+    padding: 20px;
+    margin: 16px 0;
+  }
+  .highlight-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #f093fb;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+  }
+
+  /* Principle deep-dive section */
+  .principle-deep {
+    border-top: 1px solid rgba(102,126,234,0.1);
+    padding-top: 20px;
+    margin-top: 20px;
+  }
+  .principle-icon {
+    font-size: 1.8rem;
+    margin-bottom: 8px;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: #bbb;
+    font-size: 0.82rem;
+  }
+
+  /* Warning box */
+  .warning-box {
+    background: linear-gradient(135deg, rgba(240,147,251,0.08), rgba(102,126,234,0.08));
+    border: 1px dashed rgba(240,147,251,0.4);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-size: 0.88rem;
+    color: #666;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="hero-badge">📚 書醒深度分析</div>
+    <h1>Influence<br>The Psychology of Persuasion</h1>
+    <div class="subtitle">影響力：說服心理學</div>
+    <div class="author">Robert B. Cialdini, Ph.D.</div>
+  </div>
+
+  <!-- Step 1: 書籍資料卡 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-num">01</div>
+      <div class="card-title">書籍資料卡</div>
+    </div>
+
+    <div class="toc">
+      <div class="toc-item">📖 社會心理學</div>
+      <div class="toc-item">🎯 說服力</div>
+      <div class="toc-item">🧠 行為科學</div>
+      <div class="toc-item">💼 商業應用</div>
+    </div>
+
+    <h2>作者背景</h2>
+    <p><strong>Robert B. Cialdini</strong>，美國亞利桑那州立大學（Arizona State University）心理學教授，實驗社會心理學家。他花費三年時間臥底於各類順從專業人士——銷售員、募款人、廣告商、公關人員——從內部觀察他們的說服手法，將學術研究與田野觀察完美結合。被公認為「說服科學之父」，全球演講費高達75,000美元以上。</p>
+
+    <h2>書籍類型與版本</h2>
+    <p>學術普及讀物，初版1984年，本書為修訂版（含Reader's Reports讀者回饋單元）。全書圍繞六大心理原則組織，每章深入一個原則，並附現實案例與學術研究佐證。</p>
+
+    <div class="divider"></div>
+    <h2>章節架構</h2>
+    <div class="toc">
+      <div class="toc-item">🔫 影響力武器</div>
+      <div class="toc-item">🤝 互惠原則</div>
+      <div class="toc-item">✊ 承諾與一致</div>
+      <div class="toc-item">👥 社會認同</div>
+      <div class="toc-item">❤️ 喜好原則</div>
+      <div class="toc-item">👔 權威原則</div>
+      <div class="toc-item">⏳ 稀缺原則</div>
+    </div>
+  </div>
+
+  <!-- Step 2: 核心命題 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-num">02</div>
+      <div class="card-title">核心命題</div>
+    </div>
+
+    <div class="principle-grid">
+      <div class="insight-block">
+        <div class="insight-label">❓ 核心問題</div>
+        <p style="margin:0;">為什麼人們會在未經深思熟慮的情況下，對他人的請求說「是」？</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">💡 核心論點</div>
+        <p style="margin:0;">人類進化出六大心理捷徑（武器），這些捷徑通常有效，但也讓我們極度脆弱於被刻意利用。</p>
+      </div>
+    </div>
+
+    <div class="insight-block" style="margin-top:12px;">
+      <div class="insight-label">🔬 方法論</div>
+      <p style="margin:0;">三年臥底田野研究＋實驗室研究的混合方法。作者親身偽裝成銷售員、公關人員、慈善機構人員，從內部觀察說服技術。</p>
+    </div>
+
+    <div class="quote">
+      "Although there are thousands of different tactics that compliance practitioners employ to produce yes, the majority fall within six basic categories. Each of these categories is governed by a fundamental psychological principle that directs human behavior."
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-title">🎯 一句話核心</div>
+      <p style="margin:0; font-weight:600; color:#444;">現代人資訊超載，必須依賴心理捷徑決策——這些捷徑通常有效，但被知道如何觸發它們的人利用時，就成了自動服從的武器。</p>
+    </div>
+  </div>
+
+  <!-- Step 3: 主題式分析 - 六大原則 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-num">03</div>
+      <div class="card-title">主題式深度分析：六大影響原則</div>
+    </div>
+
+    <!-- Principle 1: Reciprocation -->
+    <div class="principle-deep">
+      <div class="principle-icon">🤝</div>
+      <div class="principle-title" style="font-size:1.1rem;">原則一：互惠（Reciprocation）</div>
+      <div class="principle-en">Chapter 2 · The Old Give and Take...and Take</div>
+
+      <h3>3a · 一句話主題</h3>
+      <p>我們在基因層面被編程必須回報他人的給予，哪怕是不請自來的禮物——而這種義務感是可以被操控的。</p>
+
+      <h3>3b · 關鍵洞見</h3>
+      <div class="insight-block">
+        <div class="insight-label">L1 表層｜原文支撐</div>
+        <p style="margin:0;">一位教授寄聖誕卡給陌生人，幾乎所有人都寄回了賀卡，甚至不追問寄件人是誰。互惠反應是自動的、無思考的。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">L2 中層｜機制洞見</div>
+        <p style="margin:0;">互惠不只是社交禮貌，它是人類社會進化的核心機制。Richard Leakey說：「我們之所以成為人類，是因為我們的祖先學會了在義務網絡中分享食物與技能。」這個機制的功能是讓「一次性給予」變為「可期待的未來回報」，從而催生了分工合作與貿易。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">L3 深層｜AI 原創洞見</div>
+        <p style="margin:0;">互惠的真正危險在於它的非對稱性：給予者可以選擇給予的時機、形式和規模，而接受者卻被迫感到必須「等值或超值」回報。這製造了一個永久性的心理債務陷阱。在數位時代，「免費試用」、「免費贈品」、「內容行銷」都是互惠原則的精密武器化。</p>
+      </div>
+
+      <h3>3c · 原文驗證</h3>
+      <div class="quote">
+        "The rule says that we should try to repay, in kind, what another person has provided us... We are obligated to the future repayment of favors, gifts, invitations, and the like. By virtue of the reciprocity rule, then, we are obligated to the future repayment of favors."
+      </div>
+      <p style="font-size:0.85rem; color:#888;">哈雷·克里希納教派在機場贈花後再募款——接受者即使不喜歡對方，也難以拒絕捐款。互惠超越了喜好的影響力。</p>
+
+      <h3>3d · 批判性評論</h3>
+      <div class="warning-box">
+        <strong>論證邊界：</strong>文化差異可能影響互惠強度（例如日本的「お返し」文化比西方更嚴格）。Cialdini的研究以美國為主，跨文化適用性需審慎。此外，長期關係中人們對操控性互惠有更強的識別力，文中對此著墨不多。
+      </div>
+
+      <h3>3e · 跨書連結</h3>
+      <div class="tags">
+        <span class="tag">《送禮的藝術》— 禮物經濟學</span>
+        <span class="tag">Kahneman《快思慢想》— 系統一自動反應</span>
+        <span class="tag">《關係黑洞》— 情感債務操控</span>
+        <span class="tag">Adam Grant《給予》— 互惠者類型分析</span>
+      </div>
+
+      <h3>3f · 立即可用行動（5-15分鐘）</h3>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">下次感受到「不情願的義務感」時，暫停5秒，問自己：「如果沒有這個禮物/幫忙，我還會做這個決定嗎？」</p></div>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">在銷售或募款情境中，識別「先給予」模式，明白這是互惠武器，然後有意識地決定是否回應。</p></div>
+
+      <h3>3g · 自我檢核問題</h3>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">上一次你感到「欠別人的」是什麼情況？那個義務感是真實的還是被製造的？</p></div>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">你是否曾經用「小恩惠」來製造他人的義務感？有沒有意識到？</p></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Principle 2: Commitment & Consistency -->
+    <div class="principle-deep">
+      <div class="principle-icon">✊</div>
+      <div class="principle-title" style="font-size:1.1rem;">原則二：承諾與一致（Commitment and Consistency）</div>
+      <div class="principle-en">Chapter 3 · Hobgoblins of the Mind</div>
+
+      <h3>3a · 一句話主題</h3>
+      <p>一旦我們做出承諾，大腦會自動重組自我認知來與行動保持一致——這個機制讓我們在「小是」之後，幾乎無法拒絕「大是」。</p>
+
+      <h3>3b · 關鍵洞見</h3>
+      <div class="insight-block">
+        <div class="insight-label">L1 表層｜原文支撐</div>
+        <p style="margin:0;">「登門拜訪」實驗（Freedman & Fraser）：先請人展示一個小標語，兩週後有76%的人同意在草坪放大型廣告牌（一般情況只有17%）。小承諾改變了自我形象。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">L2 中層｜機制洞見</div>
+        <p style="margin:0;">承諾的效力有四個放大器：<strong>書面化</strong>（白紙黑字難以否認）、<strong>公開化</strong>（公開承諾比私下承諾更難撤回）、<strong>努力代價</strong>（越辛苦得到的越珍視，如入會儀式）、<strong>內在歸因</strong>（沒有外部壓力時，人更相信行動反映了真實的自己）。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">L3 深層｜AI 原創洞見</div>
+        <p style="margin:0;">承諾機制的本質是「身份政治」——我們不只在保護觀點，我們在保護「那個持有這觀點的我」。現代政治極化、品牌忠誠、宗教信仰的頑固性，都植根於這個機制。社群媒體讓承諾的公開性和持久性爆炸性增長，導致意見更難改變——這是民主審議的結構性威脅。</p>
+      </div>
+
+      <h3>3c · 原文驗證</h3>
+      <div class="quote">
+        "Once we have made a choice or taken a stand, we will encounter personal and interpersonal pressures to behave consistently with that commitment. Those pressures will cause us to respond in ways that justify our earlier decision."
+      </div>
+
+      <h3>3d · 批判性評論</h3>
+      <div class="warning-box">
+        <strong>重要例外：</strong>並非所有一致性都是壞事。心理學研究也顯示，一致性是信任和品格建立的基礎。Cialdini的批判聚焦於「不理性的一致性」，但他對何時應堅持、何時應改變的邊界並不夠清晰。
+      </div>
+
+      <h3>3e · 跨書連結</h3>
+      <div class="tags">
+        <span class="tag">Carol Dweck《心態致勝》— 固定型 vs 成長型</span>
+        <span class="tag">Festinger《認知失調》— 一致性的心理代價</span>
+        <span class="tag">《先問，為什麼》— 核心信念與行動一致</span>
+        <span class="tag">《預測性非理性》— 錨定效應</span>
+      </div>
+
+      <h3>3f · 立即可用行動</h3>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">回顧你生活中一個「明知不對但繼續做」的習慣——問：「最初是什麼小承諾或小行動讓我走到這一步？」</p></div>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">若你想養成一個習慣，寫下來並告訴三個人。利用承諾原則為自己服務。</p></div>
+
+      <h3>3g · 自我檢核問題</h3>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">你是否因為「之前已經投入這麼多」而繼續某個不值得的關係、工作或計畫（沉沒成本謬誤）？</p></div>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">上次你改變一個長期持有的觀點是什麼時候？你是真正被說服了，還是屈服於社會壓力？</p></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Principle 3: Social Proof -->
+    <div class="principle-deep">
+      <div class="principle-icon">👥</div>
+      <div class="principle-title" style="font-size:1.1rem;">原則三：社會認同（Social Proof）</div>
+      <div class="principle-en">Chapter 4 · Truths Are Us</div>
+
+      <h3>3a · 一句話主題</h3>
+      <p>當我們不確定什麼是正確的，我們就看其他人在做什麼——這個機制在現代社會中既是集體智慧，也是集體瘋狂的引擎。</p>
+
+      <h3>3b · 關鍵洞見</h3>
+      <div class="insight-block">
+        <div class="insight-label">L1 表層｜原文支撐</div>
+        <p style="margin:0;">David Phillips的研究：轟動一時的自殺新聞後，商業飛機失事率提升1000%，車禍死亡也大幅增加。更驚人的是：死者年齡與自殺者年齡高度相關——社會認同甚至延伸到「相似者的死亡選擇模仿」。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">L2 中層｜機制洞見</div>
+        <p style="margin:0;">社會認同在兩種條件下特別強烈：<strong>不確定性</strong>（越不確定，越依賴他人行動作為線索）和<strong>相似性</strong>（我們最受「與自己相似的人」影響）。旁觀者效應（bystander effect）就是社會認同的黑暗面——每個人都看著別人，等待有人先行動，結果沒有人行動。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">L3 深層｜AI 原創洞見</div>
+        <p style="margin:0;">演算法推薦系統是有史以來最強大的社會認同製造機器。YouTube的「推薦影片」、TikTok的「For You」、Amazon的「其他人也買了」——都是把「他人的行為」轉化成你的行動誘因。但關鍵是：這個「社會」不再是你的真實社群，而是一個被商業算法重塑的虛擬群體，其行為可能根本不反映現實。</p>
+      </div>
+
+      <h3>3c · 原文驗證</h3>
+      <div class="quote">
+        "We view a behavior as more correct in a given situation to the degree that we see others performing it... When people are uncertain, they are more likely to use others' actions to decide how they themselves should act."
+      </div>
+      <p style="font-size:0.85rem; color:#888;">人民聖殿教（Jonestown）910人集體自殺：Jim Jones的天才不在於個人魅力，而在於他創造了一個隔離環境，使社會認同只能來自教徒群體內部。</p>
+
+      <h3>3d · 批判性評論</h3>
+      <div class="warning-box">
+        <strong>論證跳躍：</strong>Cialdini把Jonestown大量歸因於社會認同，但忽略了組織性暴力、長期洗腦和威脅的作用。此外，他對「相似性」的定義較為模糊——在演算法時代，「相似性」是被人工製造的。
+      </div>
+
+      <h3>3e · 跨書連結</h3>
+      <div class="tags">
+        <span class="tag">Gladwell《引爆趨勢》— 社會流行病學</span>
+        <span class="tag">Sunstein《資訊烏托邦》— 群體討論的極化</span>
+        <span class="tag">《烏合之眾》Le Bon — 群體心理</span>
+        <span class="tag">Pentland《社會物理學》— 行為傳播</span>
+      </div>
+
+      <h3>3f · 立即可用行動</h3>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">緊急狀況時：直接指向一個人說「你，穿藍衣的，請打119」——打破群體的社會認同陷阱。</p></div>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">看到某個產品或想法因為「大家都說好」而受歡迎，先問：「這些人真的使用過嗎？還是他們也是在模仿別人的反應？」</p></div>
+
+      <h3>3g · 自我檢核問題</h3>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">你現在持有的哪些觀點，是因為「周圍的人都這樣認為」而持有的？</p></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Principle 4: Liking -->
+    <div class="principle-deep">
+      <div class="principle-icon">❤️</div>
+      <div class="principle-title" style="font-size:1.1rem;">原則四：喜好（Liking）</div>
+      <div class="principle-en">Chapter 5 · The Friendly Thief</div>
+
+      <h3>3a · 一句話主題</h3>
+      <p>我們更容易被自己喜歡的人說服——而「可愛」是可以被系統性製造的，從外表到熟悉度，到偶然的共同點。</p>
+
+      <h3>3b · 關鍵洞見</h3>
+      <div class="insight-block">
+        <div class="insight-label">L1 表層｜原文支撐</div>
+        <p style="margin:0;">Tupperware派對的奧秘：朋友替你賣東西比陌生業務員有效十倍。我們對熟人的購買請求幾乎無法拒絕，因為拒絕購買等同於「不喜歡朋友」。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">L2 中層｜機制洞見</div>
+        <p style="margin:0;">觸發「喜好」的六個因素：<strong>外表吸引力</strong>（光暈效應）、<strong>相似性</strong>（相同背景/興趣/意見）、<strong>讚美</strong>（即使明知是奉承）、<strong>熟悉度</strong>（單純曝光效應）、<strong>關聯</strong>（與美好事物或人聯繫在一起）、<strong>合作</strong>（共同完成任務建立情感連結）。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">L3 深層｜AI 原創洞見</div>
+        <p style="margin:0;">「喜好」在社群媒體時代被高度武器化：KOL/網紅行銷的本質是把「媒體廣告」的陌生感，轉化成「朋友推薦」的親密感。更深層地，個人化算法確保你只接觸到讓你「感覺良好」的內容，從而建立對平台本身的「喜好」——然後平台再利用這種喜好來影響你的行為與信念。</p>
+      </div>
+
+      <h3>3c · 原文驗證</h3>
+      <div class="quote">
+        "Physical attractiveness seems to engender a 'halo effect'... we automatically assign to good-looking individuals such favorable traits as talent, kindness, honesty, and intelligence."
+      </div>
+
+      <h3>3d · 批判性評論</h3>
+      <div class="warning-box">
+        <strong>文化適用性：</strong>「喜好」的觸發因素高度文化化——什麼算「相似性」、什麼算「吸引力」因文化而異。此外，Cialdini的分析主要聚焦於銷售情境，對長期關係中「喜好」的動態變化（喜好可以被磨損）著墨較少。
+      </div>
+
+      <h3>3e · 跨書連結</h3>
+      <div class="tags">
+        <span class="tag">Carnegie《人性的弱點》— 如何贏得朋友</span>
+        <span class="tag">《蔡康永的說話之道》— 讓人喜歡的技術</span>
+        <span class="tag">Godin《這才是行銷》— 部落認同感</span>
+        <span class="tag">《好感度》— 親和力的科學</span>
+      </div>
+
+      <h3>3f · 立即可用行動</h3>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">下次購買或同意某事前，問自己：「如果是一個陌生人而非朋友提出這個請求，我還會同意嗎？」</p></div>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">識別你最常光顧的商家或品牌：你是真的喜歡產品，還是喜歡銷售人員/品牌形象？</p></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Principle 5: Authority -->
+    <div class="principle-deep">
+      <div class="principle-icon">👔</div>
+      <div class="principle-title" style="font-size:1.1rem;">原則五：權威（Authority）</div>
+      <div class="principle-en">Chapter 6 · Directed Deference</div>
+
+      <h3>3a · 一句話主題</h3>
+      <p>我們被訓練成服從權威——頭銜、制服、豪車足以讓我們不假思索地聽令，即使這個「權威」是虛假的。</p>
+
+      <h3>3b · 關鍵洞見</h3>
+      <div class="insight-block">
+        <div class="insight-label">L1 表層｜原文支撐</div>
+        <p style="margin:0;">Milgram服從實驗：65%的普通人在「權威指令」下，會對無辜者施以最高電壓（450伏）。研究顯示，醫院護士94%會根據「醫生」（實際上是陌生電話）的處方給藥，即使劑量明顯超標。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">L2 中層｜機制洞見</div>
+        <p style="margin:0;">權威的符號比實質更重要：頭銜（博士/教授/執行長）、制服（西裝/白袍/軍裝）、財富配件（豪車/名錶/辦公室）——這些都是「擬態」訊號，讓我們觸發自動服從程序，而不去評估實際的知識與能力。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">L3 深層｜AI 原創洞見</div>
+        <p style="margin:0;">數位時代的「假權威」危機：YouTube大師、Instagram「導師」、LinkedIn「思想領袖」——平台的追蹤者數量成為新的「權威符號」，與真正的專業知識完全脫鉤。更危險的是，AI生成的「研究報告」與「專家評論」即將讓權威符號徹底失去可靠性，我們可能正在進入一個無法辨別真假權威的後現代景況。</p>
+      </div>
+
+      <h3>3c · 原文驗證</h3>
+      <div class="quote">
+        "Just as with other forms of authority, the power of titles can work in the absence of actual authority. Simply the title itself, independent of the person, triggers an automatic deference."
+      </div>
+
+      <h3>3d · 批判性評論</h3>
+      <div class="warning-box">
+        <strong>論證局限：</strong>Cialdini的分析主要聚焦於「非法利用」權威，但對「合法權威」的邊界討論不足。在真正複雜的領域（如醫療、法律、工程），遵從真正的專業權威是理性的——書中未清楚說明如何區分。
+      </div>
+
+      <h3>3e · 跨書連結</h3>
+      <div class="tags">
+        <span class="tag">Milgram《服從權威》— 電擊實驗完整報告</span>
+        <span class="tag">Arendt《平庸之惡》— 服從的道德責任</span>
+        <span class="tag">《為什麼我們相信》— 信念形成機制</span>
+        <span class="tag">Gladwell《以小勝大》— 挑戰權威的策略</span>
+      </div>
+
+      <h3>3f · 立即可用行動</h3>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">看到「專家建議」時，問兩個問題：「這位專家在這個具體問題上真的有相關知識嗎？」「他們是否有利益衝突？」</p></div>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">識別你的老闆、醫生、父母的哪些指示是你「服從」而非「同意」的——兩者有根本性的差異。</p></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Principle 6: Scarcity -->
+    <div class="principle-deep">
+      <div class="principle-icon">⏳</div>
+      <div class="principle-title" style="font-size:1.1rem;">原則六：稀缺（Scarcity）</div>
+      <div class="principle-en">Chapter 7 · The Rule of the Few</div>
+
+      <h3>3a · 一句話主題</h3>
+      <p>失去某物的恐懼遠比獲得同等價值之物的欲望更強烈——這讓「限時優惠」和「最後一件」成為最簡單也最有效的操控工具。</p>
+
+      <h3>3b · 關鍵洞見</h3>
+      <div class="insight-block">
+        <div class="insight-label">L1 表層｜原文支撐</div>
+        <p style="margin:0;">餅乾實驗（Worchel）：相同的餅乾，在裝有2塊的罐子裡，比裝有10塊的罐子裡被評為更好吃、更有價值。「稀缺」創造了幻覺品質提升。更精彩的是：從10塊減少到2塊的餅乾，比一直只有2塊的更被渴望。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">L2 中層｜機制洞見</div>
+        <p style="margin:0;">稀缺的力量來自兩個源頭：（1）「稀缺=高品質」的經驗法則（通常是對的）；（2）<strong>心理抗拒理論</strong>（Psychological Reactance，Jack Brehm）——當我們的自由選擇被限制，我們會更強烈地想要那個選項。三歲兒童的「可怕的兩歲」（Terrible Twos）就是心理抗拒的最初表現。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">L3 深層｜AI 原創洞見</div>
+        <p style="margin:0;">稀缺原則在數位時代面臨弔詭：數位商品實際上是無限複製的（沒有真正的稀缺），但平台透過「限時存取」、「獨家會員」、「NFT」等機制人工製造稀缺性。這揭示了一個更深的真相：稀缺的本質不是客觀供應量，而是主觀的「失去自由」感。只要讓人感覺到「這個機會正在消失」，就能觸發購買衝動——不論商品本身是否真的稀缺。</p>
+      </div>
+
+      <h3>3c · 原文驗證</h3>
+      <div class="quote">
+        "The way to love anything is to realize that it might be lost." — G. K. Chesterton
+        <br><br>
+        "Whenever free choice is limited or threatened, the need to retain our freedoms makes us desire them (as well as the goods and services associated with them) significantly more than previously."
+      </div>
+      <p style="font-size:0.85rem; color:#888;">亞利桑那州Mesa摩門聖殿案例：作者原本對聖殿毫無興趣，但「限時開放」的消息讓他立刻想去參觀——唯一的驅動力是「不去就沒機會了」。</p>
+
+      <h3>3d · 批判性評論</h3>
+      <div class="warning-box">
+        <strong>社會政治擴展：</strong>Cialdini用稀缺原則解釋革命（Davies的「J曲線」理論），這個跨領域連結頗具洞見，但他的分析較為簡化。歷史上的革命是多因素的，單靠「心理抗拒」難以完整解釋。但作為補充視角，仍有價值。
+      </div>
+
+      <h3>3e · 跨書連結</h3>
+      <div class="tags">
+        <span class="tag">Kahneman《快思慢想》— 損失規避（Loss Aversion）</span>
+        <span class="tag">Thaler《推力》— 選擇架構</span>
+        <span class="tag">《稀缺》Mullainathan — 資源不足的心理代價</span>
+        <span class="tag">Ariely《預測性非理性》— 非理性決策</span>
+      </div>
+
+      <h3>3f · 立即可用行動</h3>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">看到「限時優惠」或「最後幾件」時，給自己24小時冷靜期。如果明天這個機會消失了，你真的會後悔嗎？</p></div>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">問自己：「我想要這個東西是因為它本身的價值，還是因為我快要失去它的感覺？」</p></div>
+
+      <h3>3g · 自我檢核問題</h3>
+      <div class="action-item"><div class="action-dot"></div><p style="margin:0;">你最近有哪些決定是被「截止日期」或「限量」驅動的？事後那個決定有多少是你真正滿意的？</p></div>
+    </div>
+  </div>
+
+  <!-- Step 4: 敘事弧線 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-num">04</div>
+      <div class="card-title">敘事弧線</div>
+    </div>
+
+    <div class="principle-grid">
+      <div class="insight-block">
+        <div class="insight-label">🌱 起點</div>
+        <p style="margin:0;">Cialdini自白：「我一直是個容易被說服的傻瓜。」這個個人困惑驅使他成為研究者，而非受害者。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">⚡ 破壞</div>
+        <p style="margin:0;">發現：順從專業人士使用的不是數千種不同技術，而是六個根本心理原則——每個人都活在這些看不見的操控力量之中。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">🔨 重建</div>
+        <p style="margin:0;">三年臥底研究：親身進入銷售組織、廣告公司、公關機構，從內部學習這些原則如何被系統性地武器化。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">🚀 推力</div>
+        <p style="margin:0;">每一章都提供「防禦策略」：不是要消除心理捷徑（不可能），而是學會識別捷徑被操控的時刻，然後暫時切換到手動模式。</p>
+      </div>
+    </div>
+
+    <div class="insight-block" style="margin-top:12px;">
+      <div class="insight-label">🏁 著陸</div>
+      <p style="margin:0;">結語「Primitive Consent for an Automatic Age」：資訊時代的快速發展讓我們更依賴心理捷徑，而非更少——這意味著影響力武器的威力只會增強。覺知是唯一的防禦。</p>
+    </div>
+  </div>
+
+  <!-- Step 5: 整合洞見 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-num">05</div>
+      <div class="card-title">整合洞見</div>
+    </div>
+
+    <h2>隱藏邏輯線</h2>
+    <p>六個原則並非孤立的，它們形成一個<strong>生態系統</strong>：互惠創造義務，義務產生承諾，承諾觸發一致性，一致性被社會認同強化，喜好讓服從變得愉快，權威讓服從變得合理，稀缺讓不服從變得焦慮。高明的影響者往往同時部署多個原則。</p>
+
+    <h2>作者潛台詞</h2>
+    <p>Cialdini表面上在教讀者防禦，但書的結構實際上是一本<strong>說服教科書</strong>。他描述的每個操控手法都精確到讓任何銷售員都可以立即使用。這種「雙面書」性質讓它同時成為了消費者保護讀本和商業培訓材料。</p>
+
+    <h2>知識血緣</h2>
+    <div class="tags">
+      <span class="tag">Festinger 認知失調理論</span>
+      <span class="tag">Langer 自動行為研究</span>
+      <span class="tag">Brehm 心理抗拒理論</span>
+      <span class="tag">Milgram 服從實驗</span>
+      <span class="tag">Lorenz 習性學固定行為模式</span>
+      <span class="tag">Deutsch & Gerard 公開承諾研究</span>
+    </div>
+
+    <h2>批判與邊界</h2>
+    <div class="warning-box">
+      <p style="margin:0;">全書最大的局限是<strong>文化中心性</strong>：幾乎所有研究都在美國進行，偶爾有跨文化例子（如衣索比亞、中國）但作為點綴而非系統性論證。不同文化對六個原則的敏感度差異極大。此外，書中缺乏對「道德操控」與「合理說服」邊界的深入探討——廣告商讀這本書學的是技術，消費者讀的是防禦，但哪條線是不可逾越的？</p>
+    </div>
+  </div>
+
+  <!-- Step 6: 缺席分析 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-num">06</div>
+      <div class="card-title">缺席分析：書中沒有說的</div>
+    </div>
+
+    <div class="principle-grid">
+      <div class="insight-block">
+        <div class="insight-label">🙈 刻意迴避</div>
+        <p style="margin:0;"><strong>道德問題</strong>：書中幾乎不問「是否應該」使用這些技術，只說「如何識別和防禦」。對影響者（特別是企業）的道德責任幾乎沒有討論。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">😶 盲點缺席</div>
+        <p style="margin:0;"><strong>個人差異</strong>：書中把人類行為描述得過於普遍，忽略了個體差異——有些人天生對某些影響原則更免疫，有些人更脆弱。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">⏰ 時代缺席</div>
+        <p style="margin:0;"><strong>數位媒體</strong>：初版1984年，修訂版未能充分處理社群媒體、演算法推薦、AI生成內容對六大原則的指數級放大效果。</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">🌐 結構缺席</div>
+        <p style="margin:0;"><strong>系統性操控</strong>：書聚焦於個人間的說服，但現代最強大的影響力是制度性和算法性的——政府、平台、媒體。個人防禦策略對此幾乎無效。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 7: AI 視角 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-num">07</div>
+      <div class="card-title">AI 視角：第 N+1 章</div>
+    </div>
+
+    <h2>如果這本書今天出版</h2>
+    <div class="highlight-box">
+      <div class="highlight-title">🤖 第七個原則：演算法認同（Algorithmic Validation）</div>
+      <p style="margin:0;">2024年，我們有了第七個影響武器：由演算法不斷強化的「你的選擇是正確的」反饋迴路。每次你點讚、每次你停留3秒以上、每次你不跳過廣告——系統都在學習如何更精確地觸發你的六個原則。過去說服者是人，有其局限；現在說服者是機器，永不疲倦且持續優化。</p>
+    </div>
+
+    <h2>一個比喻說完整本書</h2>
+    <div class="quote" style="font-style:normal; font-size:1rem; border-left-color:#f093fb;">
+      🦅 <strong>我們是訓練有素的老鷹，但有人知道我們巢穴的方向。</strong><br><br>
+      老鷹（人類）有強大的本能和飛行能力，但這些本能是可以被預測的。懂得老鷹習性的獵人（影響者）不需要比老鷹更強，只需要知道什麼聲音、什麼氣味、什麼情境會讓老鷹自動啟動某個行為模式——然後在對的時刻發出那個信號，老鷹自己就飛進了籠子。Click, whirr.
+    </div>
+
+    <h2>跨領域連結</h2>
+    <div class="tags">
+      <span class="tag">🧬 演化生物學｜固定行為模式</span>
+      <span class="tag">🏛️ 政治科學｜宣傳技術</span>
+      <span class="tag">💻 科技倫理｜說服性設計</span>
+      <span class="tag">🎭 戲劇學｜觀眾操控理論</span>
+      <span class="tag">📊 行為經濟學｜助推理論</span>
+    </div>
+  </div>
+
+  <!-- Step 8: 行動轉化 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-num">08</div>
+      <div class="card-title">行動轉化</div>
+    </div>
+
+    <h2>📅 本週啟動（選一個）</h2>
+    <div class="action-item"><div class="action-dot"></div><p style="margin:0;"><strong>「購買暫停」實踐：</strong>看到限時優惠或銷售員施壓時，說「我需要24小時考慮」，然後記錄你的感受。</p></div>
+    <div class="action-item"><div class="action-dot"></div><p style="margin:0;"><strong>「義務清單」練習：</strong>列出你現在感到「欠」某人的事，分析哪些是真實的互惠，哪些是被製造的義務感。</p></div>
+    <div class="action-item"><div class="action-dot"></div><p style="margin:0;"><strong>「權威符號」去除：</strong>下週在任何重要決策前，有意忽略頭銜和外表，只評估論點本身。</p></div>
+
+    <h2>🧪 本月實驗</h2>
+    <div class="action-item"><div class="action-dot"></div><p style="margin:0;"><strong>說服力量實驗：</strong>在工作或生活中選一個你想說服他人的目標，有意識地只使用其中一個影響原則，觀察效果。記錄在筆記本中。</p></div>
+    <div class="action-item"><div class="action-dot"></div><p style="margin:0;"><strong>防禦意識訓練：</strong>每天消費廣告/內容時，辨識使用了哪個或哪些原則。記錄30天，統計最常見的組合。</p></div>
+
+    <h2>📈 長期追蹤指標</h2>
+    <div class="action-item"><div class="action-dot"></div><p style="margin:0;">每季回顧：你上一季的重大決定有多少是被影響原則（而非真實需求）驅動的？比例在下降嗎？</p></div>
+    <div class="action-item"><div class="action-dot"></div><p style="margin:0;">建立「承諾日記」：重要的公開承諾在做出之前，先問：「我真的要內化這個承諾，還是只是一時的社交壓力？」</p></div>
+  </div>
+
+  <!-- Step 9: 帶問題回去讀 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-num">09</div>
+      <div class="card-title">帶問題回去讀</div>
+    </div>
+
+    <div class="highlight-box">
+      <div class="highlight-title">❓ 焦點問題一</div>
+      <p style="margin:0; font-size:1rem;">Cialdini說這六個原則「通常對我們有益」，但在什麼情況下，<strong>完全信任這些自動反應</strong>才是理性的選擇？在資訊爆炸的時代，我們能做到「選擇性地關閉自動模式」嗎？</p>
+    </div>
+
+    <div class="highlight-box" style="margin-top:12px;">
+      <div class="highlight-title">❓ 焦點問題二</div>
+      <p style="margin:0; font-size:1rem;">如果你是一個有道德的行銷人員或公益組織，<strong>哪些影響技術的使用是可以被倫理辯護的</strong>？例如，用「社會認同」說服人們捐款給真正有效的慈善機構，算是操控還是服務？</p>
+    </div>
+
+    <div class="highlight-box" style="margin-top:12px;">
+      <div class="highlight-title">❓ 焦點問題三</div>
+      <p style="margin:0; font-size:1rem;">在對AI生成內容、深偽影片（deepfake）的時代，當「權威符號」可以被完美偽造時，<strong>Cialdini的防禦策略是否仍然有效</strong>？我們需要什麼新的認知工具？</p>
+    </div>
+  </div>
+
+  <!-- Step 10: 延伸資源 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-num">10</div>
+      <div class="card-title">延伸資源</div>
+    </div>
+
+    <h2>核心書單（依閱讀順序建議）</h2>
+    <div class="principle-grid">
+      <div class="insight-block">
+        <div class="insight-label">🔗 直接延伸</div>
+        <p style="margin:0;"><strong>《Pre-Suasion》</strong> — Cialdini, 2016<br>說服的前置條件：如何在說話之前就已贏得認同</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">🔗 科學基礎</div>
+        <p style="margin:0;"><strong>《快思慢想》</strong> — Kahneman<br>系統一（自動）與系統二（慎思）的完整理論框架</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">🔗 應用擴展</div>
+        <p style="margin:0;"><strong>《推力》</strong> — Thaler & Sunstein<br>如何用行為科學設計更好的選擇環境</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">🔗 批判反思</div>
+        <p style="margin:0;"><strong>《說服的倫理》</strong> — 多位作者<br>說服技術的道德邊界與責任</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">🔗 數位應用</div>
+        <p style="margin:0;"><strong>《說服性科技》</strong> — Fogg<br>如何用科技設計改變人類行為</p>
+      </div>
+      <div class="insight-block">
+        <div class="insight-label">🔗 深度心理</div>
+        <p style="margin:0;"><strong>《預測性非理性》</strong> — Ariely<br>人類非理性決策的系統性模式</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 11: 書庫卡片 -->
+  <div class="card">
+    <div class="card-header">
+      <div class="step-num">11</div>
+      <div class="card-title">書庫卡片</div>
+    </div>
+
+    <h2>核心論點</h2>
+    <p>人類進化出六大心理捷徑（互惠、承諾與一致、社會認同、喜好、權威、稀缺），使我們能夠在複雜環境中快速決策。這些捷徑通常有效，但被知道如何觸發它們的人利用時，就成為「自動服從武器」。防禦不是消除捷徑，而是學會識別捷徑被操控的時刻。</p>
+
+    <div class="divider"></div>
+
+    <h2>六大關鍵概念</h2>
+    <div class="principle-grid">
+      <div class="principle-card">
+        <div class="principle-title">互惠 Reciprocation</div>
+        <div class="principle-en">不請自來的給予也創造回報義務</div>
+        <p style="margin:0; font-size:0.85rem; color:#666;">先給予策略、免費試用、登門拜訪法（拒絕後退讓）</p>
+      </div>
+      <div class="principle-card">
+        <div class="principle-title">承諾與一致 Commitment</div>
+        <div class="principle-en">小承諾導向大服從</div>
+        <p style="margin:0; font-size:0.85rem; color:#666;">登門拜訪、書面承諾、公開宣示、低球技術</p>
+      </div>
+      <div class="principle-card">
+        <div class="principle-title">社會認同 Social Proof</div>
+        <div class="principle-en">他人行動是行動指南</div>
+        <p style="margin:0; font-size:0.85rem; color:#666;">笑聲軌道、旁觀者效應、Werther效應、群眾模仿</p>
+      </div>
+      <div class="principle-card">
+        <div class="principle-title">喜好 Liking</div>
+        <div class="principle-en">我們更容易被喜歡的人說服</div>
+        <p style="margin:0; font-size:0.85rem; color:#666;">Tupperware模式、光暈效應、相似性、讚美</p>
+      </div>
+      <div class="principle-card">
+        <div class="principle-title">權威 Authority</div>
+        <div class="principle-en">符號比實質更能觸發服從</div>
+        <p style="margin:0; font-size:0.85rem; color:#666;">Milgram效應、頭銜/制服、假專家、護士服從案例</p>
+      </div>
+      <div class="principle-card">
+        <div class="principle-title">稀缺 Scarcity</div>
+        <div class="principle-en">失去的恐懼大於獲得的喜悅</div>
+        <p style="margin:0; font-size:0.85rem; color:#666;">限量策略、截止日期、心理抗拒、禁果效應</p>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <h2>AI 原創洞見摘要</h2>
+    <div class="highlight-box">
+      <p style="margin:0; line-height:1.9;">1. 六個原則形成生態系統，高明操控者同時部署多個。<br>
+      2. 演算法是第七個影響武器——永不疲倦且持續優化地觸發前六個。<br>
+      3. 承諾機制的本質是「身份政治」——保護的不是觀點，是「那個持有觀點的自我」。<br>
+      4. 數位稀缺是人造的，但觸發的「失去自由感」與真實稀缺完全相同。<br>
+      5. Cialdini的真正貢獻是揭示：人類行為的理性表象下，是「Click, Whirr」的自動機器。</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <div style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+      <div>
+        <h2 style="margin:0 0 10px;">標籤</h2>
+        <div class="tags">
+          <span class="tag">#說服心理學</span>
+          <span class="tag">#行為科學</span>
+          <span class="tag">#商業應用</span>
+          <span class="tag">#認知偏誤</span>
+          <span class="tag">#消費者行為</span>
+          <span class="tag">#防禦策略</span>
+          <span class="tag">#社會心理學</span>
+          <span class="tag">#影響力</span>
+        </div>
+      </div>
+      <div style="text-align:center;">
+        <h2 style="margin:0 0 8px;">推薦度</h2>
+        <div class="score-pill">★★★★★ 必讀</div>
+        <p style="margin:8px 0 0; font-size:0.8rem; color:#aaa;">無論你是要防禦還是應用<br>這都是不可繞過的基礎讀本</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <div style="font-size:1.4rem; margin-bottom:8px;">📚</div>
+    <p>書醒深度分析系統 · 由 AI 生成</p>
+    <p style="margin-top:4px;">Influence: The Psychology of Persuasion · Robert B. Cialdini</p>
+    <p style="margin-top:4px; color:#ddd;">分析完成於 2026 · 版權屬於原著作者</p>
+  </footer>
+
+</div>
+</body>
+</html>
