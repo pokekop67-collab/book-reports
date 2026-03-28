@@ -1,0 +1,1993 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thinking, Fast and Slow — 書僮 2.0 深度分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg-primary: #0f0f1a;
+    --bg-secondary: #141428;
+    --bg-card: #1a1a2e;
+    --bg-card-hover: #1e1e38;
+    --accent-orange: #f97316;
+    --accent-gold: #f59e0b;
+    --accent-amber: #fbbf24;
+    --stage1-primary: #f97316;
+    --stage1-secondary: #fb923c;
+    --stage1-glow: rgba(249, 115, 22, 0.15);
+    --stage2-primary: #8b5cf6;
+    --stage2-secondary: #a78bfa;
+    --stage2-glow: rgba(139, 92, 246, 0.15);
+    --stage3-primary: #10b981;
+    --stage3-secondary: #34d399;
+    --stage3-glow: rgba(16, 185, 129, 0.15);
+    --text-primary: #f1f5f9;
+    --text-secondary: #94a3b8;
+    --text-muted: #64748b;
+    --border: rgba(255,255,255,0.06);
+    --border-accent: rgba(249, 115, 22, 0.3);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Noto Sans TC', 'Inter', sans-serif;
+    line-height: 1.7;
+    min-height: 100vh;
+  }
+
+  /* ───── HERO ───── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 24px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px; left: -200px;
+    width: 800px; height: 800px;
+    background: radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -100px; right: -100px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, rgba(249,115,22,0.2), rgba(245,158,11,0.2));
+    border: 1px solid rgba(249,115,22,0.4);
+    color: var(--accent-gold);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 20px;
+    border-radius: 20px;
+    margin-bottom: 32px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #fff 0%, var(--accent-amber) 50%, var(--accent-orange) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(14px, 2vw, 18px);
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    font-weight: 300;
+  }
+
+  .hero-author {
+    font-size: clamp(16px, 2.5vw, 22px);
+    color: var(--accent-amber);
+    font-weight: 500;
+    margin-bottom: 48px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+  }
+
+  .hero-core-thesis {
+    max-width: 720px;
+    background: linear-gradient(135deg, rgba(249,115,22,0.1), rgba(245,158,11,0.05));
+    border: 1px solid rgba(249,115,22,0.3);
+    border-radius: 16px;
+    padding: 28px 36px;
+    margin-bottom: 64px;
+  }
+
+  .hero-core-thesis p {
+    font-size: clamp(15px, 2vw, 18px);
+    line-height: 1.8;
+    color: var(--text-primary);
+    font-weight: 400;
+  }
+
+  .hero-core-thesis .quote-mark {
+    font-size: 48px;
+    color: var(--accent-orange);
+    font-family: 'Playfair Display', serif;
+    line-height: 0.5;
+    display: block;
+    margin-bottom: 12px;
+    opacity: 0.6;
+  }
+
+  .stage-nav {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .stage-nav a {
+    text-decoration: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 1px;
+    transition: all 0.3s;
+  }
+
+  .nav-s1 { background: rgba(249,115,22,0.15); border: 1px solid rgba(249,115,22,0.4); color: var(--stage1-primary); }
+  .nav-s1:hover { background: rgba(249,115,22,0.25); }
+  .nav-s2 { background: rgba(139,92,246,0.15); border: 1px solid rgba(139,92,246,0.4); color: var(--stage2-primary); }
+  .nav-s2:hover { background: rgba(139,92,246,0.25); }
+  .nav-s3 { background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.4); color: var(--stage3-primary); }
+  .nav-s3:hover { background: rgba(16,185,129,0.25); }
+
+  /* ───── SECTION WRAPPER ───── */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 80px 24px;
+  }
+
+  .stage-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+    margin-bottom: 60px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .stage-number {
+    font-family: 'Inter', sans-serif;
+    font-size: clamp(80px, 10vw, 120px);
+    font-weight: 900;
+    line-height: 0.9;
+    opacity: 0.08;
+    letter-spacing: -4px;
+    flex-shrink: 0;
+  }
+
+  .s1 .stage-number { color: var(--stage1-primary); opacity: 0.12; }
+  .s2 .stage-number { color: var(--stage2-primary); opacity: 0.12; }
+  .s3 .stage-number { color: var(--stage3-primary); opacity: 0.12; }
+
+  .stage-title-block { padding-top: 8px; }
+
+  .stage-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .s1 .stage-label { color: var(--stage1-primary); }
+  .s2 .stage-label { color: var(--stage2-primary); }
+  .s3 .stage-label { color: var(--stage3-primary); }
+
+  .stage-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 4vw, 40px);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .stage-desc {
+    font-size: 14px;
+    color: var(--text-secondary);
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* ───── STRUCTURE SCAN ───── */
+  .structure-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .part-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 20px;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .part-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, var(--stage1-primary), var(--accent-gold));
+  }
+
+  .part-card:hover {
+    background: var(--bg-card-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+  }
+
+  .part-number {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-orange);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .part-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .part-title-en {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 12px;
+  }
+
+  .part-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* ───── CONCEPT CARDS ───── */
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    margin-bottom: 24px;
+    padding-top: 48px;
+  }
+
+  .s1 .section-title { color: var(--stage1-secondary); }
+  .s2 .section-title { color: var(--stage2-secondary); }
+  .s3 .section-title { color: var(--stage3-secondary); }
+
+  .concept-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 24px;
+    transition: all 0.3s;
+    position: relative;
+  }
+
+  .concept-card:hover {
+    border-color: rgba(249,115,22,0.2);
+    box-shadow: 0 0 40px rgba(249,115,22,0.05);
+    transform: translateY(-2px);
+  }
+
+  .concept-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  .concept-icon {
+    width: 48px; height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(249,115,22,0.2), rgba(245,158,11,0.1));
+    border: 1px solid rgba(249,115,22,0.2);
+  }
+
+  .concept-name {
+    font-size: clamp(18px, 2.5vw, 22px);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .concept-name-en {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+  }
+
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .concept-field {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .field-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-orange);
+    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .field-content {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  /* System 1 vs 2 special layout */
+  .system-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 24px;
+  }
+
+  .system-box {
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .sys1 {
+    background: linear-gradient(135deg, rgba(239,68,68,0.1), rgba(249,115,22,0.05));
+    border: 1px solid rgba(239,68,68,0.25);
+  }
+
+  .sys2 {
+    background: linear-gradient(135deg, rgba(59,130,246,0.1), rgba(99,102,241,0.05));
+    border: 1px solid rgba(59,130,246,0.25);
+  }
+
+  .sys-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .sys1 .sys-label { color: #ef4444; }
+  .sys2 .sys-label { color: #3b82f6; }
+
+  .sys-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .sys1 .sys-title { color: #fca5a5; }
+  .sys2 .sys-title { color: #93c5fd; }
+
+  .sys-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .sys-list li {
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .sys-list li::before {
+    content: '→';
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .sys1 .sys-list li::before { color: #ef4444; }
+  .sys2 .sys-list li::before { color: #3b82f6; }
+
+  /* ───── STAGE 2 COLORS ───── */
+  .s2 .concept-card:hover {
+    border-color: rgba(139,92,246,0.2);
+    box-shadow: 0 0 40px rgba(139,92,246,0.05);
+  }
+
+  .s2 .concept-icon {
+    background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(167,139,250,0.1));
+    border-color: rgba(139,92,246,0.2);
+  }
+
+  .s2 .field-label { color: var(--stage2-secondary); }
+
+  .review-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+  }
+
+  .review-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--stage2-secondary);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .review-body {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  .review-body ul {
+    padding-left: 20px;
+    margin-top: 10px;
+  }
+
+  .review-body li {
+    margin-bottom: 8px;
+  }
+
+  .book-compare {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+  }
+
+  .book-vs-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    border-top: 3px solid var(--stage2-primary);
+  }
+
+  .book-vs-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--stage2-secondary);
+    margin-bottom: 6px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+  }
+
+  .book-vs-subtitle {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 16px;
+  }
+
+  .book-vs-body {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .verdict {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: rgba(139,92,246,0.1);
+    border-radius: 8px;
+    border-left: 3px solid var(--stage2-primary);
+    font-size: 12px;
+    color: var(--stage2-secondary);
+    font-weight: 600;
+  }
+
+  /* ───── STAGE 3 COLORS ───── */
+  .s3 .concept-card:hover {
+    border-color: rgba(16,185,129,0.2);
+    box-shadow: 0 0 40px rgba(16,185,129,0.05);
+  }
+
+  .s3 .concept-icon {
+    background: linear-gradient(135deg, rgba(16,185,129,0.2), rgba(52,211,153,0.1));
+    border-color: rgba(16,185,129,0.2);
+  }
+
+  .s3 .field-label { color: var(--stage3-secondary); }
+
+  .defense-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .defense-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: linear-gradient(180deg, var(--stage3-primary), var(--stage3-secondary));
+  }
+
+  .defense-header {
+    margin-bottom: 20px;
+  }
+
+  .defense-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 4px;
+  }
+
+  .defense-name-en {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    font-style: italic;
+  }
+
+  .defense-steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+  }
+
+  .defense-step {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+  }
+
+  .step-num {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--stage3-secondary);
+    margin-bottom: 6px;
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+  }
+
+  .step-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .step-content {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  /* Decision System */
+  .decision-system {
+    margin-top: 32px;
+  }
+
+  .decision-flow {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 24px;
+    position: relative;
+  }
+
+  .decision-level {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    position: relative;
+  }
+
+  .dl-low {
+    border-top: 3px solid #10b981;
+  }
+
+  .dl-mid {
+    border-top: 3px solid #f59e0b;
+  }
+
+  .dl-high {
+    border-top: 3px solid #ef4444;
+  }
+
+  .dl-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-family: 'Inter', sans-serif;
+    padding: 4px 10px;
+    border-radius: 4px;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  .dl-low .dl-badge { background: rgba(16,185,129,0.15); color: #10b981; }
+  .dl-mid .dl-badge { background: rgba(245,158,11,0.15); color: #f59e0b; }
+  .dl-high .dl-badge { background: rgba(239,68,68,0.15); color: #ef4444; }
+
+  .dl-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 8px;
+  }
+
+  .dl-subtitle {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .dl-items {
+    list-style: none;
+    padding: 0;
+  }
+
+  .dl-items li {
+    font-size: 13px;
+    color: var(--text-secondary);
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
+  }
+
+  .dl-items li:last-child { border-bottom: none; }
+
+  .dl-items li span {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .dl-low .dl-items li span { background: rgba(16,185,129,0.2); color: #10b981; }
+  .dl-mid .dl-items li span { background: rgba(245,158,11,0.2); color: #f59e0b; }
+  .dl-high .dl-items li span { background: rgba(239,68,68,0.2); color: #ef4444; }
+
+  /* 30-Day Plan */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+  }
+
+  .week-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .week-card::after {
+    content: attr(data-week);
+    position: absolute;
+    bottom: -20px;
+    right: -10px;
+    font-size: 100px;
+    font-weight: 900;
+    font-family: 'Inter', sans-serif;
+    color: rgba(16,185,129,0.04);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .week-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--stage3-secondary);
+    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .week-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+  }
+
+  .week-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .week-tasks {
+    margin-top: 12px;
+    list-style: none;
+    padding: 0;
+  }
+
+  .week-tasks li {
+    font-size: 12px;
+    color: var(--text-muted);
+    padding: 5px 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .week-tasks li::before {
+    content: '✓';
+    color: var(--stage3-primary);
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* Tonight Action */
+  .tonight-card {
+    background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(52,211,153,0.05));
+    border: 1px solid rgba(16,185,129,0.3);
+    border-radius: 20px;
+    padding: 40px;
+    margin-top: 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tonight-card::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: 50%; transform: translateX(-50%);
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(16,185,129,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .tonight-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 3vw, 28px);
+    font-weight: 700;
+    color: var(--stage3-secondary);
+    margin-bottom: 8px;
+  }
+
+  .tonight-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .tonight-steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    text-align: left;
+    margin-bottom: 32px;
+  }
+
+  .tonight-step {
+    background: rgba(16,185,129,0.08);
+    border: 1px solid rgba(16,185,129,0.15);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .tonight-step-num {
+    font-size: 28px;
+    font-weight: 900;
+    color: rgba(16,185,129,0.3);
+    font-family: 'Inter', sans-serif;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .tonight-step-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .tonight-step-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .tonight-result {
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.2);
+    border-radius: 10px;
+    padding: 16px 24px;
+    font-size: 14px;
+    color: var(--stage3-secondary);
+    font-weight: 600;
+  }
+
+  /* Peak-End */
+  .peak-end-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 24px;
+  }
+
+  .peak-end-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px;
+    border-left: 3px solid var(--stage3-primary);
+  }
+
+  .peak-end-card .card-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--stage3-secondary);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .peak-end-card .card-context {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .peak-end-card .card-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .peak-end-card .card-action {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: rgba(16,185,129,0.08);
+    border-radius: 8px;
+    font-size: 12px;
+    color: var(--stage3-secondary);
+    font-weight: 600;
+    border-left: 2px solid var(--stage3-primary);
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    margin: 80px 0 0;
+  }
+
+  /* Tags */
+  .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 4px;
+    margin-right: 6px;
+    margin-bottom: 6px;
+  }
+
+  .tag-orange { background: rgba(249,115,22,0.15); color: var(--accent-orange); }
+  .tag-purple { background: rgba(139,92,246,0.15); color: var(--stage2-secondary); }
+  .tag-green { background: rgba(16,185,129,0.15); color: var(--stage3-secondary); }
+  .tag-red { background: rgba(239,68,68,0.15); color: #fca5a5; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 48px 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-text {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    line-height: 1.7;
+  }
+
+  .footer-brand {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--accent-amber);
+    margin-bottom: 8px;
+    font-family: 'Playfair Display', serif;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .system-compare { grid-template-columns: 1fr; }
+    .defense-steps { grid-template-columns: 1fr; }
+    .decision-flow { grid-template-columns: 1fr; }
+    .stage-header { flex-direction: column; gap: 12px; }
+    .stage-number { font-size: 60px; }
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--bg-primary); }
+  ::-webkit-scrollbar-thumb { background: rgba(249,115,22,0.3); border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: rgba(249,115,22,0.5); }
+
+  /* Highlight box */
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(249,115,22,0.08), rgba(245,158,11,0.04));
+    border: 1px solid rgba(249,115,22,0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 20px;
+  }
+
+  .highlight-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-orange);
+    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .highlight-text {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+
+  .s2 .highlight-box {
+    background: linear-gradient(135deg, rgba(139,92,246,0.08), rgba(167,139,250,0.04));
+    border-color: rgba(139,92,246,0.2);
+  }
+
+  .s2 .highlight-label { color: var(--stage2-secondary); }
+
+  .s3 .highlight-box {
+    background: linear-gradient(135deg, rgba(16,185,129,0.08), rgba(52,211,153,0.04));
+    border-color: rgba(16,185,129,0.2);
+  }
+
+  .s3 .highlight-label { color: var(--stage3-secondary); }
+
+  .big-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(16px, 2.5vw, 22px);
+    font-style: italic;
+    color: var(--text-secondary);
+    line-height: 1.7;
+    padding: 24px 32px;
+    border-left: 3px solid var(--accent-orange);
+    margin: 24px 0;
+    background: rgba(255,255,255,0.02);
+    border-radius: 0 10px 10px 0;
+  }
+
+  .s2 .big-quote { border-left-color: var(--stage2-primary); }
+  .s3 .big-quote { border-left-color: var(--stage3-primary); }
+
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-badge">書僮 2.0 · 三階段深讀法</div>
+  <h1 class="hero-title">Thinking, Fast and Slow</h1>
+  <p class="hero-subtitle">深度分析報告 — 完全體版</p>
+  <p class="hero-author">Daniel Kahneman · 2011</p>
+  <div class="hero-core-thesis">
+    <span class="quote-mark">"</span>
+    <p>我們以為自己的決定是理性的，但其實幾乎所有重要判斷都在無意識中完成——快思系統才是真正的掌舵者，慢思系統不過是它的公關部門，負責事後合理化我們根本沒真正思考過的選擇。</p>
+  </div>
+  <div class="stage-nav">
+    <a href="#stage1" class="nav-s1">01 內容本體</a>
+    <a href="#stage2" class="nav-s2">02 交叉驗證</a>
+    <a href="#stage3" class="nav-s3">03 Rex 實戰化</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     STAGE 1
+══════════════════════════════════════════ -->
+<section id="stage1" class="s1">
+  <div class="section">
+
+    <div class="stage-header">
+      <div class="stage-number">01</div>
+      <div class="stage-title-block">
+        <div class="stage-label">Stage 1 · 兩遍深讀</div>
+        <h2 class="stage-title">內容本體</h2>
+        <p class="stage-desc">結構掃描 → 核心概念深挖 → 每個概念含定義、成因、觸發情境、識別方法、應對策略</p>
+      </div>
+    </div>
+
+    <!-- First Pass: Structure -->
+    <h3 class="section-title">第一遍：全書骨架</h3>
+    <div class="structure-grid">
+      <div class="part-card">
+        <div class="part-number">PART 01</div>
+        <div class="part-title">兩個系統</div>
+        <div class="part-title-en">Two Systems</div>
+        <div class="part-desc">介紹快思（系統一）與慢想（系統二）的基本運作原理、各自的特徵與典型任務。確立全書的核心分析框架。</div>
+      </div>
+      <div class="part-card">
+        <div class="part-number">PART 02</div>
+        <div class="part-title">捷思與偏誤</div>
+        <div class="part-title-en">Heuristics and Biases</div>
+        <div class="part-desc">錨定、代表性捷思、可得性捷思、光環效應等系統一產生的認知偏誤。展示人類判斷如何系統性地偏離統計理性。</div>
+      </div>
+      <div class="part-card">
+        <div class="part-number">PART 03</div>
+        <div class="part-title">過度自信</div>
+        <div class="part-title-en">Overconfidence</div>
+        <div class="part-desc">敘事謬誤、後見之明、規劃謬誤、專家幻覺。我們為什麼對自己的預測能力有系統性的高估？</div>
+      </div>
+      <div class="part-card">
+        <div class="part-number">PART 04</div>
+        <div class="part-title">選擇</div>
+        <div class="part-title-en">Choices / Prospect Theory</div>
+        <div class="part-desc">展望理論、框架效應、損失規避、稟賦效應。理性人模型的崩塌，以及真實的人類如何在風險下做決策。</div>
+      </div>
+      <div class="part-card">
+        <div class="part-number">PART 05</div>
+        <div class="part-title">兩個自我</div>
+        <div class="part-title-en">Two Selves</div>
+        <div class="part-desc">體驗自我（experiencing self）vs 記憶自我（remembering self）。峰終定律揭示我們的「幸福感」不是過去的積分，而是被峰值和結尾劫持的偽記憶。</div>
+      </div>
+    </div>
+
+    <!-- Second Pass: Deep Concepts -->
+    <h3 class="section-title">第二遍：十大核心概念深挖</h3>
+
+    <!-- Concept 1: System 1 vs 2 -->
+    <div class="concept-card">
+      <div class="concept-header">
+        <div class="concept-icon">⚡</div>
+        <div>
+          <div class="concept-name">系統一 vs 系統二</div>
+          <div class="concept-name-en">System 1 (Fast) vs System 2 (Slow)</div>
+        </div>
+      </div>
+      <div class="system-compare">
+        <div class="system-box sys1">
+          <div class="sys-label">System 1 · 快思</div>
+          <div class="sys-title">自動駕駛員</div>
+          <ul class="sys-list">
+            <li>無意識、自動、快速運行</li>
+            <li>不需主動努力，幾乎零耗能</li>
+            <li>感知面孔情緒、完成熟悉動作</li>
+            <li>靠聯想、模式匹配、直覺</li>
+            <li>產生第一印象與「感覺」</li>
+            <li>主導：緊急情況、重複任務、熟悉領域</li>
+          </ul>
+        </div>
+        <div class="system-box sys2">
+          <div class="sys-label">System 2 · 慢想</div>
+          <div class="sys-title">懶惰的分析師</div>
+          <ul class="sys-list">
+            <li>有意識、費力、緩慢</li>
+            <li>高認知負荷，需要主動專注</li>
+            <li>邏輯推演、數學計算、複雜比較</li>
+            <li>負責監控系統一的輸出</li>
+            <li>通常接受系統一的建議，極少真正干預</li>
+            <li>主導：陌生問題、高風險決策、學習新技能</li>
+          </ul>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top: 20px;">
+        <div class="highlight-label">Kahneman 最重要的洞察</div>
+        <div class="highlight-text">系統二以為自己在主導，但大多數時候它只是系統一的「事後辯護律師」。真正的問題不是我們不能思考，而是<strong style="color: var(--accent-amber)">我們不知道自己什麼時候沒有在思考</strong>。</div>
+      </div>
+      <div class="concept-grid" style="margin-top: 16px;">
+        <div class="concept-field">
+          <div class="field-label">識別訊號</div>
+          <div class="field-content">答案浮現得很快、感覺「顯而易見」、根本沒感覺自己在「想」這件事時，系統一正在主導。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">應對策略</div>
+          <div class="field-content">不是要抑制系統一，而是知道「何時召喚系統二」——高風險、陌生情境、感覺太順暢時，主動啟動慢思。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">演化成因</div>
+          <div class="field-content">在祖先環境中，快速反應攸關生死。慢思是昂貴的奢侈品，系統一節能、系統二耗資源，演化偏愛省能。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept 2: Anchoring -->
+    <div class="concept-card">
+      <div class="concept-header">
+        <div class="concept-icon">⚓</div>
+        <div>
+          <div class="concept-name">錨定效應</div>
+          <div class="concept-name-en">Anchoring Effect</div>
+        </div>
+      </div>
+      <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px;">
+        <strong style="color: var(--text-primary);">Kahneman 原始表述：</strong>當人需要對一個未知數量做評估時，會從一個初始數值出發（即使這個數值是隨機的），並朝正確答案方向調整，但<strong style="color: var(--accent-amber)">調整往往嚴重不足</strong>，最終答案被「錨」拉住無法脫離。
+      </p>
+      <div class="concept-grid">
+        <div class="concept-field">
+          <div class="field-label">為什麼存在</div>
+          <div class="field-content">系統一自動在當前激活的數字和目標問題之間建立「確認性」聯想——先出現的數字會讓你優先搜尋與之相符的證據，形成選擇性確認。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">現實觸發情境</div>
+          <div class="field-content">房屋開價、薪資談判、超市促銷「限購10件」、募款表格上的建議金額、軟體「原價999現價399」的對比。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">識別方法</div>
+          <div class="field-content">問自己：「如果我從來沒看過那個數字，我的判斷會不同嗎？」——若答案是「可能」，錨定正在發揮作用。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">應對策略</div>
+          <div class="field-content">在接受對方數字之前，主動生成自己的錨（獨立評估）；「反錨」練習：先假設極端反方向的數字，強迫自己重新評估。</div>
+        </div>
+      </div>
+      <div class="big-quote">"律師在庭上要求12年判決，最後判了8年。這不是巧合——起始數字決定了談判的引力場。"</div>
+    </div>
+
+    <!-- Concept 3: Representativeness -->
+    <div class="concept-card">
+      <div class="concept-header">
+        <div class="concept-icon">🎭</div>
+        <div>
+          <div class="concept-name">代表性捷思</div>
+          <div class="concept-name-en">Representativeness Heuristic</div>
+        </div>
+      </div>
+      <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px;">
+        <strong style="color: var(--text-primary);">Kahneman 原始表述：</strong>當評估某事物屬於某類別的機率時，人們往往用「它有多像這個類別的典型樣本」來代替統計機率的計算——用相似度替換機率。
+      </p>
+      <div class="concept-grid">
+        <div class="concept-field">
+          <div class="field-label">為什麼存在</div>
+          <div class="field-content">模式匹配是系統一最核心的能力。在缺乏數據的祖先環境中，「像老虎就逃」比「計算被老虎吃的統計機率」更有生存優勢。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">現實觸發情境</div>
+          <div class="field-content">「Linda問題」（女性主義者 vs 女性主義銀行出納）；創業者 vs 統計失敗率；「這個人看起來像創業家」所以判斷會成功。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">識別方法</div>
+          <div class="field-content">你是否在用「像不像」、「符不符合形象」來判斷機率？忽略了基率（base rate）嗎？</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">應對策略</div>
+          <div class="field-content">強迫問：「這個類別的基率是多少？」先查外部數據再看「像不像」。基率是你的地基，相似度只是裝潢。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept 4: Availability -->
+    <div class="concept-card">
+      <div class="concept-header">
+        <div class="concept-icon">📡</div>
+        <div>
+          <div class="concept-name">可得性捷思</div>
+          <div class="concept-name-en">Availability Heuristic</div>
+        </div>
+      </div>
+      <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px;">
+        <strong style="color: var(--text-primary);">Kahneman 原始表述：</strong>人們根據「有多容易想起這類事例」來評估事件的頻率或機率。容易被想到的 = 被認為更常見。
+      </p>
+      <div class="concept-grid">
+        <div class="concept-field">
+          <div class="field-label">為什麼存在</div>
+          <div class="field-content">從記憶中快速提取樣本，比統計計算快1000倍。在沒有媒體的原始環境，這個捷思相當準確——越常見的事確實越容易被想起。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">現實觸發情境</div>
+          <div class="field-content">媒體報導飛機失事後旅行恐懼上升；看了創業成功故事後高估成功機率；新聞輪播的罕見事件被認為是「常態」。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">識別方法</div>
+          <div class="field-content">你對這件事的「感覺」，是來自自己的直接統計數據，還是來自你最近「想起了什麼例子」？</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">應對策略</div>
+          <div class="field-content">刻意搜尋「不容易被想到但同樣重要的反例」；查統計數字而非依賴感覺；問「我的樣本是否有系統性偏差？」</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept 5: Confirmation Bias -->
+    <div class="concept-card">
+      <div class="concept-header">
+        <div class="concept-icon">🔍</div>
+        <div>
+          <div class="concept-name">確認偏誤</div>
+          <div class="concept-name-en">Confirmation Bias</div>
+        </div>
+      </div>
+      <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px;">
+        <strong style="color: var(--text-primary);">Kahneman 原始表述：</strong>系統一自動尋找與當前假設「一致的」證據，系統二則傾向確認而非質疑系統一的初步結論。大腦不是在做科學，它是在做辯護。
+      </p>
+      <div class="concept-grid">
+        <div class="concept-field">
+          <div class="field-label">為什麼存在</div>
+          <div class="field-content">認知一致性降低不確定感（腦部的壓力響應）；質疑自己的信念需要消耗認知資源；社群認同強化確認行為。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">現實觸發情境</div>
+          <div class="field-content">讀商業計畫書時只想「這會成功的理由」；招聘面試時對喜歡的候選人問軟球問題；新聞閱讀只點喜歡看的標題。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">識別方法</div>
+          <div class="field-content">你有沒有主動搜尋「讓你不舒服的反面證據」？如果你的研究全部都支持你已有的結論，這本身就是警訊。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">應對策略</div>
+          <div class="field-content">「反辯護者」練習：強迫自己列出3個最有力的反對論點；指定一個人扮演「魔鬼代言人」；問「什麼樣的證據能讓我改變想法？」</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept 6: Prospect Theory -->
+    <div class="concept-card">
+      <div class="concept-header">
+        <div class="concept-icon">📉</div>
+        <div>
+          <div class="concept-name">展望理論</div>
+          <div class="concept-name-en">Prospect Theory</div>
+        </div>
+      </div>
+      <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px;">
+        <strong style="color: var(--text-primary);">Kahneman 原始表述：</strong>人類評估損益的心理函數是非對稱的：相同絕對量的損失產生的痛苦，約是等量獲得的快樂的<strong style="color: #ef4444">2倍</strong>。且我們的評估是相對於「參考點」，而非絕對財富水準。
+      </p>
+      <div class="highlight-box">
+        <div class="highlight-label">核心公式（心理的，非數學的）</div>
+        <div class="highlight-text" style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+          <span>損失 -100 元的痛苦</span>
+          <span style="font-size: 24px; color: var(--accent-orange);">≈</span>
+          <span>獲得 +200 元的快樂</span>
+          <span style="color: var(--text-muted); font-size: 12px;">（損失規避係數 λ ≈ 2.0~2.5）</span>
+        </div>
+      </div>
+      <div class="concept-grid" style="margin-top: 16px;">
+        <div class="concept-field">
+          <div class="field-label">為什麼存在</div>
+          <div class="field-content">損失更有可能威脅生存（捱餓）；大腦的「威脅偵測」系統（杏仁核）對負面刺激的反應天生強烈。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">現實觸發情境</div>
+          <div class="field-content">無法賣出虧損股票（處置效應）；為了不付10元手續費繞遠路；「保住500人 vs 1/3機率救1500人」的問題。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">識別方法</div>
+          <div class="field-content">問自己：「我是在最大化長期期望值，還是在逃避讓我情緒不舒服的損失？這個決定是理性的還是情緒的？」</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">應對策略</div>
+          <div class="field-content">把損益轉換成「以最終財富狀態評估」而非「以變化量評估」；預設停損規則（事先設定，不在當下決定）。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept 7: Peak-End Rule -->
+    <div class="concept-card">
+      <div class="concept-header">
+        <div class="concept-icon">🏔️</div>
+        <div>
+          <div class="concept-name">峰終定律</div>
+          <div class="concept-name-en">Peak-End Rule</div>
+        </div>
+      </div>
+      <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px;">
+        <strong style="color: var(--text-primary);">Kahneman 原始表述：</strong>記憶自我對一段體驗的評價，幾乎完全由<strong style="color: var(--accent-amber)">最強烈的時刻（峰值）</strong>和<strong style="color: var(--accent-amber)">最後時刻（結尾）</strong>決定，而非體驗的全程平均或總時間長度。
+      </p>
+      <div class="concept-grid">
+        <div class="concept-field">
+          <div class="field-label">體驗自我 vs 記憶自我</div>
+          <div class="field-content">體驗自我：即時感受，每秒計分。記憶自我：事後評分，只記峰值+結尾，忽略中間過程與時長（「持續時間忽略」）。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">現實觸發情境</div>
+          <div class="field-content">一個美妙旅行但結局糟糕 = 「這次旅行很差」；手術最後幾分鐘的痛苦決定了對整個手術的記憶；演講最後5分鐘。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">識別方法</div>
+          <div class="field-content">你對某次體驗的「整體感覺」，是否與中間大量普通時刻不符？是峰值或結尾在主導你的記憶？</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">應對策略（主動設計）</div>
+          <div class="field-content">在重要體驗中主動設計高峰時刻；確保結尾比過程好（留到最後的最好的部分）；善用「好結尾掩蓋過程的平淡」。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept 8: Planning Fallacy -->
+    <div class="concept-card">
+      <div class="concept-header">
+        <div class="concept-icon">📅</div>
+        <div>
+          <div class="concept-name">規劃謬誤</div>
+          <div class="concept-name-en">Planning Fallacy</div>
+        </div>
+      </div>
+      <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px;">
+        <strong style="color: var(--text-primary);">Kahneman 原始表述：</strong>人們在預測完成任務所需的時間與成本時，系統性地採用「內部觀點」（著眼於自己的計畫與意圖），而忽略過去類似任務的統計數據（「外部觀點」），導致永遠低估時間、成本，高估效益。
+      </p>
+      <div class="concept-grid">
+        <div class="concept-field">
+          <div class="field-label">為什麼存在</div>
+          <div class="field-content">樂觀偏見（Optimism Bias）是人類的預設值；創業、計劃、行動需要樂觀的動力——悲觀的計畫者可能什麼都做不了。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">現實觸發情境</div>
+          <div class="field-content">IT 系統建設（平均超時209%）；建築工程；個人的「30天計畫」；政府的大型基建（幾乎全部超時超支）。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">識別方法</div>
+          <div class="field-content">你的計畫是否假設「一切順利」？有沒有列出「可能出錯的事」？上次同類型的計畫實際花了多久？</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">應對策略</div>
+          <div class="field-content">「外部觀點」：先查類似案例的統計基率，以此為錨調整計畫。「Pre-mortem」：假設計畫已失敗，倒推原因，提前應對。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept 9: Halo Effect -->
+    <div class="concept-card">
+      <div class="concept-header">
+        <div class="concept-icon">✨</div>
+        <div>
+          <div class="concept-name">光環效應</div>
+          <div class="concept-name-en">Halo Effect</div>
+        </div>
+      </div>
+      <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px;">
+        <strong style="color: var(--text-primary);">Kahneman 原始表述：</strong>一個人（或品牌、產品）的某個正面特質，會讓你對其其他特質也產生正面評價，即使這些特質之間毫無邏輯關係。印象的一致性需求會扭曲所有後續判斷。
+      </p>
+      <div class="concept-grid">
+        <div class="concept-field">
+          <div class="field-label">為什麼存在</div>
+          <div class="field-content">系統一追求「認知一致性」——對一個刺激的整體評價比分項打分更省力。「如果我喜歡他，他的其他方面也應該是好的」是省能策略。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">現實觸發情境</div>
+          <div class="field-content">帥氣/美麗的求職者被認為更聰明、更有能力；品牌光環（Apple出的任何東西都會被認為好用）；好的演講者被認為內容也紮實。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">識別方法</div>
+          <div class="field-content">你對這個人的某項判斷，是來自直接觀察這個特質，還是來自對這個人整體的「感覺」？</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">應對策略</div>
+          <div class="field-content">分項獨立評估（先不看整體印象，逐項打分）；招聘時標準化評分表；讓評估者獨立評分後再討論，防止光環污染。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Concept 10: Framing -->
+    <div class="concept-card">
+      <div class="concept-header">
+        <div class="concept-icon">🖼️</div>
+        <div>
+          <div class="concept-name">框架效應</div>
+          <div class="concept-name-en">Framing Effect</div>
+        </div>
+      </div>
+      <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px;">
+        <strong style="color: var(--text-primary);">Kahneman 原始表述：</strong>邏輯上等價的訊息，以不同形式呈現時，系統性地引導不同決策。「90%存活率」vs「10%死亡率」在理性上相同，但在心理上不同——因為系統一處理的是文字的情緒聯想，而非抽象邏輯。
+      </p>
+      <div class="concept-grid">
+        <div class="concept-field">
+          <div class="field-label">為什麼存在</div>
+          <div class="field-content">語言和意象直接觸發系統一的情緒響應。「死亡」觸發的神經迴路與「存活」完全不同，即使代表的統計數字相同。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">現實觸發情境</div>
+          <div class="field-content">「牛肉含10%脂肪」vs「牛肉含90%瘦肉」；「失業率20%」vs「就業率80%」；政策辯論的措辭設計；廣告語。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">識別方法</div>
+          <div class="field-content">問：「如果我把這個訊息換個說法，我的判斷會改變嗎？」——如果會，你正被框架控制，而非被事實控制。</div>
+        </div>
+        <div class="concept-field">
+          <div class="field-label">應對策略</div>
+          <div class="field-content">主動「重新框架」：把每個問題用相反的措辭重新表述一次；要求數據的原始形式（避免只接受別人選擇好的框架）。</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     STAGE 2
+══════════════════════════════════════════ -->
+<section id="stage2" class="s2">
+  <div class="section">
+
+    <div class="stage-header">
+      <div class="stage-number">02</div>
+      <div class="stage-title-block">
+        <div class="stage-label">Stage 2 · 交叉驗證</div>
+        <h2 class="stage-title">外部世界共識萃取</h2>
+        <p class="stage-desc">讀者共識 · 學術批評 · 書籍對話 · 常見誤用</p>
+      </div>
+    </div>
+
+    <!-- Reader Consensus -->
+    <h3 class="section-title">讀者共識（正面）</h3>
+
+    <div class="review-card">
+      <div class="review-title">💡 哪個概念讓讀者最有頓悟感？</div>
+      <div class="review-body">
+        <p>最廣泛被引用的頓悟：</p>
+        <ul>
+          <li><strong>系統一/系統二的框架</strong>——給了人們一個語言工具來描述「明知道錯但就是做了」的感受。讀者說：「終於有辦法解釋我為什麼早上衝動買了又不需要的東西。」</li>
+          <li><strong>峰終定律</strong>——發現「幸福感」這個概念本身有問題。你以為你在累積快樂，但記憶自我只在乎最後5分鐘。</li>
+          <li><strong>規劃謬誤</strong>——幾乎每個人在讀完後都想到「上次那個專案真的就這樣過」。</li>
+          <li><strong>損失規避</strong>——解釋了為什麼明知應該賣的虧損股票就是賣不下手。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-title">🌉 為什麼這本書能打破學術/大眾的邊界？</div>
+      <div class="review-body">
+        <ul>
+          <li><strong>Kahneman 的寫作策略</strong>：每章都從一個生動的思想實驗開始，讓讀者先「犯錯」再解釋——這種體驗式教學讓理論變得可觸摸。</li>
+          <li><strong>諾貝爾獎光環</strong>：給了大眾信任，同時給了學術界不可忽視的理由。</li>
+          <li><strong>不賣雞湯</strong>：Kahneman 明確說「知道偏誤不能讓你避免偏誤」，這種誠實讓聰明讀者更信服。</li>
+          <li><strong>時機</strong>：2008年金融危機後，大眾對「人類根本不理性」的解釋需求極高。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Academic Criticism -->
+    <h3 class="section-title">學術批評 · 複製危機後的修正</h3>
+
+    <div class="review-card">
+      <div class="review-title">⚠️ 哪些實驗結果受到挑戰？</div>
+      <div class="review-body">
+        <ul>
+          <li><strong>促發效應（Priming）危機</strong>：Kahneman 書中大量引用的「老年詞語讓人走路變慢」等行為促發研究，在重複實驗中<strong>大量無法複製</strong>。2017年Kahneman親自發信給研究者承認這些章節「在沙地上建造」。</li>
+          <li><strong>錨定效應的強度爭議</strong>：基本效應存在，但效應量（effect size）在不同研究中差異巨大，現實情境中可能比實驗室弱得多。</li>
+          <li><strong>自我損耗（Ego Depletion）</strong>：「意志力是有限資源，用完會疲勞」的理論，跨實驗室複製結果普遍失敗。</li>
+          <li><strong>精確的損失規避係數 λ≈2.25</strong>：原始研究的樣本量極小，現代大規模研究顯示這個數字因人而異、因情境而異，無法作為固定係數。</li>
+        </ul>
+        <div style="margin-top: 12px; padding: 12px 16px; background: rgba(139,92,246,0.08); border-radius: 8px; border-left: 3px solid var(--stage2-primary);">
+          <strong style="color: var(--stage2-secondary);">重要區分：</strong>核心概念（系統一/二的框架、損失規避的方向性、展望理論）的<em>定性結論</em>仍然成立，受挑戰的主要是<em>具體實驗數字和機制</em>。
+        </div>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-title">🔄 Kahneman 晚年的自我修正</div>
+      <div class="review-body">
+        <ul>
+          <li>2022年在 Noise: A Flaw in Human Judgment（另一本書）中，Kahneman 承認系統一/系統二的框架是一個「概念性簡化」而非實際的神經解剖模型——大腦沒有文字意義上的「兩個系統」。</li>
+          <li>他後悔在 Thinking 一書中對某些研究（特別是促發效應）過於自信，引用了事後無法複製的結果。</li>
+          <li>他的最新觀點：「噪音（Noise）」——不一致性——可能比偏誤更需要被解決，因為它更普遍但更不被重視。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-title">📊 「去偏誤訓練」的效果文獻怎麼說？</div>
+      <div class="review-body">
+        <ul>
+          <li><strong>壞消息</strong>：大多數去偏誤訓練的效果微弱，且幾乎無法遷移——學會識別「這個實驗裡的錨定效應」，不代表能在現實的薪資談判中避開它。</li>
+          <li><strong>好消息</strong>：「程序干預」（改變決策流程、檢查清單、強制外部觀點）比「認知訓練」更有效。改變環境比改變大腦容易得多。</li>
+          <li><strong>Kahneman 自己的建議</strong>：不要試圖改變自己的直覺，要設計讓錯誤直覺難以發揮作用的系統（Choice Architecture）。</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Book Comparisons -->
+    <h3 class="section-title">與其他書的對話</h3>
+    <div class="book-compare">
+
+      <div class="book-vs-card">
+        <div class="book-vs-title">vs. Influence</div>
+        <div class="book-vs-subtitle">Robert Cialdini · 六大影響力原則</div>
+        <div class="book-vs-body">
+          Cialdini 的六原則（互惠、承諾、社會認同、喜好、權威、稀缺）幾乎全部是<strong>系統一的操作手冊</strong>。
+          <br><br>
+          互惠 → 觸發系統一的「欠人情感覺」<br>
+          社會認同 → 觸發可得性捷思（其他人都這樣做）<br>
+          稀缺 → 觸發損失規避<br>
+          喜好 → 觸發光環效應
+        </div>
+        <div class="verdict">Kahneman 提供「為什麼有效」的神經認知解釋；Cialdini 提供「如何應用」的行動手冊。Kahneman 的框架更根本，Cialdini 更實用。</div>
+      </div>
+
+      <div class="book-vs-card">
+        <div class="book-vs-title">vs. 修辭學</div>
+        <div class="book-vs-subtitle">亞里斯多德 · Logos 邏輯說服</div>
+        <div class="book-vs-body">
+          亞里斯多德認為 Logos（邏輯）、Ethos（信譽）、Pathos（情感）三者並重。Kahneman 的研究給了這個2500年前的直覺一個神經科學基礎：
+          <br><br>
+          系統一響應 Pathos（情感故事）和 Ethos（權威/喜好）。系統二響應 Logos（邏輯論證）。但系統一先發言，系統二經常點頭確認。
+        </div>
+        <div class="verdict">「Logos 真的能說服人嗎？」——只在系統二被激活時有效。大多數說服在情感層面發生，邏輯是事後合理化的工具。</div>
+      </div>
+
+      <div class="book-vs-card">
+        <div class="book-vs-title">vs. 黑天鵝</div>
+        <div class="book-vs-subtitle">Nassim Taleb · 認知局限的不同診斷</div>
+        <div class="book-vs-body">
+          兩人都在說人類認知有嚴重局限，但診斷方向不同：
+          <br><br>
+          <strong>Kahneman</strong>：問題是我們有<em>系統性偏誤</em>（可預測的錯誤模式），需要去偏誤。
+          <br><br>
+          <strong>Taleb</strong>：問題是我們在<em>Extremistan</em>中用<em>Mediocristan</em>的工具思考，高斯分布本身就是錯的框架。
+        </div>
+        <div class="verdict">Taleb 批評 Kahneman 的去偏誤框架本身就是偏誤——讓人以為知識可以防範黑天鵝，而事實是不能。兩者互補而非互斥。</div>
+      </div>
+
+    </div>
+
+    <!-- Common Misuses -->
+    <h3 class="section-title">常見誤用 · 危險的新錯誤</h3>
+
+    <div class="review-card">
+      <div class="review-title">🚨 「學了偏誤知識」的人最常犯什麼新錯誤？</div>
+      <div class="review-body">
+        <ul>
+          <li><strong>偏誤標籤替代分析</strong>：「那是確認偏誤」成為終止討論的武器，而不是開啟深入探索的起點。標籤化不等於理解。</li>
+          <li><strong>偏誤歸因他人，免疫自己</strong>：學了偏誤的人擅長在別人決策中識別偏誤，卻更難發現自己的——因為「我知道偏誤」本身成了確認「我在理性思考」的錯誤訊號。</li>
+          <li><strong>過度慢思（Analysis Paralysis）</strong>：把系統一的直覺全部視為危險，在每個小決策都強迫自己「慢思」，導致決策疲勞和效率崩潰。</li>
+          <li><strong>把框架當真理</strong>：系統一/二是比喻性框架，不是解剖學事實。把它當神聖模型反而是一種新的認知錯誤。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-title">🧠 為什麼「知道偏誤不代表能避開偏誤」？</div>
+      <div class="review-body">
+        <p>Kahneman 自己說過：「我研究偏誤40年，我的判斷並沒有因此變得更好。」原因：</p>
+        <ul style="margin-top: 12px;">
+          <li><strong>時間差問題</strong>：偏誤在你「意識到」它之前已經發生完畢——系統一在幾百毫秒內完成判斷，意識是事後的。</li>
+          <li><strong>知識不等於習慣</strong>：知道「我不應該這樣做」和「在情緒激動的當下真的不這樣做」之間，隔著大量刻意練習和環境設計。</li>
+          <li><strong>後設認知失靈</strong>：大腦無法可靠地感知自己什麼時候在使用系統一——因為系統一運行時不會亮紅燈。</li>
+          <li><strong>解法</strong>：不是更努力地「思考自己的思考」，而是改變決策的外部環境（程序、檢查清單、等待期、強迫對話）。</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ══════════════════════════════════════════
+     STAGE 3
+══════════════════════════════════════════ -->
+<section id="stage3" class="s3">
+  <div class="section">
+
+    <div class="stage-header">
+      <div class="stage-number">03</div>
+      <div class="stage-title-block">
+        <div class="stage-label">Stage 3 · 個人化轉化</div>
+        <h2 class="stage-title">Rex 實戰化</h2>
+        <p class="stage-desc">偏誤防禦工具箱 · 決策升級系統 · 峰終定律設計 · 30天計畫 · 今晚行動</p>
+      </div>
+    </div>
+
+    <!-- Defense Toolkit -->
+    <h3 class="section-title">偏誤防禦實戰工具箱</h3>
+    <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 32px; font-family: 'Inter', sans-serif;">五大關鍵偏誤 × 三步驟防禦協議（觸發訊號 → 暫停問句 → 慢思替代方案）</p>
+
+    <div class="defense-card">
+      <div class="defense-header">
+        <div class="defense-name">🔴 損失規避</div>
+        <div class="defense-name-en">Loss Aversion</div>
+      </div>
+      <div class="defense-steps">
+        <div class="defense-step">
+          <div class="step-num">觸發訊號</div>
+          <div class="step-title">我感到強烈的「不想放棄」</div>
+          <div class="step-content">身體感覺緊繃、胃部有輕微不適、即使知道應該放手但「就是不想」、覺得「再等等」比放棄感覺好。</div>
+        </div>
+        <div class="defense-step">
+          <div class="step-num">暫停問句（10秒）</div>
+          <div class="step-title">「如果我沒有這個，我現在會買它嗎？」</div>
+          <div class="step-content">把持有視為「今天的購買決定」重新評估。如果答案是「不會」，你正在為已發生的損失付出更多代價。</div>
+        </div>
+        <div class="defense-step">
+          <div class="step-num">慢思替代方案</div>
+          <div class="step-title">轉換評估框架</div>
+          <div class="step-content">把問題轉為：「如果從零開始，這個決策的期望值是正是負？」用最終狀態而非變化量評估。寫下來，不要只在腦中算。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="defense-card">
+      <div class="defense-header">
+        <div class="defense-name">⚓ 錨定效應</div>
+        <div class="defense-name-en">Anchoring Effect</div>
+      </div>
+      <div class="defense-steps">
+        <div class="defense-step">
+          <div class="step-num">觸發訊號</div>
+          <div class="step-title">對方先報了數字</div>
+          <div class="step-content">在任何談判、報價、估算情境中，只要對方先說出數字——無論那個數字是否合理——錨定就已啟動。</div>
+        </div>
+        <div class="defense-step">
+          <div class="step-num">暫停問句（10秒）</div>
+          <div class="step-title">「如果那個數字不存在，我的估算是多少？」</div>
+          <div class="step-content">強迫自己在看到對方數字之前，先給出自己的獨立評估。即使只是心中一個大概值，也能抵抗錨的引力。</div>
+        </div>
+        <div class="defense-step">
+          <div class="step-num">慢思替代方案</div>
+          <div class="step-title">設定「反錨」</div>
+          <div class="step-content">主動生成一個極端反方向的數字，再從兩個方向的中點開始評估。這個人為的反錨可以平衡對方的錨。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="defense-card">
+      <div class="defense-header">
+        <div class="defense-name">📅 規劃謬誤</div>
+        <div class="defense-name-en">Planning Fallacy</div>
+      </div>
+      <div class="defense-steps">
+        <div class="defense-step">
+          <div class="step-num">觸發訊號</div>
+          <div class="step-title">「這次應該很快」「這次不一樣」</div>
+          <div class="step-content">當你感覺到這次的計畫比上次更清晰、更有把握、「應該不會有什麼問題」時——這正是規劃謬誤的典型前驅。</div>
+        </div>
+        <div class="defense-step">
+          <div class="step-num">暫停問句（10秒）</div>
+          <div class="step-title">「上次類似的事情實際花了多久？」</div>
+          <div class="step-content">停下來真的回想（不是感覺）——上一個同類型的任務，從開始到完成，真正花了多少時間和精力？</div>
+        </div>
+        <div class="defense-step">
+          <div class="step-num">慢思替代方案</div>
+          <div class="step-title">「外部觀點 + 乘以1.5」</div>
+          <div class="step-content">①查詢類似項目的基率統計；②取平均值作為基準；③在基準上乘以1.5（個人樂觀修正係數）；④明確列出「可能讓計畫延遲的3件事」。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="defense-card">
+      <div class="defense-header">
+        <div class="defense-name">🔍 確認偏誤</div>
+        <div class="defense-name-en">Confirmation Bias</div>
+      </div>
+      <div class="defense-steps">
+        <div class="defense-step">
+          <div class="step-num">觸發訊號</div>
+          <div class="step-title">我的研究全部支持我的結論</div>
+          <div class="step-content">當你發現自己收集的所有資訊都指向同一方向時——這不是正確的訊號，這是偏誤的訊號。現實幾乎沒有「只有正面」的事。</div>
+        </div>
+        <div class="defense-step">
+          <div class="step-num">暫停問句（10秒）</div>
+          <div class="step-title">「誰是最聰明的反對者，他們怎麼說？」</div>
+          <div class="step-content">不是找「有沒有人反對」，而是找「最好的反對論點是什麼」——迫使自己真的理解反面立場，而非只找稻草人。</div>
+        </div>
+        <div class="defense-step">
+          <div class="step-num">慢思替代方案</div>
+          <div class="step-title">「紅隊協議」</div>
+          <div class="step-content">①自己寫出3個最有力的反對論點；②找一個真正相信不同觀點的人對話（不是找認同你的人確認）；③問「什麼樣的證據能讓我改變想法？」</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="defense-card">
+      <div class="defense-header">
+        <div class="defense-name">🖼️ 框架效應</div>
+        <div class="defense-name-en">Framing Effect</div>
+      </div>
+      <div class="defense-steps">
+        <div class="defense-step">
+          <div class="step-num">觸發訊號</div>
+          <div class="step-title">有人「幫你」選擇了描述方式</div>
+          <div class="step-content">當你接收到的訊息是別人包裝好的（廣告、新聞標題、會議簡報）——你看到的框架是對方選的，不是事實本身。</div>
+        </div>
+        <div class="defense-step">
+          <div class="step-num">暫停問句（10秒）</div>
+          <div class="step-title">「如果換一個相反的說法，我的感受會不同嗎？」</div>
+          <div class="step-content">把「90%成功率」換成「10%失敗率」；把「減少20%」換成「還有80%沒解決」。如果感覺不同，你在被框架控制。</div>
+        </div>
+        <div class="defense-step">
+          <div class="step-num">慢思替代方案</div>
+          <div class="step-title">回到原始數字</div>
+          <div class="step-content">要求獲得未包裝的原始數據（絕對值、樣本數、基率）；自己用中性語言重新描述這個事實；比較兩種描述下的直覺差異。</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decision System -->
+    <h3 class="section-title">決策升級系統（三層設計）</h3>
+
+    <div class="decision-system">
+      <div class="decision-flow">
+
+        <div class="decision-level dl-low">
+          <div class="dl-badge">低風險</div>
+          <div class="dl-title">讓系統一去做</div>
+          <div class="dl-subtitle">每天的小選擇 · 日常慣例 · 重複任務</div>
+          <ul class="dl-items">
+            <li><span>▶</span>今天吃什麼、穿什麼、先做哪件事</li>
+            <li><span>▶</span>不要過度分析，信任直覺和習慣</li>
+            <li><span>▶</span>用「預設規則」取代每次決策（早餐固定選項等）</li>
+            <li><span>▶</span>保護認知能量給真正重要的事</li>
+            <li><span>▶</span>目標：不消耗決策資源，讓系統二留給高風險決策</li>
+          </ul>
+        </div>
+
+        <div class="decision-level dl-mid">
+          <div class="dl-badge">中風險</div>
+          <div class="dl-title">系統二 Checklist</div>
+          <div class="dl-subtitle">週級別的決策 · 需要分析和比較</div>
+          <ul class="dl-items">
+            <li><span>1</span>這個決定對應的基率是多少？</li>
+            <li><span>2</span>最聰明的反對者會怎麼說？</li>
+            <li><span>3</span>我是否受到了某個「錨」的影響？</li>
+            <li><span>4</span>如果我是局外人，我會給出什麼建議？</li>
+            <li><span>5</span>一個月後我會怎麼評價今天這個決定？</li>
+          </ul>
+        </div>
+
+        <div class="decision-level dl-high">
+          <div class="dl-badge">高風險</div>
+          <div class="dl-title">完整去偏誤流程</div>
+          <div class="dl-subtitle">月級別以上 · 重大且難以逆轉</div>
+          <ul class="dl-items">
+            <li><span>1</span>獲取外部觀點（類似案例的統計基率）</li>
+            <li><span>2</span>Pre-mortem：假設失敗，列出3個最可能的原因</li>
+            <li><span>3</span>識別並記錄所有已知偏誤的潛在影響</li>
+            <li><span>4</span>找一個真正不同意你的人對話</li>
+            <li><span>5</span>等待48小時後重新評估（睡眠效應）</li>
+            <li><span>6</span>設定事前停損條件（如果X發生，我就改變決策）</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Peak-End Design -->
+    <h3 class="section-title">峰終定律的主動設計</h3>
+
+    <div class="highlight-box">
+      <div class="highlight-label">設計原則</div>
+      <div class="highlight-text">
+        記憶自我不在乎過程有多平淡——它只記得最強烈的時刻和最後幾分鐘。
+        因此：在重要互動/體驗中，<strong style="color: var(--stage3-secondary)">主動製造峰值</strong>（意外的亮點），並<strong style="color: var(--stage3-secondary)">刻意設計結尾</strong>（讓最後時刻有力量）。
+      </div>
+    </div>
+
+    <div class="peak-end-grid" style="margin-top: 24px;">
+      <div class="peak-end-card">
+        <div class="card-title">🗣️ 場景一：重要會議</div>
+        <div class="card-context">設計峰值 + 結尾</div>
+        <div class="card-desc">
+          <strong>峰值設計：</strong>在會議中段插入一個「意外的具體洞見」或「讓對方沒想到的資訊」——這個時刻會成為他們對整個會議的記憶錨點。
+          <br><br>
+          <strong>結尾設計：</strong>最後5分鐘不要用「OK我們今天就這樣」結束。而是：給一個清晰的下一步 + 一句讓對方感覺被看見的話（「你剛才說的X點讓我重新思考了Y」）。
+        </div>
+        <div class="card-action">→ 立即行動：下次會議最後5分鐘，說一句真誠的、具體的觀察</div>
+      </div>
+
+      <div class="peak-end-card">
+        <div class="card-title">💬 場景二：一對一對話</div>
+        <div class="card-context">設計記憶點</div>
+        <div class="card-desc">
+          <strong>峰值設計：</strong>在對話中找一個時機，說出你真正觀察到的對方某個特質——不是客套，是真實觀察。這往往成為對方記憶裡整段對話的峰值。
+          <br><br>
+          <strong>結尾設計：</strong>不要讓對話自然消亡（「好啦那就先這樣...」）。主動以一個正向的、向前看的陳述結束：「我很期待看到你把X落實後的進展。」
+        </div>
+        <div class="card-action">→ 立即行動：在今天的對話中，找一個機會說出你真正觀察到的具體事情</div>
+      </div>
+
+      <div class="peak-end-card">
+        <div class="card-title">📦 場景三：交付成果</div>
+        <div class="card-context">最後印象管理</div>
+        <div class="card-desc">
+          <strong>峰值設計：</strong>在交付物中加入一個「超出預期的小驚喜」——一頁額外的洞察、一個別人沒想到的角度、一個他們可以直接用的工具。
+          <br><br>
+          <strong>結尾設計：</strong>你最後說/寫的那幾句話，決定了對方對整個交付的評價。用「總結最重要的價值」而非「說明還有什麼沒做到」結束。
+        </div>
+        <div class="card-action">→ 立即行動：下一個交付物，最後一段改為「這是這份工作最重要的一個洞察：___」</div>
+      </div>
+    </div>
+
+    <!-- 30-Day Plan -->
+    <h3 class="section-title">30天去偏誤實踐計畫</h3>
+
+    <div class="week-grid">
+      <div class="week-card" data-week="1">
+        <div class="week-badge">WEEK 1</div>
+        <div class="week-title">觀察者模式</div>
+        <div class="week-desc">每天記錄一個你觀察到的偏誤——可以是自己的，也可以是新聞/對話中別人的。目標：建立「偏誤觀察力」，不是改變行為，只是看見。</div>
+        <ul class="week-tasks">
+          <li>睡前2分鐘回顧今天：有沒有看到偏誤在作用？</li>
+          <li>寫下：什麼偏誤、在什麼情境、結果是什麼</li>
+          <li>不評判，只觀察和記錄</li>
+          <li>用手機備忘錄建一個「偏誤日記」</li>
+        </ul>
+      </div>
+
+      <div class="week-card" data-week="2">
+        <div class="week-badge">WEEK 2</div>
+        <div class="week-title">Pre-mortem 練習</div>
+        <div class="week-desc">對本週一個重要決策做 Pre-mortem：假設這個決策在3個月後已經失敗，倒推出3個最可能的失敗原因，然後評估這些風險是否改變你的決策。</div>
+        <ul class="week-tasks">
+          <li>選一個本週最重要的決策</li>
+          <li>假設：「1個月後，這件事失敗了」</li>
+          <li>問：「最可能的3個失敗原因是什麼？」</li>
+          <li>評估：這些原因是否值得改變計畫？</li>
+        </ul>
+      </div>
+
+      <div class="week-card" data-week="3">
+        <div class="week-badge">WEEK 3</div>
+        <div class="week-title">外部觀點</div>
+        <div class="week-desc">對本週一個計畫，尋找一個「與你情況相似的人」的案例。他的結果是什麼？這個外部觀點如何修正你的估算？記住：基率先於個案。</div>
+        <ul class="week-tasks">
+          <li>選一個你正在規劃的事情</li>
+          <li>搜尋：同類型案例的統計完成率或結果分布</li>
+          <li>如果找不到統計，找至少3個類似案例</li>
+          <li>用外部基率修正你的計畫時間表或成功預期</li>
+        </ul>
+      </div>
+
+      <div class="week-card" data-week="4">
+        <div class="week-badge">WEEK 4</div>
+        <div class="week-title">慢思觸發器</div>
+        <div class="week-desc">設計一個「嵌入日常流程的慢思觸發器」——一個具體的、物理的或時間性的提示，在你最容易衝動決策的情境中自動觸發。</div>
+        <ul class="week-tasks">
+          <li>識別你最容易衝動決策的情境（購物/衝突/承諾）</li>
+          <li>設計一個觸發器（手機提醒、物理標籤、等待規則）</li>
+          <li>測試並調整：這個觸發器真的有效嗎？</li>
+          <li>把有效的觸發器變成永久習慣</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Tonight Action -->
+    <div class="tonight-card">
+      <div class="tonight-title">🌙 今晚就能做的一個行動</div>
+      <div class="tonight-subtitle">具體場景 · 五分鐘 · 立即可執行</div>
+
+      <div class="tonight-steps">
+        <div class="tonight-step">
+          <div class="tonight-step-num">01</div>
+          <div class="tonight-step-title">打開備忘錄</div>
+          <div class="tonight-step-desc">在手機備忘錄建立一個新文件，命名「決策日記 — Kahneman」</div>
+        </div>
+        <div class="tonight-step">
+          <div class="tonight-step-num">02</div>
+          <div class="tonight-step-title">回顧今天一個決定</div>
+          <div class="tonight-step-desc">找出今天你做的一個決定（無論大小），問：「我是用系統一還是系統二做的？」</div>
+        </div>
+        <div class="tonight-step">
+          <div class="tonight-step-num">03</div>
+          <div class="tonight-step-title">識別偏誤</div>
+          <div class="tonight-step-desc">這個決定裡有沒有：錨定？損失規避？確認偏誤？輕輕地、不評判地寫下觀察。</div>
+        </div>
+        <div class="tonight-step">
+          <div class="tonight-step-num">04</div>
+          <div class="tonight-step-title">設定明日觸發器</div>
+          <div class="tonight-step-desc">明天你最可能衝動決策的時刻是什麼？設定一個手機提醒：「停一下——這是系統一嗎？」</div>
+        </div>
+      </div>
+
+      <div class="tonight-result">
+        ✦ 預期效果：這5分鐘不會讓你「去偏誤」，但它會啟動你的「觀察者模式」——而觀察，是所有改變的前提。
+      </div>
+    </div>
+
+    <!-- Final Quote -->
+    <div class="big-quote" style="margin-top: 48px;">
+      "Nothing in life is as important as you think it is, while you are thinking about it."
+      <br><span style="font-size: 14px; color: var(--text-muted); font-style: normal; display: block; margin-top: 8px;">— Daniel Kahneman · 焦點幻覺（Focusing Illusion）</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<div class="divider"></div>
+<footer class="footer">
+  <div class="footer-brand">書僮 2.0 · AI 深度閱讀系統</div>
+  <div class="footer-text">
+    《Thinking, Fast and Slow》· Daniel Kahneman · 2011<br>
+    三階段深讀法：內容本體 × 交叉驗證 × 個人化轉化<br>
+    <span style="color: rgba(255,255,255,0.2);">Generated by AI 書僮 2.0 · 繁體中文版</span>
+  </div>
+</footer>
+
+</body>
+</html>
