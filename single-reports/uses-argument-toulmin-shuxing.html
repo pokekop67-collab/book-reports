@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒｜The Uses of Argument — Stephen Toulmin 深度分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+    min-height: 100vh;
+    color: #333;
+    line-height: 1.8;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #667eea 0%, #f093fb 50%, #f5576c 100%);
+    padding: 80px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.15), transparent 60%),
+                radial-gradient(ellipse at 70% 50%, rgba(255,255,255,0.1), transparent 60%);
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50px;
+    padding: 6px 20px;
+    font-size: 13px;
+    color: #fff;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: clamp(28px, 5vw, 52px);
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero .subtitle {
+    font-size: 18px;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 8px;
+  }
+  .hero .author-tag {
+    font-size: 15px;
+    color: rgba(255,255,255,0.75);
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 32px;
+  }
+  .hero-meta span {
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 8px 18px;
+    font-size: 13px;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 20px 80px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 36px;
+    margin-bottom: 28px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 8px 32px rgba(102,126,234,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #667eea, #f093fb);
+    border-radius: 20px 20px 0 0;
+  }
+
+  .card-accent-pink::before { background: linear-gradient(90deg, #f093fb, #f5576c); }
+  .card-accent-blue::before { background: linear-gradient(90deg, #4facfe, #00f2fe); }
+  .card-accent-purple::before { background: linear-gradient(90deg, #a18cd1, #fbc2eb); }
+  .card-accent-green::before { background: linear-gradient(90deg, #43e97b, #38f9d7); }
+  .card-accent-orange::before { background: linear-gradient(90deg, #fa709a, #fee140); }
+  .card-accent-teal::before { background: linear-gradient(90deg, #0093E9, #80D0C7); }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+  }
+
+  h2.card-title {
+    font-size: 22px;
+    font-weight: 800;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 20px;
+    line-height: 1.3;
+  }
+
+  h3.sub-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #555;
+    margin: 22px 0 10px;
+    padding-left: 12px;
+    border-left: 3px solid;
+    border-image: linear-gradient(135deg, #667eea, #f093fb) 1;
+  }
+
+  p { margin-bottom: 14px; font-size: 15px; color: #444; }
+  p:last-child { margin-bottom: 0; }
+
+  .quote-box {
+    background: linear-gradient(135deg, rgba(102,126,234,0.07), rgba(240,147,251,0.07));
+    border-left: 4px solid;
+    border-image: linear-gradient(180deg, #667eea, #f093fb) 1;
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-style: italic;
+    font-size: 14.5px;
+    color: #555;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 12px 0;
+  }
+  .tag {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    background: linear-gradient(135deg, #667eea20, #f093fb20);
+    color: #667eea;
+    border: 1px solid rgba(102,126,234,0.3);
+  }
+  .tag-pink { background: linear-gradient(135deg, #f093fb20, #f5576c20); color: #e056a0; border-color: rgba(240,147,251,0.3); }
+  .tag-blue { background: linear-gradient(135deg, #4facfe20, #00f2fe20); color: #2196b8; border-color: rgba(79,172,254,0.3); }
+  .tag-green { background: linear-gradient(135deg, #43e97b20, #38f9d720); color: #2cb87a; border-color: rgba(67,233,123,0.3); }
+  .tag-orange { background: linear-gradient(135deg, #fa709a20, #fee14020); color: #e06c3a; border-color: rgba(250,112,154,0.3); }
+
+  /* Toulmin Model Diagram */
+  .toulmin-diagram {
+    background: linear-gradient(135deg, #f8f9ff, #fff5fd);
+    border-radius: 16px;
+    padding: 30px;
+    margin: 20px 0;
+    border: 1px solid rgba(102,126,234,0.15);
+  }
+  .td-main-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+  .td-box {
+    background: rgba(255,255,255,0.9);
+    border-radius: 12px;
+    padding: 14px 18px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 700;
+    box-shadow: 0 4px 16px rgba(102,126,234,0.12);
+    min-width: 100px;
+    border: 1.5px solid rgba(102,126,234,0.2);
+  }
+  .td-box .en { font-size: 10px; color: #999; font-weight: 400; margin-top: 3px; display: block; }
+  .td-box.claim { background: linear-gradient(135deg, #667eea, #764ba2); color: #fff; border-color: transparent; }
+  .td-box.claim .en { color: rgba(255,255,255,0.7); }
+  .td-box.data { border-color: rgba(79,172,254,0.4); color: #2196b8; }
+  .td-box.warrant { border-color: rgba(240,147,251,0.4); color: #c050c0; }
+  .td-box.backing { border-color: rgba(67,233,123,0.4); color: #2cb87a; }
+  .td-box.qualifier { border-color: rgba(250,112,154,0.4); color: #e056a0; }
+  .td-box.rebuttal { border-color: rgba(255,165,0,0.4); color: #e08a00; }
+  .td-arrow {
+    font-size: 20px;
+    color: #aaa;
+    padding: 0 8px;
+  }
+  .td-below {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+  .td-vertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #888;
+  }
+
+  /* Level badges */
+  .level-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-right: 8px;
+    vertical-align: middle;
+  }
+  .l1 { background: #e8f4fd; color: #2196b8; }
+  .l2 { background: #fdf0f8; color: #c050c0; }
+  .l3 { background: linear-gradient(135deg, #667eea, #f093fb); color: #fff; }
+
+  /* Theme section */
+  .theme-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .theme-number {
+    min-width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  /* Action box */
+  .action-box {
+    background: linear-gradient(135deg, rgba(67,233,123,0.1), rgba(56,249,215,0.1));
+    border: 1px solid rgba(67,233,123,0.3);
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin: 14px 0;
+  }
+  .action-box .action-title {
+    font-weight: 700;
+    color: #2cb87a;
+    font-size: 13px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* Check box */
+  .check-box {
+    background: linear-gradient(135deg, rgba(102,126,234,0.07), rgba(240,147,251,0.07));
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin: 14px 0;
+  }
+  .check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    color: #555;
+  }
+  .check-item:last-child { margin-bottom: 0; }
+  .check-dot {
+    min-width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    color: #fff;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  /* Book card / library */
+  .library-card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    border-radius: 20px;
+    padding: 36px;
+    color: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  .library-card::before {
+    content: '📚';
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    font-size: 80px;
+    opacity: 0.15;
+  }
+  .library-card h2 { color: #fff; font-size: 20px; margin-bottom: 20px; }
+  .library-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+  }
+  .library-item {
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    padding: 14px;
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .library-item .li-label { font-size: 11px; opacity: 0.7; margin-bottom: 4px; }
+  .library-item .li-value { font-size: 14px; font-weight: 600; }
+
+  /* Cross-book link */
+  .cross-link {
+    background: linear-gradient(135deg, rgba(250,112,154,0.08), rgba(254,225,64,0.08));
+    border: 1px solid rgba(250,112,154,0.2);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin: 10px 0;
+    font-size: 14px;
+  }
+  .cross-link strong { color: #e056a0; }
+
+  /* TOC */
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px;
+    margin: 16px 0;
+  }
+  .toc-item {
+    background: rgba(255,255,255,0.6);
+    border-radius: 12px;
+    padding: 14px 16px;
+    border: 1px solid rgba(102,126,234,0.15);
+    font-size: 13px;
+  }
+  .toc-item .step-num {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #667eea;
+    margin-bottom: 4px;
+  }
+  .toc-item .step-name { font-weight: 600; color: #444; }
+
+  /* Narrative arc */
+  .arc-timeline {
+    position: relative;
+    padding-left: 24px;
+    border-left: 2px solid;
+    border-image: linear-gradient(180deg, #667eea, #f093fb) 1;
+    margin: 16px 0;
+  }
+  .arc-node {
+    position: relative;
+    margin-bottom: 24px;
+    padding-left: 20px;
+  }
+  .arc-node::before {
+    content: '';
+    position: absolute;
+    left: -30px;
+    top: 8px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    border: 2px solid white;
+  }
+  .arc-node h4 { font-size: 15px; font-weight: 700; color: #667eea; margin-bottom: 6px; }
+  .arc-node p { font-size: 14px; color: #555; margin: 0; }
+
+  /* Warning/critical box */
+  .critical-box {
+    background: linear-gradient(135deg, rgba(245,87,108,0.07), rgba(250,112,154,0.07));
+    border: 1px solid rgba(245,87,108,0.25);
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin: 14px 0;
+    font-size: 14px;
+    color: #666;
+  }
+  .critical-box .critical-title {
+    font-weight: 700;
+    color: #e04060;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .card { padding: 24px 20px; }
+    .hero { padding: 50px 20px 40px; }
+    .td-main-row { gap: 4px; }
+    .td-box { min-width: 72px; padding: 10px 10px; font-size: 12px; }
+  }
+
+  hr.divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(102,126,234,0.3), transparent);
+    margin: 24px 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📖 書醒深度分析</div>
+  <h1>The Uses of Argument</h1>
+  <div class="subtitle">論證的用途——重新理解邏輯的本質</div>
+  <div class="author-tag">Stephen E. Toulmin｜1958 初版 / 2003 更新版</div>
+  <div class="hero-meta">
+    <span>📐 論證理論</span>
+    <span>⚖️ 法律邏輯</span>
+    <span>🔬 知識論批判</span>
+    <span>🗣️ 修辭與溝通</span>
+    <span>🏛️ 哲學經典</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- STEP 1: 書籍資料卡 -->
+  <div class="card card-accent-blue">
+    <div class="section-label">Step 1 · 書籍資料卡</div>
+    <h2 class="card-title">📇 誰寫了這本書？為何重要？</h2>
+
+    <div class="library-row" style="margin-bottom: 24px;">
+      <div class="toc-item">
+        <div class="step-num">作者</div>
+        <div class="step-name">Stephen Edelston Toulmin</div>
+      </div>
+      <div class="toc-item">
+        <div class="step-num">生卒</div>
+        <div class="step-name">1922–2009</div>
+      </div>
+      <div class="toc-item">
+        <div class="step-num">國籍</div>
+        <div class="step-name">英國哲學家</div>
+      </div>
+      <div class="toc-item">
+        <div class="step-num">初版</div>
+        <div class="step-name">1958 年（Cambridge）</div>
+      </div>
+      <div class="toc-item">
+        <div class="step-num">學術背景</div>
+        <div class="step-name">劍橋大學、UCLA 南加大</div>
+      </div>
+      <div class="toc-item">
+        <div class="step-num">指導教授</div>
+        <div class="step-name">Richard Braithwaite（劍橋）</div>
+      </div>
+    </div>
+
+    <h3 class="sub-title">作者簡介</h3>
+    <p>Toulmin 是英國哲學家，師承劍橋，後赴美在 UCLA 任教。他的研究橫跨邏輯、倫理學、科學哲學與醫學倫理。《The Uses of Argument》（1958）是他最具影響力的著作，本是一本針對英美分析哲學界的「攻擊性」論文集，卻意外在美國傳播學界引發革命，成為「Toulmin 論證模型」的核心文本。</p>
+
+    <h3 class="sub-title">書籍背景</h3>
+    <p>此書寫於 1950 年代，當時英美分析哲學圈以形式邏輯（symbolic logic）為至高標準，認為所有有效論證都應能化為數學式的形式推演。Toulmin 對此大力反對，主張這種「數學模型」根本無法描述日常與專業領域的實際論證。他提出以法律實務為模型的「工作邏輯」（working logic），成為後來論證研究、修辭學、傳播學的奠基之作。</p>
+
+    <div class="tag-row">
+      <span class="tag">論證理論先驅</span>
+      <span class="tag tag-blue">影響傳播學 40 年</span>
+      <span class="tag tag-pink">挑戰形式邏輯霸權</span>
+      <span class="tag tag-green">被多學科採用</span>
+    </div>
+  </div>
+
+  <!-- STEP 2: 核心命題 -->
+  <div class="card card-accent-purple">
+    <div class="section-label">Step 2 · 核心命題</div>
+    <h2 class="card-title">💡 問題 / 論點 / 方法</h2>
+
+    <h3 class="sub-title">❓ 核心問題</h3>
+    <p>形式邏輯（mathematical logic）真的能夠描述和評估人類在現實世界中的論證嗎？我們評判論證「有效」的標準，究竟是普遍的、跨領域的，還是依情境而異的？</p>
+
+    <h3 class="sub-title">💬 核心論點</h3>
+    <p>Toulmin 主張：<strong>「邏輯是廣義的法學（Logic is generalised jurisprudence）」</strong>。傳統形式邏輯以數學演繹為模型，要求論證達到分析性（analytic）——即結論已隱含於前提——但這在現實世界幾乎不可能，且無此必要。真實世界的論證是「實質的」（substantial），需要根據/資料（Data）、保證（Warrant）、支撐（Backing）、限定詞（Qualifier）、反駁條件（Rebuttal）等多重要素，且評估標準因領域（field）而異。</p>
+
+    <h3 class="sub-title">🔧 方法論</h3>
+    <p>Toulmin 採取「哲學考古學」式的方法：先懸置既有邏輯理論的術語，直接觀察人們在實際論證中如何使用概念。他以法庭訴訟為類比模型，分析論證的功能結構，並以「場域依賴性」（field-dependence）挑戰「論證有普遍形式標準」的假設。</p>
+  </div>
+
+  <!-- Toulmin Model Visual -->
+  <div class="card">
+    <div class="section-label">核心模型可視化</div>
+    <h2 class="card-title">🎯 Toulmin 論證六要素模型</h2>
+
+    <div class="toulmin-diagram">
+      <div class="td-main-row">
+        <div class="td-box data">
+          資料 D<br>
+          <span class="en">Data</span>
+        </div>
+        <div class="td-arrow">──→</div>
+        <div style="display:flex;flex-direction:column;align-items:center;gap:6px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <div class="td-box qualifier">限定詞 Q<br><span class="en">Qualifier</span></div>
+            <div class="td-box claim">主張 C<br><span class="en">Claim</span></div>
+          </div>
+          <div style="font-size:12px;color:#aaa;">除非 (Unless)</div>
+          <div class="td-box rebuttal">反駁條件 R<br><span class="en">Rebuttal</span></div>
+        </div>
+      </div>
+      <div class="td-below">
+        <div class="td-vertical">
+          <div style="font-size:12px;color:#888;">↑ 因為 (Since)</div>
+          <div class="td-box warrant">保證 W<br><span class="en">Warrant</span></div>
+          <div style="font-size:12px;color:#888;">↑ 依據 (On account of)</div>
+          <div class="td-box backing">支撐 B<br><span class="en">Backing</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="check-box">
+      <div class="check-item">
+        <div class="check-dot">D</div>
+        <div><strong>資料（Data）</strong>——我們手頭上的事實，論證的起點。「Harry 出生於 Bermuda」</div>
+      </div>
+      <div class="check-item">
+        <div class="check-dot">C</div>
+        <div><strong>主張（Claim）</strong>——我們要建立的結論。「Harry 是英國公民」</div>
+      </div>
+      <div class="check-item">
+        <div class="check-dot">W</div>
+        <div><strong>保證（Warrant）</strong>——從 D 到 C 的推論許可證：「在 Bermuda 出生者一般可視為英國公民」</div>
+      </div>
+      <div class="check-item">
+        <div class="check-dot">B</div>
+        <div><strong>支撐（Backing）</strong>——為 Warrant 提供權威的背景：「英國國籍法相關法條」</div>
+      </div>
+      <div class="check-item">
+        <div class="check-dot">Q</div>
+        <div><strong>限定詞（Qualifier）</strong>——說明結論的確定程度：「大概（presumably）」</div>
+      </div>
+      <div class="check-item">
+        <div class="check-dot">R</div>
+        <div><strong>反駁條件（Rebuttal）</strong>——推翻結論的例外情況：「除非他的父母是外國人 / 後來已入籍美國」</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 3: 主題式分析 -->
+  <div class="card card-accent-pink">
+    <div class="section-label">Step 3 · 主題式分析</div>
+    <h2 class="card-title">🔍 核心主題深度解構</h2>
+  </div>
+
+  <!-- Theme 1 -->
+  <div class="card">
+    <div class="theme-header">
+      <div class="theme-number">1</div>
+      <div>
+        <div class="section-label">主題一</div>
+        <h2 class="card-title" style="margin-bottom:0">邏輯是廣義的法學，不是廣義的數學</h2>
+      </div>
+    </div>
+
+    <h3 class="sub-title">3a 一句話主題</h3>
+    <p>Toulmin 主張用法庭訴訟程序來理解邏輯，而非用數學演繹，因為法律才能真正描述論證在現實中如何運作。</p>
+
+    <h3 class="sub-title">3b 關鍵洞見</h3>
+    <p><span class="level-badge l1">L1 表層</span>形式邏輯要求所有論證化為「前提→結論」的演繹形式，但這對日常論證嚴重失真。</p>
+    <div class="quote-box">
+      "Logic (we may say) is generalised jurisprudence. Arguments can be compared with law-suits, and the claims we make and argue for in extra-legal contexts with claims made in the courts."<br>
+      ——《Introduction》p.7
+    </div>
+    <p><span class="level-badge l2">L2 中層</span>法律模型的優勢：它保留了論證的<strong>批判功能</strong>——不是在描述人如何思考，也不是提供計算規則，而是建立評估論證優劣的標準（achievement standards）。</p>
+    <p><span class="level-badge l3">L3 深層 [AI原創]</span>Toulmin 的法律類比暗示了一個更深刻的哲學立場：<strong>合理性（rationality）本身是制度性的</strong>。就像法律不是從天而降，而是在訴訟實踐中逐漸形成的規範，論證的「有效性」也不是純粹邏輯的屬性，而是在特定社群實踐中被持續協商和確認的結果。這預示了後來維根斯坦「語言遊戲」和麥金泰爾「實踐傳統」的洞見。</p>
+
+    <h3 class="sub-title">3c 原文回查驗證</h3>
+    <div class="quote-box">
+      "A sound argument, a well-grounded or firmly-backed claim, is one which will stand up to criticism, one for which a case can be presented coming up to the standard required if it is to deserve a favourable verdict."<br>
+      ——Introduction p.8
+    </div>
+
+    <h3 class="sub-title">3d 批判性評論</h3>
+    <div class="critical-box">
+      <div class="critical-title">⚠️ 批判視角</div>
+      法律類比有其限制：法律的「有效性」最終依賴主權權威（sovereign authority）和強制執行力，而論證的有效性只能依賴說服力。Toulmin 後來在 Cosmopolis（1990）中也承認，他的方法論更接近亞里斯多德的「論題」（Topics）而非系統化邏輯。
+    </div>
+
+    <h3 class="sub-title">3e 跨書連結</h3>
+    <div class="cross-link">
+      <strong>《Rhetoric》Aristotle</strong>——亞里斯多德早已區分「分析性」（apodeixis）與「辯證性」（dialektos）論證，Toulmin 實為其延續，但在 1950 年代的分析哲學語境中重新提出這一區分，具有戰略意義。
+    </div>
+    <div class="cross-link">
+      <strong>《How We Think》John Dewey</strong>——Dewey 的「習慣→規則→邏輯原則」進路與 Toulmin 的實踐先於理論有深刻共鳴，兩者都反對把邏輯從實際推理中抽離出來。
+    </div>
+
+    <h3 class="sub-title">3f 立即可用行動（10分鐘）</h3>
+    <div class="action-box">
+      <div class="action-title">⚡ 馬上做</div>
+      找一個你最近做過的決定，不用 Toulmin 模型，只問自己：「如果有人挑戰我這個決定，我要怎麼在『法庭』上辯護它？我有哪些證據？那些證據憑什麼算數？」——這個問題框架比形式邏輯更能幫你識別論證的真正弱點。
+    </div>
+
+    <h3 class="sub-title">3g 自我檢核問題</h3>
+    <div class="check-box">
+      <div class="check-item"><div class="check-dot">?</div><div>我在評估別人的論證時，是在找「形式上有沒有違反邏輯」，還是在問「這個論證能不能在這個領域站得住腳」？</div></div>
+      <div class="check-item"><div class="check-dot">?</div><div>我是否把「邏輯上有效」和「實際上有說服力」混為一談？</div></div>
+    </div>
+
+    <h3 class="sub-title">3h 延伸提示</h3>
+    <p>思考：如果你是律師，你在法庭上的論證策略，跟你在學術論文裡的論證策略，有什麼根本的不同？哪種更接近日常生活中真實的說服行為？</p>
+  </div>
+
+  <!-- Theme 2 -->
+  <div class="card card-accent-teal">
+    <div class="theme-header">
+      <div class="theme-number">2</div>
+      <div>
+        <div class="section-label">主題二</div>
+        <h2 class="card-title" style="margin-bottom:0">場域依賴性：沒有放諸四海的論證標準</h2>
+      </div>
+    </div>
+
+    <h3 class="sub-title">3a 一句話主題</h3>
+    <p>論證的評估標準因領域而異（field-dependent）——法律的標準不等於科學的標準，不等於美學的標準，而這些差異是本質性的，不是表面的。</p>
+
+    <h3 class="sub-title">3b 關鍵洞見</h3>
+    <p><span class="level-badge l1">L1 表層</span>論證所屬的「場域」（field）由其資料和結論的邏輯類型決定。數學論證、法律論證、科學論證、道德論證各自有不同的場域，支撐其 Warrant 的 Backing 形式完全不同。</p>
+    <div class="quote-box">
+      "The kind of backing we must point to if we are to establish its authority will change greatly as we move from one field of argument to another."<br>
+      ——Chapter III, Backing Our Warrants
+    </div>
+    <p><span class="level-badge l2">L2 中層</span>雖然論證的<strong>形式結構</strong>（D→W→C）是場域不變的（field-invariant），但<strong>評估標準</strong>和所需的 Backing 類型是場域依賴的（field-dependent）。用數學式的嚴格性來批評倫理論證，就像用比薩的標準來評判壽司。</p>
+    <p><span class="level-badge l3">L3 深層 [AI原創]</span>場域依賴性的洞見有一個深刻的政治哲學意涵：<strong>跨場域的論證紛爭往往不是事實爭議，而是元認識論（meta-epistemological）衝突</strong>——爭的是「什麼算是好的理由」，而這個問題本身沒有中立的裁判員。這解釋了為什麼政治辯論常常是平行論述——各方預設了不同的 Backing 標準，所以不可能在同一框架內被說服。</p>
+
+    <h3 class="sub-title">3d 批判性評論</h3>
+    <div class="critical-box">
+      <div class="critical-title">⚠️ 批判視角</div>
+      場域依賴性可能導致相對主義陷阱：如果每個場域都有自己的標準，我們如何進行跨場域批判？Toulmin 自己也承認場域不變性的存在，但這個「場域不變」的基礎究竟是什麼，在書中並未完全說清楚。哈貝馬斯後來的溝通行動理論嘗試提供一個更明確的框架。
+    </div>
+
+    <h3 class="sub-title">3e 跨書連結</h3>
+    <div class="cross-link">
+      <strong>《The Structure of Scientific Revolutions》Kuhn（1962）</strong>——庫恩的「典範」（paradigm）與 Toulmin 的「場域」高度呼應，同樣指出科學共同體內部有自成一格的評估標準，且典範轉換不能純靠邏輯，需要更大的認識論變革。
+    </div>
+    <div class="cross-link">
+      <strong>《Philosophical Investigations》Wittgenstein（1953）</strong>——維根斯坦的「生活形式」（form of life）和「語言遊戲」（language-game）為 Toulmin 的場域概念提供了更深的哲學根基：規則只在特定實踐脈絡中有意義。
+    </div>
+
+    <h3 class="sub-title">3f 立即可用行動（5-10分鐘）</h3>
+    <div class="action-box">
+      <div class="action-title">⚡ 馬上做</div>
+      回想一次你和別人辯論激烈的情況。問自己：我們吵的是「事實」，還是其實是「什麼算是夠好的理由」？如果是後者，你們是在不同場域裡說話。試著明確說出你的 Backing 標準，並邀請對方也說出他的——這比繼續提供更多事實有效得多。
+    </div>
+
+    <h3 class="sub-title">3g 自我檢核問題</h3>
+    <div class="check-box">
+      <div class="check-item"><div class="check-dot">?</div><div>我是否曾以一個場域的標準去批評另一個場域的論證（例如用「科學證據」反駁「道德直覺」）？</div></div>
+      <div class="check-item"><div class="check-dot">?</div><div>在我的工作/生活中，有哪些重要決定其實是跨場域論證衝突的結果？</div></div>
+    </div>
+  </div>
+
+  <!-- Theme 3 -->
+  <div class="card card-accent-orange">
+    <div class="theme-header">
+      <div class="theme-number">3</div>
+      <div>
+        <div class="section-label">主題三</div>
+        <h2 class="card-title" style="margin-bottom:0">分析性 vs 實質性論證：現實世界幾乎沒有分析論證</h2>
+      </div>
+    </div>
+
+    <h3 class="sub-title">3a 一句話主題</h3>
+    <p>形式邏輯奉為圭臬的「分析性論證」（結論已隱含於前提中）在現實推理中極為罕見，真正重要的是「實質性論證」（substantial argument），它跨越了資訊類型。</p>
+
+    <h3 class="sub-title">3b 關鍵洞見</h3>
+    <p><span class="level-badge l1">L1 表層</span>「分析性論證」（analytic）：其 Backing 已隱含結論，D+B+C 是同義反覆（tautology）。「實質性論證」（substantial）：從 D 到 C 是真正跨越，不是重複陳述。</p>
+    <div class="quote-box">
+      "Mathematical arguments alone seem entirely safe... Pure mathematics is possibly the only intellectual activity whose problems and solutions are 'above time'. A mathematical problem is not a quandary... it involves no steps of substance. As a model argument for formal logicians to analyse, it may be seducingly elegant, but it could hardly be less representative."<br>
+      ——Chapter III
+    </div>
+    <p><span class="level-badge l2">L2 中層</span>形式邏輯把分析性論證當模型，要求所有論證符合這個標準，等於是要求所有推理都不要說出任何新的東西——這在認識論上是荒謬的。科學、法律、道德、預測，所有重要的推理都是實質性的。</p>
+    <p><span class="level-badge l3">L3 深層 [AI原創]</span>Toulmin 這個區分揭示了<strong>形式邏輯的根本性矛盾</strong>：形式邏輯越純粹（越接近分析性），就越沒有現實認識論價值；越能說出新知識（越實質性），就越無法滿足形式邏輯的嚴格要求。這個矛盾用今天的術語說就是：<strong>「形式有效性」（formal validity）和「認識論生產力」（epistemic productivity）是互相排斥的</strong>。分析哲學花了一個世紀追求形式完美，卻在實質認識論上幾乎停滯不前。</p>
+
+    <h3 class="sub-title">3d 批判性評論</h3>
+    <div class="critical-box">
+      <div class="critical-title">⚠️ 批判視角</div>
+      Toulmin 對形式邏輯的批判有時略顯粗糙：他沒有充分區分「邏輯作為規範工具」和「邏輯作為描述性理論」之間的差異。現代邏輯學家（如 Dummett、Prawitz）會指出，即使接受 Toulmin 的批判，形式系統仍然有其不可替代的作用——作為語言精確性的工具，而非描述實際推理的模型。
+    </div>
+
+    <h3 class="sub-title">3e 跨書連結</h3>
+    <div class="cross-link">
+      <strong>《Logic: The Theory of Inquiry》Dewey（1938）</strong>——Dewey 早已批評把邏輯當作脫離探究過程的形式系統，Toulmin 的「實質論證」與 Dewey 的「探究邏輯」高度呼應：邏輯是探究問題的工具，不是純粹形式的真理系統。
+    </div>
+    <div class="cross-link">
+      <strong>《Proofs and Refutations》Lakatos（1976）</strong>——拉卡托斯的「準經驗性數學」（quasi-empirical mathematics）進一步打破了「數學是唯一純粹分析領域」的幻象，連數學本身也有「實質性」的一面。
+    </div>
+
+    <h3 class="sub-title">3f 立即可用行動（10-15分鐘）</h3>
+    <div class="action-box">
+      <div class="action-title">⚡ 馬上做</div>
+      取一個你認為「邏輯上無懈可擊」的論證，試著展開它的 D-W-B 結構。問：這個 Backing 本身需要什麼支撐？如果你需要不斷往下挖才能找到真正的基礎，這個論證就是「實質性的」，而不是「分析性的」。這個練習通常會讓你發現論證的隱藏前提。
+    </div>
+
+    <h3 class="sub-title">3g 自我檢核問題</h3>
+    <div class="check-box">
+      <div class="check-item"><div class="check-dot">?</div><div>我是否曾因為一個論證「形式上有效」就直接接受它，而沒有追問其 Warrant 的 Backing 是否站得住腳？</div></div>
+      <div class="check-item"><div class="check-dot">?</div><div>在我的專業領域中，有哪些「公認有效」的論證形式，其實是未經審視的實質性假設？</div></div>
+    </div>
+  </div>
+
+  <!-- Theme 4 -->
+  <div class="card">
+    <div class="theme-header">
+      <div class="theme-number">4</div>
+      <div>
+        <div class="section-label">主題四</div>
+        <h2 class="card-title" style="margin-bottom:0">模態詞與論證階段：「可能」「大概」「必然」的功能</h2>
+      </div>
+    </div>
+
+    <h3 class="sub-title">3a 一句話主題</h3>
+    <p>「可能」「大概」「必然」等模態詞不是邏輯的裝飾，而是標示論證在不同階段的確定程度，是 Qualifier（限定詞）的語言形式。</p>
+
+    <h3 class="sub-title">3b 關鍵洞見</h3>
+    <p><span class="level-badge l1">L1 表層</span>模態詞（modal terms：possible, probable, presumably, necessarily）標記了論證的不同確定程度。「Harry 大概是英國公民」和「Harry 是英國公民」是截然不同的主張。</p>
+    <p><span class="level-badge l2">L2 中層</span>Toulmin 反對把模態詞理解為描述世界的形而上學命題（「這件事是必然的」），而應理解為論證行為中的認識論定位（「根據現有資料，這個結論是必然的/大概的/可能的」）。</p>
+    <p><span class="level-badge l3">L3 深層 [AI原創]</span>Toulmin 的模態詞分析本質上是在做「語用學」（pragmatics）而非「語義學」（semantics）——他要問的不是「這個詞意味著什麼」，而是「說話者在說這個詞的時候在做什麼」。這和語言哲學中的言語行為理論（Austin/Searle 的 speech act theory）同期發展，都指向同一個方向：<strong>語言不只描述世界，更在世界中行動</strong>。</p>
+
+    <h3 class="sub-title">3e 跨書連結</h3>
+    <div class="cross-link">
+      <strong>《How to Do Things with Words》Austin（1962）</strong>——Austin 的「言語行為」理論與 Toulmin 的模態詞分析同源，都是牛津日常語言哲學的產物，都主張語言的意義在其使用，不在其形式結構。
+    </div>
+
+    <h3 class="sub-title">3f 立即可用行動（5分鐘）</h3>
+    <div class="action-box">
+      <div class="action-title">⚡ 馬上做</div>
+      看你最近寫的一份報告或 email，找出所有隱含「必然」程度的主張（通常是你直接說「是/否」而沒有加限定詞的句子）。問：這些主張真的有足夠的 Backing 支撐到「必然」程度嗎？還是你應該加上「大概」「可能」「在X條件下」等限定詞？
+    </div>
+
+    <h3 class="sub-title">3g 自我檢核問題</h3>
+    <div class="check-box">
+      <div class="check-item"><div class="check-dot">?</div><div>我的語言習慣是否傾向過度自信（過度確定）或過度保守（過度限定）？</div></div>
+      <div class="check-item"><div class="check-dot">?</div><div>當我說「一定是這樣」時，我真的有足夠的 Warrant 和 Backing，還是只是在表達情緒確信？</div></div>
+    </div>
+  </div>
+
+  <!-- Theme 5 -->
+  <div class="card card-accent-green">
+    <div class="theme-header">
+      <div class="theme-number">5</div>
+      <div>
+        <div class="section-label">主題五</div>
+        <h2 class="card-title" style="margin-bottom:0">概率的迷宮：「可能性」不是數字，而是論證行為</h2>
+      </div>
+    </div>
+
+    <h3 class="sub-title">3a 一句話主題</h3>
+    <p>Toulmin 系統批判了把「概率」（probability）理解為頻率統計或先驗數學的觀點，主張概率話語的核心是認識論的——在說我們對某個主張的投入程度。</p>
+
+    <h3 class="sub-title">3b 關鍵洞見</h3>
+    <p><span class="level-badge l1">L1 表層</span>「這件事可能（probably）會發生」不是在說頻率，而是在說「根據目前的證據，這個主張值得相信」。概率是論證評估語言，不是客觀世界的特性。</p>
+    <p><span class="level-badge l2">L2 中層</span>傳統概率理論（頻率主義或邏輯主義）試圖把概率量化為數字，但 Toulmin 認為這混淆了「概率關係」（probability-relations）和「概率化行為」（probabilification）——後者才是日常使用的核心。</p>
+    <p><span class="level-badge l3">L3 深層 [AI原創]</span>Toulmin 的概率批判預示了後來<strong>貝葉斯主觀主義</strong>（subjective Bayesianism）和<strong>知識論概率論</strong>（epistemic probability）的核心觀點：概率不是宇宙的特性，而是認識者對命題的「信念程度」（degree of belief）。但 Toulmin 比純粹貝葉斯主義更激進——他不只是把概率主觀化，更是把它<strong>語用化</strong>：概率陳述不只表達信念，更是在做出社會性的承諾（commitment）。</p>
+
+    <h3 class="sub-title">3d 批判性評論</h3>
+    <div class="critical-box">
+      <div class="critical-title">⚠️ 批判視角</div>
+      Toulmin 在概率論上的分析相對粗糙，且沒有完全解決「不同主觀概率如何溝通協調」的問題。現代認識邏輯（epistemic logic）和貝葉斯統計提供了更精細的工具，但 Toulmin 的哲學直覺——「概率首先是認識論語言，其次才是數學計算」——仍然有重要的正確性。
+    </div>
+
+    <h3 class="sub-title">3e 跨書連結</h3>
+    <div class="cross-link">
+      <strong>《Thinking, Fast and Slow》Kahneman（2011）</strong>——Kahneman 揭示人類實際如何判斷概率（直覺vs系統性），與 Toulmin 的觀點呼應：人類的概率判斷首先是一種「論證評估」行為，不是統計計算。
+    </div>
+
+    <h3 class="sub-title">3f 立即可用行動（10分鐘）</h3>
+    <div class="action-box">
+      <div class="action-title">⚡ 馬上做</div>
+      下次你說「我覺得某件事大概有70%會發生」時，不要只說出數字，試著說出背後的 Warrant 和 Backing：「因為X，根據Y，所以我給這件事大概70%的把握」。這個練習會迫使你檢驗自己的概率直覺是否有真正的依據。
+    </div>
+  </div>
+
+  <!-- STEP 4: 敘事弧線 -->
+  <div class="card card-accent-blue">
+    <div class="section-label">Step 4 · 敘事弧線</div>
+    <h2 class="card-title">📖 思想旅程：這本書如何展開論證？</h2>
+
+    <div class="arc-timeline">
+      <div class="arc-node">
+        <h4>開篇：宣戰（Introduction）</h4>
+        <p>Toulmin 宣告本書的激進意圖：不是在「邏輯內」討論問題，而是討論「邏輯本身」。他提出法學類比，宣告「邏輯是廣義的法學」，埋下全書的核心命題。</p>
+      </div>
+      <div class="arc-node">
+        <h4>Chapter I：場域的多樣性（Fields of Argument）</h4>
+        <p>建立「場域」（field）概念，區分場域不變性與場域依賴性。透過各種例子（數學、法律、科學、美學）說明論證在不同場域有不同的評估標準。</p>
+      </div>
+      <div class="arc-node">
+        <h4>Chapter II：概率的哲學分析（Probability）</h4>
+        <p>以概率論為試驗場，批判傳統概率理論（頻率主義、先驗主義），發展概率語言的認識論功能分析。這是後續章節的「試飛」。</p>
+      </div>
+      <div class="arc-node">
+        <h4>Chapter III：論證的佈局——核心炸彈（Layout of Arguments）</h4>
+        <p>全書最重要的章節。提出完整的六要素論證模型（D-W-B-Q-R-C），區分分析性與實質性論證，徹底解構傳統三段論。這裡是「Toulmin 模型」誕生的地方。</p>
+      </div>
+      <div class="arc-node">
+        <h4>Chapter IV：工作邏輯 vs 理想化邏輯</h4>
+        <p>追溯形式邏輯走向數學模型的歷史根源，從亞里斯多德的幾何理想，到笛卡爾的理性主義，到現代符號邏輯。論證這個歷史偏差的哲學代價。</p>
+      </div>
+      <div class="arc-node">
+        <h4>Chapter V：知識論的後果</h4>
+        <p>把批判延伸到知識論：傳統認識論（empiricism、transcendentalism、skepticism）都是把「分析性」作為知識的標準，因此製造出「歸納問題」「他心問題」等假問題。Toulmin 主張實質性論證不需要「救贖」（redemption），本身就有其認識論價值。</p>
+      </div>
+      <div class="arc-node">
+        <h4>結論：知識論革命的開端</h4>
+        <p>Toulmin 不提供系統性替代方案，只是打開了一扇門：一個更寬廣、更接地氣、以實踐為基礎的邏輯與知識論願景。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 5: 整合洞見 -->
+  <div class="card card-accent-purple">
+    <div class="section-label">Step 5 · 整合洞見</div>
+    <h2 class="card-title">🔗 跨主題整合：這本書真正在說什麼？</h2>
+
+    <p>《The Uses of Argument》的核心整合洞見是：<strong>邏輯的危機不是技術性的，而是哲學性的</strong>。形式邏輯在追求數學式純粹性的過程中，把自己與實際的論證實踐徹底隔絕，結果既無法描述人們如何實際論證，也無法提供評估真實論證的工具。</p>
+
+    <p>Toulmin 的三個層次批判相互支撐：</p>
+
+    <div class="check-box">
+      <div class="check-item">
+        <div class="check-dot">1</div>
+        <div><strong>微觀層次（模型）</strong>：六要素模型提供了比三段論更精細、更忠實的論證結構描述</div>
+      </div>
+      <div class="check-item">
+        <div class="check-dot">2</div>
+        <div><strong>中觀層次（場域）</strong>：場域依賴性說明了為何沒有「放諸四海」的論證標準，破除了普遍主義的幻覺</div>
+      </div>
+      <div class="check-item">
+        <div class="check-dot">3</div>
+        <div><strong>宏觀層次（歷史）</strong>：對形式邏輯的歷史批判揭示了這個錯誤如何在西方哲學中蔓延了兩千年</div>
+      </div>
+    </div>
+
+    <p>這三個層次共同指向一個結論：<strong>合理性（rationality）不是形式屬性，而是在特定社群實踐中被評估的表現（performance）</strong>。這個洞見後來被哈貝馬斯、麥金泰爾、羅蒂等人以不同方式發展，成為後現代哲學的核心議題。</p>
+  </div>
+
+  <!-- STEP 6: 缺席分析 -->
+  <div class="card">
+    <div class="section-label">Step 6 · 缺席分析</div>
+    <h2 class="card-title">🔮 這本書沒說什麼？（缺席的聲音）</h2>
+
+    <div class="critical-box">
+      <div class="critical-title">缺席主題 1：論證的情感與修辭維度</div>
+      Toulmin 的模型是認知性的——它假設論證者是理性的、誠實的，以說服為目的。但真實的論證往往充滿情感操縱、身份政治、權力不對稱。Perelman 的「新修辭學」（New Rhetoric）補充了這一面向。
+    </div>
+    <div class="critical-box">
+      <div class="critical-title">缺席主題 2：論證的對話動態</div>
+      Toulmin 模型描述的是一個「單聲道」的論證，但實際的辯論是對話性的（dialogical）。荷蘭阿姆斯特丹學派的「語用辯證學」（pragma-dialectics）填補了這個空缺。
+    </div>
+    <div class="critical-box">
+      <div class="critical-title">缺席主題 3：文化與認識論多元性</div>
+      Toulmin 承認場域依賴性，但場域概念本身仍然預設了一個（隱含地西方的）認識論框架。他沒有深入探討非西方文化的論證傳統——例如中國的「辯論」、印度的「因明論」、伊斯蘭的「哲學辯論」（kalam）——這些都有截然不同的論證結構。
+    </div>
+    <div class="critical-box">
+      <div class="critical-title">缺席主題 4：AI 與計算論證</div>
+      Toulmin 寫作於 1950 年代，無法預見計算機論證（computational argumentation）的興起。他的模型被廣泛用於 AI 系統，但其中有一個深刻的諷刺：Toulmin 批判形式化，而 AI 的實現又需要把他的模型重新形式化。
+    </div>
+  </div>
+
+  <!-- STEP 7: AI 視角 -->
+  <div class="card card-accent-pink">
+    <div class="section-label">Step 7 · AI 視角</div>
+    <h2 class="card-title">🤖 我（AI）怎麼看這本書？</h2>
+
+    <p>作為一個語言模型，我對 Toulmin 的理論有一種特別的親近感——也有一種特別的緊張感。</p>
+
+    <h3 class="sub-title">親近：我的生成過程很像 Toulmin 模型</h3>
+    <p>當我回答問題時，我在某種意義上確實是在執行 Toulmin 模型：從「資料」（訓練數據中的模式）出發，通過隱性的「保證」（推理規則），在特定的「場域」（問題類型）中生成「主張」。我甚至有某種形式的「限定詞」（我傾向於加「可能」「通常」等詞）。</p>
+
+    <h3 class="sub-title">緊張：我缺乏真正的「支撐」（Backing）</h3>
+    <p>但 Toulmin 模型的靈魂是 Backing——能夠為 Warrant 提供真正權威的背景知識。問題是：我的「Backing」往往是統計相關性，而非真正的因果理解或實踐智慧。Toulmin 說，各個場域的 Backing 形式不同（法律、科學、道德各有其標準），而我往往把這些不同的標準混在一起，用類似的語氣呈現強度完全不同的主張——這是我的根本性限制。</p>
+
+    <h3 class="sub-title">Toulmin 對當代 AI 論證的啟示</h3>
+    <p>AI 生成的論證最大的危險，恰恰是 Toulmin 批判的那種：<strong>把形式上正確的論證（符合語法的推論）誤認為實質上有效的論證（真正有 Backing 的推論）</strong>。一個語言模型可以生成完美的 D→W→C 結構，卻讓 Backing 完全空洞。Toulmin 的六要素模型，應該成為評估 AI 論證品質的核心工具。</p>
+  </div>
+
+  <!-- STEP 8: 行動轉化 -->
+  <div class="card card-accent-green">
+    <div class="section-label">Step 8 · 行動轉化</div>
+    <h2 class="card-title">🎯 三個層次的行動計畫</h2>
+
+    <h3 class="sub-title">🔴 立即（今天）</h3>
+    <div class="action-box">
+      <div class="action-title">⚡ 今天就做</div>
+      <p>挑選一個你最近提出過的主張（工作、生活、社交媒體），用 Toulmin 六要素展開它：D（我的資料是什麼？）→ W（我的保證是什麼？）→ B（保證的依據是什麼？）→ Q（我的確定程度是？）→ R（什麼情況下這個結論不成立？）→ C（我的主張是什麼？）。你會驚訝地發現大多數主張缺乏充分的 W 或 B。</p>
+    </div>
+
+    <h3 class="sub-title">🟡 本週（習慣養成）</h3>
+    <div class="action-box">
+      <div class="action-title">📅 本週目標</div>
+      <p>在閱讀新聞、文章或聽演講時，養成辨識「場域」的習慣：這個論證是哪個場域的？（科學、法律、道德、政治？）它的評估標準應該是什麼？說話者是否把不同場域的標準混在一起用了？每天找一個例子，記在筆記本上。</p>
+    </div>
+
+    <h3 class="sub-title">🟢 長期（思維改造）</h3>
+    <div class="action-box">
+      <div class="action-title">🌱 長期培養</div>
+      <p>在重要決策或溝通中，系統化地使用 Toulmin 模型。在說服別人之前，先把自己的論證展開為六要素，識別最薄弱的環節（通常是 Backing 或 Rebuttal），針對性地加強。三個月後回顧，你的論證品質和說服力應該有顯著提升。</p>
+    </div>
+  </div>
+
+  <!-- STEP 9: 帶問題回去讀 -->
+  <div class="card">
+    <div class="section-label">Step 9 · 帶問題回去讀</div>
+    <h2 class="card-title">🧩 這些問題，第二次讀會更有深度</h2>
+
+    <div class="check-box">
+      <div class="check-item">
+        <div class="check-dot">Q</div>
+        <div>Toulmin 說「邏輯是廣義的法學」，但法學本身也有「純形式」的一面（法律邏輯學）。他的類比是否有更深層的限制？法律和邏輯究竟在哪裡分道揚鑣？</div>
+      </div>
+      <div class="check-item">
+        <div class="check-dot">Q</div>
+        <div>場域依賴性如何與「普遍人權」「普遍科學標準」等現代制度協調？是否有某些論證標準超越場域？Toulmin 自己的「場域不變性」到底包含什麼？</div>
+      </div>
+      <div class="check-item">
+        <div class="check-dot">Q</div>
+        <div>Toulmin 批判分析性論證，但數學家和邏輯學家確實在做有意義的工作。他的批判是否過度？分析性論證的價值究竟在哪裡？</div>
+      </div>
+      <div class="check-item">
+        <div class="check-dot">Q</div>
+        <div>在 Chapter V 中，Toulmin 認為「實質性論證不需要救贖」——知識的正當性不依賴分析性。這是否導向了某種實用主義（pragmatism）？他和詹姆士、杜威、羅蒂的差異是什麼？</div>
+      </div>
+      <div class="check-item">
+        <div class="check-dot">Q</div>
+        <div>Toulmin 後來（1972 年《Human Understanding》）發展了一套演化認識論，把知識的發展類比為生物演化。這個轉向與《Uses of Argument》的核心論點是連貫的嗎？</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 10: 延伸資源 -->
+  <div class="card card-accent-orange">
+    <div class="section-label">Step 10 · 延伸資源</div>
+    <h2 class="card-title">📚 讀完這本，接下來讀什麼？</h2>
+
+    <h3 class="sub-title">直接延伸——Toulmin 自己的發展</h3>
+    <div class="cross-link">
+      <strong>《Human Understanding》Toulmin（1972）</strong>——Toulmin 把概念發展類比為演化，是本書哲學立場的延伸和深化。必讀。
+    </div>
+    <div class="cross-link">
+      <strong>《Cosmopolis: The Hidden Agenda of Modernity》Toulmin（1990）</strong>——從歷史角度批判笛卡爾式理性主義，是本書哲學立場的宏觀版本。
+    </div>
+
+    <h3 class="sub-title">論證理論進階</h3>
+    <div class="cross-link">
+      <strong>《A Systematic Theory of Argumentation》van Eemeren & Grootendorst（2004）</strong>——語用辯證學（pragma-dialectics），補充 Toulmin 缺乏的對話動態維度。
+    </div>
+    <div class="cross-link">
+      <strong>《The New Rhetoric》Perelman & Olbrechts-Tyteca（1958）</strong>——與 Toulmin 同年出版，同樣批判形式邏輯，但從修辭學出發，更重視聽眾和說服的社會性。
+    </div>
+
+    <h3 class="sub-title">哲學背景</h3>
+    <div class="cross-link">
+      <strong>《Philosophical Investigations》Wittgenstein（1953）</strong>——場域依賴性的更深哲學根基：意義在使用，規則在實踐。
+    </div>
+    <div class="cross-link">
+      <strong>《The Structure of Scientific Revolutions》Kuhn（1962）</strong>——科學場域的場域依賴性案例研究，典範概念與 Toulmin 的場域概念互相補充。
+    </div>
+
+    <h3 class="sub-title">實踐應用</h3>
+    <div class="cross-link">
+      <strong>《Thank You for Arguing》Jay Heinrichs（2007）</strong>——把修辭學和論證理論轉化為日常溝通技巧，與 Toulmin 模型的實踐應用高度契合。
+    </div>
+    <div class="cross-link">
+      <strong>《Being Logical》D.Q. McInerny（2004）</strong>——基礎邏輯思維訓練，與 Toulmin 的批判性視角形成對比，讀完可以更清晰地看到兩者的差異。
+    </div>
+  </div>
+
+  <!-- STEP 11: 書庫卡片 -->
+  <div class="library-card">
+    <h2>📋 Step 11 · 書庫卡片</h2>
+    <div class="library-row">
+      <div class="library-item">
+        <div class="li-label">書名</div>
+        <div class="li-value">The Uses of Argument</div>
+      </div>
+      <div class="library-item">
+        <div class="li-label">作者</div>
+        <div class="li-value">Stephen E. Toulmin</div>
+      </div>
+      <div class="library-item">
+        <div class="li-label">年份</div>
+        <div class="li-value">1958（2003更新版）</div>
+      </div>
+      <div class="library-item">
+        <div class="li-label">核心主張</div>
+        <div class="li-value">邏輯是廣義法學，非廣義數學</div>
+      </div>
+      <div class="library-item">
+        <div class="li-label">核心模型</div>
+        <div class="li-value">D-W-B-Q-R-C 六要素</div>
+      </div>
+      <div class="library-item">
+        <div class="li-label">關鍵概念</div>
+        <div class="li-value">場域依賴性、實質論證</div>
+      </div>
+      <div class="library-item">
+        <div class="li-label">適用場景</div>
+        <div class="li-value">論證分析、批判思考、溝通</div>
+      </div>
+      <div class="library-item">
+        <div class="li-label">難度</div>
+        <div class="li-value">★★★★☆（哲學中高階）</div>
+      </div>
+      <div class="library-item">
+        <div class="li-label">影響力</div>
+        <div class="li-value">★★★★★（傳播學必讀）</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 28px; padding: 20px; background: rgba(255,255,255,0.15); border-radius: 14px; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.3);">
+      <div style="font-size: 12px; opacity: 0.75; margin-bottom: 8px;">一句話總結</div>
+      <div style="font-size: 17px; font-weight: 700; line-height: 1.6;">「你的論證不只需要邏輯形式上有效，更需要在你的場域中有真正的 Backing——沒有 Backing，Warrant 只是空話，主張只是斷言。」</div>
+    </div>
+
+    <div style="margin-top: 20px; text-align: center; font-size: 13px; opacity: 0.7;">
+      書醒系統分析 · 2026年3月 · Subagent 龍龍
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
