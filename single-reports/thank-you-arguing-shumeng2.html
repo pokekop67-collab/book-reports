@@ -1,0 +1,1370 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You for Arguing — 書僮 2.0 深讀報告</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dark-1: #0f0f1a;
+      --dark-2: #1a1a2e;
+      --dark-3: #16213e;
+      --orange: #ff6b35;
+      --gold: #fbbf24;
+      --pink: #ec4899;
+      --purple: #7c3aed;
+      --blue: #3b82f6;
+      --cyan: #06b6d4;
+      --green: #10b981;
+      --red: #ef4444;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: var(--dark-1);
+      color: #e2e8f0;
+      font-family: 'Noto Sans TC', 'Inter', sans-serif;
+      line-height: 1.8;
+      min-height: 100vh;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, #0f0f1a 0%, #1a1a2e 40%, #16213e 100%);
+      border-bottom: 1px solid rgba(255,107,53,0.3);
+      padding: 80px 40px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at center, rgba(255,107,53,0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .badge {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--orange), var(--gold));
+      color: #0f0f1a;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.8rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #fff 30%, var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .hero .subtitle {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 8px;
+    }
+
+    .hero .author {
+      font-size: 1rem;
+      color: var(--gold);
+      font-style: italic;
+      margin-bottom: 32px;
+    }
+
+    .hero-meta {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .hero-meta-item {
+      text-align: center;
+    }
+
+    .hero-meta-item .num {
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--orange), var(--gold));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: block;
+    }
+
+    .hero-meta-item .label {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ===== STAGE HEADERS ===== */
+    .stage-header {
+      padding: 80px 0 40px;
+    }
+
+    .stage-num {
+      font-size: 7rem;
+      font-weight: 900;
+      line-height: 0.9;
+      opacity: 0.12;
+      letter-spacing: -0.04em;
+      font-family: 'Inter', sans-serif;
+      display: block;
+    }
+
+    .stage-title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-top: -20px;
+      position: relative;
+    }
+
+    .stage-desc {
+      margin-top: 12px;
+      color: rgba(255,255,255,0.5);
+      font-size: 0.95rem;
+      max-width: 600px;
+    }
+
+    /* Stage colors */
+    .stage-01 .stage-num { color: var(--orange); }
+    .stage-01 .stage-title { color: var(--orange); }
+    .stage-02 .stage-num { color: var(--blue); }
+    .stage-02 .stage-title { color: var(--blue); }
+    .stage-03 .stage-num { color: var(--purple); }
+    .stage-03 .stage-title { color: var(--purple); }
+
+    /* ===== DIVIDER ===== */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+      margin: 20px 0 40px;
+    }
+
+    /* ===== SECTION LABEL ===== */
+    .section-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      font-weight: 700;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* ===== CORE THESIS ===== */
+    .thesis-box {
+      background: linear-gradient(135deg, rgba(255,107,53,0.08), rgba(251,191,36,0.06));
+      border: 1px solid rgba(255,107,53,0.25);
+      border-radius: 16px;
+      padding: 36px;
+      margin-bottom: 48px;
+    }
+
+    .thesis-box .thesis-text {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-style: italic;
+      color: #fff;
+      line-height: 1.7;
+    }
+
+    .thesis-box .thesis-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--gold);
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+
+    /* ===== SKELETON MAP ===== */
+    .skeleton-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+
+    .skeleton-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .skeleton-card .ch-num {
+      font-size: 0.75rem;
+      color: rgba(255,255,255,0.3);
+      margin-bottom: 8px;
+    }
+
+    .skeleton-card .ch-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+
+    .skeleton-card .ch-func {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.5;
+    }
+
+    /* ===== CONCEPT CARDS ===== */
+    .concepts-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .concept-card {
+      background: var(--dark-2);
+      border-radius: 16px;
+      padding: 32px;
+      border-left: 4px solid var(--orange);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .concept-card::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0;
+      width: 200px; height: 200px;
+      background: radial-gradient(ellipse at top right, rgba(255,107,53,0.04), transparent 70%);
+      pointer-events: none;
+    }
+
+    .concept-card.blue { border-left-color: var(--blue); }
+    .concept-card.blue::before { background: radial-gradient(ellipse at top right, rgba(59,130,246,0.04), transparent 70%); }
+    .concept-card.purple { border-left-color: var(--purple); }
+    .concept-card.purple::before { background: radial-gradient(ellipse at top right, rgba(124,58,237,0.04), transparent 70%); }
+    .concept-card.gold { border-left-color: var(--gold); }
+    .concept-card.cyan { border-left-color: var(--cyan); }
+    .concept-card.pink { border-left-color: var(--pink); }
+    .concept-card.green { border-left-color: var(--green); }
+
+    .concept-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .concept-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+      background: rgba(255,107,53,0.1);
+    }
+
+    .concept-card.blue .concept-icon { background: rgba(59,130,246,0.1); }
+    .concept-card.purple .concept-icon { background: rgba(124,58,237,0.1); }
+    .concept-card.gold .concept-icon { background: rgba(251,191,36,0.1); }
+    .concept-card.cyan .concept-icon { background: rgba(6,182,212,0.1); }
+    .concept-card.pink .concept-icon { background: rgba(236,72,153,0.1); }
+    .concept-card.green .concept-icon { background: rgba(16,185,129,0.1); }
+
+    .concept-name {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 4px;
+    }
+
+    .concept-en {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.05em;
+    }
+
+    .concept-def {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 16px;
+      padding: 16px;
+      background: rgba(0,0,0,0.2);
+      border-radius: 8px;
+      border-left: 3px solid rgba(255,255,255,0.1);
+    }
+
+    .concept-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) {
+      .concept-body { grid-template-columns: 1fr; }
+    }
+
+    .concept-section h4 {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: rgba(255,255,255,0.35);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .concept-section p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+    }
+
+    .insight-tag {
+      display: inline-block;
+      background: rgba(255,107,53,0.1);
+      border: 1px solid rgba(255,107,53,0.2);
+      color: var(--orange);
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-top: 8px;
+    }
+
+    .concept-card.blue .insight-tag { background: rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.2); color: var(--blue); }
+    .concept-card.purple .insight-tag { background: rgba(124,58,237,0.1); border-color: rgba(124,58,237,0.2); color: #a78bfa; }
+    .concept-card.gold .insight-tag { background: rgba(251,191,36,0.1); border-color: rgba(251,191,36,0.2); color: var(--gold); }
+    .concept-card.cyan .insight-tag { background: rgba(6,182,212,0.1); border-color: rgba(6,182,212,0.2); color: var(--cyan); }
+    .concept-card.pink .insight-tag { background: rgba(236,72,153,0.1); border-color: rgba(236,72,153,0.2); color: var(--pink); }
+    .concept-card.green .insight-tag { background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.2); color: var(--green); }
+
+    /* Tense diagram */
+    .tense-diagram {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .tense-box {
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .tense-box.past { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); }
+    .tense-box.present { background: rgba(251,191,36,0.08); border: 1px solid rgba(251,191,36,0.2); }
+    .tense-box.future { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); }
+
+    .tense-box .tense-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 8px;
+    }
+
+    .tense-box.past .tense-label { color: #ef4444; }
+    .tense-box.present .tense-label { color: var(--gold); }
+    .tense-box.future .tense-label { color: var(--green); }
+
+    .tense-box .tense-type { font-weight: 700; color: #fff; font-size: 0.95rem; margin-bottom: 4px; }
+    .tense-box .tense-issue { font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-bottom: 8px; }
+    .tense-box .tense-key { font-size: 0.78rem; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+    /* Fallacy list */
+    .fallacy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .fallacy-item {
+      background: rgba(0,0,0,0.25);
+      border-radius: 10px;
+      padding: 16px;
+      border-left: 3px solid rgba(239,68,68,0.4);
+    }
+
+    .fallacy-item .fallacy-name {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fc8181;
+      margin-bottom: 6px;
+    }
+
+    .fallacy-item .fallacy-desc {
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.5;
+    }
+
+    /* ===== STAGE 2 STYLES ===== */
+    .stage-02-section {
+      margin-bottom: 48px;
+    }
+
+    .consensus-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .consensus-card {
+      background: rgba(59,130,246,0.05);
+      border: 1px solid rgba(59,130,246,0.15);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .consensus-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .consensus-card p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+    }
+
+    .critique-card {
+      background: rgba(251,191,36,0.04);
+      border: 1px solid rgba(251,191,36,0.12);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+
+    .critique-card h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .critique-card p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+    }
+
+    .book-compare {
+      background: var(--dark-2);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 16px;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 20px;
+    }
+
+    .book-compare .book-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 10px;
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+
+    .book-compare h4 { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .book-compare .book-sub { font-size: 0.75rem; color: rgba(255,255,255,0.35); margin-bottom: 12px; }
+    .book-compare p { font-size: 0.88rem; color: rgba(255,255,255,0.65); line-height: 1.7; }
+
+    /* ===== STAGE 3 STYLES ===== */
+    .leverage-card {
+      background: var(--dark-2);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+      border: 1px solid rgba(124,58,237,0.15);
+      position: relative;
+    }
+
+    .leverage-num {
+      position: absolute;
+      top: -16px;
+      left: 28px;
+      background: linear-gradient(135deg, var(--purple), var(--pink));
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 100px;
+    }
+
+    .leverage-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+      margin-top: 8px;
+    }
+
+    .leverage-why {
+      font-size: 0.85rem;
+      color: var(--purple);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .leverage-body {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+
+    .script-box {
+      background: rgba(0,0,0,0.3);
+      border-radius: 10px;
+      padding: 16px 20px;
+      border-left: 3px solid var(--purple);
+    }
+
+    .script-box .script-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #a78bfa;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .script-box p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.7;
+      font-style: italic;
+    }
+
+    /* Action items */
+    .action-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .action-card {
+      background: rgba(124,58,237,0.06);
+      border: 1px solid rgba(124,58,237,0.18);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .action-card .action-time {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #a78bfa;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .action-card .action-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .action-card p {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.7;
+    }
+
+    /* Experiment cards */
+    .experiment-card {
+      background: rgba(6,182,212,0.04);
+      border: 1px solid rgba(6,182,212,0.15);
+      border-radius: 16px;
+      padding: 28px;
+      margin-bottom: 16px;
+    }
+
+    .experiment-card .exp-tag {
+      display: inline-block;
+      background: rgba(6,182,212,0.1);
+      border: 1px solid rgba(6,182,212,0.2);
+      color: var(--cyan);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      padding: 4px 12px;
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .experiment-card h4 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .experiment-card p {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+    }
+
+    .track-badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      font-size: 0.8rem;
+      color: rgba(6,182,212,0.7);
+    }
+
+    /* Warning */
+    .warning-box {
+      background: rgba(239,68,68,0.06);
+      border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 16px;
+      padding: 32px;
+      margin-top: 40px;
+    }
+
+    .warning-box .warn-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .warning-box .warn-header h3 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: #fc8181;
+    }
+
+    .warn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .warn-item {
+      background: rgba(0,0,0,0.2);
+      border-radius: 10px;
+      padding: 18px;
+      border-left: 3px solid rgba(239,68,68,0.3);
+    }
+
+    .warn-item h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #fca5a5;
+      margin-bottom: 8px;
+    }
+
+    .warn-item p {
+      font-size: 0.83rem;
+      color: rgba(255,255,255,0.55);
+      line-height: 1.6;
+    }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 40px;
+      text-align: center;
+      color: rgba(255,255,255,0.2);
+      font-size: 0.8rem;
+    }
+
+    .footer a {
+      color: rgba(255,107,53,0.5);
+      text-decoration: none;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .hero { padding: 60px 24px 40px; }
+      .tense-diagram { grid-template-columns: 1fr; }
+      .concept-body { grid-template-columns: 1fr; }
+      .book-compare { grid-template-columns: 1fr; }
+    }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--dark-1); }
+    ::-webkit-scrollbar-thumb { background: rgba(255,107,53,0.3); border-radius: 3px; }
+  </style>
+</head>
+<body>
+
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="badge">📚 書僮 2.0 · 三階段深讀報告</div>
+  <h1>Thank You for Arguing</h1>
+  <p class="subtitle">What Aristotle, Lincoln, and Homer Simpson Can Teach Us About the Art of Persuasion</p>
+  <p class="author">Jay Heinrichs 著 · 第四版</p>
+  <div class="hero-meta">
+    <div class="hero-meta-item">
+      <span class="num">3000+</span>
+      <span class="label">年修辭學歷史</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="num">11</span>
+      <span class="label">語言翻譯</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="num">30</span>
+      <span class="label">章節工具</span>
+    </div>
+    <div class="hero-meta-item">
+      <span class="num">100+</span>
+      <span class="label">論證工具</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- ============================= -->
+  <!-- STAGE 01 -->
+  <!-- ============================= -->
+  <div class="stage-header stage-01">
+    <span class="stage-num">01</span>
+    <h2 class="stage-title">兩遍深讀 — 內容本體</h2>
+    <p class="stage-desc">建立全書骨架，深挖核心概念，找出最反直覺的洞見</p>
+  </div>
+
+  <!-- 核心主張 -->
+  <div class="section-label" style="color:var(--orange)">核心主張</div>
+  <div class="thesis-box">
+    <div class="thesis-label">Heinrichs 的根本命題</div>
+    <p class="thesis-text">「論證（argument）不是吵架（fight）。修辭學（rhetoric）是人類文明最重要的技術之一：它讓我們能夠在不動刀槍的情況下改變彼此的想法。當你學會修辭，你就能讓別人自己想要你想要的東西——這才是真正的說服，也是民主的基石。」</p>
+  </div>
+
+  <!-- 全書骨架 -->
+  <div class="section-label" style="color:var(--orange)">全書邏輯骨架</div>
+  <div class="skeleton-grid">
+    <div class="skeleton-card">
+      <div class="ch-num">Ch.1</div>
+      <div class="ch-title">🌐 開眼：看見無所不在的論證</div>
+      <div class="ch-func">拆解「論證 vs 打架」的根本差異，建立修辭學的世界觀</div>
+    </div>
+    <div class="skeleton-card">
+      <div class="ch-num">Ch.2–3</div>
+      <div class="ch-title">🎯 設定目標 × 時態控制</div>
+      <div class="ch-func">Cicero 的目標三層次：情緒→心意→行動；三種時態對應三種修辭</div>
+    </div>
+    <div class="skeleton-card">
+      <div class="ch-num">Ch.4–9</div>
+      <div class="ch-title">⚡ 三大武器：Ethos/Logos/Pathos</div>
+      <div class="ch-func">品格建立、邏輯說服、情緒引導的完整技術手冊</div>
+    </div>
+    <div class="skeleton-card">
+      <div class="ch-num">Ch.10–13</div>
+      <div class="ch-title">🔬 進階攻勢</div>
+      <div class="ch-func">讓步的藝術、框架控制、定義權爭奪、Homer Simpson 的邏輯</div>
+    </div>
+    <div class="skeleton-card">
+      <div class="ch-num">Ch.14–18</div>
+      <div class="ch-title">🛡️ 防禦系統</div>
+      <div class="ch-func">七大謬誤識別、偵測操控、面對惡霸的 Socrates 微笑</div>
+    </div>
+    <div class="skeleton-card">
+      <div class="ch-num">Ch.19–30</div>
+      <div class="ch-title">🚀 高階攻略</div>
+      <div class="ch-func">即興機智、改變現實、演講技術、說服型文章、媒介選擇</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 深度挖掘：核心概念 -->
+  <div class="section-label" style="color:var(--orange)">深度挖掘：八大核心概念</div>
+  <div class="concepts-grid">
+
+    <!-- 概念1：打架 vs 論證 -->
+    <div class="concept-card">
+      <div class="concept-header">
+        <div class="concept-icon">⚔️</div>
+        <div>
+          <div class="concept-name">打架 vs 論證</div>
+          <div class="concept-en">Fight vs. Argument — The Fundamental Distinction</div>
+        </div>
+      </div>
+      <div class="concept-def">
+        打架（fight）的目的是打倒對方、讓對方認輸。論證（argument）的目的是讓受眾自願走向你想要的選擇。贏得論證不是讓對方承認失敗，而是讓受眾接受你的立場。
+      </div>
+      <div class="concept-body">
+        <div class="concept-section">
+          <h4>書中說了（表層）</h4>
+          <p>心理學家 John Gottman 研究數百對夫妻發現：婚姻幸福的夫妻並非吵得少，而是吵的方式不同——他們用論證解決問題，而不用打架相互攻擊。</p>
+        </div>
+        <div class="concept-section">
+          <h4>書中暗示（中層）</h4>
+          <p>大多數人生衝突之所以無解，是因為雙方都在「打架」而非「論證」。一旦切換目標——從「讓你認輸」變成「讓你願意」——整個對話結構都會改變。</p>
+        </div>
+      </div>
+      <div class="insight-tag">💡 最反直覺：讓步往往比「贏得」更有說服力</div>
+    </div>
+
+    <!-- 概念2：時態控制 -->
+    <div class="concept-card blue">
+      <div class="concept-header">
+        <div class="concept-icon">⏳</div>
+        <div>
+          <div class="concept-name">時態控制術</div>
+          <div class="concept-en">Tense Control — Forensic / Demonstrative / Deliberative</div>
+        </div>
+      </div>
+      <div class="concept-def">
+        Aristotle 發現：所有修辭問題都可歸類為三種時態。選錯時態，論證就算再有力也會失效。大多數衝突之所以惡化，是因為陷在「過去時態」（誰的錯？）而無法前進。
+      </div>
+      <div class="tense-diagram">
+        <div class="tense-box past">
+          <div class="tense-label">過去時態</div>
+          <div class="tense-type">法庭式修辭</div>
+          <div class="tense-issue">核心：究責</div>
+          <div class="tense-key">適用：定罪、追責<br>⚠️ 感情中濫用易毀關係</div>
+        </div>
+        <div class="tense-box present">
+          <div class="tense-label">現在時態</div>
+          <div class="tense-type">演示式修辭</div>
+          <div class="tense-issue">核心：價值觀</div>
+          <div class="tense-key">適用：讚美、謴責<br>⚠️ 容易變成說教</div>
+        </div>
+        <div class="tense-box future">
+          <div class="tense-label">未來時態 ⭐</div>
+          <div class="tense-type">議事式修辭</div>
+          <div class="tense-issue">核心：選擇</div>
+          <div class="tense-key">適用：決策、說服<br>✅ Aristotle 最推薦</div>
+        </div>
+      </div>
+      <div class="concept-body">
+        <div class="concept-section">
+          <h4>關鍵洞見</h4>
+          <p>當爭吵卡住了，問：「我們要怎麼解決這件事？」這句話就是把時態從過去/現在切換到未來的 WD-40。</p>
+        </div>
+        <div class="concept-section">
+          <h4>Orphan Annie 法則</h4>
+          <p>「未來」沒有事實，只有機率。所以最好的說服不是宣稱「事實如此」，而是押注「更好的結果」——就像 Annie 的「明天會更好」。</p>
+        </div>
+      </div>
+      <div class="insight-tag blue">💡 大多數論證失敗，不是因為邏輯不好，而是用錯時態</div>
+    </div>
+
+    <!-- 概念3：Ethos -->
+    <div class="concept-card gold">
+      <div class="concept-header">
+        <div class="concept-icon">👑</div>
+        <div>
+          <div class="concept-name">Ethos — 品格建立</div>
+          <div class="concept-en">Argument by Character: Virtue + Practical Wisdom + Disinterest</div>
+        </div>
+      </div>
+      <div class="concept-def">
+        Aristotle 認為 Ethos 是三大工具中最重要的。你不需要「真的是好人」，你需要「讓受眾覺得你是他們的那種好人」。Ethos 包含三個要素：
+      </div>
+      <div class="concept-body">
+        <div class="concept-section">
+          <h4>德行 Virtue（實為「價值觀」）</h4>
+          <p>不是道德上的好人，而是你展現出與受眾相同的價值觀。林肯對選民說的是他們想聽的，而不是他真正相信的——這是修辭德行，不是道德德行。</p>
+        </div>
+        <div class="concept-section">
+          <h4>實用智慧 Practical Wisdom</h4>
+          <p>你看起來懂得在這個具體情況下做出正確判斷。Bluto 的演講失敗，因為他有熱情（Ethos-德行）、有情感（Pathos），但沒有告訴大家「接下來要怎麼辦」（Practical Wisdom）。</p>
+        </div>
+        <div class="concept-section">
+          <h4>善意 Disinterest（非偏心）</h4>
+          <p>讓受眾感覺你站在他們那邊，而非為自己的利益服務。「我這樣說，是為了你好」——這不是謊言，而是必須讓對方真的感受到的態度。</p>
+        </div>
+        <div class="concept-section">
+          <h4>Ethos 建立四工具</h4>
+          <p>① 自我誇耀（謹慎用）<br>② 讓別人替你說好話<br>③ 戰術性弱點（展示你為受眾的犧牲）<br>④ 在對方陣營快要贏時切換立場</p>
+        </div>
+      </div>
+      <div class="insight-tag gold">💡 Ethos 不是你是誰，而是你讓他們覺得你是誰</div>
+    </div>
+
+    <!-- 概念4：讓步 -->
+    <div class="concept-card cyan">
+      <div class="concept-header">
+        <div class="concept-icon">🥋</div>
+        <div>
+          <div class="concept-name">讓步的秘密武器</div>
+          <div class="concept-en">Concession — Rhetorical Jujitsu</div>
+        </div>
+      </div>
+      <div class="concept-def">
+        讓步不是認輸。讓步是一種「修辭柔道」：用對方的力量推倒他。先同意對方的某個點，然後利用那個點達到你的目的。Heinrichs 說這是他個人最愛用、也最有效的工具。
+      </div>
+      <div class="concept-body">
+        <div class="concept-section">
+          <h4>書中案例</h4>
+          <p>警察攔下你超速：<br>「我確定您說得對，我應該更注意速度錶。您能建議我怎樣做才不會分心嗎？」→ 讓步後立刻把主導權拿回來。</p>
+        </div>
+        <div class="concept-section">
+          <h4>即興劇 Yes, and... 法則</h4>
+          <p>不直接反駁，而是接受對方的框架，然後在其中引入你的前提。「是的，這確實是個問題，而且事實上……」——這樣受眾不會感受到被抗拒。</p>
+        </div>
+        <div class="concept-section">
+          <h4>Prolepsis：預先讓步</h4>
+          <p>在對方提出反對意見前，自己先承認它。「你可能會說……你說得有道理。不過考慮到……」預先讓步讓你掌控整個論證流程。</p>
+        </div>
+        <div class="concept-section">
+          <h4>為什麼有效</h4>
+          <p>讓步降低對方的防禦機制。當他感覺你「理解他」，他的大腦會從「戰鬥模式」切換到「思考模式」，這時你的說服才真正開始。</p>
+        </div>
+      </div>
+      <div class="insight-tag cyan">💡 讓你的老闆贏得討論，讓你贏得你想要的結果</div>
+    </div>
+
+    <!-- 概念5：Logos -->
+    <div class="concept-card">
+      <div class="concept-header">
+        <div class="concept-icon">🧠</div>
+        <div>
+          <div class="concept-name">Logos — 邏輯說服技術</div>
+          <div class="concept-en">Enthymeme + Deduction + Induction</div>
+        </div>
+      </div>
+      <div class="concept-def">
+        Logos 不只是「講道理」，而是把受眾已經相信的事情，連結到你想讓他們接受的結論。核心技術是 Enthymeme（修辭三段論）：從受眾的既有信念出發，跳過「明顯的一步」，直達結論。
+      </div>
+      <div class="concept-body">
+        <div class="concept-section">
+          <h4>Enthymeme 結構</h4>
+          <p>完整三段論：「所有人會死。蘇格拉底是人。所以蘇格拉底會死。」<br>Enthymeme 版本：「蘇格拉底終將一死。」（省略受眾自己會填入的前提）</p>
+        </div>
+        <div class="concept-section">
+          <h4>Commonplace（共同信念）的力量</h4>
+          <p>Enthymeme 的起點是「共同信念（commonplace）」——雙方都接受的假設。廣告常用這個：「Ironman 鐵人三項都能撐，你的日常更沒問題。」</p>
+        </div>
+        <div class="concept-section">
+          <h4>演繹 vs 歸納</h4>
+          <p>演繹：從原則到結論（Enthymeme）。歸納：從例子到結論。演繹更快，但需要共同前提；歸納更慢，但更紮實。</p>
+        </div>
+        <div class="concept-section">
+          <h4>「Because」測試</h4>
+          <p>在你的論述中間插入「because（因為）」，看句子是否成立。「選我，because 我有三十年經驗。」→ 有效。「選他，because 他是個壞蛋。」→ 謬誤。</p>
+        </div>
+      </div>
+      <div class="insight-tag">💡 說服的關鍵不是你的邏輯，是你從對方的邏輯出發</div>
+    </div>
+
+    <!-- 概念6：Pathos -->
+    <div class="concept-card pink">
+      <div class="concept-header">
+        <div class="concept-icon">❤️</div>
+        <div>
+          <div class="concept-name">Pathos — 情緒的正確時機</div>
+          <div class="concept-en">Argument by Emotion: Sympathy + Timing + Arousal</div>
+        </div>
+      </div>
+      <div class="concept-def">
+        Pathos 不是「搞情緒」，而是讓受眾進入能夠接受說服的情緒狀態。Cicero 的說服三目標：先改變情緒（最容易）→ 改變想法 → 讓人行動（最難）。情緒是進入後兩個目標的鑰匙。
+      </div>
+      <div class="concept-body">
+        <div class="concept-section">
+          <h4>同情（Sympathy）技術</h4>
+          <p>先鏡射對方的情緒狀態（看起來同樣在意、同樣擔心），然後逐漸把情緒帶到你想要的狀態。Dorothy Sr. 對 Heinrichs 的故事：過度共情讓他自己平靜下來。</p>
+        </div>
+        <div class="concept-section">
+          <h4>Cicero 的三步驟</h4>
+          <p>① 讓受眾感受到問題的嚴重性（Fear/Urgency）<br>② 說服他你的方案是最佳選擇（Hope）<br>③ 讓他渴望立刻行動（Desire）<br>如 South Beach Diet 的書名設計。</p>
+        </div>
+        <div class="concept-section">
+          <h4>何時用 Pathos</h4>
+          <p>在邏輯說完之後。Logos 幫人「想清楚」，Pathos 幫人「走出去」。若在邏輯建立前用 Pathos，容易被識破為操控。</p>
+        </div>
+        <div class="concept-section">
+          <h4>Pathos 的危險情緒</h4>
+          <p>憤怒、恐懼雖然有效，但 Aristotle 提醒：恐嚇是「棍棒論證」（argument by the stick），它不是說服，是脅迫——沒有真正的共識，只有服從。</p>
+        </div>
+      </div>
+      <div class="insight-tag pink">💡 情緒是說服的引擎，邏輯是方向盤；兩者缺一不可</div>
+    </div>
+
+    <!-- 概念7：七大謬誤 -->
+    <div class="concept-card purple">
+      <div class="concept-header">
+        <div class="concept-icon">🔍</div>
+        <div>
+          <div class="concept-name">七大謬誤防禦系統</div>
+          <div class="concept-en">The Seven Deadly Logical Sins</div>
+        </div>
+      </div>
+      <div class="concept-def">
+        識破謬誤的三個問題：① 論據（proof）站得住腳嗎？② 選項的數量對嗎（是否假兩難）？③ 論據真的能推導到結論嗎？
+      </div>
+      <div class="fallacy-grid">
+        <div class="fallacy-item">
+          <div class="fallacy-name">① 假比較 False Comparison</div>
+          <div class="fallacy-desc">把不同類的東西放在同一個圈子。「天然成分」不等於「對你有好處」。所謂「All Natural」廣告語就是此謬誤。</div>
+        </div>
+        <div class="fallacy-item">
+          <div class="fallacy-name">② 壞例子 Bad Example</div>
+          <div class="fallacy-desc">例子不具代表性，或例子太少。「電視新聞充滿犯罪」≠「犯罪率在上升」。典型：以偏概全（Hasty Generalization）。</div>
+        </div>
+        <div class="fallacy-item">
+          <div class="fallacy-name">③ 無知當證據 Fallacy of Ignorance</div>
+          <div class="fallacy-desc">「沒有證據說X存在」≠「X不存在」。Rumsfeld：「沒有大規模殺傷性武器的證據，不等於沒有大規模殺傷性武器。」</div>
+        </div>
+        <div class="fallacy-item">
+          <div class="fallacy-name">④ 循環論證 Tautology</div>
+          <div class="fallacy-desc">論據就是結論的另一種說法。「牛仔隊會贏，因為他們是更好的隊伍」——「更好」和「會贏」是同一件事。</div>
+        </div>
+        <div class="fallacy-item">
+          <div class="fallacy-name">⑤ 假二選一 False Dilemma</div>
+          <div class="fallacy-desc">實際有很多選項，卻只給兩個。「你要麼支持我，要麼就是反對我。」政治話語中最常見。</div>
+        </div>
+        <div class="fallacy-item">
+          <div class="fallacy-name">⑥ 紅鯡魚 Red Herring</div>
+          <div class="fallacy-desc">用不相關的事實分散注意力。論題A的討論被轉移到論題B，讓人忘了原來在辯什麼。</div>
+        </div>
+        <div class="fallacy-item">
+          <div class="fallacy-name">⑦ 錯誤結論 Wrong Ending</div>
+          <div class="fallacy-desc">論據無法推導到那個結論。「我在商業上很成功，所以我能管好城市。」商業技能≠執政技能。</div>
+        </div>
+      </div>
+      <div class="insight-tag purple" style="margin-top:16px">💡 修辭學沒有「謬誤禁止令」——你可以使用謬誤，但被識破就沒有 Ethos 了</div>
+    </div>
+
+    <!-- 概念8：Future Bias -->
+    <div class="concept-card green">
+      <div class="concept-header">
+        <div class="concept-icon">🚀</div>
+        <div>
+          <div class="concept-name">Future Bias — 未來偏向</div>
+          <div class="concept-en">Why the Future Tense Beats Everything</div>
+        </div>
+      </div>
+      <div class="concept-def">
+        聚焦未來比追究過去更有說服力，因為：①未來是「可選擇的」，給受眾自主感；②未來沒有確定事實，只有「更好的可能」，這讓人更願意投入；③它跳出了「誰對誰錯」的道德困境。
+      </div>
+      <div class="concept-body">
+        <div class="concept-section">
+          <h4>為什麼未來最強</h4>
+          <p>過去時態 → 引發防禦反應（「我沒有！」）<br>現在時態 → 引發道德對立（「你怎麼能這樣！」）<br>未來時態 → 引發合作動機（「我們要怎麼做才能更好？」）</p>
+        </div>
+        <div class="concept-section">
+          <h4>George 的牙膏事件</h4>
+          <p>父親問「誰把牙膏用完了？」George 回答：「這不是問題所在，爸。問題是我們怎麼確保不再發生？」——用未來時態把指責論證變成解決方案論證。</p>
+        </div>
+        <div class="concept-section">
+          <h4>政治應用</h4>
+          <p>民調顯示，在辯論中「聚焦未來」的候選人獲得的信任度更高。Obama vs Romney：Obama 邏輯更好，Romney 對未來更有吸引力（短期）。</p>
+        </div>
+        <div class="concept-section">
+          <h4>職場應用</h4>
+          <p>辦公室鬥爭幾乎都用過去或現在時態（「他搞砸了那個案子」「她是個混蛋」）。你的對策：「我們怎樣才能拿到下一個合約？」</p>
+        </div>
+      </div>
+      <div class="insight-tag green">💡 未來時態是衝突消解的萬能潤滑劑（WD-40）</div>
+    </div>
+
+  </div><!-- end concepts-grid -->
+
+  <div class="divider"></div>
+
+  <!-- 最反直覺洞見 -->
+  <div class="section-label" style="color:var(--orange)">第一遍/第二遍對比：書中說了 vs 書中暗示</div>
+  <div style="background:rgba(255,107,53,0.04);border:1px solid rgba(255,107,53,0.15);border-radius:16px;padding:28px;margin-bottom:40px">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+      <div>
+        <h4 style="color:var(--orange);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px">📖 書中說了（表層）</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+          <li style="font-size:0.88rem;color:rgba(255,255,255,0.65);padding-left:16px;border-left:2px solid rgba(255,107,53,0.3)">修辭是可以學習的古老技藝</li>
+          <li style="font-size:0.88rem;color:rgba(255,255,255,0.65);padding-left:16px;border-left:2px solid rgba(255,107,53,0.3)">論證有 Logos / Ethos / Pathos 三工具</li>
+          <li style="font-size:0.88rem;color:rgba(255,255,255,0.65);padding-left:16px;border-left:2px solid rgba(255,107,53,0.3)">未來時態比過去時態更有利於說服</li>
+          <li style="font-size:0.88rem;color:rgba(255,255,255,0.65);padding-left:16px;border-left:2px solid rgba(255,107,53,0.3)">識別七大謬誤可以保護自己</li>
+        </ul>
+      </div>
+      <div>
+        <h4 style="color:var(--gold);font-size:0.85rem;text-transform:uppercase;letter-spacing:0.1em;margin-bottom:16px">💡 書中暗示（中層洞見）</h4>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+          <li style="font-size:0.88rem;color:rgba(255,255,255,0.65);padding-left:16px;border-left:2px solid rgba(251,191,36,0.3)">大多數人際衝突根本沒在「論證」，只是在「打架」，而且雙方都不知道</li>
+          <li style="font-size:0.88rem;color:rgba(255,255,255,0.65);padding-left:16px;border-left:2px solid rgba(251,191,36,0.3)">「讓步」不是軟弱，而是最強的控制論證的方式</li>
+          <li style="font-size:0.88rem;color:rgba(255,255,255,0.65);padding-left:16px;border-left:2px solid rgba(251,191,36,0.3)">你的邏輯再好，若別人不信任你（Ethos），一切都是枉費</li>
+          <li style="font-size:0.88rem;color:rgba(255,255,255,0.65);padding-left:16px;border-left:2px solid rgba(251,191,36,0.3)">修辭的本質是理解受眾——說服從來都是受眾的心理，不是說話者的技巧</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================= -->
+  <!-- STAGE 02 -->
+  <!-- ============================= -->
+  <div class="stage-header stage-02">
+    <span class="stage-num">02</span>
+    <h2 class="stage-title">外部世界交叉驗證 — 共識萃取</h2>
+    <p class="stage-desc">模擬讀過這本書的人的多角度評估，從讀者共識到學術批評</p>
+  </div>
+
+  <!-- 讀者共識 -->
+  <div class="section-label" style="color:var(--blue)">讀者共識：正面評價</div>
+  <div class="consensus-grid">
+    <div class="consensus-card">
+      <h4>🌟 最讓讀者頓悟的概念</h4>
+      <p>「讓步（Concession）」是讀者最常說改變了他們的秘密武器。當他們意識到：同意對方的某個點，不僅不會輸，反而讓整個對話方向由自己掌控——這個認知翻轉非常強烈。</p>
+    </div>
+    <div class="consensus-card">
+      <h4>⚡ 最立即可用的技術</h4>
+      <p>時態切換（Tense Control）是讀者最常回報「下週就用上了」的工具。面對指責時，一句「我們要怎麼樣才能往前走？」就能從防禦模式切換到解決模式。</p>
+    </div>
+    <div class="consensus-card">
+      <h4>🌍 為什麼賣了 11 種語言</h4>
+      <p>Heinrichs 把古典修辭學翻譯成日常英語，並用 Homer Simpson、Eminem、林肯等人的例子讓它立即可識別。他沒有寫一本學術書，而是寫了一本「說服使用說明書」——這是它普世共鳴的原因。</p>
+    </div>
+  </div>
+
+  <div style="margin-bottom:40px"></div>
+
+  <!-- 學術批評 -->
+  <div class="section-label" style="color:var(--blue)">學術 / 批評觀點</div>
+  <div class="critique-card">
+    <h4>⚠️ 書中哪些地方過度簡化了古典修辭學？</h4>
+    <p>Aristotle 的修辭學包含更細膩的「拓朴論（Topoi）」體系——超過 28 種論證主題（Topics of Invention）——Heinrichs 幾乎完全略過。書中對 Logos 的處理也較為淺薄，真正的演繹修辭學需要處理「可能命題（endoxa）」的複雜體系，而非只有 Enthymeme。</p>
+  </div>
+  <div class="critique-card">
+    <h4>🔬 修辭學學界的爭議點</h4>
+    <p>Heinrichs 對「Ethos」的詮釋高度功能性——他把 Ethos 當成「讓別人信任你的技術」，而不是亞里斯多德原意的「一個人持久的品格狀態」。學界有人認為這種工具化詮釋，可能鼓勵表演性誠信（performative integrity）而非真實品格。</p>
+  </div>
+  <div class="critique-card">
+    <h4>📍 適用邊界：什麼情況下這本書的方法會失效？</h4>
+    <p>① 當對方沒有「被說服的意願」（例如深度意識形態分歧）時，再好的修辭也難以穿透；② 跨文化語境中，「讓步」的訊號可能被解讀為軟弱而非策略；③ 高度情緒化的創傷性對話中，「切換時態」可能被感受為迴避而非解決。</p>
+  </div>
+
+  <div style="margin-bottom:40px"></div>
+
+  <!-- 常見誤讀 -->
+  <div class="section-label" style="color:var(--blue)">常見誤讀</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:40px">
+    <div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:12px;padding:24px">
+      <h4 style="color:#fc8181;font-size:0.95rem;margin-bottom:12px">❌ 最常見的誤用</h4>
+      <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7">讀者最常把這本書當成「辯論技巧書」——用來「贏得辯論」、讓對方「認輸」。但 Heinrichs 一再強調：贏得論證的標準是「讓受眾接受你的選擇」，而不是「讓對方承認你是對的」。把它當辯論武器，是完全誤解了此書的核心。</p>
+    </div>
+    <div style="background:rgba(239,68,68,0.05);border:1px solid rgba(239,68,68,0.15);border-radius:12px;padding:24px">
+      <h4 style="color:#fc8181;font-size:0.95rem;margin-bottom:12px">⚡ 最容易被斷章取義的概念</h4>
+      <p style="font-size:0.88rem;color:rgba(255,255,255,0.65);line-height:1.7">「Pathos 情緒操控」——很多讀者以為 Pathos 就是「激發情緒」，所以一上來就用恐嚇、哀求、憤怒。但 Heinrichs 清楚說明：這些是「棍棒論證」，屬於強迫，不是說服。Pathos 的正確用法是讓受眾進入能夠接受說服的情緒狀態，而不是讓他們陷入情緒旋渦。</p>
+    </div>
+  </div>
+
+  <!-- 書與書的對話 -->
+  <div class="section-label" style="color:var(--blue)">書與書的對話</div>
+  <div class="book-compare">
+    <div class="book-icon">📜</div>
+    <div>
+      <h4>vs. 亞里斯多德《修辭學》（Rhetorica）</h4>
+      <div class="book-sub">古典修辭學的起點 · 公元前350年</div>
+      <p><strong style="color:#a78bfa">繼承了什麼：</strong>三元架構（Logos/Ethos/Pathos）、三種時態修辭、Enthymeme、以及「受眾中心」的說服哲學。<br><strong style="color:var(--gold)">改了什麼：</strong>把亞里斯多德的複雜拓朴論體系大幅簡化，用現代流行文化（The Simpsons、林肯）取代古典案例，並把修辭的「政治功能」大幅縮減，聚焦在個人日常說服場景。最大差異：Heinrichs 更強調「Ethos 可以被建構」，而 Aristotle 認為 Ethos 是真實品格的展現。</p>
+    </div>
+  </div>
+  <div class="book-compare">
+    <div class="book-icon">🧠</div>
+    <div>
+      <h4>vs. Cialdini《影響力》（Influence）</h4>
+      <div class="book-sub">心理學說服 · 六大影響力原則</div>
+      <p><strong style="color:#a78bfa">修辭學 vs 心理學說服，哪個更根本？</strong><br>Cialdini 的六大原則（互惠、稀缺、社會認同、喜好、權威、承諾）是「底層心理機制」的描述——它們在有意識和無意識之間都有效。Heinrichs 的修辭工具則是「有意識說服」的框架，需要受眾的主動參與。<strong style="color:var(--gold)">結論：兩者互補。</strong>Cialdini 告訴你人類的「按鈕在哪」，Heinrichs 告訴你「如何優雅地按那個按鈕而不被發現是在操控」。若只能選一本，Heinrichs 對「有來有往的對話」更有用；Cialdini 對「單向溝通/行銷」更直接。</p>
+    </div>
+  </div>
+  <div class="book-compare">
+    <div class="book-icon">🤔</div>
+    <div>
+      <h4>vs. Kahneman《快思慢想》（Thinking, Fast and Slow）</h4>
+      <div class="book-sub">系統一（直覺）vs 系統二（思考）</div>
+      <p><strong style="color:#a78bfa">Heinrichs 的方法主要在操作哪個系統？</strong><br>答案：<strong style="color:var(--gold)">兩個都有，但入口是系統一。</strong>Ethos（品格印象）和 Pathos（情緒）直接操作系統一（快速、自動的直覺反應）。Logos（邏輯）才是系統二的領域。最精妙的是 Enthymeme——它用系統一接受的「共同信念」作為前提，讓受眾的系統二覺得推論成立，但其實是系統一早就接受了那個前提。Heinrichs 的修辭學是設計給「如何用系統一的信任感打開系統二的說服大門」。</p>
+    </div>
+  </div>
+
+
+  <!-- ============================= -->
+  <!-- STAGE 03 -->
+  <!-- ============================= -->
+  <div class="stage-header stage-03">
+    <span class="stage-num">03</span>
+    <h2 class="stage-title">個人化轉化 — Rex 實戰化</h2>
+    <p class="stage-desc">把書的洞見對接到 Rex 的真實使用場景，設計最高槓桿的具體行動</p>
+  </div>
+
+  <!-- 最高槓桿 3 個洞見 -->
+  <div class="section-label" style="color:var(--purple)">最高槓桿的 3 個洞見（對 Rex 最有用）</div>
+
+  <div class="leverage-card">
+    <div class="leverage-num">洞見 01</div>
+    <div class="leverage-title">時態切換：把「誰的錯？」變成「我們要怎樣做？」</div>
+    <div class="leverage-why">為什麼是 Rex 的最高槓桿</div>
+    <div class="leverage-body">大多數職場衝突、客戶溝通、甚至家庭摩擦，都是被困在「過去時態」（究責）或「現在時態」（道德評判）。Rex 可能在這些場合感到沮喪：「我已經解釋了，他就是不接受。」問題往往不是論點不夠強，而是時態選錯了。一句話切換時態，整個對話的能量就不同了。</div>
+    <div class="script-box">
+      <div class="script-label">🎯 具體場景 + 話術</div>
+      <p>
+        <strong>場景 A 客戶抱怨：</strong>「你們上次的交付怎麼這樣？」<br>
+        ❌ 過去時態反應：「那是因為你的需求改了三次……」<br>
+        ✅ 未來時態切換：「好，這讓我更清楚你的期待。我們這次要怎麼設計流程，才能讓你完全滿意？」<br><br>
+        <strong>場景 B 團隊討論：</strong>當討論陷入「為什麼我們沒做好這件事」<br>
+        ✅ 切換話術：「我們都同意這次有改進空間。那我們接下來最重要的一件事是什麼？」
+      </p>
+    </div>
+  </div>
+
+  <div class="leverage-card">
+    <div class="leverage-num">洞見 02</div>
+    <div class="leverage-title">讓步策略：同意對方的一個點，然後把框架拿回來</div>
+    <div class="leverage-why">為什麼是 Rex 的最高槓桿</div>
+    <div class="leverage-body">讓步是最容易被低估、也最快速提升說服力的工具。當有人直接拒絕你的提案，本能反應是「再解釋一次為什麼我是對的」——但這只會強化對方的防禦。讓步的邏輯：先給對方「被聽見的感覺」，他的防禦機制才會放鬆，你才真正進入說服視窗。</div>
+    <div class="script-box">
+      <div class="script-label">🎯 具體場景 + 話術</div>
+      <p>
+        <strong>場景 A 提案被質疑：</strong>「這個方向風險太大了。」<br>
+        ❌ 直接反駁：「不，這個風險其實很低，因為……」<br>
+        ✅ 讓步再推進：「你說得對，這個方向確實有不確定性。正因為這樣，我想跟你聊聊我們的風險控制計畫——你覺得什麼是你最在意的風險？」<br><br>
+        <strong>場景 B 分歧意見：</strong>有人說「你的方法不會有效」<br>
+        ✅ 讓步話術：「你說的這個擔憂很有道理，尤其是在 X 情境下。我的方法主要適用的是 Y 情境，你覺得現在我們面對的是哪種？」
+      </p>
+    </div>
+  </div>
+
+  <div class="leverage-card">
+    <div class="leverage-num">洞見 03</div>
+    <div class="leverage-title">Ethos 先行：在說任何話之前，先讓對方信任你</div>
+    <div class="leverage-why">為什麼是 Rex 的最高槓桿</div>
+    <div class="leverage-body">Logos 再好，若 Ethos 不足，對方會找理由不相信你的邏輯。在任何重要溝通前，花 30 秒想：「這個人的核心價值觀是什麼？我要怎麼展示我理解那個價值觀？」這不是假裝，而是找到你們真正的共同點，然後從那裡出發。Ethos 建立的速度比大多數人以為的快——往往一個真實的認可就夠了。</div>
+    <div class="script-box">
+      <div class="script-label">🎯 具體場景 + 話術</div>
+      <p>
+        <strong>場景 A 初次提案：</strong>面對重視執行力的客戶<br>
+        ✅ Ethos 先行：「我知道你們最在意的是按時交付、不要意外。我整個提案的設計核心就是這個——先讓我展示一下我們的里程碑管控機制……」<br><br>
+        <strong>場景 B 意見不同：</strong>要說服一個比你資深的人<br>
+        ✅ Ethos 建立：「你在這個領域的判斷我非常尊重，正因為這樣，我想請教你一個想法，你能幫我看看哪裡有盲點嗎？」（讓對方成為共同設計者，而非要被說服的對象）
+      </p>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- 立即行動 -->
+  <div class="section-label" style="color:var(--purple)">立即可做的行動（本週內）</div>
+  <div class="action-grid">
+    <div class="action-card">
+      <div class="action-time">⏱ 5-10 分鐘 · Day 1</div>
+      <div class="action-name">🕐 時態偵測練習</div>
+      <p>今天找一段你最近的對話（email、line、會議摘要），分析它主要在哪個時態（過去/現在/未來）。如果是過去或現在，試著把它改寫成未來時態版本。不需要真的發出去，只是建立感知。</p>
+    </div>
+    <div class="action-card">
+      <div class="action-time">⏱ 10 分鐘 · Day 2-3</div>
+      <div class="action-name">🥋 讓步日誌</div>
+      <p>找一個你目前有分歧的對話（不需要是大衝突）。寫下：對方的論點是什麼？裡面有沒有你「真的同意」的部分？用 1-2 句話寫出「讓步版本的開場白」，下次對話時試試看，觀察對方的反應有沒有不同。</p>
+    </div>
+    <div class="action-card">
+      <div class="action-time">⏱ 5 分鐘 · Day 4-5</div>
+      <div class="action-name">👑 Ethos 地圖</div>
+      <p>列出你最近 3 週需要說服的對象（客戶、同事、任何人）。對每個人，寫下：他最在意的一個價值觀是什麼？然後想：你真正跟那個價值觀有共鳴的地方在哪？這個練習讓你在說話前就有「起跑點」。</p>
+    </div>
+  </div>
+
+  <!-- 本月實驗 -->
+  <div class="section-label" style="color:var(--purple)">本月實驗（允許失敗，只需觀察）</div>
+
+  <div class="experiment-card">
+    <div class="exp-tag">實驗 01 · 4 週</div>
+    <h4>「未來時態切換」實驗</h4>
+    <p>每當感覺一段對話在追究過去或陷入道德評判時，刻意插入一句：「好，那我們接下來能做什麼？」或「你覺得哪個方向對我們最有幫助？」記錄每次嘗試後對方的反應（防禦↑、放鬆↓、轉移話題）。</p>
+    <div class="track-badge">
+      📊 追蹤方式：每週在備忘錄中記錄 2-3 個案例，標記「有效 / 沒效 / 不確定」，月底看有什麼規律。
+    </div>
+  </div>
+
+  <div class="experiment-card">
+    <div class="exp-tag">實驗 02 · 2 週</div>
+    <h4>「系統性讓步」實驗</h4>
+    <p>在接下來的 14 天中，對話遇到反對意見時，強制規定自己：先說一句「你說的這個點我理解，尤其是……」再提出自己的觀點。這個強制約束很重要——它讓你發現自己平時有多少「直接反駁」的反射動作，以及讓步前後的對話品質差異。</p>
+    <div class="track-badge">
+      📊 追蹤方式：記錄「讓步後，對方有沒有更願意聽你說」，用 1-5 分打分，2 週後算平均。
+    </div>
+  </div>
+
+  <!-- 警示 -->
+  <div class="warning-box">
+    <div class="warn-header">
+      <span style="font-size:1.8rem">⚠️</span>
+      <h3>這本書最容易誤用的地方</h3>
+    </div>
+    <div class="warn-grid">
+      <div class="warn-item">
+        <h4>🎭 把「說服」當成「贏辯論」</h4>
+        <p>最危險的誤用：學完這本書後，把它當成辯論武器，試圖在每次對話中「佔上風」。這樣的人往往讓人有「被操控」的感覺，長期喪失信任。記住：說服的目的是讓對方「自願想要」，不是讓對方「不得不服輸」。</p>
+      </div>
+      <div class="warn-item">
+        <h4>💔 在親密關係中使用修辭技術</h4>
+        <p>Heinrichs 自己承認：和伴侶、孩子的互動，若全程用「修辭計算」，會失去真實的情感連結。親密關係需要脆弱和真實，不是永遠保持「論證優勢」。有時候，最有說服力的事是直接說出你真正的感受。</p>
+      </div>
+      <div class="warn-item">
+        <h4>🧊 忘記「不說服」也是一種選擇</h4>
+        <p>有些情境，最好的決定是不試圖說服對方：① 對方正在情緒危機中（需要的是聆聽，不是說服）；② 對方有更多的脈絡（你應該被說服）；③ 強行說服會讓對方感覺被操控，長期破壞關係。Heinrichs 的方法應配合「讀懂對方狀態」的判斷力使用。</p>
+      </div>
+      <div class="warn-item">
+        <h4>🔄 讓步成為習慣性迴避</h4>
+        <p>讓步是「戰術性」的，不是「無限的」。若你把讓步當成「每次都退一步，避免衝突」，你會喪失自己的立場，最後連值得說服的時候也不再開口。讓步應該是有意識的選擇，而非反射性的和稀泥。</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- end container -->
+
+<!-- ===== FOOTER ===== -->
+<div class="footer">
+  <p>📚 書僮 2.0 · 三階段深讀報告</p>
+  <p style="margin-top:8px">Thank You for Arguing · Jay Heinrichs · 分析日期 2026-03-28</p>
+  <p style="margin-top:8px;color:rgba(255,255,255,0.1)">Stage 01 內容本體 · Stage 02 外部驗證 · Stage 03 Rex 實戰化</p>
+</div>
+
+</body>
+</html>
