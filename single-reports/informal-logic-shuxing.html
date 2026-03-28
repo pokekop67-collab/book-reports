@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒報告｜Informal Logic — Irving Copi & Keith Burgess-Jackson</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+    min-height: 100vh;
+    color: #2d2d4e;
+    line-height: 1.8;
+  }
+
+  /* Hero Section */
+  .hero {
+    text-align: center;
+    padding: 80px 20px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; left: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(102,126,234,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -50px; right: -50px;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(240,147,251,0.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 8px 24px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #667eea;
+    letter-spacing: 2px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(102,126,234,0.2);
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+  .hero .subtitle {
+    font-size: 1.1rem;
+    color: #6b7a99;
+    font-weight: 300;
+    margin-bottom: 40px;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .meta-chip {
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-size: 13px;
+    font-weight: 500;
+    color: #4a4a6a;
+    border: 1px solid rgba(255,255,255,0.6);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  }
+
+  /* Container */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px 80px;
+  }
+
+  /* Section */
+  .section { margin-bottom: 48px; }
+  .section-title {
+    font-size: 1.6rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    border-radius: 50%;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+    -webkit-text-fill-color: white;
+  }
+
+  /* Card */
+  .card {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 20px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 24px rgba(102,126,234,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(102,126,234,0.14);
+  }
+
+  .card-accent {
+    border-left: 4px solid;
+    border-image: linear-gradient(135deg, #667eea, #f093fb) 1;
+    border-radius: 0 20px 20px 0;
+  }
+
+  /* Tag */
+  .tag {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 600;
+    margin: 3px;
+  }
+  .tag-purple { background: rgba(102,126,234,0.12); color: #667eea; }
+  .tag-pink { background: rgba(240,147,251,0.15); color: #c060cc; }
+  .tag-green { background: rgba(72,199,142,0.15); color: #2e9e6b; }
+  .tag-orange { background: rgba(255,167,75,0.15); color: #cc7a00; }
+  .tag-red { background: rgba(255,100,100,0.12); color: #cc3333; }
+  .tag-blue { background: rgba(66,165,245,0.12); color: #1976d2; }
+
+  /* Theme Card */
+  .theme-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(102,126,234,0.1);
+  }
+  .theme-icon {
+    width: 56px; height: 56px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    flex-shrink: 0;
+    background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(240,147,251,0.15));
+  }
+  .theme-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #2d2d4e;
+    margin-bottom: 6px;
+  }
+  .theme-subtitle {
+    font-size: 13px;
+    color: #8b8baa;
+  }
+
+  /* Layer badges */
+  .layer-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .l1 { background: rgba(102,126,234,0.1); color: #667eea; }
+  .l2 { background: rgba(240,147,251,0.12); color: #c060cc; }
+  .l3 { background: rgba(72,199,142,0.12); color: #2e9e6b; }
+
+  /* Quote block */
+  .quote-block {
+    background: linear-gradient(135deg, rgba(102,126,234,0.06), rgba(240,147,251,0.06));
+    border-left: 3px solid #667eea;
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin: 12px 0;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: #4a5568;
+  }
+
+  /* Grid */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+  @media (max-width: 768px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* Fallacy table */
+  .fallacy-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
+  .fallacy-item {
+    background: rgba(255,255,255,0.8);
+    border-radius: 14px;
+    padding: 16px;
+    border: 1px solid rgba(240,147,251,0.2);
+  }
+  .fallacy-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: #2d2d4e;
+    margin-bottom: 6px;
+  }
+  .fallacy-desc {
+    font-size: 12px;
+    color: #6b7a99;
+    line-height: 1.6;
+  }
+
+  /* Action boxes */
+  .action-box {
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin-bottom: 12px;
+  }
+  .action-week { background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.08)); }
+  .action-month { background: linear-gradient(135deg, rgba(72,199,142,0.1), rgba(66,165,245,0.08)); }
+  .action-long { background: linear-gradient(135deg, rgba(255,167,75,0.1), rgba(255,100,100,0.08)); }
+
+  .action-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 10px;
+  }
+  .action-week .action-label { color: #667eea; }
+  .action-month .action-label { color: #2e9e6b; }
+  .action-long .action-label { color: #cc7a00; }
+
+  /* Step divider */
+  .step-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0 20px;
+  }
+  .step-divider h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #4a4a6a;
+    white-space: nowrap;
+  }
+  .step-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(102,126,234,0.3), transparent);
+  }
+
+  /* Insight card */
+  .insight-card {
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    border-radius: 20px;
+    padding: 28px 32px;
+    color: white;
+    margin-bottom: 16px;
+  }
+  .insight-card h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    opacity: 0.9;
+  }
+  .insight-card p {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    opacity: 0.95;
+  }
+
+  /* Book card */
+  .book-card {
+    background: linear-gradient(135deg, #2d2d4e, #4a4a6a);
+    border-radius: 24px;
+    padding: 36px;
+    color: white;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 32px;
+    align-items: center;
+  }
+  .book-cover {
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    border-radius: 16px;
+    aspect-ratio: 3/4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+  }
+  .book-title {
+    font-size: 1.6rem;
+    font-weight: 900;
+    margin-bottom: 8px;
+  }
+  .book-author {
+    font-size: 1rem;
+    opacity: 0.7;
+    margin-bottom: 20px;
+  }
+  @media (max-width: 600px) {
+    .book-card { grid-template-columns: 1fr; }
+    .book-cover { aspect-ratio: 3/1; font-size: 32px; }
+  }
+
+  /* Narrative arc */
+  .arc-step {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 16px;
+    align-items: flex-start;
+  }
+  .arc-dot {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .arc-content h4 {
+    font-weight: 700;
+    color: #2d2d4e;
+    margin-bottom: 4px;
+  }
+  .arc-content p {
+    font-size: 0.9rem;
+    color: #6b7a99;
+  }
+
+  /* Absence analysis */
+  .absence-item {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 14px;
+    margin-bottom: 10px;
+    border: 1px dashed rgba(240,147,251,0.3);
+  }
+  .absence-icon { font-size: 24px; flex-shrink: 0; }
+
+  /* Questions */
+  .question-item {
+    background: rgba(255,255,255,0.7);
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin-bottom: 10px;
+    border-left: 4px solid #667eea;
+    font-size: 0.95rem;
+    color: #2d2d4e;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .q-num {
+    font-weight: 900;
+    color: #667eea;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    line-height: 1.4;
+  }
+
+  ul, ol { padding-left: 20px; }
+  li { margin-bottom: 6px; font-size: 0.95rem; }
+  p { margin-bottom: 12px; font-size: 0.95rem; }
+  strong { color: #2d2d4e; }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 40px 20px;
+    color: #8b8baa;
+    font-size: 13px;
+  }
+  .footer a {
+    color: #667eea;
+    text-decoration: none;
+  }
+
+  /* Separator */
+  hr {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(102,126,234,0.3), transparent);
+    margin: 32px 0;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .hero { padding: 60px 16px 40px; }
+    .card { padding: 20px; }
+    .book-card { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">📚 書醒深度分析報告</div>
+  <h1>Informal Logic</h1>
+  <p class="subtitle">Irving M. Copi & Keith Burgess-Jackson（第三版）<br>非形式邏輯的完整思考系統</p>
+  <div class="hero-meta">
+    <span class="meta-chip">🎓 學術教科書</span>
+    <span class="meta-chip">🔍 邏輯 / 批判思維</span>
+    <span class="meta-chip">📅 1996年出版</span>
+    <span class="meta-chip">🌐 Prentice Hall</span>
+    <span class="meta-chip">📖 7章 + 習題集</span>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- STEP 1: 書籍資料卡 -->
+<div class="section">
+  <div class="section-title">
+    <span class="section-number">1</span>書籍資料卡
+  </div>
+
+  <div class="book-card">
+    <div class="book-cover">🧠</div>
+    <div>
+      <div class="book-title">Informal Logic</div>
+      <div class="book-author">Irving M. Copi & Keith Burgess-Jackson</div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:16px;">
+        <span class="tag tag-purple">非形式邏輯</span>
+        <span class="tag tag-pink">批判思維</span>
+        <span class="tag tag-green">論證分析</span>
+        <span class="tag tag-orange">謬誤識別</span>
+      </div>
+      <p style="opacity:0.8; font-size:0.9rem;">第三版（1996），前兩版分別於 1982、1992 年出版。適合大學非形式邏輯課程、批判思維課程，亦適合高中進階學生及跨領域教授（英語、傳播、新聞、語言學、科學等）。</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:20px;">
+    <div class="card">
+      <h4 style="font-weight:700; color:#667eea; margin-bottom:12px;">✦ 作者背景</h4>
+      <p><strong>Irving M. Copi（1917–2002）</strong><br>夏威夷大學 Manoa 分校哲學教授，《Introduction to Logic》經典教材作者，是 20 世紀美國最具影響力的邏輯學家之一，作品被翻譯成多種語言，橫跨形式邏輯與非形式邏輯兩大領域。</p>
+      <p><strong>Keith Burgess-Jackson</strong><br>德克薩斯大學阿靈頓分校哲學教授，專長哲學邏輯、法律哲學與動物倫理。第三版主要修訂者，尤其全面改寫了謬誤章節（第3章），使之更貼近日常論證語境。</p>
+    </div>
+    <div class="card">
+      <h4 style="font-weight:700; color:#c060cc; margin-bottom:12px;">✦ 書籍定位</h4>
+      <p>本書是非形式邏輯（Informal Logic）領域的標竿性教科書，不同於傳統邏輯教材倚重符號與形式演算，本書以<strong>自然語言</strong>中實際發生的論證為核心，強調在日常推理、媒體識讀、科學思維中的實用性。</p>
+      <p>涵蓋七大主題：導論/論證結構、語言與意義、謬誤分類、定義、類比論證、因果與米爾方法、科學假設與推論，完整建構一套從辨識論證到評估科學證據的批判思維系統。</p>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 2: 核心命題 -->
+<div class="section">
+  <div class="section-title">
+    <span class="section-number">2</span>核心命題：三要素解析
+  </div>
+
+  <div class="grid-3">
+    <div class="card" style="border-top: 4px solid #667eea;">
+      <div style="font-size:32px; margin-bottom:12px;">❓</div>
+      <div style="font-size:12px; font-weight:700; color:#667eea; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">核心問題</div>
+      <p>在一個以說服取代強制的民主社會中，如何辨識好的推理與壞的推理？如何在日常語言的論證中抵禦操控，並形成有根據的信念？</p>
+    </div>
+    <div class="card" style="border-top: 4px solid #f093fb;">
+      <div style="font-size:32px; margin-bottom:12px;">💡</div>
+      <div style="font-size:12px; font-weight:700; color:#c060cc; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">核心論點</div>
+      <p>邏輯能力是可以訓練的技藝（art），而非天生才能。掌握論證結構、謬誤識別、語言分析與科學推論這四大支柱，任何人都能大幅提升推理素質。</p>
+    </div>
+    <div class="card" style="border-top: 4px solid #48c78e;">
+      <div style="font-size:32px; margin-bottom:12px;">🛠️</div>
+      <div style="font-size:12px; font-weight:700; color:#2e9e6b; letter-spacing:2px; text-transform:uppercase; margin-bottom:8px;">核心方法</div>
+      <p>從識別論證前提與結論 → 區辨演繹與歸納 → 識別語言功能與情感語詞 → 系統性辨識 20 種非形式謬誤 → 評估類比與因果論證 → 理解科學假設的邏輯結構。</p>
+    </div>
+  </div>
+
+  <div class="insight-card">
+    <h4>📌 書眼一句話</h4>
+    <p>「在一個以理性說服而非武力統治的共和國中，推理的藝術具有首要的重要性。」——Thomas Jefferson（書題引言）。這句話道出本書最深層的政治哲學關懷：民主自由的基礎是公民的推理能力。</p>
+  </div>
+</div>
+
+<!-- STEP 3: 主題式分析 -->
+<div class="section">
+  <div class="section-title">
+    <span class="section-number">3</span>主題式深度分析（7層框架）
+  </div>
+
+  <!-- 主題 1: 論證結構 -->
+  <div class="card" style="margin-bottom:32px;">
+    <div class="theme-header">
+      <div class="theme-icon">🏗️</div>
+      <div>
+        <div class="theme-title">主題一：論證的解剖學——前提、結論與結構</div>
+        <div class="theme-subtitle">Chapter 1：Introduction — The Architecture of Argument</div>
+      </div>
+    </div>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3a 一句話主題</h3><div class="step-line"></div></div>
+    <p>論證不是爭吵，是由前提支撐結論的命題群，學習論證就是學習識別「誰在支持誰」。</p>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3b 關鍵洞見（三層）</h3><div class="step-line"></div></div>
+
+    <div class="layer-badge l1">L1 表層洞見</div>
+    <p>前提（premises）是被接受為理由的命題；結論（conclusion）是被前提支持的命題。兩者均為相對概念——同一命題在一個論證中是結論，在另一個中可以是前提。</p>
+    <div class="quote-block">
+      "An argument is not a mere collection of propositions, but has a structure... The conclusion of an argument is the proposition that is affirmed on the basis of the other propositions of the argument, and these other propositions... are the premisses of that argument."
+    </div>
+
+    <div class="layer-badge l2">L2 中層洞見</div>
+    <p>結論指示詞（therefore, hence, thus, so, consequently）與前提指示詞（since, because, for, as）是識別論證結構的語言線索，但語境判斷遠比機械套用指示詞重要。更深層的問題是：不是每個含有多個命題的段落都包含論證——純粹的描述性陳述、命令、情感表達均非論證。</p>
+
+    <div class="layer-badge l3">L3 深層洞見 [AI 原創]</div>
+    <p>Copi 的論證結構框架揭示了一個常被忽略的認知盲區：我們在日常溝通中極少真正在「論證」，更多時候是在「陳述」或「表達」。這個區分具有深遠的認識論意義——只有識別出真正的論證，才能問「這個論證有效嗎？」若連論證都沒有識別，批判思維就根本無從啟動。真正的智識嚴謹性始於這個最基本的區辨動作。</p>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3c 原文回查</h3><div class="step-line"></div></div>
+    <div class="quote-block">"To carry out the logician's task of distinguishing good from bad arguments, one must be able to recognize arguments when they occur and to identify their premisses and conclusions."（Ch.1）</div>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3d 批判性評論</h3><div class="step-line"></div></div>
+    <p>本章最大的貢獻是強調「識別論證是技藝，不是機械程序」（"there is no mechanical technique for recognizing the presence of an argument"）。但批評者可以指出：書中的圖示分析法（argument diagram）雖直觀，卻難以應用於真實世界的複雜論辯語境——現實中的論證常是隱含的、片段的、夾雜修辭的。</p>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3e 跨書連結 [AI 跨書連結]</h3><div class="step-line"></div></div>
+    <div class="grid-2">
+      <div class="card" style="margin:0; padding:16px;">
+        <div style="font-weight:700; font-size:13px; margin-bottom:6px;">📘 Toulmin《The Uses of Argument》</div>
+        <p style="font-size:12px; margin:0; color:#6b7a99;">Toulmin 的論證模型（Claim-Data-Warrant）提供比 Copi 更動態、更接近實際論辯的框架，補足了 Copi 靜態結構分析的不足。</p>
+      </div>
+      <div class="card" style="margin:0; padding:16px;">
+        <div style="font-weight:700; font-size:13px; margin-bottom:6px;">📗 Kahneman《Thinking, Fast and Slow》</div>
+        <p style="font-size:12px; margin:0; color:#6b7a99;">Copi 假設人能識別論證後進行理性評估，Kahneman 的系統一/二框架揭示：大多數人根本不啟動系統二，辨識論證需刻意訓練。</p>
+      </div>
+    </div>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3f 立即可用行動（5-15分鐘）</h3><div class="step-line"></div></div>
+    <div class="action-box action-week">
+      <div class="action-label">🎯 今天就做</div>
+      <p>打開今天閱讀的任何一篇新聞或社群貼文，嘗試識別：（1）是否包含論證？（2）結論在哪裡？（3）前提是什麼？用一句話重述其論證結構。預計 10 分鐘。</p>
+    </div>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3g 自我檢核問題</h3><div class="step-line"></div></div>
+    <ul>
+      <li>我能分辨「這是在描述事實」vs.「這是在支持一個結論」嗎？</li>
+      <li>當我「覺得」某個說法有道理時，我是否真的識別了其論證結構，還是只是被情感感染？</li>
+    </ul>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3h 延伸提示</h3><div class="step-line"></div></div>
+    <p>嘗試找出 Peirce 的原始文章「The Fixation of Belief」（書中引用），理解為什麼 Peirce 說「推理能力是我們最後獲得的能力，不是天賦，而是一門難而長的藝術」。</p>
+  </div>
+
+  <!-- 主題 2: 謬誤系統 -->
+  <div class="card" style="margin-bottom:32px;">
+    <div class="theme-header">
+      <div class="theme-icon">⚠️</div>
+      <div>
+        <div class="theme-title">主題二：20種非形式謬誤——思維陷阱的完整地圖</div>
+        <div class="theme-subtitle">Chapter 3：Fallacies — The Taxonomy of Bad Reasoning</div>
+      </div>
+    </div>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3a 一句話主題</h3><div class="step-line"></div></div>
+    <p>謬誤是在心理上令人信服、但邏輯上站不住腳的論證——辨識它們是思維防護的核心技能。</p>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3b 關鍵洞見（三層）</h3><div class="step-line"></div></div>
+
+    <div class="layer-badge l1">L1 表層洞見</div>
+    <p>本書列出 20 種非形式謬誤，分為四大類群：<strong>語言類</strong>（equivocation, amphiboly）、<strong>論證形式類</strong>（begging the question, false dichotomy, missing the point, red herring, straw person, division, composition）、<strong>訴諸類</strong>（appeal to authority, appeal to ignorance, appeal to emotion, ad hominem/attack on the person, genetic fallacy）、<strong>歸納推理類</strong>（hasty generalization, false cause, slippery slope）。</p>
+
+    <div class="fallacy-grid">
+      <div class="fallacy-item">
+        <div class="fallacy-name">🔤 語詞歧義 Equivocation</div>
+        <div class="fallacy-desc">在同一論證中以不同意思使用同一詞語，如「Knowledge is power」中的 "power"。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">🏗️ 語法歧義 Amphiboly</div>
+        <div class="fallacy-desc">因語法結構模糊造成誤讀，如「Sadat said nothing」是薩達特還是卡特？</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">🔄 循環論證 Begging the Question</div>
+        <div class="fallacy-desc">以「聖經是上帝的話」來證明「上帝存在」——預設了待證命題。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">🪤 複雜問句 Complex Question</div>
+        <div class="fallacy-desc">「你還在虐待配偶嗎？」——無論回答是或否都中了陷阱。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">⚔️ 假二分 False Dichotomy</div>
+        <div class="fallacy-desc">「不是問題的一部分，就是問題本身」——忽略中間或第三選項。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">🎯 離題 Missing the Point</div>
+        <div class="fallacy-desc">論證支持了 Q，但聲稱要建立的是 P。結論偷偷換了。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">🐟 紅鯡魚 Red Herring</div>
+        <div class="fallacy-desc">刻意用無關話題轉移注意力，如用 OJ Simpson 的球技來論辯其無罪。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">🪆 稻草人 Straw Person</div>
+        <div class="fallacy-desc">扭曲對方論點後再攻擊，讓原本的強論點看起來弱不禁風。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">🔻 分割謬誤 Division</div>
+        <div class="fallacy-desc">「球隊好，所以每個球員都好」——整體特質未必可轉移至個體。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">🔺 合成謬誤 Composition</div>
+        <div class="fallacy-desc">「每個球員都好，所以球隊好」——個體特質未必可合成整體。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">📜 訴諸權威 Appeal to Authority</div>
+        <div class="fallacy-desc">引用非相關領域的權威，如名人代言藥品。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">🌑 訴諸無知 Appeal to Ignorance</div>
+        <div class="fallacy-desc">「沒人能證明 UFO 不存在，所以 UFO 存在」——從缺乏反證推出真。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">💢 訴諸情感 Appeal to Emotion</div>
+        <div class="fallacy-desc">以恐懼、憐憫、憤怒等強烈情緒繞過理性，如煽動廣告。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">🗡️ 人身攻擊 Ad Hominem</div>
+        <div class="fallacy-desc">攻擊論辯者本人（偽善、自利、前後矛盾）來否定其論點。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">🌱 起源謬誤 Genetic Fallacy</div>
+        <div class="fallacy-desc">因想法的來源可疑就否定它——即便不可靠來源也可能說出真話。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">⚡ 倉促概化 Hasty Generalization</div>
+        <div class="fallacy-desc">以非代表性樣本得出全稱結論——種族偏見的認知根源即在於此。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">🕰️ 偽因果 False Cause / Post Hoc</div>
+        <div class="fallacy-desc">「B 在 A 之後發生，所以 A 造成 B」——時間先後不等於因果關係。</div>
+      </div>
+      <div class="fallacy-item">
+        <div class="fallacy-name">🎿 滑坡謬誤 Slippery Slope</div>
+        <div class="fallacy-desc">「如果我們允許 A，最終必然導致災難 Z」——忽略中間環節的或然性。</div>
+      </div>
+    </div>
+
+    <div class="layer-badge l2" style="margin-top:20px;">L2 中層洞見</div>
+    <p>非形式謬誤的本質是：它們在<strong>心理上</strong>令人信服（psychologically persuasive），但在<strong>邏輯上</strong>不能支持結論。這個心理說服力正是其危險所在——如果不是說服力強，就不值得研究。更深的洞見是：同一邏輯形式在一個語境下是謬誤，在另一個語境下可能是合理論證（如訴諸權威並非永遠謬誤）。</p>
+
+    <div class="layer-badge l3">L3 深層洞見 [AI 原創]</div>
+    <p>將這 20 種謬誤放在資訊生態的視角下觀看，會發現它們構成了現代操控傳播的完整工具箱：廣告使用情感訴諸與偽二分，政治演講使用稻草人和紅鯡魚，社群媒體加速了倉促概化的傳播速度。Copi 的謬誤學雖源於古典修辭學（亞里斯多德的詭辯論），但其適用性在演算法媒體時代反而更強——因為演算法恰恰擅長放大心理說服力強的內容，而不管其邏輯有效性。</p>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3d 批判性評論</h3><div class="step-line"></div></div>
+    <p>本書謬誤章節的優點是分類清晰、例子豐富（大量引自真實媒體）。但批評有二：其一，謬誤邊界有時模糊——「紅鯡魚」vs.「離題」vs.「稻草人」的界線需要主觀判斷；其二，缺乏對「修辭」正當角色的討論——並非所有情感訴諸都是謬誤，公共溝通中適度的情感動員有其正當性，書中未作區分。</p>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3e 跨書連結 [AI 跨書連結]</h3><div class="step-line"></div></div>
+    <div class="grid-2">
+      <div class="card" style="margin:0; padding:16px;">
+        <div style="font-weight:700; font-size:13px; margin-bottom:6px;">📙 Cialdini《Influence》</div>
+        <p style="font-size:12px; margin:0; color:#6b7a99;">Cialdini 的 6 大影響原則（互惠、承諾、社會認同等）從心理說服角度補充了 Copi 的邏輯分析，兩書合讀可建構「操控防禦系統」。</p>
+      </div>
+      <div class="card" style="margin:0; padding:16px;">
+        <div style="font-weight:700; font-size:13px; margin-bottom:6px;">📕 Postman《Amusing Ourselves to Death》</div>
+        <p style="font-size:12px; margin:0; color:#6b7a99;">書中作者自己推薦的補充讀物！電視文化如何系統性地削弱公共論辯能力，讓謬誤的土壤更肥沃。</p>
+      </div>
+    </div>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3f 立即可用行動</h3><div class="step-line"></div></div>
+    <div class="action-box action-week">
+      <div class="action-label">🎯 謬誤辨識練習</div>
+      <p>選取今天看到的三則廣告或政治言論，嘗試各對應一種謬誤。重點：先說「為什麼這是謬誤」，再說謬誤名稱——這樣才不是死記標籤。</p>
+    </div>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3g 自我檢核問題</h3><div class="step-line"></div></div>
+    <ul>
+      <li>我上週是否犯過稻草人謬誤（扭曲他人的立場）？</li>
+      <li>我上週是否被情感訴諸說服了，而實際上沒有檢視論點的邏輯？</li>
+    </ul>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3h 延伸提示</h3><div class="step-line"></div></div>
+    <p>找出「Tu Quoque（你也一樣）」在台灣政治辯論中的具體案例，分析為何即便指控成立（對方確實也做過同樣的事），論證仍然無效——這是人身攻擊的最微妙變體。</p>
+  </div>
+
+  <!-- 主題 3: 演繹 vs 歸納 -->
+  <div class="card" style="margin-bottom:32px;">
+    <div class="theme-header">
+      <div class="theme-icon">⚖️</div>
+      <div>
+        <div class="theme-title">主題三：演繹 vs 歸納——兩種推理形態的深層對照</div>
+        <div class="theme-subtitle">Chapter 1.6 + Chapter 5 + Chapter 6：Deduction, Induction, and Causation</div>
+      </div>
+    </div>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3a 一句話主題</h3><div class="step-line"></div></div>
+    <p>演繹論證追求「必然性」，歸納論證追求「可能性」——兩者各有其評估標準，不能混用。</p>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3b 關鍵洞見（三層）</h3><div class="step-line"></div></div>
+
+    <div class="layer-badge l1">L1 表層洞見</div>
+    <p><strong>演繹論證（Deductive）</strong>：結論被前提必然支持。若前提為真，結論不可能為假。評估標準：有效性（validity）+ 前提真假 = 合理性（soundness）。</p>
+    <p><strong>歸納論證（Inductive）</strong>：結論被前提或然支持。結論比前提涵蓋更多。評估標準：強弱（strong/weak）+ 前提真假 = 說服力（cogency）。</p>
+    <div class="quote-block">"A deductive argument is one whose conclusion is claimed to follow from its premises necessarily... An inductive argument is one whose conclusion is claimed to follow from its premises only probably."（Ch.1）</div>
+
+    <div class="layer-badge l2">L2 中層洞見</div>
+    <p>歸納論證的核心問題是休謨的「歸納問題」：我們能從過去的觀察推斷未來嗎？Copi 在討論 Mill 的方法時揭示：科學探究的本質是<strong>排除替代解釋</strong>——Mill 的求同法、求異法、求同求異並用法、共變法、剩餘法，都是系統性排除偶然關聯的方法。這不是機械規則，而是邏輯上的約束系統。</p>
+
+    <div class="layer-badge l3">L3 深層洞見 [AI 原創]</div>
+    <p>演繹/歸納的對立在認識論上對應著「確定性」vs.「可錯性」的哲學對立（Popper 的可否證性原則即是此一張力的科學版本）。但更有趣的洞見是：在日常論辯中，人們常常不自覺地將歸納論證當成演繹論證的確定性來呈現——「科學研究顯示 X」聽起來像必然真理，實際上只是統計關聯。Copi 書的隱含教誨是：<strong>辨識論證類型</strong>是應用正確評估標準的前提，混淆演繹與歸納是一切過度自信（overconfidence）的邏輯根源。</p>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3d 批判性評論</h3><div class="step-line"></div></div>
+    <p>本書對演繹/歸納的區分較傳統，未觸及 Peirce 提出的第三種推理形式——<strong>溯因推理（Abduction）</strong>，即「最佳解釋推論」。在科學推理、診斷推理與偵探推理中，溯因才是真正的核心邏輯，這是本書的一個缺漏（雖然書中第 7.4 節談到「偵探作為科學家」，實際上就是溯因推理的應用）。</p>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3e 跨書連結 [AI 跨書連結]</h3><div class="step-line"></div></div>
+    <div class="grid-2">
+      <div class="card" style="margin:0; padding:16px;">
+        <div style="font-weight:700; font-size:13px; margin-bottom:6px;">📘 Popper《The Logic of Scientific Discovery》</div>
+        <p style="font-size:12px; margin:0; color:#6b7a99;">Popper 的可否證性原則是對歸納問題的正面回應，直接回應 Copi 在第 7 章討論的科學推理問題。</p>
+      </div>
+      <div class="card" style="margin:0; padding:16px;">
+        <div style="font-weight:700; font-size:13px; margin-bottom:6px;">📗 Taleb《The Black Swan》</div>
+        <p style="font-size:12px; margin:0; color:#6b7a99;">Taleb 的「黑天鵝」正是歸納謬誤的現代版：再多正面例子無法確立通則，一個反例就能推翻。</p>
+      </div>
+    </div>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3f 立即可用行動</h3><div class="step-line"></div></div>
+    <div class="action-box action-week">
+      <div class="action-label">🎯 推理類型診斷</div>
+      <p>找一篇你認為「說得有道理」的文章或論述，問自己：「它主要是演繹還是歸納？如果是歸納，樣本夠代表性嗎？如果是演繹，前提真的為真嗎？」</p>
+    </div>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3g 自我檢核問題</h3><div class="step-line"></div></div>
+    <ul>
+      <li>我上週聽到的「研究顯示……」，我是否問過：這是多大樣本、哪種研究設計、可否推廣？</li>
+      <li>我是否曾經把「沒有反例」誤以為是「因此必然成立」？</li>
+    </ul>
+  </div>
+
+  <!-- 主題 4: 語言與意義 -->
+  <div class="card" style="margin-bottom:32px;">
+    <div class="theme-header">
+      <div class="theme-icon">🗣️</div>
+      <div>
+        <div class="theme-title">主題四：語言的四重功能——資訊、表達、指令、承諾</div>
+        <div class="theme-subtitle">Chapter 2：Language — Functions and Meanings</div>
+      </div>
+    </div>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3a 一句話主題</h3><div class="step-line"></div></div>
+    <p>語言不只是傳遞訊息，同一句話可以同時執行多種功能——識別語言功能是批判分析的第一步。</p>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3b 關鍵洞見（三層）</h3><div class="step-line"></div></div>
+
+    <div class="layer-badge l1">L1 表層洞見</div>
+    <div class="grid-2">
+      <div class="card" style="margin:0; padding:16px; border: 1px solid rgba(102,126,234,0.2);">
+        <div style="font-weight:700; color:#667eea; margin-bottom:8px;">📢 資訊性（Informative）</div>
+        <p style="font-size:12px; margin:0;">陳述事實，可被判斷真偽。「今天氣溫 25 度。」</p>
+      </div>
+      <div class="card" style="margin:0; padding:16px; border: 1px solid rgba(240,147,251,0.2);">
+        <div style="font-weight:700; color:#c060cc; margin-bottom:8px;">💭 表達性（Expressive）</div>
+        <p style="font-size:12px; margin:0;">宣洩或引發情感與態度。詩歌、讚嘆詞。</p>
+      </div>
+      <div class="card" style="margin:0; padding:16px; border: 1px solid rgba(72,199,142,0.2);">
+        <div style="font-weight:700; color:#2e9e6b; margin-bottom:8px;">🎯 指令性（Directive）</div>
+        <p style="font-size:12px; margin:0;">要求對方採取行動。命令、請求。</p>
+      </div>
+      <div class="card" style="margin:0; padding:16px; border: 1px solid rgba(255,167,75,0.2);">
+        <div style="font-weight:700; color:#cc7a00; margin-bottom:8px;">🤝 承諾性（Commissive）</div>
+        <p style="font-size:12px; margin:0;">說話者承諾某種行動。承諾、誓言。</p>
+      </div>
+    </div>
+
+    <div class="layer-badge l2" style="margin-top:16px;">L2 中層洞見</div>
+    <p>情感語詞（emotive words）的威力：「官僚（bureaucrat）」vs.「公務員（public servant）」描述同一人，卻有截然不同的情感意義。Bertrand Russell 那段著名的「不規則動詞變位」揭示了這個現象的幽默本質：</p>
+    <div class="quote-block">「我是堅定的；你是頑固的；他是豬頭。」（I am firm; you are obstinate; he is a pig-headed fool.）</div>
+    <p>語言中的信念一致性（agreement in belief）和態度一致性（agreement in attitude）是兩個獨立維度——兩人可能對事實有共識卻有截然不同的態度，也可能因不同信念而有相同態度。</p>
+
+    <div class="layer-badge l3">L3 深層洞見 [AI 原創]</div>
+    <p>Copi 的語言功能分析預示了後來的語用學（Austin 的語言行為理論）。但其最深刻的政治啟示是：<strong>公共論辯的退化，往往不是因為人們說謊，而是因為情感功能替代了資訊功能</strong>——人們說的話在技術上都是真的，但整個話語體系的目的是喚起情感而非傳遞可評估的信息。這正是 Postman 在《娛樂至死》中診斷的電視政治病理。Copi 的框架讓我們能精確描述這個退化的邏輯機制。</p>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3f 立即可用行動</h3><div class="step-line"></div></div>
+    <div class="action-box action-week">
+      <div class="action-label">🎯 語言功能解剖</div>
+      <p>取一則廣告文案或政治口號，分析它在幾個維度同時工作：（1）傳遞了什麼資訊？（2）試圖喚起什麼情感？（3）想讓你做什麼？（4）它暗示了什麼承諾？這 4 個問題各回答一句話。10 分鐘。</p>
+    </div>
+  </div>
+
+  <!-- 主題 5: 因果推理 -->
+  <div class="card" style="margin-bottom:32px;">
+    <div class="theme-header">
+      <div class="theme-icon">🔗</div>
+      <div>
+        <div class="theme-title">主題五：因果推理與 Mill 五法——科學思維的核心工具</div>
+        <div class="theme-subtitle">Chapter 6：Causal Connections & Mill's Methods</div>
+      </div>
+    </div>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3a 一句話主題</h3><div class="step-line"></div></div>
+    <p>「相關不等於因果」——Mill 的方法提供了系統性排除偶然關聯、確立真正因果關係的邏輯工具。</p>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3b 關鍵洞見（三層）</h3><div class="step-line"></div></div>
+
+    <div class="layer-badge l1">L1 表層洞見</div>
+    <div class="grid-2">
+      <div class="card" style="margin:0; padding:14px; background: rgba(102,126,234,0.06);">
+        <div style="font-weight:700; font-size:13px; color:#667eea; margin-bottom:4px;">① 求同法（Method of Agreement）</div>
+        <p style="font-size:12px; margin:0;">若現象出現的所有情況共享唯一相同先決條件，該條件即為原因。</p>
+      </div>
+      <div class="card" style="margin:0; padding:14px; background: rgba(240,147,251,0.06);">
+        <div style="font-weight:700; font-size:13px; color:#c060cc; margin-bottom:4px;">② 求異法（Method of Difference）</div>
+        <p style="font-size:12px; margin:0;">有現象 vs. 無現象的情況，唯一差異即為原因。（實驗對照組的邏輯基礎）</p>
+      </div>
+      <div class="card" style="margin:0; padding:14px; background: rgba(72,199,142,0.06);">
+        <div style="font-weight:700; font-size:13px; color:#2e9e6b; margin-bottom:4px;">③ 求同求異並用法（Joint Method）</div>
+        <p style="font-size:12px; margin:0;">同時應用上兩法，增強因果關係的可信度。</p>
+      </div>
+      <div class="card" style="margin:0; padding:14px; background: rgba(255,167,75,0.06);">
+        <div style="font-weight:700; font-size:13px; color:#cc7a00; margin-bottom:4px;">④ 共變法（Method of Concomitant Variation）</div>
+        <p style="font-size:12px; margin:0;">若 A 的程度變化伴隨 B 的程度變化，兩者有因果或密切關聯。</p>
+      </div>
+      <div class="card" style="margin:0; padding:14px; background: rgba(66,165,245,0.06); grid-column: span 2;">
+        <div style="font-weight:700; font-size:13px; color:#1976d2; margin-bottom:4px;">⑤ 剩餘法（Method of Residues）</div>
+        <p style="font-size:12px; margin:0;">複雜現象中去除已知因果後，剩餘部分由剩餘原因解釋。科學發現中常見的推理模式。</p>
+      </div>
+    </div>
+
+    <div class="layer-badge l2" style="margin-top:16px;">L2 中層洞見</div>
+    <p>「原因」有多義：必要條件（必要但不充分）vs. 充分條件（充分但不必要）vs. 必要且充分條件。日常語言混用這三種意義是大量因果謬誤的根源。醫學中的「這種細菌造成這種病」（必要條件意義）vs. 冶金學的「這種處理造成更強的合金」（充分條件意義），適用不同的因果邏輯。</p>
+
+    <div class="layer-badge l3">L3 深層洞見 [AI 原創]</div>
+    <p>Mill 的方法在 19 世紀被提出時是革命性的，但其局限性在 21 世紀的大數據時代反而更加突顯：當相關性數據以海量規模出現時，人們傾向於把高度相關當成因果，而 Mill 的方法要求的<strong>系統性控制與排除</strong>卻往往被繞過。弔詭的是，正因為我們擁有更多數據，我們反而更容易犯「偽因果」謬誤——這是 Copi 未能預見的當代困境，但他的分析框架恰恰提供了應對它的思想工具。</p>
+
+    <div class="step-divider"><div class="step-line"></div><h3>3e 跨書連結 [AI 跨書連結]</h3><div class="step-line"></div></div>
+    <div class="card" style="margin:0; padding:16px;">
+      <div style="font-weight:700; font-size:13px; margin-bottom:6px;">📘 Judea Pearl《The Book of Why》</div>
+      <p style="font-size:12px; margin:0; color:#6b7a99;">Pearl 的因果革命（causal calculus / do-calculus）是 Mill 方法的現代演進，提供了數學化的因果推論框架，填補了 Copi 只能描述不能計算的空白。</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- STEP 4: 敘事弧線 -->
+<div class="section">
+  <div class="section-title">
+    <span class="section-number">4</span>敘事弧線：本書的思想旅程
+  </div>
+  <div class="card">
+    <div class="arc-step">
+      <div class="arc-dot">1</div>
+      <div class="arc-content">
+        <h4>起點：為何邏輯重要？</h4>
+        <p>在一個以說服而非強制運作的自由社會，每個人都是被說服的目標，也是說服他人的行動者。Jefferson 的引言點出：民主公民的第一義務是理性推理能力。</p>
+      </div>
+    </div>
+    <div class="arc-step">
+      <div class="arc-dot">2</div>
+      <div class="arc-content">
+        <h4>工具一：論證的解剖——識別結構</h4>
+        <p>學習識別前提與結論、演繹與歸納、有效與無效，建立論證分析的基礎語彙。</p>
+      </div>
+    </div>
+    <div class="arc-step">
+      <div class="arc-dot">3</div>
+      <div class="arc-content">
+        <h4>工具二：語言的地圖——識別意圖</h4>
+        <p>語言的四重功能、情感語詞的操控力量、信念一致性與態度一致性的區分，讓我們識別溝通的真正目的。</p>
+      </div>
+    </div>
+    <div class="arc-step">
+      <div class="arc-dot">4</div>
+      <div class="arc-content">
+        <h4>高潮：謬誤學——錯誤推理的完整地圖</h4>
+        <p>20 種非形式謬誤構成本書核心，從最基本的語言歧義到最複雜的人身攻擊變體，系統化掌握思維陷阱的全景。</p>
+      </div>
+    </div>
+    <div class="arc-step">
+      <div class="arc-dot">5</div>
+      <div class="arc-content">
+        <h4>進階：類比、因果、科學推理</h4>
+        <p>從日常論辯進入科學推理的邏輯結構，Mill 的因果方法、假設的評估、科學解釋的條件，將批判思維擴展至知識論領域。</p>
+      </div>
+    </div>
+    <div class="arc-step">
+      <div class="arc-dot">★</div>
+      <div class="arc-content">
+        <h4>終點：能動的批判公民</h4>
+        <p>「如查爾斯·桑德斯·皮爾斯所言，推理的能力是我們最後獲得的能力——不是天賦，而是一門難而長的藝術。」本書就是通往這門藝術的路徑圖。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 5: 整合洞見 -->
+<div class="section">
+  <div class="section-title">
+    <span class="section-number">5</span>整合洞見：五個跨章節的核心主題
+  </div>
+  <div class="grid-2">
+    <div class="insight-card">
+      <h4>💎 洞見一：心理說服力 ≠ 邏輯有效性</h4>
+      <p>謬誤的定義就是在心理上令人信服但邏輯上無效。整本書的核心技能是把這兩個維度分開——一個論點讓我覺得「有道理」，和這個論點「邏輯上成立」，是兩件完全不同的事。</p>
+    </div>
+    <div class="insight-card">
+      <h4>💎 洞見二：形式 ≠ 功能</h4>
+      <p>陳述句不一定是資訊，問句不一定是請求，感嘆句不一定是表達。語言的形式與功能是解耦的，這是所有語言操控的基礎，也是識讀能力的關鍵。</p>
+    </div>
+    <div class="insight-card">
+      <h4>💎 洞見三：相對術語的語義陷阱</h4>
+      <p>「高」「好」「成功」等相對語詞依賴比較類別，不能自動跨類轉移。「好律師」不等於「好人」——看似簡單的洞見，卻能破解大量日常論辯謬誤。</p>
+    </div>
+    <div class="insight-card">
+      <h4>💎 洞見四：因果的複雜性</h4>
+      <p>「原因」有至少三種意義（必要條件、充分條件、近因/遠因），日常語言混用這些意義。精確使用因果語言是科學思維與法律思維的共同基礎。</p>
+    </div>
+    <div class="insight-card">
+      <h4>💎 洞見五：邏輯是技藝，不是演算法</h4>
+      <p>本書反覆強調：沒有識別論證的機械方法，沒有判斷謬誤的機械方法，需要的是「知識如何」（knowledge-how）而非「知識是什麼」（knowledge-that）。這與習得語言的方式一樣——是實踐中的體認，不是規則的記憶。</p>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 6: 缺席分析 -->
+<div class="section">
+  <div class="section-title">
+    <span class="section-number">6</span>缺席分析：本書刻意或無意省略了什麼？
+  </div>
+  <div class="card">
+    <div class="absence-item">
+      <div class="absence-icon">🔬</div>
+      <div>
+        <strong>溯因推理（Abduction）的缺席</strong>
+        <p style="margin-top:4px; font-size:0.9rem; color:#6b7a99;">Peirce 的三元推理分類（演繹/歸納/溯因）中，溯因（最佳解釋推論）在科學發現、臨床診斷、偵探邏輯中最為核心，但書中僅在偵探章節隱約觸及，從未正面處理。</p>
+      </div>
+    </div>
+    <div class="absence-item">
+      <div class="absence-icon">💬</div>
+      <div>
+        <strong>修辭的正當性探討的缺席</strong>
+        <p style="margin-top:4px; font-size:0.9rem; color:#6b7a99;">書中對情感訴諸的處理幾乎全面負面，但亞里斯多德的修辭學承認情感（pathos）是合理說服的三支柱之一。公共溝通中適當的情感動員何時合理，何時是謬誤？書中未作區分。</p>
+      </div>
+    </div>
+    <div class="absence-item">
+      <div class="absence-icon">🤖</div>
+      <div>
+        <strong>數位媒體生態下的謬誤加速的缺席</strong>
+        <p style="margin-top:4px; font-size:0.9rem; color:#6b7a99;">1996 年出版，無法觸及社群媒體如何系統性地放大謬誤（尤其是情感訴諸和倉促概化），但這正是本書分析框架在當代最需要被應用的場域。</p>
+      </div>
+    </div>
+    <div class="absence-item">
+      <div class="absence-icon">🌍</div>
+      <div>
+        <strong>跨文化論辯差異的缺席</strong>
+        <p style="margin-top:4px; font-size:0.9rem; color:#6b7a99;">書中所有例子均為英語語境，未討論不同文化中論辯規範的差異——例如東亞文化中訴諸情感或訴諸面子的論辯模式是否有其文化合理性。</p>
+      </div>
+    </div>
+    <div class="absence-item">
+      <div class="absence-icon">⚖️</div>
+      <div>
+        <strong>形式謬誤（Formal Fallacies）的刻意刪除</strong>
+        <p style="margin-top:4px; font-size:0.9rem; color:#6b7a99;">第三版刻意刪除了形式謬誤章節，認為不屬於非形式邏輯範疇。但「肯定後件（affirming the consequent）」等形式謬誤在日常論辯中極為常見，這個刪除決策有其代價。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 7: AI 視角 -->
+<div class="section">
+  <div class="section-title">
+    <span class="section-number">7</span>AI 視角：從演算法到批判公民
+  </div>
+  <div class="card">
+    <p style="font-size:1rem; line-height:1.9; color:#2d2d4e;">
+      作為一個 AI 語言模型，我處理的是人類語言的統計模式。Copi 這本書讓我意識到一個根本性的張力：<strong>我的訓練方式恰好是謬誤的溫床</strong>。語言模型基於「在語料庫中什麼語言序列經常一起出現」來生成文字——這本質上是歸納推理，卻以近似確定性的語氣呈現。我可以流暢地使用因果語言，卻沒有 Mill 方法那樣的因果識別能力。我可以識別表面上的謬誤，但更難識別以流暢語言包裝的微妙情感操控。
+    </p>
+    <p style="font-size:1rem; line-height:1.9; color:#2d2d4e;">
+      更重要的是：<strong>Copi 書的核心是保護人類的自主推理能力</strong>——不讓人輕易被說服，學習自己評估論證。但 AI 語言模型的設計邏輯是提供流暢、令人信服的回答，而不是訓練用戶去質疑這些回答。如果人們愈來愈多地接受 AI 的論辯與解釋而不加批判，Copi 書中最核心的技能——識別論證結構、辨認謬誤、評估推理有效性——反而可能更快退化。這是這本 1996 年出版的書在 AI 時代最不應被遺忘的理由。
+    </p>
+    <div class="quote-block">「邏輯技能是珍貴的，因為我們每個人都是那些想影響我們信念、行動與感受的人的恆久目標。在一個自由社會裡，別人不能只是要求我們按照他們的指示思考、行動與感受。他們必須說服我們。」—— Copi, Ch.1</div>
+  </div>
+</div>
+
+<!-- STEP 8: 行動轉化 -->
+<div class="section">
+  <div class="section-title">
+    <span class="section-number">8</span>行動轉化：本週 / 本月 / 長期
+  </div>
+
+  <div class="action-box action-week">
+    <div class="action-label">🌱 本週行動（7天內）</div>
+    <ul>
+      <li><strong>謬誤日記：</strong>每天記錄 1 個你在媒體、社群或對話中發現的謬誤，寫下謬誤名稱和分析（2-3句話）。</li>
+      <li><strong>論證解剖：</strong>取一篇社論，識別其論點（結論）+ 前提，畫出論證圖。</li>
+      <li><strong>情感語詞替換：</strong>找一則廣告文案，用中性語詞改寫，觀察說服力如何變化。</li>
+    </ul>
+  </div>
+
+  <div class="action-box action-month">
+    <div class="action-label">🌿 本月行動（30天）</div>
+    <ul>
+      <li><strong>謬誤卡片組：</strong>製作 20 張謬誤卡片（名稱、定義、例子、識別關鍵），每天複習 5 張，累計掌握全部。</li>
+      <li><strong>演繹 vs. 歸納練習：</strong>閱讀 5 篇科學新聞，識別每篇的推理類型，評估歸納強度。</li>
+      <li><strong>辯論觀察日記：</strong>觀看 2-3 場公開辯論（國會質詢、政論節目），用 Copi 的框架分析各方的論證品質。</li>
+    </ul>
+  </div>
+
+  <div class="action-box action-long">
+    <div class="action-label">🌳 長期習慣（6個月+）</div>
+    <ul>
+      <li><strong>批判性讀者習慣：</strong>閱讀任何說服性文字時，先問「這是論證嗎？結論是什麼？前提是什麼？這是演繹還是歸納？有沒有謬誤？」形成自動化的元認知程序。</li>
+      <li><strong>言辭精確化：</strong>有意識地在自己的溝通中區分「事實陳述」vs.「態度表達」vs.「行動要求」，讓對話更清晰。</li>
+      <li><strong>因果語言監測：</strong>每當使用「因為」「所以」「導致」時，問自己：這是必要條件、充分條件還是只是相關性？</li>
+    </ul>
+  </div>
+</div>
+
+<!-- STEP 9: 帶問題回去讀 -->
+<div class="section">
+  <div class="section-title">
+    <span class="section-number">9</span>帶問題回去讀
+  </div>
+  <div class="card">
+    <div class="question-item">
+      <span class="q-num">Q1</span>
+      <span>書中說「沒有識別論證的機械方法」——但 AI 是否正在發展出某種接近機械化的論證識別能力？這對 Copi 的主張意味著什麼？</span>
+    </div>
+    <div class="question-item">
+      <span class="q-num">Q2</span>
+      <span>「真正的二分法（true dichotomy）」vs.「假二分法（false dichotomy）」的區別，在現實政治辯論中如何判斷？有沒有判斷標準？</span>
+    </div>
+    <div class="question-item">
+      <span class="q-num">Q3</span>
+      <span>書中說訴諸情感謬誤是「試圖繞過理性」——但在極端情況下（如 Holocaust 紀念館的展示），強烈情感喚起是否反而有其認識論正當性？</span>
+    </div>
+    <div class="question-item">
+      <span class="q-num">Q4</span>
+      <span>Mill 的方法被批評者指控為「循環論證」（要確認原因，需先知道因果律；要確認因果律，需先用 Mill 的方法）。書中如何回應這個批評？你認為回應充分嗎？</span>
+    </div>
+    <div class="question-item">
+      <span class="q-num">Q5</span>
+      <span>書中的信念一致性/態度一致性框架（Agreement in Belief vs. in Attitude），能否解釋當代政治極化現象？兩個人對同一事實有共識，卻因態度完全相反而無法溝通？</span>
+    </div>
+    <div class="question-item">
+      <span class="q-num">Q6</span>
+      <span>「人身攻擊謬誤（Ad Hominem）」的核心是「論點的好壞與論辯者無關」。但在科學討利益衝突（conflict of interest）時，論辯者的利益關係確實是相關信息——這個界線在哪裡？</span>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 10: 延伸資源 -->
+<div class="section">
+  <div class="section-title">
+    <span class="section-number">10</span>延伸資源
+  </div>
+  <div class="grid-2">
+    <div class="card">
+      <h4 style="font-weight:700; margin-bottom:16px; color:#2d2d4e;">📚 直接相關</h4>
+      <ul style="list-style:none; padding:0;">
+        <li style="padding:8px 0; border-bottom:1px solid rgba(0,0,0,0.06);">
+          <span class="tag tag-purple">邏輯</span>
+          <strong>Copi, Introduction to Logic（完整版）</strong> — 形式邏輯的深化，本書的進階版
+        </li>
+        <li style="padding:8px 0; border-bottom:1px solid rgba(0,0,0,0.06);">
+          <span class="tag tag-pink">論證</span>
+          <strong>Toulmin, The Uses of Argument</strong> — 更動態的論辯模型
+        </li>
+        <li style="padding:8px 0; border-bottom:1px solid rgba(0,0,0,0.06);">
+          <span class="tag tag-green">謬誤</span>
+          <strong>Walton, Informal Logic: A Handbook for Critical Argumentation</strong> — 謬誤研究的學術前沿
+        </li>
+        <li style="padding:8px 0;">
+          <span class="tag tag-orange">科學</span>
+          <strong>Chalmers, What is This Thing Called Science?</strong> — 科學哲學入門，補充第 7 章
+        </li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4 style="font-weight:700; margin-bottom:16px; color:#2d2d4e;">🌐 跨域延伸</h4>
+      <ul style="list-style:none; padding:0;">
+        <li style="padding:8px 0; border-bottom:1px solid rgba(0,0,0,0.06);">
+          <span class="tag tag-blue">認知科學</span>
+          <strong>Kahneman, Thinking, Fast and Slow</strong> — 謬誤的認知科學基礎
+        </li>
+        <li style="padding:8px 0; border-bottom:1px solid rgba(0,0,0,0.06);">
+          <span class="tag tag-red">媒體</span>
+          <strong>Postman, Amusing Ourselves to Death</strong> — 書中作者推薦！媒體與公共論辯
+        </li>
+        <li style="padding:8px 0; border-bottom:1px solid rgba(0,0,0,0.06);">
+          <span class="tag tag-purple">說服</span>
+          <strong>Cialdini, Influence</strong> — 謬誤的心理說服側
+        </li>
+        <li style="padding:8px 0;">
+          <span class="tag tag-green">因果</span>
+          <strong>Pearl, The Book of Why</strong> — 因果推論的現代數學化
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- STEP 11: 書庫卡片 -->
+<div class="section">
+  <div class="section-title">
+    <span class="section-number">11</span>書庫卡片
+  </div>
+
+  <div class="card" style="background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(240,147,251,0.08)); border: 1px solid rgba(102,126,234,0.2);">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px; margin-bottom:24px; padding-bottom:20px; border-bottom:1px solid rgba(102,126,234,0.1);">
+      <div>
+        <div style="font-size:1.4rem; font-weight:900; color:#2d2d4e; margin-bottom:4px;">Informal Logic</div>
+        <div style="color:#8b8baa; font-size:0.9rem;">Irving M. Copi & Keith Burgess-Jackson｜1996｜第三版</div>
+      </div>
+      <div style="display:flex; gap:8px; flex-wrap:wrap;">
+        <span class="tag tag-purple">批判思維</span>
+        <span class="tag tag-pink">謬誤學</span>
+        <span class="tag tag-green">論證分析</span>
+        <span class="tag tag-orange">科學推理</span>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div>
+        <h4 style="font-weight:700; color:#667eea; margin-bottom:12px;">🎯 一句話定位</h4>
+        <p>非形式邏輯的標竿教科書，建構從識別論證到評估科學推理的完整批判思維系統，以日常語言論證為核心，反對符號形式主義。</p>
+
+        <h4 style="font-weight:700; color:#667eea; margin-top:20px; margin-bottom:12px;">🔑 五個關鍵概念</h4>
+        <ol>
+          <li><strong>論證（Argument）</strong>：前提 + 結論的命題群</li>
+          <li><strong>謬誤（Fallacy）</strong>：心理上說服但邏輯上無效的論證</li>
+          <li><strong>有效性（Validity）</strong>：前提為真則結論必真</li>
+          <li><strong>情感意義（Emotive Meaning）</strong>：語詞的情感附加值</li>
+          <li><strong>Mill 方法</strong>：系統性確立因果關係的五種方法</li>
+        </ol>
+      </div>
+      <div>
+        <h4 style="font-weight:700; color:#c060cc; margin-bottom:12px;">⚡ 最核心的三個謬誤</h4>
+        <div style="margin-bottom:10px; padding:12px; background:rgba(255,255,255,0.6); border-radius:12px;">
+          <strong>1. 情感訴諸（Appeal to Emotion）</strong>
+          <p style="font-size:12px; margin:4px 0 0; color:#6b7a99;">在現代媒體環境中最普遍、最危險的謬誤，因為它精準利用了人類的情感系統。</p>
+        </div>
+        <div style="margin-bottom:10px; padding:12px; background:rgba(255,255,255,0.6); border-radius:12px;">
+          <strong>2. 稻草人（Straw Person）</strong>
+          <p style="font-size:12px; margin:4px 0 0; color:#6b7a99;">政治辯論的核心武器，因為扭曲對方立場往往比反駁真正的立場容易得多。</p>
+        </div>
+        <div style="padding:12px; background:rgba(255,255,255,0.6); border-radius:12px;">
+          <strong>3. 偽因果（False Cause/Post Hoc）</strong>
+          <p style="font-size:12px; margin:4px 0 0; color:#6b7a99;">「相關不等於因果」是科學素養的基石，也是最被大量違反的基本原則。</p>
+        </div>
+
+        <h4 style="font-weight:700; color:#c060cc; margin-top:20px; margin-bottom:12px;">📅 建議重讀時機</h4>
+        <ul>
+          <li>遇到「研究顯示……」的新聞報導時</li>
+          <li>觀看政治辯論或競選廣告後</li>
+          <li>感覺被某個論點強烈說服時（正是需要最冷靜分析的時候）</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr>
+
+    <div style="text-align:center;">
+      <div style="font-size:0.85rem; color:#8b8baa; margin-bottom:8px;">核心金句</div>
+      <div style="font-size:1.1rem; font-weight:700; background: linear-gradient(135deg, #667eea, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height:1.6;">
+        「在一個以理性說服而非武力統治的共和國中，<br>推理的藝術具有首要的重要性。」
+      </div>
+      <div style="font-size:0.85rem; color:#8b8baa; margin-top:8px;">— Thomas Jefferson（書題引言）</div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end container -->
+
+<div class="footer">
+  <p>📚 書醒分析報告 | Informal Logic by Irving M. Copi & Keith Burgess-Jackson</p>
+  <p style="margin-top:6px;">由 <a href="https://pokekop67-collab.github.io/book-reports/">書醒系統</a> 生成 · 書醒是深度閱讀與分析的方法論平台</p>
+</div>
+
+</body>
+</html>
