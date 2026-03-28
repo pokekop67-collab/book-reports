@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>論證力 × TOC 十步深度分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+    min-height: 100vh;
+    color: #2d2d2d;
+    line-height: 1.8;
+  }
+
+  /* ── HEADER ─────────────────────────── */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+  }
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(102,126,234,0.2);
+    border-radius: 50px;
+    padding: 6px 20px;
+    font-size: 13px;
+    color: #667eea;
+    font-weight: 500;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
+  }
+  .hero h1 {
+    font-size: clamp(32px, 6vw, 64px);
+    font-weight: 900;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: #888;
+    max-width: 600px;
+    margin: 0 auto 40px;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .meta-chip {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    padding: 8px 20px;
+    font-size: 13px;
+    color: #555;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  /* ── LAYOUT ─────────────────────────── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 120px;
+  }
+
+  /* ── CARD ────────────────────────────── */
+  .card {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 40px;
+    margin-bottom: 32px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 8px 32px rgba(102,126,234,0.08);
+  }
+
+  /* ── STEP HEADER ─────────────────────── */
+  .step-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+  .step-num {
+    width: 56px;
+    height: 56px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 900;
+    color: white;
+    flex-shrink: 0;
+  }
+  .step-title-wrap h2 {
+    font-size: 22px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .step-title-wrap p {
+    font-size: 13px;
+    color: #aaa;
+    margin-top: 2px;
+  }
+
+  /* ── TYPOGRAPHY ──────────────────────── */
+  h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #667eea;
+    margin: 28px 0 12px;
+    padding-left: 12px;
+    border-left: 3px solid #f093fb;
+  }
+  h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: #444;
+    margin: 20px 0 8px;
+  }
+  p { margin-bottom: 12px; font-size: 15px; }
+  ul, ol { padding-left: 24px; margin-bottom: 16px; }
+  li { font-size: 15px; margin-bottom: 8px; }
+  strong { color: #444; }
+
+  /* ── BOOK GRID ───────────────────────── */
+  .book-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    margin: 24px 0;
+  }
+  .book-chip {
+    background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(240,147,251,0.08));
+    border: 1px solid rgba(102,126,234,0.15);
+    border-radius: 16px;
+    padding: 16px;
+    font-size: 13px;
+  }
+  .book-chip .num { font-size: 22px; font-weight: 900; color: #f093fb; }
+  .book-chip .title { font-weight: 700; color: #333; margin: 4px 0 2px; font-size: 13px; }
+  .book-chip .author { color: #888; font-size: 12px; }
+  .book-chip .tag { margin-top: 8px; display: inline-block; background: rgba(102,126,234,0.1); border-radius: 50px; padding: 2px 10px; font-size: 11px; color: #667eea; }
+
+  /* ── CSF TABLE ───────────────────────── */
+  .csf-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+  .csf-table th {
+    background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(240,147,251,0.15));
+    padding: 12px 16px;
+    text-align: left;
+    font-weight: 700;
+    color: #555;
+    border-bottom: 2px solid rgba(102,126,234,0.2);
+  }
+  .csf-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    vertical-align: top;
+  }
+  .csf-table tr:hover td { background: rgba(102,126,234,0.03); }
+
+  /* ── UDE CARD ────────────────────────── */
+  .ude-group {
+    margin-bottom: 28px;
+  }
+  .ude-group-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+  .ude-group-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .ude-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 10px;
+    border: 1px solid rgba(0,0,0,0.05);
+    align-items: flex-start;
+  }
+  .ude-number {
+    width: 28px;
+    height: 28px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .ude-content .ude-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+  .ude-content .ude-desc { font-size: 13px; color: #666; }
+  .ude-content .ude-source { font-size: 12px; color: #f093fb; margin-top: 6px; font-weight: 500; }
+  .ude-content .ude-tag { font-size: 11px; color: #999; background: rgba(0,0,0,0.05); padding: 2px 8px; border-radius: 20px; margin-top: 4px; display: inline-block; }
+
+  .logic-ude .ude-item { background: rgba(102,126,234,0.05); }
+  .logic-ude .ude-number { background: rgba(102,126,234,0.15); color: #667eea; }
+  .psych-ude .ude-item { background: rgba(240,147,251,0.05); }
+  .psych-ude .ude-number { background: rgba(240,147,251,0.15); color: #d068e0; }
+  .expr-ude .ude-item { background: rgba(255,154,100,0.05); }
+  .expr-ude .ude-number { background: rgba(255,154,100,0.15); color: #e07840; }
+  .struct-ude .ude-item { background: rgba(72,199,142,0.05); }
+  .struct-ude .ude-number { background: rgba(72,199,142,0.15); color: #38a169; }
+
+  /* ── CRT VISUAL ──────────────────────── */
+  .crt-chain {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+    padding-left: 20px;
+  }
+  .crt-node {
+    background: rgba(255,255,255,0.8);
+    border: 1.5px solid rgba(102,126,234,0.2);
+    border-radius: 14px;
+    padding: 14px 20px;
+    margin-bottom: 0;
+    font-size: 14px;
+    position: relative;
+  }
+  .crt-node.root {
+    background: linear-gradient(135deg, rgba(102,126,234,0.15), rgba(240,147,251,0.15));
+    border-color: rgba(102,126,234,0.4);
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .crt-node.cause {
+    background: rgba(255,154,100,0.08);
+    border-color: rgba(255,154,100,0.3);
+  }
+  .crt-arrow {
+    text-align: center;
+    color: #667eea;
+    font-size: 20px;
+    line-height: 1;
+    padding: 6px 0;
+  }
+  .crt-label {
+    font-size: 11px;
+    color: #999;
+    margin-top: 4px;
+  }
+  .crt-columns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .crt-col {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .crt-col h4 { text-align: center; color: #888; font-size: 12px; margin-bottom: 12px; }
+
+  /* ── EC CLOUD ────────────────────────── */
+  .ec-cloud {
+    position: relative;
+    margin: 24px 0;
+  }
+  .ec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    gap: 12px;
+    align-items: center;
+  }
+  .ec-box {
+    background: rgba(255,255,255,0.9);
+    border: 2px solid;
+    border-radius: 16px;
+    padding: 16px 12px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+  }
+  .ec-box.A { border-color: #667eea; color: #667eea; }
+  .ec-box.B { border-color: #48c78e; color: #38a169; }
+  .ec-box.C { border-color: #f093fb; color: #d068e0; }
+  .ec-box.D { border-color: #ff9a64; color: #e07840; }
+  .ec-box.Dp { border-color: #63b3ed; color: #2b6cb0; }
+  .ec-box .label { font-size: 11px; font-weight: 900; letter-spacing: 1px; margin-bottom: 6px; opacity: 0.7; }
+  .ec-arrow { text-align: center; font-size: 24px; color: #ccc; }
+  .ec-vs { text-align: center; font-size: 18px; font-weight: 900; color: #f093fb; }
+  .ec-assumptions {
+    margin-top: 24px;
+  }
+  .assumption-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 16px;
+    border-radius: 12px;
+    margin-bottom: 8px;
+    font-size: 13px;
+  }
+  .assumption-item.breakable {
+    background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+    border: 1px solid rgba(102,126,234,0.2);
+  }
+  .assumption-item.normal {
+    background: rgba(0,0,0,0.03);
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .assumption-icon { font-size: 16px; flex-shrink: 0; }
+  .breakable-tag {
+    display: inline-block;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    color: white;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    margin-left: 8px;
+    font-weight: 700;
+  }
+
+  /* ── BOOK CONTRIBUTION ───────────────── */
+  .book-contrib {
+    display: grid;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .contrib-card {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+    padding: 20px;
+    border-radius: 16px;
+    background: rgba(255,255,255,0.6);
+    border: 1px solid rgba(0,0,0,0.06);
+    align-items: start;
+  }
+  .contrib-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: 900;
+    color: white;
+  }
+  .contrib-body .contrib-title { font-weight: 700; font-size: 14px; color: #333; }
+  .contrib-body .contrib-injection { font-size: 13px; color: #555; margin: 6px 0; }
+  .contrib-body .contrib-strength { font-size: 12px; padding: 4px 12px; border-radius: 20px; display: inline-block; font-weight: 600; }
+  .strength-strong { background: rgba(72,199,142,0.15); color: #38a169; }
+  .strength-medium { background: rgba(102,126,234,0.1); color: #667eea; }
+  .strength-blind { background: rgba(255,154,100,0.1); color: #e07840; }
+
+  /* ── FRT ─────────────────────────────── */
+  .frt-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 20px 0;
+  }
+  .frt-box {
+    padding: 20px;
+    border-radius: 16px;
+    font-size: 14px;
+  }
+  .frt-box.before {
+    background: rgba(255,100,100,0.06);
+    border: 1px solid rgba(255,100,100,0.2);
+  }
+  .frt-box.after {
+    background: rgba(72,199,142,0.06);
+    border: 1px solid rgba(72,199,142,0.2);
+  }
+  .frt-box h4 { margin-bottom: 12px; font-size: 14px; }
+  .frt-box.before h4 { color: #e05050; }
+  .frt-box.after h4 { color: #38a169; }
+  .frt-item { display: flex; gap: 8px; margin-bottom: 8px; align-items: flex-start; }
+  .frt-item .icon { flex-shrink: 0; }
+  .negative-branch {
+    background: rgba(255,200,0,0.08);
+    border: 1px solid rgba(255,200,0,0.3);
+    border-radius: 16px;
+    padding: 20px;
+    margin-top: 20px;
+  }
+  .negative-branch h4 { color: #a07800; margin-bottom: 12px; }
+
+  /* ── PRT LADDER ──────────────────────── */
+  .prt-ladder {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0;
+    position: relative;
+  }
+  .prt-step {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    border-radius: 14px;
+    margin-bottom: 0;
+    position: relative;
+  }
+  .prt-step-content { flex: 1; }
+  .prt-step-content .prt-goal { font-weight: 700; font-size: 14px; }
+  .prt-step-content .prt-obstacle { font-size: 13px; color: #e07840; margin-top: 4px; }
+  .prt-step-content .prt-tool { font-size: 12px; color: #667eea; margin-top: 4px; }
+  .prt-connector {
+    text-align: center;
+    font-size: 24px;
+    color: #ddd;
+    padding: 4px 0;
+    margin-left: 28px;
+  }
+  .prt-level-1 { background: rgba(102,126,234,0.06); border: 1px solid rgba(102,126,234,0.15); }
+  .prt-level-2 { background: rgba(240,147,251,0.06); border: 1px solid rgba(240,147,251,0.15); }
+  .prt-level-3 { background: rgba(255,154,100,0.06); border: 1px solid rgba(255,154,100,0.15); }
+  .prt-level-4 { background: rgba(72,199,142,0.06); border: 1px solid rgba(72,199,142,0.15); }
+  .prt-level-5 { background: rgba(99,179,237,0.06); border: 1px solid rgba(99,179,237,0.15); }
+  .prt-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    flex-shrink: 0;
+    color: white;
+  }
+  .critical-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #ff6b6b, #ffa07a);
+    color: white;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-weight: 700;
+    margin-left: 8px;
+  }
+
+  /* ── 5 FOCUS STEPS ───────────────────── */
+  .five-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .focus-step {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+    align-items: start;
+  }
+  .focus-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .focus-content { padding: 12px 20px; border-radius: 14px; }
+  .focus-step-1 .focus-num { background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
+  .focus-step-1 .focus-content { background: rgba(102,126,234,0.06); border: 1px solid rgba(102,126,234,0.15); }
+  .focus-step-2 .focus-num { background: linear-gradient(135deg, #f093fb, #f5576c); color: white; }
+  .focus-step-2 .focus-content { background: rgba(240,147,251,0.06); border: 1px solid rgba(240,147,251,0.15); }
+  .focus-step-3 .focus-num { background: linear-gradient(135deg, #4facfe, #00f2fe); color: white; }
+  .focus-step-3 .focus-content { background: rgba(79,172,254,0.06); border: 1px solid rgba(79,172,254,0.15); }
+  .focus-step-4 .focus-num { background: linear-gradient(135deg, #43e97b, #38f9d7); color: white; }
+  .focus-step-4 .focus-content { background: rgba(67,233,123,0.06); border: 1px solid rgba(67,233,123,0.15); }
+  .focus-step-5 .focus-num { background: linear-gradient(135deg, #fa709a, #fee140); color: white; }
+  .focus-step-5 .focus-content { background: rgba(250,112,154,0.06); border: 1px solid rgba(250,112,154,0.15); }
+  .focus-step-title { font-weight: 700; font-size: 14px; color: #333; margin-bottom: 6px; }
+  .focus-step-body { font-size: 13px; color: #555; }
+
+  /* ── 90-DAY PLAN ─────────────────────── */
+  .phase-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin: 20px 0;
+  }
+  .phase-card {
+    border-radius: 20px;
+    padding: 24px;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .phase-1 { background: linear-gradient(160deg, rgba(102,126,234,0.08), rgba(102,126,234,0.03)); border-color: rgba(102,126,234,0.2); }
+  .phase-2 { background: linear-gradient(160deg, rgba(240,147,251,0.08), rgba(240,147,251,0.03)); border-color: rgba(240,147,251,0.2); }
+  .phase-3 { background: linear-gradient(160deg, rgba(72,199,142,0.08), rgba(72,199,142,0.03)); border-color: rgba(72,199,142,0.2); }
+  .phase-tag { font-size: 11px; font-weight: 700; letter-spacing: 2px; margin-bottom: 12px; }
+  .phase-1 .phase-tag { color: #667eea; }
+  .phase-2 .phase-tag { color: #d068e0; }
+  .phase-3 .phase-tag { color: #38a169; }
+  .phase-title { font-size: 16px; font-weight: 700; color: #333; margin-bottom: 12px; }
+  .phase-days { font-size: 12px; color: #aaa; margin-bottom: 16px; }
+  .phase-item { font-size: 13px; color: #555; margin-bottom: 8px; display: flex; gap: 8px; }
+  .phase-check { font-size: 13px; color: #38a169; font-weight: 600; margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.06); }
+
+  /* ── KNOWLEDGE DNA ───────────────────── */
+  .dna-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+  }
+  .dna-role {
+    padding: 20px;
+    border-radius: 16px;
+    font-size: 13px;
+  }
+  .dna-role.diagnose { background: rgba(255,154,100,0.08); border: 1px solid rgba(255,154,100,0.2); }
+  .dna-role.inject { background: rgba(102,126,234,0.08); border: 1px solid rgba(102,126,234,0.2); }
+  .dna-role.implement { background: rgba(72,199,142,0.08); border: 1px solid rgba(72,199,142,0.2); }
+  .dna-role h4 { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+  .dna-role.diagnose h4 { color: #e07840; }
+  .dna-role.inject h4 { color: #667eea; }
+  .dna-role.implement h4 { color: #38a169; }
+  .dna-item { margin-bottom: 6px; font-size: 12px; }
+
+  /* ── METAPHOR BOX ────────────────────── */
+  .metaphor-box {
+    background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+    border: 2px solid rgba(102,126,234,0.2);
+    border-radius: 24px;
+    padding: 36px;
+    text-align: center;
+    margin: 24px 0;
+  }
+  .metaphor-icon { font-size: 48px; margin-bottom: 16px; }
+  .metaphor-title { font-size: 22px; font-weight: 900; background: linear-gradient(135deg, #667eea, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 16px; }
+  .metaphor-body { font-size: 15px; color: #555; max-width: 700px; margin: 0 auto; line-height: 2; }
+
+  /* ── BLIND SPOT ──────────────────────── */
+  .blind-spot {
+    background: rgba(255,220,100,0.08);
+    border: 1px solid rgba(255,200,0,0.25);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 12px;
+    font-size: 14px;
+  }
+  .blind-spot h4 { color: #a07800; margin-bottom: 8px; }
+
+  /* ── TAGS ────────────────────────────── */
+  .tag-l1 { background: rgba(72,199,142,0.15); color: #38a169; }
+  .tag-infer { background: rgba(102,126,234,0.12); color: #667eea; }
+  .tag-verify { background: rgba(255,154,100,0.12); color: #e07840; }
+  .tag-ai { background: rgba(240,147,251,0.12); color: #d068e0; }
+  .source-tag {
+    display: inline-block;
+    border-radius: 20px;
+    padding: 2px 10px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-right: 4px;
+  }
+
+  /* ── FOOTER ──────────────────────────── */
+  .footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: #aaa;
+    font-size: 13px;
+  }
+
+  /* ── DIVIDER ─────────────────────────── */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(102,126,234,0.2), transparent);
+    margin: 24px 0;
+  }
+
+  /* ── HIGHLIGHT BOX ───────────────────── */
+  .highlight {
+    background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(240,147,251,0.08));
+    border-radius: 16px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    font-size: 14px;
+    border-left: 4px solid #f093fb;
+  }
+
+  @media (max-width: 768px) {
+    .ec-grid { grid-template-columns: 1fr; }
+    .frt-grid { grid-template-columns: 1fr; }
+    .phase-grid { grid-template-columns: 1fr; }
+    .dna-grid { grid-template-columns: 1fr; }
+    .crt-columns { grid-template-columns: 1fr; }
+    .card { padding: 24px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══ HERO ═══════════════════════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">TOC × 書醒系統 × 論證力</div>
+  <h1>論證力<br>十步深度解剖</h1>
+  <p class="hero-sub">以限制理論（TOC）思維框架，對 9 本論證學經典進行系統性診斷，找出說服失敗的根本制約，設計突破路徑。</p>
+  <div class="hero-meta">
+    <div class="meta-chip">📚 9 本書跨領域整合</div>
+    <div class="meta-chip">🔩 TOC 十步完整分析</div>
+    <div class="meta-chip">🇰🇷 韓系視覺化報告</div>
+    <div class="meta-chip">🗓 90 天行動計畫</div>
+  </div>
+</div>
+
+<div class="container">
+
+<!-- ═══ 書目總覽 ══════════════════════════════════════════════════════ -->
+<div class="card">
+  <div class="step-header">
+    <div class="step-num">📖</div>
+    <div class="step-title-wrap">
+      <h2>九本書的知識版圖</h2>
+      <p>這 9 本書構成一個完整的「論證力系統」，從古典修辭到現代認知科學</p>
+    </div>
+  </div>
+  <div class="book-grid">
+    <div class="book-chip"><div class="num">①</div><div class="title">Rhetoric</div><div class="author">亞里斯多德</div><div class="tag">Logos/Ethos/Pathos</div></div>
+    <div class="book-chip"><div class="num">②</div><div class="title">The Uses of Argument</div><div class="author">Stephen Toulmin</div><div class="tag">六要素論證模型</div></div>
+    <div class="book-chip"><div class="num">③</div><div class="title">A Rulebook for Arguments</div><div class="author">Anthony Weston</div><div class="tag">50 條論證規則</div></div>
+    <div class="book-chip"><div class="num">④</div><div class="title">The Craft of Argument</div><div class="author">Williams & Colomb</div><div class="tag">學術論證寫作</div></div>
+    <div class="book-chip"><div class="num">⑤</div><div class="title">Informal Logic</div><div class="author">Irving Copi</div><div class="tag">謬誤分類系統</div></div>
+    <div class="book-chip"><div class="num">⑥</div><div class="title">Asking the Right Questions</div><div class="author">Browne & Keeley</div><div class="tag">批判思考 11 問</div></div>
+    <div class="book-chip"><div class="num">⑦</div><div class="title">Influence</div><div class="author">Robert Cialdini</div><div class="tag">六大說服原則</div></div>
+    <div class="book-chip"><div class="num">⑧</div><div class="title">Thinking, Fast and Slow</div><div class="author">Daniel Kahneman</div><div class="tag">系統一 / 二</div></div>
+    <div class="book-chip"><div class="num">⑨</div><div class="title">Thank You for Arguing</div><div class="author">Jay Heinrichs</div><div class="tag">修辭學現代應用</div></div>
+  </div>
+</div>
+
+<!-- ═══ STEP 1 ════════════════════════════════════════════════════════ -->
+<div class="card">
+  <div class="step-header">
+    <div class="step-num">1</div>
+    <div class="step-title-wrap">
+      <h2>目標定義（IO Map）</h2>
+      <p>論證力系統的終極目標 × 關鍵成功因素 × 必要條件</p>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <strong>🎯 終極目標（Terminal Objective）：</strong><br>
+    在任何情境中，能夠有效改變他人的信念或行動——同時維持對話關係與自身信譽，產生可持續的影響力。
+  </div>
+
+  <h3>關鍵成功因素（CSF）＋ 必要條件（NC）</h3>
+  <table class="csf-table">
+    <thead>
+      <tr>
+        <th>CSF</th>
+        <th>關鍵成功因素</th>
+        <th>必要條件（NC）</th>
+        <th>對應書籍</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>CSF-1</strong></td>
+        <td>能構建邏輯嚴謹、前提可靠的論證</td>
+        <td>理解謬誤識別；能區辨「強推論」與「弱推論」；掌握論證結構（Claim→Data→Warrant）</td>
+        <td>②③⑤</td>
+      </tr>
+      <tr>
+        <td><strong>CSF-2</strong></td>
+        <td>能精準診斷聽眾的心理狀態與認知模式</td>
+        <td>了解系統一自動反應；能識別對方的情感需求；理解社會認同動力</td>
+        <td>⑦⑧</td>
+      </tr>
+      <tr>
+        <td><strong>CSF-3</strong></td>
+        <td>能靈活調配 Logos / Ethos / Pathos 三要素</td>
+        <td>建立個人可信度（Ethos）；能在邏輯與情感之間動態切換；了解時機（Kairos）</td>
+        <td>①⑨</td>
+      </tr>
+      <tr>
+        <td><strong>CSF-4</strong></td>
+        <td>能清楚識別論點的弱點並預判對方反駁</td>
+        <td>具備批判思考習慣（11問框架）；能進行論證結構的自我審查；理解對方可能使用的謬誤</td>
+        <td>⑤⑥</td>
+      </tr>
+      <tr>
+        <td><strong>CSF-5</strong></td>
+        <td>能在壓力情境下控制自身認知偏誤</td>
+        <td>對系統一偏誤有後設認知；能在情緒激動時切換至系統二；建立「暫停反思」的習慣</td>
+        <td>⑧</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="highlight">
+    <strong>💡 IO Map 洞見：</strong>論證力的「終極輸出」不是「贏得辯論」，而是「改變他人並維持關係」。這個目標決定了所有 CSF 的設計——任何只追求「邏輯勝利」的策略，都偏離了這個終極目標。<span class="source-tag tag-ai">AI 原創</span>
+  </div>
+</div>
+
+<!-- ═══ STEP 2 ════════════════════════════════════════════════════════ -->
+<div class="card">
+  <div class="step-header">
+    <div class="step-num">2</div>
+    <div class="step-title-wrap">
+      <h2>現況診斷 — UDE 清單</h2>
+      <p>一般人論證失敗的 14 個不良效應，按四個層面分類</p>
+    </div>
+  </div>
+
+  <!-- 邏輯層 -->
+  <div class="ude-group logic-ude">
+    <div class="ude-group-title">
+      <div class="ude-group-icon" style="background:rgba(102,126,234,0.12); color:#667eea;">🧠</div>
+      <h3 style="margin:0; border:none; padding:0; color:#667eea;">邏輯層 UDE（論證結構問題）</h3>
+    </div>
+    <div class="ude-item">
+      <div class="ude-number">L1</div>
+      <div class="ude-content">
+        <div class="ude-title">論點缺乏保證（Warrant），讀者不知道「為什麼這個數據能支持這個主張」</div>
+        <div class="ude-desc">從數據跳到結論，中間的保證（Warrant）是隱性的，聽眾有理由不接受</div>
+        <div class="ude-source">📖 The Uses of Argument（Toulmin）</div>
+        <div class="ude-tag">L1 書中</div>
+      </div>
+    </div>
+    <div class="ude-item">
+      <div class="ude-number">L2</div>
+      <div class="ude-content">
+        <div class="ude-title">使用謬誤式推理卻渾然不覺（訴諸情感、稻草人、滑坡）</div>
+        <div class="ude-desc">以「聽起來合理」代替「邏輯嚴謹」，在批判性聽眾面前立刻崩潰</div>
+        <div class="ude-source">📖 Informal Logic（Copi）</div>
+        <div class="ude-tag">L1 書中</div>
+      </div>
+    </div>
+    <div class="ude-item">
+      <div class="ude-number">L3</div>
+      <div class="ude-content">
+        <div class="ude-title">前提（Premise）未被交代，論證整體建立在對方未必同意的假設上</div>
+        <div class="ude-desc">論者自認「這很顯然」，但聽眾的世界觀完全不同</div>
+        <div class="ude-source">📖 A Rulebook for Arguments（Weston）</div>
+        <div class="ude-tag">L1 書中</div>
+      </div>
+    </div>
+    <div class="ude-item">
+      <div class="ude-number">L4</div>
+      <div class="ude-content">
+        <div class="ude-title">論證未針對問題核心（Issue）發言，雙方在平行宇宙對話</div>
+        <div class="ude-desc">不清楚爭議點（Issue）是什麼，導致論點雖強但打錯靶</div>
+        <div class="ude-source">📖 Asking the Right Questions（Browne & Keeley）</div>
+        <div class="ude-tag">推論</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 心理層 -->
+  <div class="ude-group psych-ude">
+    <div class="ude-group-title">
+      <div class="ude-group-icon" style="background:rgba(240,147,251,0.12); color:#d068e0;">💭</div>
+      <h3 style="margin:0; border:none; padding:0; color:#d068e0;">心理層 UDE（認知與情緒問題）</h3>
+    </div>
+    <div class="ude-item">
+      <div class="ude-number">P1</div>
+      <div class="ude-content">
+        <div class="ude-title">論者被系統一綁架：在情緒觸發時，說出讓對方防禦升高的話</div>
+        <div class="ude-desc">Kahneman：系統一快速反應優先，情緒話語觸發對方的防禦本能，理性論點因此失效</div>
+        <div class="ude-source">📖 Thinking, Fast and Slow（Kahneman）</div>
+        <div class="ude-tag">L1 書中</div>
+      </div>
+    </div>
+    <div class="ude-item">
+      <div class="ude-number">P2</div>
+      <div class="ude-content">
+        <div class="ude-title">誤判聽眾的「改變成本」：對方不是不懂，而是認同改變會威脅自我認同</div>
+        <div class="ude-desc">Cialdini 的承諾與一致性原則：對方已公開表態，你的「邏輯正確」反而讓他更難後退</div>
+        <div class="ude-source">📖 Influence（Cialdini）</div>
+        <div class="ude-tag">L1 書中</div>
+      </div>
+    </div>
+    <div class="ude-item">
+      <div class="ude-number">P3</div>
+      <div class="ude-content">
+        <div class="ude-title">論者自身存在認知偏誤（確認偏誤、可得性捷思），導致論點的前提本身有問題</div>
+        <div class="ude-desc">帶著偏誤去論證，越有力的論點越危險——因為你把錯的東西論證得更有說服力</div>
+        <div class="ude-source">📖 Thinking, Fast and Slow（Kahneman）</div>
+        <div class="ude-tag">L1 書中</div>
+      </div>
+    </div>
+    <div class="ude-item">
+      <div class="ude-number">P4</div>
+      <div class="ude-content">
+        <div class="ude-title">「Ethos 赤字」：論者在聽眾眼中缺乏可信度，論點強卻沒人信</div>
+        <div class="ude-desc">亞里斯多德：Ethos（人格可信度）是說服的前提，沒有 Ethos，再完美的 Logos 都是白費</div>
+        <div class="ude-source">📖 Rhetoric（亞里斯多德）</div>
+        <div class="ude-tag">L1 書中</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 表達層 -->
+  <div class="ude-group expr-ude">
+    <div class="ude-group-title">
+      <div class="ude-group-icon" style="background:rgba(255,154,100,0.12); color:#e07840;">💬</div>
+      <h3 style="margin:0; border:none; padding:0; color:#e07840;">表達層 UDE（溝通與修辭問題）</h3>
+    </div>
+    <div class="ude-item">
+      <div class="ude-number">E1</div>
+      <div class="ude-content">
+        <div class="ude-title">時機（Kairos）錯誤：在錯誤的時機說正確的話，同樣無效</div>
+        <div class="ude-desc">Heinrichs：最完美的論點在對方情緒激動時說出，只會製造更大衝突</div>
+        <div class="ude-source">📖 Thank You for Arguing（Heinrichs）</div>
+        <div class="ude-tag">L1 書中</div>
+      </div>
+    </div>
+    <div class="ude-item">
+      <div class="ude-number">E2</div>
+      <div class="ude-content">
+        <div class="ude-title">用「論點轟炸」代替「一個強核心論點」，讓聽眾認知超載後放棄</div>
+        <div class="ude-desc">Weston：一個好論點比十個平庸論點更有力；Colomb：學術論證應聚焦在核心主張的深度支撐</div>
+        <div class="ude-source">📖 A Rulebook for Arguments ＋ The Craft of Argument</div>
+        <div class="ude-tag">L1 書中</div>
+      </div>
+    </div>
+    <div class="ude-item">
+      <div class="ude-number">E3</div>
+      <div class="ude-content">
+        <div class="ude-title">語言框架（Framing）不利於己：使用了對方設定的詞彙，在對方的語言戰場上作戰</div>
+        <div class="ude-desc">Heinrichs：接受對方的語言框架，等於認同對方的世界觀——這是表達層的最大陷阱</div>
+        <div class="ude-source">📖 Thank You for Arguing（Heinrichs）</div>
+        <div class="ude-tag">L1 書中</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 結構層 -->
+  <div class="ude-group struct-ude">
+    <div class="ude-group-title">
+      <div class="ude-group-icon" style="background:rgba(72,199,142,0.12); color:#38a169;">🏗</div>
+      <h3 style="margin:0; border:none; padding:0; color:#38a169;">結構層 UDE（系統與習慣問題）</h3>
+    </div>
+    <div class="ude-item">
+      <div class="ude-number">S1</div>
+      <div class="ude-content">
+        <div class="ude-title">缺乏「論證自我審查」習慣：論點產出後不問「對方會怎麼反駁？」</div>
+        <div class="ude-desc">Browne & Keeley：11問框架的核心就是對自己的論點進行批判性審查，但大多數人不做</div>
+        <div class="ude-source">📖 Asking the Right Questions（Browne & Keeley）</div>
+        <div class="ude-tag">L1 書中</div>
+      </div>
+    </div>
+    <div class="ude-item">
+      <div class="ude-number">S2</div>
+      <div class="ude-content">
+        <div class="ude-title">邏輯能力與說服能力被視為相同技能，實則是兩種需要分別訓練的能力</div>
+        <div class="ude-desc">一個人可能邏輯極強卻說服力為零（學院派），也可能說服力極強卻邏輯薄弱（煽動家）</div>
+        <div class="ude-source">推論（綜合①⑦⑧）</div>
+        <div class="ude-tag">推論</div>
+      </div>
+    </div>
+    <div class="ude-item">
+      <div class="ude-number">S3</div>
+      <div class="ude-content">
+        <div class="ude-title">「論證」被理解為「說服對方我是對的」，而非「共同探索哪個立場更合理」</div>
+        <div class="ude-desc">這個根本目標設定錯誤，導致整個論證過程的策略都是次優解</div>
+        <div class="ude-source">綜合①⑥——AI 推論</div>
+        <div class="ude-tag">AI 原創</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STEP 3 ════════════════════════════════════════════════════════ -->
+<div class="card">
+  <div class="step-header">
+    <div class="step-num">3</div>
+    <div class="step-title-wrap">
+      <h2>現況實境樹（CRT）</h2>
+      <p>追溯 UDE 的因果鏈，找出 2 個核心根因</p>
+    </div>
+  </div>
+
+  <p style="font-size:14px; color:#666; margin-bottom:24px;">以下因果鏈從表層不良效應（UDE）往深層根因追溯。箭頭方向：「因為...，所以...」</p>
+
+  <div class="crt-columns">
+    <div class="crt-col">
+      <h4>🧠 邏輯/結構鏈</h4>
+      <div class="crt-node"><strong>UDE L1+L2+L3</strong><br>論證結構缺陷（缺 Warrant / 隱性前提 / 謬誤推理）<div class="crt-label">L1 書中</div></div>
+      <div class="crt-arrow">↓</div>
+      <div class="crt-node cause"><strong>中間因：</strong>「邏輯直覺」與「邏輯規範」脫節<br><span style="font-size:12px;color:#888">人依賴系統一產生論點，未用系統二審查</span><div class="crt-label">推論</div></div>
+      <div class="crt-arrow">↓</div>
+      <div class="crt-node cause"><strong>中間因：</strong>學校教育從未系統性訓練論證結構<br><span style="font-size:12px;color:#888">語文課教「寫作」而非「論證」</span><div class="crt-label">推論</div></div>
+    </div>
+    <div class="crt-col">
+      <h4>💭 心理/認知鏈</h4>
+      <div class="crt-node"><strong>UDE P1+P2+P3</strong><br>系統一綁架 + Ethos 赤字 + 承諾一致性障礙<div class="crt-label">L1 書中</div></div>
+      <div class="crt-arrow">↓</div>
+      <div class="crt-node cause"><strong>中間因：</strong>把「說服」當作「資訊傳遞」<br><span style="font-size:12px;color:#888">以為對方缺的是資訊，而非情感安全感</span><div class="crt-label">AI 原創</div></div>
+      <div class="crt-arrow">↓</div>
+      <div class="crt-node cause"><strong>中間因：</strong>對「人如何改變想法」缺乏心理模型<div class="crt-label">推論</div></div>
+    </div>
+    <div class="crt-col">
+      <h4>💬 表達/習慣鏈</h4>
+      <div class="crt-node"><strong>UDE E1+E2+E3+S1+S2+S3</strong><br>時機錯誤 + 框架接受 + 缺乏自我審查習慣<div class="crt-label">綜合</div></div>
+      <div class="crt-arrow">↓</div>
+      <div class="crt-node cause"><strong>中間因：</strong>論證技能被視為「天賦」而非「可訓練技術」<div class="crt-label">推論</div></div>
+      <div class="crt-arrow">↓</div>
+      <div class="crt-node cause"><strong>中間因：</strong>缺乏刻意練習的機制與反饋迴圈<div class="crt-label">推論</div></div>
+    </div>
+  </div>
+
+  <div class="crt-arrow" style="font-size:32px; text-align:center; margin:12px 0;">↓ ↓ ↓</div>
+
+  <p style="text-align:center; font-size:14px; color:#888; margin-bottom:16px;">三條鏈的共同根源</p>
+
+  <div class="crt-node root" style="max-width:600px; margin:0 auto 16px; text-align:center;">
+    🔴 <strong>核心根因 A：</strong><br>
+    「論證力」被化約為「邏輯正確性」——忽略了說服是發生在<em>心理-關係-情境</em>交織的動態系統中
+    <div class="crt-label" style="text-align:center; margin-top:8px;">AI 原創（整合①②⑦⑧）</div>
+  </div>
+
+  <div class="crt-node root" style="max-width:600px; margin:0 auto; text-align:center;">
+    🔴 <strong>核心根因 B：</strong><br>
+    人類預設以「說教者」而非「對話者」身分進行論證——缺乏對聽眾認知狀態的實時追蹤與動態調整
+    <div class="crt-label" style="text-align:center; margin-top:8px;">AI 原創（整合⑥⑦⑧⑨）</div>
+  </div>
+
+  <div class="highlight" style="margin-top:24px;">
+    <strong>CRT 頓悟：</strong>最反直覺的發現——論證失敗的根因<strong>不是邏輯能力不足</strong>，而是對「說服是什麼」的根本性誤解。大多數人把「說服」當作「用邏輯覆蓋對方的錯誤」，但實際上說服是「在對方既有信念系統中，找到可以生長的縫隙，然後在那裡種下新觀點」。<span class="source-tag tag-ai">AI 原創</span>
+  </div>
+</div>
+
+<!-- ═══ STEP 4 ════════════════════════════════════════════════════════ -->
+<div class="card">
+  <div class="step-header">
+    <div class="step-num">4</div>
+    <div class="step-title-wrap">
+      <h2>核心衝突分析（EC 蒸發雲）</h2>
+      <p>論證力提升中的根本兩難：嚴謹 vs. 連結</p>
+    </div>
+  </div>
+
+  <div class="ec-cloud">
+    <div class="ec-grid">
+      <div class="ec-box A">
+        <div class="label">A</div>
+        有效論證說服他人<br><span style="font-size:12px; font-weight:400; color:#888">（終極目標）</span>
+      </div>
+      <div class="ec-arrow">→</div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="ec-box B">
+          <div class="label">B</div>
+          維持邏輯嚴謹<br>建立理性說服力
+        </div>
+        <div class="ec-box C">
+          <div class="label">C</div>
+          建立情感連結<br>維持心理安全感
+        </div>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div class="ec-box D">
+          <div class="label">D</div>
+          保持客觀距離<br>不因情緒妥協論點
+        </div>
+        <div class="ec-box Dp">
+          <div class="label">D'</div>
+          積極建立共鳴<br>讓對方感到被理解
+        </div>
+      </div>
+      <div class="ec-vs">⚡<br>衝突</div>
+    </div>
+  </div>
+
+  <h3>每個箭頭背後的假設（至少 9 個）</h3>
+
+  <div class="ec-assumptions">
+    <h4>A → B 的假設（「有效論證需要邏輯嚴謹」）</h4>
+    <div class="assumption-item normal">
+      <div class="assumption-icon">💭</div>
+      <div>假設：理性的聽眾最終會被最強的邏輯說服<span class="source-tag tag-infer" style="margin-left:8px">推論</span></div>
+    </div>
+    <div class="assumption-item normal">
+      <div class="assumption-icon">💭</div>
+      <div>假設：帶有情緒的論點必然是較弱的論點<span class="source-tag tag-infer" style="margin-left:8px">推論</span></div>
+    </div>
+    <div class="assumption-item normal">
+      <div class="assumption-icon">💭</div>
+      <div>假設：謬誤必須被指出，否則論辯就不誠實<span class="source-tag tag-l1" style="margin-left:8px">L1 書中⑤</span></div>
+    </div>
+
+    <h4>A → C 的假設（「有效論證需要情感連結」）</h4>
+    <div class="assumption-item normal">
+      <div class="assumption-icon">💭</div>
+      <div>假設：人在感到被威脅時無法真正聽進任何論點<span class="source-tag tag-l1" style="margin-left:8px">L1 書中⑧</span></div>
+    </div>
+    <div class="assumption-item normal">
+      <div class="assumption-icon">💭</div>
+      <div>假設：Pathos 是讓聽眾「準備好接受論點」的必要前置<span class="source-tag tag-l1" style="margin-left:8px">L1 書中①</span></div>
+    </div>
+
+    <h4>B → D 的假設（「邏輯嚴謹需要保持客觀距離」）</h4>
+    <div class="assumption-item breakable">
+      <div class="assumption-icon">💥</div>
+      <div><strong>假設：情感投入和邏輯清晰是互斥的——你不能同時在情感上連結對方又保持論證的精確性</strong><span class="breakable-tag">最值得打破！</span><span class="source-tag tag-ai" style="margin-left:8px">AI 原創</span></div>
+    </div>
+    <div class="assumption-item breakable">
+      <div class="assumption-icon">💥</div>
+      <div><strong>假設：表達「我理解你的感受」等於「放棄你的立場」</strong><span class="breakable-tag">值得打破</span><span class="source-tag tag-ai" style="margin-left:8px">AI 原創</span></div>
+    </div>
+
+    <h4>C → D' 的假設（「情感連結需要積極共鳴」）</h4>
+    <div class="assumption-item breakable">
+      <div class="assumption-icon">💥</div>
+      <div><strong>假設：讓對方感到被理解，必然需要犧牲你的論點強度</strong><span class="breakable-tag">值得打破</span><span class="source-tag tag-ai" style="margin-left:8px">AI 原創</span></div>
+    </div>
+    <div class="assumption-item normal">
+      <div class="assumption-icon">💭</div>
+      <div>假設：說服和共情是兩個獨立的技能，需要在對話中交替使用<span class="source-tag tag-infer" style="margin-left:8px">推論</span></div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>🔑 最值得打破的假設 + 注入解（Injection）</h3>
+  <div class="highlight">
+    <strong>核心假設（要打破）：</strong>「情感投入和邏輯清晰是互斥的」<br><br>
+    <strong>注入解：</strong>Ethos 是連接 Logos 與 Pathos 的橋樑——而非它們的對立面。當你建立了足夠的 Ethos（可信度＋善意），你的邏輯論點<em>本身</em>就帶有情感說服力，因為聽眾相信你說這些話是為了他們好，而不是為了贏。<br><br>
+    <strong>更深的注入解：</strong>真正有力的論證是「把聽眾帶進你的推理過程」，而不是「把你的結論丟給聽眾」。前者同時滿足 B（邏輯嚴謹）和 C（情感連結），因為聽眾在共同推理過程中既感到被尊重，也經歷了嚴謹的思考。
+    <span class="source-tag tag-ai">AI 原創（整合①②⑨）</span>
+  </div>
+</div>
+
+<!-- ═══ STEP 5 ════════════════════════════════════════════════════════ -->
+<div class="card">
+  <div class="step-header">
+    <div class="step-num">5</div>
+    <div class="step-title-wrap">
+      <h2>9 本書各自的「注入解」貢獻</h2>
+      <p>每本書對打破核心假設的具體貢獻評估</p>
+    </div>
+  </div>
+
+  <div class="book-contrib">
+    <div class="contrib-card">
+      <div class="contrib-num">①</div>
+      <div class="contrib-body">
+        <div class="contrib-title">Rhetoric（亞里斯多德）</div>
+        <div class="contrib-injection">🔑 注入解：「Ethos 是說服的先決條件，不是裝飾」。打破了「邏輯對邏輯」的假設，提出三角架構——說服永遠發生在人的身上，而人首先回應的是「我信任你嗎？」</div>
+        <span class="contrib-strength strength-strong">💪 最有力注入解之一</span>
+      </div>
+    </div>
+    <div class="contrib-card">
+      <div class="contrib-num">②</div>
+      <div class="contrib-body">
+        <div class="contrib-title">The Uses of Argument（Toulmin）</div>
+        <div class="contrib-injection">🔑 注入解：「論證需要 Warrant（保證），不是直接從 Data 到 Claim 的跳躍」。把論證的「隱性假設」顯性化，讓對話雙方知道爭執點在哪裡，而非各說各話。</div>
+        <span class="contrib-strength strength-strong">💪 結構診斷最精確</span>
+      </div>
+    </div>
+    <div class="contrib-card">
+      <div class="contrib-num">③</div>
+      <div class="contrib-body">
+        <div class="contrib-title">A Rulebook for Arguments（Weston）</div>
+        <div class="contrib-injection">🔑 注入解：「一個強論點比十個弱論點更有力」。打破「多即是強」的假設，提供可即時應用的 50 條規則，是最具操作性的工具書。</div>
+        <span class="contrib-strength strength-medium">📋 操作工具最完整</span>
+        <div class="contrib-injection" style="margin-top:8px; color:#e07840;">⚠️ 盲點：規則太多，缺乏「哪條規則在哪種情境最重要」的優先排序指導。</div>
+        <span class="contrib-strength strength-blind">⚠️ 有盲點</span>
+      </div>
+    </div>
+    <div class="contrib-card">
+      <div class="contrib-num">④</div>
+      <div class="contrib-body">
+        <div class="contrib-title">The Craft of Argument（Williams & Colomb）</div>
+        <div class="contrib-injection">🔑 注入解：「從讀者的問題出發，而不是從作者的觀點出發」。打破「論者中心主義」——先問「讀者需要看到什麼才能改變立場？」再倒回去設計論證結構。</div>
+        <span class="contrib-strength strength-strong">💪 讀者視角最徹底</span>
+      </div>
+    </div>
+    <div class="contrib-card">
+      <div class="contrib-num">⑤</div>
+      <div class="contrib-body">
+        <div class="contrib-title">Informal Logic（Copi）</div>
+        <div class="contrib-injection">🔑 注入解：「謬誤識別是論證的防火牆」。提供最完整的謬誤分類系統，讓論者能識別自身和對方的推理漏洞。</div>
+        <span class="contrib-strength strength-medium">🛡 防禦性最強</span>
+        <div class="contrib-injection" style="margin-top:8px; color:#e07840;">⚠️ 盲點：過度強調謬誤識別可能讓人陷入「指謬誤模式」，反而在關係中造成對立。</div>
+        <span class="contrib-strength strength-blind">⚠️ 有盲點</span>
+      </div>
+    </div>
+    <div class="contrib-card">
+      <div class="contrib-num">⑥</div>
+      <div class="contrib-body">
+        <div class="contrib-title">Asking the Right Questions（Browne & Keeley）</div>
+        <div class="contrib-injection">🔑 注入解：「帶著問題聽，不帶著答案聽」。11問框架是「論證前的準備」——在開口前，先問對了問題才能設計對的論證。</div>
+        <span class="contrib-strength strength-medium">🔍 診斷工具最系統</span>
+      </div>
+    </div>
+    <div class="contrib-card">
+      <div class="contrib-num">⑦</div>
+      <div class="contrib-body">
+        <div class="contrib-title">Influence（Cialdini）</div>
+        <div class="contrib-injection">🔑 注入解：「說服發生在意識之前——先讓系統一點頭，系統二才願意工作」。六大原則繞過了「邏輯vs邏輯」的對決，直接在心理層面建立「對的」說服條件。</div>
+        <span class="contrib-strength strength-strong">💪 心理層最有力注入解</span>
+        <div class="contrib-injection" style="margin-top:8px; color:#e07840;">⚠️ 盲點：六大原則如果脫離倫理框架，容易成為操縱工具，書中對此討論不足。</div>
+        <span class="contrib-strength strength-blind">⚠️ 有倫理盲點</span>
+      </div>
+    </div>
+    <div class="contrib-card">
+      <div class="contrib-num">⑧</div>
+      <div class="contrib-body">
+        <div class="contrib-title">Thinking, Fast and Slow（Kahneman）</div>
+        <div class="contrib-injection">🔑 注入解：「你要說服的是系統一，而非系統二」。提供了最深層的認知科學基礎，解釋了為什麼「邏輯論點在情緒面前失效」——這不是對方不理性，而是人類大腦的正常運作方式。</div>
+        <span class="contrib-strength strength-strong">💪 根因解釋最有力</span>
+      </div>
+    </div>
+    <div class="contrib-card">
+      <div class="contrib-num">⑨</div>
+      <div class="contrib-body">
+        <div class="contrib-title">Thank You for Arguing（Heinrichs）</div>
+        <div class="contrib-injection">🔑 注入解：「論證是表演，不只是推理——Kairos（時機）比 Logos 更重要」。把古典修辭學轉化為日常可用的技術，提供了最多的「即時應用工具」。</div>
+        <span class="contrib-strength strength-strong">💪 實戰應用最直接</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <strong>📊 9 本書的注入解地圖：</strong><br>
+    <strong>診斷層（CRT 根因）：</strong>⑧ Kahneman（系統一/二）、⑤ Copi（謬誤）、⑥ Browne & Keeley（批判思考）<br>
+    <strong>注入解層（EC 假設打破）：</strong>① 亞里斯多德（Ethos 橋樑）、⑦ Cialdini（心理觸發）、④ Williams（讀者視角）<br>
+    <strong>實施層（FRT 工具）：</strong>② Toulmin（結構）、③ Weston（規則）、⑨ Heinrichs（日常應用）<br><br>
+    <strong>還差什麼？</strong>這 9 本書對「倫理框架」的討論明顯不足——當你完全掌握論證力，如何確保不成為操縱者？這是集體盲點。<span class="source-tag tag-ai">AI 原創</span>
+  </div>
+</div>
+
+<!-- ═══ STEP 6 ════════════════════════════════════════════════════════ -->
+<div class="card">
+  <div class="step-header">
+    <div class="step-num">6</div>
+    <div class="step-title-wrap">
+      <h2>未來實境樹（FRT）</h2>
+      <p>如果 9 本書的核心智慧被完全內化，論證力系統如何轉變？</p>
+    </div>
+  </div>
+
+  <div class="frt-grid">
+    <div class="frt-box before">
+      <h4>❌ 內化前（現況）</h4>
+      <div class="frt-item"><div class="icon">❌</div><div>UDE L1：論點缺乏 Warrant，聽眾不接受</div></div>
+      <div class="frt-item"><div class="icon">❌</div><div>UDE P1：系統一綁架，說出防禦性話語</div></div>
+      <div class="frt-item"><div class="icon">❌</div><div>UDE P2：誤判「改變成本」，強推邏輯觸發反彈</div></div>
+      <div class="frt-item"><div class="icon">❌</div><div>UDE P4：Ethos 赤字，論點再強也沒人信</div></div>
+      <div class="frt-item"><div class="icon">❌</div><div>UDE E3：接受對方語言框架，在錯誤戰場作戰</div></div>
+      <div class="frt-item"><div class="icon">❌</div><div>UDE S3：把論證視為「我對你錯」的對抗</div></div>
+    </div>
+    <div class="frt-box after">
+      <h4>✅ 內化後（未來實境）</h4>
+      <div class="frt-item"><div class="icon">✅</div><div>顯性化 Warrant，聽眾知道為什麼應該接受</div></div>
+      <div class="frt-item"><div class="icon">✅</div><div>先建立心理安全感，再引入邏輯論點</div></div>
+      <div class="frt-item"><div class="icon">✅</div><div>識別對方的「改變阻力」，設計低摩擦說服路徑</div></div>
+      <div class="frt-item"><div class="icon">✅</div><div>主動建立 Ethos，讓論點在信任框架中被接收</div></div>
+      <div class="frt-item"><div class="icon">✅</div><div>主動設定有利的語言框架（Framing）</div></div>
+      <div class="frt-item"><div class="icon">✅</div><div>把對方帶進共同推理過程——「我們一起看看哪個說法更合理」</div></div>
+    </div>
+  </div>
+
+  <h3>負面分支檢查（Negative Branch）</h3>
+  <div class="negative-branch">
+    <h4>⚠️ 完全掌握論證技術後的潛在負面效應</h4>
+    <div class="frt-item"><div class="icon">⚠️</div><div><strong>操縱風險：</strong>六大說服原則 ＋ 框架設定技術 ＋ Kairos 時機掌握，合起來是非常強大的操縱工具組。若缺乏倫理錨定，可能被用於不正當目的。<span class="source-tag tag-ai">AI 原創</span></div></div>
+    <div class="frt-item"><div class="icon">⚠️</div><div><strong>過度分析癱瘓：</strong>掌握了 11 問框架後，可能在日常對話中過度進行批判性分析，破壞人際關係的自然流動。<span class="source-tag tag-infer">推論</span></div></div>
+    <div class="frt-item"><div class="icon">⚠️</div><div><strong>論證帝國主義：</strong>把所有溝通都視為論證場合，失去純粹表達情感、閒聊、共情的能力——人際關係過度理性化。<span class="source-tag tag-ai">AI 原創</span></div></div>
+    <div class="frt-item"><div class="icon">⚠️</div><div><strong>謬誤指出強迫症：</strong>Copi 的謬誤分類讓人一眼識破對方的邏輯漏洞，但在大多數日常情境中指出謬誤只會讓對方惱怒，適得其反。<span class="source-tag tag-infer">推論</span></div></div>
+    <p style="margin-top:16px; font-size:13px; color:#888;"><strong>負面分支的解方：</strong>需要第 10 本書——一本討論「論證的倫理學」與「何時不論證」的書。這正是 9 本書的集體盲點。</p>
+  </div>
+</div>
+
+<!-- ═══ STEP 7 ════════════════════════════════════════════════════════ -->
+<div class="card">
+  <div class="step-header">
+    <div class="step-num">7</div>
+    <div class="step-title-wrap">
+      <h2>障礙識別（PrT 前提樹）</h2>
+      <p>從「想學習這 9 本書」到「真正靈活運用論證力」的障礙階梯</p>
+    </div>
+  </div>
+
+  <p style="font-size:14px; color:#666; margin-bottom:24px;">由上往下：終極目標在頂端，基礎障礙在底部。每層必須先克服下層才能到達上層。</p>
+
+  <div class="prt-ladder">
+    <div class="prt-step prt-level-1">
+      <div class="prt-num" style="background:#667eea;">1</div>
+      <div class="prt-step-content">
+        <div class="prt-goal">🏁 終極目標：在任何真實情境中靈活整合三要素，說服並維持關係</div>
+        <div class="prt-obstacle">障礙：還沒有足夠的「真實失敗案例→反思→調整」的刻意練習週期</div>
+        <div class="prt-tool">工具：建立論證日記 ＋ 定期反思機制</div>
+      </div>
+    </div>
+    <div class="prt-connector">↑</div>
+    <div class="prt-step prt-level-2">
+      <div class="prt-num" style="background:#d068e0;">2</div>
+      <div class="prt-step-content">
+        <div class="prt-goal">中間目標 IO4：能動態診斷對話中的 Ethos/Logos/Pathos 狀態並即時調整</div>
+        <div class="prt-obstacle">障礙：缺乏「在壓力情境下的實時元認知」能力</div>
+        <div class="prt-tool">工具：⑧ Kahneman 的系統二啟動技巧；⑨ Heinrichs 的即時修辭工具</div>
+      </div>
+    </div>
+    <div class="prt-connector">↑</div>
+    <div class="prt-step prt-level-3">
+      <div class="prt-num" style="background:#e07840;">3</div>
+      <div class="prt-step-content">
+        <div class="prt-goal">中間目標 IO3：能在論證前設計有效的論證架構（含 Warrant + 預判反駁）</div>
+        <div class="prt-obstacle">障礙：仍然習慣「即興論證」，缺乏前置規劃習慣</div>
+        <div class="prt-tool">工具：② Toulmin 六要素模板；④ Colomb 的讀者分析框架；⑥ Browne 的 11 問</div>
+      </div>
+    </div>
+    <div class="prt-connector">↑</div>
+    <div class="prt-step prt-level-4">
+      <div class="prt-num" style="background:#38a169;">4</div>
+      <div class="prt-step-content">
+        <div class="prt-goal">中間目標 IO2：能識別自身和對方論證中的謬誤與認知偏誤 <span class="critical-badge">⚡ 最致命瓶頸</span></div>
+        <div class="prt-obstacle">障礙：缺乏「謬誤識別」的系統性知識——這是底層基礎，沒有它，上層所有技能都建立在流沙上</div>
+        <div class="prt-tool">工具：⑤ Copi 謬誤系統；⑧ Kahneman 偏誤目錄；⑥ Browne 的前提審查</div>
+      </div>
+    </div>
+    <div class="prt-connector">↑</div>
+    <div class="prt-step prt-level-5">
+      <div class="prt-num" style="background:#2b6cb0;">5</div>
+      <div class="prt-step-content">
+        <div class="prt-goal">中間目標 IO1：建立「論證是可訓練技能，不是天賦」的信念</div>
+        <div class="prt-obstacle">障礙：長期學校教育暗示論證是「語文天賦」，缺乏刻意練習的動機框架</div>
+        <div class="prt-tool">工具：③ Weston（規則化論證）；任何一本書的讀完本身就能打破這個假設</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="highlight" style="margin-top:24px;">
+    <strong>⚡ 最致命瓶頸（IO2）：謬誤識別能力</strong><br>
+    這是整個論證力系統的核心制約，原因是：沒有謬誤識別能力，你無法審查自身論點的弱點（→UDE S1），無法識別對方的操縱（→UDE P2），也無法在對話中準確定位「爭議點在哪裡」（→UDE L4）。所有上層技能都依賴這個底層能力。<span class="source-tag tag-ai">AI 原創</span>
+  </div>
+</div>
+
+<!-- ═══ STEP 8 ════════════════════════════════════════════════════════ -->
+<div class="card">
+  <div class="step-header">
+    <div class="step-num">8</div>
+    <div class="step-title-wrap">
+      <h2>制約突破路徑（TOC 五聚焦步驟）</h2>
+      <p>識別論證力的核心制約，設計系統性突破策略</p>
+    </div>
+  </div>
+
+  <div class="highlight">
+    <strong>🎯 核心制約識別：</strong>論證力的核心制約是<strong>「範式制約」</strong>——「論證 = 用邏輯證明我對」這個根深柢固的信念。<br>
+    這不是物理制約（沒有書讀），也不是政策制約（沒有規定不能學），而是<strong>認知範式制約</strong>——人們無法想象論證可以是「共同建構真理的過程」，因為從小到大沒有人這樣示範過。<span class="source-tag tag-ai">AI 原創</span>
+  </div>
+
+  <div class="five-steps">
+    <div class="focus-step focus-step-1">
+      <div class="focus-num">①</div>
+      <div class="focus-content">
+        <div class="focus-step-title">識別（IDENTIFY）：核心制約是「論證 = 對抗」的範式</div>
+        <div class="focus-step-body">
+          大多數人的論證心智模型是「法庭對抗」——你有立場，我有立場，我要說服你放棄你的立場。這個模型導致所有後續的策略都以「擊敗對方」為目標，從根本上錯誤。<br>
+          <span style="color:#667eea; font-weight:600;">制約類型：範式制約（最難突破，但一旦突破，效益最大）</span>
+        </div>
+      </div>
+    </div>
+    <div class="focus-step focus-step-2">
+      <div class="focus-num">②</div>
+      <div class="focus-content">
+        <div class="focus-step-title">充分利用（EXPLOIT）：在現有範式下壓榨最大效益</div>
+        <div class="focus-step-body">
+          不改變「對抗模型」，但加入防禦技能：<br>
+          • 學習 Toulmin 結構，讓自己的「攻擊」更精準（② 論證六要素）<br>
+          • 學習謬誤識別，在對抗中避免被「謬誤陷阱」擊中（⑤ Copi）<br>
+          • 學習 Cialdini 六原則，在「對抗」框架下增加心理層面的優勢（⑦）<br>
+          <em style="color:#888; font-size:12px;">這一步讓你從「輸家」變成「較好的對抗者」，但還沒有根本突破</em>
+        </div>
+      </div>
+    </div>
+    <div class="focus-step focus-step-3">
+      <div class="focus-num">③</div>
+      <div class="focus-content">
+        <div class="focus-step-title">遷就（SUBORDINATE）：讓其他技能配合制約</div>
+        <div class="focus-step-body">
+          在還沒打破「對抗範式」前，其他論證技能的訓練應服務於「降低對抗強度」：<br>
+          • Ethos 建立（①）優先於 Logos 建立——先讓對方放下防禦<br>
+          • Kairos 判斷（⑨）優先於論點設計——先確定時機對<br>
+          • Pathos 校準（①⑦）優先於邏輯展示——先建立心理安全感<br>
+          <em style="color:#888; font-size:12px;">這讓現有論證技能在「對抗模型」下盡可能有效</em>
+        </div>
+      </div>
+    </div>
+    <div class="focus-step focus-step-4">
+      <div class="focus-num">④</div>
+      <div class="focus-content">
+        <div class="focus-step-title">提升（ELEVATE）：消除範式制約</div>
+        <div class="focus-step-body">
+          <strong>核心動作：用 Colomb（④）的「讀者問題框架」替換「對抗框架」</strong><br>
+          不再問「我要怎麼說服對方」，而是問「對方需要看到什麼才能自主改變立場？」<br>
+          這個問題的轉換，把論者的角色從「攻擊者」變成「嚮導」——帶著對方走一條他自己想走的路。<br><br>
+          輔助工具：<br>
+          • ⑧ Kahneman：讓你理解「對方的系統一需要什麼才會點頭」<br>
+          • ⑥ Browne & Keeley：讓你問「對方真正的問題是什麼」而非假設你已知道<br>
+          • ⑨ Heinrichs：提供「Concession（讓步）」技術，讓對方感到被尊重
+        </div>
+      </div>
+    </div>
+    <div class="focus-step focus-step-5">
+      <div class="focus-num">⑤</div>
+      <div class="focus-content">
+        <div class="focus-step-title">轉移（REPEAT）：打破範式後，下一個制約在哪裡？</div>
+        <div class="focus-step-body">
+          <strong>預測：下一個制約將是「情境判斷力」</strong><br>
+          當你掌握了論證的完整技術後，最難的問題變成：「在這個特定情境、這個特定對象、這個特定時機，我應該用哪個工具？」<br>
+          這是「論證元認知」的問題——沒有任何一本書完整解決這個問題，需要大量真實情境練習才能建立。<span class="source-tag tag-ai">AI 原創</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ STEP 9 ════════════════════════════════════════════════════════ -->
+<div class="card">
+  <div class="step-header">
+    <div class="step-num">9</div>
+    <div class="step-title-wrap">
+      <h2>行動轉化計畫（TrT）</h2>
+      <p>90 天論證力進化計畫——對應 TOC 前提樹的三個階段</p>
+    </div>
+  </div>
+
+  <div class="phase-grid">
+    <div class="phase-card phase-1">
+      <div class="phase-tag">PHASE 01</div>
+      <div class="phase-days">Day 1–30</div>
+      <div class="phase-title">🧱 建立診斷能力<br>（消除核心制約）</div>
+      <div style="color:#667eea; font-size:13px; margin-bottom:12px;">中間目標：IO1 + IO2</div>
+      <div class="phase-item"><span>📚</span><span>精讀 ⑤ Copi 謬誤系統——建立謬誤識別詞庫</span></div>
+      <div class="phase-item"><span>📚</span><span>精讀 ⑧ Kahneman——建立認知偏誤地圖</span></div>
+      <div class="phase-item"><span>📚</span><span>精讀 ⑥ Browne & Keeley——學習 11 問框架</span></div>
+      <div class="phase-item"><span>🔧</span><span>每天挑一個新聞論點，用 11 問框架審查</span></div>
+      <div class="phase-item"><span>🔧</span><span>每週分析 3 個日常對話中的謬誤實例</span></div>
+      <div class="phase-check">✅ 驗收標準：能在 5 分鐘內用 11 問框架完整審查任意一篇新聞評論，並識別至少 2 個謬誤或未支撐假設</div>
+    </div>
+    <div class="phase-card phase-2">
+      <div class="phase-tag">PHASE 02</div>
+      <div class="phase-days">Day 31–60</div>
+      <div class="phase-title">🏗 建立建構能力<br>（設計有效論證）</div>
+      <div style="color:#d068e0; font-size:13px; margin-bottom:12px;">中間目標：IO3</div>
+      <div class="phase-item"><span>📚</span><span>精讀 ② Toulmin——六要素模型實踐</span></div>
+      <div class="phase-item"><span>📚</span><span>精讀 ③ Weston——50 條規則，選 10 條重點熟記</span></div>
+      <div class="phase-item"><span>📚</span><span>精讀 ④ Williams——讀者問題框架</span></div>
+      <div class="phase-item"><span>🔧</span><span>每週設計 2 個完整的 Toulmin 六要素論證</span></div>
+      <div class="phase-item"><span>🔧</span><span>對重要場合的論點做「反駁預演」</span></div>
+      <div class="phase-check">✅ 驗收標準：能對任意一個論點完整填寫 Toulmin 六要素表格，並預測至少 3 個反駁方向及其應對策略</div>
+    </div>
+    <div class="phase-card phase-3">
+      <div class="phase-tag">PHASE 03</div>
+      <div class="phase-days">Day 61–90</div>
+      <div class="phase-title">🎯 建立整合能力<br>（動態說服實戰）</div>
+      <div style="color:#38a169; font-size:13px; margin-bottom:12px;">中間目標：IO4 + 終極目標</div>
+      <div class="phase-item"><span>📚</span><span>精讀 ① 亞里斯多德——三角架構整合</span></div>
+      <div class="phase-item"><span>📚</span><span>精讀 ⑦ Cialdini——心理觸發前置設計</span></div>
+      <div class="phase-item"><span>📚</span><span>精讀 ⑨ Heinrichs——即時修辭工具</span></div>
+      <div class="phase-item"><span>🔧</span><span>選 3 個真實重要場合做論證設計與事後復盤</span></div>
+      <div class="phase-item"><span>🔧</span><span>建立論證日記：每次重要對話後寫 What/Why/Next</span></div>
+      <div class="phase-check">✅ 驗收標準：在真實壓力情境中完成一次論證並獲得正向結果（對方改變立場或採取行動），事後能分析成功/失敗的具體原因</div>
+    </div>
+  </div>
+
+  <div class="highlight" style="margin-top:8px;">
+    <strong>🥁 TrT 的 Drum-Buffer-Rope：</strong><br>
+    <strong>Drum（節拍器）：</strong>Phase 1 的謬誤識別是整個計畫的節拍器——所有後續技能的學習速度都不應超過謬誤識別能力的成熟速度。<br>
+    <strong>Buffer（緩衝）：</strong>每個 Phase 結束後設 7 天緩衝，用於整合和鞏固，不急著進入下一 Phase。<br>
+    <strong>Rope（繩子）：</strong>用論證日記把三個 Phase 連繫在一起，確保前期學到的診斷技能在後期繼續被使用。<span class="source-tag tag-ai">AI 原創</span>
+  </div>
+</div>
+
+<!-- ═══ STEP 10 ═══════════════════════════════════════════════════════ -->
+<div class="card">
+  <div class="step-header">
+    <div class="step-num">10</div>
+    <div class="step-title-wrap">
+      <h2>整合洞見 + 知識血緣</h2>
+      <p>TOC 視角下的 9 本書系統圖 × 集體盲點 × 終極比喻</p>
+    </div>
+  </div>
+
+  <h3>TOC 視角下的 9 本書分工系統圖</h3>
+  <div class="dna-grid">
+    <div class="dna-role diagnose">
+      <h4>🔍 診斷層（CRT 建構）</h4>
+      <p style="font-size:12px; color:#666; margin-bottom:10px;">誰幫你看清楚「問題出在哪裡」？</p>
+      <div class="dna-item">📖 <strong>⑧ Kahneman</strong>：系統一/二告訴你「為什麼邏輯在情緒面前失效」</div>
+      <div class="dna-item">📖 <strong>⑤ Copi</strong>：謬誤系統告訴你「論證的哪個位置出了問題」</div>
+      <div class="dna-item">📖 <strong>⑥ Browne & Keeley</strong>：11問告訴你「你連問題都問錯了」</div>
+    </div>
+    <div class="dna-role inject">
+      <h4>💉 注入解層（EC 假設打破）</h4>
+      <p style="font-size:12px; color:#666; margin-bottom:10px;">誰提供了「打破核心假設」的方法？</p>
+      <div class="dna-item">📖 <strong>① 亞里斯多德</strong>：Ethos 橋樑打破「邏輯vs情感對立」</div>
+      <div class="dna-item">📖 <strong>⑦ Cialdini</strong>：六原則打破「邏輯是唯一說服工具」</div>
+      <div class="dna-item">📖 <strong>④ Williams</strong>：讀者框架打破「論者中心主義」</div>
+      <div class="dna-item">📖 <strong>② Toulmin</strong>：六要素打破「論證是模糊藝術」</div>
+    </div>
+    <div class="dna-role implement">
+      <h4>🔧 實施層（TrT 工具）</h4>
+      <p style="font-size:12px; color:#666; margin-bottom:10px;">誰提供了「可以立刻使用」的工具？</p>
+      <div class="dna-item">📖 <strong>③ Weston</strong>：50條規則——論證速查手冊</div>
+      <div class="dna-item">📖 <strong>⑨ Heinrichs</strong>：日常修辭工具——即時可用</div>
+      <div class="dna-item">📖 <strong>⑦ Cialdini</strong>：六原則——心理前置設計</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>缺席分析：9 本書的集體盲點</h3>
+  <div class="blind-spot">
+    <h4>🕳 盲點一：論證倫理學</h4>
+    <p>9 本書都告訴你「如何更有效地說服」，但沒有一本書系統性討論「什麼時候你不應該說服」以及「說服的道德邊界在哪裡」。Cialdini 的六原則如果被完全應用，是強大的操縱工具——書中對此討論嚴重不足。<span class="source-tag tag-ai">AI 原創</span></p>
+  </div>
+  <div class="blind-spot">
+    <h4>🕳 盲點二：文化相對性</h4>
+    <p>9 本書幾乎全部來自西方學術傳統。亞里斯多德的三要素、Toulmin 的六元素，都預設了一個「以個人主義為基礎、論點優於關係」的文化框架。在東亞文化中，「面子」「集體和諧」「上下關係」對論證的影響遠超過邏輯結構——這個維度完全缺席。<span class="source-tag tag-infer">推論</span></p>
+  </div>
+  <div class="blind-spot">
+    <h4>🕳 盲點三：長期說服 vs. 即時說服</h4>
+    <p>9 本書大多數聚焦在「單次對話的說服效果」，對「如何在一段關係中逐漸改變對方的長期信念」著墨極少。真實世界中，最重要的說服往往是幾週、幾個月、幾年的慢慢影響，而非一次完美的論證。<span class="source-tag tag-ai">AI 原創</span></p>
+  </div>
+  <div class="blind-spot">
+    <h4>🕳 盲點四：自我說服</h4>
+    <p>所有書都聚焦「說服他人」，但最難說服的往往是自己。「我為什麼會相信這個？」「我的論點是自我服務偏誤的產物嗎？」這個自我反思維度幾乎完全缺席。<span class="source-tag tag-ai">AI 原創</span></p>
+  </div>
+
+  <div class="divider"></div>
+
+  <h3>終極比喻：論證力的 Drum-Buffer-Rope</h3>
+  <div class="metaphor-box">
+    <div class="metaphor-icon">🥁</div>
+    <div class="metaphor-title">論證力就是一個工廠的生產系統</div>
+    <div class="metaphor-body">
+      <strong>Drum（節拍器）= 聽眾的接受能力</strong><br>
+      論證的速度不能超過聽眾消化和接受新觀點的速度。你的工廠可以生產再多論點，如果倉庫（聽眾的認知空間）已滿，論點只是堆在門口腐爛。<br><br>
+      <strong>Buffer（緩衝）= Ethos 與 Pathos 建立</strong><br>
+      在投入最核心的 Logos（邏輯論點）之前，你需要足夠的 Ethos 緩衝（可信度）和 Pathos 緩衝（情感安全感），確保即使論點遇到阻力，整個說服過程也不會崩潰。<br><br>
+      <strong>Rope（繩子）= 你對聽眾認知狀態的即時追蹤</strong><br>
+      Rope 把論者的輸出速度與聽眾的接受速度綁在一起。最好的論證者不是說話最有力的人，而是最能追蹤「對方現在在哪裡」並據此調整步調的人。<br><br>
+      <em>一句話：論證的核心限制不是你有多少論點，而是聽眾願意接收多少。有效論證就是管理這個限制。</em>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ════════════════════════════════════════════════════════ -->
+</div><!-- /container -->
+
+<div class="footer">
+  <p>論證力 × TOC 十步深度分析 | 書醒系統 × 限制理論整合報告</p>
+  <p style="margin-top:8px;">分析框架：TOC（Theory of Constraints）× 亞里斯多德至 Kahneman 跨千年論證學</p>
+  <p style="margin-top:4px; font-size:12px; color:#ccc;">標記說明：<span class="source-tag tag-l1">L1 書中</span> = 直接來自書籍 ｜ <span class="source-tag tag-infer">推論</span> = 基於書籍的邏輯推論 ｜ <span class="source-tag tag-verify">待驗證</span> = 需進一步確認 ｜ <span class="source-tag tag-ai">AI 原創</span> = 分析師整合創見</p>
+</div>
+
+</body>
+</html>
