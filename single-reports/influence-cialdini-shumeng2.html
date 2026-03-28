@@ -1,0 +1,1527 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>影響力：說服心理學 — 書僮 2.0 深度分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0a0a14;
+    --bg2: #0f0f1a;
+    --bg3: #141428;
+    --card: #16162a;
+    --card2: #1a1a30;
+    --border: rgba(255,255,255,0.07);
+    --text: #e8e8f0;
+    --muted: #8888aa;
+    /* Stage 1: 橘金 */
+    --gold: #f59e0b;
+    --gold2: #fbbf24;
+    --orange: #f97316;
+    --s1-grad: linear-gradient(135deg, #f59e0b, #f97316);
+    --s1-glow: rgba(245,158,11,0.15);
+    /* Stage 2: 藍青 */
+    --cyan: #06b6d4;
+    --blue: #3b82f6;
+    --s2-grad: linear-gradient(135deg, #06b6d4, #3b82f6);
+    --s2-glow: rgba(6,182,212,0.12);
+    /* Stage 3: 紫粉 */
+    --violet: #8b5cf6;
+    --pink: #ec4899;
+    --s3-grad: linear-gradient(135deg, #8b5cf6, #ec4899);
+    --s3-glow: rgba(139,92,246,0.15);
+    /* Principles colors */
+    --p1: #ef4444; --p2: #f97316; --p3: #eab308;
+    --p4: #22c55e; --p5: #06b6d4; --p6: #8b5cf6;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans TC', 'Inter', sans-serif;
+    line-height: 1.7;
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    text-align: center;
+    padding: 60px 24px;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(245,158,11,0.08), transparent 70%),
+                radial-gradient(ellipse 60% 60% at 80% 80%, rgba(139,92,246,0.06), transparent 60%),
+                var(--bg);
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.015'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-block;
+    padding: 6px 18px;
+    border: 1px solid var(--gold);
+    border-radius: 100px;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    background: rgba(245,158,11,0.06);
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 8vw, 5.5rem);
+    line-height: 1.15;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #fff 0%, var(--gold) 60%, var(--orange) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero h2 {
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    color: var(--muted);
+    font-weight: 300;
+    margin-bottom: 8px;
+  }
+
+  .hero-author {
+    color: var(--gold2);
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 40px;
+  }
+
+  .hero-meta {
+    display: flex; gap: 32px; flex-wrap: wrap; justify-content: center;
+    margin-bottom: 56px;
+  }
+
+  .hero-stat {
+    text-align: center;
+  }
+
+  .hero-stat .num {
+    font-size: 2rem; font-weight: 700;
+    background: var(--s1-grad);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-stat .label {
+    font-size: 0.75rem; color: var(--muted); letter-spacing: 1px;
+  }
+
+  .stages-nav {
+    display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+  }
+
+  .stage-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 13px; font-weight: 600;
+    text-decoration: none; cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: none;
+  }
+
+  .stage-btn:hover { transform: translateY(-2px); }
+
+  .stage-btn.s1 {
+    background: rgba(245,158,11,0.12); color: var(--gold);
+    border: 1px solid rgba(245,158,11,0.3);
+    box-shadow: 0 4px 24px rgba(245,158,11,0.1);
+  }
+  .stage-btn.s1:hover { box-shadow: 0 8px 32px rgba(245,158,11,0.25); }
+
+  .stage-btn.s2 {
+    background: rgba(6,182,212,0.1); color: var(--cyan);
+    border: 1px solid rgba(6,182,212,0.3);
+  }
+  .stage-btn.s2:hover { box-shadow: 0 8px 32px rgba(6,182,212,0.2); }
+
+  .stage-btn.s3 {
+    background: rgba(139,92,246,0.1); color: var(--violet);
+    border: 1px solid rgba(139,92,246,0.3);
+  }
+  .stage-btn.s3:hover { box-shadow: 0 8px 32px rgba(139,92,246,0.2); }
+
+  /* SECTIONS */
+  .section {
+    padding: 100px 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .stage-header {
+    display: flex; align-items: center; gap: 24px;
+    margin-bottom: 64px;
+  }
+
+  .stage-num {
+    font-size: clamp(5rem, 12vw, 9rem);
+    font-weight: 900; line-height: 1;
+    font-family: 'Inter', sans-serif;
+    opacity: 0.12;
+    flex-shrink: 0;
+  }
+
+  .stage-num.s1 { color: var(--gold); }
+  .stage-num.s2 { color: var(--cyan); }
+  .stage-num.s3 { color: var(--violet); }
+
+  .stage-info h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 700; line-height: 1.2;
+    margin-bottom: 8px;
+  }
+
+  .stage-info h2.s1 { color: var(--gold); }
+  .stage-info h2.s2 { color: var(--cyan); }
+  .stage-info h2.s3 { color: var(--violet); }
+
+  .stage-info p { color: var(--muted); font-size: 1rem; }
+
+  /* DIVIDER */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0;
+  }
+
+  /* SECTION BG */
+  .section-s1 { background: radial-gradient(ellipse 80% 50% at 50% 0%, var(--s1-glow), transparent 70%); }
+  .section-s2 { background: radial-gradient(ellipse 80% 50% at 50% 0%, var(--s2-glow), transparent 70%); }
+  .section-s3 { background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(139,92,246,0.07), transparent 70%); }
+
+  /* CONCEPT CARD */
+  .concept-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+
+  .concept-card h3 {
+    font-size: 1.3rem; font-weight: 700;
+    color: var(--gold2);
+    margin-bottom: 12px;
+  }
+
+  .concept-card p { color: var(--text); line-height: 1.8; }
+
+  .highlight-box {
+    background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(249,115,22,0.05));
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin: 16px 0;
+    font-style: italic;
+    color: var(--gold2);
+  }
+
+  /* PRINCIPLES GRID */
+  .principles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .principle-card {
+    background: var(--card);
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .principle-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .principle-header {
+    padding: 24px 28px 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .principle-header::before {
+    content: '';
+    position: absolute; inset: 0;
+    opacity: 0.08;
+  }
+
+  .p1 .principle-header::before { background: var(--p1); }
+  .p2 .principle-header::before { background: var(--p2); }
+  .p3 .principle-header::before { background: var(--p3); }
+  .p4 .principle-header::before { background: var(--p4); }
+  .p5 .principle-header::before { background: var(--p5); }
+  .p6 .principle-header::before { background: var(--p6); }
+
+  .p-num {
+    font-size: 3rem; font-weight: 900;
+    opacity: 0.15;
+    position: absolute; top: 12px; right: 20px;
+    font-family: 'Inter', sans-serif;
+    line-height: 1;
+  }
+
+  .p1 .p-num { color: var(--p1); }
+  .p2 .p-num { color: var(--p2); }
+  .p3 .p-num { color: var(--p3); }
+  .p4 .p-num { color: var(--p4); }
+  .p5 .p-num { color: var(--p5); }
+  .p6 .p-num { color: var(--p6); }
+
+  .p-emoji { font-size: 2rem; margin-bottom: 8px; display: block; }
+
+  .p-title {
+    font-size: 1.3rem; font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .p1 .p-title { color: var(--p1); }
+  .p2 .p-title { color: var(--p2); }
+  .p3 .p-title { color: var(--p3); }
+  .p4 .p-title { color: var(--p4); }
+  .p5 .p-title { color: var(--p5); }
+  .p6 .p-title { color: var(--p6); }
+
+  .p-subtitle { font-size: 0.85rem; color: var(--muted); }
+
+  .principle-body { padding: 20px 28px 24px; }
+
+  .p-section { margin-bottom: 16px; }
+  .p-section:last-child { margin-bottom: 0; }
+
+  .p-label {
+    font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px;
+    font-weight: 700; margin-bottom: 6px; display: block;
+    color: var(--muted);
+  }
+
+  .p-content { font-size: 0.9rem; color: var(--text); line-height: 1.7; }
+
+  .defense-apply {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-top: 16px;
+  }
+
+  .defense, .apply {
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-size: 0.82rem;
+    line-height: 1.6;
+  }
+
+  .defense {
+    background: rgba(239,68,68,0.06);
+    border: 1px solid rgba(239,68,68,0.15);
+  }
+
+  .defense strong { color: #f87171; display: block; margin-bottom: 4px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+
+  .apply {
+    background: rgba(34,197,94,0.06);
+    border: 1px solid rgba(34,197,94,0.15);
+  }
+
+  .apply strong { color: #4ade80; display: block; margin-bottom: 4px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* SUBSECTIONS within stage */
+  .sub-section {
+    margin-bottom: 48px;
+  }
+
+  .sub-title {
+    font-size: 1.4rem; font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .sub-title.s2 { color: var(--cyan); border-color: rgba(6,182,212,0.2); }
+  .sub-title.s3 { color: var(--violet); border-color: rgba(139,92,246,0.2); }
+
+  .dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .dot.s2 { background: var(--s2-grad); }
+  .dot.s3 { background: var(--s3-grad); }
+
+  /* COMPARISON TABLE */
+  .compare-grid {
+    display: grid; gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+
+  .compare-card {
+    background: var(--card);
+    border: 1px solid rgba(6,182,212,0.15);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .compare-card h4 {
+    font-size: 1rem; font-weight: 700; color: var(--cyan);
+    margin-bottom: 12px; padding-bottom: 8px;
+    border-bottom: 1px solid rgba(6,182,212,0.15);
+  }
+
+  .compare-card p { font-size: 0.88rem; color: var(--text); line-height: 1.7; }
+
+  .compare-card .vs-tag {
+    display: inline-block;
+    background: rgba(6,182,212,0.1);
+    color: var(--cyan);
+    padding: 2px 10px; border-radius: 100px;
+    font-size: 0.7rem; font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  /* CRITICISM */
+  .criticism-card {
+    background: var(--card);
+    border: 1px solid rgba(239,68,68,0.15);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 16px;
+  }
+
+  .criticism-card h4 { color: #f87171; margin-bottom: 8px; font-size: 0.95rem; }
+  .criticism-card p { font-size: 0.88rem; color: var(--text); line-height: 1.7; }
+
+  /* PRACTICE TOOLKIT */
+  .toolkit-grid {
+    display: grid; gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  }
+
+  .toolkit-card {
+    background: var(--card);
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .toolkit-header {
+    padding: 16px 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .tk-icon { font-size: 1.6rem; }
+
+  .tk-title { font-size: 1rem; font-weight: 700; }
+
+  .toolkit-body { padding: 0 20px 20px; }
+
+  .tk-row {
+    background: var(--card2);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-bottom: 8px;
+  }
+
+  .tk-row label {
+    display: block; font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--muted); margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .tk-row p { font-size: 0.85rem; color: var(--text); line-height: 1.6; }
+
+  .tk-30s {
+    background: rgba(139,92,246,0.08);
+    border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 8px;
+    padding: 12px 14px;
+    margin-top: 8px;
+  }
+
+  .tk-30s label {
+    display: block; font-size: 0.7rem; text-transform: uppercase;
+    letter-spacing: 1.5px; color: var(--violet); margin-bottom: 4px;
+    font-weight: 600;
+  }
+
+  .tk-30s p { font-size: 0.85rem; color: var(--text); line-height: 1.6; }
+
+  /* LEVERAGE */
+  .leverage-card {
+    background: linear-gradient(135deg, rgba(139,92,246,0.08), rgba(236,72,153,0.06));
+    border: 1px solid rgba(139,92,246,0.25);
+    border-radius: 16px;
+    padding: 32px;
+    margin-bottom: 24px;
+  }
+
+  .leverage-card h3 {
+    font-size: 1.4rem; color: var(--violet); margin-bottom: 8px;
+    font-weight: 700;
+  }
+
+  .leverage-card .why {
+    font-size: 0.9rem; color: var(--muted); margin-bottom: 20px;
+    font-style: italic;
+  }
+
+  .script-block {
+    background: rgba(0,0,0,0.3);
+    border: 1px solid rgba(139,92,246,0.2);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin-top: 16px;
+  }
+
+  .script-block h4 {
+    font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--violet); margin-bottom: 12px; font-weight: 700;
+  }
+
+  .script-step {
+    display: flex; gap: 12px; align-items: flex-start;
+    margin-bottom: 10px;
+  }
+
+  .script-step:last-child { margin-bottom: 0; }
+
+  .step-num {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--s3-grad);
+    color: white; font-size: 0.7rem; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; margin-top: 2px;
+  }
+
+  .step-text { font-size: 0.87rem; color: var(--text); line-height: 1.6; }
+
+  /* 30-DAY PLAN */
+  .plan-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px; margin-top: 24px;
+  }
+
+  .week-card {
+    background: var(--card);
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+
+  .week-header {
+    padding: 14px 18px;
+    font-size: 0.85rem; font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  .week-1 .week-header { background: linear-gradient(135deg, rgba(239,68,68,0.2), rgba(239,68,68,0.1)); color: var(--p1); }
+  .week-2 .week-header { background: linear-gradient(135deg, rgba(249,115,22,0.2), rgba(249,115,22,0.1)); color: var(--p2); }
+  .week-3 .week-header { background: linear-gradient(135deg, rgba(34,197,94,0.2), rgba(34,197,94,0.1)); color: var(--p4); }
+  .week-4 .week-header { background: linear-gradient(135deg, rgba(139,92,246,0.2), rgba(139,92,246,0.1)); color: var(--p6); }
+
+  .week-body { padding: 16px 18px; }
+
+  .week-body ul { list-style: none; }
+
+  .week-body li {
+    font-size: 0.83rem; color: var(--text); line-height: 1.6;
+    padding: 4px 0;
+    display: flex; gap: 8px; align-items: flex-start;
+  }
+
+  .week-body li::before {
+    content: '→'; color: var(--muted); font-size: 0.75rem; margin-top: 2px; flex-shrink: 0;
+  }
+
+  .verify {
+    margin-top: 10px; padding-top: 10px;
+    border-top: 1px solid var(--border);
+    font-size: 0.78rem; color: var(--muted); font-style: italic;
+  }
+
+  /* TRACKER */
+  .tracker-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 16px; margin-top: 24px;
+  }
+
+  .tracker-card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid var(--border);
+  }
+
+  .tracker-card h4 {
+    font-size: 0.95rem; font-weight: 700; margin-bottom: 12px;
+    color: var(--violet);
+  }
+
+  .tracker-card ul { list-style: none; }
+
+  .tracker-card li {
+    font-size: 0.85rem; color: var(--text); line-height: 1.6;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; gap: 8px;
+  }
+
+  .tracker-card li:last-child { border-bottom: none; }
+
+  .tracker-card li::before { content: '▸'; color: var(--violet); flex-shrink: 0; }
+
+  /* TONIGHT */
+  .tonight-card {
+    background: linear-gradient(135deg, rgba(245,158,11,0.1), rgba(249,115,22,0.07));
+    border: 2px solid var(--gold);
+    border-radius: 20px;
+    padding: 40px;
+    text-align: center;
+    margin-top: 40px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tonight-card::before {
+    content: '⚡';
+    position: absolute; font-size: 8rem;
+    opacity: 0.04; top: -20px; right: -10px;
+  }
+
+  .tonight-card h3 {
+    font-size: 1.2rem; color: var(--muted);
+    text-transform: uppercase; letter-spacing: 3px;
+    margin-bottom: 12px;
+  }
+
+  .tonight-card h2 {
+    font-size: 1.8rem; color: var(--gold2);
+    font-weight: 700; margin-bottom: 16px; line-height: 1.3;
+  }
+
+  .tonight-card p { font-size: 0.95rem; color: var(--text); max-width: 600px; margin: 0 auto; }
+
+  .tonight-steps {
+    display: flex; flex-direction: column; gap: 12px;
+    max-width: 500px; margin: 24px auto 0; text-align: left;
+  }
+
+  .tonight-step {
+    display: flex; gap: 14px; align-items: flex-start;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px; padding: 12px 16px;
+  }
+
+  .tonight-step .n {
+    background: var(--s1-grad);
+    color: #000; font-weight: 800; font-size: 0.8rem;
+    width: 24px; height: 24px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .tonight-step p { font-size: 0.88rem; color: var(--text); line-height: 1.5; }
+
+  /* CLICK-WHIRR INTRO */
+  .clickwhirr-box {
+    background: var(--card);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .clickwhirr-box::after {
+    content: 'CLICK\AWHIRR';
+    white-space: pre;
+    position: absolute; right: 20px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 3rem; font-weight: 900; font-family: 'Inter', sans-serif;
+    color: var(--gold); opacity: 0.06;
+    line-height: 1;
+  }
+
+  .clickwhirr-box h3 { color: var(--gold); font-size: 1.2rem; margin-bottom: 12px; }
+  .clickwhirr-box p { font-size: 0.92rem; color: var(--text); line-height: 1.8; }
+
+  /* DANGER BOX */
+  .danger-box {
+    background: rgba(239,68,68,0.06);
+    border: 1px solid rgba(239,68,68,0.25);
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-top: 16px;
+  }
+
+  .danger-box h4 { color: #f87171; font-size: 0.9rem; margin-bottom: 8px; }
+  .danger-box p { font-size: 0.85rem; color: var(--text); line-height: 1.7; }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .defense-apply { grid-template-columns: 1fr; }
+    .tracker-grid { grid-template-columns: 1fr; }
+    .stage-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .stage-num { font-size: 4rem; }
+    .tonight-card { padding: 28px 20px; }
+  }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 8px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--card2); border-radius: 4px; }
+
+  /* FOOTER */
+  footer {
+    padding: 40px 24px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.82rem;
+    border-top: 1px solid var(--border);
+  }
+
+  /* TAGS */
+  .tag {
+    display: inline-block;
+    padding: 3px 10px; border-radius: 100px;
+    font-size: 0.72rem; font-weight: 600;
+    margin: 2px;
+  }
+
+  .tag-gold { background: rgba(245,158,11,0.1); color: var(--gold); border: 1px solid rgba(245,158,11,0.2); }
+  .tag-red { background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+  .tag-green { background: rgba(34,197,94,0.1); color: #4ade80; border: 1px solid rgba(34,197,94,0.2); }
+
+  /* INFO BADGE */
+  .info-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 16px; border-radius: 8px;
+    font-size: 0.82rem;
+    background: rgba(6,182,212,0.07);
+    border: 1px solid rgba(6,182,212,0.2);
+    color: var(--cyan); margin-bottom: 20px;
+  }
+
+  .principle-card.p1 { border-color: rgba(239,68,68,0.15); }
+  .principle-card.p2 { border-color: rgba(249,115,22,0.15); }
+  .principle-card.p3 { border-color: rgba(234,179,8,0.15); }
+  .principle-card.p4 { border-color: rgba(34,197,94,0.15); }
+  .principle-card.p5 { border-color: rgba(6,182,212,0.15); }
+  .principle-card.p6 { border-color: rgba(139,92,246,0.15); }
+
+  .p1:hover { box-shadow: 0 20px 60px rgba(239,68,68,0.12); }
+  .p2:hover { box-shadow: 0 20px 60px rgba(249,115,22,0.12); }
+  .p3:hover { box-shadow: 0 20px 60px rgba(234,179,8,0.1); }
+  .p4:hover { box-shadow: 0 20px 60px rgba(34,197,94,0.1); }
+  .p5:hover { box-shadow: 0 20px 60px rgba(6,182,212,0.1); }
+  .p6:hover { box-shadow: 0 20px 60px rgba(139,92,246,0.12); }
+
+  /* Toolkit colors */
+  .tk-p1 .toolkit-header { background: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(239,68,68,0.05)); }
+  .tk-p1 .tk-title { color: var(--p1); }
+  .tk-p2 .toolkit-header { background: linear-gradient(135deg, rgba(249,115,22,0.12), rgba(249,115,22,0.05)); }
+  .tk-p2 .tk-title { color: var(--p2); }
+  .tk-p3 .toolkit-header { background: linear-gradient(135deg, rgba(234,179,8,0.12), rgba(234,179,8,0.05)); }
+  .tk-p3 .tk-title { color: var(--p3); }
+  .tk-p4 .toolkit-header { background: linear-gradient(135deg, rgba(34,197,94,0.12), rgba(34,197,94,0.05)); }
+  .tk-p4 .tk-title { color: var(--p4); }
+  .tk-p5 .toolkit-header { background: linear-gradient(135deg, rgba(6,182,212,0.12), rgba(6,182,212,0.05)); }
+  .tk-p5 .tk-title { color: var(--p5); }
+  .tk-p6 .toolkit-header { background: linear-gradient(135deg, rgba(139,92,246,0.12), rgba(139,92,246,0.05)); }
+  .tk-p6 .tk-title { color: var(--p6); }
+</style>
+</head>
+<body>
+
+<!-- ==================== HERO ==================== -->
+<section class="hero" id="top">
+  <div class="hero-tag">📚 書僮 2.0 · 三階段深讀法</div>
+  <h1>影響力</h1>
+  <h2>The Psychology of Persuasion</h2>
+  <div class="hero-author">Robert B. Cialdini, Ph.D.</div>
+  <div class="hero-meta">
+    <div class="hero-stat"><div class="num">6</div><div class="label">說服原則</div></div>
+    <div class="hero-stat"><div class="num">40+</div><div class="label">年經典不衰</div></div>
+    <div class="hero-stat"><div class="num">3</div><div class="label">深讀階段</div></div>
+    <div class="hero-stat"><div class="num">30</div><div class="label">天實踐計畫</div></div>
+  </div>
+  <div class="stages-nav">
+    <a href="#stage1" class="stage-btn s1">🔍 Stage 01 · 內容本體</a>
+    <a href="#stage2" class="stage-btn s2">🌐 Stage 02 · 外部驗證</a>
+    <a href="#stage3" class="stage-btn s3">⚡ Stage 03 · Rex 實戰</a>
+  </div>
+</section>
+
+<!-- ==================== STAGE 1 ==================== -->
+<div class="divider"></div>
+<div style="background: radial-gradient(ellipse 80% 50% at 50% 0%, var(--s1-glow), transparent 70%);">
+<section class="section" id="stage1">
+  <div class="stage-header">
+    <div class="stage-num s1">01</div>
+    <div class="stage-info">
+      <h2 class="s1">兩遍深讀 — 內容本體</h2>
+      <p>第一遍：結構掃描 · 全書骨架 ／ 第二遍：深度挖掘 · 六大原則</p>
+    </div>
+  </div>
+
+  <!-- 第一遍：結構掃描 -->
+  <div class="sub-section">
+    <div class="sub-title s2"><span class="dot s2"></span>第一遍：結構掃描 — 全書骨架</div>
+
+    <div class="clickwhirr-box">
+      <h3>核心主張：Click-Whirr 自動觸發機制</h3>
+      <p>Cialdini 從動物行為學出發，提出了一個令人不安的類比：<strong>人類和動物一樣，擁有「固定行動模式（fixed-action patterns）」</strong>。當特定觸發特徵出現，我們就像磁帶被按下播放鍵一樣，自動執行預程式化的行為。<br><br>
+      就像母火雞只要聽到「啾啾聲」就觸發母性本能——即使聲音來自填充黃鼠狼。人類也一樣：「昂貴 = 高品質」、「因為......所以......」、「大家都這麼做」——這些觸發詞足以讓我們不假思索地點頭說「好」。<br><br>
+      <strong>書的核心論題：</strong>在資訊爆炸的現代社會，我們越來越依賴心理捷徑（shortcuts）。說服專家——銷售員、募款人、廣告商——他們的武器庫裡裝著六把可以觸發這些捷徑的鑰匙。</p>
+    </div>
+
+    <div class="concept-card">
+      <h3>六大原則的邏輯順序：為什麼這樣排列？</h3>
+      <p>Cialdini 的排列並非隨機，而是從<strong>社會基礎層</strong>到<strong>心理深層</strong>的遞進：</p>
+      <br>
+      <div style="display:grid; gap:10px; margin-top:8px;">
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <span style="color:var(--p1); font-weight:800; font-size:1.1rem; flex-shrink:0;">①</span>
+          <div><strong style="color:var(--p1);">互惠</strong> — 最原始的社會黏合劑。進化層面的義務感，整個社會交換體系的基礎。</div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <span style="color:var(--p2); font-weight:800; font-size:1.1rem; flex-shrink:0;">②</span>
+          <div><strong style="color:var(--p2);">承諾與一致</strong> — 自我認同的維護機制。一旦說出口、寫下來，人就想活得一致。</div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <span style="color:var(--p3); font-weight:800; font-size:1.1rem; flex-shrink:0;">③</span>
+          <div><strong style="color:var(--p3);">社會認同</strong> — 不確定時向他人看齊的本能。群體是我們的校準工具。</div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <span style="color:var(--p4); font-weight:800; font-size:1.1rem; flex-shrink:0;">④</span>
+          <div><strong style="color:var(--p4);">喜好</strong> — 人際連結創造影響力。我們向喜歡的人說是。</div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <span style="color:var(--p5); font-weight:800; font-size:1.1rem; flex-shrink:0;">⑤</span>
+          <div><strong style="color:var(--p5);">權威</strong> — 認知捷徑：相信專家省力又安全。頭銜、制服成為觸發器。</div>
+        </div>
+        <div style="display:flex; gap:12px; align-items:flex-start;">
+          <span style="color:var(--p6); font-weight:800; font-size:1.1rem; flex-shrink:0;">⑥</span>
+          <div><strong style="color:var(--p6);">稀缺</strong> — 心理抗拒理論：失去自由比得到東西更讓人焦慮。壓軸原則，力道最猛。</div>
+        </div>
+      </div>
+      <div class="highlight-box" style="margin-top:20px;">
+        「排列邏輯：從外在社會壓力（互惠義務）→ 內在自我認同（一致性）→ 群體參照（社會認同）→ 人際情感（喜好）→ 外部權威（權威）→ 心理本能（稀缺）。越到後面，越難用理性抵抗。」
+      </div>
+    </div>
+  </div>
+
+  <!-- 第二遍：六大原則 -->
+  <div class="sub-section">
+    <div class="sub-title s2"><span class="dot s2"></span>第二遍：深度挖掘 — 六大原則</div>
+    <div class="principles-grid">
+
+      <!-- P1 互惠 -->
+      <div class="principle-card p1">
+        <div class="principle-header">
+          <span class="p-num">01</span>
+          <span class="p-emoji">🔄</span>
+          <div class="p-title">互惠 Reciprocity</div>
+          <div class="p-subtitle">老給老要 — 恩惠的重量</div>
+        </div>
+        <div class="principle-body">
+          <div class="p-section">
+            <span class="p-label">🔑 原則定義</span>
+            <div class="p-content">「我們應嘗試以同樣的方式回報他人給予我們的東西。」這個規則如此普遍，以至於人類學家在所有研究過的人類社會中都發現了它。</div>
+          </div>
+          <div class="p-section">
+            <span class="p-label">⚙️ 心理機制</span>
+            <div class="p-content">互惠感是人類社會合作的底層協議。收到好意後，欠債感會產生心理不適，迫使人「還清」以恢復平衡。這個機制強到可以<strong>壓過喜好原則</strong>——你甚至會為不喜歡的人買票。</div>
+          </div>
+          <div class="p-section">
+            <span class="p-label">📖 書中案例</span>
+            <div class="p-content">
+              · 哈雷奎師那社（Hare Krishna）的機場花朵策略<br>
+              · Amway 公司的「BUG」免費試用包：銷售翻倍成長<br>
+              · 教授寄聖誕卡給陌生人，幾乎全數回寄<br>
+              · 埃塞俄比亞在極度貧困時向墨西哥捐款5000美元——因為50年前墨西哥曾援助它<br>
+              · <strong>互惠性讓步（rejection-then-retreat）</strong>：童子軍先要求買5美元票，被拒絕後退讓要1美元巧克力，成功率大幅提升
+            </div>
+          </div>
+          <div class="defense-apply">
+            <div class="defense">
+              <strong>🛡 防禦</strong>
+              收到禮物時，先問：「這個給予是否有隱藏的索取意圖？」如果是商業手法，在心理上重新定義它為「銷售工具」而非「善意」——義務感立即消散。
+            </div>
+            <div class="apply">
+              <strong>✅ 應用</strong>
+              先給出真實價值（洞察、資源、時間），不帶條件，建立真誠債務感。在適當時機提出請求，效果遠超直接要求。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P2 承諾與一致 -->
+      <div class="principle-card p2">
+        <div class="principle-header">
+          <span class="p-num">02</span>
+          <span class="p-emoji">✍️</span>
+          <div class="p-title">承諾與一致 Commitment & Consistency</div>
+          <div class="p-subtitle">心理牢籠 — 自我認同的守護者</div>
+        </div>
+        <div class="principle-body">
+          <div class="p-section">
+            <span class="p-label">🔑 原則定義</span>
+            <div class="p-content">一旦我們做出選擇或採取立場，我們就會遇到個人和人際壓力，要求自己與這個承諾一致——即使最初的理由已消失。</div>
+          </div>
+          <div class="p-section">
+            <span class="p-label">⚙️ 心理機制</span>
+            <div class="p-content">一致性在社會評價中是美德；自我認同建立在過去行為的連貫性上。<strong>書面承諾力量最強</strong>（因為視覺化、持久化）。<strong>公開承諾</strong>更強（因為要維護形象）。<strong>自願承諾</strong>最強（因為感覺是自己選的）。</div>
+          </div>
+          <div class="p-section">
+            <span class="p-label">📖 書中案例</span>
+            <div class="p-content">
+              · <strong>登門技術（foot-in-the-door）</strong>：先答應小事，後接受大事<br>
+              · 中國戰俘審訊：讓美軍戰俘寫下「美國並不完美」，逐步轉變認同<br>
+              · 房地產低球策略：先承諾買房，再告知「有額外費用」<br>
+              · 求愛時讓對方主動描述喜歡你的地方，強化其認同感
+            </div>
+          </div>
+          <div class="defense-apply">
+            <div class="defense">
+              <strong>🛡 防禦</strong>
+              問：「如果我現在重新選擇，我還會做這個決定嗎？」若答案是否，意識到你是在維護過去的自己，而不是在做最好的選擇。
+            </div>
+            <div class="apply">
+              <strong>✅ 應用</strong>
+              讓對方先做小承諾（問卷、簡短試用、公開表態），自然建立後續合作的心理基礎。請對方用文字描述他們的目標，強化行動動力。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P3 社會認同 -->
+      <div class="principle-card p3">
+        <div class="principle-header">
+          <span class="p-num">03</span>
+          <span class="p-emoji">👥</span>
+          <div class="p-title">社會認同 Social Proof</div>
+          <div class="p-subtitle">真相是我們 — 群體是鏡子</div>
+        </div>
+        <div class="principle-body">
+          <div class="p-section">
+            <span class="p-label">🔑 原則定義</span>
+            <div class="p-content">我們判斷一個行為是否正確，取決於觀察他人是否也這樣做。在不確定情況下，我們會接受他人的行動作為正確行為的依據。</div>
+          </div>
+          <div class="p-section">
+            <span class="p-label">⚙️ 心理機制</span>
+            <div class="p-content">在資訊不完整時，「別人也這樣做」是個有效的捷徑。但當所有人都在看別人，就會出現<strong>多元無知（pluralistic ignorance）</strong>——每個人都以為沒事發生，其實沒有人採取行動。在<strong>不確定情境</strong>中和面對<strong>相似的人</strong>時，效力最強。</div>
+          </div>
+          <div class="p-section">
+            <span class="p-label">📖 書中案例</span>
+            <div class="p-content">
+              · <strong>罐頭笑聲</strong>：即使大家知道是假的，還是會讓節目「感覺更好笑」<br>
+              · 旁觀者效應：38人目睹 Catherine Genovese 被殺，無人報警<br>
+              · 酒吧小費罐預先放幾張鈔票<br>
+              · 末日教派：預言失敗後反而更積極傳教（需要更多社會認同）<br>
+              · 廣告：「最暢銷」、「增長最快」
+            </div>
+          </div>
+          <div class="defense-apply">
+            <div class="defense">
+              <strong>🛡 防禦</strong>
+              緊急情況：打破多元無知。直接指定一個人說：「你，穿藍色衣服的，幫我叫救護車！」去除模糊性，責任歸屬到個人。
+            </div>
+            <div class="apply">
+              <strong>✅ 應用</strong>
+              收集真實用戶故事和數據，展示「和你相似的人」的選擇。使用具體數字而非模糊描述（「已有2,847人加入」 vs 「很多人加入」）。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P4 喜好 -->
+      <div class="principle-card p4">
+        <div class="principle-header">
+          <span class="p-num">04</span>
+          <span class="p-emoji">💚</span>
+          <div class="p-title">喜好 Liking</div>
+          <div class="p-subtitle">友善的竊賊 — 我們對喜歡的人說是</div>
+        </div>
+        <div class="principle-body">
+          <div class="p-section">
+            <span class="p-label">🔑 原則定義</span>
+            <div class="p-content">我們通常順從自己認識和喜歡的人的要求。喜好的觸發因素：外貌、相似性、讚美、熟悉度、聯想效應。</div>
+          </div>
+          <div class="p-section">
+            <span class="p-label">⚙️ 心理機制</span>
+            <div class="p-content">喜好 = 降低警戒 + 增加信任 + 渴望取悅。<strong>相似性</strong>（背景、興趣、穿著）建立「我們是同一類人」的感覺；<strong>讚美</strong>即使明顯奉承也有效；<strong>聯想效應</strong>讓廣告商把美女和汽車放在一起。</div>
+          </div>
+          <div class="p-section">
+            <span class="p-label">📖 書中案例</span>
+            <div class="p-content">
+              · <strong>Tupperware party</strong>：主辦人是你的朋友，你更難拒絕<br>
+              · 外貌光環效應：長相好的人被判較輕的刑罰<br>
+              · 好警察 / 壞警察：由喜歡的一方提出要求<br>
+              · 汽車銷售員發現共同點（「你也打高爾夫球？」）<br>
+              · 接觸效應：越熟悉越喜歡（即使從未交談）
+            </div>
+          </div>
+          <div class="defense-apply">
+            <div class="defense">
+              <strong>🛡 防禦</strong>
+              若你對說服者感到「異常地」喜歡，問自己：「如果我不喜歡這個人，我還會答應這個要求嗎？」把人和提案分開評估。
+            </div>
+            <div class="apply">
+              <strong>✅ 應用</strong>
+              真誠尋找共同點；給予具體、真實的讚美；分享個人故事建立人情連結。注意：讓對方感覺到你真的理解他，比表面的讚美更有力。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P5 權威 -->
+      <div class="principle-card p5">
+        <div class="principle-header">
+          <span class="p-num">05</span>
+          <span class="p-emoji">👔</span>
+          <div class="p-title">權威 Authority</div>
+          <div class="p-subtitle">引導式服從 — 制服、頭銜的力量</div>
+        </div>
+        <div class="principle-body">
+          <div class="p-section">
+            <span class="p-label">🔑 原則定義</span>
+            <div class="p-content">我們有相信並服從權威人士的深層傾向。頭銜、衣著、配件這些「權威的符號」就足以觸發自動服從。</div>
+          </div>
+          <div class="p-section">
+            <span class="p-label">⚙️ 心理機制</span>
+            <div class="p-content">服從權威節省認知資源——「專家說的應該是對的」。問題在於我們常常對「權威的符號」（頭銜、制服、道具）和「真正的專業知識」無法分辨。Milgram電擊實驗顯示：普通人在白袍實驗者的指示下，會向無辜者施以高達450伏電擊。</div>
+          </div>
+          <div class="p-section">
+            <span class="p-label">📖 書中案例</span>
+            <div class="p-content">
+              · <strong>Milgram服從實驗</strong>：65%的人服從到底<br>
+              · 醫生開錯藥，護士仍照做（因為「醫生命令」）<br>
+              · 身穿西裝的人過馬路，旁人更容易跟著闖紅燈<br>
+              · 房地產廣告中虛構的「房地產專家」觀點<br>
+              · 演員扮演醫生為藥物代言
+            </div>
+          </div>
+          <div class="defense-apply">
+            <div class="defense">
+              <strong>🛡 防禦</strong>
+              問兩個問題：「這個人是真正的相關領域專家嗎？」和「在這個特定問題上，他是否有可能不誠實？」把資格認證和利益關係分開檢視。
+            </div>
+            <div class="apply">
+              <strong>✅ 應用</strong>
+              誠實展示真實的資格、案例研究、第三方認可。注意：先承認限制和缺點（「這個方法不適合...」），反而讓其餘的主張更可信。
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- P6 稀缺 -->
+      <div class="principle-card p6">
+        <div class="principle-header">
+          <span class="p-num">06</span>
+          <span class="p-emoji">⏳</span>
+          <div class="p-title">稀缺 Scarcity</div>
+          <div class="p-subtitle">少數人的規則 — 失去比得到更痛</div>
+        </div>
+        <div class="principle-body">
+          <div class="p-section">
+            <span class="p-label">🔑 原則定義</span>
+            <div class="p-content">當機會變得不那麼容易得到時，它們對我們來說會顯得更有價值。「數量限制」和「時間限制」是兩種主要形式。</div>
+          </div>
+          <div class="p-section">
+            <span class="p-label">⚙️ 心理機制</span>
+            <div class="p-content"><strong>心理抗拒理論（Psychological Reactance）</strong>：當自由被剝奪，我們越想要。「即將失去的自由」比「可能得到的收益」更強大。<strong>競爭對手的存在</strong>讓稀缺感加倍。新近失去比從未擁有更令人痛苦（革命往往發生在「進步後突然倒退」時）。</div>
+          </div>
+          <div class="p-section">
+            <span class="p-label">📖 書中案例</span>
+            <div class="p-content">
+              · 猶他州摩門聖殿：只因「限期開放」，作者立即想去<br>
+              · 電器行「好像剛賣掉最後一台」技術<br>
+              · 「只限今天特惠」的廣告<br>
+              · 邁阿密磷酸鹽禁令：人們囤積並覺得禁用品更好<br>
+              · 羅密歐與茱麗葉效應：家長阻止反而加深熱戀
+            </div>
+          </div>
+          <div class="defense-apply">
+            <div class="defense">
+              <strong>🛡 防禦</strong>
+              問：「如果這個機會消失，我會在一個月後後悔嗎？」還是「我只是因為害怕失去才想要它？」讓焦慮冷靜3分鐘，再做決定。
+            </div>
+            <div class="apply">
+              <strong>✅ 應用</strong>
+              誠實使用真實的稀缺（真實的截止日期、真實的名額限制）。讓人們意識到「不行動的代價」，而不是製造假緊迫感。
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ==================== STAGE 2 ==================== -->
+<div class="divider"></div>
+<div style="background: radial-gradient(ellipse 80% 50% at 50% 0%, var(--s2-glow), transparent 70%);">
+<section class="section" id="stage2">
+  <div class="stage-header">
+    <div class="stage-num s2">02</div>
+    <div class="stage-info">
+      <h2 class="s2">外部世界交叉驗證 — 共識萃取</h2>
+      <p>讀者共識 · 學術批評 · 書籍對話 · 常見誤用</p>
+    </div>
+  </div>
+
+  <!-- 讀者共識 -->
+  <div class="sub-section">
+    <div class="sub-title s2"><span class="dot s2"></span>讀者共識 — 這本書為什麼40年後還在用？</div>
+    <div class="compare-grid">
+      <div class="compare-card">
+        <h4>🏆 最讓讀者驚醒的原則</h4>
+        <p><strong>社會認同</strong>往往名列前茅——因為它揭示了我們以為是「自主選擇」的事（跟風、隨大流）其實是自動觸發的結果。<br><br><strong>互惠</strong>緊隨其後，因為它讓人意識到「免費樣品」背後的心理綁架。讀完之後，在超市接受試吃會有罪惡感。</p>
+      </div>
+      <div class="compare-card">
+        <h4>📅 40年不衰的原因</h4>
+        <p>Cialdini 提供的不是行銷技巧清單，而是「人類心理的底層原始碼」。六個原則植根於演化和社會化，不隨時代改變。<br><br>數字時代反而讓這些原則更危險：演算法推薦（社會認同）、倒數計時器（稀缺）、KOL合作（喜好+權威）在網路上被精準部署。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 學術批評 -->
+  <div class="sub-section">
+    <div class="sub-title s2"><span class="dot s2"></span>學術批評 — 複製危機與研究限制</div>
+
+    <div class="criticism-card">
+      <h4>⚠️ 複製危機（Replication Crisis）</h4>
+      <p>2010年代行為科學的「複製危機」波及了部分基礎實驗：如 Langer 的「because」實驗在大規模重測時效果有所縮水。部分小樣本學生實驗在真實消費情境中效果可能不如書中描述的戲劇性。但六大原則的存在本身並無爭議，只是「強度」可能被高估。</p>
+    </div>
+
+    <div class="criticism-card">
+      <h4>⚠️ 樣本與情境限制</h4>
+      <p>大量研究以美國大學生為樣本，文化普遍性存疑。互惠原則在集體主義文化（如東亞）可能更強烈，稀缺原則在個人主義文化中可能更突出。且實驗室情境難以完全模擬真實高壓購買決策環境。</p>
+    </div>
+
+    <div class="criticism-card">
+      <h4>⚠️ 第七個原則（Unity 一體感）——為什麼後來才加？</h4>
+      <p>2021年新版中，Cialdini 補入第七原則 <strong>Unity（一體感）</strong>：「我們更容易被視為與自己同屬一個群體的人說服——家人、族群、政治認同。」<br><br>他坦承原版書遺漏了這個維度，因為其實「喜好」只是淺層的情感連結，而「一體感」是更深層的認同歸屬（「我們是同一個人」而非「我喜歡你」）。這在政治動員、宗教說服、民族主義中力量尤其巨大——正是數字時代最需要理解的原則。</p>
+    </div>
+  </div>
+
+  <!-- 書籍對話 -->
+  <div class="sub-section">
+    <div class="sub-title s2"><span class="dot s2"></span>與其他書的對話</div>
+    <div class="compare-grid">
+      <div class="compare-card">
+        <span class="vs-tag">VS</span>
+        <h4>Kahneman《快思慢想》</h4>
+        <p>六大原則幾乎完全操作 <strong>系統一（快速/直覺/自動）</strong>。互惠、社會認同、稀缺都是繞過深思熟慮的捷徑。<br><br>兩書互補：Kahneman 解釋「為什麼人會走捷徑」的神經機制，Cialdini 則示範「誰在對這些捷徑下手」。搭配閱讀，防禦力倍增。</p>
+      </div>
+      <div class="compare-card">
+        <span class="vs-tag">VS</span>
+        <h4>亞里斯多德《修辭學》</h4>
+        <p><strong>Ethos（信譽）</strong> ↔ 權威 + 喜好<br><strong>Pathos（情感）</strong> ↔ 稀缺 + 互惠 + 社會認同<br><strong>Logos（邏輯）</strong> ↔ 幾乎不在 Cialdini 的核心討論中<br><br>啟發：亞里斯多德兩千年前已識別說服的結構，Cialdini 用現代心理學為其背後機制提供實驗支撐。</p>
+      </div>
+      <div class="compare-card">
+        <span class="vs-tag">VS</span>
+        <h4>Heinrichs《謝謝你的爭論》</h4>
+        <p>Heinrichs 教的是「說服技術」（修辭工具箱：如何有效論證）；Cialdini 解釋「說服心理學」（為什麼這些技術有效的底層原因）。<br><br><strong>Cialdini 更根本</strong>：當你知道稀缺感觸發心理抗拒，你對所有的「限時特惠」都產生免疫。Heinrichs 的技巧建立在 Cialdini 的機制之上。</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 常見誤用 -->
+  <div class="sub-section">
+    <div class="sub-title s2"><span class="dot s2"></span>常見誤用與危險心態</div>
+    <div class="danger-box">
+      <h4>🚨 最常被行銷人員濫用的原則：稀缺 + 社會認同</h4>
+      <p>「限時限量優惠」（假稀缺）和「N萬人已購買」（放大社會認同）是電商最常用的組合武器。特別危險的是它們往往是假的——倒數計時器一重置，「只剩3件」一直停在那裡。</p>
+    </div>
+    <div class="danger-box" style="margin-top:12px; background:rgba(245,158,11,0.05); border-color:rgba(245,158,11,0.2);">
+      <h4 style="color:var(--gold);">⚡ 讀完這本書後最危險的心態</h4>
+      <p>以為「我現在懂了這些原則，我可以用它們操控別人」。<br>Cialdini 在書末明確警告：這些工具的道德邊界在於<strong>誠實</strong>。使用真實的互惠（真的給出價值），真實的稀缺（真實的限制），不虛構社會認同——這才是持續有效的說服，而非一次性的剝削。<br><br>被識破的操控會摧毀信任，代價遠超短期收益。</p>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- ==================== STAGE 3 ==================== -->
+<div class="divider"></div>
+<div style="background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(139,92,246,0.07), transparent 70%);">
+<section class="section" id="stage3">
+  <div class="stage-header">
+    <div class="stage-num s3">03</div>
+    <div class="stage-info">
+      <h2 class="s3">個人化轉化 — Rex 實戰化</h2>
+      <p>防禦技術 · 應用技術 · 30秒練習 · 最高槓桿 · 30天計畫</p>
+    </div>
+  </div>
+
+  <!-- 六大原則實踐工具箱 -->
+  <div class="sub-section">
+    <div class="sub-title s3"><span class="dot s3"></span>六大原則實踐工具箱</div>
+    <div class="toolkit-grid">
+
+      <!-- Toolkit P1 -->
+      <div class="toolkit-card tk-p1">
+        <div class="toolkit-header">
+          <span class="tk-icon">🔄</span>
+          <div>
+            <div class="tk-title">互惠 Reciprocity</div>
+            <div style="font-size:0.75rem; color:var(--muted);">識別 · 暫停 · 重估</div>
+          </div>
+        </div>
+        <div class="toolkit-body">
+          <div class="tk-row">
+            <label>🛡 防禦技術</label>
+            <p>收到禮物/優惠時，暫停3秒：「這個送禮行為的背後有要求嗎？」若是，在心理上標記它為「行銷成本」。把感謝和義務感分開：可以說謝謝，不代表必須配合。</p>
+          </div>
+          <div class="tk-row">
+            <label>✅ 應用技術</label>
+            <p>場景：初次合作談判前，先分享一份有價值的市場分析或洞察（不要求任何事）。下次見面時，對方會更傾向配合你的條件。話術：「我最近看到一個和你產品相關的研究，覺得你可能會感興趣，先分享給你。」</p>
+          </div>
+          <div class="tk-30s">
+            <label>⚡ 30秒每日練習</label>
+            <p>今天主動給一個人一個無附帶條件的小幫助（轉發資訊、一句讚美、解答問題）。不要求任何回報。觀察自己的感受和對方的反應。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toolkit P2 -->
+      <div class="toolkit-card tk-p2">
+        <div class="toolkit-header">
+          <span class="tk-icon">✍️</span>
+          <div>
+            <div class="tk-title">承諾與一致 Commitment</div>
+            <div style="font-size:0.75rem; color:var(--muted);">公開承諾的重量</div>
+          </div>
+        </div>
+        <div class="toolkit-body">
+          <div class="tk-row">
+            <label>🛡 防禦技術</label>
+            <p>當你發現自己因為「之前說過」而繼續一件不合理的事，問：「如果這是全新情況，我還會做嗎？」允許自己改變主意。用「基於新資訊，我更新了我的判斷」替代沉沒成本。</p>
+          </div>
+          <div class="tk-row">
+            <label>✅ 應用技術</label>
+            <p>場景：說服某人嘗試新習慣或新合作。先問：「你覺得這個方向重要嗎？」（讓他說「是」）→「如果要往這個方向，你願意試試看一個月嗎？」（小承諾）→ 一致性會驅動他繼續。</p>
+          </div>
+          <div class="tk-30s">
+            <label>⚡ 30秒每日練習</label>
+            <p>每天早晨，在紙上（或手機）寫下今天最重要的一件事。寫下來的承諾比腦中想法的執行率高3倍。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toolkit P3 -->
+      <div class="toolkit-card tk-p3">
+        <div class="toolkit-header">
+          <span class="tk-icon">👥</span>
+          <div>
+            <div class="tk-title">社會認同 Social Proof</div>
+            <div style="font-size:0.75rem; color:var(--muted);">群體智慧 vs 群體盲從</div>
+          </div>
+        </div>
+        <div class="toolkit-body">
+          <div class="tk-row">
+            <label>🛡 防禦技術</label>
+            <p>看到「熱銷」「限量」「萬人推薦」時，問：「這些人的情況和我相同嗎？他們的需求和我一樣嗎？」找出適合「自己特定情況」的人的評價，而不是所有人的評價。</p>
+          </div>
+          <div class="tk-row">
+            <label>✅ 應用技術</label>
+            <p>場景：推廣產品或理念。收集與目標受眾最相似的人的真實見證，精確描述：「和你同樣面臨xxx挑戰的人，使用後...」相似性讓社會認同效力倍增。</p>
+          </div>
+          <div class="tk-30s">
+            <label>⚡ 30秒每日練習</label>
+            <p>下次在群體中感到「大家都這樣，我也應該...」時，暫停，問自己：「如果我獨自一人，我會做什麼選擇？」記錄兩個答案的差異。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toolkit P4 -->
+      <div class="toolkit-card tk-p4">
+        <div class="toolkit-header">
+          <span class="tk-icon">💚</span>
+          <div>
+            <div class="tk-title">喜好 Liking</div>
+            <div style="font-size:0.75rem; color:var(--muted);">人情連結的雙刃劍</div>
+          </div>
+        </div>
+        <div class="toolkit-body">
+          <div class="tk-row">
+            <label>🛡 防禦技術</label>
+            <p>當對一個銷售員或說服者感到「好感異常強烈」，刻意把他和他的提案分開：「先不考慮他這個人，單純看這個提案的條件，我接受嗎？」分離喜好和判斷。</p>
+          </div>
+          <div class="tk-row">
+            <label>✅ 應用技術</label>
+            <p>初次接觸重要客戶/夥伴：提前研究對方，找出一個真實的共同點。見面前3分鐘先聊共同點（「我知道你也在...」），再進入正題。建立喜好感後，所有溝通效率提升。</p>
+          </div>
+          <div class="tk-30s">
+            <label>⚡ 30秒每日練習</label>
+            <p>今天對一個你不那麼熟悉的人給出一個「具體且真實的讚美」（不是空泛的「你很厲害」，而是「你剛才提出那個問題的角度很獨特」）。觀察關係變化。</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toolkit P5 -->
+      <div class="toolkit-card tk-p5">
+        <div class="toolkit-header">
+          <span class="tk-icon">👔</span>
+          <div>
+            <div class="tk-title">權威 Authority</div>
+            <div style="font-size:0.75rem; color:var(--muted);">真專家 vs 權威符號</div>
+          </div>
+        </div>
+        <div class="toolkit-body">
+          <div class="tk-row">
+            <label>🛡 防禦技術</label>
+            <p>兩個核心問題：① 「這個人在這個具體問題上是真正的專家嗎？」（不只是有頭銜）② 「他在這裡有什麼利益動機嗎？」先驗證資格來源，再評估建議本身。</p>
+          </div>
+          <div class="tk-row">
+            <label>✅ 應用技術</label>
+            <p>建立自己的真實權威：先承認自己「不知道/不適合誰」（這個反直覺的誠實讓人更相信你說的「適合誰」）。展示具體案例、數據、限制條件，比誇張的資歷更有說服力。</p>
+          </div>
+          <div class="tk-30s">
+            <label>⚡ 30秒每日練習</label>
+            <p>今天接收到任何「專家建議」時，花30秒確認：這個人的資格來源是什麼？他在哪個具體領域有實際經驗？他的建議是否有利益衝突？</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Toolkit P6 -->
+      <div class="toolkit-card tk-p6">
+        <div class="toolkit-header">
+          <span class="tk-icon">⏳</span>
+          <div>
+            <div class="tk-title">稀缺 Scarcity</div>
+            <div style="font-size:0.75rem; color:var(--muted);">焦慮 vs 真實價值</div>
+          </div>
+        </div>
+        <div class="toolkit-body">
+          <div class="tk-row">
+            <label>🛡 防禦技術</label>
+            <p>感到緊迫焦慮時，強制暫停3分鐘（離開網頁、放下電話）。問：「這個稀缺是真實的嗎？一週後這個機會真的消失嗎？還是這只是心理壓力？」讓焦慮峰值消退後再決策。</p>
+          </div>
+          <div class="tk-row">
+            <label>✅ 應用技術</label>
+            <p>場景：對合作夥伴或客戶說明真實的時間/資源限制。話術：「我這個月的名額只剩兩個，因為...（真實原因）。如果你需要更多時間考慮，我完全理解，但可能要等下一檔。」誠實稀缺比假稀缺建立更深的信任。</p>
+          </div>
+          <div class="tk-30s">
+            <label>⚡ 30秒每日練習</label>
+            <p>今天看到任何「限時」「限量」廣告時，暫停：「這個稀缺是真實的，還是行銷製造的？如果是後者，我的衝動感從哪裡來？」記錄感受。</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 最高槓桿的2個原則 -->
+  <div class="sub-section">
+    <div class="sub-title s3"><span class="dot s3"></span>最高槓桿的 2 個原則（對 Rex 影響最大的）</div>
+    <div class="info-badge">⚡ 這兩個原則是現代數字生活的核心威脅，也是說服力的最大放大器</div>
+
+    <div class="leverage-card">
+      <h3>🔑 #1 稀缺 Scarcity — 現代焦慮製造機</h3>
+      <div class="why">為什麼是稀缺？因為數字時代把稀缺工具放大了1000倍：倒數計時器、庫存顯示、「有X人正在查看此商品」——每一個都在觸發心理抗拒本能。這是最難以用理性抵抗的原則，因為它直接攻擊自由感。</div>
+
+      <div class="script-block">
+        <h4>🎬 完整實踐腳本</h4>
+        <div class="script-step">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>情境識別：</strong>看到任何倒數計時器、「只剩X件」、「限今天」的資訊，觸發警覺模式。</div>
+        </div>
+        <div class="script-step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>觸發訊號：</strong>感到「必須現在決定」的焦慮感上升，心跳加快，思考變窄。這個身體感受就是信號。</div>
+        </div>
+        <div class="script-step">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>強制暫停：</strong>物理上離開刺激源（關掉網頁、放下手機），等待5分鐘。</div>
+        </div>
+        <div class="script-step">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>重新評估：</strong>問「一個月後，如果這個機會消失，我會後悔嗎？這個後悔來自真實需求，還是失去自由的恐懼？」</div>
+        </div>
+        <div class="script-step">
+          <div class="step-num">5</div>
+          <div class="step-text"><strong>應用端（誠實稀缺）：</strong>使用真實的時間/資源限制溝通時，加上真實理由（「因為我同時只能服務N個客戶，確保品質」），不製造假緊迫感。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="leverage-card">
+      <h3>🔑 #2 社會認同 Social Proof — 群體壓力的隱形鎖</h3>
+      <div class="why">為什麼是社會認同？因為它在我們「覺得自己在獨立思考」的時候悄悄運作。我們對追蹤數、點讚數、評論數的依賴，讓社會認同成為現代決策的主要驅動力，而我們幾乎沒有意識到。</div>
+
+      <div class="script-block">
+        <h4>🎬 完整實踐腳本</h4>
+        <div class="script-step">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>情境識別：</strong>看到很高的觸及數字、大量評論、KOL推薦時，觸發核對模式。</div>
+        </div>
+        <div class="script-step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>觸發訊號：</strong>心中出現「這麼多人覺得好，應該是好的」——這個念頭就是信號。</div>
+        </div>
+        <div class="script-step">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>相似性核查：</strong>問「給出這個評價的人，和我的情況一樣嗎？他們面對的問題和我的相同嗎？」</div>
+        </div>
+        <div class="script-step">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>獨立評估：</strong>先對產品/想法做自己的判斷，再查看他人意見。防止「先看評分、再決定是否喜歡」的逆向思維。</div>
+        </div>
+        <div class="script-step">
+          <div class="step-num">5</div>
+          <div class="step-text"><strong>應用端：</strong>收集目標受眾的真實具體故事，強調「相似背景的人」的結果，比泛泛的「大家都說好」有10倍說服力。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 30天實踐計畫 -->
+  <div class="sub-section">
+    <div class="sub-title s3"><span class="dot s3"></span>30 天實踐計畫</div>
+    <div class="plan-grid">
+      <div class="week-card week-1">
+        <div class="week-header">📅 Week 1 · 稀缺防禦</div>
+        <div class="week-body">
+          <ul>
+            <li>每天記錄一個「稀缺觸發時刻」（廣告、對話、頁面）</li>
+            <li>每次感到購買焦慮，暫停5分鐘再決定</li>
+            <li>追蹤：哪種情境最容易觸發你的稀缺感？</li>
+          </ul>
+          <div class="verify">驗收：週末回看記錄，找出你的「個人稀缺觸發模式」</div>
+        </div>
+      </div>
+      <div class="week-card week-2">
+        <div class="week-header">📅 Week 2 · 社會認同覺察</div>
+        <div class="week-body">
+          <ul>
+            <li>每次決策前，先寫下自己的判斷，再查看他人意見</li>
+            <li>識別3個你常受社會認同影響的領域（購物/觀點/行動）</li>
+            <li>練習在群體選擇不同意見時說出自己的看法</li>
+          </ul>
+          <div class="verify">驗收：能否識別「我跟大家一樣」和「我真的這樣認為」的差異？</div>
+        </div>
+      </div>
+      <div class="week-card week-3">
+        <div class="week-header">📅 Week 3 · 互惠主動給予</div>
+        <div class="week-body">
+          <ul>
+            <li>每天主動給一個人無條件的幫助或資源</li>
+            <li>在重要關係中，識別你長期「只取不給」的模式</li>
+            <li>嘗試一次「先給價值再提請求」的真實溝通</li>
+          </ul>
+          <div class="verify">驗收：對方關係品質的變化；自己提出請求的結果是否不同？</div>
+        </div>
+      </div>
+      <div class="week-card week-4">
+        <div class="week-header">📅 Week 4 · 承諾與一致整合</div>
+        <div class="week-body">
+          <ul>
+            <li>寫下你目前因「沉沒成本」繼續做的一件事，誠實評估</li>
+            <li>使用書面承諾強化自己的一個重要目標</li>
+            <li>在一個對話中，讓對方先小承諾，觀察後續一致性</li>
+          </ul>
+          <div class="verify">驗收：你是否找到了一個「應該放棄卻沒放棄」的事？你的書面承諾執行率如何？</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 長期追蹤指標 -->
+  <div class="sub-section">
+    <div class="sub-title s3"><span class="dot s3"></span>長期追蹤指標</div>
+    <div class="tracker-grid">
+      <div class="tracker-card">
+        <h4>🛡 「說服防禦」提升的指標</h4>
+        <ul>
+          <li>衝動購買後悔次數下降</li>
+          <li>看廣告時能識別使用的原則是哪個</li>
+          <li>在群體壓力下能說出不同意見</li>
+          <li>與銷售員互動時不再感到「必須買」的義務感</li>
+          <li>緊急截止日期不再讓你繞過理性評估</li>
+          <li>能區分「真正的專家建議」和「權威符號」</li>
+        </ul>
+      </div>
+      <div class="tracker-card">
+        <h4>✅ 「道德應用」沒有變成操縱的指標</h4>
+        <ul>
+          <li>你使用的稀缺/互惠是真實的，不是虛構的</li>
+          <li>對方在「是」之後感到滿意，不是後悔</li>
+          <li>你願意讓對方有時間考慮，不強迫即時決定</li>
+          <li>你的社會認同案例是真實用戶，不是捏造</li>
+          <li>你的權威展示來自真實資格，不是頭銜裝飾</li>
+          <li>對方如果說「不」，你能接受，關係不受損</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- 今晚就能做 -->
+  <div class="tonight-card">
+    <h3>最重要的一個行動</h3>
+    <h2>今晚就能做的 5 分鐘微行動</h2>
+    <p>打開手機，找到你手機通知欄裡最近讓你感到「緊迫焦慮」的一則消息——可能是電商促銷、一則限時訂閱、或任何帶截止時間的事。</p>
+    <div class="tonight-steps">
+      <div class="tonight-step">
+        <div class="n">1</div>
+        <p>截圖保存它，這是你第一個「稀缺觸發樣本」。</p>
+      </div>
+      <div class="tonight-step">
+        <div class="n">2</div>
+        <p>在截圖旁邊寫下：「這個稀缺是真實的嗎？一個月後我會後悔沒買嗎？」誠實回答。</p>
+      </div>
+      <div class="tonight-step">
+        <div class="n">3</div>
+        <p>把這個截圖和你的答案存在一個「影響力樣本」資料夾，未來30天持續收集。</p>
+      </div>
+      <div class="tonight-step">
+        <div class="n">4</div>
+        <p>這個資料夾就是你的「個人說服力實驗室」——它讓你從受害者變成研究者。</p>
+      </div>
+    </div>
+  </div>
+
+</section>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div style="margin-bottom:12px;">
+    <span class="tag tag-gold">書僮 2.0 三階段深讀法</span>
+    <span class="tag tag-gold">Robert B. Cialdini</span>
+    <span class="tag tag-gold">說服心理學</span>
+    <span class="tag tag-red">Click-Whirr 機制</span>
+    <span class="tag tag-green">30天實踐計畫</span>
+  </div>
+  <p>《Influence: The Psychology of Persuasion》深度分析報告 · AI 書僮 2.0 · 2026</p>
+  <p style="margin-top:8px; opacity:0.5;">本報告基於書籍原文分析，所有原則解釋與實踐設計均為書僮 2.0 方法論輸出</p>
+</footer>
+
+</body>
+</html>
