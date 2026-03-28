@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒｜The Craft of Argument — Williams & Colomb 深度分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --grad-main: linear-gradient(135deg, #667eea, #f093fb);
+    --grad-bg: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+    --card-bg: rgba(255,255,255,0.7);
+    --glass-blur: blur(10px);
+    --radius: 20px;
+    --radius-sm: 12px;
+    --shadow: 0 8px 32px rgba(102,126,234,0.12);
+    --shadow-hover: 0 16px 48px rgba(102,126,234,0.22);
+    --accent-blue: #667eea;
+    --accent-pink: #f093fb;
+    --accent-teal: #4fd1c5;
+    --accent-orange: #fda085;
+    --text-dark: #2d3748;
+    --text-mid: #4a5568;
+    --text-light: #718096;
+  }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: var(--grad-bg);
+    min-height: 100vh;
+    color: var(--text-dark);
+    line-height: 1.8;
+  }
+
+  /* HEADER */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(102,126,234,0.18), transparent);
+    pointer-events: none;
+  }
+  .badge {
+    display: inline-block;
+    background: var(--grad-main);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    padding: 6px 20px;
+    border-radius: 999px;
+    margin-bottom: 24px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    background: var(--grad-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+    margin-bottom: 16px;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-mid);
+    font-weight: 300;
+    margin-bottom: 8px;
+  }
+  .hero-authors {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 40px;
+  }
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  .tag {
+    background: rgba(255,255,255,0.8);
+    border: 1.5px solid rgba(102,126,234,0.3);
+    border-radius: 999px;
+    padding: 5px 16px;
+    font-size: 13px;
+    color: var(--accent-blue);
+    font-weight: 500;
+    backdrop-filter: var(--glass-blur);
+  }
+
+  /* CONTAINER */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+
+  /* SECTION */
+  .section {
+    margin-bottom: 48px;
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .step-num {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--grad-main);
+    color: #fff;
+    font-weight: 900;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(102,126,234,0.35);
+  }
+  .section-title {
+    font-size: 1.6rem;
+    font-weight: 800;
+    background: var(--grad-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--card-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(255,255,255,0.6);
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .card:hover {
+    box-shadow: var(--shadow-hover);
+    transform: translateY(-2px);
+  }
+  .card + .card { margin-top: 20px; }
+
+  /* GRID */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 768px) {
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+  }
+
+  /* BOOK INFO */
+  .book-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 600px) { .book-meta { grid-template-columns: 1fr; } }
+  .meta-item {
+    background: rgba(255,255,255,0.5);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    border-left: 4px solid var(--accent-blue);
+  }
+  .meta-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--text-light);
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .meta-value {
+    font-size: 15px;
+    color: var(--text-dark);
+    font-weight: 600;
+  }
+
+  /* CORE PROP */
+  .prop-trio {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 20px;
+  }
+  @media (max-width: 700px) { .prop-trio { grid-template-columns: 1fr; } }
+  .prop-card {
+    background: rgba(255,255,255,0.65);
+    border-radius: var(--radius-sm);
+    padding: 24px;
+    text-align: center;
+    border-top: 4px solid;
+    box-shadow: 0 4px 16px rgba(102,126,234,0.1);
+  }
+  .prop-card:nth-child(1) { border-color: var(--accent-blue); }
+  .prop-card:nth-child(2) { border-color: var(--accent-pink); }
+  .prop-card:nth-child(3) { border-color: var(--accent-teal); }
+  .prop-icon { font-size: 2rem; margin-bottom: 10px; }
+  .prop-label { font-size: 12px; letter-spacing: 2px; text-transform: uppercase; color: var(--text-light); font-weight: 700; margin-bottom: 10px; }
+  .prop-text { font-size: 15px; color: var(--text-dark); font-weight: 500; line-height: 1.6; }
+
+  /* THEME CARD */
+  .theme-num {
+    display: inline-block;
+    background: var(--grad-main);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .theme-headline {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: var(--text-dark);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+  .layer {
+    margin-bottom: 18px;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.5);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid;
+  }
+  .layer-l1 { border-color: var(--accent-blue); }
+  .layer-l2 { border-color: var(--accent-pink); }
+  .layer-l3 { border-color: var(--accent-teal); background: rgba(79,209,197,0.06); }
+  .layer-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .l1-label { color: var(--accent-blue); }
+  .l2-label { color: var(--accent-pink); }
+  .l3-label { color: var(--accent-teal); }
+  .layer-text { font-size: 14.5px; color: var(--text-mid); line-height: 1.75; }
+
+  .quote-block {
+    background: rgba(102,126,234,0.08);
+    border-left: 4px solid var(--accent-blue);
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-style: italic;
+    color: var(--text-mid);
+    font-size: 14px;
+  }
+  .verify-note {
+    font-size: 12px;
+    color: var(--accent-orange);
+    font-weight: 600;
+    margin-top: 6px;
+  }
+
+  .critical-box {
+    background: rgba(253,160,133,0.1);
+    border: 1.5px solid rgba(253,160,133,0.4);
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-size: 14px;
+    color: var(--text-mid);
+  }
+  .critical-box strong { color: var(--accent-orange); }
+
+  .connect-box {
+    background: rgba(102,126,234,0.06);
+    border: 1.5px dashed rgba(102,126,234,0.3);
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 13.5px;
+    color: var(--text-mid);
+  }
+  .connect-box strong { color: var(--accent-blue); }
+
+  .action-list {
+    list-style: none;
+    margin: 12px 0;
+  }
+  .action-list li {
+    padding: 10px 16px;
+    background: rgba(255,255,255,0.6);
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: var(--text-dark);
+    border-left: 3px solid var(--accent-teal);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .action-list li::before { content: '⏱'; flex-shrink: 0; }
+
+  .check-list {
+    list-style: none;
+    margin: 12px 0;
+  }
+  .check-list li {
+    padding: 8px 14px;
+    font-size: 14px;
+    color: var(--text-mid);
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .check-list li::before { content: '□'; color: var(--accent-blue); font-weight: 700; flex-shrink: 0; }
+
+  .prompt-box {
+    background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(240,147,251,0.08));
+    border-radius: var(--radius-sm);
+    padding: 16px 20px;
+    font-size: 14px;
+    color: var(--text-mid);
+    font-style: italic;
+    border: 1px solid rgba(102,126,234,0.15);
+    margin-top: 14px;
+  }
+
+  /* ARC */
+  .arc-timeline {
+    position: relative;
+    padding: 20px 0;
+  }
+  .arc-item {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+    margin-bottom: 24px;
+  }
+  .arc-dot {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: var(--grad-main);
+    color: #fff;
+    font-weight: 800;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 14px rgba(102,126,234,0.3);
+  }
+  .arc-content { flex: 1; }
+  .arc-title { font-weight: 700; font-size: 1rem; color: var(--text-dark); margin-bottom: 6px; }
+  .arc-desc { font-size: 14px; color: var(--text-mid); line-height: 1.7; }
+
+  /* INSIGHT CARDS */
+  .insight-grid {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 16px;
+  }
+  @media (max-width: 600px) { .insight-grid { grid-template-columns: 1fr; } }
+  .insight-card {
+    background: rgba(255,255,255,0.65);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    border-top: 4px solid var(--accent-pink);
+    box-shadow: 0 4px 16px rgba(240,147,251,0.12);
+  }
+  .insight-card h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .insight-card p { font-size: 13.5px; color: var(--text-mid); line-height: 1.7; }
+
+  /* ACTION TABLE */
+  .action-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .action-table th {
+    background: var(--grad-main);
+    color: #fff;
+    padding: 12px 16px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+  .action-table th:first-child { border-radius: 12px 0 0 0; }
+  .action-table th:last-child { border-radius: 0 12px 0 0; }
+  .action-table td {
+    padding: 12px 16px;
+    font-size: 14px;
+    color: var(--text-mid);
+    border-bottom: 1px solid rgba(102,126,234,0.1);
+    vertical-align: top;
+  }
+  .action-table tr:nth-child(even) td { background: rgba(102,126,234,0.04); }
+  .action-table tr:last-child td:first-child { border-radius: 0 0 0 12px; }
+  .action-table tr:last-child td:last-child { border-radius: 0 0 12px 0; }
+  .level-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .lv-now { background: rgba(79,209,197,0.2); color: #2c7a7b; }
+  .lv-week { background: rgba(102,126,234,0.2); color: #553c9a; }
+  .lv-deep { background: rgba(240,147,251,0.2); color: #805ad5; }
+
+  /* RESOURCE */
+  .resource-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 20px;
+    background: rgba(255,255,255,0.55);
+    border-radius: var(--radius-sm);
+    margin-bottom: 12px;
+    border: 1px solid rgba(102,126,234,0.12);
+    transition: transform 0.2s;
+  }
+  .resource-item:hover { transform: translateX(4px); }
+  .res-icon { font-size: 1.6rem; flex-shrink: 0; }
+  .res-title { font-weight: 700; font-size: 15px; color: var(--text-dark); margin-bottom: 4px; }
+  .res-desc { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+
+  /* LIBRARY CARD */
+  .lib-card {
+    background: linear-gradient(135deg, rgba(102,126,234,0.12), rgba(240,147,251,0.12));
+    border: 2px solid rgba(102,126,234,0.25);
+    border-radius: var(--radius);
+    padding: 36px;
+  }
+  .lib-title {
+    font-size: 1.8rem;
+    font-weight: 900;
+    background: var(--grad-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  .lib-sub { font-size: 14px; color: var(--text-light); margin-bottom: 24px; }
+  .lib-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 600px) { .lib-grid { grid-template-columns: 1fr; } }
+  .lib-group-title {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin-bottom: 10px;
+  }
+  .lib-group-title.blue { color: var(--accent-blue); }
+  .lib-group-title.pink { color: var(--accent-pink); }
+  .lib-group-title.teal { color: var(--accent-teal); }
+  .lib-group-title.orange { color: var(--accent-orange); }
+  .lib-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .lib-tag {
+    background: rgba(255,255,255,0.7);
+    border-radius: 8px;
+    padding: 5px 12px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-dark);
+  }
+  .lib-score {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--grad-main);
+    color: #fff;
+    padding: 8px 20px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 15px;
+    margin-top: 20px;
+  }
+
+  /* FOOTER */
+  footer {
+    text-align: center;
+    padding: 40px 24px;
+    color: var(--text-light);
+    font-size: 13px;
+  }
+  footer strong { color: var(--accent-blue); }
+
+  /* SEPARATOR */
+  .sep {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(102,126,234,0.3), rgba(240,147,251,0.3), transparent);
+    border: none;
+    margin: 48px 0;
+    border-radius: 999px;
+  }
+
+  /* HIGHLIGHT */
+  .highlight {
+    background: linear-gradient(120deg, rgba(240,147,251,0.25), rgba(102,126,234,0.15));
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: 600;
+    color: var(--accent-blue);
+  }
+
+  /* FRAMEWORK BOX */
+  .framework-box {
+    background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(79,209,197,0.08));
+    border: 2px solid rgba(102,126,234,0.2);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin: 20px 0;
+  }
+  .framework-title {
+    font-size: 1rem;
+    font-weight: 800;
+    color: var(--accent-blue);
+    margin-bottom: 16px;
+    letter-spacing: 1px;
+  }
+  .framework-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+  .fw-node {
+    background: rgba(255,255,255,0.8);
+    border: 2px solid rgba(102,126,234,0.35);
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text-dark);
+    white-space: nowrap;
+  }
+  .fw-arrow {
+    color: var(--accent-blue);
+    font-size: 1.2rem;
+    font-weight: 900;
+  }
+
+  /* TOC */
+  .toc {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 20px 0;
+  }
+  @media (max-width: 700px) { .toc { grid-template-columns: 1fr 1fr; } }
+  .toc-item {
+    background: rgba(255,255,255,0.6);
+    border-radius: var(--radius-sm);
+    padding: 14px 16px;
+    font-size: 13px;
+    color: var(--text-mid);
+    font-weight: 500;
+    border: 1px solid rgba(102,126,234,0.15);
+    cursor: default;
+    transition: background 0.2s;
+  }
+  .toc-item:hover { background: rgba(255,255,255,0.9); }
+  .toc-item span { color: var(--accent-blue); font-weight: 800; margin-right: 6px; }
+
+  /* ABSENCE / BLIND SPOT */
+  .blind-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  @media (max-width: 600px) { .blind-grid { grid-template-columns: 1fr; } }
+  .blind-item {
+    background: rgba(253,160,133,0.1);
+    border-left: 4px solid var(--accent-orange);
+    border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    padding: 16px 20px;
+  }
+  .blind-item h4 { font-size: 15px; font-weight: 700; color: var(--text-dark); margin-bottom: 8px; }
+  .blind-item p { font-size: 13.5px; color: var(--text-mid); line-height: 1.7; }
+
+  /* AI PERSPECTIVE */
+  .ai-box {
+    background: linear-gradient(135deg, rgba(79,209,197,0.08), rgba(102,126,234,0.08));
+    border: 2px dashed rgba(79,209,197,0.4);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin: 16px 0;
+  }
+  .ai-box h4 { color: var(--accent-teal); font-weight: 800; font-size: 1rem; margin-bottom: 12px; }
+  .ai-box p { font-size: 14.5px; color: var(--text-mid); line-height: 1.8; }
+
+  /* QUESTIONS */
+  .question-list {
+    list-style: none;
+  }
+  .question-list li {
+    padding: 14px 20px;
+    background: rgba(255,255,255,0.55);
+    border-radius: var(--radius-sm);
+    margin-bottom: 10px;
+    font-size: 14.5px;
+    color: var(--text-dark);
+    border-left: 4px solid var(--accent-pink);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+  }
+  .q-num {
+    background: var(--grad-main);
+    color: #fff;
+    border-radius: 50%;
+    width: 26px;
+    height: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 800;
+    flex-shrink: 0;
+  }
+
+  /* STICKY TOP NAV */
+  .sticky-toc {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(232,244,253,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(102,126,234,0.15);
+    padding: 10px 24px;
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .sticky-toc a {
+    text-decoration: none;
+    color: var(--accent-blue);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.6);
+    transition: background 0.2s;
+  }
+  .sticky-toc a:hover { background: rgba(102,126,234,0.15); }
+</style>
+</head>
+<body>
+
+<!-- STICKY NAV -->
+<nav class="sticky-toc">
+  <a href="#s1">資料卡</a>
+  <a href="#s2">核心命題</a>
+  <a href="#s3">主題分析</a>
+  <a href="#s4">敘事弧</a>
+  <a href="#s5">整合洞見</a>
+  <a href="#s6">缺席分析</a>
+  <a href="#s7">AI視角</a>
+  <a href="#s8">行動轉化</a>
+  <a href="#s9">帶問題讀</a>
+  <a href="#s10">延伸資源</a>
+  <a href="#s11">書庫卡片</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="badge">📚 書醒深度分析 · Book Awakening</div>
+  <h1>The Craft of Argument</h1>
+  <p class="hero-sub">論證的工藝：學術寫作的完整論證系統</p>
+  <p class="hero-authors">Joseph M. Williams & Gregory G. Colomb｜芝加哥大學寫作教學傳統</p>
+  <div class="hero-tags">
+    <span class="tag">🎯 學術論文寫作</span>
+    <span class="tag">🔗 論證結構設計</span>
+    <span class="tag">👁 讀者為中心</span>
+    <span class="tag">❓ 問題導向寫作</span>
+    <span class="tag">🛡 反駁與承認</span>
+    <span class="tag">📐 Toulmin邏輯模型</span>
+  </div>
+</header>
+
+<div class="container">
+
+<!-- ─── STEP 1：書籍資料卡 ─── -->
+<section class="section" id="s1">
+  <div class="section-header">
+    <div class="step-num">01</div>
+    <h2 class="section-title">書籍資料卡</h2>
+  </div>
+  <div class="card">
+    <div class="book-meta">
+      <div class="meta-item">
+        <div class="meta-label">主要作者</div>
+        <div class="meta-value">Joseph M. Williams</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">共同作者</div>
+        <div class="meta-value">Gregory G. Colomb</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">出版社</div>
+        <div class="meta-value">University of Chicago Press / Pearson Longman</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">版本</div>
+        <div class="meta-value">第3版（2007）為主要版本</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">類型</div>
+        <div class="meta-value">學術寫作教材｜修辭學｜論證理論</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">難度指數</div>
+        <div class="meta-value">★★★★☆｜大學高年級以上</div>
+      </div>
+    </div>
+
+    <hr class="sep" style="margin: 24px 0;">
+
+    <div class="grid-2">
+      <div>
+        <p class="lib-group-title blue">👤 Williams 作者背景</p>
+        <p style="font-size:14px; color: var(--text-mid); line-height:1.8;">
+          Joseph M. Williams（1933–2008），芝加哥大學英語系教授，被譽為「英語寫作教學的教父」。
+          其代表作《Style: Lessons in Clarity and Grace》售出數百萬冊，深刻影響全球學術寫作教學。
+          Williams 的核心信念：<span class="highlight">好的寫作不是天賦，而是可學習的技藝</span>。
+          他在芝大教書超過35年，將修辭學傳統與認知語言學結合，建立了系統化的論證教學法。
+        </p>
+      </div>
+      <div>
+        <p class="lib-group-title pink">👤 Colomb 作者背景</p>
+        <p style="font-size:14px; color: var(--text-mid); line-height:1.8;">
+          Gregory G. Colomb，維吉尼亞大學英語系教授，與 Williams 長期合作。
+          Colomb 專注於「論證的社會性維度」——即論證如何在學術社群中發揮說服力。
+          他的貢獻使本書不只是寫作手冊，更是一本理解<span class="highlight">知識社群如何透過論證建構共識</span>的認識論著作。
+          兩人合作三版，每次修訂都更強化「讀者優先」的設計哲學。
+        </p>
+      </div>
+    </div>
+
+    <div style="margin-top: 20px; padding: 20px; background: rgba(102,126,234,0.07); border-radius: 14px;">
+      <p class="lib-group-title teal">🏛 芝加哥寫作傳統</p>
+      <p style="font-size:14px; color:var(--text-mid); line-height:1.8;">
+        本書根植於芝加哥大學獨特的「新批評」與「新修辭學」傳統，繼承 Richard Weaver、Wayne Booth（《修辭的倫理》作者）等人的遺產。
+        芝大寫作教學的核心假設：<strong>論證是思考的外化形式</strong>——你只有在能清晰論證時，才真正「想清楚了」。
+        本書也是 Stephen Toulmin 論證模型在寫作教學中最完整的實踐之一。
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ─── STEP 2：核心命題 ─── -->
+<section class="section" id="s2">
+  <div class="section-header">
+    <div class="step-num">02</div>
+    <h2 class="section-title">核心命題</h2>
+  </div>
+  <div class="card">
+    <div class="prop-trio">
+      <div class="prop-card">
+        <div class="prop-icon">❓</div>
+        <div class="prop-label">核心問題</div>
+        <div class="prop-text">為什麼大多數人無法寫出真正有說服力的論證？<br>缺的不是內容，而是<strong>結構性思維</strong>。</div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-icon">💡</div>
+        <div class="prop-label">核心論點</div>
+        <div class="prop-text">論證是一個可以分解、學習和精煉的<strong>技藝體系</strong>——由主張、理由、證據、反駁、承認五個要素構成，以讀者為中心設計。</div>
+      </div>
+      <div class="prop-card">
+        <div class="prop-icon">🛠</div>
+        <div class="prop-label">核心方法</div>
+        <div class="prop-text">先釐清問題→建立主張→支撐理由→引用證據→承認反例→回應挑戰，形成完整的<strong>論證鏈</strong>。</div>
+      </div>
+    </div>
+
+    <div class="framework-box" style="margin-top: 24px;">
+      <div class="framework-title">▶ 核心論證模型（Williams-Colomb Framework）</div>
+      <div class="framework-row">
+        <div class="fw-node">❓ 問題<br><small>What's at stake?</small></div>
+        <div class="fw-arrow">→</div>
+        <div class="fw-node">📌 主張<br><small>Claim</small></div>
+        <div class="fw-arrow">→</div>
+        <div class="fw-node">🔗 理由<br><small>Reasons</small></div>
+        <div class="fw-arrow">→</div>
+        <div class="fw-node">📊 證據<br><small>Evidence</small></div>
+      </div>
+      <div class="framework-row" style="margin-top: 8px; padding-left: 40px;">
+        <div class="fw-arrow">↓</div>
+      </div>
+      <div class="framework-row">
+        <div class="fw-node">🛡 承認<br><small>Acknowledgment</small></div>
+        <div class="fw-arrow">↔</div>
+        <div class="fw-node">⚔ 回應<br><small>Response</small></div>
+        <div class="fw-arrow">←</div>
+        <div class="fw-node">🤔 反駁<br><small>Counterarguments</small></div>
+      </div>
+      <p style="font-size:13px; color:var(--text-light); margin-top:16px;">
+        ⚙ 隱形結構：<strong>保證（Warrant）</strong> = 連接理由與主張的一般性原則，是論證中最容易被忽略但最關鍵的部分。
+      </p>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ─── STEP 3：主題式分析 ─── -->
+<section class="section" id="s3">
+  <div class="section-header">
+    <div class="step-num">03</div>
+    <h2 class="section-title">主題式深度分析（7層展開）</h2>
+  </div>
+
+  <!-- THEME 1 -->
+  <div class="card" style="margin-bottom: 28px;">
+    <div class="theme-num">主題 01</div>
+    <h3 class="theme-headline">🎯 論證的起點不是「我要說什麼」，而是「讀者在意什麼問題」</h3>
+
+    <div class="layer layer-l1">
+      <div class="layer-label l1-label">L1 書中概念 — 讀者為中心的問題導向寫作</div>
+      <div class="layer-text">
+        Williams & Colomb 主張：每個論證都應從一個<strong>讀者真正關心的問題</strong>開始。好的論文不是「分享你知道的」，而是「回應讀者尚未解決的困惑」。書中區分兩種問題層次：
+        <ul style="margin-top:10px; padding-left: 20px; font-size:14px; color:var(--text-mid);">
+          <li><strong>實際問題（Practical Question）</strong>：讀者需要做決定或採取行動</li>
+          <li><strong>概念問題（Conceptual Question）</strong>：讀者想理解某件事為何如此</li>
+        </ul>
+        論文的開頭必須建立「不穩定性」（destabilization）——讓讀者感覺現有知識有缺口，你的論文正是填補這個缺口。
+      </div>
+    </div>
+
+    <div class="layer layer-l2">
+      <div class="layer-label l2-label">L2 中層洞見 — 問題本身也是論證的一部分</div>
+      <div class="layer-text">
+        大多數人寫作時跳過「問題建構」這一步，直接開始「解答」。但問題的框架方式決定了什麼樣的解答是合法的。
+        <span class="highlight">你對問題的框架，本身就是一種論證行為</span>。學術論文之所以難寫，不是因為沒有答案，而是因為大多數作者不知道自己在回答什麼問題。
+      </div>
+    </div>
+
+    <div class="layer layer-l3">
+      <div class="layer-label l3-label">L3 深層洞見 [AI 原創] — 問題即本體論承諾</div>
+      <div class="layer-text">
+        更深一層：你提出的問題預設了一套本體論框架（什麼東西存在？什麼事情重要？）。當 Williams 說「從讀者的問題出發」，他其實在說：<strong>論證是一種社會性行為，而非個人表達行為</strong>。這呼應了 Mikhail Bakhtin 的「對話主義」——每一個表達都是對他者問題的回應。問題的設計能力，是比答案本身更高階的認知技能，也是研究者與普通寫作者最本質的區別。
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "Before you can write a good argument, you must understand not just what you want to say, but what your reader needs to know—and why they need to know it."
+      <div class="verify-note">⚠ [待驗證] 此為精神摘要，非逐字引用。</div>
+    </div>
+
+    <div class="critical-box">
+      <strong>🔴 批判性評論</strong>｜本書預設讀者是「理性、有耐心的學術讀者」。但在現實中，很多讀者（包括學術評審）受情緒、偏見、時間壓力影響。Williams 的模型在理想學術社群中有效，但對「說服難度極高的讀者」缺乏策略指導。此外，「讀者在意什麼」本身就很難判斷——初學者往往無法準確感知學術社群的關注點。
+    </div>
+
+    <div class="connect-box">
+      <strong>📎 跨書連結 [AI]</strong>｜與 <em>They Say / I Say</em>（Graff & Birkenstein）高度呼應——兩書都強調論證必須先「聽見他者的聲音」再發言。同時連結 Kenneth Burke 的「同一性」（Identification）修辭理論：說服的前提是先讓讀者感到「你懂我」。亦可對照 Clayton Christensen 的「Jobs-to-be-Done」框架：論文服務的不是「讀者的人格」，而是「讀者此刻要完成的認知任務」。
+    </div>
+
+    <ul class="action-list">
+      <li>在你的論文草稿第一段後，問自己：「讀者看完這段會問什麼問題？」——如果你的論文不是在回答這個問題，重寫引言。（10分鐘）</li>
+      <li>寫下三個你的目標讀者「可能有的困惑」，選最重要的那一個作為你的論文問題。（15分鐘）</li>
+    </ul>
+
+    <ul class="check-list">
+      <li>我的引言是否建立了「不穩定性」——讓讀者感覺現有答案不夠？</li>
+      <li>我是在回答一個實際問題還是概念問題？我清楚嗎？</li>
+      <li>我的目標讀者是誰？他們為何會在意我的問題？</li>
+    </ul>
+
+    <div class="prompt-box">
+      💭 <strong>延伸提示</strong>：「如果你的論文問題不重要，論證再精彩也是浪費。花時間想清楚：你在解決誰的困惑？這個困惑為什麼現在需要被解決？」
+    </div>
+  </div>
+
+  <!-- THEME 2 -->
+  <div class="card" style="margin-bottom: 28px;">
+    <div class="theme-num">主題 02</div>
+    <h3 class="theme-headline">🔗 主張、理由、保證——論證的三位一體</h3>
+
+    <div class="layer layer-l1">
+      <div class="layer-label l1-label">L1 書中概念 — Toulmin 模型的實踐版</div>
+      <div class="layer-text">
+        Williams & Colomb 採用 Stephen Toulmin 的論證模型，並將其教學化。核心三元素：
+        <br><br>
+        <strong>主張（Claim）</strong>：你希望讀者接受的命題。<br>
+        <strong>理由（Reason）</strong>：為何讀者應接受這個主張（可觀察或可接受的事實陳述）。<br>
+        <strong>保證（Warrant）</strong>：連接理由到主張的一般性原則——通常是隱含的，但必須能被讀者接受。
+        <br><br>
+        例：「<em>這個藥應該被批准（主張），因為它通過了三期臨床試驗（理由）；通過三期臨床試驗的藥物通常是安全有效的（保證）。</em>」
+      </div>
+    </div>
+
+    <div class="layer layer-l2">
+      <div class="layer-label l2-label">L2 中層洞見 — 「保證」是論證中最危險的隱身人</div>
+      <div class="layer-text">
+        多數論證的失敗發生在「保證」層面——作者以為理由足夠支撐主張，卻沒意識到讀者不接受這個隱含的「一般性原則」。
+        <span class="highlight">當你的論證遭到質疑時，被攻擊的往往不是你的理由，而是你的保證</span>。
+        找出自己論證的保證，並測試它是否能被目標讀者接受，是提升論證品質最關鍵的一步。
+      </div>
+    </div>
+
+    <div class="layer layer-l3">
+      <div class="layer-label l3-label">L3 深層洞見 [AI 原創] — 保證揭示了認識論前提</div>
+      <div class="layer-text">
+        保證不只是「邏輯橋樑」，它是<strong>認識論承諾</strong>的外化——你相信什麼樣的證據算「有效」、什麼樣的推論算「合理」，決定了你的保證內容。這也解釋了為何跨領域溝通如此困難：不同學科有不同的「默許保證體系」。一個量化研究者與質性研究者的保證根本不同，導致他們即使看同樣的資料也會得出不同的主張。Wittgenstein 的「語言遊戲」概念在此適用：每個知識社群有其規則，保證就是那個社群的隱性規則書。
+      </div>
+    </div>
+
+    <div class="quote-block">
+      "A reason supports a claim only when a reader accepts the warrant that connects them. If your reader rejects your warrant, your argument fails—even if your reason is true."
+      <div class="verify-note">⚠ [待驗證] 精神摘要。</div>
+    </div>
+
+    <div class="critical-box">
+      <strong>🔴 批判性評論</strong>｜Toulmin 模型的教學化有其代價：它讓論證看起來比實際更線性。真實的學術辯論往往是網狀的、循環的，而非單一的 Claim→Reason→Warrant 鏈。此外，書中對「如何選擇理由」的討論相對不足——知道結構之後，學生仍常面臨「我要用哪個理由」的選擇困難。
+    </div>
+
+    <div class="connect-box">
+      <strong>📎 跨書連結 [AI]</strong>｜直接繼承 Stephen Toulmin《The Uses of Argument》（1958）的核心架構。與 Daniel Kahneman《快思慢想》連結：人類天然使用「系統一」的直覺判斷，Toulmin 模型是強制使用「系統二」的工具。亦呼應 Karl Popper 的「可否證性」原則：好的主張必須能被反駁，否則沒有認識論價值。
+    </div>
+
+    <ul class="action-list">
+      <li>取出你論文中的一個核心論點，明確寫出：主張是什麼？理由是什麼？保證是什麼？並問：「我的目標讀者會接受這個保證嗎？」（15分鐘）</li>
+    </ul>
+
+    <ul class="check-list">
+      <li>我能清楚陳述我論文的主張嗎？（一句話說清楚）</li>
+      <li>我有明確的理由，還是只有一堆觀察？</li>
+      <li>我的保證在我的學術社群中是否被廣泛接受？若否，我有說明嗎？</li>
+    </ul>
+
+    <div class="prompt-box">
+      💭 <strong>延伸提示</strong>：「把你的論文的保證寫出來，然後問：如果我的讀者不接受這個保證，我的整個論證還成立嗎？如果答案是否，你需要先論證你的保證，才能論證你的主張。」
+    </div>
+  </div>
+
+  <!-- THEME 3 -->
+  <div class="card" style="margin-bottom: 28px;">
+    <div class="theme-num">主題 03</div>
+    <h3 class="theme-headline">📊 證據的品質不在於數量，在於它回應的是哪個問題</h3>
+
+    <div class="layer layer-l1">
+      <div class="layer-label l1-label">L1 書中概念 — 證據的四種類型與適用場景</div>
+      <div class="layer-text">
+        Williams & Colomb 系統整理了學術論證中常見的證據類型：
+        <ul style="margin-top:10px; padding-left:20px; font-size:14px; color:var(--text-mid);">
+          <li><strong>軼事/案例（Anecdote/Case）</strong>：具體、生動，但代表性有限</li>
+          <li><strong>統計（Statistics）</strong>：有系統性代表力，但容易被誤讀</li>
+          <li><strong>權威引用（Authority）</strong>：借助他人可信度，但需注意適用範圍</li>
+          <li><strong>推理/類比（Reasoning/Analogy）</strong>：無需外部資料，但邏輯嚴密性要求高</li>
+        </ul>
+        關鍵原則：<span class="highlight">你選擇的證據類型必須符合你的讀者期待</span>。不同學術領域有不同的「合法證據」標準。
+      </div>
+    </div>
+
+    <div class="layer layer-l2">
+      <div class="layer-label l2-label">L2 中層洞見 — 「證據充足性」是讀者判斷，不是作者判斷</div>
+      <div class="layer-text">
+        多少證據才夠？這不是客觀問題，而是由讀者的「信任門檻」決定。
+        <span class="highlight">懷疑的讀者需要更多、更嚴謹的證據；已被初步說服的讀者只需一個好案例。</span>
+        因此，論證設計必須從「我的讀者目前的立場」開始，而不是從「我有多少資料」開始。
+        堆積大量證據卻未能分析其意義，反而會稀釋論證的力度——這是學生論文最常見的錯誤之一。
+      </div>
+    </div>
+
+    <div class="layer layer-l3">
+      <div class="layer-label l3-label">L3 深層洞見 [AI 原創] — 證據選擇是認識論的政治行為</div>
+      <div class="layer-text">
+        在更深的層面，<strong>選擇引用哪些證據、忽略哪些證據，是一種認識論權力行使</strong>。研究者決定哪些「聲音」值得被引用，哪些案例算作「代表性案例」，這些決策本身就在複製或挑戰某種知識秩序。Sandra Harding 的「女性主義知識論」和 Donna Haraway 的「situated knowledge」批評了傳統學術論證中「客觀中立」的幻覺——所有證據都是被視角選擇的。Williams 的框架雖實用，但未充分處理這個倫理-政治維度。
+      </div>
+    </div>
+
+    <div class="critical-box">
+      <strong>🔴 批判性評論</strong>｜本書對「如何評估資料品質」的討論較薄弱，主要依賴「相關性」和「代表性」兩個標準，但未充分討論資料的歷史性、情境性和政治性。在人文社科領域，這個缺口尤其明顯。
+    </div>
+
+    <div class="connect-box">
+      <strong>📎 跨書連結 [AI]</strong>｜呼應 Darrell Huff 《How to Lie with Statistics》——統計可以支撐任何主張，問題在於誰在選擇統計和框架方式。與 Thomas Kuhn《科學革命的結構》連結：什麼算「合法證據」是典範決定的，而非客觀真理。
+    </div>
+
+    <ul class="action-list">
+      <li>從你的論文取出三段「堆砌證據」的段落，問：這些證據回答的是同一個問題嗎？如果是，選最強的一個；如果不是，重新組織。（15分鐘）</li>
+    </ul>
+
+    <ul class="check-list">
+      <li>我的每一個證據都有明確的「功能」——它支撐的是哪個主張或理由？</li>
+      <li>我的讀者期待什麼類型的證據？我提供了嗎？</li>
+      <li>我有沒有分析證據的意義，而不只是呈現它？</li>
+    </ul>
+
+    <div class="prompt-box">
+      💭 <strong>延伸提示</strong>：「把你的每段引用或數據替換成這個句子：「這個證據說明了＿＿，這支撐了我的論點：＿＿。」如果你填不出來，那個證據可能不需要在那裡。」
+    </div>
+  </div>
+
+  <!-- THEME 4 -->
+  <div class="card" style="margin-bottom: 28px;">
+    <div class="theme-num">主題 04</div>
+    <h3 class="theme-headline">🛡 承認與回應——強論證的靈魂不是無懈可擊，而是誠實面對挑戰</h3>
+
+    <div class="layer layer-l1">
+      <div class="layer-label l1-label">L1 書中概念 — Acknowledgment & Response 的兩種形式</div>
+      <div class="layer-text">
+        Williams & Colomb 強調，完整的論證必須包含對反對聲音的回應。書中區分：
+        <ul style="margin-top:10px; padding-left:20px; font-size:14px; color:var(--text-mid);">
+          <li><strong>承認（Acknowledge）</strong>：你承認你的主張有限制、例外或反例</li>
+          <li><strong>回應（Respond）</strong>：你說明為什麼這些限制不足以推翻你的主張</li>
+        </ul>
+        更細緻的分類：
+        <ul style="margin-top:10px; padding-left:20px; font-size:14px; color:var(--text-mid);">
+          <li><strong>Concede（退讓）</strong>：對方說的有一定道理，但我的主張仍然成立，因為…</li>
+          <li><strong>Refute（反駁）</strong>：對方的理由或保證有根本性問題</li>
+          <li><strong>Reframe（重新框架）</strong>：對方在回答不同的問題，我們沒有真正矛盾</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="layer layer-l2">
+      <div class="layer-label l2-label">L2 中層洞見 — 回應反駁是「顯示你很聰明」的最佳方式</div>
+      <div class="layer-text">
+        新手作者害怕提到反駁，以為「只要不提，讀者就不會想到」。事實相反：<span class="highlight">主動承認反例並清楚回應，讓你的論點顯得更嚴謹、更有說服力，不是更弱</span>。
+        讀者——尤其是學術讀者——都在尋找你論證的弱點。與其讓他們自己找到，不如你先找到，然後解釋為什麼它沒有致命性。這不是承認失敗，而是展示你對議題的全面掌握。
+      </div>
+    </div>
+
+    <div class="layer layer-l3">
+      <div class="layer-label l3-label">L3 深層洞見 [AI 原創] — 承認是倫理行為，不只是修辭策略</div>
+      <div class="layer-text">
+        Williams 的「承認與回應」框架有一個更深層的倫理意涵：<strong>誠實的論證者對真理的承諾高於對自身立場的保護</strong>。這呼應了 Jurgen Habermas 的「理想言談情境」（ideal speech situation）——真正的理性討論要求參與者願意被更好的論證說服。
+        在一個充斥著兩極對立與「打臉文化」的時代，Williams 的這個框架代表了一種更古老的智識美德：<em>論證不是戰爭，而是共同追求真理的合作行動</em>。學會「優雅地承認」，是學術成熟的標誌。
+      </div>
+    </div>
+
+    <div class="connect-box">
+      <strong>📎 跨書連結 [AI]</strong>｜與 Roger Fisher & William Ury 《Getting to Yes》連結：有效的談判需要先理解對方的立場，再尋找共同利益。與 Wayne Booth 的「rhetorical stance」概念連結——作者必須建立合理的「論證人格」（ethos），而誠實承認弱點是建立 ethos 的核心策略。
+    </div>
+
+    <ul class="action-list">
+      <li>找出你論文中最弱的一個論點，主動寫出「有人可能反對這個論點，因為＿＿，但這個反對不成立，因為＿＿」（15分鐘）</li>
+      <li>把你論文的 Acknowledgment 段落讀出來，測試：聽起來像在逃避，還是像在展示全面掌握？（5分鐘）</li>
+    </ul>
+
+    <ul class="check-list">
+      <li>我的論文有明確處理至少一個反對聲音嗎？</li>
+      <li>我是在「承認後回應」還是只是「假裝承認」？</li>
+      <li>我的回應策略（退讓/反駁/重框）是否與反對意見的力度相稱？</li>
+    </ul>
+
+    <div class="prompt-box">
+      💭 <strong>延伸提示</strong>：「假設你最聰明的反對者讀了你的論文，他會說什麼？現在，把他說的話寫進你的論文，然後回應他。這才是真正的學術論證。」
+    </div>
+  </div>
+
+  <!-- THEME 5 -->
+  <div class="card" style="margin-bottom: 28px;">
+    <div class="theme-num">主題 05</div>
+    <h3 class="theme-headline">📝 引言設計——前三段決定讀者是否繼續讀</h3>
+
+    <div class="layer layer-l1">
+      <div class="layer-label l1-label">L1 書中概念 — CARS 模型的 Williams 版本</div>
+      <div class="layer-text">
+        Williams & Colomb 的引言結構（對應語境：學術論文）：
+        <ol style="margin-top:10px; padding-left:20px; font-size:14px; color:var(--text-mid);">
+          <li><strong>背景（Context）</strong>：讓讀者知道討論的領域和背景知識</li>
+          <li><strong>問題/不穩定性（Destabilize）</strong>：指出現有知識的缺口或矛盾——讓讀者感到「原來還沒被解決」</li>
+          <li><strong>解決方案/主張（Response）</strong>：宣告你的論文如何填補這個缺口</li>
+          <li><strong>貢獻（Significance）</strong>：說明解決這個問題為何重要</li>
+        </ol>
+        這個結構確保讀者在讀完引言後，清楚知道「這篇文章的問題是什麼」、「作者的答案是什麼」、「為什麼值得讀」。
+      </div>
+    </div>
+
+    <div class="layer layer-l2">
+      <div class="layer-label l2-label">L2 中層洞見 — 引言是讀者的「閱讀契約」</div>
+      <div class="layer-text">
+        引言不只是開場，它是你與讀者之間的<span class="highlight">閱讀契約</span>——你承諾了什麼問題、什麼方法、什麼論點。論文的其他部分必須履行這個承諾。
+        一個常見的失敗模式：引言過於宏大（討論「人類文明的方向」），但論文本體其實只是一個小的案例研究。這種「承諾超支」讓讀者在閱讀過程中感到被欺騙。
+      </div>
+    </div>
+
+    <div class="layer layer-l3">
+      <div class="layer-label l3-label">L3 深層洞見 [AI 原創] — 引言是認識論地圖，不只是開場白</div>
+      <div class="layer-text">
+        好的引言其實是一張「認識論地圖」：它告訴讀者這篇論文在知識地圖上的位置（它站在哪些前人研究的基礎上？）、要去哪裡（解答什麼問題？）、用什麼路徑（方法論）。
+        這等同於 Thomas Kuhn 所說的「常規科學」的定位——每篇好論文都必須清楚說明它在哪個典範內工作，對哪個謎題提出解答。讀者的「不穩定感」其實就是感知到知識地圖上有一個空白點。你的引言任務：製造這個空白感，然後承諾你有地圖填補它。
+      </div>
+    </div>
+
+    <ul class="action-list">
+      <li>重讀你的引言，找出：我在哪一段「製造了不穩定性」？讀者有沒有清楚感受到？（10分鐘）</li>
+      <li>把你的主張放在引言的最後一段（或倒數第二段），測試讀者是否在讀完引言後就清楚你的核心論點。（10分鐘）</li>
+    </ul>
+
+    <ul class="check-list">
+      <li>我的引言有明確的 Context → Problem → Response 結構嗎？</li>
+      <li>讀者讀完我的引言後，能一句話說出我的論點嗎？</li>
+      <li>我的引言承諾了什麼？論文有兌現嗎？</li>
+    </ul>
+
+    <div class="prompt-box">
+      💭 <strong>延伸提示</strong>：「給陌生人讀你的引言，請他說：這篇文章在解決什麼問題？作者的答案是什麼？如果他說不出來，你的引言需要重寫。」
+    </div>
+  </div>
+
+  <!-- THEME 6 -->
+  <div class="card">
+    <div class="theme-num">主題 06</div>
+    <h3 class="theme-headline">🏗 論文結構——每一段都是一個小論證</h3>
+
+    <div class="layer layer-l1">
+      <div class="layer-label l1-label">L1 書中概念 — 主題句的論證功能</div>
+      <div class="layer-text">
+        Williams & Colomb 強調：<strong>段落的主題句必須是一個主張，不是一個主題</strong>。
+        錯誤主題句：「本段討論氣候變遷的影響。」（主題）
+        正確主題句：「氣候變遷導致的極端天氣事件已對發展中國家的糧食安全造成不可逆的損害。」（主張）
+        每個段落的結構應是：主題句（主張）→ 理由/解釋 → 證據 → 回應潛在疑問 → 銜接下一段的邏輯。
+        這樣每個段落都是一個自足的小論證，同時是整體論證鏈的一個環節。
+      </div>
+    </div>
+
+    <div class="layer layer-l2">
+      <div class="layer-label l2-label">L2 中層洞見 — 段落層次的失敗往往暴露思維層次的混亂</div>
+      <div class="layer-text">
+        段落寫不好，通常不是「寫作問題」，而是<span class="highlight">「思考問題」</span>——你不確定這段在論證什麼。
+        當你無法為一個段落寫出一個清晰的主張主題句，這通常意味著這段內容還沒想清楚。
+        反向使用：把「為每段寫主題句」當作論文的「思考診斷工具」，比大綱更能暴露思維漏洞。
+      </div>
+    </div>
+
+    <div class="layer layer-l3">
+      <div class="layer-label l3-label">L3 深層洞見 [AI 原創] — 段落結構是思維的「外骨骼」</div>
+      <div class="layer-text">
+        人類工作記憶有限（Miller's Law：7±2個單位）。段落結構提供了思維的「外骨骼」——讓複雜的論證可以被分解為讀者工作記憶能處理的塊狀單位。
+        更深一層：<strong>強制要求每段有論點主題句，實際上是在強制進行「命題化思維」</strong>——把直覺和感受轉化為可被驗證的命題。這是學術訓練的核心認知目標，也是科學思維與日常思維最本質的區別。Williams 的教學法，本質上是在訓練「命題化思維能力」。
+      </div>
+    </div>
+
+    <ul class="action-list">
+      <li>把論文每一段的第一句話抽出來，串成一份「骨架文件」，看看它能不能獨立構成一個連貫的論證。（15分鐘）</li>
+    </ul>
+
+    <ul class="check-list">
+      <li>我的每個段落主題句是「主張」還是「主題」？</li>
+      <li>段落骨架串在一起，能看出完整論證邏輯嗎？</li>
+      <li>每段的證據有分析，還是只是引用後就過去了？</li>
+    </ul>
+
+    <div class="prompt-box">
+      💭 <strong>延伸提示</strong>：「試試這個練習：把論文印出來，只圈出每段的第一句，然後問：這些句子串起來有說一個完整的故事嗎？」
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ─── STEP 4：敘事弧線 ─── -->
+<section class="section" id="s4">
+  <div class="section-header">
+    <div class="step-num">04</div>
+    <h2 class="section-title">敘事弧線</h2>
+  </div>
+  <div class="card">
+    <div class="arc-timeline">
+      <div class="arc-item">
+        <div class="arc-dot">①</div>
+        <div class="arc-content">
+          <div class="arc-title">困境的起點：「我有很多東西想說，但寫不出來」</div>
+          <div class="arc-desc">書從讀者最熟悉的痛點出發——大多數人寫作的問題不是沒有想法，而是想法無法組織成有說服力的論證。Williams 不是要解決「寫作焦慮」，而是要建立一套認知工具，把模糊的思考轉化為嚴謹的論證。</div>
+        </div>
+      </div>
+      <div class="arc-item">
+        <div class="arc-dot">②</div>
+        <div class="arc-content">
+          <div class="arc-title">問題的釐清：論證不是「表達」，而是「回應」</div>
+          <div class="arc-desc">第一個認知轉變：把「我想說什麼」的思維轉換為「讀者需要什麼、有什麼困惑」。這個轉變改變了整個寫作的起點。論文的問題應該是讀者的問題，不是作者的問題。</div>
+        </div>
+      </div>
+      <div class="arc-item">
+        <div class="arc-dot">③</div>
+        <div class="arc-content">
+          <div class="arc-title">工具的建立：論證的五要素框架</div>
+          <div class="arc-desc">主張→理由→保證→證據→承認&回應，這五個元素構成一個完整論證的必要組件。書的中間部分系統地介紹每個元素，並提供大量練習和範例，讓學生能識別缺失的環節。</div>
+        </div>
+      </div>
+      <div class="arc-item">
+        <div class="arc-dot">④</div>
+        <div class="arc-content">
+          <div class="arc-title">整合：從段落到論文的宏觀結構</div>
+          <div class="arc-desc">學會了基本元素後，書轉向宏觀：如何把多個子論證整合成一個一致的完整論文？引言如何設置問題？各章節如何構成整體論證鏈？結論如何超越簡單的總結，而是提升讀者的理解層次？</div>
+        </div>
+      </div>
+      <div class="arc-item">
+        <div class="arc-dot">⑤</div>
+        <div class="arc-content">
+          <div class="arc-title">精煉：論證的倫理與風格</div>
+          <div class="arc-desc">最後，書回到更深的問題：什麼是「好的論證者」的品格？誠實承認弱點、對真理的承諾高於對勝負的執著、願意被更好的論證說服——這些不只是技巧，而是知識人的倫理要求。論證的工藝最終是一種生活方式。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ─── STEP 5：整合洞見 ─── -->
+<section class="section" id="s5">
+  <div class="section-header">
+    <div class="step-num">05</div>
+    <h2 class="section-title">整合洞見</h2>
+  </div>
+  <div class="card">
+    <div class="insight-grid">
+      <div class="insight-card">
+        <h4>💡 洞見一：論證是思考的技術指標</h4>
+        <p>無法論證，通常意味著尚未思考清楚。Williams 的框架不只是寫作工具，更是「思考品質測試儀」——當你卡在論證的哪個環節，就能定位思考的哪個層次有問題。</p>
+      </div>
+      <div class="insight-card">
+        <h4>💡 洞見二：讀者中心性是倫理問題，不只是技術問題</h4>
+        <p>把讀者放在中心，意味著承認「我不是在自我表達，而是在服務一個交流目的」。這要求論證者有某種程度的自我謙遜——這在學術寫作訓練中常被忽視。</p>
+      </div>
+      <div class="insight-card">
+        <h4>💡 洞見三：「保證」是跨學科溝通的最大障礙</h4>
+        <p>不同學術社群的衝突，往往不是因為事實不同，而是保證（隱性原則）不同。學會識別保證，是進行真正跨學科對話的前提條件。</p>
+      </div>
+      <div class="insight-card">
+        <h4>💡 洞見四：承認弱點是建立信任的最快路徑</h4>
+        <p>在任何說服情境中（不只是學術論文），主動承認限制和反例比隱藏它們更能建立信任。這個原則適用於商業報告、政策建議、個人說服等所有論證場景。</p>
+      </div>
+      <div class="insight-card">
+        <h4>💡 洞見五：問題的框架方式決定了可能的解答空間</h4>
+        <p>「問題設計能力」是比「答案生產能力」更稀缺的認知技能。Williams 的書實際上在教一種更高階的思維方式：如何問出正確的問題。</p>
+      </div>
+      <div class="insight-card">
+        <h4>💡 洞見六：論文骨架診斷法</h4>
+        <p>把每段主題句抽出串成一份文件，就能快速判斷論文的論證邏輯是否連貫。這是 Williams 提供的最實用的「自我診斷」工具，可以在任何寫作階段使用。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ─── STEP 6：缺席分析 ─── -->
+<section class="section" id="s6">
+  <div class="section-header">
+    <div class="step-num">06</div>
+    <h2 class="section-title">缺席分析——書中沒說的事</h2>
+  </div>
+  <div class="card">
+    <div class="blind-grid">
+      <div class="blind-item">
+        <h4>🔍 缺席一：論證的情感維度</h4>
+        <p>Williams 的框架幾乎完全是理性的。但說服力中 pathos（情感訴求）與 ethos（品格訴求）同樣重要。Aristotle 三元素只有 logos（邏輯）在書中有充分發展，情感論證被嚴重低估。</p>
+      </div>
+      <div class="blind-item">
+        <h4>🔍 缺席二：跨文化論證差異</h4>
+        <p>本書幾乎全部假設讀者是北美學術語境。在東亞、中東、非洲等不同文化傳統中，論證的結構和說服策略有根本差異。「線性論證」是西方傳統，非普遍標準。</p>
+      </div>
+      <div class="blind-item">
+        <h4>🔍 缺席三：數位時代的論證</h4>
+        <p>本書撰寫於 2000 年代初期，完全沒有討論社群媒體、超文本、多媒體論證等新形式。在 Twitter 和短視頻時代，「論證的工藝」需要全新的框架補充。</p>
+      </div>
+      <div class="blind-item">
+        <h4>🔍 缺席四：論證的政治性</h4>
+        <p>Williams 假設「好的論證終將勝出」，但現實中，學術評審系統、出版政治、學派偏見等結構性因素常常讓「技術上更好的論證」輸給「關係更好的論證者」。書中未觸及學術場域的權力結構。</p>
+      </div>
+      <div class="blind-item">
+        <h4>🔍 缺席五：如何「不論證」</h4>
+        <p>有時候，最強的修辭策略是沉默、留白、或選擇不回應。Williams 的框架假設所有問題都值得論證，但識別「不應論證的時機」也是修辭智慧的一部分。</p>
+      </div>
+      <div class="blind-item">
+        <h4>🔍 缺席六：論證的修訂過程</h4>
+        <p>書雖然提供結構框架，但對「如何從混亂草稿走向清晰論證」的實際修訂過程著墨不深。對學生而言，修訂策略往往比初稿策略更需要具體指導。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ─── STEP 7：AI 視角 ─── -->
+<section class="section" id="s7">
+  <div class="section-header">
+    <div class="step-num">07</div>
+    <h2 class="section-title">AI 視角——站在 2025 年看這本書</h2>
+  </div>
+  <div class="card">
+    <div class="ai-box">
+      <h4>🤖 AI 時代的論證能力：比以往更重要，也比以往更容易被繞過</h4>
+      <p>ChatGPT 等工具可以在數秒內生成「看起來有論證結構」的文字。這讓 Williams 的框架面臨前所未有的張力：當 AI 可以生成「形似論證」的內容，什麼是人類論證者真正不可替代的？答案可能正是這本書最不明顯的教導：<strong>論證能力的核心不是語言組合，而是問題意識、保證識別、和誠實承認的倫理承諾</strong>。這些正是當前 AI 系統最難內化的部分。</p>
+    </div>
+
+    <div class="ai-box">
+      <h4>🤖 Williams 框架可以成為 AI Prompt Engineering 的基礎</h4>
+      <p>有趣的是，The Craft of Argument 的框架可以直接應用於設計 AI 提示：「我希望你論證（主張），基於（理由），預設讀者接受（保證），使用（證據類型），並承認（潛在反例）。」把 Williams 的框架轉化為 prompt 結構，可以大幅提升 AI 生成論證的品質和精準度。Williams 的書意外地成為了 AI 時代的 prompt 設計手冊。</p>
+    </div>
+
+    <div class="ai-box">
+      <h4>🤖 知識生產的民主化與論證品質的兩極分化</h4>
+      <p>AI 工具讓更多人可以生產文字，但這不意味著論證品質提升。反而可能加劇兩種分化：能真正理解論證結構的人（極少數）與只能生產大量「論證形式」但缺乏實質的人（多數）。Williams 的書因此更值得在 AI 時代被重新重視——它教的不是寫作技巧，而是<strong>論證思維</strong>，而這是任何時代最稀缺的認知資源。</p>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ─── STEP 8：行動轉化 ─── -->
+<section class="section" id="s8">
+  <div class="section-header">
+    <div class="step-num">08</div>
+    <h2 class="section-title">行動轉化——從書到生活的實踐計畫</h2>
+  </div>
+  <div class="card">
+    <div style="overflow-x: auto;">
+      <table class="action-table">
+        <thead>
+          <tr>
+            <th>行動</th>
+            <th>場景</th>
+            <th>時間</th>
+            <th>層次</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>論文引言診斷：找出「不穩定性」在哪裡</td>
+            <td>學術寫作</td>
+            <td>10分鐘</td>
+            <td><span class="level-badge lv-now">現在就做</span></td>
+          </tr>
+          <tr>
+            <td>段落骨架抽取：每段第一句串成「骨架文件」</td>
+            <td>論文修訂</td>
+            <td>15分鐘</td>
+            <td><span class="level-badge lv-now">現在就做</span></td>
+          </tr>
+          <tr>
+            <td>三欄寫作法：主張｜理由｜保證——寫出你論文的核心三要素</td>
+            <td>論文規劃</td>
+            <td>15分鐘</td>
+            <td><span class="level-badge lv-now">現在就做</span></td>
+          </tr>
+          <tr>
+            <td>「惡魔辯護人」練習：為你的論文主張寫出最強的反駁</td>
+            <td>論文精進</td>
+            <td>本週</td>
+            <td><span class="level-badge lv-week">本週計畫</span></td>
+          </tr>
+          <tr>
+            <td>建立個人「保證庫」：整理你所在學術領域的隱性前提</td>
+            <td>研究方法論</td>
+            <td>本週</td>
+            <td><span class="level-badge lv-week">本週計畫</span></td>
+          </tr>
+          <tr>
+            <td>讀者訪談：找一個不熟悉你領域的人讀你的引言，記錄他的問題</td>
+            <td>論文改寫</td>
+            <td>本週</td>
+            <td><span class="level-badge lv-week">本週計畫</span></td>
+          </tr>
+          <tr>
+            <td>建立論證日記：每天寫一個用 Williams 框架分析的論證（新聞/論文/日常對話）</td>
+            <td>日常練習</td>
+            <td>每天10分鐘</td>
+            <td><span class="level-badge lv-deep">深度習慣</span></td>
+          </tr>
+          <tr>
+            <td>Toulmin 分析練習：每週分析一篇學術論文的論證結構</td>
+            <td>學術閱讀</td>
+            <td>每週</td>
+            <td><span class="level-badge lv-deep">深度習慣</span></td>
+          </tr>
+          <tr>
+            <td>讀書會應用：與同學共讀互評論證結構（非文字風格）</td>
+            <td>學習社群</td>
+            <td>每月</td>
+            <td><span class="level-badge lv-deep">深度習慣</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ─── STEP 9：帶問題回去讀 ─── -->
+<section class="section" id="s9">
+  <div class="section-header">
+    <div class="step-num">09</div>
+    <h2 class="section-title">帶問題回去讀——重讀時問這些問題</h2>
+  </div>
+  <div class="card">
+    <ul class="question-list">
+      <li><div class="q-num">1</div>Williams 說引言要「destabilize」讀者——在你所在的學術領域，什麼樣的「不穩定性」最能引起讀者注意？</li>
+      <li><div class="q-num">2</div>「保證」在你的論文中通常是顯性的（說出來的）還是隱性的（假設讀者接受的）？你的學術社群是否真的接受這些隱性保證？</li>
+      <li><div class="q-num">3</div>Williams 區分「實際問題」與「概念問題」——你現在的研究問題屬於哪一種？這個分類對你的論文設計有何影響？</li>
+      <li><div class="q-num">4</div>你在論文中「承認」了什麼反例？你的承認是「優雅的退讓」、「正面反駁」還是「重新框架」？哪一種最適合你的論點？</li>
+      <li><div class="q-num">5</div>你的讀者是誰？他們目前對你的主題持什麼立場？他們需要什麼程度的「說服」？</li>
+      <li><div class="q-num">6</div>Williams 的框架在哪些地方讓你感到「不自然」或「與我的學科文化不符」？這種不適感揭示了什麼關於你所在學術社群的隱性規則？</li>
+      <li><div class="q-num">7</div>把 Williams 的論證框架應用到「日常溝通」（說服老闆、與家人討論）——在哪些地方有效？哪些地方需要調整？這個對照告訴你學術論證與日常說服的本質差異是什麼？</li>
+    </ul>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ─── STEP 10：延伸資源 ─── -->
+<section class="section" id="s10">
+  <div class="section-header">
+    <div class="step-num">10</div>
+    <h2 class="section-title">延伸資源</h2>
+  </div>
+  <div class="card">
+    <div class="grid-2">
+      <div>
+        <p class="lib-group-title blue">📚 必讀前作</p>
+        <div class="resource-item">
+          <div class="res-icon">📖</div>
+          <div>
+            <div class="res-title">Style: Lessons in Clarity and Grace — J.M. Williams</div>
+            <div class="res-desc">Williams 的另一部經典，專注於句子層次的清晰表達。與 Craft of Argument 構成「句法→論證」的完整寫作訓練體系。</div>
+          </div>
+        </div>
+        <div class="resource-item">
+          <div class="res-icon">📖</div>
+          <div>
+            <div class="res-title">The Uses of Argument — Stephen Toulmin</div>
+            <div class="res-desc">Williams 論證框架的哲學根源。Toulmin 模型的完整版，適合想深入論證邏輯理論的讀者。</div>
+          </div>
+        </div>
+        <div class="resource-item">
+          <div class="res-icon">📖</div>
+          <div>
+            <div class="res-title">They Say / I Say — Gerald Graff & Cathy Birkenstein</div>
+            <div class="res-desc">更入門版的學術論證教材，以「對話框架」教寫作，適合作為 Williams 的預備讀物。</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="lib-group-title pink">🚀 進階延伸</p>
+        <div class="resource-item">
+          <div class="res-icon">🎓</div>
+          <div>
+            <div class="res-title">The Rhetoric of Fiction — Wayne Booth</div>
+            <div class="res-desc">論修辭的倫理維度，深化 Williams 未充分討論的「論證者品格」（ethos）議題。</div>
+          </div>
+        </div>
+        <div class="resource-item">
+          <div class="res-icon">🧠</div>
+          <div>
+            <div class="res-title">Thinking, Fast and Slow — Daniel Kahneman</div>
+            <div class="res-desc">理解讀者為何不總是理性的，補充 Williams 框架的認知心理學基礎。</div>
+          </div>
+        </div>
+        <div class="resource-item">
+          <div class="res-icon">🔬</div>
+          <div>
+            <div class="res-title">The Structure of Scientific Revolutions — Thomas Kuhn</div>
+            <div class="res-desc">理解「保證」背後的典範結構——什麼決定了某個學術社群接受什麼樣的論證。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 20px;">
+      <p class="lib-group-title teal">🎬 多媒體資源</p>
+      <div class="resource-item">
+        <div class="res-icon">🎥</div>
+        <div>
+          <div class="res-title">芝加哥大學寫作中心（UChicago Writing Program）</div>
+          <div class="res-desc">延續 Williams & Colomb 傳統的寫作資源，提供線上寫作指導手冊與工作坊錄影。</div>
+        </div>
+      </div>
+      <div class="resource-item">
+        <div class="res-icon">🎙</div>
+        <div>
+          <div class="res-title">Writing Excuses Podcast</div>
+          <div class="res-desc">雖然以小說寫作為主，但許多論證結構的討論與學術論證高度相通，特別是「讀者期待管理」的討論。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="sep">
+
+<!-- ─── STEP 11：書庫卡片 ─── -->
+<section class="section" id="s11">
+  <div class="section-header">
+    <div class="step-num">11</div>
+    <h2 class="section-title">書庫卡片</h2>
+  </div>
+  <div class="lib-card">
+    <div class="lib-title">The Craft of Argument</div>
+    <div class="lib-sub">Joseph M. Williams & Gregory G. Colomb｜學術論證工藝完全手冊</div>
+
+    <div class="lib-grid">
+      <div>
+        <p class="lib-group-title blue">🎯 核心貢獻</p>
+        <div class="lib-tags">
+          <span class="lib-tag">讀者中心論證設計</span>
+          <span class="lib-tag">問題導向寫作</span>
+          <span class="lib-tag">Toulmin模型實踐化</span>
+          <span class="lib-tag">保證識別技術</span>
+          <span class="lib-tag">承認與回應框架</span>
+        </div>
+
+        <p class="lib-group-title pink" style="margin-top:16px;">💡 一句話精髓</p>
+        <p style="font-size:14px; color:var(--text-mid); line-height:1.7; font-style:italic;">
+          「論證不是你說了什麼，而是讀者聽到了什麼、被說服了什麼——從讀者的問題出發，建立主張、支撐理由、誠實承認、完整回應，這才是論證的工藝。」
+        </p>
+      </div>
+      <div>
+        <p class="lib-group-title teal">🔗 連結書目</p>
+        <div class="lib-tags">
+          <span class="lib-tag">Style – Williams</span>
+          <span class="lib-tag">They Say I Say</span>
+          <span class="lib-tag">The Uses of Argument</span>
+          <span class="lib-tag">Thinking Fast and Slow</span>
+          <span class="lib-tag">Structure of Scientific Rev.</span>
+        </div>
+
+        <p class="lib-group-title orange" style="margin-top:16px;">⚠ 使用警告</p>
+        <p style="font-size:13.5px; color:var(--text-mid); line-height:1.7;">
+          本書框架最適合北美學術英語語境，跨文化應用需調整。情感論證和修辭倫理需另外補充。不適合作為「快速寫作模板」使用——它的真正價值在於訓練論證思維，而非提供格式。
+        </p>
+      </div>
+    </div>
+
+    <hr style="border: none; border-top: 1px solid rgba(102,126,234,0.2); margin: 24px 0;">
+
+    <div class="grid-2" style="margin-bottom: 20px;">
+      <div>
+        <p class="lib-group-title blue">📊 書醒評分</p>
+        <div style="display:flex; flex-wrap:wrap; gap:12px;">
+          <div style="text-align:center;">
+            <div style="font-size:1.5rem; font-weight:900; background:var(--grad-main); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">9.2</div>
+            <div style="font-size:11px; color:var(--text-light);">論證嚴謹度</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:1.5rem; font-weight:900; background:var(--grad-main); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">8.8</div>
+            <div style="font-size:11px; color:var(--text-light);">實用性</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:1.5rem; font-weight:900; background:var(--grad-main); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">7.5</div>
+            <div style="font-size:11px; color:var(--text-light);">易讀性</div>
+          </div>
+          <div style="text-align:center;">
+            <div style="font-size:1.5rem; font-weight:900; background:var(--grad-main); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;">9.5</div>
+            <div style="font-size:11px; color:var(--text-light);">持久影響力</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <p class="lib-group-title pink">🎯 最適合讀者</p>
+        <ul style="list-style:none; font-size:13.5px; color:var(--text-mid); line-height:2;">
+          <li>✅ 正在寫學術論文或研究計畫的學生</li>
+          <li>✅ 需要做有說服力報告的職場人士</li>
+          <li>✅ 想系統化提升論證思維的知識工作者</li>
+          <li>✅ 教授學術寫作的教師</li>
+          <li>❌ 尋找快速寫作範本的初學者</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="text-align:center;">
+      <span class="lib-score">📚 書醒指數 8.8 / 10 — 強力推薦</span>
+    </div>
+  </div>
+</section>
+
+</div><!-- /container -->
+
+<footer>
+  <p>📚 書醒深度分析報告 · <strong>The Craft of Argument</strong> · Williams & Colomb</p>
+  <p style="margin-top:8px; color:#a0aec0;">由書醒系統生成 · 分析基於完整書籍知識 · 部分引文標記[待驗證] · 2025</p>
+  <p style="margin-top:8px;">
+    <span style="background: linear-gradient(135deg,#667eea,#f093fb); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-weight:700;">
+      書醒 · 讓每一本書的智慧都能被真正喚醒
+    </span>
+  </p>
+</footer>
+
+</body>
+</html>
