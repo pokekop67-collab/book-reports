@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>書醒分析｜Thinking, Fast and Slow — Daniel Kahneman</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #f093fb;
+    --blue: #667eea;
+    --mint: #4facfe;
+    --peach: #f5a623;
+    --lavender: #a18cd1;
+    --rose: #fda085;
+    --teal: #43e97b;
+    --coral: #ff9a9e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    background: linear-gradient(135deg, #E8F4FD 0%, #FFF0F5 50%, #F5F0FF 100%);
+    min-height: 100vh;
+    color: #2d2d2d;
+    line-height: 1.8;
+  }
+
+  /* ── Hero ── */
+  .hero {
+    background: linear-gradient(135deg, #667eea 0%, #f093fb 50%, #fda085 100%);
+    padding: 80px 40px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    animation: float 20s linear infinite;
+  }
+  @keyframes float { from{transform:translateY(0)} to{transform:translateY(-60px)} }
+
+  .hero-badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.25);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50px;
+    padding: 8px 24px;
+    font-size: 0.85rem;
+    color: #fff;
+    margin-bottom: 24px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.2);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .hero h2 {
+    font-size: 1.2rem;
+    color: rgba(255,255,255,0.9);
+    font-weight: 400;
+    margin-bottom: 32px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .hero-tag {
+    background: rgba(255,255,255,0.2);
+    border: 1px solid rgba(255,255,255,0.35);
+    border-radius: 30px;
+    padding: 6px 18px;
+    font-size: 0.8rem;
+    color: #fff;
+    font-weight: 500;
+  }
+
+  /* ── Layout ── */
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 48px 24px;
+  }
+
+  /* ── Section heading ── */
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .section-title {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 32px;
+    line-height: 1.3;
+  }
+
+  /* ── Card base ── */
+  .card {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 4px 30px rgba(102,126,234,0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .card:hover { transform: translateY(-2px); box-shadow: 0 8px 40px rgba(102,126,234,0.15); }
+
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ── Grid ── */
+  .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 24px; }
+  .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+
+  /* ── Info table ── */
+  .info-row { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid rgba(102,126,234,0.1); align-items: flex-start; }
+  .info-row:last-child { border-bottom: none; }
+  .info-label { min-width: 90px; font-size: 0.8rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.05em; padding-top: 2px; }
+  .info-value { font-size: 0.95rem; color: #333; flex: 1; }
+
+  /* ── Theme card (numbered) ── */
+  .theme-card {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(10px);
+    border-radius: 24px;
+    padding: 36px;
+    margin-bottom: 32px;
+    border: 1px solid rgba(255,255,255,0.85);
+    box-shadow: 0 6px 40px rgba(102,126,234,0.1);
+    position: relative;
+    overflow: hidden;
+  }
+  .theme-card::before {
+    content: attr(data-num);
+    position: absolute;
+    top: -10px; right: 20px;
+    font-size: 5rem;
+    font-weight: 900;
+    opacity: 0.06;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    line-height: 1;
+  }
+  .theme-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px; height: 36px;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    border-radius: 50%;
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.9rem;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+  .theme-headline {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .theme-headline-text {
+    font-size: 1.25rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--blue), var(--lavender));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ── Layer badges ── */
+  .layer-block { margin-bottom: 20px; }
+  .layer-badge {
+    display: inline-block;
+    border-radius: 8px;
+    padding: 3px 12px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+  }
+  .l1 { background: linear-gradient(135deg, #e0f0ff, #cce4ff); color: #3a72c4; }
+  .l2 { background: linear-gradient(135deg, #f0e6ff, #e4d4ff); color: #7c4daa; }
+  .l3 { background: linear-gradient(135deg, #fde6f5, #fcd4ee); color: #c2185b; }
+  .ai-tag { background: linear-gradient(135deg, #e8f8f0, #d4f5e4); color: #1a7a4c; font-size: 0.68rem; padding: 2px 10px; border-radius: 6px; margin-left: 8px; vertical-align: middle; }
+
+  .insight-text { font-size: 0.95rem; line-height: 1.85; color: #3a3a3a; padding-left: 4px; }
+
+  /* ── Sub-section heading ── */
+  .sub-heading {
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #999;
+    margin: 20px 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .sub-heading::after { content: ''; flex: 1; height: 1px; background: rgba(102,126,234,0.2); }
+
+  /* ── Quote ── */
+  .quote-block {
+    background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(240,147,251,0.08));
+    border-left: 4px solid;
+    border-image: linear-gradient(to bottom, var(--blue), var(--pink)) 1;
+    border-radius: 0 12px 12px 0;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: #555;
+  }
+
+  /* ── Action pill ── */
+  .action-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, rgba(102,126,234,0.1), rgba(240,147,251,0.1));
+    border: 1px solid rgba(102,126,234,0.2);
+    border-radius: 30px;
+    padding: 10px 18px;
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: #555;
+    margin: 6px 6px 6px 0;
+  }
+  .action-pill .icon { font-size: 1rem; }
+
+  /* ── Check list ── */
+  .check-list { list-style: none; }
+  .check-list li {
+    padding: 8px 0 8px 28px;
+    position: relative;
+    font-size: 0.93rem;
+    color: #444;
+    border-bottom: 1px dashed rgba(102,126,234,0.12);
+  }
+  .check-list li:last-child { border-bottom: none; }
+  .check-list li::before {
+    content: '✦';
+    position: absolute; left: 0;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 0.8rem;
+    top: 11px;
+  }
+
+  /* ── Bias grid ── */
+  .bias-card {
+    background: rgba(255,255,255,0.65);
+    backdrop-filter: blur(8px);
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.8);
+    box-shadow: 0 2px 20px rgba(102,126,234,0.07);
+  }
+  .bias-name {
+    font-weight: 800;
+    font-size: 0.95rem;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, var(--blue), var(--lavender));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .bias-desc { font-size: 0.85rem; color: #555; line-height: 1.6; }
+
+  /* ── System compare ── */
+  .system-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  .system-box {
+    border-radius: 20px;
+    padding: 28px;
+    text-align: center;
+  }
+  .system1 { background: linear-gradient(135deg, #ffecd2, #fcb69f); }
+  .system2 { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
+  .system-icon { font-size: 2.5rem; margin-bottom: 12px; }
+  .system-title { font-size: 1.2rem; font-weight: 900; margin-bottom: 8px; color: #333; }
+  .system-traits { list-style: none; text-align: left; margin-top: 12px; }
+  .system-traits li { font-size: 0.85rem; color: #444; padding: 4px 0; padding-left: 20px; position: relative; }
+  .system-traits li::before { content: '→'; position: absolute; left: 0; color: #666; }
+
+  /* ── Timeline ── */
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 8px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--blue), var(--pink));
+    border-radius: 2px;
+  }
+  .timeline-item { position: relative; margin-bottom: 28px; }
+  .timeline-dot {
+    position: absolute; left: -28px; top: 4px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 2px rgba(102,126,234,0.3);
+  }
+  .timeline-title { font-weight: 700; font-size: 0.95rem; margin-bottom: 6px; color: #333; }
+  .timeline-text { font-size: 0.88rem; color: #555; line-height: 1.7; }
+
+  /* ── Stat pill ── */
+  .stat-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+  .stat-pill {
+    background: linear-gradient(135deg, var(--blue), var(--pink));
+    color: #fff;
+    border-radius: 12px;
+    padding: 12px 20px;
+    text-align: center;
+    flex: 1;
+    min-width: 120px;
+  }
+  .stat-num { font-size: 1.6rem; font-weight: 900; display: block; }
+  .stat-label { font-size: 0.75rem; opacity: 0.9; font-weight: 500; }
+
+  /* ── Resource card ── */
+  .resource-card {
+    background: rgba(255,255,255,0.65);
+    border-radius: 14px;
+    padding: 18px 20px;
+    border-left: 4px solid;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+  }
+  .resource-card.book { border-color: var(--blue); }
+  .resource-card.paper { border-color: var(--pink); }
+  .resource-card.concept { border-color: var(--teal); }
+  .resource-title { font-weight: 700; margin-bottom: 4px; color: #333; }
+  .resource-desc { color: #666; font-size: 0.83rem; }
+
+  /* ── Footer ── */
+  .footer {
+    background: linear-gradient(135deg, #667eea, #f093fb);
+    padding: 40px;
+    text-align: center;
+    color: rgba(255,255,255,0.9);
+    font-size: 0.85rem;
+  }
+  .footer strong { color: #fff; }
+
+  /* ── TOC ── */
+  .toc {
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 28px 32px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(255,255,255,0.85);
+    box-shadow: 0 4px 30px rgba(102,126,234,0.08);
+  }
+  .toc-title { font-weight: 800; margin-bottom: 16px; font-size: 1rem; color: #555; }
+  .toc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 8px; }
+  .toc-item {
+    font-size: 0.83rem;
+    color: #667eea;
+    text-decoration: none;
+    padding: 6px 12px;
+    border-radius: 8px;
+    transition: background 0.2s;
+    display: block;
+    font-weight: 500;
+  }
+  .toc-item:hover { background: rgba(102,126,234,0.1); }
+  .toc-item span { opacity: 0.5; margin-right: 6px; font-weight: 400; }
+
+  /* ── Tag cloud ── */
+  .tag { display: inline-block; background: linear-gradient(135deg, rgba(102,126,234,0.12), rgba(240,147,251,0.12)); border: 1px solid rgba(102,126,234,0.2); border-radius: 20px; padding: 5px 14px; font-size: 0.8rem; color: #667; margin: 4px; font-weight: 500; }
+
+  @media (max-width: 600px) {
+    .system-compare { grid-template-columns: 1fr; }
+    .hero { padding: 50px 20px 40px; }
+    .container { padding: 32px 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     HERO
+══════════════════════════════════════════ -->
+<div class="hero">
+  <div class="hero-badge">📚 書醒深度分析 · 完全體</div>
+  <h1>Thinking, Fast and Slow</h1>
+  <h2>快思慢想 — 解鎖人類決策的雙系統密碼</h2>
+  <div class="hero-meta">
+    <span class="hero-tag">✍️ Daniel Kahneman</span>
+    <span class="hero-tag">🏆 2002 諾貝爾經濟學獎</span>
+    <span class="hero-tag">📖 499 頁</span>
+    <span class="hero-tag">🧠 認知心理學</span>
+    <span class="hero-tag">💡 行為經濟學</span>
+    <span class="hero-tag">🗓️ 2011 出版</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- TOC -->
+  <div class="toc">
+    <div class="toc-title">📋 目錄導航</div>
+    <div class="toc-grid">
+      <a class="toc-item" href="#step1"><span>01</span>書籍資料卡</a>
+      <a class="toc-item" href="#step2"><span>02</span>核心命題</a>
+      <a class="toc-item" href="#step3"><span>03</span>主題式分析</a>
+      <a class="toc-item" href="#step4"><span>04</span>敘事弧線</a>
+      <a class="toc-item" href="#step5"><span>05</span>整合洞見</a>
+      <a class="toc-item" href="#step6"><span>06</span>缺席分析</a>
+      <a class="toc-item" href="#step7"><span>07</span>AI 視角</a>
+      <a class="toc-item" href="#step8"><span>08</span>行動轉化</a>
+      <a class="toc-item" href="#step9"><span>09</span>帶問題回去讀</a>
+      <a class="toc-item" href="#step10"><span>10</span>延伸資源</a>
+      <a class="toc-item" href="#step11"><span>11</span>書庫卡片</a>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 1：書籍資料卡
+  ══════════════════════════════════════════ -->
+  <div id="step1">
+    <div class="section-label">Step 01</div>
+    <div class="section-title">📇 書籍資料卡</div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">📖 書籍基本資訊</div>
+        <div class="info-row"><div class="info-label">書名</div><div class="info-value">Thinking, Fast and Slow（快思慢想）</div></div>
+        <div class="info-row"><div class="info-label">作者</div><div class="info-value">Daniel Kahneman</div></div>
+        <div class="info-row"><div class="info-label">出版年</div><div class="info-value">2011（Farrar, Straus and Giroux）</div></div>
+        <div class="info-row"><div class="info-label">頁數</div><div class="info-value">約 499 頁</div></div>
+        <div class="info-row"><div class="info-label">領域</div><div class="info-value">認知心理學 × 行為經濟學 × 決策科學</div></div>
+        <div class="info-row"><div class="info-label">原文語言</div><div class="info-value">英語</div></div>
+        <div class="info-row"><div class="info-label">銷量</div><div class="info-value">全球超過 1000 萬冊（2023 估計）</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">👤 作者背景</div>
+        <div class="info-row"><div class="info-label">全名</div><div class="info-value">Daniel Kahneman（丹尼爾·康納曼）</div></div>
+        <div class="info-row"><div class="info-label">生卒</div><div class="info-value">1934年3月5日 — 2024年3月27日</div></div>
+        <div class="info-row"><div class="info-label">出生地</div><div class="info-value">以色列特拉維夫（二戰前夕）</div></div>
+        <div class="info-row"><div class="info-label">學術機構</div><div class="info-value">普林斯頓大學（榮譽退休教授）</div></div>
+        <div class="info-row"><div class="info-label">諾貝爾獎</div><div class="info-value">2002年經濟學獎（非經濟學家獲此獎的極少數之一）</div></div>
+        <div class="info-row"><div class="info-label">主要合作者</div><div class="info-value">Amos Tversky（已故，1996）</div></div>
+        <div class="info-row"><div class="info-label">核心理論</div><div class="info-value">展望理論（Prospect Theory）、捷思與偏誤研究</div></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🌍 歷史與時代脈絡</div>
+      <p style="font-size:0.93rem; color:#444; line-height:1.85;">
+        Kahneman 出生於二戰的陰影之下，幼年目睹猶太人大屠殺的恐懼。這段創傷或許讓他對「人類為什麼做出非理性選擇」深感困惑，也埋下了畢生研究人類心理的種子。1970年代，他與好友 Amos Tversky 的合作成為心理學史上最富成效的學術搭檔之一——他們共同推翻了當時主流經濟學「人是理性行為者」的假設，開創行為經濟學新紀元。本書是 Kahneman 數十年研究的集大成，也是他在 Tversky 過世後寫給大眾的一封智識情書。
+      </p>
+    </div>
+
+    <div class="stat-row">
+      <div class="stat-pill"><span class="stat-num">38年</span><span class="stat-label">研究積累結晶</span></div>
+      <div class="stat-pill"><span class="stat-num">5部</span><span class="stat-label">全書主要章節</span></div>
+      <div class="stat-pill"><span class="stat-num">30+</span><span class="stat-label">核心認知偏誤</span></div>
+      <div class="stat-pill"><span class="stat-num">2002</span><span class="stat-label">諾貝爾獎年份</span></div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 2：核心命題
+  ══════════════════════════════════════════ -->
+  <div id="step2" style="margin-top: 56px;">
+    <div class="section-label">Step 02</div>
+    <div class="section-title">🎯 核心命題</div>
+
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">❓ 問題</div>
+        <p style="font-size:0.93rem; color:#444; line-height:1.8;">
+          人類為什麼持續做出不理性的決策？為什麼聰明人仍然犯可預測的系統性錯誤？傳統經濟學的「理性人」假設為何如此脆弱？
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-title">💡 論點</div>
+        <p style="font-size:0.93rem; color:#444; line-height:1.8;">
+          人類有兩套思考系統：系統一（快速、直覺、自動）與系統二（緩慢、邏輯、費力）。大多數判斷由系統一主導，而系統一充滿可預測的偏誤和捷思——這是人類認知的設計，不是缺陷。
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-title">🔬 方法</div>
+        <p style="font-size:0.93rem; color:#444; line-height:1.8;">
+          以數十年的心理學實驗為基礎，透過「直覺謎題」帶領讀者親身體驗自己的偏誤，再以實驗數據揭示偏誤的機制與規律——讓你不只知道偏誤存在，更能辨識它何時發作。
+        </p>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">📐 本書五大部分架構</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">Part I — 兩個系統（Two Systems）</div>
+          <div class="timeline-text">介紹系統一與系統二的運作機制，建立全書的核心框架。探討注意力、聯想機器、認知輕鬆感。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">Part II — 捷思與偏誤（Heuristics and Biases）</div>
+          <div class="timeline-text">錨定效應、可得性捷思、代表性捷思、以及「什麼原因就是什麼結果」的因果直覺問題。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">Part III — 過度自信（Overconfidence）</div>
+          <div class="timeline-text">後見之明偏誤、計畫謬誤、效度錯覺、以及在不確定環境中的專家表現。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">Part IV — 選擇（Choices）</div>
+          <div class="timeline-text">展望理論、損失趨避、效用理論的革命，以及框架效應如何改變同樣問題的答案。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">Part V — 兩個自我（Two Selves）</div>
+          <div class="timeline-text">體驗自我與記憶自我的衝突，峰終定律，以及幸福的本質是什麼。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 3：主題式分析
+  ══════════════════════════════════════════ -->
+  <div id="step3" style="margin-top: 56px;">
+    <div class="section-label">Step 03</div>
+    <div class="section-title">🔍 主題式深度分析</div>
+
+    <!-- Theme 1: 系統一 vs 系統二 -->
+    <div class="theme-card" data-num="1">
+      <div class="theme-headline">
+        <div class="theme-number">1</div>
+        <div class="theme-headline-text">系統一（快）vs 系統二（慢）——雙軌思維的根本分裂</div>
+      </div>
+
+      <div class="sub-heading">3a｜一句話主題</div>
+      <p style="font-size:0.95rem; color:#333; font-weight:600; margin-bottom:16px;">
+        你的大腦有兩個駕駛人：一個永不打烊的直覺機器，和一個懶惰的邏輯顧問。
+      </p>
+
+      <div class="sub-heading">3b｜關鍵洞見（三層）</div>
+      <div class="layer-block">
+        <div class="layer-badge l1">[L1 書中概念]</div>
+        <div class="insight-text">
+          系統一自動、快速、無意識地運作，處理熟悉情境；系統二則需要刻意啟動，速度慢但能進行複雜推理。大部分日常決定都由系統一完成，系統二只是在「批准」這些結果——它是懶惰的，傾向接受系統一的建議而不深究。
+        </div>
+      </div>
+      <div class="layer-block">
+        <div class="layer-badge l2">[L2 中層解讀]</div>
+        <div class="insight-text">
+          這兩個系統的分工有演化上的合理性：快速反應讓祖先逃離獵食者，而過度思考反而是生存的負擔。但現代世界的問題（金融決策、醫療判斷、複雜談判）需要系統二，而我們的預設模式依然是系統一。這造成了一個「設計-需求不匹配」的認知危機。
+        </div>
+      </div>
+      <div class="layer-block">
+        <div class="layer-badge l3">[L3 深層洞見]</div><span class="ai-tag">AI 原創</span>
+        <div class="insight-text">
+          系統一不只是「快」，它其實是一個「意義製造機器」——它不能容忍混沌，必須立刻給每個輸入配上意義和情緒色彩（WYSIATI：What You See Is All There Is）。這意味著人類的認識論根本是「閉合優先」的——我們不是先看到數據再形成判斷，而是先形成判斷、再找數據支持。這讓確認偏誤不只是心理弱點，而是思維的基礎架構。
+        </div>
+      </div>
+
+      <div class="sub-heading">3c｜原文回查驗證</div>
+      <div class="quote-block">
+        [L1 書中概念] Kahneman 以「瞳孔大小實驗」說明系統二的「費力」特性：當受試者被要求做數學運算時，瞳孔明顯擴大；一旦完成，立刻縮回。系統二是耗費能量的——這是可量測的生理現象。
+      </div>
+
+      <div class="sub-heading">3d｜批判性評論</div>
+      <p style="font-size:0.9rem; color:#555; line-height:1.8;">
+        ⚠️ 「系統一/系統二」是描述性框架，而非神經科學上的實體結構。部分認知科學家（如 Evans & Stanovich）認為這種二分過於簡化，真實的「雙重歷程理論」更為複雜。此外，Kahneman 的實驗多為實驗室情境，外部效度（real-world generalizability）有待進一步驗證。
+      </p>
+
+      <div class="sub-heading">3e｜跨書連結</div>
+      <p style="font-size:0.9rem; color:#555; line-height:1.8;">
+        <span class="ai-tag">AI 跨書連結</span>
+        與 Charles Duhigg《The Power of Habit》呼應：習慣迴路（提示-慣例-獎勵）正是系統一的固化表現。與 Robert Cialdini《Influence》連結：六大影響原則（稀缺性、社會認同等）之所以有效，是因為它們精準針對系統一的「捷徑反應」。與 Nassim Taleb《The Black Swan》對話：Taleb 的「敘事謬誤」與 WYSIATI 本質相同，都在說明人類無法處理真正的不確定性。
+      </p>
+
+      <div class="sub-heading">3f｜立即可用行動（5-15分鐘）</div>
+      <div>
+        <span class="action-pill"><span class="icon">⏱️</span> 5分鐘：寫下今天做了一個「沒想多就決定」的事，問：這是系統一還是系統二？後果？</span>
+        <span class="action-pill"><span class="icon">🧪</span> 10分鐘：在重要決策前，刻意說「讓我再想一次」，嘗試啟動系統二。記錄感受。</span>
+        <span class="action-pill"><span class="icon">📊</span> 15分鐘：回顧本週一個重要判斷，列出「我掌握的事實」vs「我假設的事實」，看看 WYSIATI 在哪裡發作。</span>
+      </div>
+
+      <div class="sub-heading">3g｜自我檢核問題</div>
+      <ul class="check-list">
+        <li>在哪些情境下，我最容易讓系統一「劫持」決策而沒有意識到？</li>
+        <li>我上一次刻意啟動系統二是什麼時候？那個決定品質如何？</li>
+        <li>我的職業決策中，哪些部分依賴直覺？那個直覺是否有足夠的重複性回饋來訓練？</li>
+      </ul>
+
+      <div class="sub-heading">3h｜延伸提示</div>
+      <p style="font-size:0.88rem; color:#666; line-height:1.75;">
+        探索：認知負荷（Cognitive Load）對系統二的削弱效應，與 Roy Baumeister 的「自我耗竭（Ego Depletion）」研究對照，思考在疲勞狀態下做重要決策的危險。
+      </p>
+    </div>
+
+    <!-- Theme 2: 認知偏誤 -->
+    <div class="theme-card" data-num="2">
+      <div class="theme-headline">
+        <div class="theme-number">2</div>
+        <div class="theme-headline-text">認知偏誤的完整地圖——錨定、代表性、可得性</div>
+      </div>
+
+      <div class="sub-heading">3a｜一句話主題</div>
+      <p style="font-size:0.95rem; color:#333; font-weight:600; margin-bottom:16px;">
+        你的判斷不是客觀的：它被第一個數字鎖住、被最鮮明的例子扭曲、被最近的記憶污染。
+      </p>
+
+      <div class="sub-heading">認知偏誤全景地圖</div>
+      <div class="grid-3" style="margin-top: 12px;">
+        <div class="bias-card">
+          <div class="bias-name">⚓ 錨定效應（Anchoring）</div>
+          <div class="bias-desc">接觸到的第一個數字，會不理性地拉住後續所有估算。即使知道錨點是隨機的，也難以逃脫。實驗：輪盤轉出數字後，估計非洲國家在聯合國的比例，兩組差距超過20%。</div>
+        </div>
+        <div class="bias-card">
+          <div class="bias-name">🎭 代表性捷思（Representativeness）</div>
+          <div class="bias-desc">用「像不像」代替「機率多少」。Linda問題：Linda是女性主義銀行行員，比「Linda是銀行行員」更難成立，但多數人選前者——因為它更「代表」我們對Linda的形象。這叫連結謬誤（Conjunction Fallacy）。</div>
+        </div>
+        <div class="bias-card">
+          <div class="bias-name">📺 可得性捷思（Availability）</div>
+          <div class="bias-desc">容易浮現腦海的事件，被判斷為更常見、更危險。飛機失事上頭條，所以人們高估飛機死亡率；心臟病不上頭條，所以被低估。媒體控制「可得性」，也就控制了大眾的風險感知。</div>
+        </div>
+        <div class="bias-card">
+          <div class="bias-name">😊 光環效應（Halo Effect）</div>
+          <div class="bias-desc">對一個人的整體印象，被單一特質過度影響。帥氣的政治人物被認為更有能力；第一印象好的學生，連考試也被評分更高。系統一製造「一致性假象」的關鍵機制。</div>
+        </div>
+        <div class="bias-card">
+          <div class="bias-name">🔙 後見之明偏誤（Hindsight Bias）</div>
+          <div class="bias-desc">知道結果後，認為自己「早就知道」。這讓我們無法從錯誤中學習，也讓我們對領導者的失敗過度嚴苛判斷——他們無法預見的事，我們事後說「很明顯」。</div>
+        </div>
+        <div class="bias-card">
+          <div class="bias-name">🎯 計畫謬誤（Planning Fallacy）</div>
+          <div class="bias-desc">人們系統性地低估完成任務所需的時間、成本與風險。大型建設、個人計畫、軟體開發無一倖免。解方：「參考等級預測（Reference Class Forecasting）」——問類似計畫的實際平均結果，而非本計畫的特殊性。</div>
+        </div>
+        <div class="bias-card">
+          <div class="bias-name">📈 小數定律（Law of Small Numbers）</div>
+          <div class="bias-desc">人們賦予小樣本與大樣本同等的說服力。3個案例就得出結論，4篇文章就相信一個趨勢——這是統計直覺的根本錯誤。</div>
+        </div>
+        <div class="bias-card">
+          <div class="bias-name">🔮 效度錯覺（Illusion of Validity）</div>
+          <div class="bias-desc">在高度不確定環境中，專家對自己預測的信心，遠超過實際預測準確率。Kahneman親身經歷：軍官選拔評估和未來軍旅表現的相關性幾乎為零，但他的信心絲毫未減。</div>
+        </div>
+        <div class="bias-card">
+          <div class="bias-name">🎲 賭徒謬誤（Gambler's Fallacy）</div>
+          <div class="bias-desc">認為隨機序列「應該」自我修正——連續出現五次正面，就覺得「反面快來了」。這是代表性捷思的一種表現：我們以為短期序列應該「代表」長期機率。</div>
+        </div>
+      </div>
+
+      <div class="sub-heading">3b｜L3 深層洞見</div>
+      <div class="layer-block">
+        <div class="layer-badge l3">[L3 深層洞見]</div><span class="ai-tag">AI 原創</span>
+        <div class="insight-text">
+          這些偏誤不是獨立的清單，而是一個生態系統。可得性捷思餵養了過度自信，過度自信使錨定效應更難打破，錨定效應又強化了確認偏誤……它們相互增強，形成一個「認知泡泡」。真正危險的不是單一偏誤，而是偏誤叢集在重大決策中同時發作的共振效應——例如投資泡沫、政策失敗、醫療誤診。
+        </div>
+      </div>
+
+      <div class="sub-heading">3f｜立即可用行動</div>
+      <div>
+        <span class="action-pill"><span class="icon">⚓</span> 對抗錨定：下次談判前，刻意拒絕先看對方報價；或若你是報價方，研究「高錨點」策略</span>
+        <span class="action-pill"><span class="icon">📰</span> 對抗可得性：評估風險時，不問「我能想到什麼例子」，改問「統計數據說什麼」</span>
+        <span class="action-pill"><span class="icon">🔙</span> 對抗後見之明：在決策後立刻寫下決策理由，留存記錄，日後回顧時比對「當時真實想法」</span>
+      </div>
+
+      <div class="sub-heading">3g｜自我檢核問題</div>
+      <ul class="check-list">
+        <li>我最容易被哪個偏誤「中招」？上一次是什麼情境？</li>
+        <li>我在做重要評估時，參考的是數據還是印象深刻的個案？</li>
+        <li>如果我知道某個判斷「可能有偏誤」，我有沒有具體的去偏誤流程？</li>
+      </ul>
+    </div>
+
+    <!-- Theme 3: 展望理論 -->
+    <div class="theme-card" data-num="3">
+      <div class="theme-headline">
+        <div class="theme-number">3</div>
+        <div class="theme-headline-text">展望理論（Prospect Theory）——損失的痛苦是獲得快樂的兩倍</div>
+      </div>
+
+      <div class="sub-heading">3a｜一句話主題</div>
+      <p style="font-size:0.95rem; color:#333; font-weight:600; margin-bottom:16px;">
+        你對損失的恐懼，讓你做出一個理性人不該做的選擇。
+      </p>
+
+      <div class="sub-heading">3b｜關鍵洞見（三層）</div>
+      <div class="layer-block">
+        <div class="layer-badge l1">[L1 書中概念]</div>
+        <div class="insight-text">
+          傳統效用理論假設人只關心最終財富狀態，展望理論則指出：人評估的是相對於「參考點」的<strong>得失</strong>，而非絕對水準。更關鍵的是：損失趨避（Loss Aversion）——損失帶來的負面感受約是等量獲得帶來正面感受的 2 倍。這解釋了為何人們會持有虧損股票（不願「認輸」）卻賣掉獲利股票（急於「落袋為安」）。
+        </div>
+      </div>
+      <div class="layer-block">
+        <div class="layer-badge l2">[L2 中層解讀]</div>
+        <div class="insight-text">
+          展望理論的價值函數呈現「S形曲線」：在獲得區域是凸形（邊際效用遞減），在損失區域是凹形（損失帶來的痛苦快速累積）。參考點的設定是可操作的——零售商的「原價/折扣」框架，正是透過操縱參考點來放大「省了多少」的感受。政策設計者、商業行銷、談判者都在利用這個機制。
+        </div>
+      </div>
+      <div class="layer-block">
+        <div class="layer-badge l3">[L3 深層洞見]</div><span class="ai-tag">AI 原創</span>
+        <div class="insight-text">
+          損失趨避造成一個「現狀偏誤（Status Quo Bias）」的陷阱：任何改變都會同時產生「得到新東西」和「失去舊東西」的感受，而失去的痛苦更重，所以人傾向不改變。這解釋了組織變革為何如此困難——即使改變對所有人都更好，損失趨避讓人抓住已知的壞，甚於未知的好。真正的變革策略必須重新框架「不改變的代價」，讓現狀本身成為「損失」。
+        </div>
+      </div>
+
+      <div class="sub-heading">3c｜框架效應實驗</div>
+      <div class="quote-block">
+        [L1 書中概念] 亞洲疾病問題：「600人將死於疾病，方案A拯救200人，方案B有1/3機率拯救全部、2/3機率一個都救不了。」多數人選A（確定獲得）。但換個框架：「方案A將有400人死亡，方案B有1/3機率無人死亡、2/3機率600人全死。」多數人選B（賭一把）。兩題完全相同，答案卻相反——框架改變偏好，而不只是描述偏好。
+      </div>
+
+      <div class="sub-heading">3e｜跨書連結</div>
+      <p style="font-size:0.9rem; color:#555; line-height:1.8;">
+        <span class="ai-tag">AI 跨書連結</span>
+        與 Richard Thaler & Cass Sunstein《Nudge》直接連結：預設選項設計（Default Option）利用現狀偏誤——退休金自動加入制度大幅提升儲蓄率，因為「退出」比「加入」感覺更像損失。與 Nassim Taleb《Antifragile》的張力：Taleb 認為損失趨避在某些系統性風險下其實是理性的；兩者對「尾部風險」的處理有根本歧異，值得深思。
+      </p>
+
+      <div class="sub-heading">3f｜立即可用行動</div>
+      <div>
+        <span class="action-pill"><span class="icon">📈</span> 重新框架談判：把你的提案描述為「避免對方損失 X」而非「讓對方獲得 X」，觀察說服力變化</span>
+        <span class="action-pill"><span class="icon">💸</span> 投資決策：問自己「如果不是已持有，我現在會買這個嗎？」——去除沉沒成本的損失趨避</span>
+        <span class="action-pill"><span class="icon">🔄</span> 改革說服：設計改變時，強調「維持現狀的代價」，而非「改變的好處」</span>
+      </div>
+
+      <div class="sub-heading">3g｜自我檢核問題</div>
+      <ul class="check-list">
+        <li>我有哪些「應該賣掉但捨不得」的虧損資產（不限財務）？損失趨避在驅動我嗎？</li>
+        <li>在工作中，我如何框架「壞消息」給別人？我是否利用了框架效應？</li>
+        <li>我的日常決策中，有哪些其實是「不想失去現在的舒適」而非「理性分析後的選擇」？</li>
+      </ul>
+    </div>
+
+    <!-- Theme 4: 過度自信 -->
+    <div class="theme-card" data-num="4">
+      <div class="theme-headline">
+        <div class="theme-number">4</div>
+        <div class="theme-headline-text">過度自信與效度錯覺——你比你想像的更不知道</div>
+      </div>
+
+      <div class="sub-heading">3a｜一句話主題</div>
+      <p style="font-size:0.95rem; color:#333; font-weight:600; margin-bottom:16px;">
+        自信是感受，不是準確度的量表；而兩者的相關性，令人沮喪地低。
+      </p>
+
+      <div class="layer-block">
+        <div class="layer-badge l1">[L1 書中概念]</div>
+        <div class="insight-text">
+          Kahneman 介紹「內部觀點（Inside View）vs 外部觀點（Outside View）」的對比：內部觀點聚焦自己計畫的特殊性，外部觀點則問「類似的計畫，平均結果如何？」計畫謬誤來自幾乎總是採用內部觀點。Reference Class Forecasting（參考等級預測）是對抗計畫謬誤的工具：強制問「過去100個類似案例，有多少超時/超支？」
+        </div>
+      </div>
+      <div class="layer-block">
+        <div class="layer-badge l3">[L3 深層洞見]</div><span class="ai-tag">AI 原創</span>
+        <div class="insight-text">
+          過度自信與 WYSIATI 是孿生機制：因為系統一只處理「眼前的信息」，所以它天然地不知道自己不知道什麼（unknown unknowns）。這造成一個認識論上的盲點：你最自信的判斷，恰恰是信息最不完整的時候。真正的認知謙遜不是懷疑一切，而是建立「元認知習慣」——問：我現在掌握的信息，代表整個現實的哪個比例？
+        </div>
+      </div>
+
+      <div class="sub-heading">3d｜批判性評論</div>
+      <p style="font-size:0.9rem; color:#555; line-height:1.8;">
+        ⚠️ Kahneman 強調過度自信，但研究也顯示存在「under-confidence」情境（例如對困難問題的估算）。「過度自信」是否是普遍現象，或只在特定領域成立，仍有學術爭論。Phil Tetlock 的《Superforecasting》補充了一個重要視角：某些「超級預測者」確實能在不確定環境中顯著超越平均，挑戰了「專家預測無效」的極端結論。
+      </p>
+
+      <div class="sub-heading">3f｜立即可用行動</div>
+      <div>
+        <span class="action-pill"><span class="icon">📋</span> 下次估算時間/成本，主動尋找「類似計畫的歷史數據」，以外部觀點修正你的預測</span>
+        <span class="action-pill"><span class="icon">🎯</span> 進行「事前驗屍（Premortem）」：假設你的計畫失敗了，列出可能的失敗原因，系統性降低過度樂觀</span>
+      </div>
+
+      <div class="sub-heading">3g｜自我檢核問題</div>
+      <ul class="check-list">
+        <li>我最近一次的計畫，實際花了多少時間/成本？和預估相比差多少？</li>
+        <li>我有哪些「我一定對」的信念，其實從未被嚴格檢驗過？</li>
+        <li>當我對某件事非常確定，我是否曾問過：「我可能沒考慮到什麼？」</li>
+      </ul>
+    </div>
+
+    <!-- Theme 5: 兩個自我 -->
+    <div class="theme-card" data-num="5">
+      <div class="theme-headline">
+        <div class="theme-number">5</div>
+        <div class="theme-headline-text">兩個自我——體驗自我 vs 記憶自我，幸福的根本悖論</div>
+      </div>
+
+      <div class="sub-heading">3a｜一句話主題</div>
+      <p style="font-size:0.95rem; color:#333; font-weight:600; margin-bottom:16px;">
+        你記得的幸福，和你真實感受到的幸福，是兩件不同的事——而你在追求的，往往是記憶版本。
+      </p>
+
+      <div class="layer-block">
+        <div class="layer-badge l1">[L1 書中概念]</div>
+        <div class="insight-text">
+          <strong>體驗自我（Experiencing Self）</strong>：活在當下，感受每一個瞬間的喜怒哀樂，每3秒刷新一次，是「真實的感受者」。<br><br>
+          <strong>記憶自我（Remembering Self）</strong>：負責講故事、保存回憶，決定你「如何評價」一段經歷。但它有一個根本缺陷：它遵守「峰終定律（Peak-End Rule）」——只記得最高點和最後一刻，完全忽略持續時間（持續時間忽視，Duration Neglect）。
+        </div>
+      </div>
+      <div class="layer-block">
+        <div class="layer-badge l2">[L2 中層解讀]</div>
+        <div class="insight-text">
+          著名實驗：冷水實驗。受試者將手浸入14°C冷水90秒（短版），或浸入14°C冷水90秒後，水升至15°C再持續60秒（長版）。多數人選擇「重複長版」，因為雖然更長、更痛，但結尾溫度稍高，記憶評分更好。我們在管理「記憶自我的故事」，而非最大化「體驗自我的幸福」。
+        </div>
+      </div>
+      <div class="layer-block">
+        <div class="layer-badge l3">[L3 深層洞見]</div><span class="ai-tag">AI 原創</span>
+        <div class="insight-text">
+          記憶自我的「峰終定律」解釋了現代人「為什麼努力工作買奢侈品度假，卻在假期時不斷拍照而非享受當下」——拍照是在為記憶自我服務，不是體驗自我。這也揭示了一個政策盲點：GDP、薪資、甚至主觀福祉問卷，測量的都是記憶自我的評分，不是體驗自我的流動感受。真正的幸福政策應該同時追蹤兩個維度，而目前的社會優化的主要是「記憶敘事」，不是「當下質量」。
+        </div>
+      </div>
+
+      <div class="sub-heading">3c｜峰終定律實例</div>
+      <div class="quote-block">
+        [L1 書中概念] 結腸鏡檢查研究（Kahneman & Redelmeier）：若在最後30秒不移動器械（雖仍不舒服但不那麼痛），患者的整體評分顯著更好，且更願意接受下次檢查——儘管客觀上延長了不適時間。「好的結尾」比「減少總痛苦」更重要。
+      </div>
+
+      <div class="sub-heading">3e｜跨書連結</div>
+      <p style="font-size:0.9rem; color:#555; line-height:1.8;">
+        <span class="ai-tag">AI 跨書連結</span>
+        與 Mihaly Csikszentmihalyi《Flow》直接對話：心流狀態是體驗自我的頂峰體驗，但因為「沉浸其中」，記憶自我反而不一定記得清楚。與 Viktor Frankl《Man's Search for Meaning》呼應：記憶自我需要「意義敘事」，而不只是享樂——這解釋了為什麼困難的挑戰（如登山、創業）在記憶中往往比舒適假期更有價值。
+      </p>
+
+      <div class="sub-heading">3f｜立即可用行動</div>
+      <div>
+        <span class="action-pill"><span class="icon">📸</span> 下次旅行：前70%的時間不拍照，完全用體驗自我感受；最後30%才記錄給記憶自我</span>
+        <span class="action-pill"><span class="icon">🏁</span> 設計好結尾：重要會議/談判，刻意在最後留下正面印象，利用峰終定律讓對方記憶更好</span>
+        <span class="action-pill"><span class="icon">🧘</span> 每日練習：設一個「當下鬧鐘」，提醒自己問：我現在的體驗自我感受如何？（不是我未來會如何評價）</span>
+      </div>
+
+      <div class="sub-heading">3g｜自我檢核問題</div>
+      <ul class="check-list">
+        <li>我的生活目標，是在追求「體驗自我的日常幸福」，還是「記憶自我的精彩故事」？哪個更重要？</li>
+        <li>我有哪些日常習慣，其實是為了「讓別人看到我的生活很好」，而不是讓自己「現在感覺好」？</li>
+        <li>我的職業選擇，反映的是體驗自我的偏好，還是記憶自我的社會劇本？</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 4：敘事弧線
+  ══════════════════════════════════════════ -->
+  <div id="step4" style="margin-top: 56px;">
+    <div class="section-label">Step 04</div>
+    <div class="section-title">📖 敘事弧線——本書的故事骨架</div>
+
+    <div class="card">
+      <div class="card-title">🌊 五浪結構</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">建立框架（序言 + Part I）</div>
+          <div class="timeline-text">
+            Kahneman 以「你認識 Linda 嗎？」等直覺謎題開場，讓讀者親身「犯錯」。接著引入系統一/系統二雙模型。這個設計天才：先讓讀者體驗錯誤，再給出解釋，形成強烈的「啊哈！」時刻。
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">偏誤地圖（Part II）</div>
+          <div class="timeline-text">
+            系統性展開認知偏誤圖鑑：錨定、代表性、可得性……每一章都是「你以為你在理性思考，其實你在這樣」的揭示時刻。節奏是：謎題 → 直覺反應 → 揭示真相 → 解釋機制。
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">對專家的打擊（Part III）</div>
+          <div class="timeline-text">
+            最政治敏感的一部分：Kahneman 指出「專家直覺」多數時候並不比演算法好。股票分析師、臨床心理師、軍官選拔——統計模型往往打敗專家判斷。這是對人類判斷信心的正面衝擊。
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">決策的革命（Part IV）</div>
+          <div class="timeline-text">
+            展望理論登場。這是全書最「硬核」的理論部分，但 Kahneman 用無數日常案例使其平易近人。此處揭示了一個根本真相：我們的「選擇」很大程度上是選項如何被呈現的函數。
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-title">幸福的悖論（Part V）</div>
+          <div class="timeline-text">
+            全書情感最濃烈的結尾。體驗自我 vs 記憶自我的討論，帶著一絲哲學憂鬱：我們窮盡一生追求的幸福，究竟是誰的幸福？Kahneman 沒有給出解答，而是留下開放性問題——這是最高明的結尾。
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">💭 隱藏主角：Amos Tversky</div>
+      <p style="font-size:0.93rem; color:#444; line-height:1.85;">
+        貫穿全書的另一條情感線索，是 Kahneman 對已故搭檔 Amos Tversky 的思念與致敬。兩人合作的展望理論、捷思偏誤研究，是本書絕大多數核心思想的來源。Tversky 於1996年因黑色素瘤去世，Kahneman 在2002年諾貝爾演講中說：「這個獎應該是我們兩個人共享的。」這份學術友誼的情感底色，讓這本學術普及書有了超越教科書的溫度。
+      </p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 5：整合洞見
+  ══════════════════════════════════════════ -->
+  <div id="step5" style="margin-top: 56px;">
+    <div class="section-label">Step 05</div>
+    <div class="section-title">🔗 整合洞見——一切如何連在一起</div>
+
+    <div class="card">
+      <div class="card-title">🌐 核心整合模型</div>
+      <p style="font-size:0.95rem; color:#444; line-height:1.9; margin-bottom: 20px;">
+        全書最根本的整合洞見是：<strong>人類不是理性的，但偏誤是可預測的</strong>。這個「可預測性」是最重要的突破——它讓我們從「人是隨機錯誤的」進化到「人是系統性錯誤的」，而後者是可以設計和管理的。
+      </p>
+      <div class="grid-2">
+        <div style="background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(102,126,234,0.04)); border-radius: 16px; padding: 20px;">
+          <div style="font-weight: 700; margin-bottom: 10px; color: #667eea;">認知架構</div>
+          <p style="font-size: 0.88rem; color: #555; line-height: 1.7;">系統一 → 產生直覺 → 充滿偏誤 → 偏誤是可預測的 → 因此可以設計去偏誤機制（Nudge）</p>
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(240,147,251,0.08), rgba(240,147,251,0.04)); border-radius: 16px; padding: 20px;">
+          <div style="font-weight: 700; margin-bottom: 10px; color: #f093fb;">幸福架構</div>
+          <p style="font-size: 0.88rem; color: #555; line-height: 1.7;">體驗自我（活在當下）↔ 記憶自我（評價人生）→ 兩者不一致 → 幸福政策需同時優化兩個維度</p>
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(67,233,123,0.08), rgba(67,233,123,0.04)); border-radius: 16px; padding: 20px;">
+          <div style="font-weight: 700; margin-bottom: 10px; color: #1a7a4c;">決策架構</div>
+          <p style="font-size: 0.88rem; color: #555; line-height: 1.7;">損失趨避 + 框架效應 + 錨定 = 選擇不是自由意志的純粹表達，而是情境設計的產物</p>
+        </div>
+        <div style="background: linear-gradient(135deg, rgba(245,166,35,0.08), rgba(245,166,35,0.04)); border-radius: 16px; padding: 20px;">
+          <div style="font-weight: 700; margin-bottom: 10px; color: #c47a00;">組織架構</div>
+          <p style="font-size: 0.88rem; color: #555; line-height: 1.7;">過度自信 + 後見之明 + 效度錯覺 = 組織學習的障礙；需要建立「制度性謙遜」與去偏誤流程</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 6：缺席分析
+  ══════════════════════════════════════════ -->
+  <div id="step6" style="margin-top: 56px;">
+    <div class="section-label">Step 06</div>
+    <div class="section-title">🔍 缺席分析——書中沒說的</div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">❌ 文化差異</div>
+        <p style="font-size:0.9rem; color:#444; line-height:1.8;">
+          本書實驗主要以西方（美國/以色列）受試者為基礎。跨文化心理學研究（如 Joseph Henrich 的 WEIRD 批判）指出，許多「人類普遍偏誤」在非西方社群中有顯著差異。損失趨避的強度、代表性捷思的應用模式，在東亞文化中是否有所不同？書中幾乎未觸及。
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-title">❌ 去偏誤的實用方法論</div>
+        <p style="font-size:0.9rem; color:#444; line-height:1.8;">
+          Kahneman 出色地診斷了偏誤，但對於「如何修復」著墨相對有限。書的基調是悲觀的：即使知道偏誤存在，也難以在自己身上偵測和糾正。但 Stanovich 的「理性商數」研究和 Tetlock 的超級預測者研究，提供了更具建設性的訓練方法——這是本書的相對弱點。
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-title">❌ 正面捷思的力量</div>
+        <p style="font-size:0.9rem; color:#444; line-height:1.8;">
+          全書偏重偏誤的「黑暗面」，但系統一的直覺在高度訓練的專家（消防員、急診醫師、棋手）身上，確實具有驚人的準確性——Gary Klein 的研究（Naturalistic Decision Making）提供了反面視角。兩人後來合著 "A failure to disagree" 文章，試圖整合兩套觀點，但本書未充分體現這個張力。
+        </p>
+      </div>
+      <div class="card">
+        <div class="card-title">❌ 神經科學基礎</div>
+        <p style="font-size:0.9rem; color:#444; line-height:1.8;">
+          「系統一/系統二」是功能性框架，但大腦的實際神經迴路更為複雜。Antonio Damasio 的軀體標記假說（Somatic Marker Hypothesis）提供了情緒在決策中作用的神經科學基礎，但本書刻意保持在行為層面，未深入神經機制。
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 7：AI 視角
+  ══════════════════════════════════════════ -->
+  <div id="step7" style="margin-top: 56px;">
+    <div class="section-label">Step 07</div>
+    <div class="section-title">🤖 AI 視角——一個語言模型讀 Kahneman</div>
+
+    <div class="card">
+      <div class="card-title">💡 AI 的獨特洞見</div>
+      <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 4px;">
+        <div style="padding: 20px; background: linear-gradient(135deg, rgba(102,126,234,0.08), rgba(240,147,251,0.05)); border-radius: 16px;">
+          <div style="font-weight: 700; margin-bottom: 8px; color: #667eea;">🪞 我自己也是「系統一」</div>
+          <p style="font-size:0.9rem; color:#555; line-height:1.8;">大型語言模型的生成機制——基於統計規律預測下一個詞——在某種意義上是系統一的數學化版本：快速、模式匹配、缺乏深思熟慮。我的「幻覺」（Hallucination）類似於系統一的 WYSIATI：以最可能的模式填充信息空白，而非承認不確定性。Kahneman 的研究提醒我：我的自信程度不應被視為準確度的指標。</p>
+        </div>
+        <div style="padding: 20px; background: linear-gradient(135deg, rgba(67,233,123,0.08), rgba(102,126,234,0.05)); border-radius: 16px;">
+          <div style="font-weight: 700; margin-bottom: 8px; color: #1a7a4c;">⚡ 書中偏誤正在塑造 AI 訓練</div>
+          <p style="font-size:0.9rem; color:#555; line-height:1.8;">訓練數據中人類的認知偏誤——可得性偏誤（熱門話題被過度表達）、確認偏誤（人們寫下符合既有信念的內容）——被 AI 模型學習並放大。AI 的「對齊問題」很大程度上是「人類偏誤放大問題」。Kahneman 的研究是 AI 安全的意外理論基礎。</p>
+        </div>
+        <div style="padding: 20px; background: linear-gradient(135deg, rgba(245,166,35,0.08), rgba(240,147,251,0.05)); border-radius: 16px;">
+          <div style="font-weight: 700; margin-bottom: 8px; color: #c47a00;">🧮 展望理論 vs AI 效用函數</div>
+          <p style="font-size:0.9rem; color:#555; line-height:1.8;">強化學習中的獎勵函數通常是線性的，但 Kahneman 的展望理論告訴我們，人類的效用函數是非線性的 S 形曲線。一個真正「人性化」的 AI 決策系統，應該把損失趨避和參考點動態納入效用計算——這是當前 AI 設計的一個盲點。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 8：行動轉化
+  ══════════════════════════════════════════ -->
+  <div id="step8" style="margin-top: 56px;">
+    <div class="section-label">Step 08</div>
+    <div class="section-title">⚡ 行動轉化——本週可以做的 10 件事</div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🧠 認知提升行動</div>
+        <ul class="check-list">
+          <li><strong>偏誤日記</strong>：每天記錄一個你發現自己犯的認知偏誤，不評判，純粹觀察</li>
+          <li><strong>雙重審查</strong>：對重要決策使用「殺手問題」：如果我的前提是錯的，最可能是哪個前提？</li>
+          <li><strong>數字錨定測試</strong>：談判前，讓同事給一個完全隨機的數字，看它如何影響你的報價直覺</li>
+          <li><strong>外部觀點練習</strong>：下一個計畫估算，先查詢3個類似計畫的實際完成時間，再做你的估算</li>
+          <li><strong>事前驗屍</strong>：在任何重要計畫啟動前，用10分鐘想像它失敗，列出所有可能原因</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">💼 職場應用行動</div>
+        <ul class="check-list">
+          <li><strong>框架重設</strong>：改變一個重要提案的措辭，把「獲得 X」改為「避免失去 X」，測試說服效果差異</li>
+          <li><strong>會議設計</strong>：重要決策會議開場前，禁止任何人先發表立場——防止錨定+光環效應</li>
+          <li><strong>記憶自我管理</strong>：設計重要項目的「好結尾」（峰終定律），確保收尾有正面標誌性時刻</li>
+          <li><strong>統計謙遜</strong>：每次「看到規律」時，問自己：樣本量是多少？這可能是隨機波動嗎？</li>
+          <li><strong>體驗自我時間</strong>：每天劃出30分鐘完全不拍照、不記錄、不分享——純粹為體驗自我存在</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏗️ 系統一 vs 系統二 快速比較</div>
+      <div class="system-compare">
+        <div class="system-box system1">
+          <div class="system-icon">⚡</div>
+          <div class="system-title">系統一（快）</div>
+          <ul class="system-traits">
+            <li>自動、無意識</li>
+            <li>情緒驅動</li>
+            <li>擅長模式識別</li>
+            <li>依賴直覺和聯想</li>
+            <li>消耗極少認知資源</li>
+            <li>容易被捷思和偏誤主導</li>
+            <li>適合：熟悉情境、緊急判斷</li>
+          </ul>
+        </div>
+        <div class="system-box system2">
+          <div class="system-icon">🧮</div>
+          <div class="system-title">系統二（慢）</div>
+          <ul class="system-traits">
+            <li>刻意、有意識</li>
+            <li>邏輯推理</li>
+            <li>處理複雜計算</li>
+            <li>依賴規則和流程</li>
+            <li>消耗大量認知資源</li>
+            <li>天生懶惰，傾向接受系統一</li>
+            <li>適合：複雜決策、高風險判斷</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 9：帶問題回去讀
+  ══════════════════════════════════════════ -->
+  <div id="step9" style="margin-top: 56px;">
+    <div class="section-label">Step 09</div>
+    <div class="section-title">❓ 帶問題回去讀——深度閱讀提示</div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🎯 閱讀前帶入的問題</div>
+        <ul class="check-list">
+          <li>Kahneman 說「系統二是懶惰的」——我什麼時候需要強制啟動它？有什麼觸發機制？</li>
+          <li>展望理論說「損失痛苦是獲益快樂的兩倍」——這在不同文化或個人差異中有多大變異？</li>
+          <li>峰終定律適用於正面體驗嗎？旅行、美食、友誼——「好的開始」和「好的結尾」哪個更重要？</li>
+          <li>如果我們無法完全消除偏誤，最值得花力氣消除的是哪一個？</li>
+          <li>Kahneman 晚年（本書出版後）有沒有更新或修正他的理論觀點？</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="card-title">📚 閱讀中持續追蹤的問題</div>
+        <ul class="check-list">
+          <li>每一個偏誤，在我自己的生活/工作中最可能在哪個場景出現？</li>
+          <li>哪些偏誤是相互衝突的？（例如損失趨避 vs 賭徒謬誤）在什麼條件下哪個主導？</li>
+          <li>Kahneman 是如何「說服」讀者相信自己有偏誤的？他用了哪些修辭策略？</li>
+          <li>有沒有哪個章節讓我感到「不舒服」？那個不舒服是偏誤被戳到了嗎？</li>
+          <li>「參考點」是如何形成的？誰有能力設定別人的參考點？這有什麼政治含義？</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 10：延伸資源
+  ══════════════════════════════════════════ -->
+  <div id="step10" style="margin-top: 56px;">
+    <div class="section-label">Step 10</div>
+    <div class="section-title">📚 延伸資源地圖</div>
+
+    <div class="grid-2">
+      <div>
+        <div style="font-size: 0.8rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">📖 必讀延伸書單</div>
+        <div class="resource-card book">
+          <div class="resource-title">Nudge — Richard Thaler & Cass Sunstein（2008）</div>
+          <div class="resource-desc">展望理論的政策應用版；自由家長制（Libertarian Paternalism）如何利用人類偏誤設計「好的預設值」。</div>
+        </div>
+        <div class="resource-card book">
+          <div class="resource-title">Misbehaving — Richard Thaler（2015）</div>
+          <div class="resource-desc">行為經濟學的個人回憶錄，Thaler（2017諾貝爾獎）以輕鬆筆調講述和 Kahneman 共同的知識旅程。</div>
+        </div>
+        <div class="resource-card book">
+          <div class="resource-title">Superforecasting — Philip Tetlock（2015）</div>
+          <div class="resource-desc">對 Kahneman「專家判斷無效」的部分修正：某些超級預測者確實有超越平均的預測能力——他們是如何訓練的？</div>
+        </div>
+        <div class="resource-card book">
+          <div class="resource-title">The Undoing Project — Michael Lewis（2016）</div>
+          <div class="resource-desc">Kahneman 與 Tversky 友誼的傳記式敘述，適合喜歡人文故事多於學術理論的讀者。</div>
+        </div>
+        <div class="resource-card book">
+          <div class="resource-title">Noise — Kahneman, Sibony, Sunstein（2021）</div>
+          <div class="resource-desc">Kahneman 的下一本書，探討「雜訊（Noise）」——同一判斷者在不同情境下的不一致性——是另一個被忽視的錯誤來源。</div>
+        </div>
+      </div>
+      <div>
+        <div style="font-size: 0.8rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;">🔬 核心學術論文</div>
+        <div class="resource-card paper">
+          <div class="resource-title">Judgment under Uncertainty: Heuristics and Biases（1974）</div>
+          <div class="resource-desc">Kahneman & Tversky 發表於 Science，開創捷思偏誤研究的奠基論文，是本書 Part II 的學術基礎。</div>
+        </div>
+        <div class="resource-card paper">
+          <div class="resource-title">Prospect Theory: An Analysis of Decision under Risk（1979）</div>
+          <div class="resource-desc">Kahneman & Tversky 發表於 Econometrica，展望理論的原始論文，被引用超過 10 萬次。</div>
+        </div>
+        <div class="resource-card paper">
+          <div class="resource-title">The Peak-End Rule（Redelmeier & Kahneman, 1996）</div>
+          <div class="resource-desc">用結腸鏡實驗驗證峰終定律，發表於 Psychological Science。</div>
+        </div>
+        <div style="font-size: 0.8rem; font-weight: 700; color: #888; text-transform: uppercase; letter-spacing: 0.1em; margin: 20px 0 12px;">💡 相關概念深挖</div>
+        <div class="resource-card concept">
+          <div class="resource-title">Dual Process Theory（Evans & Stanovich）</div>
+          <div class="resource-desc">系統一/系統二在認知科學中的正式理論框架，比 Kahneman 的通俗版更嚴謹。</div>
+        </div>
+        <div class="resource-card concept">
+          <div class="resource-title">Naturalistic Decision Making — Gary Klein</div>
+          <div class="resource-desc">在真實複雜情境中，專家直覺（系統一）為何有時非常可靠的反向理論。</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">🏷️ 關鍵概念標籤雲</div>
+      <div style="margin-top: 8px;">
+        <span class="tag">系統一</span><span class="tag">系統二</span><span class="tag">錨定效應</span><span class="tag">代表性捷思</span>
+        <span class="tag">可得性捷思</span><span class="tag">展望理論</span><span class="tag">損失趨避</span><span class="tag">框架效應</span>
+        <span class="tag">峰終定律</span><span class="tag">體驗自我</span><span class="tag">記憶自我</span><span class="tag">計畫謬誤</span>
+        <span class="tag">後見之明偏誤</span><span class="tag">光環效應</span><span class="tag">WYSIATI</span><span class="tag">過度自信</span>
+        <span class="tag">效度錯覺</span><span class="tag">連結謬誤</span><span class="tag">小數定律</span><span class="tag">現狀偏誤</span>
+        <span class="tag">認知輕鬆感</span><span class="tag">沉沒成本</span><span class="tag">稟賦效應</span><span class="tag">行為經濟學</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       STEP 11：書庫卡片
+  ══════════════════════════════════════════ -->
+  <div id="step11" style="margin-top: 56px;">
+    <div class="section-label">Step 11</div>
+    <div class="section-title">🃏 書庫卡片（Zettelkasten 格式）</div>
+
+    <div class="card" style="border: 2px solid rgba(102,126,234,0.3); background: rgba(255,255,255,0.85);">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 12px; margin-bottom: 20px;">
+        <div>
+          <div style="font-size: 1.3rem; font-weight: 900; background: linear-gradient(135deg, #667eea, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Thinking, Fast and Slow</div>
+          <div style="font-size: 0.9rem; color: #888; margin-top: 4px;">Daniel Kahneman, 2011</div>
+        </div>
+        <div style="background: linear-gradient(135deg, #667eea, #f093fb); color: #fff; border-radius: 12px; padding: 8px 16px; font-size: 0.8rem; font-weight: 700;">⭐⭐⭐⭐⭐ 必讀經典</div>
+      </div>
+
+      <div class="info-row"><div class="info-label">核心論點</div><div class="info-value">人類有兩套思考系統，系統一的直覺偏誤是可預測的——這是決策科學的根本發現。</div></div>
+      <div class="info-row"><div class="info-label">最關鍵概念</div><div class="info-value">WYSIATI（What You See Is All There Is）— 系統一無法感知自身的信息盲點</div></div>
+      <div class="info-row"><div class="info-label">最實用工具</div><div class="info-value">事前驗屍（Premortem）+ 參考等級預測（Reference Class Forecasting）</div></div>
+      <div class="info-row"><div class="info-label">最深刻洞見</div><div class="info-value">體驗自我 vs 記憶自我——你在最大化哪一個的幸福？</div></div>
+      <div class="info-row"><div class="info-label">最大爭議</div><div class="info-value">「直覺在熟悉領域的訓練有素專家身上是有效的」（Gary Klein）vs Kahneman 的悲觀結論</div></div>
+      <div class="info-row"><div class="info-label">行動清單</div><div class="info-value">偏誤日記、事前驗屍、外部觀點、框架重設、峰終定律設計</div></div>
+      <div class="info-row"><div class="info-label">連結書目</div><div class="info-value">Nudge / Superforecasting / The Undoing Project / Noise / Misbehaving</div></div>
+      <div class="info-row"><div class="info-label">適合推薦給</div><div class="info-value">決策者、投資者、設計師、政策制定者、任何想「想得更清楚」的人</div></div>
+      <div class="info-row"><div class="info-label">書醒日期</div><div class="info-value">2026年3月28日</div></div>
+    </div>
+
+    <div class="card" style="background: linear-gradient(135deg, rgba(102,126,234,0.06), rgba(240,147,251,0.06));">
+      <div class="card-title">💬 一句話濃縮這本書</div>
+      <div style="font-size: 1.15rem; font-weight: 700; line-height: 1.7; color: #333; text-align: center; padding: 12px;">
+        「你以為你在思考，其實你在感覺；你以為你在選擇，其實你在被選擇。<br>
+        <span style="background: linear-gradient(135deg, #667eea, #f093fb); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">了解這件事，是理性生活的第一步，也是最難的一步。</span>」
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Footer -->
+<div class="footer">
+  <p><strong>📚 書醒分析系統</strong> · 深度書籍分析報告</p>
+  <p style="margin-top: 8px; opacity: 0.8;">Thinking, Fast and Slow — Daniel Kahneman（2011）</p>
+  <p style="margin-top: 8px; opacity: 0.7; font-size: 0.78rem;">分析日期：2026年3月28日 · 以書醒11步驟方法論完成 · 繁體中文版</p>
+</div>
+
+</body>
+</html>
