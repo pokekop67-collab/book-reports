@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>超級大腦讀書法 × TOC十步驟 深度分析</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600;700&family=Noto+Sans+TC:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rose:     #c87080;
+  --rose-lt:  #f5e8ea;
+  --rose-mid: #a05060;
+  --sage:     #6a9080;
+  --sage-lt:  #e5eeea;
+  --sage-mid: #4a7060;
+  --gold:     #b88848;
+  --gold-lt:  #f2e8d5;
+  --lavender: #8878a8;
+  --lav-lt:   #eeeaf5;
+  --cream:    #faf6f0;
+  --warm:     #f0e8dc;
+  --paper:    #fdfaf5;
+  --ink:      #2a2018;
+  --ink-mid:  #5a4a38;
+  --ink-lt:   #8a7a68;
+  --line:     rgba(180,150,120,0.15);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Noto Sans TC', sans-serif;
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 14.5px;
+  line-height: 1.9;
+}
+
+/* ── Cover ── */
+.cover {
+  background: linear-gradient(160deg, #1e1810 0%, #2e2018 40%, #1a2018 100%);
+  min-height: 260px;
+  padding: 70px 50px 60px;
+  position: relative;
+  overflow: hidden;
+}
+.cover::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(184,136,72,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 30%, rgba(106,144,128,0.1) 0%, transparent 50%);
+}
+.cover-inner { position: relative; z-index: 1; max-width: 860px; margin: 0 auto; }
+.cover-kana {
+  font-family: 'Playfair Display', serif;
+  font-style: italic;
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: rgba(184,136,72,0.7);
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.cover h1 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 30px;
+  font-weight: 700;
+  color: #f5efe5;
+  line-height: 1.4;
+  margin-bottom: 14px;
+}
+.cover h1 span { color: var(--gold); }
+.cover-sub { color: rgba(245,239,229,0.5); font-size: 13px; line-height: 1.8; }
+.cover-books {
+  display: flex; gap: 12px; margin-top: 28px; flex-wrap: wrap;
+}
+.cover-book {
+  display: flex; align-items: center; gap: 8px;
+  background: rgba(245,239,229,0.06);
+  border: 1px solid rgba(245,239,229,0.15);
+  border-radius: 20px;
+  padding: 6px 14px;
+  font-size: 12px;
+  color: rgba(245,239,229,0.75);
+}
+.cover-book .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+}
+
+/* ── Nav ── */
+.nav {
+  background: white;
+  border-bottom: 1px solid var(--line);
+  padding: 0;
+  position: sticky; top: 0; z-index: 100;
+  overflow-x: auto;
+}
+.nav-inner {
+  display: flex; max-width: 860px; margin: 0 auto; padding: 0 30px;
+}
+.nav a {
+  text-decoration: none;
+  color: var(--ink-lt);
+  font-size: 11.5px;
+  padding: 13px 16px;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: all .2s;
+  display: flex; align-items: center; gap: 5px;
+}
+.nav a:hover { color: var(--rose); border-bottom-color: var(--rose); }
+
+/* ── Layout ── */
+.page { max-width: 860px; margin: 0 auto; padding: 56px 30px; }
+
+/* ── Part divider ── */
+.part-header {
+  background: var(--ink);
+  margin: 0 -30px;
+  padding: 36px 30px 32px;
+  margin-bottom: 50px;
+}
+.part-header .part-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 11px;
+  letter-spacing: 5px;
+  color: rgba(245,239,229,0.4);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.part-header h2 {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 22px;
+  color: #f5efe5;
+  font-weight: 700;
+}
+.part-header p { font-size: 12.5px; color: rgba(245,239,229,0.5); margin-top: 6px; }
+
+/* ── Module header ── */
+.mod {
+  margin-bottom: 50px;
+  scroll-margin-top: 50px;
+}
+.mod-label {
+  display: flex; align-items: center; gap: 10px;
+  margin-bottom: 16px;
+}
+.mod-num {
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 600;
+  flex-shrink: 0;
+}
+.mod-num.rose { background: var(--rose-lt); color: var(--rose); border: 1px solid rgba(200,112,128,0.25); }
+.mod-num.sage { background: var(--sage-lt); color: var(--sage); border: 1px solid rgba(106,144,128,0.25); }
+.mod-num.gold { background: var(--gold-lt); color: var(--gold); border: 1px solid rgba(184,136,72,0.25); }
+.mod-num.lav  { background: var(--lav-lt); color: var(--lavender); border: 1px solid rgba(136,120,168,0.25); }
+.mod-title {
+  font-family: 'Noto Serif TC', serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.mod-desc { font-size: 12.5px; color: var(--ink-lt); margin-top: 2px; }
+
+/* ── Card ── */
+.card {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 18px;
+}
+.card-head {
+  padding: 14px 20px 12px;
+  border-bottom: 1px solid var(--line);
+  display: flex; align-items: center; gap: 10px;
+}
+.card-head.rose { background: linear-gradient(135deg, var(--rose-lt), white); }
+.card-head.sage { background: linear-gradient(135deg, var(--sage-lt), white); }
+.card-head.gold { background: linear-gradient(135deg, var(--gold-lt), white); }
+.card-head.lav  { background: linear-gradient(135deg, var(--lav-lt), white); }
+.card-head.dark { background: linear-gradient(135deg, #2a2018, #3a3028); }
+.card-icon {
+  font-size: 18px;
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.card-icon.rose { background: var(--rose); }
+.card-icon.sage { background: var(--sage); }
+.card-icon.gold { background: var(--gold); }
+.card-icon.lav  { background: var(--lavender); }
+.card-icon.dark { background: rgba(245,239,229,0.1); }
+.card-htitle { font-family: 'Noto Serif TC', serif; font-size: 14.5px; font-weight: 700; color: var(--ink); }
+.card-htitle.light { color: #f5efe5; }
+.card-hsub { font-size: 11.5px; color: var(--ink-lt); margin-top: 1px; }
+.card-hsub.light { color: rgba(245,239,229,0.5); }
+.card-body { padding: 18px 20px 20px; }
+
+/* ── Two-book grid ── */
+.book-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;
+}
+.book-col {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+}
+.book-col-tag {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  font-weight: 600; margin-bottom: 8px;
+}
+.book-col p { font-size: 13px; color: var(--ink-mid); line-height: 1.8; }
+.book-col ul { margin: 0; padding-left: 0; list-style: none; }
+.book-col ul li {
+  font-size: 13px; color: var(--ink-mid);
+  padding: 4px 0;
+  border-bottom: 1px solid var(--line);
+  display: flex; gap: 8px;
+}
+.book-col ul li:last-child { border-bottom: none; }
+.book-col ul li::before { content: '—'; color: var(--ink-lt); flex-shrink: 0; }
+
+/* ── Table ── */
+.tbl { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0; }
+.tbl th {
+  font-size: 10.5px; letter-spacing: 1.5px; font-weight: 600; text-transform: uppercase;
+  padding: 9px 12px; text-align: left;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-lt);
+  background: var(--paper);
+}
+.tbl td {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-mid);
+  vertical-align: top;
+  line-height: 1.75;
+}
+.tbl tr:last-child td { border-bottom: none; }
+.tbl tr:hover td { background: rgba(200,112,128,0.02); }
+
+/* ── Quote ── */
+.q {
+  border-left: 3px solid var(--rose);
+  padding: 12px 16px;
+  background: var(--rose-lt);
+  border-radius: 0 8px 8px 0;
+  margin: 12px 0;
+  font-size: 13px; color: var(--ink-mid); line-height: 1.8;
+}
+.q.sage { border-color: var(--sage); background: var(--sage-lt); }
+.q.gold { border-color: var(--gold); background: var(--gold-lt); }
+.q.lav  { border-color: var(--lavender); background: var(--lav-lt); }
+.q cite { display: block; margin-top: 6px; font-size: 11px; color: var(--ink-lt); font-style: normal; }
+
+/* ── Formula ── */
+.formula {
+  background: var(--ink);
+  border-radius: 10px;
+  padding: 18px 22px;
+  margin: 12px 0;
+  text-align: center;
+}
+.formula-note { font-size: 10px; letter-spacing: 2px; color: rgba(245,239,229,0.35); text-transform: uppercase; margin-bottom: 8px; }
+.formula-eq { font-family: 'Noto Serif TC', serif; font-size: 16px; color: #f5efe5; }
+.formula-eq em { color: var(--gold); font-style: normal; }
+
+/* ── Step list ── */
+.steps { list-style: none; margin: 10px 0; }
+.steps li { display: flex; gap: 12px; margin-bottom: 10px; font-size: 13.5px; align-items: flex-start; }
+.step-dot {
+  width: 22px; height: 22px; border-radius: 50%; flex-shrink: 0; margin-top: 2px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700; color: white;
+}
+.step-dot.rose { background: var(--rose); }
+.step-dot.sage { background: var(--sage); }
+.step-dot.gold { background: var(--gold); }
+.step-dot.lav  { background: var(--lavender); }
+
+/* ── Insight row ── */
+.insight-row {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 10px 0; border-bottom: 1px solid var(--line);
+  font-size: 13.5px;
+}
+.insight-row:last-child { border-bottom: none; }
+.insight-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px; font-weight: 700; color: var(--rose);
+  line-height: 1; width: 28px; flex-shrink: 0; margin-top: 2px;
+}
+.insight-num.sage { color: var(--sage); }
+.insight-num.gold { color: var(--gold); }
+.insight-num.lav  { color: var(--lavender); }
+
+/* ── Contradiction block ── */
+.contra {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 16px 18px;
+  margin: 12px 0;
+}
+.contra-head {
+  font-weight: 600; font-size: 13px; color: var(--ink); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 8px;
+}
+.contra-sides { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; align-items: center; margin-bottom: 10px; }
+.contra-side {
+  background: white; border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px;
+  font-size: 12.5px; color: var(--ink-mid); text-align: center;
+}
+.contra-vs {
+  font-family: 'Playfair Display', serif; font-weight: 700; font-size: 14px; color: var(--rose);
+  text-align: center;
+}
+.contra-unity { background: var(--ink); color: #f5efe5; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; }
+
+/* ── TOC Cloud ── */
+.toc-cloud {
+  background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 20px;
+  margin: 14px 0;
+}
+.cloud-row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; justify-content: center; margin: 8px 0; }
+.cloud-node {
+  background: white; border: 1px solid var(--line);
+  border-radius: 8px; padding: 10px 14px;
+  font-size: 12.5px; color: var(--ink-mid);
+  text-align: center; min-width: 120px;
+}
+.cloud-node.target { border-color: rgba(106,144,128,0.4); background: var(--sage-lt); }
+.cloud-node.need   { border-color: rgba(184,136,72,0.4);  background: var(--gold-lt); }
+.cloud-node.want   { border-color: rgba(200,112,128,0.4); background: var(--rose-lt); }
+.cloud-node.label  { font-weight: 600; font-size: 11px; letter-spacing: 1px; color: var(--ink-lt); border: none; background: none; min-width: auto; }
+.cloud-arrow { font-size: 18px; color: var(--ink-lt); }
+.cloud-conflict {
+  margin-top: 10px; padding: 10px 14px;
+  background: var(--ink); border-radius: 8px;
+  font-size: 12.5px; color: rgba(245,239,229,0.8); text-align: center;
+}
+
+/* ── Timeline ── */
+.timeline { position: relative; padding-left: 30px; margin: 12px 0; }
+.timeline::before {
+  content: ''; position: absolute; left: 9px; top: 6px; bottom: 6px; width: 2px;
+  background: linear-gradient(to bottom, var(--rose), var(--sage));
+}
+.timeline-item { position: relative; margin-bottom: 16px; font-size: 13.5px; }
+.timeline-dot {
+  position: absolute; left: -25px; top: 4px;
+  width: 12px; height: 12px; border-radius: 50%;
+  background: white; border: 2px solid var(--rose);
+}
+.timeline-dot.sage { border-color: var(--sage); }
+.timeline-dot.gold { border-color: var(--gold); }
+.timeline-label { font-weight: 600; font-size: 12px; color: var(--rose); margin-bottom: 2px; }
+.timeline-label.sage { color: var(--sage); }
+.timeline-label.gold { color: var(--gold); }
+
+/* ── Freq bar ── */
+.freq-row { display: flex; align-items: center; gap: 10px; margin: 6px 0; font-size: 13px; }
+.freq-bar-wrap { flex: 1; background: var(--line); border-radius: 4px; height: 6px; }
+.freq-bar { height: 6px; border-radius: 4px; }
+
+/* ── Divider ── */
+.hr { height: 1px; background: linear-gradient(90deg, transparent, var(--line), transparent); margin: 48px 0; }
+
+/* ── Tag ── */
+.tag {
+  display: inline-block; font-size: 10.5px; padding: 2px 9px;
+  border-radius: 10px; margin: 2px;
+}
+.tag.rose { background: var(--rose-lt); color: var(--rose-mid); }
+.tag.sage { background: var(--sage-lt); color: var(--sage-mid); }
+.tag.gold { background: var(--gold-lt); color: var(--gold); }
+.tag.lav  { background: var(--lav-lt); color: var(--lavender); }
+
+/* ── Priority card ── */
+.priority {
+  display: flex; gap: 14px; align-items: flex-start;
+  border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px;
+  margin: 8px 0; background: white;
+}
+.pri-num {
+  font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700;
+  line-height: 1; flex-shrink: 0; margin-top: -2px;
+}
+.pri-num.r { color: var(--rose); }
+.pri-num.s { color: var(--sage); }
+.pri-num.g { color: var(--gold); }
+.pri-num.l { color: var(--lavender); }
+.pri-title { font-weight: 600; font-size: 14px; color: var(--ink); margin-bottom: 4px; }
+.pri-body { font-size: 13px; color: var(--ink-mid); line-height: 1.75; }
+
+/* ── Footer ── */
+footer {
+  background: white; border-top: 1px solid var(--line);
+  text-align: center; padding: 28px; font-size: 11.5px; color: var(--ink-lt);
+}
+
+@media(max-width:640px){
+  .book-grid { grid-template-columns:1fr; }
+  .contra-sides { grid-template-columns:1fr; }
+  .cover { padding: 40px 24px; }
+  .cover h1 { font-size: 22px; }
+  .page { padding: 36px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ COVER ═══ -->
+<div class="cover">
+  <div class="cover-inner">
+    <div class="cover-kana">Super-Brain Reading Method × Theory of Constraints</div>
+    <h1>超級大腦讀書法 <span>×</span> TOC 十步驟<br>雙書深度解構分析</h1>
+    <div class="cover-sub">
+      十二模組全域交叉比對 × 制約理論應用<br>
+      萃取保險業務員最需要的認知升級路徑
+    </div>
+    <div class="cover-books">
+      <div class="cover-book">
+        <div class="dot" style="background:#c87080;"></div>
+        情緒價值 — 蔡鈺
+      </div>
+      <div class="cover-book">
+        <div class="dot" style="background:#6a9080;"></div>
+        $100M Offers — Alex Hormozi
+      </div>
+      <div class="cover-book">
+        <div class="dot" style="background:#b88848;"></div>
+        南山壽險業務應用
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ NAV ═══ -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#m01">📚 書籍資料</a>
+    <a href="#m02">🧠 遞進設計</a>
+    <a href="#m03">📋 章節矩陣</a>
+    <a href="#m04">🎯 核心命題</a>
+    <a href="#m05">📖 逐章解析</a>
+    <a href="#m06">💡 整合洞見</a>
+    <a href="#m07">🕸️ 連結網絡</a>
+    <a href="#m08">🎬 行動轉化</a>
+    <a href="#m10">📈 敘事弧線</a>
+    <a href="#m11">🔮 個人透鏡</a>
+    <a href="#m12">📚 延伸資源</a>
+    <a href="#toc">⚙️ TOC十步</a>
+  </div>
+</nav>
+
+<div class="page">
+
+<!-- ═════════════════════════════════════
+     PART I — 超級大腦讀書法
+═════════════════════════════════════ -->
+<div class="part-header">
+  <div class="part-num">Part I · Super-Brain Reading Method</div>
+  <h2>超級大腦讀書法 — 十二模組</h2>
+  <p>全域交叉比對，發現線性閱讀幾乎不可能建立的連結</p>
+</div>
+
+<!-- ── M01 ── -->
+<div class="mod" id="m01">
+  <div class="mod-label">
+    <div class="mod-num rose">01</div>
+    <div>
+      <div class="mod-title">📚 書籍資料卡</div>
+      <div class="mod-desc">作者資格、智識源頭、一句話定位</div>
+    </div>
+  </div>
+
+  <div class="book-grid">
+    <div class="book-col">
+      <div class="book-col-tag" style="color:var(--rose);">📗 情緒價值</div>
+      <ul>
+        <li><strong>作者</strong>：蔡鈺 — 得到App《商業參考》主理人，多年商業觀察，深耕消費品行業洞察</li>
+        <li><strong>資格來源</strong>：2020年率先提出「情緒價值」商業框架，後成課程、再沉澱成書</li>
+        <li><strong>智識上游</strong>：馬斯洛需求層次、行為經濟學、DTC品牌實踐、中國新消費現場觀察</li>
+        <li><strong>一句話定位</strong>：「功能已過剩，情緒才是下一個溢價空間」</li>
+        <li><strong>核心公式</strong>：產品價值 = 功能價值 + 情緒價值 + 資產價值</li>
+      </ul>
+    </div>
+    <div class="book-col">
+      <div class="book-col-tag" style="color:var(--sage);">📘 $100M Offers</div>
+      <ul>
+        <li><strong>作者</strong>：Alex Hormozi — 連續創業者，$100M+ 個人財富，Acquisition.com創辦人</li>
+        <li><strong>資格來源</strong>：親自操盤4000+健身房、多家跨行業公司，廣告回報比36:1（8年均值）</li>
+        <li><strong>智識上游</strong>：Dan Kennedy（直效行銷）、Jay Abraham（提案設計）、Jason Fladlien（成交）</li>
+        <li><strong>一句話定位</strong>：「讓方案本身替你成交，而不是讓話術去說服」</li>
+        <li><strong>核心公式</strong>：感知價值 = 夢想結果×成功可能 ÷ 等待時間×所需努力</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head rose">
+      <div class="card-icon rose">🤝</div>
+      <div>
+        <div class="card-htitle">兩本書的「對話關係」</div>
+        <div class="card-hsub">一本從「人心」進入，一本從「方案」進入，最終指向同一件事</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="q">
+        蔡鈺解決的問題：「為什麼客戶開門？」（情緒共鳴、配角意識、動機挖掘）<br>
+        Hormozi 解決的問題：「進了門之後，怎麼讓客戶無法拒絕？」（方案設計、風險反轉、命名）<br><br>
+        <strong>兩本書是同一條銷售旅程的前半段和後半段。</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── M02 ── -->
+<div class="mod" id="m02">
+  <div class="mod-label">
+    <div class="mod-num sage">02</div>
+    <div>
+      <div class="mod-title">🧠 認知遞進設計</div>
+      <div class="mod-desc">作者為什麼用這個順序？章節排列的隱藏教學邏輯</div>
+    </div>
+  </div>
+
+  <div class="book-grid">
+    <div class="book-col">
+      <div class="book-col-tag" style="color:var(--rose);">📗 蔡鈺的教學邏輯</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-label">第一階段：破除舊框架</div>
+          市場之變——先摧毀「教主意識」，讓讀者理解舊打法已失效
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot sage"></div>
+          <div class="timeline-label sage">第二階段：建立感知系統</div>
+          情緒感知——安全感/新鮮感/價值感三層感受基本盤，給讀者新的觀察工具
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot gold"></div>
+          <div class="timeline-label gold">第三階段：情緒回應技術</div>
+          如何宣泄、如何提供情緒資源、如何順應動機——方法論
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-label">第四階段：主動創造情緒</div>
+          故事線、品牌人設、情感共同體——從「被動回應」到「主動設計」
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot sage"></div>
+          <div class="timeline-label sage">第五階段：關係與風險</div>
+          情感結構、風險預警、消極金線——邊界與長期維護
+        </div>
+      </div>
+      <div class="q">
+        設計意圖：讓讀者先「看見」市場變了，再「理解」情緒機制，最後才「掌握」創造情緒的工具。不能跳過任何一步——理解情緒必須先破除功能主義思維。
+      </div>
+    </div>
+    <div class="book-col">
+      <div class="book-col-tag" style="color:var(--sage);">📘 Hormozi 的教學邏輯</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot sage"></div>
+          <div class="timeline-label sage">第一階段：建立絕望感</div>
+          個人故事（帳戶剩$1036）——讓讀者感受到「沒有好方案就死路一條」的緊迫
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-label">第二階段：定義問題</div>
+          商品化困境——「你和所有人看起來一樣，就只能打價格戰」
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot gold"></div>
+          <div class="timeline-label gold">第三階段：解法核心</div>
+          定價思維 + Value Equation——理解「感知價值」的四個維度
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-label">第四階段：方案建構</div>
+          Grand Slam Offer = 問題清單 → 解法清單 → Trim & Stack
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot sage"></div>
+          <div class="timeline-label sage">第五階段：心理強化</div>
+          稀缺/緊迫/加碼/保證/命名——讓人「不說Yes會後悔」的心理工具
+        </div>
+      </div>
+      <div class="q sage">
+        設計意圖：用個人故事製造情緒入口，再用邏輯建構方法論。每個章節都有「你現在就能用的工具」，讓讀者持續行動。<strong>拒絕純理論，每一章都以「可操作的模板」收尾。</strong>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── M03 ── -->
+<div class="mod" id="m03">
+  <div class="mod-label">
+    <div class="mod-num gold">03</div>
+    <div>
+      <div class="mod-title">📋 完整章節矩陣</div>
+      <div class="mod-desc">全書地圖——一張表看懂每章精華</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head rose">
+      <div class="card-icon rose">📗</div>
+      <div><div class="card-htitle">《情緒價值》章節矩陣</div></div>
+    </div>
+    <div class="card-body" style="padding:0;">
+      <table class="tbl">
+        <tr><th>#</th><th>章節</th><th>一句話精華</th><th>業務應用</th></tr>
+        <tr><td>序</td><td>為什麼是情緒價值</td><td>功能不再稀缺，情緒才是溢價空間</td><td>⭐⭐⭐⭐⭐ 底層世界觀</td></tr>
+        <tr><td>1</td><td>市場之變：消費者、環境</td><td>從「仰望教主」變成「為自己人生找配角」</td><td>⭐⭐⭐⭐⭐ 理解客戶心態根本轉變</td></tr>
+        <tr><td>2</td><td>情緒感知：三感受基本盤</td><td>安全感→新鮮感→價值感，按心理能量層次排列</td><td>⭐⭐⭐⭐⭐ 辨別客戶當下的情緒需求</td></tr>
+        <tr><td>3</td><td>情緒回應：宣泄與資源</td><td>合規地宣泄情緒，主動提供情緒資源</td><td>⭐⭐⭐⭐ 聊天節奏設計</td></tr>
+        <tr><td>4</td><td>情緒創造：故事線設計</td><td>第一故事線讓客戶當主角；第二故事線讓品牌值得向往</td><td>⭐⭐⭐⭐⭐ 南山三寶重構框架</td></tr>
+        <tr><td>5</td><td>情感結構：共同體建立</td><td>「我們」vs「他們」——讓客戶加入一個群體</td><td>⭐⭐⭐ 長期客戶維護</td></tr>
+        <tr><td>6</td><td>風險與展望：三種風險</td><td>情緒透支、情緒反噬、情緒撕裂——邊界管理</td><td>⭐⭐⭐ 避免過度承諾</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head sage">
+      <div class="card-icon sage">📘</div>
+      <div><div class="card-htitle">《$100M Offers》章節矩陣</div></div>
+    </div>
+    <div class="card-body" style="padding:0;">
+      <table class="tbl">
+        <tr><th>#</th><th>章節</th><th>一句話精華</th><th>業務應用</th></tr>
+        <tr><td>1</td><td>How We Got Here</td><td>帳戶剩$1036——用故事建立共情入口</td><td>⭐⭐⭐ 理解作者框架</td></tr>
+        <tr><td>2</td><td>Grand Slam Offers</td><td>讓你「在一個品類裡成為唯一」的方案</td><td>⭐⭐⭐⭐⭐ 建議書設計哲學</td></tr>
+        <tr><td>3</td><td>商品化問題</td><td>一旦可被比較，就只能打價格戰</td><td>⭐⭐⭐⭐⭐ 為什麼不能跟客戶比費率</td></tr>
+        <tr><td>4</td><td>找到對的市場</td><td>Starving Crowd：找最饑餓的那群人</td><td>⭐⭐⭐⭐ 名單篩選原則</td></tr>
+        <tr><td>5</td><td>定高價</td><td>越貴→越有感知價值→越努力使用→越有結果</td><td>⭐⭐⭐⭐ 保費定位心態</td></tr>
+        <tr><td>6</td><td>Value Equation</td><td>夢想結果×可能性 ÷ 時間×努力 = 感知價值</td><td>⭐⭐⭐⭐⭐ 每句話都要符合這個公式</td></tr>
+        <tr><td>8</td><td>Thought Process</td><td>發散思維列出所有問題，再收斂成解法</td><td>⭐⭐⭐⭐ 建議書設計流程</td></tr>
+        <tr><td>9</td><td>問題→解法清單</td><td>把客戶每一個障礙轉化成你要解決的事項</td><td>⭐⭐⭐⭐⭐ 保障缺口話術根源</td></tr>
+        <tr><td>10</td><td>Trim & Stack</td><td>刪去高成本低價值，保留並堆疊高價值</td><td>⭐⭐⭐⭐ 方案組合設計</td></tr>
+        <tr><td>12</td><td>稀缺</td><td>限量製造吸引力——真實的稀缺才有用</td><td>⭐⭐⭐⭐ 生日加費/核保窗口</td></tr>
+        <tr><td>13</td><td>緊迫</td><td>截止日期驅動決策——50-60%成交在最後幾小時</td><td>⭐⭐⭐⭐ 月底衝刺節奏</td></tr>
+        <tr><td>14</td><td>加碼（Bonuses）</td><td>把方案組件拆開逐一展示，比打包說出來更有感</td><td>⭐⭐⭐ 建議書呈現方式</td></tr>
+        <tr><td>15</td><td>保證（Guarantees）</td><td>風險反轉——把客戶最大的恐懼變成你的承諾</td><td>⭐⭐⭐⭐⭐ 異議處理核心工具</td></tr>
+        <tr><td>16</td><td>命名</td><td>M-A-G-I-C 公式——名字決定了回應率</td><td>⭐⭐⭐ 服務方案命名</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── M04 ── -->
+<div class="mod" id="m04">
+  <div class="mod-label">
+    <div class="mod-num lav">04</div>
+    <div>
+      <div class="mod-title">🎯 核心命題</div>
+      <div class="mod-desc">問題 / 論點 / 方法三段式</div>
+    </div>
+  </div>
+
+  <div class="book-grid">
+    <div class="book-col">
+      <div class="book-col-tag" style="color:var(--rose);">📗 情緒價值</div>
+      <div class="q" style="margin:8px 0;">
+        <strong>問題：</strong>功能和性價比都已高度同質化的時代，品牌（和業務員）如何再次建立差異化，讓人選你？
+      </div>
+      <div class="q rose" style="margin:8px 0;">
+        <strong>論點：</strong>人們不再追隨「值得被追隨的教主」，而是為自己的人生尋找「值得我使用的配角」。差異化的核心是情緒價值——你能否讓對方感到被看見、被理解、被善待？
+      </div>
+      <div class="q" style="margin:8px 0;">
+        <strong>方法：</strong>感受基本盤（安全感→新鮮感→價值感）× 動機挖掘 × 故事重構（客戶為主角）× 情感共同體建立
+      </div>
+    </div>
+    <div class="book-col">
+      <div class="book-col-tag" style="color:var(--sage);">📘 $100M Offers</div>
+      <div class="q sage" style="margin:8px 0;">
+        <strong>問題：</strong>為什麼很多業務員努力工作但成交率低、定價低、還要不斷被比較？
+      </div>
+      <div class="q" style="margin:8px 0; border-color:var(--sage);">
+        <strong>論點：</strong>你的方案被商品化了——和別人看起來一樣，客戶只能比價格。Grand Slam Offer 讓你「在一個品類裡成為唯一」，讓客戶在你的方案和「什麼都不做」之間選擇，而不是在你和競品之間選擇。
+      </div>
+      <div class="q sage" style="margin:8px 0;">
+        <strong>方法：</strong>找到正確市場 × Value Equation 四維度設計 × 問題清單化 × Trim & Stack × 稀缺+緊迫+加碼+保證+命名
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- ── M05 ── -->
+<div class="mod" id="m05">
+  <div class="mod-label">
+    <div class="mod-num rose">05</div>
+    <div>
+      <div class="mod-title">📖 逐章五維解析（精選關鍵章節）</div>
+      <div class="mod-desc">一句話核心 · 三洞見 · 立即可用 · 自我檢核 · 章間連結</div>
+    </div>
+  </div>
+
+  <!-- Ch 情緒價值 Ch1 -->
+  <div class="card">
+    <div class="card-head rose">
+      <div class="card-icon rose">📗</div>
+      <div>
+        <div class="card-htitle">《情緒價值》第一章：市場之變</div>
+        <div class="card-hsub">「配角意識」— 這本書最重要的一章</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="q">
+        🎯 <strong>一句話核心：</strong>消費者不再仰望教主，而是為自己人生挑選配角。業務員必須從「說服他追隨我」轉變為「讓他感到我為他存在」。
+      </div>
+      <ul class="steps">
+        <li><div class="step-dot rose">1</div><div><strong>需求 vs 動機</strong>：知道客戶需要什麼不夠，要追問「他為什麼有這個需求」——動機才是真實的購買驅動力。無印良品只停留在需求層（簡約生活），沒有深挖動機（反消費主義 vs 輕奢品位），最終兩種客戶都流失。</div></li>
+        <li><div class="step-dot rose">2</div><div><strong>終點叙事 vs 起點叙事</strong>：教主說「我值得追隨，這就夠了（終點）」；配角說「你的人生旅程才剛開始，我幫你走（起點）」。起點叙事讓品牌內涵無限豐富，也讓行銷變簡單。</div></li>
+        <li><div class="step-dot rose">3</div><div><strong>共情 vs 同理心</strong>：同理心是「我知道你有什麼感受」；共情是「我和你有同樣的感受」。今天的消費者要求的是真正的共情——不光是說，要讓他感受到。</div></li>
+      </ul>
+      <div class="q rose">🔧 <strong>立即可用：</strong>重新說一遍南山三寶的第一寶。把「我為什麼做保險、做多久」的主語，從「我」換成「你（客戶）」。舊版：「我認同保險的意義所以選擇保險…」→ 新版：「我進這一行，是因為我希望身邊的朋友，在真正需要的時候不要有保障空缺。<em>你認識我這件事，對你是有價值的。</em>」</div>
+      <div class="q">❓ <strong>自我檢核：</strong>上一次見客戶，你說的話有幾成在說「我多厲害」，有幾成在讓他感到「我為他存在」？</div>
+      <div style="font-size:12.5px; color:var(--ink-lt); margin-top:10px;">🔗 呼應第四章（故事線設計），第一章打破舊框架，第四章給你建立新框架的具體工具</div>
+    </div>
+  </div>
+
+  <!-- 情緒價值 Ch2 -->
+  <div class="card">
+    <div class="card-head rose">
+      <div class="card-icon rose">📗</div>
+      <div>
+        <div class="card-htitle">《情緒價值》第二章：情緒感知 — 三感受基本盤</div>
+        <div class="card-hsub">安全感 / 新鮮感 / 價值感 — 辨別客戶當下「在哪個層次」</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="q">
+        🎯 <strong>一句話核心：</strong>情緒 = 感受 + 動機 + 行為。三種感受有明確的心理能量層次順序——人永遠先需要安全感，才會追求新鮮感，最後才能感受到價值感。你必須判斷客戶當下在哪個層次。
+      </div>
+      <table class="tbl">
+        <tr><th>感受層次</th><th>特徵</th><th>保險客戶對應</th><th>你的應對策略</th></tr>
+        <tr><td>安全感</td><td>心理能量低、有恐懼、需要被接納</td><td>剛生小孩、剛買房、剛換工作、有家人生病</td><td>先認同他的處境，「你現在這個狀況壓力很大」——讓他感到被看見</td></tr>
+        <tr><td>新鮮感</td><td>心理能量中、已穩定、想要升級優化</td><td>生活穩定、想讓保障更完整、想嘗試新產品</td><td>帶他看有哪些新選擇，「你之前的保單已經很好了，現在可以往上走一步」</td></tr>
+        <tr><td>價值感</td><td>心理能量高、想貢獻、想有意義</td><td>老客戶、想保護家人、願意主動規劃</td><td>「你規劃這個，不只是保護你，是讓家人不需要擔心。你是他們的後盾。」</td></tr>
+      </table>
+      <div class="q rose">🔧 <strong>立即可用：</strong>見客戶前先判斷他現在的心理能量狀態。不要對一個剛剛離職、壓力很大的人說新鮮感話術——他需要的是先被接納，而不是聽你說最新的保單設計多酷。</div>
+      <div style="font-size:12.5px; color:var(--ink-lt); margin-top:10px;">🔗 直接連結 Layer 04「擔心什麼」問法——那個問法就是在找到客戶安全感的缺口</div>
+    </div>
+  </div>
+
+  <!-- Hormozi Ch6 Value Equation -->
+  <div class="card">
+    <div class="card-head sage">
+      <div class="card-icon sage">📘</div>
+      <div>
+        <div class="card-htitle">《$100M Offers》第六章：Value Equation</div>
+        <div class="card-hsub">這本書最高密度、最可操作的章節</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="formula">
+        <div class="formula-note">Value Equation — Hormozi</div>
+        <div class="formula-eq">感知價值 ＝ <em>夢想結果 × 成功可能性</em> ÷ <em>（等待時間 × 所需努力）</em></div>
+      </div>
+      <ul class="steps">
+        <li><div class="step-dot sage">1</div><div><strong>分子要大：夢想結果要說得清楚且令人心動</strong>。「有保障」不夠——要說「萬一你三個月不能工作，你老婆不需要去借錢，你們家的生活不受影響，這個方向對嗎？」</div></li>
+        <li><div class="step-dot sage">2</div><div><strong>分子要大：提高成功可能性</strong>。展示你的服務紀錄、理賠案例、承諾。「我上個月幫朋友從出院到拿到理賠只花了7天，因為所有文件我都幫他準備好了。」</div></li>
+        <li><div class="step-dot sage">3</div><div><strong>分母要小：壓縮等待時間</strong>。「你生日前辦，今天就生效」「這週我有空，我帶建議書過去，你不用做任何功課」——讓客戶感覺「越快越好」而非「再想想」。</div></li>
+        <li><div class="step-dot sage">4</div><div><strong>分母要小：降低所需努力</strong>。Hormozi 最強調這個。「Immediate + Effortless」讓感知價值趨近無限。「你只要告訴我這個方向對不對，其他的我全部幫你搞定。」</div></li>
+      </ul>
+      <div class="q sage">🔧 <strong>立即可用：</strong>每次說完一個方案，用 Value Equation 自我檢查：① 我有沒有說清楚他得到了什麼（夢想結果）？② 我有沒有讓他相信會成功（可能性）？③ 我有沒有給時間壓力（緊迫）？④ 我有沒有幫他降低門檻（省力）？</div>
+      <div style="font-size:12.5px; color:var(--ink-lt); margin-top:10px;">🔗 這章是整本書的核心，第 9/10/12-15 章都是在具體實現 Value Equation 四個維度</div>
+    </div>
+  </div>
+
+  <!-- Hormozi Ch15 Guarantees -->
+  <div class="card">
+    <div class="card-head sage">
+      <div class="card-icon sage">📘</div>
+      <div>
+        <div class="card-htitle">《$100M Offers》第十五章：保證（Guarantees）</div>
+        <div class="card-hsub">「保證品質改善讓成交率 2-4 倍的最高 CP 值工具」</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <ul class="steps">
+        <li><div class="step-dot sage">1</div><div><strong>無條件保證（Unconditional）</strong>：最強。業務員版本：「你有任何問題，我在24小時內回覆，不管是不是上班時間。如果你覺得我服務的品質不值，告訴我。」</div></li>
+        <li><div class="step-dot sage">2</div><div><strong>條件型保證（Conditional）</strong>：綁定客戶必須做的動作。「只要你按照我們討論的方向做定期健診，如果哪天發現你的保障有缺口而我沒提醒你，我來負責補救。」</div></li>
+        <li><div class="step-dot sage">3</div><div><strong>服務持續型（Service Guarantee）</strong>：「我幫你服務，直到你的問題解決。不是交單就結束。」這是大多數保險業務員從來沒有明確說出口的承諾。</div></li>
+        <li><div class="step-dot sage">4</div><div><strong>反保證（Anti-Guarantee）</strong>：進階版。「我的服務不打折，你要不要，由你決定。但我告訴你，十年後你回頭看這個決定，會慶幸你當時答應了。」（展示自信而非保證退款）</div></li>
+      </ul>
+      <div class="q sage">❓ <strong>自我檢核：</strong>你上一次異議處理，有沒有用到「保證」的語言？你有沒有把你的服務承諾具體說出來，而不是只有「你放心」？</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── M06 ── -->
+<div class="mod" id="m06">
+  <div class="mod-label">
+    <div class="mod-num gold">06</div>
+    <div>
+      <div class="mod-title">💡 四類整合洞見</div>
+      <div class="mod-desc">隱藏邏輯線 · 作者潛台詞 · 批判與邊界 · 知識對話</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head gold">
+      <div class="card-icon gold">🔍</div>
+      <div><div class="card-htitle">6.1 兩本書的隱藏邏輯線</div></div>
+    </div>
+    <div class="card-body">
+      <div class="insight-row">
+        <div class="insight-num">①</div>
+        <div><strong>蔡鈺的隱藏線：「心理能量守恆」。</strong>她從未明說，但全書暗示：消費者在補充心理能量（安全感）和消耗心理能量（做決定、接受新事物）之間持續調節。業務員的工作是：先給安全感（補充能量），再提出方案（消耗能量做決定）。</div>
+      </div>
+      <div class="insight-row">
+        <div class="insight-num sage">②</div>
+        <div><strong>Hormozi 的隱藏線：「感知優先於現實」。</strong>全書反覆出現但沒明說：客觀的服務質量沒有主觀的感知價值重要。同樣的服務，感知方式決定成交率。保證、命名、稀缺的本質都是「管理感知」，不是改變服務本身。</div>
+      </div>
+      <div class="insight-row">
+        <div class="insight-num gold">③</div>
+        <div><strong>兩本書共同的隱藏線：「不要改變人，要順應人性」。</strong>蔡鈺說不要教消費者應該買什麼，要順應他的動機。Hormozi 說「你可以成為對的人，也可以成為有錢的人，這本書教你變有錢」。兩者都在說：接受人性的現實，在其中工作，而不是試圖改變它。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head gold">
+      <div class="card-icon gold">🗣️</div>
+      <div><div class="card-htitle">6.2 兩位作者的潛台詞</div></div>
+    </div>
+    <div class="card-body">
+      <div class="book-grid">
+        <div class="book-col">
+          <div class="book-col-tag" style="color:var(--rose);">蔡鈺的潛台詞</div>
+          <p>「大多數品牌（和業務員）仍然活在教主時代的思維裡，他們失敗是因為工具和時代已經不匹配了，不是因為他們不努力。」<br><br>她的隱含假設：情緒可以被設計和管理——不只是一種玄學，而是可以學習的商業能力。</p>
+        </div>
+        <div class="book-col">
+          <div class="book-col-tag" style="color:var(--sage);">Hormozi 的潛台詞</div>
+          <p>「大多數業務員的問題不是努力程度，是方案設計的問題。同樣的努力，配上好的 Offer，收益可以是 22 倍。」<br><br>他的隱含假設：每個市場都有「Grand Slam Offer」的空間，只是沒有人有耐心去找出來。</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head gold">
+      <div class="card-icon gold">⚠️</div>
+      <div><div class="card-htitle">6.3 批判與邊界</div></div>
+    </div>
+    <div class="card-body">
+      <div class="insight-row">
+        <div class="insight-num">①</div>
+        <div><strong>蔡鈺的邊界：</strong>她的框架基於消費品行業（飲料、服裝、電子產品），對保險的「信任周期長、高門檻決策」特性沒有專門討論。情緒價值在短期交易容易設計；但保險的客戶關係是長期的，情緒策略的持續性要特別注意「情緒透支」風險（她自己在第六章提到）。</div>
+      </div>
+      <div class="insight-row">
+        <div class="insight-num sage">②</div>
+        <div><strong>Hormozi 的邊界：</strong>他的框架假設你可以自由設計服務包（健身房、SaaS），但保險產品受法規限制，不能隨意捆綁或調整核心條款。他的「Trim & Stack」要用在「服務承諾」上，而不是在產品條款上。</div>
+      </div>
+      <div class="insight-row">
+        <div class="insight-num gold">③</div>
+        <div><strong>兩本書共同的盲點：</strong>都沒有討論「關係降溫後如何重燃」——也就是老客戶的二次開發。SKILL 的「保單健診」實際上補上了這個缺席。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head gold">
+      <div class="card-icon gold">💬</div>
+      <div><div class="card-htitle">6.4 知識對話（兩本書 × 其他經典）</div></div>
+    </div>
+    <div class="card-body">
+      <table class="tbl">
+        <tr><th>經典書籍</th><th>對話關係</th><th>補充了什麼</th></tr>
+        <tr><td>《SPIN Selling》Neil Rackham</td><td>互補</td><td>Hormozi 的問題清單化 + SPIN 的「暗示問題」= 讓客戶自己說出需求</td></tr>
+        <tr><td>《影響力》Cialdini</td><td>延伸</td><td>Hormozi 的稀缺/緊迫/保證都是 Cialdini 六大原則的實踐版本</td></tr>
+        <tr><td>《原子習慣》James Clear</td><td>互補</td><td>蔡鈺說設計情緒觸點，Clear 說設計環境觸發器——兩者同構</td></tr>
+        <tr><td>《被討厭的勇氣》岸見一郎</td><td>上游</td><td>蔡鈺的「配角意識」深層支撐：活在對他人貢獻的喜悅中，而非獲得他人認可的焦慮中</td></tr>
+        <tr><td>《FBI談判協商術》Voss</td><td>互補</td><td>蔡鈺說共情，Voss 給了共情的具體技術（鏡像、標籤、校準問題）</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- ── M07 ── -->
+<div class="mod" id="m07">
+  <div class="mod-label">
+    <div class="mod-num lav">07</div>
+    <div>
+      <div class="mod-title">🕸️ 隱藏連結網絡（核心方法）</div>
+      <div class="mod-desc">全域交叉比對後發現的深層結構 — 七個子分析</div>
+    </div>
+  </div>
+
+  <!-- 7.1 矛盾組 -->
+  <div class="card">
+    <div class="card-head lav">
+      <div class="card-icon lav">⚡</div>
+      <div><div class="card-htitle">7.1 表面矛盾組 × 深層統一</div></div>
+    </div>
+    <div class="card-body">
+      <div class="contra">
+        <div class="contra-head">矛盾組 A：蔡鈺「不要強推」vs Hormozi「製造緊迫感」</div>
+        <div class="contra-sides">
+          <div class="contra-side">📗 蔡鈺：不要強迫客戶，要讓他感到你是配角、他是主角；給他空間說不</div>
+          <div class="contra-vs">vs</div>
+          <div class="contra-side">📘 Hormozi：製造稀缺和緊迫，讓人怕錯過；截止日期驅動決策</div>
+        </div>
+        <div class="contra-unity">深層統一：<strong>蔡鈺談的是「信任建立期」，Hormozi 談的是「決策時刻」。</strong>在建立信任的全程，你是配角、沒有壓力；在他已經理解價值、已有需求的那一刻，製造真實的緊迫才是對他的幫助——讓他不再拖延做了對自己有利的決定。切換點是：他有沒有說出「我怕…」。</div>
+      </div>
+
+      <div class="contra" style="margin-top:12px;">
+        <div class="contra-head">矛盾組 B：蔡鈺「動機比需求重要」vs Hormozi「把所有問題列成清單」</div>
+        <div class="contra-sides">
+          <div class="contra-side">📗 蔡鈺：不要停在需求表面，要挖動機；動機才是驅動力</div>
+          <div class="contra-vs">vs</div>
+          <div class="contra-side">📘 Hormozi：把所有障礙盡可能多地列出來，一個都不能漏</div>
+        </div>
+        <div class="contra-unity">深層統一：<strong>動機挖掘是方向（找到核心恐懼/渴望），問題清單是戰術（確保解法覆蓋全面）。</strong>你先用蔡鈺的動機挖掘找到「他最怕什麼」，再用 Hormozi 的問題清單確保你的方案「沒有讓他說不的理由」。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7.2 因果鏈 -->
+  <div class="card">
+    <div class="card-head lav">
+      <div class="card-icon lav">⛓️</div>
+      <div><div class="card-htitle">7.2 隱形因果鏈</div></div>
+    </div>
+    <div class="card-body">
+      <div style="background:var(--paper); border:1px solid var(--line); border-radius:10px; padding:16px 18px; margin-bottom:14px;">
+        <div style="font-size:12px; color:var(--ink-lt); letter-spacing:2px; margin-bottom:12px; text-transform:uppercase;">因果鏈 A — 「成交的真實順序」（兩本書合起來才完整）</div>
+        <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap; font-size:13px;">
+          <span style="background:var(--rose-lt); border:1px solid rgba(200,112,128,0.25); padding:6px 12px; border-radius:6px;">📗 先建立共情（配角意識）</span>
+          <span style="color:var(--ink-lt);">→</span>
+          <span style="background:var(--rose-lt); border:1px solid rgba(200,112,128,0.25); padding:6px 12px; border-radius:6px;">📗 動機挖掘（Layer 04）</span>
+          <span style="color:var(--ink-lt);">→</span>
+          <span style="background:var(--sage-lt); border:1px solid rgba(106,144,128,0.25); padding:6px 12px; border-radius:6px;">📘 問題清單化</span>
+          <span style="color:var(--ink-lt);">→</span>
+          <span style="background:var(--sage-lt); border:1px solid rgba(106,144,128,0.25); padding:6px 12px; border-radius:6px;">📘 Grand Slam Offer 呈現</span>
+          <span style="color:var(--ink-lt);">→</span>
+          <span style="background:var(--gold-lt); border:1px solid rgba(184,136,72,0.25); padding:6px 12px; border-radius:6px;">📘 風險反轉保證</span>
+          <span style="color:var(--ink-lt);">→</span>
+          <span style="background:var(--ink); padding:6px 12px; border-radius:6px; color:#f5efe5;">成交</span>
+        </div>
+        <div style="margin-top:12px; font-size:12.5px; color:var(--ink-lt);">跳過任何一步的後果：跳過共情 → 客戶防禦牆不倒；跳過動機挖掘 → 說的方向不對；跳過問題清單 → 有一個障礙讓他說不；跳過保證 → 最後一步的恐懼沒被消除</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7.3 元原則 -->
+  <div class="card">
+    <div class="card-head lav">
+      <div class="card-icon lav">💎</div>
+      <div><div class="card-htitle">7.3 元原則萃取（三個隱藏法則）</div></div>
+    </div>
+    <div class="card-body">
+      <div class="priority">
+        <div class="pri-num r">Ⅰ</div>
+        <div>
+          <div class="pri-title">「順應人性比改變人性容易 100 倍」</div>
+          <div class="pri-body">涵蓋：蔡鈺全書 + Hormozi Ch3/4/12/13。蔡鈺的配角意識順應「消費者想當主角」；Hormozi 的稀缺緊迫順應「人怕損失大於追求收益（Kahneman 損失厭惡）」。不要試圖讓客戶「應該要買保險」——讓他自己想到「我需要這個」。</div>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pri-num s">Ⅱ</div>
+        <div>
+          <div class="pri-title">「感知永遠比現實先到達」</div>
+          <div class="pri-body">涵蓋：蔡鈺Ch2感受基本盤 + Hormozi Ch6 Value Equation + Ch16 命名。保險的功能再好，如果感知不到，就等於沒有。命名一個方案（例如「家庭後盾三年計畫」比「定期壽險附醫療險」）就是在管理感知——這是大多數保險業務員沒有意識到的工具。</div>
+        </div>
+      </div>
+      <div class="priority">
+        <div class="pri-num g">Ⅲ</div>
+        <div>
+          <div class="pri-title">「覆蓋所有障礙，才能讓 Yes 自然發生」</div>
+          <div class="pri-body">涵蓋：Hormozi Ch9/10/15 + 蔡鈺Ch3情緒回應。Hormozi 說：「你不知道是哪一個漏掉的障礙讓他沒有買。」蔡鈺說：「你必須進入他的生活情境，才能真正感受到他的障礙在哪裡。」兩者合起來：你要比客戶更了解他的每一個顧慮。</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7.4 頻率分析 -->
+  <div class="card">
+    <div class="card-head lav">
+      <div class="card-icon lav">📊</div>
+      <div><div class="card-htitle">7.4 頻率分析 — 兩本書反覆出現的隱藏主題</div></div>
+    </div>
+    <div class="card-body">
+      <table class="tbl">
+        <tr><th>隱藏主題</th><th>頻率</th><th>兩本書合起來說什麼</th></tr>
+        <tr>
+          <td><strong>主角 vs 配角</strong></td>
+          <td>蔡鈺 5章 / Hormozi 4章</td>
+          <td>蔡鈺：客戶是主角，你是配角。Hormozi：客戶的夢想結果是主角，你的服務是配角。兩者高度一致：<strong>把自己放低，把客戶放高，才能讓成交自然發生。</strong></td>
+        </tr>
+        <tr>
+          <td><strong>恐懼 > 慾望</strong></td>
+          <td>Hormozi 6章 / 蔡鈺 3章</td>
+          <td>人對「失去」的敏感度是「獲得」的2倍（Kahneman）。Hormozi 的稀缺緊迫都建立在這個基礎上；蔡鈺的安全感供給也是在回應這個恐懼。<strong>「你最怕什麼」比「你最想要什麼」更能打開對話。</strong></td>
+        </tr>
+        <tr>
+          <td><strong>感知 ≠ 現實</strong></td>
+          <td>Hormozi 全書 / 蔡鈺 4章</td>
+          <td>倫敦地鐵加「下班提示」的效果勝過真正縮短等待時間；同樣的保單，不同的呈現方式，感知價值差距十倍。<strong>你說話的方式比你說的內容更決定成交。</strong></td>
+        </tr>
+        <tr>
+          <td><strong>動機比行為更重要</strong></td>
+          <td>蔡鈺 4章 / Hormozi 3章</td>
+          <td>蔡鈺：需求只是表面，動機才是驅動力。Hormozi：夢想結果 = 地平線，要不斷回指那個最深的渴望。<strong>把動機挖出來、說出來，讓客戶感到被理解，成交阻力就降到最低。</strong></td>
+        </tr>
+      </table>
+      <div class="q lav">
+        <strong>一句話概括兩位作者的共同世界觀：</strong>「人是情緒動物，他們用邏輯來解釋自己情緒做出的決定。你的工作是觸動他的情緒，再給他一個好的邏輯理由。」
+      </div>
+    </div>
+  </div>
+
+  <!-- 7.5 缺席分析 -->
+  <div class="card">
+    <div class="card-head lav">
+      <div class="card-icon lav">🔇</div>
+      <div><div class="card-htitle">7.5 缺席分析 — 兩本書沒有說到的</div></div>
+    </div>
+    <div class="card-body">
+      <div class="insight-row">
+        <div class="insight-num">①</div>
+        <div><strong>缺席：老客戶二次開發與關係維護。</strong>兩本書幾乎都在討論「如何讓新客戶成交」，對於已成交的客戶關係如何維護和深化，著墨極少。SKILL 的「保單健診」話術補上了這個缺口，是 SKILL 超越兩本書的地方。</div>
+      </div>
+      <div class="insight-row">
+        <div class="insight-num sage">②</div>
+        <div><strong>缺席：拒絕之後的關係重建。</strong>兩本書都在「如何不被拒絕」上投入大量篇幅，但對「被拒絕之後怎麼辦」幾乎不討論。《FBI談判協商術》的「策略性同理心」可以補上這個空缺。</div>
+      </div>
+      <div class="insight-row">
+        <div class="insight-num gold">③</div>
+        <div><strong>缺席：長期信任的累積機制。</strong>蔡鈺討論情緒觸點，Hormozi 討論成交機制，但都沒有系統性地討論「如何讓客戶主動介紹朋友給你」——也就是轉介紹引擎的建立。《影響力》Cialdini 的「互惠原則」可以補充。</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7.6 實踐優先序 -->
+  <div class="card">
+    <div class="card-head lav">
+      <div class="card-icon lav">🎯</div>
+      <div><div class="card-htitle">7.6 實踐優先序 — 如果只能內化5個概念</div></div>
+    </div>
+    <div class="card-body">
+      <div class="priority"><div class="pri-num r">1</div><div>
+        <div class="pri-title">配角意識重構南山三寶（蔡鈺 Ch1）</div>
+        <div class="pri-body">為什麼第一：是所有後續動作的地基。話術再好，如果你的氣場還是「教主式」，客戶會本能地防禦。先把自我介紹改成配角語言，觀察客戶的開放程度明顯不同。<span class="tag rose">本週可做</span></div>
+      </div></div>
+      <div class="priority"><div class="pri-num s">2</div><div>
+        <div class="pri-title">Value Equation 四維度說話法（Hormozi Ch6）</div>
+        <div class="pri-body">為什麼第二：直接影響每一次說話的效果。每說完一個方案，問自己：夢想結果說了嗎？可能性強化了嗎？等待壓縮了嗎？努力降低了嗎？每週選一次見面做這個練習。<span class="tag sage">本週可做</span></div>
+      </div></div>
+      <div class="priority"><div class="pri-num g">3</div><div>
+        <div class="pri-title">動機挖掘接在 Layer 03 之後（蔡鈺 Ch1+2）</div>
+        <div class="pri-body">為什麼第三：知道他的恐懼，成交阻力降到最低。確認完他有房貸/有小孩之後，加一句：「你有沒有想過，如果哪天你突然不能工作，你最擔心的是什麼？」等他說出「我怕…」再繼續。<span class="tag gold">本月練習</span></div>
+      </div></div>
+      <div class="priority"><div class="pri-num l">4</div><div>
+        <div class="pri-title">風險反轉保證話術（Hormozi Ch15）</div>
+        <div class="pri-body">為什麼第四：直接攻克「考慮一下」這個最高頻障礙。每次被說「考慮一下」，加上：「你可以這樣想——如果一年後你覺得沒有感受到價值，你直接告訴我，我不想讓你帶著一張不適合的保單。」<span class="tag gold">本月練習</span></div>
+      </div></div>
+      <div class="priority"><div class="pri-num r" style="color:var(--lavender);">5</div><div>
+        <div class="pri-title">Grand Slam Offer 建議書設計（Hormozi Ch9/10）</div>
+        <div class="pri-body">為什麼第五：讓你的建議書「自己說話」。用問題清單化方法重新設計一份你最常呈現的建議書，把覆蓋的每一個客戶障礙明確說出來。每個缺口都有對應的解法，客戶沒有拒絕的邏輯出口。<span class="tag lav">長期建構</span></div>
+      </div></div>
+    </div>
+  </div>
+
+  <!-- 7.7 情境決策矩陣 -->
+  <div class="card">
+    <div class="card-head lav">
+      <div class="card-icon lav">🗺️</div>
+      <div><div class="card-htitle">7.7 情境決策矩陣 — 不同場景參考哪個工具</div></div>
+    </div>
+    <div class="card-body" style="padding:0;">
+      <table class="tbl">
+        <tr><th>你遇到的情境</th><th>用哪個工具</th><th>具體怎麼做</th></tr>
+        <tr><td>初次見面，客戶有點戒備</td><td>蔡鈺：配角意識 + 安全感供給</td><td>南山三寶用配角語言重說。不談保險，先問他最近的生活壓力</td></tr>
+        <tr><td>已聊完 FORMHD，需要深化</td><td>蔡鈺：動機挖掘（Layer 04）</td><td>「你最擔心的事情是什麼？」等他說出恐懼</td></tr>
+        <tr><td>準備呈現建議書</td><td>Hormozi：Value Equation + Grand Slam Offer</td><td>把方案說成「你的夢想 + 我來解決所有障礙」，不只是「這個保單有什麼功能」</td></tr>
+        <tr><td>客戶說「考慮一下」</td><td>Hormozi：風險反轉保證 + 蔡鈺：動機解碼</td><td>先問：「考慮是哪方面？保費還是方向？」拆解動機後，再用保證話術</td></tr>
+        <tr><td>客戶說「沒錢」</td><td>Hormozi：Value Equation（成本 vs 代價）+ SKILL 理財矩陣</td><td>「你擔心的是現在的錢，還是老了沒錢更麻煩？」分開動機</td></tr>
+        <tr><td>月底四星會進度落後</td><td>Hormozi：真實緊迫（生日/核保窗口）</td><td>找出本月真實的時間壓力，明確說出來：「你生日下個月就跨年齡了…」</td></tr>
+        <tr><td>想讓老客戶重新開口</td><td>SKILL 保單健診 + 蔡鈺：情感共同體</td><td>「我發現我上次幫你看保單是X年前，我覺得我們應該重新看一下這幾年發生的事情。」</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="hr"></div>
+
+<!-- ── M08 ── -->
+<div class="mod" id="m08">
+  <div class="mod-label">
+    <div class="mod-num rose">08</div>
+    <div>
+      <div class="mod-title">🎬 行動轉化 — 三時間維度</div>
+      <div class="mod-desc">本週啟動 × 本月實驗 × 長期追蹤</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head rose">
+      <div class="card-icon rose">📅</div>
+      <div><div class="card-htitle">本週啟動（3件事，現在就能做）</div></div>
+    </div>
+    <div class="card-body">
+      <ul class="steps">
+        <li><div class="step-dot rose">1</div><div><strong>重寫南山三寶第一寶</strong>：把主語從「我」換成「你（客戶）」。寫下來，背熟，下次見面前對著鏡子說一遍。標準：說完之後，客戶感受到的是「他為我而來」，而不是「他在介紹自己」。</div></li>
+        <li><div class="step-dot rose">2</div><div><strong>選一次近期見面，練習動機挖掘</strong>：在 Layer 03（家庭責任）確認完之後，加這一句：「你有沒有想過，萬一哪天突然不能工作，你最擔心的是什麼？」記錄對方的回答，這是你的成交錨點。</div></li>
+        <li><div class="step-dot rose">3</div><div><strong>把你的口頭保證說出來</strong>：下一次結束見面前，明確說：「不管你最後有沒有決定，你有任何問題，打給我，我24小時內回覆。」讓他記住你的服務承諾，不是只有產品。</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head sage">
+      <div class="card-icon sage">📅</div>
+      <div><div class="card-htitle">本月實驗（2個習慣）</div></div>
+    </div>
+    <div class="card-body">
+      <ul class="steps">
+        <li><div class="step-dot sage">1</div><div><strong>用 Value Equation 四格自我評估</strong>：每次見完客戶，在備忘錄寫四行：「① 我有沒有說出他的夢想結果？② 我有沒有提高他對成功的信心？③ 我有沒有製造時間壓力？④ 我有沒有讓他覺得只要說 Yes 其他我來？」每週回顧一次。</div></li>
+        <li><div class="step-dot sage">2</div><div><strong>月初用 Hormozi 四指標篩選名單</strong>：每個月1-5日，把本月打算接觸的名單寫出來，標記：① 他的痛有多大？② 他有購買力嗎？③ 我現在容易接觸他嗎？④ 他的責任感正在上升嗎（結婚/生子/換工作）？優先接觸四個都是 Yes 的人。</div></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head gold">
+      <div class="card-icon gold">📈</div>
+      <div><div class="card-htitle">長期追蹤（1個指標）</div></div>
+    </div>
+    <div class="card-body">
+      <div class="q gold">
+        <strong>追蹤指標：從「考慮一下」到「決定了」的轉化率。</strong><br><br>
+        每個月統計：本月說「考慮一下」的人有幾位，最終決定的有幾位。每季度回顧，看這個比例有沒有上升。<br><br>
+        <strong>為什麼這個指標？</strong>它是整個蔡鈺+Hormozi 框架的終極測量——你的配角意識讓他更開放，動機挖掘讓你說對方向，Value Equation 讓方案更有吸引力，風險反轉讓最後一道防禦消失。這個轉化率會反映所有這些改善。
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── M10 ── -->
+<div class="mod" id="m10">
+  <div class="mod-label">
+    <div class="mod-num gold">10</div>
+    <div>
+      <div class="mod-title">📈 敘事弧線 — 兩本書的情緒設計</div>
+      <div class="mod-desc">作者如何讓你從起點走到相信</div>
+    </div>
+  </div>
+
+  <div class="book-grid">
+    <div class="book-col">
+      <div class="book-col-tag" style="color:var(--rose);">📗 蔡鈺的敘事弧線</div>
+      <div class="q" style="margin:6px 0; font-size:12.5px;"><strong>起點：</strong>你相信好產品自己會說話，做好功能就夠了</div>
+      <div class="q rose" style="margin:6px 0; font-size:12.5px;"><strong>破壞：</strong>Ch1 市場之變——消費者已經不仰望教主了，你的老辦法失效了</div>
+      <div class="q" style="margin:6px 0; font-size:12.5px;"><strong>最低點：</strong>無印良品、英特尔廣告案例——大品牌都在失敗，何況你</div>
+      <div class="q rose" style="margin:6px 0; font-size:12.5px;"><strong>重建：</strong>Ch2-4 情緒感知+創造工具——這是可以學習、可以系統化的能力</div>
+      <div class="q" style="margin:6px 0; font-size:12.5px;"><strong>著陸：</strong>情緒不是玄學，是商業能力；你現在就可以開始設計</div>
+      <div style="margin-top:10px; font-size:12.5px; color:var(--ink-lt);">情緒設計：<em>自信 → 動搖 → 困惑 → 頓悟 → 行動力</em></div>
+    </div>
+    <div class="book-col">
+      <div class="book-col-tag" style="color:var(--sage);">📘 Hormozi 的敘事弧線</div>
+      <div class="q sage" style="margin:6px 0; font-size:12.5px;"><strong>起點：</strong>你努力工作但成果不理想，覺得是自己不夠好</div>
+      <div class="q" style="margin:6px 0; font-size:12.5px; border-color:var(--sage);"><strong>破壞：</strong>帳戶剩$1036——帶你感受到那種絕望，情感共鳴</div>
+      <div class="q sage" style="margin:6px 0; font-size:12.5px;"><strong>最低點：</strong>你的問題不是你，是你的 Offer 設計出了問題——這才是真正的「壞消息」（因為你以為是自己的問題）</div>
+      <div class="q" style="margin:6px 0; font-size:12.5px; border-color:var(--sage);"><strong>重建：</strong>Value Equation + Grand Slam Offer——一套可重複使用的系統</div>
+      <div class="q sage" style="margin:6px 0; font-size:12.5px;"><strong>著陸：</strong>你只需要打一個 Grand Slam Offer，就能改變一生的收入</div>
+      <div style="margin-top:10px; font-size:12.5px; color:var(--ink-lt);">情緒設計：<em>掙扎感 → 共情 → 希望 → 系統 → 執行衝動</em></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── M11 ── -->
+<div class="mod" id="m11">
+  <div class="mod-label">
+    <div class="mod-num lav">11</div>
+    <div>
+      <div class="mod-title">🔮 個人化透鏡 — 保險業務員的場景轉化</div>
+      <div class="mod-desc">把書裡的框架直接映射到你的日常場景</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-head lav">
+      <div class="card-icon lav">🧑‍💼</div>
+      <div><div class="card-htitle">壽險業務員的場景轉化矩陣</div></div>
+    </div>
+    <div class="card-body" style="padding:0;">
+      <table class="tbl">
+        <tr><th>書中概念</th><th>原書情境</th><th>你的保險業務場景</th></tr>
+        <tr><td>配角意識（蔡鈺）</td><td>品牌應該讓消費者當主角</td><td>南山三寶從「說我多好」改成「你值得被我好好服務」</td></tr>
+        <tr><td>感受基本盤（蔡鈺）</td><td>安全感→新鮮感→價值感</td><td>先判斷客戶現在的心理能量：剛生小孩→安全感需求；收入穩定→可以談規劃升級；老客戶穩定→談傳承/價值感</td></tr>
+        <tr><td>動機 > 需求（蔡鈺）</td><td>不只看用戶買什麼，要看為什麼</td><td>不只問「你有沒有保險」，要問「你最擔心的是什麼」</td></tr>
+        <tr><td>Starving Crowd（Hormozi）</td><td>找最饑餓的市場</td><td>月初用四指標篩名單：最近有人生事件的人 = 最饑餓的客戶</td></tr>
+        <tr><td>Value Equation（Hormozi）</td><td>提高感知價值的四個維度</td><td>每句話想：這在提高夢想結果嗎？在提高可信度嗎？在壓縮時間嗎？在減少他的努力嗎？</td></tr>
+        <tr><td>Grand Slam Offer（Hormozi）</td><td>打包所有問題的解法，讓人無法比較</td><td>建議書從「產品介紹」改成「覆蓋你所有顧慮的完整計畫」——一次解決實支缺口、收入中斷、受益人設定、年度健診</td></tr>
+        <tr><td>保證（Hormozi）</td><td>風險反轉讓成交率 2-4x</td><td>明確說出你的服務承諾：24小時回覆、年度健診、理賠全程協助。把「服務保證」說出來，不只說保單功能</td></tr>
+        <tr><td>命名（Hormozi M-A-G-I-C）</td><td>好名字讓回應率大幅提升</td><td>給你的客製方案命名：「家庭後盾三年計畫」比「定期壽險附醫療」更有感知價值</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ── M12 ── -->
+<div class="mod" id="m12">
+  <div class="mod-label">
+    <div class="mod-num rose">12</div>
+    <div>
+      <div class="mod-title">📚 延伸資源 — 五方向書單</div>
+      <div class="mod-desc">上游 × 平行 × 延伸 × 對立 × 互補</div>
+    </div>
+  </div>
+
+  <table class="tbl">
+    <tr><th>方向</th><th>書名</th><th>與本書的關係</th></tr>
+    <tr><td><span class="tag rose">上游</span></td><td>《影響力》Cialdini</td><td>Hormozi 的稀缺/緊迫/保證的理論根源，讀懂六大原則你會更理解為什麼這些工具有效</td></tr>
+    <tr><td><span class="tag rose">上游</span></td><td>《被討厭的勇氣》岸見一郎</td><td>蔡鈺配角意識的哲學基礎：不追求他人認可，而是從貢獻中找到意義——這是業務員心態的根本</td></tr>
+    <tr><td><span class="tag sage">平行</span></td><td>《SPIN Selling》Neil Rackham</td><td>與 Hormozi 問題清單化互補：SPIN 的「暗示問題（Implication Q）」教你用提問讓客戶自己說出需求的嚴重性</td></tr>
+    <tr><td><span class="tag sage">平行</span></td><td>《FBI談判協商術》Chris Voss</td><td>與蔡鈺動機挖掘互補：「標籤法」（Labeling）是共情的具體技術——「聽起來你最擔心的是……」</td></tr>
+    <tr><td><span class="tag gold">延伸</span></td><td>Hormozi《$100M Leads》</td><td>$100M Offers 的下一本：解決「如何讓更多人看到你的 Grand Slam Offer」</td></tr>
+    <tr><td><span class="tag gold">延伸</span></td><td>《說故事的力量》Robert McKee</td><td>蔡鈺故事線設計的進階版：電影編劇的故事結構應用在品牌和業務呈現</td></tr>
+    <tr><td><span class="tag lav">互補</span></td><td>《原子習慣》James Clear</td><td>蔡鈺說設計情緒觸點，Clear 說設計行為觸發器——兩者應用於客戶關係維護和每日業務習慣建立</td></tr>
+    <tr><td><span class="tag lav">互補</span></td><td>《別讓保險變遺憾》劉鳳和</td><td>台灣保險業本土實戰視角，補充 SKILL 所在市場的具體情境</td></tr>
+  </table>
+</div>
+
+<div class="hr"></div>
+
+<!-- ═════════════════════════════════════
+     PART II — TOC 制約理論 十步驟
+═════════════════════════════════════ -->
+<div class="part-header" id="toc">
+  <div class="part-num">Part II · Theory of Constraints</div>
+  <h2>TOC 制約理論 — 十步驟應用</h2>
+  <p>用高德拉特思維工具，找出保險業務員業績的核心制約，並系統性地突破它</p>
+</div>
+
+<div style="background:var(--paper); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin-bottom:32px;">
+  <div style="font-size:11px; letter-spacing:2px; color:var(--ink-lt); text-transform:uppercase; margin-bottom:8px;">TOC 思考工具說明</div>
+  <p style="font-size:13.5px; color:var(--ink-mid); line-height:1.8;">制約理論（Theory of Constraints, TOC）由以色列物理學家 Eliyahu M. Goldratt 創立。核心洞見：<strong>任何系統的產出，都被「最薄弱的一環（制約）」所限制。</strong>改善任何非制約環節的效率，對整體產出幾乎沒有影響。真正的改善必須從識別並突破制約開始。十步驟包含：識別目標 → 找出制約 → 消雲圖（核心衝突）→ 現狀樹 → 未來現實樹 → 前提樹 → 行動計劃 → 充分利用 → 服從 → 提升與防止慣性。</p>
+</div>
+
+<!-- Step 1 -->
+<div class="mod">
+  <div class="mod-label">
+    <div class="mod-num rose">步驟 1</div>
+    <div>
+      <div class="mod-title">識別系統目標</div>
+      <div class="mod-desc">你的業務系統最終要達成什麼？</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head rose">
+      <div class="card-icon rose">🎯</div>
+      <div><div class="card-htitle">系統目標定義</div></div>
+    </div>
+    <div class="card-body">
+      <div class="q">
+        <strong>近期目標：</strong>月月達成四星會（壽險 FYC 2.5C + 4件不同被保人）<br>
+        <strong>中期目標：</strong>晉升主任（三選一條件達標）<br>
+        <strong>長期目標：</strong>建立可持續的業務系統——不依賴心情，每月穩定產出，保戶量持續累積複利
+      </div>
+      <div class="q rose">
+        <strong>衡量指標（TOC 的三個財務量）：</strong><br>
+        ① <em>產出（Throughput）</em>：每月 FYC 金額 + 四星會達成次數<br>
+        ② <em>庫存（Inventory）</em>：進行中的潛在客戶名單量<br>
+        ③ <em>營運費用（Operating Expense）</em>：時間投入 + 情緒資本消耗
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 2 -->
+<div class="mod">
+  <div class="mod-label">
+    <div class="mod-num sage">步驟 2</div>
+    <div>
+      <div class="mod-title">找出核心制約</div>
+      <div class="mod-desc">是哪一個環節在限制你整個業務系統的產出？</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head sage">
+      <div class="card-icon sage">🔎</div>
+      <div><div class="card-htitle">現狀「不良現象（UDE）」清單</div></div>
+    </div>
+    <div class="card-body">
+      <p style="font-size:13px; color:var(--ink-lt); margin-bottom:12px;">UDE = Undesirable Effects，用症狀反推制約</p>
+      <ul class="steps">
+        <li><div class="step-dot sage">▲</div><div><strong>UDE 1：</strong>客戶說「考慮一下」或「不需要」，然後就沒有下文了</div></li>
+        <li><div class="step-dot sage">▲</div><div><strong>UDE 2：</strong>和客戶聊得很好，但就是開不了口說保險，或說了對方就收起來</div></li>
+        <li><div class="step-dot sage">▲</div><div><strong>UDE 3：</strong>月底趕四星會，變成衝業績而不是真正服務客戶</div></li>
+        <li><div class="step-dot sage">▲</div><div><strong>UDE 4：</strong>建議書拿出來，客戶就開始和其他公司比費率</div></li>
+        <li><div class="step-dot sage">▲</div><div><strong>UDE 5：</strong>成交了一個，不知道怎麼自然延伸到他的家人或朋友</div></li>
+      </ul>
+      <div class="q sage">
+        <strong>核心制約診斷：</strong>所有這些 UDE 都指向同一個根源——<strong>「客戶的情緒防禦牆」</strong>。客戶在進入成交對話之前，有一道防禦牆阻止他開放地討論需求。這道牆不是因為他沒有需求，而是因為他沒有感到被理解、沒有感到安全。<br><br>
+        這就是核心制約：<em>業務員尚未系統性地「讓客戶情緒開放」，就進入了產品說明。</em>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 3 -->
+<div class="mod">
+  <div class="mod-label">
+    <div class="mod-num gold">步驟 3</div>
+    <div>
+      <div class="mod-title">消雲圖（Evaporating Cloud）— 核心衝突圖</div>
+      <div class="mod-desc">把制約的本質拆開，找到兩個看似矛盾的「必要條件」</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head gold">
+      <div class="card-icon gold">☁️</div>
+      <div><div class="card-htitle">業務員的核心衝突</div></div>
+    </div>
+    <div class="card-body">
+      <div class="toc-cloud">
+        <div class="cloud-row">
+          <span class="cloud-node label">系統目標 A</span>
+          <span class="cloud-arrow">→</span>
+          <span class="cloud-node target">達成月月四星會<br>穩定業績成長</span>
+        </div>
+        <div class="cloud-row">
+          <span class="cloud-arrow" style="font-size:24px;">↓ 需要</span>
+          <span style="flex:1;"></span>
+          <span class="cloud-arrow" style="font-size:24px;">↓ 也需要</span>
+        </div>
+        <div class="cloud-row">
+          <span class="cloud-node need">需要 B<br>建立深度信任<br>讓客戶開放地討論需求</span>
+          <span style="flex:1; text-align:center; color:var(--rose); font-size:13px;">因為……<br>沒有信任就沒有成交</span>
+          <span class="cloud-node need">需要 C<br>推動客戶做出<br>當下的決定</span>
+        </div>
+        <div class="cloud-row">
+          <span class="cloud-arrow" style="font-size:24px;">↓ 所以</span>
+          <span style="flex:1;"></span>
+          <span class="cloud-arrow" style="font-size:24px;">↓ 所以</span>
+        </div>
+        <div class="cloud-row">
+          <span class="cloud-node want">要求 D<br>給客戶充分的時間<br>不施壓、不急著說保險</span>
+          <span style="flex:1; text-align:center; font-size:22px; color:var(--rose);">⚡ 衝突</span>
+          <span class="cloud-node want">要求 D'<br>製造緊迫感<br>讓他今天就做決定</span>
+        </div>
+        <div class="cloud-conflict">
+          衝突核心：「要建立信任，就不能施壓；但要達成業績，就需要推動決定。」<br>
+          → 隱藏假設：「施壓和建立信任是互斥的」← 這個假設就是要打破的地方
+        </div>
+      </div>
+
+      <div class="q gold">
+        <strong>蔡鈺 + Hormozi 給出的解答——打破隱藏假設：</strong><br><br>
+        蔡鈺：情緒觸點讓信任建立的速度大幅加快（配角意識、動機挖掘）——不需要很長時間就能讓客戶感到被理解。<br><br>
+        Hormozi：Grand Slam Offer + 風險反轉保證，讓「做決定的成本」降到最低——當客戶感到沒有風險，「施壓」就不再是施壓，而是幫助他做對自己有利的決定。<br><br>
+        <em>兩者合起來：用蔡鈺壓縮信任建立的時間，用 Hormozi 降低決策的門檻，原本的衝突消失了。</em>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 4 -->
+<div class="mod">
+  <div class="mod-label">
+    <div class="mod-num lav">步驟 4</div>
+    <div>
+      <div class="mod-title">現狀樹（Current Reality Tree）</div>
+      <div class="mod-desc">用因果關係連接所有 UDE，找到根本原因</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head lav">
+      <div class="card-icon lav">🌲</div>
+      <div><div class="card-htitle">現狀因果鏈</div></div>
+    </div>
+    <div class="card-body">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot lav" style="border-color:var(--lavender);"></div>
+          <div class="timeline-label" style="color:var(--lavender);">根本原因（Root Cause）</div>
+          業務員在接觸時仍帶著「教主意識」——以說服代替共情，以產品功能代替情緒觸點
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-label">因果 1</div>
+          → 客戶感覺「被推銷」，情緒防禦牆升起
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot sage"></div>
+          <div class="timeline-label sage">因果 2</div>
+          → 客戶不願意深度分享他的財務狀況和真實恐懼
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-label">因果 3</div>
+          → 業務員不知道客戶真正的動機，只能說泛用的產品介紹
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot sage"></div>
+          <div class="timeline-label sage">因果 4</div>
+          → 建議書無法對準客戶的核心恐懼，被感知為「商品」→ 開始比價
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot gold"></div>
+          <div class="timeline-label gold">因果 5（最終 UDE）</div>
+          → 客戶說「考慮一下」/ 被比較費率 / 月底趕業績惡性循環
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 5 -->
+<div class="mod">
+  <div class="mod-label">
+    <div class="mod-num rose">步驟 5</div>
+    <div>
+      <div class="mod-title">未來現實樹（Future Reality Tree）</div>
+      <div class="mod-desc">打破制約之後，新的因果鏈長什麼樣？</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head rose">
+      <div class="card-icon rose">🌳</div>
+      <div><div class="card-htitle">未來的理想因果鏈</div></div>
+    </div>
+    <div class="card-body">
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot" style="border-color:var(--rose);"></div>
+          <div class="timeline-label">注入條件（Injection）</div>
+          業務員系統性地實踐「配角意識 + 情緒觸點 + 動機挖掘」
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot rose"></div>
+          <div class="timeline-label rose">新因果 1</div>
+          → 客戶感到「被理解、被善待」，情緒防禦牆降低
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot sage"></div>
+          <div class="timeline-label sage">新因果 2</div>
+          → 客戶主動說出他的恐懼和財務壓力（Layer 04 動機層）
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot gold"></div>
+          <div class="timeline-label gold">新因果 3</div>
+          → 業務員能設計真正對準客戶的 Grand Slam Offer（建議書覆蓋所有障礙）
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-label">新因果 4</div>
+          → 客戶感知價值高（Value Equation 四維度對應），方案無法被比較
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot rose"></div>
+          <div class="timeline-label rose">新因果 5（目標達成）</div>
+          → 成交率提升 + 四星會自然達成 + 保戶量累積複利 + 轉介紹增加
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Step 6-7 -->
+<div class="mod">
+  <div class="mod-label">
+    <div class="mod-num sage">步驟 6-7</div>
+    <div>
+      <div class="mod-title">前提樹 × 行動計劃</div>
+      <div class="mod-desc">達到未來現實，需要突破哪些中間障礙？</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head sage">
+      <div class="card-icon sage">🗺️</div>
+      <div><div class="card-htitle">中間目標（IO）× 前提障礙 × 行動</div></div>
+    </div>
+    <div class="card-body">
+      <table class="tbl">
+        <tr><th>中間目標</th><th>前提障礙</th><th>行動（兩本書提供的工具）</th></tr>
+        <tr>
+          <td>① 客戶的情緒防禦牆降低</td>
+          <td>習慣性用功能說服客戶</td>
+          <td>南山三寶配角語言改寫（蔡鈺Ch1）+ 每次見面前問自己「我是在說我，還是在說他？」</td>
+        </tr>
+        <tr>
+          <td>② 客戶說出真實動機</td>
+          <td>聊天停在 Layer 02/03，不敢問 Layer 04</td>
+          <td>固定加入動機挖掘問句（蔡鈺Ch1+Ch2）：「你最擔心的事是什麼？」</td>
+        </tr>
+        <tr>
+          <td>③ 建議書對準客戶障礙</td>
+          <td>建議書格式固定，沒有客製化</td>
+          <td>每次見面後用問題清單化（Hormozi Ch9）整理他的所有顧慮，把這些寫進建議書</td>
+        </tr>
+        <tr>
+          <td>④ 客戶無法比較費率</td>
+          <td>只介紹產品，沒有展現整體服務</td>
+          <td>Grand Slam Offer 包含服務承諾（保證 Ch15）+ 命名（MAGIC公式 Ch16）</td>
+        </tr>
+        <tr>
+          <td>⑤ 月底不急不亂</td>
+          <td>名單質量低，月初沒有篩選</td>
+          <td>Hormozi 四指標月初篩名單（痛/購買力/接觸容易度/責任上升中）</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Step 8-10 -->
+<div class="mod">
+  <div class="mod-label">
+    <div class="mod-num gold">步驟 8-10</div>
+    <div>
+      <div class="mod-title">充分利用制約 × 服從 × 提升並防止慣性</div>
+      <div class="mod-desc">讓整個系統圍繞突破制約來運作</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-head gold">
+      <div class="card-icon gold">⚙️</div>
+      <div><div class="card-htitle">系統性突破制約的三步驟</div></div>
+    </div>
+    <div class="card-body">
+      <div class="insight-row">
+        <div class="insight-num gold">8</div>
+        <div>
+          <strong>充分利用制約（Exploit）——最大化現有能力</strong><br>
+          核心制約是「情緒開放」。在現有技能範圍內，最大化每次接觸的情緒效益：<br>
+          ① 每次聊天結束後記錄六件事（SKILL 原有）→ 下次見面用這些資訊展現你記得他<br>
+          ② 見面前查一下他最近的生活動態（社群媒體），用他說過的事開場<br>
+          ③ 每一次見面都主動問一個「只有關心他的人才會問」的問題
+        </div>
+      </div>
+      <div class="insight-row">
+        <div class="insight-num gold">9</div>
+        <div>
+          <strong>服從決策（Subordinate）——讓所有其他活動服務於制約突破</strong><br>
+          這意味著：你的每一個動作（晨會、保單健診、電話、建議書）都要首先問：<br>
+          「這有沒有幫助讓客戶的情緒防禦牆降低？有沒有讓他更感到被理解？」<br>
+          把這個問題貼在電腦旁，每天問一次。
+        </div>
+      </div>
+      <div class="insight-row">
+        <div class="insight-num gold">10</div>
+        <div>
+          <strong>提升制約並防止慣性（Elevate + Prevent Inertia）</strong><br>
+          制約突破後，會出現新的制約（例如：情緒開放了，但方案設計不夠好）。<br>
+          防止慣性：不要因為「情緒話術越來越順」就停止升級——下一個要突破的環節是「Grand Slam Offer 設計」，也就是讓建議書自己替你成交。<br><br>
+          <strong>預期的制約轉移路徑：</strong><br>
+          情緒防禦牆（當前）→ 方案設計能力（下一個）→ 轉介紹系統（再下一個）→ 時間管理（主任之後）
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOC 總結 -->
+  <div class="card" style="margin-top:18px;">
+    <div class="card-head dark">
+      <div class="card-icon dark">🎯</div>
+      <div>
+        <div class="card-htitle light">TOC 應用總結 — 一張圖看懂整個分析</div>
+        <div class="card-hsub light">從制約識別到行動路徑</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="formula">
+        <div class="formula-note">核心制約</div>
+        <div class="formula-eq">客戶情緒防禦牆 ＝ <em>教主意識</em> × <em>沒有動機挖掘</em> × <em>方案無法差異化</em></div>
+      </div>
+      <div class="formula" style="margin-top:6px;">
+        <div class="formula-note">突破公式（兩本書的完整貢獻）</div>
+        <div class="formula-eq"><em>配角意識（蔡鈺）</em> → 防禦牆消融<br>↓<br><em>動機挖掘（蔡鈺）</em> → 找到真實錨點<br>↓<br><em>Grand Slam Offer（Hormozi）</em> → 方案無法被比較<br>↓<br><em>風險反轉保證（Hormozi）</em> → 最後一道防線消失<br>↓<br><em>成交自然發生</em></div>
+      </div>
+      <div class="q gold">
+        <strong>TOC 最終洞見：</strong>你不需要同時改善所有事情。你只需要找到那一個「制約」——客戶情緒防禦牆——然後把所有工具集中在突破這個制約上。兩本書給了你從兩個方向突破同一個制約的完整工具箱。
+        <cite>— 《情緒價值》蔡鈺 × 《$100M Offers》Hormozi × TOC Goldratt 的綜合應用</cite>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- /page -->
+
+<footer>
+  超級大腦讀書法 十二模組 × TOC 制約理論 十步驟<br>
+  《情緒價值》蔡鈺 × 《$100M Offers》Alex Hormozi × 南山壽險黎靖區業務應用
+</footer>
+
+</body>
+</html>
