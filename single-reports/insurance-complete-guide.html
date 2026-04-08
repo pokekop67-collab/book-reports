@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黎靖區｜保險業務完整手冊</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;600&family=Noto+Sans+TC:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --rose: #f2c4ce;
+  --rose-light: #fdf0f3;
+  --rose-dark: #c9848f;
+  --sage: #b5c9b7;
+  --sage-light: #eef4ef;
+  --sage-dark: #6e9272;
+  --beige: #f5ede0;
+  --beige-dark: #d4b896;
+  --sky: #daeaf5;
+  --sky-dark: #5a8fb5;
+  --sky-light: #f0f7fc;
+  --lavender: #e4dff5;
+  --lavender-dark: #8878be;
+  --cream: #faf7f2;
+  --text-main: #3a3230;
+  --text-muted: #8a7d79;
+  --text-soft: #b0a49f;
+  --border: #e8ddd8;
+  --white: #ffffff;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Noto Sans TC',sans-serif; background:var(--cream); color:var(--text-main); font-size:15px; line-height:1.8; }
+
+/* ── HERO ── */
+.hero {
+  background: linear-gradient(150deg,#fdf0f3 0%,#f0f7fc 40%,#eef4ef 100%);
+  padding: 72px 40px 56px;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+  position: relative; overflow: hidden;
+}
+.hero::before { content:''; position:absolute; top:-70px; right:-70px; width:260px; height:260px; border-radius:50%; background:rgba(242,196,206,.2); }
+.hero::after  { content:''; position:absolute; bottom:-50px; left:-50px; width:200px; height:200px; border-radius:50%; background:rgba(181,201,183,.2); }
+.hero-badge { display:inline-flex; gap:8px; margin-bottom:20px; }
+.hero-badge span { font-size:11px; letter-spacing:2px; color:var(--rose-dark); border:1px solid var(--rose); padding:4px 14px; border-radius:20px; font-family:'Noto Serif TC',serif; }
+.hero-badge span.b2 { color:var(--sky-dark); border-color:var(--sky); }
+.hero h1 { font-family:'Noto Serif TC',serif; font-size:36px; font-weight:300; letter-spacing:2px; margin-bottom:10px; }
+.hero h1 em { color:var(--rose-dark); font-style:normal; }
+.hero p { font-size:13px; color:var(--text-muted); letter-spacing:1px; }
+
+/* ── NAV ── */
+.nav-wrap { background:var(--white); border-bottom:1px solid var(--border); padding:18px 24px; position:sticky; top:0; z-index:100; }
+.nav-scroll { display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; scrollbar-width:none; }
+.nav-scroll::-webkit-scrollbar { display:none; }
+.nav-btn { flex-shrink:0; font-size:12px; color:var(--text-muted); padding:5px 16px; border-radius:20px; border:1px solid var(--border); cursor:pointer; transition:all .2s; text-decoration:none; white-space:nowrap; font-family:'Noto Sans TC',sans-serif; }
+.nav-btn:hover { background:var(--rose-light); border-color:var(--rose); color:var(--rose-dark); }
+
+/* ── WRAPPER ── */
+.wrapper { max-width:900px; margin:0 auto; padding:0 24px; }
+
+/* ── CHAPTER DIVIDER ── */
+.chapter {
+  margin: 56px 0 0;
+  padding: 28px 32px;
+  border-radius: 20px;
+  position: relative;
+}
+.chapter-rose     { background:linear-gradient(135deg,#fdf0f3,#faf7f2); border:1px solid var(--rose); }
+.chapter-sage     { background:linear-gradient(135deg,#eef4ef,#faf7f2); border:1px solid var(--sage); }
+.chapter-sky      { background:linear-gradient(135deg,#f0f7fc,#faf7f2); border:1px solid var(--sky); }
+.chapter-beige    { background:linear-gradient(135deg,#fdf9f4,#faf7f2); border:1px solid var(--beige-dark); }
+.chapter-lavender { background:linear-gradient(135deg,#f5f2fd,#faf7f2); border:1px solid var(--lavender); }
+.ch-num { font-family:'Noto Serif TC',serif; font-size:11px; letter-spacing:3px; margin-bottom:6px; }
+.chapter-rose     .ch-num { color:var(--rose-dark); }
+.chapter-sage     .ch-num { color:var(--sage-dark); }
+.chapter-sky      .ch-num { color:var(--sky-dark); }
+.chapter-beige    .ch-num { color:var(--beige-dark); }
+.chapter-lavender .ch-num { color:var(--lavender-dark); }
+.ch-title { font-family:'Noto Serif TC',serif; font-size:24px; font-weight:300; color:var(--text-main); }
+.ch-sub { font-size:13px; color:var(--text-muted); margin-top:4px; }
+
+/* ── SECTION inside chapter ── */
+section { padding:32px 0 16px; border-bottom:1px solid var(--border); }
+section:last-child { border-bottom:none; padding-bottom:8px; }
+.sec-label { font-size:11px; letter-spacing:2px; color:var(--text-soft); font-family:'Noto Serif TC',serif; margin-bottom:6px; }
+.sec-title { font-family:'Noto Serif TC',serif; font-size:19px; font-weight:400; color:var(--text-main); margin-bottom:20px; }
+.sec-title span { color:var(--rose-dark); }
+
+/* ── CARDS ── */
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px; margin-bottom:20px; }
+.card { background:var(--white); border:1px solid var(--border); border-radius:16px; padding:22px; }
+.card-rose   { border-top:3px solid var(--rose); }
+.card-sage   { border-top:3px solid var(--sage); }
+.card-sky    { border-top:3px solid var(--sky); }
+.card-beige  { border-top:3px solid var(--beige-dark); }
+.card-lav    { border-top:3px solid var(--lavender); }
+.card-icon { width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; margin-bottom:12px; }
+.icon-rose { background:var(--rose-light); } .icon-sage { background:var(--sage-light); }
+.icon-sky  { background:var(--sky-light); }  .icon-beige{ background:var(--beige); }
+.card h3 { font-family:'Noto Serif TC',serif; font-size:15px; font-weight:400; margin-bottom:10px; color:var(--text-main); }
+.card p, .card li { font-size:13px; color:var(--text-muted); line-height:1.9; }
+.card ul { list-style:none; padding:0; }
+.card li::before { content:'·'; color:var(--rose-dark); margin-right:6px; font-weight:bold; }
+.card li.sage::before { color:var(--sage-dark); }
+.card li.sky::before  { color:var(--sky-dark); }
+
+/* ── TABLE ── */
+.k-table { width:100%; border-collapse:collapse; font-size:13px; background:var(--white); border-radius:12px; overflow:hidden; border:1px solid var(--border); margin-bottom:16px; }
+.k-table th { padding:11px 15px; text-align:left; font-family:'Noto Serif TC',serif; font-size:12px; font-weight:400; letter-spacing:.5px; }
+.k-table.rose th  { background:var(--rose-light);    color:var(--rose-dark); }
+.k-table.sage th  { background:var(--sage-light);    color:var(--sage-dark); }
+.k-table.sky th   { background:var(--sky-light);     color:var(--sky-dark); }
+.k-table.beige th { background:var(--beige);         color:var(--beige-dark); }
+.k-table.lav th   { background:var(--lavender);      color:var(--lavender-dark); }
+.k-table td { padding:11px 15px; border-top:1px solid var(--border); color:var(--text-muted); vertical-align:top; line-height:1.7; }
+.k-table tr:hover td { background:#fdfafa; }
+.k-table td:first-child { color:var(--text-main); font-weight:500; white-space:nowrap; }
+
+/* ── TIMELINE ── */
+.timeline { position:relative; padding-left:30px; }
+.timeline::before { content:''; position:absolute; left:7px; top:0; bottom:0; width:1px; background:var(--border); }
+.tl-item { position:relative; margin-bottom:26px; }
+.tl-item::before { content:''; position:absolute; left:-27px; top:6px; width:9px; height:9px; border-radius:50%; background:var(--rose-light); border:2px solid var(--rose); }
+.tl-item.sage::before { background:var(--sage-light); border-color:var(--sage); }
+.tl-item.sky::before  { background:var(--sky-light);  border-color:var(--sky); }
+.tl-label { font-size:10px; letter-spacing:2px; color:var(--rose-dark); margin-bottom:5px; font-family:'Noto Serif TC',serif; }
+.tl-item.sage .tl-label { color:var(--sage-dark); }
+.tl-item.sky  .tl-label { color:var(--sky-dark); }
+.tl-title { font-family:'Noto Serif TC',serif; font-size:15px; font-weight:400; color:var(--text-main); margin-bottom:7px; }
+.tl-body  { font-size:13px; color:var(--text-muted); line-height:1.9; }
+.tl-body ul { list-style:none; padding:0; }
+.tl-body li::before { content:'›'; color:var(--sage-dark); margin-right:7px; }
+
+/* ── QUOTE ── */
+.quote-box { border-left:3px solid var(--rose-dark); border-radius:0 12px 12px 0; padding:18px 22px; margin:20px 0; }
+.quote-box.rose { background:var(--rose-light); }
+.quote-box.sage { background:var(--sage-light); border-color:var(--sage-dark); }
+.quote-box.sky  { background:var(--sky-light);  border-color:var(--sky-dark); }
+.quote-box p { font-family:'Noto Serif TC',serif; font-size:14.5px; color:var(--rose-dark); line-height:1.9; font-weight:300; }
+.quote-box.sage p { color:var(--sage-dark); }
+.quote-box.sky  p { color:var(--sky-dark); }
+.quote-box .src { font-size:11px; color:var(--text-soft); margin-top:7px; font-family:'Noto Sans TC',sans-serif; }
+
+/* ── INFO STRIP ── */
+.strip { border-radius:12px; padding:15px 18px; font-size:13px; margin:18px 0; display:flex; gap:10px; align-items:flex-start; }
+.strip::before { content:'✦'; flex-shrink:0; font-size:13px; margin-top:2px; }
+.strip.sage { background:var(--sage-light); color:var(--sage-dark); border:1px solid var(--sage); }
+.strip.rose { background:var(--rose-light); color:var(--rose-dark); border:1px solid var(--rose); }
+.strip.sky  { background:var(--sky-light);  color:var(--sky-dark);  border:1px solid var(--sky); }
+.strip.beige{ background:var(--beige);      color:var(--beige-dark);border:1px solid var(--beige-dark); }
+
+/* ── RULE BOX ── */
+.rule-box { background:var(--white); border:1px solid var(--border); border-radius:16px; padding:24px; margin-bottom:16px; }
+.rule-box h3 { font-family:'Noto Serif TC',serif; font-size:15px; font-weight:400; color:var(--rose-dark); margin-bottom:12px; display:flex; align-items:center; gap:8px; }
+.rule-box h3::before { content:''; display:inline-block; width:18px; height:1px; background:var(--rose); }
+.rule-box.sage h3 { color:var(--sage-dark); }
+.rule-box.sage h3::before { background:var(--sage); }
+.rule-box.sky  h3 { color:var(--sky-dark); }
+.rule-box.sky  h3::before { background:var(--sky); }
+
+/* ── FORD / FORMHD GRID ── */
+.formhd-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+.formhd-card { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:18px; display:flex; gap:12px; align-items:flex-start; }
+.fl { font-family:'Noto Serif TC',serif; font-size:28px; font-weight:300; line-height:1; flex-shrink:0; }
+.fl.f { color:var(--rose-dark); }   .fl.o { color:var(--sage-dark); }
+.fl.r { color:var(--beige-dark); }  .fl.m { color:var(--sky-dark); }
+.fl.h { color:var(--lavender-dark); }.fl.d { color:#a094b7; }
+.formhd-card h4 { font-family:'Noto Serif TC',serif; font-size:13px; font-weight:400; color:var(--text-main); margin-bottom:4px; }
+.formhd-card p  { font-size:12px; color:var(--text-muted); line-height:1.7; }
+
+/* ── MONTH CARDS ── */
+.month-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:14px; }
+.month-card { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:20px; position:relative; overflow:hidden; }
+.month-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; }
+.m1::before { background:var(--rose); }    .m2::before { background:var(--sage); }
+.m3::before { background:var(--beige-dark); } .m4::before { background:#a094b7; }
+.m-num { font-family:'Noto Serif TC',serif; font-size:34px; font-weight:300; color:var(--border); position:absolute; right:14px; top:6px; }
+.m-label { font-size:10px; letter-spacing:2px; color:var(--text-soft); margin-bottom:7px; display:block; }
+.month-card h4 { font-family:'Noto Serif TC',serif; font-size:14px; color:var(--text-main); margin-bottom:9px; }
+.month-card ul { list-style:none; padding:0; }
+.month-card li { font-size:12.5px; color:var(--text-muted); margin-bottom:3px; }
+.month-card li::before { content:'·'; margin-right:5px; color:var(--rose-dark); }
+
+/* ── BOOK GRID ── */
+.book-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:12px; }
+.book-card { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:18px; }
+.b-cat  { font-size:10px; letter-spacing:2px; color:var(--text-soft); display:block; margin-bottom:6px; font-family:'Noto Serif TC',serif; }
+.b-title{ font-family:'Noto Serif TC',serif; font-size:14px; color:var(--text-main); margin-bottom:3px; }
+.b-auth { font-size:11.5px; color:var(--text-soft); display:block; margin-bottom:7px; }
+.b-desc { font-size:12.5px; color:var(--text-muted); line-height:1.7; }
+
+/* ── FUNNEL ── */
+.funnel { display:flex; flex-direction:column; gap:3px; align-items:center; margin:22px 0; }
+.f-step { border-radius:8px; padding:11px 18px; text-align:center; font-size:13px; color:var(--text-main); font-family:'Noto Serif TC',serif; }
+.f-step span { display:block; font-size:11.5px; color:var(--text-muted); font-family:'Noto Sans TC',sans-serif; margin-top:1px; }
+.f-arr { color:var(--text-soft); font-size:17px; line-height:1; }
+
+/* ── SOP STEPS ── */
+.sop-steps { display:flex; gap:0; margin:18px 0; flex-wrap:wrap; }
+.sop-step { flex:1; min-width:120px; background:var(--white); border:1px solid var(--border); padding:16px 14px; text-align:center; position:relative; }
+.sop-step:first-child { border-radius:12px 0 0 12px; }
+.sop-step:last-child  { border-radius:0 12px 12px 0; }
+.sop-step::after { content:'›'; position:absolute; right:-10px; top:50%; transform:translateY(-50%); color:var(--text-soft); font-size:16px; z-index:1; background:var(--cream); padding:0 2px; }
+.sop-step:last-child::after { display:none; }
+.sop-num  { font-family:'Noto Serif TC',serif; font-size:20px; font-weight:300; color:var(--rose-dark); display:block; }
+.sop-name { font-size:12px; color:var(--text-muted); display:block; margin-top:3px; }
+
+/* ── UPGRADE TABLE ── */
+.up-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:16px; }
+.up-card { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:18px; text-align:center; }
+.up-badge { display:inline-block; font-size:11px; padding:3px 12px; border-radius:20px; margin-bottom:10px; font-family:'Noto Serif TC',serif; }
+.up-badge.a { background:var(--rose-light); color:var(--rose-dark); }
+.up-badge.b { background:var(--sage-light); color:var(--sage-dark); }
+.up-badge.c { background:var(--sky-light);  color:var(--sky-dark); }
+.up-period { font-family:'Noto Serif TC',serif; font-size:22px; font-weight:300; color:var(--text-main); display:block; margin-bottom:8px; }
+.up-label { font-size:11px; color:var(--text-soft); display:block; margin-bottom:4px; }
+.up-val { font-size:13px; font-weight:500; color:var(--text-main); display:block; margin-bottom:2px; }
+
+/* ── MATRIX ── */
+.matrix-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; margin:18px 0; }
+.mx-cell { border-radius:10px; padding:14px 10px; text-align:center; }
+.mx-big { background:var(--rose-light); }   .mx-mid { background:var(--sage-light); }
+.mx-sm  { background:var(--sky-light); }    .mx-xs  { background:var(--beige); }
+.mx-pct { font-family:'Noto Serif TC',serif; font-size:22px; font-weight:300; color:var(--text-main); display:block; }
+.mx-name{ font-size:12px; color:var(--text-muted); display:block; margin-top:4px; }
+.mx-sub { font-size:11px; color:var(--text-soft); display:block; margin-top:3px; }
+
+/* ── OBJECTION CARDS ── */
+.obj-list { display:flex; flex-direction:column; gap:14px; }
+.obj-card { background:var(--white); border:1px solid var(--border); border-radius:14px; padding:20px; }
+.obj-q { font-family:'Noto Serif TC',serif; font-size:14px; color:var(--rose-dark); margin-bottom:10px; padding-bottom:8px; border-bottom:1px solid var(--border); }
+.obj-a { font-size:13px; color:var(--text-muted); line-height:1.9; }
+.obj-a strong { color:var(--text-main); font-weight:500; }
+
+/* ── CHECKLIST ── */
+.checklist { list-style:none; padding:0; }
+.checklist li { font-size:13px; color:var(--text-muted); padding:7px 0; border-bottom:1px solid var(--border); display:flex; align-items:flex-start; gap:10px; }
+.checklist li:last-child { border-bottom:none; }
+.checklist li::before { content:'□'; color:var(--rose-dark); flex-shrink:0; font-size:15px; line-height:1.4; }
+.checklist li.done::before { content:'☑'; color:var(--sage-dark); }
+
+/* ── COVENANT ── */
+.cov-list { list-style:none; padding:0; counter-reset:cov; }
+.cov-list li { counter-increment:cov; display:flex; gap:14px; align-items:flex-start; padding:10px 0; border-bottom:1px solid var(--border); font-size:13px; color:var(--text-muted); line-height:1.8; }
+.cov-list li:last-child { border-bottom:none; }
+.cov-list li::before { content:counter(cov); flex-shrink:0; width:22px; height:22px; border-radius:50%; background:var(--rose-light); color:var(--rose-dark); font-size:11px; display:flex; align-items:center; justify-content:center; margin-top:2px; font-family:'Noto Serif TC',serif; }
+
+/* ── THREE TREASURES ── */
+.treasure-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+.treasure-card { background:var(--white); border:1px solid var(--border); border-radius:16px; padding:22px; }
+.tr-badge { display:inline-block; font-size:11px; padding:3px 12px; border-radius:20px; margin-bottom:10px; font-family:'Noto Serif TC',serif; }
+.tr1 .tr-badge { background:var(--rose-light); color:var(--rose-dark); }
+.tr2 .tr-badge { background:var(--sky-light);  color:var(--sky-dark); }
+.tr3 .tr-badge { background:var(--sage-light); color:var(--sage-dark); }
+.treasure-card h3 { font-family:'Noto Serif TC',serif; font-size:15px; font-weight:400; color:var(--text-main); margin-bottom:10px; }
+.treasure-card ul { list-style:none; padding:0; }
+.treasure-card li { font-size:12.5px; color:var(--text-muted); margin-bottom:4px; }
+.tr1 li::before { content:'›'; color:var(--rose-dark); margin-right:6px; }
+.tr2 li::before { content:'›'; color:var(--sky-dark);  margin-right:6px; }
+.tr3 li::before { content:'›'; color:var(--sage-dark); margin-right:6px; }
+
+/* ── LIFE STAGES ── */
+.stage-bar { display:flex; gap:0; border-radius:12px; overflow:hidden; border:1px solid var(--border); margin:18px 0; }
+.stage-item { flex:1; padding:16px 12px; text-align:center; }
+.stage-item:nth-child(1) { background:#fdf0f3; }
+.stage-item:nth-child(2) { background:#f0f7fc; }
+.stage-item:nth-child(3) { background:#eef4ef; }
+.stage-item:nth-child(4) { background:#f5ede0; }
+.st-label { font-size:11px; color:var(--text-soft); display:block; margin-bottom:4px; font-family:'Noto Serif TC',serif; }
+.st-name  { font-size:14px; color:var(--text-main); font-family:'Noto Serif TC',serif; }
+.st-sub   { font-size:11.5px; color:var(--text-muted); margin-top:3px; display:block; }
+
+/* ── FOOTER ── */
+footer { background:var(--white); border-top:1px solid var(--border); padding:40px; text-align:center; margin-top:56px; }
+footer .motto { font-family:'Noto Serif TC',serif; font-size:16px; color:var(--text-muted); letter-spacing:3px; margin-bottom:12px; }
+footer p { font-size:12px; color:var(--text-soft); letter-spacing:1px; font-family:'Noto Serif TC',serif; }
+
+@media(max-width:640px){
+  .hero h1 { font-size:26px; }
+  .formhd-grid { grid-template-columns:repeat(2,1fr); }
+  .treasure-grid { grid-template-columns:1fr; }
+  .up-grid { grid-template-columns:1fr; }
+  .sop-steps { flex-direction:column; }
+  .sop-step { border-radius:8px !important; }
+  .sop-step::after { display:none; }
+  .matrix-grid { grid-template-columns:repeat(3,1fr); }
+  .stage-bar { flex-direction:column; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">
+    <span>黎靖區新人學習手冊</span>
+    <span class="b2">四星會實戰講座精華</span>
+  </div>
+  <h1>南山壽險 · 業務<em>完整指南</em></h1>
+  <p>區文化 × 新人訓練 × 銷售SOP × 四星會實戰 × 書單</p>
+</div>
+
+<!-- NAV -->
+<div class="nav-wrap">
+  <div class="nav-scroll">
+    <a class="nav-btn" href="#c1">區文化</a>
+    <a class="nav-btn" href="#c2">新人準備</a>
+    <a class="nav-btn" href="#c3">訓練課表</a>
+    <a class="nav-btn" href="#c4">南山三寶</a>
+    <a class="nav-btn" href="#c5">接觸話術</a>
+    <a class="nav-btn" href="#c6">保單分析</a>
+    <a class="nav-btn" href="#c7">理財矩陣</a>
+    <a class="nav-btn" href="#c8">三階段四問題</a>
+    <a class="nav-btn" href="#c9">銷售SOP</a>
+    <a class="nav-btn" href="#c10">異議處理</a>
+    <a class="nav-btn" href="#c11">四星會規則</a>
+    <a class="nav-btn" href="#c12">新手路線圖</a>
+    <a class="nav-btn" href="#c13">客戶話題庫</a>
+    <a class="nav-btn" href="#c14">聊天收集法</a>
+    <a class="nav-btn" href="#c15">晉升主任</a>
+    <a class="nav-btn" href="#c16">書單</a>
+  </div>
+</div>
+
+<div class="wrapper">
+
+<!-- ══════════ CHAPTER 1 ══════════ -->
+<div class="chapter chapter-rose" id="c1">
+  <div class="ch-num">CHAPTER 01</div>
+  <div class="ch-title">區文化與生活公約</div>
+  <div class="ch-sub">黎靖區的核心價值觀與日常行為準則</div>
+
+  <section>
+    <div class="sec-label">VISION</div>
+    <div class="sec-title">區文化 <span>核心理念</span></div>
+    <div class="cards">
+      <div class="card card-rose">
+        <div class="card-icon icon-rose">🌸</div>
+        <h3>進入業務的三個心態</h3>
+        <ul>
+          <li>不要太顧面子（怕丟臉反而丟臉）</li>
+          <li>不要太注重得失，不可感情用事</li>
+          <li>學習換位思考</li>
+        </ul>
+      </div>
+      <div class="card card-sky">
+        <div class="card-icon icon-sky">💡</div>
+        <h3>成功的兩個條件</h3>
+        <ul>
+          <li class="sky">堅持的信念</li>
+          <li class="sky">自律的態度</li>
+        </ul>
+        <p style="margin-top:10px; font-size:12.5px;">英雄只比常人多勇敢五分鐘而已。</p>
+      </div>
+      <div class="card card-sage">
+        <div class="card-icon icon-sage">🌿</div>
+        <h3>三不政策</h3>
+        <ul>
+          <li class="sage">不離開公司</li>
+          <li class="sage">不離開市場</li>
+          <li class="sage">不離開主管</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="quote-box rose">
+      <p>好習慣的代價是當下，壞習慣的代價是未來。</p>
+      <div class="src">— 區文化願景</div>
+    </div>
+    <div class="quote-box sky">
+      <p>舞台再大你不上台就只是觀眾，南山制度再好不賺錢就只是路過。</p>
+      <div class="src">— 區經理 育靖</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-label">COVENANT</div>
+    <div class="sec-title">生活公約 <span>十大準則</span></div>
+    <ol class="cov-list">
+      <li>準時出席晨會。</li>
+      <li>離開座位請將桌面清理乾淨，並將椅子靠攏。</li>
+      <li>進辦公室服裝儀容整潔，維持專業形象。（男士打領帶，女士勿穿迷你裙）</li>
+      <li>晨會期間請勿吃東西，面向講師，尊重台上的人。</li>
+      <li>三不政策：不離開公司、不離開市場、不離開主管。</li>
+      <li>做每日拜訪紀錄，與主管 PEP 前填寫好銷售紀錄表。</li>
+      <li>維持良好工作習慣。</li>
+      <li>飲食有節、起居有常，為自己身體健康負責。</li>
+      <li>保持禮貌，禮是起居、行動、交際的規矩。</li>
+      <li>不造謠、不傳謠、不群聚八卦。</li>
+    </ol>
+  </section>
+</div>
+
+<!-- ══════════ CHAPTER 2 ══════════ -->
+<div class="chapter chapter-sky" id="c2">
+  <div class="ch-num">CHAPTER 02</div>
+  <div class="ch-title">成為專業經理人</div>
+  <div class="ch-sub">物品準備 × 心態準備 × 證照準備</div>
+
+  <section>
+    <div class="cards">
+      <div class="card card-sky">
+        <div class="card-icon icon-sky">💼</div>
+        <h3>物品清單</h3>
+        <ul>
+          <li class="sky">正式服裝</li>
+          <li class="sky">名片 / 公事包 / 筆記本 / 筆</li>
+          <li class="sky">平板</li>
+          <li class="sky">契變書 / 授權書</li>
+          <li class="sky">E化投保同意書</li>
+          <li class="sky">印泥</li>
+        </ul>
+      </div>
+      <div class="card card-rose">
+        <div class="card-icon icon-rose">🧠</div>
+        <h3>心態準備</h3>
+        <ul>
+          <li>出席晨會與區會</li>
+          <li>乾淨清新整齊的外在</li>
+          <li>積極正面心態</li>
+          <li>良好拜訪客戶習慣與紀錄</li>
+          <li>越挫越勇</li>
+        </ul>
+      </div>
+      <div class="card card-sage">
+        <div class="card-icon icon-sage">📜</div>
+        <h3>必備證照</h3>
+        <ul>
+          <li class="sage">金融常識與職業道德</li>
+          <li class="sage">壽險證照</li>
+          <li class="sage">外幣證照</li>
+          <li class="sage">產險證照</li>
+          <li class="sage">投資型證照</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ CHAPTER 3 ══════════ -->
+<div class="chapter chapter-sage" id="c3">
+  <div class="ch-num">CHAPTER 03</div>
+  <div class="ch-title">新人訓練課表</div>
+  <div class="ch-sub">五大模組完整學習路徑</div>
+
+  <section>
+    <table class="k-table sage">
+      <thead><tr><th>模組</th><th>課程內容</th></tr></thead>
+      <tbody>
+        <tr><td>🏢 環境</td><td>公司制度介紹、同事介紹、AES系統說明</td></tr>
+        <tr><td>💭 觀念</td><td>壽險事業在南山、保險意義與功能、業務員正確心態、列出保險20個優點</td></tr>
+        <tr><td>🎯 準備</td><td>南山三寶課程、打造個人品牌與社群、軟體經營、業務員必知禮儀、通訊錄建立、輔導紀錄表、手機 / iPad APP</td></tr>
+        <tr><td>🤝 接觸</td><td>銷售心理學、調保單實務演練、約訪技巧、5W 搜集資料、人生三階段四問題、理財矩陣、全險架構、財務需求分析、保單健診與條款解析、建議書製作與說明技巧</td></tr>
+        <tr><td>📦 商品</td><td>醫療重要性與架構、壽險類型、儲蓄險功能、外幣保單、年金與躉繳保單、產險（汽機車）、旅行險、團險與雇主責任</td></tr>
+        <tr><td>🏆 激勵成交</td><td>保險故事、反對問題處理、激勵成交與核保作業、要保書及契變填寫、投保通使用</td></tr>
+        <tr><td>👥 客戶經營</td><td>理賠聯盟練、延伸與轉介紹、長輩客戶經營、售後服務（BAM & 保戶園地）</td></tr>
+        <tr><td>📈 目標</td><td>晉升目標、公司競賽、良好工作習慣</td></tr>
+      </tbody>
+    </table>
+  </section>
+</div>
+
+<!-- ══════════ CHAPTER 4 ══════════ -->
+<div class="chapter chapter-rose" id="c4">
+  <div class="ch-num">CHAPTER 04</div>
+  <div class="ch-title">南山三寶</div>
+  <div class="ch-sub">建立客戶信任的三大核心話術</div>
+
+  <section>
+    <div class="strip sage">三寶目的：照個人狀況合理鋪陳說明，對客戶產生效果與感受，取得支持與互信。</div>
+    <div class="treasure-grid">
+      <div class="treasure-card tr1">
+        <div class="tr-badge">第一寶</div>
+        <h3>為什麼做保險</h3>
+        <ul>
+          <li>為何要做保險？建立意義與功能</li>
+          <li>為什麼要做業務？追求成長、認同</li>
+          <li>為何選保險？好處是什麼？</li>
+          <li>保險小故事</li>
+          <li>原公司轉職的起心動念</li>
+        </ul>
+      </div>
+      <div class="treasure-card tr2">
+        <div class="tr-badge">第二寶</div>
+        <h3>為何選南山</h3>
+        <ul>
+          <li>教育訓練完整</li>
+          <li>四冠王：業務員最優、理賠最優、知名度最高、最值得推薦</li>
+          <li>品牌、理賠、團隊與主管</li>
+        </ul>
+      </div>
+      <div class="treasure-card tr3">
+        <div class="tr-badge">第三寶</div>
+        <h3>你會做多久</h3>
+        <ul>
+          <li>讓客戶覺得你有上進心</li>
+          <li>可以為他做什麼？</li>
+          <li>對壽險事業的使命感</li>
+          <li>晉升目標、競賽、服務品質</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ CHAPTER 5 ══════════ -->
+<div class="chapter chapter-sky" id="c5">
+  <div class="ch-num">CHAPTER 05</div>
+  <div class="ch-title">接觸話術與資料蒐集</div>
+  <div class="ch-sub">FORMHD聊天法 × 保單七問 × 接觸理由</div>
+
+  <section>
+    <div class="sec-label">FORMHD METHOD</div>
+    <div class="sec-title">聊天聊什麼 <span>六大方向</span></div>
+    <div class="formhd-grid">
+      <div class="formhd-card">
+        <div class="fl f">F</div>
+        <div><h4>Family 家庭</h4><p>關心準客戶家裡最近情形</p></div>
+      </div>
+      <div class="formhd-card">
+        <div class="fl o">O</div>
+        <div><h4>Occupation 工作</h4><p>對目前工作滿意程度</p></div>
+      </div>
+      <div class="formhd-card">
+        <div class="fl r">R</div>
+        <div><h4>Relaxation 休閒</h4><p>下班後做哪方面活動</p></div>
+      </div>
+      <div class="formhd-card">
+        <div class="fl m">M</div>
+        <div><h4>Money 收入</h4><p>對收入待遇是否有抱怨</p></div>
+      </div>
+      <div class="formhd-card">
+        <div class="fl h">H</div>
+        <div><h4>Healthy 健康</h4><p>關心準客戶和家人健康</p></div>
+      </div>
+      <div class="formhd-card">
+        <div class="fl d">D</div>
+        <div><h4>Dream 夢想</h4><p>了解目標與夢想</p></div>
+      </div>
+    </div>
+
+    <div class="sec-label" style="margin-top:24px;">7 QUESTIONS</div>
+    <div class="sec-title">保單七問</div>
+    <table class="k-table sky">
+      <thead><tr><th>問題</th><th>目的</th></tr></thead>
+      <tbody>
+        <tr><td>Which</td><td>保險買哪一家？</td></tr>
+        <tr><td>Who</td><td>跟誰買的呢？</td></tr>
+        <tr><td>Why</td><td>當時為什麼要投保？</td></tr>
+        <tr><td>When</td><td>什麼時候買的？</td></tr>
+        <tr><td>How much</td><td>一年繳多少保費？</td></tr>
+        <tr><td>How</td><td>業務員服務怎麼樣？</td></tr>
+        <tr><td>What</td><td>你記得你買了什麼嗎？</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sec-title" style="margin-top:24px;">接觸的 <span>九種理由</span></div>
+    <div class="cards">
+      <div class="card card-sky">
+        <ul>
+          <li class="sky">交換名片</li>
+          <li class="sky">工作拜訪</li>
+          <li class="sky">順道拜訪</li>
+        </ul>
+      </div>
+      <div class="card card-sage">
+        <ul>
+          <li class="sage">送年曆</li>
+          <li class="sage">聚會</li>
+          <li class="sage">委託工作</li>
+        </ul>
+      </div>
+      <div class="card card-rose">
+        <ul>
+          <li>做問卷</li>
+          <li>送小禮物</li>
+          <li>車險服務</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="sec-title" style="margin-top:24px;">搜集客戶資料 <span>八個維度</span></div>
+    <table class="k-table sky">
+      <thead><tr><th>資料</th><th>目的與方法</th></tr></thead>
+      <tbody>
+        <tr><td>年齡</td><td>涉及可能需求與產品設計內容</td></tr>
+        <tr><td>收入</td><td>以聊天方式，將對方薪水報高，藉以了解真實薪水</td></tr>
+        <tr><td>學歷</td><td>可推敲客戶收入水準</td></tr>
+        <tr><td>婚姻</td><td>間接詢問「家庭有哪些成員」得知</td></tr>
+        <tr><td>行業</td><td>得知經濟情況、負擔能力及拜訪時間</td></tr>
+        <tr><td>嗜好</td><td>藉以引發對談興趣</td></tr>
+        <tr><td>個性</td><td>因應不同個性採取不同應對方式</td></tr>
+        <tr><td>專長</td><td>產生共鳴，建立關係</td></tr>
+      </tbody>
+    </table>
+
+    <div class="strip sky" style="margin-top:16px;">進階聊天四層次：生活近況 → 工作收入 → 家庭責任（黃金層）→ 擔心什麼、害怕什麼。當他說出「我怕…」「我擔心…」，就是真正了解需求的時刻。</div>
+  </section>
+</div>
+
+<!-- ══════════ CHAPTER 6 ══════════ -->
+<div class="chapter chapter-beige" id="c6">
+  <div class="ch-num">CHAPTER 06</div>
+  <div class="ch-title">調保單與分析</div>
+  <div class="ch-sub">保單健診的問法與分析維度</div>
+
+  <section>
+    <div class="cards">
+      <div class="card card-beige">
+        <h3>問保單的說法</h3>
+        <ul>
+          <li>「請問買了什麼？主約商品名稱是？」</li>
+          <li>「可以給我代號嗎？我在自己查。」</li>
+          <li>「有沒有加住院險或意外險？」</li>
+          <li>「什麼時候買的？繳多久？額度多少？」</li>
+          <li>「保單號碼是多少？」</li>
+        </ul>
+      </div>
+      <div class="card card-rose">
+        <h3>保單分析十項目</h3>
+        <ul>
+          <li>要保人 / 被保人</li>
+          <li>保險公司 / 保單號碼</li>
+          <li>生效日期</li>
+          <li>繳法（年/半年/季/月）</li>
+          <li>險種代碼與年期</li>
+          <li>保費與保費加總</li>
+        </ul>
+      </div>
+      <div class="card card-sage">
+        <h3>購買習慣分析</h3>
+        <ul>
+          <li class="sage">購買時間</li>
+          <li class="sage">購買公司</li>
+          <li class="sage">購買習慣</li>
+          <li class="sage">預算比例</li>
+          <li class="sage">友家規劃習慣</li>
+        </ul>
+      </div>
+    </div>
+    <div class="strip beige">保單健診是最自然的重新接觸舊客戶理由。成交一個人後，馬上延伸至配偶、子女、父母，全家都是名單。</div>
+  </section>
+</div>
+
+<!-- ══════════ CHAPTER 7 ══════════ -->
+<div class="chapter chapter-rose" id="c7">
+  <div class="ch-num">CHAPTER 07</div>
+  <div class="ch-title">理財矩陣</div>
+  <div class="ch-sub">雙十法則收入分配概念</div>
+
+  <section>
+    <div class="strip rose">核心概念：幫客戶把收入做合理分配，從「沒錢買保險」到「原來只要這樣分配」。</div>
+    <div class="matrix-grid">
+      <div class="mx-cell mx-big">
+        <span class="mx-pct">40%</span>
+        <span class="mx-name">生活開銷</span>
+        <span class="mx-sub">食衣育樂、交通雜支</span>
+      </div>
+      <div class="mx-cell mx-mid">
+        <span class="mx-pct">20%</span>
+        <span class="mx-name">固定支出</span>
+        <span class="mx-sub">車貸、房貸、信貸、孝親</span>
+      </div>
+      <div class="mx-cell mx-mid">
+        <span class="mx-pct">20%</span>
+        <span class="mx-name">投資理財</span>
+        <span class="mx-sub">個人風險適合度</span>
+      </div>
+      <div class="mx-cell mx-sm">
+        <span class="mx-pct">10%</span>
+        <span class="mx-name">緊急預備金</span>
+        <span class="mx-sub">流動性資產 3–6 個月支出</span>
+      </div>
+      <div class="mx-cell mx-xs">
+        <span class="mx-pct">10%</span>
+        <span class="mx-name">風險規劃</span>
+        <span class="mx-sub">雙十法則保費比例</span>
+      </div>
+    </div>
+    <div class="quote-box rose" style="margin-top:16px;">
+      <p>「如果在償債期間，收入突然中斷，生活一定大亂。所以不是沒錢買保險，而是更需要有保險保護你的還款能力。」</p>
+      <div class="src">— 反對問題處理：生活負擔太重</div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ CHAPTER 8 ══════════ -->
+<div class="chapter chapter-sky" id="c8">
+  <div class="ch-num">CHAPTER 08</div>
+  <div class="ch-title">人生三階段四問題</div>
+  <div class="ch-sub">壽險銷售的核心框架</div>
+
+  <section>
+    <div class="stage-bar">
+      <div class="stage-item"><span class="st-label">出生 → 就業</span><span class="st-name">撫養期</span><span class="st-sub">父母責任</span></div>
+      <div class="stage-item"><span class="st-label">就業 → 退休</span><span class="st-name">奮鬥期</span><span class="st-sub">收入累積</span></div>
+      <div class="stage-item"><span class="st-label">退休 → 養老</span><span class="st-name">退休期</span><span class="st-sub">退休金來源</span></div>
+      <div class="stage-item"><span class="st-label">養老 → 身故</span><span class="st-name">養老期</span><span class="st-sub">長壽風險</span></div>
+    </div>
+
+    <div class="sec-title" style="margin-top:24px;">人生 <span>四大問題</span></div>
+    <table class="k-table sky">
+      <thead><tr><th>#</th><th>問題</th><th>說明</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>活得太短</td><td>責任未了造成家人負擔（房貸、子女、父母責任）</td></tr>
+        <tr><td>2</td><td>收入中斷</td><td>因疾病、意外、失業引發的經濟問題</td></tr>
+        <tr><td>3</td><td>殘廢長年病</td><td>因疾病或意外而引發長期的經濟問題</td></tr>
+        <tr><td>4</td><td>活的太長</td><td>因長壽而衍伸的退休金不足等問題</td></tr>
+      </tbody>
+    </table>
+
+    <div class="sec-title" style="margin-top:24px;">財務需求 <span>三大分析</span></div>
+    <div class="cards">
+      <div class="card card-rose">
+        <h3>保障需求</h3>
+        <p>家庭生活金 / 子女教育金 / 身後結算金。若不幸發生事故，留給家人維持生活的金額，為第一層基本保障。</p>
+      </div>
+      <div class="card card-sky">
+        <h3>醫療需求</h3>
+        <p>住院醫療 / 重大疾病 / 意外傷殘 / 長期照顧。身體受損時享有的醫療保障額度。</p>
+      </div>
+      <div class="card card-sage">
+        <h3>理財需求</h3>
+        <p>購屋基金 / 退休基金 / 子女教育基金 / 夢想基金。對人生各項財務目標的掌握與保障。</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ CHAPTER 9 ══════════ -->
+<div class="chapter chapter-sage" id="c9">
+  <div class="ch-num">CHAPTER 09</div>
+  <div class="ch-title">銷售 SOP</div>
+  <div class="ch-sub">六步驟完整銷售流程</div>
+
+  <section>
+    <div class="sop-steps">
+      <div class="sop-step"><span class="sop-num">01</span><span class="sop-name">對的人（名單）</span></div>
+      <div class="sop-step"><span class="sop-num">02</span><span class="sop-name">引發需求（電梯）</span></div>
+      <div class="sop-step"><span class="sop-num">03</span><span class="sop-name">提供說明（漏斗）</span></div>
+      <div class="sop-step"><span class="sop-num">04</span><span class="sop-name">異議處理</span></div>
+      <div class="sop-step"><span class="sop-num">05</span><span class="sop-name">成交（向上向下）</span></div>
+      <div class="sop-step"><span class="sop-num">06</span><span class="sop-name">見證</span></div>
+    </div>
+
+    <div class="rule-box sage" style="margin-top:16px;">
+      <h3>電梯話術四要素</h3>
+      <ul style="list-style:none; padding:0; font-size:13px; color:var(--text-muted); line-height:2.1;">
+        <li>⏱ <strong>時間 / 行業</strong>：簡短說明自己的背景</li>
+        <li>👥 <strong>客戶數 × 代表客戶</strong>：展現社群與信任</li>
+        <li>💎 <strong>產品價值（賣點 + 支持點）</strong>：說明能解決什麼</li>
+        <li>🔢 <strong>數字案例</strong>：價值本身就有結果</li>
+        <li>❓ <strong>反問句</strong>：引導客戶思考</li>
+      </ul>
+    </div>
+
+    <div class="rule-box" style="margin-top:16px;">
+      <h3>成交：向上 & 向下</h3>
+      <div class="cards" style="margin-top:12px;">
+        <div class="card card-rose">
+          <h3>向上 — 提醒需求</h3>
+          <p>「還記得嗎？當初為什麼我們一開始會提到這個方案？那是因為你想要……」</p>
+        </div>
+        <div class="card card-sage">
+          <h3>向下 — 給他方法</h3>
+          <p>「相信我，只要採取我們這個方案，我們一定可以協助你實現你想要的目標。」</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ CHAPTER 10 ══════════ -->
+<div class="chapter chapter-lavender" id="c10">
+  <div class="ch-num">CHAPTER 10</div>
+  <div class="ch-title">異議問題處理</div>
+  <div class="ch-sub">常見反對話術完整應對</div>
+
+  <section>
+    <div class="obj-list">
+      <div class="obj-card">
+        <div class="obj-q">「我還要考慮一下」</div>
+        <div class="obj-a">
+          「考慮是應該的，不知道您考慮的是<strong>保費高低</strong>，還是<strong>保障問題</strong>？
+          如果是保費，我們可以研究增減；如果是保障問題，我相信是愈多愈好，
+          所以現在我們來討論錢的問題，這樣的費用可以嗎？如果沒問題，今天就把契約完成。」
+        </div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">「我不需要保險」</div>
+        <div class="obj-a">
+          「日常生活裡很多我們認為不需要的東西：滅火器、備用輪胎、安全氣囊、救生衣…
+          在沒發生意外時沒人需要，但萬一發生，它們比任何東西都更重要。<strong>保險也是一樣的道理。</strong>」
+        </div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">「我已經投保過了」</div>
+        <div class="obj-a">
+          「有買過保險代表您很有觀念！但保險就像滅火器，必備而不一定要用，
+          卻必須<strong>定時察看是否夠用</strong>。保單也需視情況適度調整，
+          您還記得您買的是什麼嗎？方便我幫您做個保單整理嗎？」
+        </div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">「投保不如買股票，利潤較高」</div>
+        <div class="obj-a">
+          「投資股票很好，這是理財的一環。<strong>資產配置能有效降低風險</strong>，
+          投資保險不會讓我們大富大貴，卻可以讓我們高枕無憂。
+          100% 的資金拿出 3% 做保險規劃，97% 都還在您熟悉的市場，
+          3% 並不影響這輩子的成與敗，在需要時保險還能發揮意義與功能。」
+        </div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">「錢存銀行比較穩」</div>
+        <div class="obj-a">
+          保險法 124 條：保險有優先受償權。保險 RBC 要 200%，銀行才 8.5%。
+          「現在假設您是銀行經理，我能享有：60 歲一次給付退休金、住院醫藥費負擔、
+          意外傷殘給付、身故家人安家費…<strong>銀行做不到，保險才可以。</strong>」
+        </div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">「物價通膨，保險會貶值」</div>
+        <div class="obj-a">
+          「貨幣貶值是不論投資或不投資都會遇到的現象。最叫人擔心的是
+          <strong>『勞動力貶值』</strong>——一個人健康不好，收入減少，
+          這張保單就是彌補能力貶值時所遭受的損失。」
+        </div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">「生活負擔太重，沒錢買保險」</div>
+        <div class="obj-a">
+          用理財矩陣說明分配。「假如在償債期間，收入突然中斷，
+          若家中主要收入者發生意外，對家庭的打擊不是更大嗎？
+          <strong>與其擔心沒錢，更要從現在開始準備，複利一點一滴累積。</strong>」
+        </div>
+      </div>
+      <div class="obj-card">
+        <div class="obj-q">「我有親戚朋友在保險公司」</div>
+        <div class="obj-a">
+          「有朋友在做很好！但我們買東西並不全向朋友購買，而是選<strong>適合自己的</strong>。
+          而且往往摯親之間一旦有糾紛，反而朋友都不用做了。
+          半生不熟的我，可以公事公辦，而且我現在才幾歲，我們可以一起 30、40、50、60 歲，
+          我提供的<strong>服務保固是最長的。</strong>」
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ CHAPTER 11 ══════════ -->
+<div class="chapter chapter-rose" id="c11">
+  <div class="ch-num">CHAPTER 11</div>
+  <div class="ch-title">四星會實戰規則</div>
+  <div class="ch-sub">偉娟經理講座精華 · 遊戲規則不要放棄</div>
+
+  <section>
+    <div class="cards">
+      <div class="card card-rose">
+        <div class="card-icon icon-rose">🌸</div>
+        <h3>壽險達標條件</h3>
+        <ul>
+          <li>FYC 達到 2.5C</li>
+          <li>四件不同被保險人</li>
+          <li>同一月份完成</li>
+        </ul>
+      </div>
+      <div class="card card-sage">
+        <div class="card-icon icon-sage">🍃</div>
+        <h3>產險達標條件</h3>
+        <ul>
+          <li class="sage">共六件（含壽險兩件）</li>
+          <li class="sage">兩個不同被保險人</li>
+          <li class="sage">產險四件 2000 元以上</li>
+          <li class="sage">強制險不計，團險可計</li>
+        </ul>
+      </div>
+      <div class="card card-sky">
+        <div class="card-icon icon-sky">📋</div>
+        <h3>行政追核重點</h3>
+        <ul>
+          <li class="sky">月底前先報出業績</li>
+          <li class="sky">隔月 10 號前系統追核</li>
+          <li class="sky">月底前核到就算</li>
+          <li class="sky">絕對不要提前放棄</li>
+        </ul>
+      </div>
+    </div>
+
+    <table class="k-table rose">
+      <thead><tr><th>時間節點</th><th>建議動作</th></tr></thead>
+      <tbody>
+        <tr><td>月 1–5 日</td><td>盤點名單，確認當月 4 位潛在被保險人</td></tr>
+        <tr><td>月 10 日前</td><td>至少 2 件在談，確認 FYC 進度</td></tr>
+        <tr><td>月 20 日</td><td>評估 C 值，不夠就找產險補件</td></tr>
+        <tr><td>月 25 日後</td><td>全力衝刺，絕不提前放棄</td></tr>
+        <tr><td>隔月 10 日前</td><td>系統追核，聯絡行政追單</td></tr>
+      </tbody>
+    </table>
+
+    <div class="quote-box rose">
+      <p>「自我滿足的標準太容易變動了。有了四星會，我就要想著不行，我現在這個月很順，我就要先想著下個月業績再來。」</p>
+      <div class="src">— 偉娟經理</div>
+    </div>
+    <div class="cards" style="margin-top:16px;">
+      <div class="card card-rose">
+        <h3>為什麼要做四星會</h3>
+        <ul>
+          <li>建立不依賴心情的工作習慣</li>
+          <li>客戶量持續累積複利成長</li>
+          <li>100 次後續繳可達百萬級別</li>
+          <li>追逐榮耀讓心情更穩定</li>
+        </ul>
+      </div>
+      <div class="card card-sage">
+        <h3>被忽略的重要細節</h3>
+        <ul>
+          <li class="sage">受益人定期檢視是接觸舊客戶最自然的理由</li>
+          <li class="sage">產險是月底補件的救命繩</li>
+          <li class="sage">建議書要多找不同主管練習</li>
+          <li class="sage">每個客戶成交後馬上想「全家」</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ CHAPTER 12 ══════════ -->
+<div class="chapter chapter-sage" id="c12">
+  <div class="ch-num">CHAPTER 12</div>
+  <div class="ch-title">新手實踐路線圖</div>
+  <div class="ch-sub">從第一天到挑戰四星會的完整步驟</div>
+
+  <section>
+    <div class="month-grid">
+      <div class="month-card m1">
+        <div class="m-num">1</div>
+        <span class="m-label">第 1–3 個月</span>
+        <h4>打好地基</h4>
+        <ul>
+          <li>每天新增 3–5 潛在客戶</li>
+          <li>練習用一句話說清楚保險</li>
+          <li>每週對主管練習遞建議書</li>
+          <li>目標：讓對方聽你說完</li>
+        </ul>
+      </div>
+      <div class="month-card m2">
+        <div class="m-num">2</div>
+        <span class="m-label">第 3–6 個月</span>
+        <h4>建立話題庫</h4>
+        <ul>
+          <li>每月專攻一個切入點</li>
+          <li>車險 → 保單健診 → 生日加費</li>
+          <li>練到「隨口就能說」才過關</li>
+          <li>找不同主管練，吸取差異</li>
+        </ul>
+      </div>
+      <div class="month-card m3">
+        <div class="m-num">3</div>
+        <span class="m-label">第 6 個月起</span>
+        <h4>挑戰四星會</h4>
+        <ul>
+          <li>月初確認 4 位潛在被保人</li>
+          <li>月中評估 C 值與件數</li>
+          <li>月底不足找產險補件</li>
+          <li>爭取到最後一刻</li>
+        </ul>
+      </div>
+      <div class="month-card m4">
+        <div class="m-num">∞</div>
+        <span class="m-label">持續進化</span>
+        <h4>深化專業</h4>
+        <ul>
+          <li>延伸至稅務、傳承議題</li>
+          <li>一個客戶 → 全家名單</li>
+          <li>持續累積新話題、新知識</li>
+          <li>讓客戶有理由一直找你</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ CHAPTER 13 ══════════ -->
+<div class="chapter chapter-sky" id="c13">
+  <div class="ch-num">CHAPTER 13</div>
+  <div class="ch-title">客戶話題庫</div>
+  <div class="ch-sub">七大切入點 × 實戰話術</div>
+
+  <section>
+    <table class="k-table sky">
+      <thead><tr><th>切入點</th><th>核心話術方向</th><th>延伸目標</th></tr></thead>
+      <tbody>
+        <tr><td>🚗 車險</td><td>「車重要還是人重要？」 從責任險引導</td><td>個人壽險、意外險</td></tr>
+        <tr><td>🎂 生日加費</td><td>提醒保險年齡即將增加，把握加保時機</td><td>長照、醫療加保</td></tr>
+        <tr><td>📂 保單健診</td><td>10 年以上舊客戶重新檢視，激發缺口</td><td>全面重新規劃</td></tr>
+        <tr><td>🏥 實支實付</td><td>「你的額度夠嗎？只要 1–2 千就能補足」</td><td>醫療缺口補足</td></tr>
+        <tr><td>👔 團險</td><td>老闆怕員工受傷，強調上下班途中</td><td>個人及全家保障</td></tr>
+        <tr><td>✈️ 旅平險</td><td>引導指定受益人，「全家出國受益人在哪？」</td><td>個人壽險延伸</td></tr>
+        <tr><td>📝 受益人檢視</td><td>了解家族關係，避免法定繼承人糾紛</td><td>壽險傳承規劃</td></tr>
+      </tbody>
+    </table>
+
+    <div class="cards" style="margin-top:16px;">
+      <div class="card card-rose">
+        <h3>車險經典話術</h3>
+        <p style="font-size:13px; line-height:1.9;">「這臺車萬一修要50萬，真的要修嗎？那今天一個人醫藥費50萬，是要報廢還是修？修。那奇怪，你自己的保費才兩三萬，你在猶豫什麼？到底車重要還是人重要？」</p>
+      </div>
+      <div class="card card-sky">
+        <h3>旅平險受益人話術</h3>
+        <p style="font-size:13px; line-height:1.9;">「你跟老公小孩出國，萬一發生事情，你的旅平險受益人也跟你一起在外面。你的理賠，最後會到哪裡？要不要幫我列一下第一、第二順位受益人？」</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ CHAPTER 14 ══════════ -->
+<div class="chapter chapter-beige" id="c14">
+  <div class="ch-num">CHAPTER 14</div>
+  <div class="ch-title">和朋友聊天收集資訊</div>
+  <div class="ch-sub">進階版接觸技巧 × 自然對話策略</div>
+
+  <section>
+    <div class="strip rose">核心原則：你是在「關心朋友」，不是在「調查客戶」。帶著真心關心的心態出門，對方感受得到。</div>
+
+    <div class="sec-title">四個聊天 <span>層次</span></div>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-label">LAYER 01</div>
+        <div class="tl-title">生活近況</div>
+        <div class="tl-body">先讓對方放鬆說話。「最近怎樣？工作還好嗎？」</div>
+      </div>
+      <div class="tl-item sage">
+        <div class="tl-label">LAYER 02</div>
+        <div class="tl-title">工作與收入</div>
+        <div class="tl-body">
+          <ul>
+            <li>「公司最近景氣怎樣？有感覺到壓力嗎？」</li>
+            <li>「你是自己開公司還是上班？老闆有幫你保勞健保嗎？」</li>
+            <li>「有買房嗎？房貸壓力大不大？」</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item sky">
+        <div class="tl-label">LAYER 03 ★ 黃金層</div>
+        <div class="tl-title">家庭與責任</div>
+        <div class="tl-body">
+          <ul>
+            <li>「你小孩現在幾歲了？」</li>
+            <li>「你爸媽身體還好嗎？需要照顧嗎？」</li>
+            <li>「你老婆有在工作嗎？還是主要靠你？」</li>
+          </ul>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-label">LAYER 04 ★★ 核心</div>
+        <div class="tl-title">擔心什麼、害怕什麼</div>
+        <div class="tl-body">
+          <ul>
+            <li>「萬一哪天突然不能工作，你們家怎麼辦？」</li>
+            <li>「你現在最擔心的事情是什麼？」</li>
+            <li>「退休大概要多少錢才夠？有在準備嗎？」</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="sec-title" style="margin-top:24px;">聊天時 <span>六件要記住的事</span></div>
+    <table class="k-table beige">
+      <tbody>
+        <tr><td>1. 婚姻狀況</td><td>已婚？有小孩？幾個？</td></tr>
+        <tr><td>2. 工作穩定度</td><td>受雇還是自營？收入固定嗎？</td></tr>
+        <tr><td>3. 負債狀況</td><td>有房貸？車貸？其他負債？</td></tr>
+        <tr><td>4. 父母狀況</td><td>健不健康？需要他照顧嗎？</td></tr>
+        <tr><td>5. 最近變化</td><td>結婚？生子？換工作？搬家？</td></tr>
+        <tr><td>6. 最大擔憂</td><td>他最怕、最在意的事是什麼？</td></tr>
+      </tbody>
+    </table>
+
+    <div class="quote-box rose" style="margin-top:16px;">
+      <p>「我最近有在研究一些適合你這種情況的規劃，改天整理一下給你看看，你幫我參考一下？」</p>
+      <div class="src">自然結束聊天，製造下次見面理由，不強迫、不突兀。</div>
+    </div>
+  </section>
+</div>
+
+<!-- ══════════ CHAPTER 15 ══════════ -->
+<div class="chapter chapter-sky" id="c15">
+  <div class="ch-num">CHAPTER 15</div>
+  <div class="ch-title">晉升主任條件</div>
+  <div class="ch-sub">三條路徑 × 面談流程 × 必修課程</div>
+
+  <section>
+    <div class="sec-title">升級主任 <span>三條件</span></div>
+    <div class="strip sky">注意：有兩個月掛蛋，業績重新計算。主任與業代的主要差異：30%（同工不同酬），依當月組的FYC加計單位津貼及業績獎金。</div>
+    <div class="up-grid">
+      <div class="up-card">
+        <div class="up-badge a">條件 A</div>
+        <span class="up-period">3 個月</span>
+        <span class="up-label">加權計績</span><span class="up-val">265萬</span>
+        <span class="up-label">或 FYC</span><span class="up-val">32萬</span>
+        <span class="up-label">不同被保險人</span><span class="up-val">12 人</span>
+      </div>
+      <div class="up-card">
+        <div class="up-badge b">條件 B</div>
+        <span class="up-period">6 個月</span>
+        <span class="up-label">加權計績</span><span class="up-val">290萬</span>
+        <span class="up-label">或 FYC</span><span class="up-val">35萬</span>
+        <span class="up-label">不同被保險人</span><span class="up-val">20 人</span>
+      </div>
+      <div class="up-card">
+        <div class="up-badge c">條件 C</div>
+        <span class="up-period">9 個月</span>
+        <span class="up-label">加權計績</span><span class="up-val">205萬</span>
+        <span class="up-label">或 FYC</span><span class="up-val">25萬</span>
+        <span class="up-label">不同被保險人</span><span class="up-val">20 人</span>
+      </div>
+    </div>
+
+    <div class="sec-title" style="margin-top:24px;">升級面談 <span>五關流程</span></div>
+    <div class="timeline">
+      <div class="tl-item sky"><div class="tl-label">第一關</div><div class="tl-title">資料審查</div><div class="tl-body">出席率達85%、晉升推薦表、團保契約書、三個月內戶籍謄本</div></div>
+      <div class="tl-item sky"><div class="tl-label">第二關</div><div class="tl-title">制度說明</div><div class="tl-body">晉升考核說明、組織津貼計算</div></div>
+      <div class="tl-item sky"><div class="tl-label">第三關</div><div class="tl-title">活動意義</div><div class="tl-body">通訊處活動有哪些？活動的意義與功能？主管職責及角色定位</div></div>
+      <div class="tl-item sky"><div class="tl-label">第四關</div><div class="tl-title">事業規劃</div><div class="tl-body">成功壽險事業條件、推銷與增員三年計畫</div></div>
+      <div class="tl-item sky"><div class="tl-label">第五關</div><div class="tl-title">處經理面談</div><div class="tl-body">簽核。每月月中晉升面談，資料於每月10日前送業務行政科</div></div>
+    </div>
+
+    <div class="sec-title" style="margin-top:24px;">必修課程 <span>清單</span></div>
+    <ul class="checklist">
+      <li>數位課程：壽險推銷實務 — 登峰造極</li>
+      <li>數位課程：壽險推銷實務 — 專業風采</li>
+      <li>實體課程：新人快速成長 — Life Plus 為生命加分</li>
+      <li>實體課程：壽險推銷實務 — 實戰演練</li>
+      <li>實體課程：專業銷售認證（CPS）or 通關（擇一）</li>
+      <li>委任考試：委任業務主任考試</li>
+      <li>壽險：個人壽險 50 萬（南山任一壽險、儲蓄型、投資型皆可）</li>
+    </ul>
+  </section>
+</div>
+
+<!-- ══════════ CHAPTER 16 ══════════ -->
+<div class="chapter chapter-lavender" id="c16">
+  <div class="ch-num">CHAPTER 16</div>
+  <div class="ch-title">推薦書單</div>
+  <div class="ch-sub">分類閱讀指南 · 從心態到技術</div>
+
+  <section>
+    <div class="sec-label" style="margin-bottom:12px;">心態與習慣</div>
+    <div class="book-grid">
+      <div class="book-card"><span class="b-cat">HABIT</span><div class="b-title">原子習慣</div><span class="b-auth">James Clear</span><div class="b-desc">系統比目標更重要，對應四星會邏輯。</div></div>
+      <div class="book-card"><span class="b-cat">MINDSET</span><div class="b-title">被討厭的勇氣</div><span class="b-auth">岸見一郎</span><div class="b-desc">被客戶冷漠對待時的心理建設。</div></div>
+      <div class="book-card"><span class="b-cat">PERFORMANCE</span><div class="b-title">高成效習慣</div><span class="b-auth">Brendon Burchard</span><div class="b-desc">新手快速進入穩定產出狀態。</div></div>
+    </div>
+
+    <div class="sec-label" style="margin-top:20px; margin-bottom:12px;">聆聽與溝通</div>
+    <div class="book-grid">
+      <div class="book-card"><span class="b-cat">NEGOTIATION</span><div class="b-title">FBI 談判協商術</div><span class="b-auth">Chris Voss</span><div class="b-desc">讓對方主動說出真實想法。</div></div>
+      <div class="book-card"><span class="b-cat">NVC</span><div class="b-title">非暴力溝通</div><span class="b-auth">Marshall Rosenberg</span><div class="b-desc">聽出對方話語背後的真實需求。</div></div>
+      <div class="book-card"><span class="b-cat">QUESTION</span><div class="b-title">提問的設計</div><span class="b-auth">安齋勇樹</span><div class="b-desc">問出讓對方認真思考的問題。</div></div>
+    </div>
+
+    <div class="sec-label" style="margin-top:20px; margin-bottom:12px;">建立信任 & 影響力</div>
+    <div class="book-grid">
+      <div class="book-card"><span class="b-cat">TRUST</span><div class="b-title">先問，為什麼？</div><span class="b-auth">Simon Sinek</span><div class="b-desc">人為什麼信任某人，從根本改變關係。</div></div>
+      <div class="book-card"><span class="b-cat">CLASSIC</span><div class="b-title">如何贏取友誼與影響他人</div><span class="b-auth">Dale Carnegie</span><div class="b-desc">讓對方覺得被重視的藝術。</div></div>
+      <div class="book-card"><span class="b-cat">PSYCHOLOGY</span><div class="b-title">影響力</div><span class="b-auth">Robert Cialdini</span><div class="b-desc">理解人為什麼做決定。</div></div>
+    </div>
+
+    <div class="sec-label" style="margin-top:20px; margin-bottom:12px;">銷售技巧</div>
+    <div class="book-grid">
+      <div class="book-card"><span class="b-cat">SALES METHOD</span><div class="b-title">SPIN 銷售技巧</div><span class="b-auth">Neil Rackham</span><div class="b-desc">四種問題引導客戶說出需求。</div></div>
+      <div class="book-card"><span class="b-cat">INSURANCE TW</span><div class="b-title">別讓保險變遺憾</div><span class="b-auth">劉鳳和</span><div class="b-desc">從客戶角度理解抗拒心理。</div></div>
+    </div>
+  </section>
+</div>
+
+</div><!-- /wrapper -->
+
+<footer>
+  <div class="motto">關係靠走動 · 團隊靠活動 · 客戶靠感動 · 成功靠行動</div>
+  <p>黎靖區新人學習手冊 × 四星會實戰講座整合版</p>
+  <p style="margin-top:6px; font-size:11px;">每月做到，習慣自然內化。越努力，越幸運。</p>
+</footer>
+
+</body>
+</html>
