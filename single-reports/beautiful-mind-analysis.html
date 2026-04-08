@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How To Have A Beautiful Mind — 超級大腦深度解構</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --bg-light: #fafafa;
+  --bg-dark: #1a1a2e;
+  --bg-darker: #0f0f1a;
+  --accent-orange: #ff6b35;
+  --accent-pink: #ec4899;
+  --accent-purple: #7c3aed;
+  --accent-blue: #3b82f6;
+  --accent-cyan: #06b6d4;
+  --accent-green: #10b981;
+  --accent-yellow: #fbbf24;
+  --text-dark: #1a1a2e;
+  --text-light: #ffffff;
+  --text-muted: rgba(255,255,255,0.6);
+  --text-dark-muted: #6b7280;
+}
+
+body {
+  font-family: 'Noto Sans TC', 'Inter', sans-serif;
+  background: var(--bg-light);
+  color: var(--text-dark);
+  line-height: 1.8;
+  overflow-x: hidden;
+}
+
+/* ===== HERO SECTION ===== */
+.hero {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f1a 100%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 60px 20px;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 70%, rgba(124,58,237,0.15) 0%, transparent 50%),
+              radial-gradient(circle at 70% 30%, rgba(236,72,153,0.1) 0%, transparent 50%),
+              radial-gradient(circle at 50% 50%, rgba(255,107,53,0.08) 0%, transparent 50%);
+  animation: heroFloat 20s ease-in-out infinite;
+}
+
+@keyframes heroFloat {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(30px, -30px) rotate(1deg); }
+  66% { transform: translate(-20px, 20px) rotate(-1deg); }
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 900px;
+}
+
+.hero-tag {
+  display: inline-block;
+  padding: 8px 24px;
+  border: 1px solid rgba(255,107,53,0.4);
+  border-radius: 50px;
+  color: var(--accent-orange);
+  font-size: 0.85em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+  font-weight: 500;
+}
+
+.hero-title {
+  font-family: 'Inter', sans-serif;
+  font-size: clamp(2.5em, 6vw, 5em);
+  font-weight: 900;
+  color: var(--text-light);
+  line-height: 1.1;
+  margin-bottom: 20px;
+}
+
+.hero-title span {
+  background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+  font-size: 1.2em;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+  font-weight: 300;
+}
+
+.hero-author {
+  font-size: 1em;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.15em;
+}
+
+.hero-meta {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.hero-meta-item {
+  text-align: center;
+}
+
+.hero-meta-item .num {
+  font-family: 'Inter', sans-serif;
+  font-size: 2.5em;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.hero-meta-item .label {
+  font-size: 0.8em;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+/* ===== SECTION STYLES ===== */
+.section-dark {
+  background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%);
+  color: var(--text-light);
+  padding: 100px 20px;
+  position: relative;
+}
+
+.section-light {
+  background: var(--bg-light);
+  color: var(--text-dark);
+  padding: 100px 20px;
+  position: relative;
+}
+
+.section-alt {
+  background: #f0f0f5;
+  color: var(--text-dark);
+  padding: 100px 20px;
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* ===== MODULE HEADERS ===== */
+.module-header {
+  margin-bottom: 60px;
+}
+
+.module-number {
+  font-family: 'Inter', sans-serif;
+  font-size: 5em;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+
+.module-number.gradient-1 {
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.module-number.gradient-2 {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.module-number.gradient-3 {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.module-number.gradient-4 {
+  background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.module-tag {
+  display: inline-block;
+  padding: 4px 16px;
+  border-radius: 50px;
+  font-size: 0.75em;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.tag-orange { background: rgba(255,107,53,0.15); color: var(--accent-orange); }
+.tag-purple { background: rgba(124,58,237,0.15); color: var(--accent-purple); }
+.tag-blue { background: rgba(59,130,246,0.15); color: var(--accent-blue); }
+.tag-green { background: rgba(16,185,129,0.15); color: var(--accent-green); }
+.tag-pink { background: rgba(236,72,153,0.15); color: var(--accent-pink); }
+
+.module-title {
+  font-size: clamp(1.8em, 4vw, 2.8em);
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 15px;
+}
+
+.module-desc {
+  font-size: 1.05em;
+  opacity: 0.7;
+  max-width: 700px;
+  font-weight: 300;
+}
+
+/* ===== CARDS ===== */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 30px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px;
+  border: 1px solid #e5e7eb;
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+}
+
+.card-dark {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--text-light);
+}
+
+.card-dark:hover {
+  background: rgba(255,255,255,0.08);
+  border-color: rgba(255,255,255,0.15);
+}
+
+.card-icon {
+  font-size: 2em;
+  margin-bottom: 16px;
+}
+
+.card h3 {
+  font-size: 1.15em;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.card p {
+  font-size: 0.92em;
+  opacity: 0.75;
+  line-height: 1.7;
+}
+
+/* ===== CHAPTER LIST ===== */
+.chapter-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 30px;
+}
+
+.chapter-table th {
+  text-align: left;
+  padding: 14px 16px;
+  font-size: 0.75em;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border-bottom: 2px solid #e5e7eb;
+  color: var(--text-dark-muted);
+}
+
+.chapter-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.92em;
+  vertical-align: top;
+}
+
+.chapter-table tr:hover {
+  background: rgba(124,58,237,0.03);
+}
+
+.ch-num {
+  font-family: 'Inter', sans-serif;
+  font-weight: 800;
+  color: var(--accent-purple);
+  width: 50px;
+}
+
+.ch-title { font-weight: 600; }
+
+.ch-stage {
+  font-size: 0.8em;
+  padding: 3px 10px;
+  border-radius: 50px;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.stage-1 { background: rgba(255,107,53,0.1); color: var(--accent-orange); }
+.stage-2 { background: rgba(124,58,237,0.1); color: var(--accent-purple); }
+.stage-3 { background: rgba(59,130,246,0.1); color: var(--accent-blue); }
+.stage-4 { background: rgba(16,185,129,0.1); color: var(--accent-green); }
+
+/* ===== CHAPTER ANALYSIS ===== */
+.chapter-block {
+  margin-bottom: 48px;
+  padding: 36px;
+  border-radius: 20px;
+  border-left: 4px solid;
+  transition: all 0.3s ease;
+}
+
+.chapter-block:hover { transform: translateX(8px); }
+
+.chapter-block.bg-light {
+  background: #fff;
+  border-color: var(--accent-purple);
+}
+
+.chapter-block.bg-dark {
+  background: rgba(255,255,255,0.04);
+  border-color: var(--accent-cyan);
+}
+
+.chapter-block h3 {
+  font-size: 1.3em;
+  font-weight: 800;
+  margin-bottom: 6px;
+}
+
+.chapter-block .core-line {
+  font-size: 1.05em;
+  font-weight: 500;
+  color: var(--accent-purple);
+  margin-bottom: 18px;
+  padding-left: 12px;
+  border-left: 3px solid var(--accent-purple);
+}
+
+.insight-list {
+  list-style: none;
+  padding: 0;
+  margin: 12px 0;
+}
+
+.insight-list li {
+  padding: 8px 0 8px 28px;
+  position: relative;
+  font-size: 0.93em;
+  line-height: 1.7;
+}
+
+.insight-list li::before {
+  content: '💡';
+  position: absolute;
+  left: 0;
+  top: 8px;
+}
+
+.action-box {
+  background: rgba(16,185,129,0.08);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 12px 0;
+  font-size: 0.9em;
+}
+
+.action-box::before { content: '🔧 '; font-weight: 700; }
+
+.question-box {
+  background: rgba(124,58,237,0.06);
+  border-radius: 12px;
+  padding: 14px 18px;
+  margin: 12px 0;
+  font-size: 0.9em;
+  font-style: italic;
+}
+
+.question-box::before { content: '❓ '; }
+
+.link-box {
+  font-size: 0.85em;
+  color: var(--accent-blue);
+  margin-top: 8px;
+}
+
+.link-box::before { content: '🔗 '; }
+
+/* ===== CROSS-REFERENCE ===== */
+.contradiction-card {
+  background: linear-gradient(135deg, rgba(124,58,237,0.08), rgba(236,72,153,0.05));
+  border-radius: 20px;
+  padding: 32px;
+  margin-bottom: 28px;
+  border: 1px solid rgba(124,58,237,0.15);
+}
+
+.contradiction-card h4 {
+  font-size: 1.1em;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+
+.vs-block {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 16px;
+  align-items: center;
+  margin: 16px 0;
+}
+
+.vs-side {
+  background: rgba(255,255,255,0.6);
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 0.9em;
+}
+
+.vs-divider {
+  font-family: 'Inter', sans-serif;
+  font-weight: 900;
+  font-size: 1.5em;
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-pink));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.unity-box {
+  background: rgba(16,185,129,0.08);
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 12px;
+  border-left: 3px solid var(--accent-green);
+}
+
+.causal-chain {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 16px 0;
+  font-size: 0.95em;
+}
+
+.chain-node {
+  background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.85em;
+}
+
+.chain-arrow {
+  font-size: 1.3em;
+  color: var(--accent-orange);
+}
+
+.meta-principle {
+  background: #fff;
+  border-radius: 16px;
+  padding: 28px;
+  margin-bottom: 20px;
+  border: 1px solid #e5e7eb;
+  position: relative;
+  overflow: hidden;
+}
+
+.meta-principle::before {
+  content: attr(data-num);
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  font-family: 'Inter', sans-serif;
+  font-size: 4em;
+  font-weight: 900;
+  opacity: 0.06;
+}
+
+.meta-principle h4 {
+  font-size: 1.1em;
+  font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--accent-purple);
+}
+
+.freq-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.freq-table th {
+  text-align: left;
+  padding: 12px;
+  font-size: 0.75em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-bottom: 2px solid rgba(255,255,255,0.1);
+  color: var(--text-muted);
+}
+
+.freq-table td {
+  padding: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 0.9em;
+}
+
+.freq-bar {
+  height: 8px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--accent-orange), var(--accent-pink));
+}
+
+/* ===== PRIORITY LIST ===== */
+.priority-item {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 28px;
+  align-items: flex-start;
+}
+
+.priority-num {
+  font-family: 'Inter', sans-serif;
+  font-size: 3em;
+  font-weight: 900;
+  line-height: 1;
+  min-width: 60px;
+  background: linear-gradient(135deg, var(--accent-orange), var(--accent-yellow));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.priority-content h4 {
+  font-size: 1.1em;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.priority-content p {
+  font-size: 0.9em;
+  opacity: 0.75;
+}
+
+/* ===== MATRIX TABLE ===== */
+.matrix-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+.matrix-table th {
+  padding: 14px;
+  text-align: left;
+  font-size: 0.8em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: rgba(124,58,237,0.06);
+  border-bottom: 2px solid #e5e7eb;
+}
+
+.matrix-table td {
+  padding: 14px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.9em;
+  vertical-align: top;
+}
+
+/* ===== ACTION SECTION ===== */
+.action-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 24px;
+}
+
+.action-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  padding: 32px;
+  color: var(--text-light);
+}
+
+.action-card h3 {
+  font-size: 1.1em;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.action-card .timeline-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 50px;
+  font-size: 0.75em;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.action-card ul {
+  list-style: none;
+  padding: 0;
+}
+
+.action-card li {
+  padding: 8px 0;
+  font-size: 0.9em;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+  opacity: 0.8;
+}
+
+.action-card li::before { content: '→ '; color: var(--accent-cyan); }
+
+/* ===== NARRATIVE ARC ===== */
+.arc-container {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 200px;
+  margin: 40px 0;
+  padding: 0 20px;
+}
+
+.arc-bar {
+  flex: 1;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  transition: all 0.3s ease;
+  min-width: 20px;
+}
+
+.arc-bar:hover {
+  opacity: 0.8;
+  transform: scaleY(1.05);
+  transform-origin: bottom;
+}
+
+.arc-label {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.65em;
+  white-space: nowrap;
+  color: var(--text-muted);
+}
+
+/* ===== EXTENSION ===== */
+.ext-item {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 20px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.06);
+  align-items: flex-start;
+}
+
+.ext-direction {
+  padding: 6px 14px;
+  border-radius: 8px;
+  font-size: 0.75em;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+  min-width: 60px;
+  text-align: center;
+}
+
+.ext-content h4 { font-size: 1em; font-weight: 600; margin-bottom: 4px; }
+.ext-content p { font-size: 0.85em; opacity: 0.6; }
+
+/* ===== GEO DECORATIONS ===== */
+.geo {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.geo-circle {
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  border: 2px solid rgba(124,58,237,0.1);
+}
+
+.geo-triangle {
+  width: 0;
+  height: 0;
+  border-left: 80px solid transparent;
+  border-right: 80px solid transparent;
+  border-bottom: 140px solid rgba(255,107,53,0.05);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .vs-block { grid-template-columns: 1fr; }
+  .vs-divider { text-align: center; }
+  .priority-item { flex-direction: column; gap: 8px; }
+  .hero-meta { gap: 20px; }
+  .chapter-block { padding: 24px; }
+  .card-grid { grid-template-columns: 1fr; }
+}
+
+/* ===== DIVIDER ===== */
+.section-divider {
+  height: 4px;
+  background: linear-gradient(90deg, var(--accent-orange), var(--accent-pink), var(--accent-purple), var(--accent-blue));
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  background: var(--bg-darker);
+  color: var(--text-muted);
+  text-align: center;
+  padding: 40px 20px;
+  font-size: 0.85em;
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="hero-content">
+    <div class="hero-tag">超級大腦讀書法 · 深度解構</div>
+    <h1 class="hero-title">How To Have A<br><span>Beautiful Mind</span></h1>
+    <p class="hero-subtitle">讓你的心智成為最吸引人的存在</p>
+    <p class="hero-author">EDWARD DE BONO — 創意思考之父</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="num">18</div>
+        <div class="label">CHAPTERS</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="num">4</div>
+        <div class="label">PHASES</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="num">12</div>
+        <div class="label">MODULES</div>
+      </div>
+      <div class="hero-meta-item">
+        <div class="num">7</div>
+        <div class="label">META PRINCIPLES</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ===================== MODULE 01: BOOK PROFILE ===================== -->
+<section class="section-light">
+  <div class="container">
+    <div class="module-header">
+      <div class="module-number gradient-1">01</div>
+      <span class="module-tag tag-orange">BOOK PROFILE</span>
+      <h2 class="module-title">📚 書籍資料卡</h2>
+    </div>
+
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-icon">👤</div>
+        <h3>作者</h3>
+        <p><strong>Edward de Bono</strong> — 創意思考領域的開創者與最高權威。牛津 DPhil、劍橋 PhD、馬爾他 MD，曾任牛津、劍橋、倫敦、哈佛大學教席。發明「水平思考」(lateral thinking)、「六頂思考帽」(Six Thinking Hats)等思考工具，著作 67 部，翻譯成 37 種語言。被選為「人類史上影響最大的 250 人之一」。</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧬</div>
+        <h3>智識源頭</h3>
+        <p>• 自組織資訊系統理論（腦科學基礎）<br>• 反希臘三哲（蘇格拉底、柏拉圖、亞里斯多德）的辯論傳統<br>• CoRT 認知研究信託計畫（學校思考教學）<br>• 數學中的自組織系統行為理論</p>
+      </div>
+      <div class="card">
+        <div class="card-icon">🎯</div>
+        <h3>一句話定位</h3>
+        <p style="font-size:1.1em; font-weight:600; color: var(--accent-purple);">「外貌美會衰老，心智美會增長——本書是一套可操作的心智美容手冊，透過對話技藝讓你的思維成為最吸引人的特質。」</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MODULE 02: COGNITIVE PROGRESSION ===================== -->
+<section class="section-dark">
+  <div class="container">
+    <div class="module-header">
+      <div class="module-number gradient-2">02</div>
+      <span class="module-tag tag-purple">COGNITIVE DESIGN</span>
+      <h2 class="module-title" style="color:#fff">🧠 認知遞進設計</h2>
+      <p class="module-desc">作者精心安排的四階段認知旅程——從基礎對話姿態到完整思維人格</p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card card-dark">
+        <h3 style="color: var(--accent-orange);">第一階段：對話基礎姿態（Ch 1-3）</h3>
+        <p>建立「非戰鬥式」對話的三個核心操作：同意、不同意、接受差異。這是整本書的地基——如果你不能優雅地處理同意與反對，後面的技巧全部無用。三章形成一個完整光譜：完全同意 → 部分同意 → 同意不同意。</p>
+      </div>
+      <div class="card card-dark">
+        <h3 style="color: var(--accent-pink);">第二階段：對話增值引擎（Ch 4-7）</h3>
+        <p>有了基礎姿態後，開始「讓對話變得有價值」。如何變有趣（Ch4）→ 如何回應（Ch5）→ 如何傾聽（Ch6）→ 如何提問（Ch7）。這四章是輸出-回應-輸入-探索的完整循環，每一章都是對話中的一個「動作」。</p>
+      </div>
+      <div class="card card-dark">
+        <h3 style="color: var(--accent-blue);">第三階段：思考工具箱（Ch 8-12）</h3>
+        <p>從「對話技巧」升級到「思維工具」。六頂思考帽（Ch8）是核心方法論，概念思考（Ch9）、替代方案（Ch10）、情緒管理（Ch11）、價值觀（Ch12）是四個實戰工具。這五章讓你從「會說話」變成「會思考」。</p>
+      </div>
+      <div class="card card-dark">
+        <h3 style="color: var(--accent-green);">第四階段：思維人格塑造（Ch 13-18）</h3>
+        <p>最後六章處理「成為什麼樣的思考者」。從對話管理（離題、資訊、觀點）到人格態度（中斷、態度、話題），完成從「技巧」到「人格」的轉化。結論明確指出：美麗心智是技能，不需要高 IQ。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MODULE 03: CHAPTER MATRIX ===================== -->
+<section class="section-light">
+  <div class="container">
+    <div class="module-header">
+      <div class="module-number gradient-1">03</div>
+      <span class="module-tag tag-orange">CHAPTER MATRIX</span>
+      <h2 class="module-title">📋 完整清單速覽</h2>
+    </div>
+
+    <div style="overflow-x:auto;">
+    <table class="chapter-table">
+      <thead>
+        <tr><th>#</th><th>標題</th><th>一句話精華</th><th>階段</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="ch-num">1</td><td class="ch-title">How to Agree</td><td>真正的同意不是討好，而是在對方觀點中找到你真心認可的部分</td><td><span class="ch-stage stage-1">基礎姿態</span></td></tr>
+        <tr><td class="ch-num">2</td><td class="ch-title">How to Disagree</td><td>優雅的反對是技術——溫和而明確，挑戰觀點而非攻擊人格</td><td><span class="ch-stage stage-1">基礎姿態</span></td></tr>
+        <tr><td class="ch-num">3</td><td class="ch-title">How to Differ</td><td>差異不是對錯之分，而是視角、經驗和價值觀的豐富光譜</td><td><span class="ch-stage stage-1">基礎姿態</span></td></tr>
+        <tr><td class="ch-num">4</td><td class="ch-title">How to Be Interesting</td><td>有趣比贏得辯論重要一萬倍——用「如果……」和「這很有趣」打開一切</td><td><span class="ch-stage stage-2">增值引擎</span></td></tr>
+        <tr><td class="ch-num">5</td><td class="ch-title">How to Respond</td><td>回應的六個層次：澄清→支持→舉例→建構→延伸→修改</td><td><span class="ch-stage stage-2">增值引擎</span></td></tr>
+        <tr><td class="ch-num">6</td><td class="ch-title">How to Listen</td><td>傾聽有兩個焦點：說者想表達什麼，以及話語中獨立的價值碎片</td><td><span class="ch-stage stage-2">增值引擎</span></td></tr>
+        <tr><td class="ch-num">7</td><td class="ch-title">Questions</td><td>問題是注意力的導彈——釣魚式問題比射擊式問題更能開啟探索</td><td><span class="ch-stage stage-2">增值引擎</span></td></tr>
+        <tr><td class="ch-num">8</td><td class="ch-title">Parallel Thinking — Six Hats</td><td>平行思考取代辯論戰爭——所有人同時往同一方向看，而非互相攻擊</td><td><span class="ch-stage stage-3">思考工具</span></td></tr>
+        <tr><td class="ch-num">9</td><td class="ch-title">Concepts</td><td>概念是想法的父母——找到概念就能孕育出一整族的新想法</td><td><span class="ch-stage stage-3">思考工具</span></td></tr>
+        <tr><td class="ch-num">10</td><td class="ch-title">Alternatives</td><td>尋找替代方案的能力就是心智美的度量衡——它是僵化的反面</td><td><span class="ch-stage stage-3">思考工具</span></td></tr>
+        <tr><td class="ch-num">11</td><td class="ch-title">Emotions and Feelings</td><td>情緒不是思考的敵人——它們是價值觀連結現實的橋梁</td><td><span class="ch-stage stage-3">思考工具</span></td></tr>
+        <tr><td class="ch-num">12</td><td class="ch-title">Values</td><td>所有選擇與決策最終都回到價值觀——而價值觀的優先序會隨情境改變</td><td><span class="ch-stage stage-3">思考工具</span></td></tr>
+        <tr><td class="ch-num">13</td><td class="ch-title">Diversions and Off-Course</td><td>離題是對話的彩蛋——嚴肅時克制，輕鬆時追隨</td><td><span class="ch-stage stage-4">人格塑造</span></td></tr>
+        <tr><td class="ch-num">14</td><td class="ch-title">Information and Knowledge</td><td>你不需要什麼都知道——好廚師能用任何食材做出好菜</td><td><span class="ch-stage stage-4">人格塑造</span></td></tr>
+        <tr><td class="ch-num">15</td><td class="ch-title">Opinion</td><td>美麗心智敢於表達觀點，更敢於改變觀點</td><td><span class="ch-stage stage-4">人格塑造</span></td></tr>
+        <tr><td class="ch-num">16</td><td class="ch-title">Interruption</td><td>中斷是對話中最危險的武器——只在有好理由時才拔出</td><td><span class="ch-stage stage-4">人格塑造</span></td></tr>
+        <tr><td class="ch-num">17</td><td class="ch-title">Attitude</td><td>你的態度決定你是探索者、學習者、建設者，還是鬥士和霸凌者</td><td><span class="ch-stage stage-4">人格塑造</span></td></tr>
+        <tr><td class="ch-num">18</td><td class="ch-title">Starting and Topics</td><td>一個技巧純熟的對話者能從任何話題中創造出興趣</td><td><span class="ch-stage stage-4">人格塑造</span></td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MODULE 04: CORE THESIS ===================== -->
+<section class="section-dark">
+  <div class="container">
+    <div class="module-header">
+      <div class="module-number gradient-3">04</div>
+      <span class="module-tag tag-blue">CORE THESIS</span>
+      <h2 class="module-title" style="color:#fff">🎯 核心命題</h2>
+    </div>
+
+    <div class="card-grid" style="grid-template-columns: 1fr;">
+      <div class="card card-dark" style="border-left: 4px solid var(--accent-orange);">
+        <h3 style="color: var(--accent-orange);">問題：作者要回答什麼？</h3>
+        <p style="font-size:1.1em;">外貌美終將褪色，我們花大量金錢在身體美容上，卻幾乎不投資於心智美容。<strong>如何讓你的思維成為別人最想接近的特質？</strong></p>
+      </div>
+      <div class="card card-dark" style="border-left: 4px solid var(--accent-pink);">
+        <h3 style="color: var(--accent-pink);">論點：核心論證是什麼？</h3>
+        <p style="font-size:1.1em;">美麗心智不需要高 IQ、廣博知識或天賦人格。它是一套<strong>可學習的技能</strong>——透過對話中的同意/反對/差異處理、提問/傾聽/回應、概念思考/替代方案生成/價值觀探索來展現。西方 2400 年的「辯論」傳統是粗糙的——平行思考才是更美的替代。</p>
+      </div>
+      <div class="card card-dark" style="border-left: 4px solid var(--accent-cyan);">
+        <h3 style="color: var(--accent-cyan);">方法：用什麼方式論證？</h3>
+        <p style="font-size:1.1em;">以「對話」為載體，將抽象思考技能拆解為 18 個可操作模組。每章遵循固定結構：概念說明 → 大量現實案例 → 明確的行動指引 → 章末摘要。全書以「共同探索 vs 辯論戰爭」的對比貫穿，用六頂思考帽作為最核心的方法論。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ===================== MODULE 05: CHAPTER ANALYSIS (partial, key chapters) ===================== -->
+<section class="section-light">
+  <div class="container">
+    <div class="module-header">
+      <div class="module-number gradient-2">05</div>
+      <span class="module-tag tag-purple">DEEP ANALYSIS</span>
+      <h2 class="module-title">📖 逐章五維解析</h2>
+      <p class="module-desc">每章的核心洞見、可操作行動與跨章連結</p>
+    </div>
+
+    <!-- Ch1 -->
+    <div class="chapter-block bg-light">
+      <h3>Ch 1：How to Agree 如何同意</h3>
+      <div class="core-line">🎯 真正的同意是在對方的邏輯泡泡裡找到你真心認可的部分，而非討好式地全盤接受。</div>
+      <ul class="insight-list">
+        <li><strong>邏輯泡泡 (Logic Bubble)</strong>：每個人都在自己的感知、價值觀和經驗構成的泡泡裡「合理地」行動。進入對方的泡泡是同意的前提。</li>
+        <li><strong>特殊情境策略</strong>：面對你不同意的觀點時，尋找「在什麼特殊情境下這是對的」——這比直接否定更強大。</li>
+        <li><strong>以掃蕩式概括的拆解</strong>：將「所有X都是Y」拆解為光譜（none → a few → some → many → most → all），這是脫離希臘二元邏輯的入口。</li>
+      </ul>
+      <div class="action-box">下次聽到你不同意的觀點時，在反駁前先問自己：「在什麼情境下這可能是對的？」找到至少一個情境。</div>
+      <div class="question-box">你上一次真心地對一個你原本反對的觀點說「你說得對」是什麼時候？</div>
+      <div class="link-box">為 Ch2（如何反對）Ch3（如何接受差異）鋪墊，構成三位一體</div>
+    </div>
+
+    <!-- Ch4 -->
+    <div class="chapter-block bg-light">
+      <h3>Ch 4：How to Be Interesting 如何變有趣</h3>
+      <div class="core-line">🎯 有趣比贏得辯論重要一萬倍——「如果……？」和「這很有趣」是兩個最強大的注意力武器。</div>
+      <ul class="insight-list">
+        <li><strong>「What if?」技術</strong>：用假設性問題打開無限可能性空間，無需任何專業知識就能產生令人著迷的對話。</li>
+        <li><strong>「Now that is interesting」工具</strong>：像弓箭手一樣，隨時準備將這句話射向對話中的任何一點，然後深入探索。</li>
+        <li><strong>創造力是技能非天賦</strong>：de Bono 在此正式引入水平思考（lateral thinking）的「挑釁」(provocation) 工具——故意提出你知道是錯的陳述來激發新想法。</li>
+      </ul>
+      <div class="action-box">準備 3 個「What if?」問題帶到下一次社交場合。對任何話題練習說「Now that is interesting」然後展開。</div>
+      <div class="question-box">你是否曾因為太急著「說正確的話」而錯失了「說有趣的話」的機會？</div>
+      <div class="link-box">承接 Ch1-3 的基礎姿態，開啟 Ch5-7 的對話增值循環</div>
+    </div>
+
+    <!-- Ch8 -->
+    <div class="chapter-block bg-light">
+      <h3>Ch 8：Parallel Thinking — The Six Hats 平行思考</h3>
+      <div class="core-line">🎯 2400 年辯論傳統的終結者——讓所有人同時望向同一方向，而非互相攻擊。</div>
+      <ul class="insight-list">
+        <li><strong>辯論的根本缺陷</strong>：檢察官不會提出有利於辯方的證據。這意味著辯論永遠無法完整探索一個主題。</li>
+        <li><strong>六帽的心理學精髓</strong>：紅帽合法化情緒（無需給理由）；黃帽強制找價值（挑戰「價值盲」）；綠帽創造創意的期待空間。最被忽視的帽子是黃帽。</li>
+        <li><strong>實戰數據</strong>：某企業將 30 天的跨國討論壓縮為 2 天；工會談判從 3 週縮短到 45 分鐘；Siemens 產品開發時間減少 50%。</li>
+      </ul>
+      <div class="action-box">下次團隊討論時，試用帽子的單一請求功能：「讓我們先都戴黃帽——這個提案有什麼好處？」然後再切換到黑帽。</div>
+      <div class="question-box">在你最近一次爭論中，你有多少時間是在「探索主題」vs「證明自己是對的」？</div>
+      <div class="link-box">全書的核心方法論，整合 Ch1-7 所有技巧，為 Ch9-12 的工具提供組織框架</div>
+    </div>
+
+    <!-- Ch9 -->
+    <div class="chapter-block bg-light">
+      <h3>Ch 9：Concepts 概念</h3>
+      <div class="core-line">🎯 概念是想法的父母——找到一個概念，就能孕育出一整族的子想法。</div>
+      <ul class="insight-list">
+        <li><strong>停車計時器的概念萃取</strong>：停車計時器的概念不是「收費」，而是「讓同一車位一天內被最多人使用」。萃取正確概念後，開頭燈替代方案自然浮現。</li>
+        <li><strong>概念的三層結構</strong>：太寬（食物）沒用，太窄（牛排）限制思考，中間層最有生產力。</li>
+        <li><strong>商業概念分型</strong>：每個想法背後有商業概念、價值概念、遞交概念、資訊概念、接受概念、競爭概念。</li>
+      </ul>
+      <div class="action-box">選一個你每天都在做的事，問：「這個動作背後的『概念』是什麼？」然後問：「還有什麼其他方式可以實現這個概念？」</div>
+      <div class="question-box">你能從「電梯」中萃取出幾個不同層次的概念？</div>
+      <div class="link-box">直接服務於 Ch10（替代方案生成的前置條件）</div>
+    </div>
+
+    <!-- Ch10 -->
+    <div class="chapter-block bg-light">
+      <h3>Ch 10：Alternatives 替代方案</h3>
+      <div class="core-line">🎯 心智美的度量衡就是生成替代方案的能力——它是僵化與自滿的反面。</div>
+      <ul class="insight-list">
+        <li><strong>「已經夠好」的陷阱</strong>：有一個可行方法不代表它是最好的方法。de Bono 的橫向鑽油井案例：傳統方法用了幾十年，水平替代讓產量提升 3-6 倍。</li>
+        <li><strong>感知替代 vs 行動替代</strong>：改變「看事情的方式」比改變「做事情的方式」更深刻也更困難。衰退是問題還是機會？</li>
+        <li><strong>Henry Ford vs Groucho Marx 光譜</strong>：Ford 說「你想要什麼顏色都行，只要是黑色」（接受現有），Marx 說「我不想加入任何願意接受我的俱樂部」（永遠不滿足）。你在光譜的哪裡？</li>
+      </ul>
+      <div class="action-box">選一件你「一直這樣做」的事，用概念萃取法找到背後的概念，然後強迫自己想出 3 個替代做法。</div>
+      <div class="question-box">如果你從不改變做事的方式，你的心智和上個月有什麼不同？</div>
+      <div class="link-box">直接延伸 Ch9（概念萃取），呼應 Ch4（可能性與替代方案作為趣味來源）</div>
+    </div>
+
+    <!-- Ch17 -->
+    <div class="chapter-block bg-light">
+      <h3>Ch 17：Attitude 態度</h3>
+      <div class="core-line">🎯 你選擇的對話態度，就是你選擇成為什麼樣的思考者——12 種態度原型的全景透視。</div>
+      <ul class="insight-list">
+        <li><strong>12 種態度原型</strong>：聰明人、價值守護者、裝傻者、超理性者、霸凌者、馬屁精、創新者、假裝無聊者、戰鬥者、權力遊戲者、學習者、探索者。</li>
+        <li><strong>三種美麗態度</strong>：學習者（我來學東西）、探索者（我們一起發現真相）、建設者（我們一起設計出路）。</li>
+        <li><strong>享樂態度的合法性</strong>：對話就像運動——使用心智的樂趣本身就是目的。羅丹的「沉思者」把思考演成了沉重的事，但思考也可以是輕盈愉快的。</li>
+      </ul>
+      <div class="action-box">在下一次對話前，有意識地選擇：「我今天要當探索者。」觀察這如何改變你的行為。</div>
+      <div class="question-box">在 12 種態度原型中，你最常不自覺地滑入哪一種？</div>
+      <div class="link-box">Ch1-16 所有技巧的「人格整合」——技巧服務於態度，態度決定技巧的使用方式</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== MODULE 06: FOUR INSIGHTS ===================== -->
+<section class="section-dark">
+  <div class="container">
+    <div class="module-header">
+      <div class="module-number gradient-3">06</div>
+      <span class="module-tag tag-blue">INTEGRATED INSIGHTS</span>
+      <h2 class="module-title" style="color:#fff">💡 四類整合洞見</h2>
+    </div>
+
+    <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+      <div class="card card-dark">
+        <h3 style="color: var(--accent-orange);">6.1 隱藏的邏輯線</h3>
+        <p>全書表面是 18 個獨立技巧，但暗藏一條主線：<strong>從「戰鬥」到「探索」的認知革命</strong>。Ch1-3 拆除戰鬥本能，Ch4-7 建立探索工具，Ch8 提供替代框架，Ch9-12 深化探索武器，Ch13-18 固化為人格。這不是一本技巧書——這是一本認知轉型手冊。</p>
+      </div>
+      <div class="card card-dark">
+        <h3 style="color: var(--accent-pink);">6.2 作者的潛台詞</h3>
+        <p>de Bono 對西方 2400 年辯論傳統有深刻的不滿。他稱蘇格拉底、柏拉圖、亞里斯多德為「希臘三人幫」(Greek Gang of Three)。他認為整個西方文明的思維方式被「是/非」二元邏輯綁架了。<strong>這本書的隱藏野心是用「平行思考」顛覆整個西方思維傳統。</strong></p>
+      </div>
+      <div class="card card-dark">
+        <h3 style="color: var(--accent-cyan);">6.3 批判與邊界</h3>
+        <p>• 全書以西方中產階級「雞尾酒派對」場景為預設，對權力不對稱的對話情境（面試、審訊、上下級）幾乎未觸及<br>• 過度理想化「探索」姿態——現實中有些辯論確實需要「贏」<br>• 對數位時代的溝通（簡訊、社群媒體、遠端會議）完全未涉及<br>• 文化覆蓋面廣但深度不足——跨文化溝通的結構性困難被簡化</p>
+      </div>
+      <div class="card card-dark">
+        <h3 style="color: var(--accent-green);">6.4 知識對話</h3>
+        <p>• <strong>同意</strong> Dale Carnegie《人性的弱點》——但 de Bono 更結構化<br>• <strong>延伸</strong> Daniel Kahneman《快思慢想》——de Bono 的「情緒先於邏輯」預見了系統 1/系統 2<br>• <strong>反對</strong> 蘇格拉底式問答——de Bono 明確反對引導式提問<br>• <strong>補充</strong> Marshall Rosenberg《非暴力溝通》——de Bono 處理了「如何」但未充分處理「情感連結」</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ===================== MODULE 07: CROSS-REFERENCE NETWORK ===================== -->
+<section class="section-light">
+  <div class="container">
+    <div class="module-header">
+      <div class="module-number gradient-2">07</div>
+      <span class="module-tag tag-purple">HIDDEN NETWORK</span>
+      <h2 class="module-title">🕸️ 隱藏連結網絡</h2>
+      <p class="module-desc">全域交叉比對後發現的深層結構——人類線性閱讀幾乎不可能自行建立的連結</p>
+    </div>
+
+    <!-- 7.1 Surface Contradictions -->
+    <h3 style="font-size:1.4em; margin: 40px 0 20px; font-weight:800;">7.1 表面矛盾組</h3>
+
+    <div class="contradiction-card">
+      <h4>矛盾組 1：Ch1「努力尋找同意」 vs Ch15「勇敢表達觀點」</h4>
+      <div class="vs-block">
+        <div class="vs-side">Ch1：你應該「真心地在對方觀點中尋找同意的部分」</div>
+        <div class="vs-divider">VS</div>
+        <div class="vs-side">Ch15：美麗心智「有能力形成觀點且不怕表達」</div>
+      </div>
+      <div class="unity-box">
+        <strong>深層統一：</strong>同意是為了「理解」，不是為了「投降」。先進入對方的邏輯泡泡理解他，然後才有資格從充分理解的立場表達自己的觀點。順序是：理解 → 尊重 → 表達。
+        <br><strong>切換判斷：</strong>傾聽階段用 Ch1，表達階段用 Ch15。
+      </div>
+    </div>
+
+    <div class="contradiction-card">
+      <h4>矛盾組 2：Ch11「情緒是決策基礎」 vs Ch2「去除情緒偏見」</h4>
+      <div class="vs-block">
+        <div class="vs-side">Ch11：所有選擇和決策最終都基於情緒和感受</div>
+        <div class="vs-divider">VS</div>
+        <div class="vs-side">Ch2：要警惕情緒導致的選擇性感知，要挑戰情緒化的論述</div>
+      </div>
+      <div class="unity-box">
+        <strong>深層統一：</strong>情緒分為兩種功能：(1) 作為探索過程中的「濾鏡」——這時危險，會限制感知；(2) 作為最終決策的「價值轉譯器」——這時必要，否則無法做出選擇。關鍵是「時機」：探索時壓制情緒偏見（紅帽之外不帶情緒），決策時擁抱情緒智慧。
+      </div>
+    </div>
+
+    <div class="contradiction-card">
+      <h4>矛盾組 3：Ch16「不要打斷別人」 vs Ch7「積極提問」</h4>
+      <div class="vs-block">
+        <div class="vs-side">Ch16：打斷通常是粗魯的、自我驅動的，會破壞說話者的思路</div>
+        <div class="vs-divider">VS</div>
+        <div class="vs-side">Ch7：問題是對話中最重要的互動手段，應該積極使用</div>
+      </div>
+      <div class="unity-box">
+        <strong>深層統一：</strong>Ch16 區分了三種打斷：自我型（壞）、放大型（好但要克制）、挑戰型（必要但要禮貌）。Ch7 的提問屬於「挑戰型」和「放大型」打斷的正當使用。判斷標準：你的打斷是為了「展示自己」還是為了「探索主題」？
+      </div>
+    </div>
+
+    <!-- 7.2 Hidden Causal Chains -->
+    <h3 style="font-size:1.4em; margin: 50px 0 20px; font-weight:800;">7.2 隱形因果鏈</h3>
+
+    <p style="margin-bottom:20px; opacity:0.7;">以下因果鏈揭示了章節之間作者未明說的依賴關係：</p>
+
+    <div style="margin-bottom:30px;">
+      <strong>因果鏈 1 — 從姿態到創造力</strong>
+      <div class="causal-chain">
+        <span class="chain-node">Ch1 同意</span><span class="chain-arrow">→</span>
+        <span class="chain-node">Ch6 傾聽</span><span class="chain-arrow">→</span>
+        <span class="chain-node">Ch9 概念</span><span class="chain-arrow">→</span>
+        <span class="chain-node">Ch10 替代方案</span><span class="chain-arrow">→</span>
+        <span class="chain-node">Ch4 有趣</span>
+      </div>
+      <p style="font-size:0.9em; opacity:0.6;">如果你不先學會同意（放下自我），就無法真正傾聽；不傾聽就抓不到概念；沒有概念就生不出替代方案；沒有替代方案就永遠無趣。跳過任何一步，創造力就是空中樓閣。</p>
+    </div>
+
+    <div style="margin-bottom:30px;">
+      <strong>因果鏈 2 — 從工具到人格</strong>
+      <div class="causal-chain">
+        <span class="chain-node">Ch8 六帽</span><span class="chain-arrow">→</span>
+        <span class="chain-node">Ch11 情緒</span><span class="chain-arrow">→</span>
+        <span class="chain-node">Ch12 價值觀</span><span class="chain-arrow">→</span>
+        <span class="chain-node">Ch15 觀點</span><span class="chain-arrow">→</span>
+        <span class="chain-node">Ch17 態度</span>
+      </div>
+      <p style="font-size:0.9em; opacity:0.6;">六帽提供了分離情緒的框架 → 分離後才能理解情緒的真正功能 → 理解情緒才能覺察價值觀 → 覺察價值觀才能形成有根基的觀點 → 有觀點才能選擇態度。這是從「方法」到「存在方式」的完整路徑。</p>
+    </div>
+
+    <!-- 7.3 Meta Principles -->
+    <h3 style="font-size:1.4em; margin: 50px 0 20px; font-weight:800;">7.3 元原則萃取</h3>
+    <p style="margin-bottom:24px; opacity:0.7;">從 18 章中萃取出 de Bono 沒有明說的隱藏法則：</p>
+
+    <div class="meta-principle" data-num="01">
+      <h4>元原則 01：「探索 > 勝利」</h4>
+      <p style="font-size:0.9em; opacity:0.7;">涵蓋：Ch 1, 2, 3, 5, 8, 13, 17</p>
+      <p>所有對話的目標應該是「共同探索」而非「贏得辯論」。這個原則統一了同意的藝術（Ch1）、反對的姿態（Ch2）、差異的接受（Ch3）、回應的層次（Ch5）、平行思考（Ch8）、離題的寬容（Ch13）和態度選擇（Ch17）。</p>
+    </div>
+
+    <div class="meta-principle" data-num="02">
+      <h4>元原則 02：「可能性 > 確定性」</h4>
+      <p style="font-size:0.9em; opacity:0.7;">涵蓋：Ch 2, 4, 7, 9, 10, 15</p>
+      <p>de Bono 反覆攻擊「確定性」——掃蕩式概括（Ch1,2）、僵化的觀點（Ch15）。他推崇假設（Ch4 的「如果」）、可能性（Ch2 的「可能 vs 確定」光譜）、概念的模糊性（Ch9）和替代方案的開放性（Ch10）。科學靠假設前進，不是靠確定性。</p>
+    </div>
+
+    <div class="meta-principle" data-num="03">
+      <h4>元原則 03：「感知 > 邏輯」</h4>
+      <p style="font-size:0.9em; opacity:0.7;">涵蓋：Ch 1, 2, 3, 10, 11, 12</p>
+      <p>de Bono 認為日常思考中「感知」比「邏輯」更重要。邏輯只是在已有感知上的操作。如果感知偏了，邏輯再完美也沒用。選擇性感知（Ch2, 11）、不同視角（Ch3）、感知替代（Ch10）、價值觀決定感知（Ch12）——這些都指向同一個元原則。</p>
+    </div>
+
+    <div class="meta-principle" data-num="04">
+      <h4>元原則 04：「自我是思考的最大敵人」</h4>
+      <p style="font-size:0.9em; opacity:0.7;">涵蓋：Ch 1, 2, 8, 16, 17</p>
+      <p>辯論是自我的戰場（Ch1）。反對常常是自我炫耀（Ch2）。平行思考的核心設計就是「去自我化」（Ch8）。自我驅動的打斷最具破壞性（Ch16）。12 種態度中最醜陋的都是自我驅動的（Ch17）。</p>
+    </div>
+
+    <div class="meta-principle" data-num="05">
+      <h4>元原則 05：「美在於增值，非在於批判」</h4>
+      <p style="font-size:0.9em; opacity:0.7;">涵蓋：Ch 4, 5, 6, 8, 10</p>
+      <p>黃帽（找價值）是「幾乎完全被忽視的帽子」（Ch8）。建構、延伸、修改（Ch5）都是增值操作。傾聽的目的是「獲取價值」（Ch6）。有趣來自創造新想法（Ch4）。替代方案的生成（Ch10）本身就是增值。批判只用了思維的一小部分。</p>
+    </div>
+
+    <!-- 7.4 Frequency Analysis -->
+    <h3 style="font-size:1.4em; margin: 50px 0 20px; font-weight:800;">7.4 頻率分析</h3>
+
+    <table class="chapter-table">
+      <thead><tr><th>隱藏主題</th><th>出現頻率</th><th style="width:200px">視覺化</th><th>解讀</th></tr></thead>
+      <tbody>
+        <tr><td>反對「掃蕩式概括」</td><td>Ch 1,2,3,5,15,16 (6章)</td><td><div class="freq-bar" style="width:100%"></div></td><td>de Bono 對二元邏輯的焦慮——這是他對西方思維最核心的不滿</td></tr>
+        <tr><td>「探索 vs 辯論」二元</td><td>Ch 1,2,5,8,13,17 (6章)</td><td><div class="freq-bar" style="width:100%"></div></td><td>全書的敘事引擎——始終在暗示辯論是落後的</td></tr>
+        <tr><td>自我/ego 的危害</td><td>Ch 1,2,8,16,17 (5章)</td><td><div class="freq-bar" style="width:83%"></div></td><td>去自我化是美麗心智的前提條件</td></tr>
+        <tr><td>六頂思考帽</td><td>Ch 8,11,12,13,18 (5章)</td><td><div class="freq-bar" style="width:83%"></div></td><td>不只在 Ch8，而是滲透到後續章節——這是 de Bono 的核心商業IP</td></tr>
+        <tr><td>「可能 vs 確定」光譜</td><td>Ch 2,4,10,15 (4章)</td><td><div class="freq-bar" style="width:67%"></div></td><td>de Bono 視「確定性崇拜」為思維的病</td></tr>
+        <tr><td>水平思考/provocation</td><td>Ch 4,8,10,13 (4章)</td><td><div class="freq-bar" style="width:67%"></div></td><td>de Bono 所有著作的核心工具——即使在這本「輕量」書中也反覆出現</td></tr>
+      </tbody>
+    </table>
+
+    <p style="margin-top:20px; font-weight:600;">一句話概括 de Bono 的世界觀：<span style="color: var(--accent-purple);">「人類的思維被 2400 年前的希臘邏輯綁架了，我們需要從辯論的戰場走向平行探索的花園。」</span></p>
+
+    <!-- 7.5 Absence Analysis -->
+    <h3 style="font-size:1.4em; margin: 50px 0 20px; font-weight:800;">7.5 缺席分析</h3>
+
+    <div class="card-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+      <div class="card">
+        <h3>缺席 1：數位溝通</h3>
+        <p>2004 年出版的書完全未涉及文字訊息、社群媒體、遠端會議中的對話藝術。在今天 80% 的溝通是非面對面的時代，這是最大的缺口。</p>
+        <p style="color: var(--accent-green); font-size:0.85em; margin-top:8px;">搭配 Cal Newport《Digital Minimalism》可補上此缺口。</p>
+      </div>
+      <div class="card">
+        <h3>缺席 2：權力不對稱</h3>
+        <p>全書預設對話雙方是平等的。但面試、審訊、上下級對話、醫患關係中的「對話」規則完全不同。「平行思考」在權力極度不對稱時可能失效。</p>
+        <p style="color: var(--accent-green); font-size:0.85em; margin-top:8px;">搭配 Chris Voss《Never Split the Difference》可補上此缺口。</p>
+      </div>
+      <div class="card">
+        <h3>缺席 3：情感連結</h3>
+        <p>de Bono 處理了「如何思考」但幾乎未觸及「如何建立情感連結」。同理心、脆弱性、深層傾聽等概念缺席。對話不只是思維的展示——它也是關係的建構。</p>
+        <p style="color: var(--accent-green); font-size:0.85em; margin-top:8px;">搭配 Marshall Rosenberg《Nonviolent Communication》可補上此缺口。</p>
+      </div>
+      <div class="card">
+        <h3>缺席 4：認知偏誤系統</h3>
+        <p>de Bono 提到「選擇性感知」但未系統性地處理 200+ 種認知偏誤。缺少對確認偏誤、錨定效應、可得性偏誤等的明確識別工具。</p>
+        <p style="color: var(--accent-green); font-size:0.85em; margin-top:8px;">搭配 Daniel Kahneman《Thinking, Fast and Slow》可補上此缺口。</p>
+      </div>
+    </div>
+
+    <!-- 7.6 Practice Priority -->
+    <h3 style="font-size:1.4em; margin: 50px 0 20px; font-weight:800;">7.6 實踐優先序</h3>
+    <p style="margin-bottom:24px; opacity:0.7;">如果只能內化 5 個概念，基於因果鏈和元原則分析的最高 ROI 順序：</p>
+
+    <div class="priority-item">
+      <div class="priority-num">01</div>
+      <div class="priority-content">
+        <h4>Ch 8 — 六頂思考帽（平行思考）</h4>
+        <p>這是全書的操作系統。掌握它就等於掌握了一個框架來組織 Ch1-7 和 Ch9-12 的所有技巧。立即可用：下次團隊討論時說「我們先都戴白帽——事實是什麼？」</p>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">02</div>
+      <div class="priority-content">
+        <h4>Ch 1 — 如何同意（邏輯泡泡）</h4>
+        <p>這是所有對話的入口。不掌握「邏輯泡泡」概念，後面所有技巧都建在沙地上。立即可用：每次想反駁前，先問「他的邏輯泡泡是什麼樣的？」</p>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">03</div>
+      <div class="priority-content">
+        <h4>Ch 9+10 — 概念萃取 + 替代方案生成</h4>
+        <p>這兩章是「創造力引擎」的雙缸。概念萃取是找到想法的父母，替代方案是孕育新的孩子。立即可用：對任何事物問「這背後的概念是什麼？這個概念還能怎麼實現？」</p>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">04</div>
+      <div class="priority-content">
+        <h4>Ch 4 — 如何變有趣（What if + Now that is interesting）</h4>
+        <p>社交場合的即戰力。只要掌握「What if?」和「Now that is interesting」兩個工具，你的對話質量就會跳躍式提升。</p>
+      </div>
+    </div>
+    <div class="priority-item">
+      <div class="priority-num">05</div>
+      <div class="priority-content">
+        <h4>Ch 17 — 態度選擇（探索者/學習者/建設者）</h4>
+        <p>所有技巧的人格整合。決定你「成為什麼樣的思考者」。立即可用：在每次對話前有意識地選擇一個態度。</p>
+      </div>
+    </div>
+
+    <!-- 7.7 Decision Matrix -->
+    <h3 style="font-size:1.4em; margin: 50px 0 20px; font-weight:800;">7.7 情境決策矩陣</h3>
+
+    <div style="overflow-x:auto;">
+    <table class="matrix-table">
+      <thead><tr><th>情境</th><th>參考章節</th><th>行動建議</th></tr></thead>
+      <tbody>
+        <tr><td>會議中有人提出你反對的提案</td><td>Ch 1, 2, 8</td><td>先用邏輯泡泡理解他，找到特殊情境下的同意點，然後建議戴黃帽再戴黑帽</td></tr>
+        <tr><td>社交場合不知道聊什麼</td><td>Ch 4, 14, 18</td><td>準備 3 個「What if?」問題，使用祖魯原則（專精一個冷門領域），掃描當天新聞</td></tr>
+        <tr><td>和固執的人討論</td><td>Ch 1, 3, 15</td><td>不要正面衝突。尋找特殊情境下的同意，清楚鋪陳差異的原因，展示你自己願意改變觀點</td></tr>
+        <tr><td>團隊腦力激盪毫無產出</td><td>Ch 8, 9, 10</td><td>用綠帽明確要求創意（而非等待靈感），用概念萃取找到問題的「父母」，強制生成 3 個替代方案</td></tr>
+        <tr><td>對話變得無聊</td><td>Ch 4, 13</td><td>使用「Now that is interesting」對準任何一點展開，允許適度離題，引入幽默和推測</td></tr>
+        <tr><td>需要做出重大決策</td><td>Ch 8, 11, 12</td><td>六帽全序列探索，紅帽合法表達直覺，辨識價值觀的優先序如何被情境改變</td></tr>
+        <tr><td>有人不斷打斷你</td><td>Ch 6, 16</td><td>平靜地說「讓我把這個點說完」，在對方說話時示範良好傾聽，避免自己犯同樣的錯</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ===================== MODULE 08: ACTION ===================== -->
+<section class="section-dark">
+  <div class="container">
+    <div class="module-header">
+      <div class="module-number gradient-4">08</div>
+      <span class="module-tag tag-green">ACTION PLAN</span>
+      <h2 class="module-title" style="color:#fff">🎬 行動轉化</h2>
+    </div>
+
+    <div class="action-grid">
+      <div class="action-card">
+        <span class="timeline-tag" style="background: rgba(255,107,53,0.2); color: var(--accent-orange);">本週啟動</span>
+        <h3>3 件立即可做的事</h3>
+        <ul>
+          <li>在每次想反駁前，先默念「他的邏輯泡泡是什麼？」——嘗試找到至少一個你能同意的特殊情境</li>
+          <li>準備 3 個「What if?」問題（例如：如果所有工作都能遠端做？如果學校不打分數？）帶到下一次社交場合</li>
+          <li>在一次對話中刻意使用「Now that is interesting」→ 深入展開那個點至少 2 分鐘</li>
+        </ul>
+      </div>
+      <div class="action-card">
+        <span class="timeline-tag" style="background: rgba(124,58,237,0.2); color: var(--accent-purple);">本月實驗</span>
+        <h3>2 個新習慣</h3>
+        <ul>
+          <li>每次團隊會議中，至少使用一次六帽語言：「讓我們先看看這個提案的好處（黃帽）」然後「現在看看風險（黑帽）」</li>
+          <li>每天對一件「習以為常」的事做概念萃取：「這背後的概念是什麼？還有什麼替代方式？」記錄在手機備忘錄中</li>
+        </ul>
+      </div>
+      <div class="action-card">
+        <span class="timeline-tag" style="background: rgba(6,182,212,0.2); color: var(--accent-cyan);">長期追蹤</span>
+        <h3>1 個核心指標</h3>
+        <ul>
+          <li><strong>「對話結束時，對方是否比開始時對你更感興趣？」</strong>——這是 de Bono 全書的終極度量衡。每週回顧 3 次重要對話，自評 1-5 分。6 個月後觀察趨勢。</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MODULE 10: NARRATIVE ARC ===================== -->
+<section class="section-light">
+  <div class="container">
+    <div class="module-header">
+      <div class="module-number gradient-1">10</div>
+      <span class="module-tag tag-orange">NARRATIVE ARC</span>
+      <h2 class="module-title">📈 敘事弧線</h2>
+      <p class="module-desc">整本書的情緒設計與認知轉型路徑</p>
+    </div>
+
+    <div class="card-grid" style="grid-template-columns: 1fr;">
+      <div class="card" style="background: linear-gradient(135deg, #fefbf6, #fef5f0); border: none;">
+        <p><strong>起點：</strong>讀者帶著「辯論 = 聰明」的信念進入。認為會講話就是能辯論、能贏。</p>
+        <p style="margin-top:12px;"><strong>破壞（Ch 1-3）：</strong>de Bono 溫和但堅定地拆除「永遠要對」的信念。告訴你辯論是「醜陋」的，自我是敵人。這是認知衝擊。</p>
+        <p style="margin-top:12px;"><strong>重建工具（Ch 4-7）：</strong>給你新的對話工具——有趣、回應、傾聽、提問。你開始看到「探索」比「辯論」更有力量。情緒轉為好奇。</p>
+        <p style="margin-top:12px;"><strong>核心啟示（Ch 8）：</strong>六頂思考帽是全書的高潮。提供了一個完整的替代框架，配有驚人的實戰數據。認知最低點（辯論是粗糙的）在這裡轉化為最高點（我有更好的工具了）。</p>
+        <p style="margin-top:12px;"><strong>深化（Ch 9-12）：</strong>概念→替代方案→情緒→價值觀。逐步擴大你的思維武器庫。節奏穩定，信心增長。</p>
+        <p style="margin-top:12px;"><strong>著陸（Ch 13-18 + 結論）：</strong>從技巧轉向人格。你不是在學「技巧」——你是在成為一個「不同類型的思考者」。結論的最後一句話：<em>「任何人都可以發展出美麗心智，只要他決定這樣做。」</em></p>
+        <p style="margin-top:20px; font-weight:700; color: var(--accent-purple);">
+          情緒設計：自信的無知 → 溫和的衝擊 → 好奇的探索 → 頓悟的高潮 → 穩定的深化 → 人格的轉化
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MODULE 11: PERSONAL LENS ===================== -->
+<section class="section-dark">
+  <div class="container">
+    <div class="module-header">
+      <div class="module-number gradient-3">11</div>
+      <span class="module-tag tag-blue">PERSONAL LENS</span>
+      <h2 class="module-title" style="color:#fff">🔮 個人化透鏡</h2>
+      <p class="module-desc">不同身份讀者的場景轉化</p>
+    </div>
+
+    <div class="card-grid">
+      <div class="card card-dark">
+        <h3>💼 管理者/團隊領導</h3>
+        <ul style="list-style:none; padding:0;">
+          <li style="padding:6px 0; font-size:0.9em;">• 邏輯泡泡 → 用來理解為什麼下屬做出你不認同的決策</li>
+          <li style="padding:6px 0; font-size:0.9em;">• 六頂思考帽 → 直接導入團隊會議流程</li>
+          <li style="padding:6px 0; font-size:0.9em;">• 黃帽思維 → 在否決提案前強制找到 3 個好處</li>
+          <li style="padding:6px 0; font-size:0.9em;">• 概念萃取 → 當團隊卡住時，退一步問「我們想解決的概念是什麼？」</li>
+        </ul>
+      </div>
+      <div class="card card-dark">
+        <h3>🎓 學生/終身學習者</h3>
+        <ul style="list-style:none; padding:0;">
+          <li style="padding:6px 0; font-size:0.9em;">• 釣魚式問題 → 課堂上用開放式問題展現深度思考</li>
+          <li style="padding:6px 0; font-size:0.9em;">• 祖魯原則 → 選一個冷門領域成為專家，讓你在社交中永遠有話說</li>
+          <li style="padding:6px 0; font-size:0.9em;">• 「What if?」 → 論文構思、創意發想的萬用工具</li>
+          <li style="padding:6px 0; font-size:0.9em;">• 觀點修改意願 → 在學術討論中展示你願意修正立場，而非死守論點</li>
+        </ul>
+      </div>
+      <div class="card card-dark">
+        <h3>💑 伴侶/親密關係</h3>
+        <ul style="list-style:none; padding:0;">
+          <li style="padding:6px 0; font-size:0.9em;">• Ch3 差異 → 夫妻的差異不是誰對誰錯，而是不同經驗和價值觀的展現</li>
+          <li style="padding:6px 0; font-size:0.9em;">• 紅帽 → 在衝突中給情緒一個合法空間：「我現在很生氣，不需要解釋」</li>
+          <li style="padding:6px 0; font-size:0.9em;">• 選擇性感知 → 覺察自己是否只看到支持自己不滿的證據</li>
+          <li style="padding:6px 0; font-size:0.9em;">• 修改而非否決 → 對伴侶的建議用「修改」取代「拒絕」</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== MODULE 12: EXTENSION ===================== -->
+<section class="section-light">
+  <div class="container">
+    <div class="module-header">
+      <div class="module-number gradient-4">12</div>
+      <span class="module-tag tag-green">EXTENSION</span>
+      <h2 class="module-title">📚 延伸資源（五方向）</h2>
+    </div>
+
+    <div style="max-width:700px;">
+      <div class="ext-item" style="background:#fff; border: 1px solid #e5e7eb;">
+        <div class="ext-direction" style="background: rgba(255,107,53,0.1); color: var(--accent-orange);">上游</div>
+        <div class="ext-content">
+          <h4>Edward de Bono《Lateral Thinking》</h4>
+          <p>本書多次引用的「水平思考」概念的原典。理解 provocation 和 random entry 的完整理論基礎。</p>
+        </div>
+      </div>
+      <div class="ext-item" style="background:#fff; border: 1px solid #e5e7eb;">
+        <div class="ext-direction" style="background: rgba(124,58,237,0.1); color: var(--accent-purple);">平行</div>
+        <div class="ext-content">
+          <h4>Dale Carnegie《How to Win Friends and Influence People》</h4>
+          <p>同樣以「對話」為載體的經典。Carnegie 偏「影響力」，de Bono 偏「思維品質」——互為補充。</p>
+        </div>
+      </div>
+      <div class="ext-item" style="background:#fff; border: 1px solid #e5e7eb;">
+        <div class="ext-direction" style="background: rgba(59,130,246,0.1); color: var(--accent-blue);">延伸</div>
+        <div class="ext-content">
+          <h4>Edward de Bono《Six Thinking Hats》</h4>
+          <p>Ch8 的完整展開版。包含商業/教育場景的詳細序列設計和促進技巧。如果你只讀 de Bono 的兩本書，選這本和現在這本。</p>
+        </div>
+      </div>
+      <div class="ext-item" style="background:#fff; border: 1px solid #e5e7eb;">
+        <div class="ext-direction" style="background: rgba(236,72,153,0.1); color: var(--accent-pink);">對立</div>
+        <div class="ext-content">
+          <h4>Daniel Dennett《Intuition Pumps and Other Tools for Thinking》</h4>
+          <p>從分析哲學的角度出發，強調嚴謹的論證和批判性思考——恰好是 de Bono 試圖超越的傳統。兩者對讀可以避免偏頗。</p>
+        </div>
+      </div>
+      <div class="ext-item" style="background:#fff; border: 1px solid #e5e7eb;">
+        <div class="ext-direction" style="background: rgba(16,185,129,0.1); color: var(--accent-green);">互補</div>
+        <div class="ext-content">
+          <h4>Marshall Rosenberg《Nonviolent Communication》</h4>
+          <p>補上 de Bono 最大的缺席——情感連結。NVC 的「觀察-感受-需求-請求」框架完美嵌入 de Bono 的「探索式對話」框架中。</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<div class="section-divider"></div>
+<footer class="footer">
+  <p>超級大腦讀書法 · 深度解構分析系統</p>
+  <p style="margin-top:8px; opacity:0.5;">AI 書僮 2.0 · 全域交叉比對 · 18 章 × 12 模組 · 7 子分析</p>
+  <p style="margin-top:8px; opacity:0.3;">Generated by Claude · 2026</p>
+</footer>
+
+</body>
+</html>
