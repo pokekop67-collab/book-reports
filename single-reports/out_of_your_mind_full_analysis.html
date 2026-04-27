@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Out of Your Mind — 全書深度拆解 · 12 Section</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-grad-1: #F8FAFC; --bg-grad-2: #EFF6FF; --bg-grad-3: #ECFEFF;
+  --card-bg: rgba(255, 255, 255, 0.74);
+  --card-border: rgba(59, 130, 246, 0.10);
+  --card-border-strong: rgba(59, 130, 246, 0.18);
+  --card-shadow: 0 4px 24px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.03);
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-tertiary: #94A3B8;
+  --accent-blue: #3B82F6;
+  --accent-cyan: #06B6D4;
+  --accent-emerald: #10B981;
+  --accent-violet: #8B5CF6;
+  --accent-rose: #F43F5E;
+  --accent-amber: #F59E0B;
+  --gradient-text: linear-gradient(90deg, #3B82F6 0%, #06B6D4 50%, #10B981 100%);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Inter', 'Noto Sans TC', -apple-system, system-ui, sans-serif;
+  font-weight: 300; line-height: 1.85;
+  color: var(--text-primary);
+  background:
+    radial-gradient(circle at 20% 80%, rgba(59, 130, 246, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(16, 185, 129, 0.06) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.04) 0%, transparent 60%),
+    linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 50%, var(--bg-grad-3) 100%);
+  min-height: 100vh; padding: 60px 20px; letter-spacing: 0.01em;
+}
+.container { max-width: 940px; margin: 0 auto; position: relative; }
+p { margin-bottom: 14px; color: var(--text-secondary); font-size: 0.96rem; }
+p:last-child { margin-bottom: 0; }
+strong { color: var(--text-primary); font-weight: 500; }
+em { color: var(--accent-violet); font-style: normal; font-weight: 500; }
+.neuron-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: 0.4; }
+.hero {
+  position: relative; padding: 70px 50px 56px; margin-bottom: 36px;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border); border-radius: 26px;
+  box-shadow: var(--card-shadow);
+}
+.hero::before {
+  content: ''; position: absolute; inset: -1px; border-radius: 26px; padding: 1px;
+  background: linear-gradient(135deg, rgba(59,130,246,0.3) 0%, rgba(16,185,129,0.2) 50%, rgba(139,92,246,0.3) 100%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events: none; opacity: 0.6;
+}
+.hero-tag {
+  display: inline-block; padding: 6px 16px;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  border-radius: 100px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 500; color: var(--accent-blue);
+  letter-spacing: 0.08em; margin-bottom: 24px;
+}
+.hero h1 {
+  font-size: 3rem; font-weight: 700; line-height: 1.15;
+  letter-spacing: -0.02em; margin-bottom: 16px;
+}
+.hero h1 .gradient {
+  background: var(--gradient-text);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero .subtitle {
+  font-size: 1.1rem; color: var(--text-secondary);
+  font-weight: 400; max-width: 700px; margin-bottom: 28px; line-height: 1.6;
+}
+.hero-meta {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  font-size: 12px; font-family: 'JetBrains Mono', monospace;
+}
+.hero-meta span {
+  padding: 4px 12px; background: rgba(15, 23, 42, 0.04);
+  border-radius: 6px; border: 1px solid rgba(15, 23, 42, 0.05);
+  color: var(--text-tertiary);
+}
+.toc-nav {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+  gap: 8px; padding: 22px 24px; margin-bottom: 32px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid var(--card-border); border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+.toc-nav a {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  font-weight: 500; padding: 8px 12px;
+  color: var(--text-secondary); text-decoration: none;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 8px; transition: all 0.2s;
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+.toc-nav a:hover { background: var(--accent-blue); color: white; border-color: var(--accent-blue); }
+.card {
+  position: relative; background: var(--card-bg);
+  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border); border-radius: 20px;
+  padding: 38px 44px; margin-bottom: 26px;
+  box-shadow: var(--card-shadow);
+}
+.section-num {
+  position: absolute; top: 30px; right: 36px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 70px; font-weight: 600;
+  color: rgba(59, 130, 246, 0.06); letter-spacing: -0.02em;
+  line-height: 1; pointer-events: none;
+}
+.section-label {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 500; letter-spacing: 0.12em;
+  color: var(--accent-blue); text-transform: uppercase;
+  margin-bottom: 14px; position: relative;
+}
+.section-label::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent-blue);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+.section-title {
+  font-size: 1.85rem; font-weight: 600; letter-spacing: -0.01em;
+  color: var(--text-primary); margin-bottom: 10px;
+  line-height: 1.25; position: relative;
+}
+.section-desc {
+  font-size: 0.95rem; color: var(--text-secondary);
+  margin-bottom: 28px; position: relative;
+}
+h3 {
+  font-size: 1.22rem; font-weight: 600; margin: 28px 0 12px;
+  color: var(--text-primary); letter-spacing: -0.005em;
+}
+h4 { font-size: 1.04rem; font-weight: 600; margin: 18px 0 8px; color: var(--text-primary); }
+.thesis-box {
+  position: relative; padding: 24px 30px;
+  background: linear-gradient(135deg, rgba(59,130,246,0.04) 0%, rgba(16,185,129,0.04) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.12);
+  border-radius: 14px; margin: 18px 0 26px;
+}
+.thesis-box::before {
+  content: ''; position: absolute; left: 0; top: 14px; bottom: 14px;
+  width: 3px; background: var(--gradient-text); border-radius: 100px;
+}
+.thesis-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  letter-spacing: 0.1em; color: var(--accent-blue);
+  margin-bottom: 6px; font-weight: 500;
+}
+.thesis-text { font-size: 1.1rem; line-height: 1.65; color: var(--text-primary); font-weight: 400; }
+.insight {
+  display: grid; grid-template-columns: 60px 1fr; gap: 20px;
+  padding: 24px 26px; background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  border-radius: 14px; margin-bottom: 16px;
+  transition: all 0.25s;
+}
+.insight:hover { background: rgba(255, 255, 255, 0.85); border-color: rgba(59, 130, 246, 0.18); }
+.depth-tag {
+  display: flex; align-items: center; justify-content: center; height: 26px;
+  background: rgba(59, 130, 246, 0.08); color: var(--accent-blue);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600; letter-spacing: 0.08em;
+  border-radius: 6px; border: 1px solid rgba(59, 130, 246, 0.15);
+}
+.depth-tag.l2 { background: rgba(16, 185, 129, 0.08); color: var(--accent-emerald); border-color: rgba(16, 185, 129, 0.15); }
+.depth-tag.l3 { background: rgba(139, 92, 246, 0.08); color: var(--accent-violet); border-color: rgba(139, 92, 246, 0.18); }
+.insight-content h4 { font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin: 0 0 10px; }
+.insight-content p { font-size: 0.94rem; color: var(--text-secondary); line-height: 1.75; margin-bottom: 10px; }
+.critique {
+  margin-top: 14px; padding: 14px 16px;
+  background: rgba(244, 63, 94, 0.04);
+  border-left: 3px solid var(--accent-rose); border-radius: 8px;
+}
+.critique-label {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  letter-spacing: 0.1em; color: var(--accent-rose);
+  font-weight: 600; margin-bottom: 6px; text-transform: uppercase;
+}
+.critique p { font-size: 0.88rem; color: var(--text-secondary); margin: 0; line-height: 1.7; }
+.ai-marker {
+  display: inline-block; font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 500; padding: 2px 8px;
+  background: rgba(139, 92, 246, 0.1); color: var(--accent-violet);
+  border-radius: 4px; border: 1px solid rgba(139, 92, 246, 0.2);
+  letter-spacing: 0.04em; margin-right: 6px; vertical-align: 1px;
+}
+.chapter-matrix { display: grid; gap: 8px; margin-top: 14px; }
+.matrix-row {
+  display: grid; grid-template-columns: 60px 1fr 130px 90px;
+  gap: 14px; align-items: center;
+  padding: 12px 16px; background: rgba(255, 255, 255, 0.5);
+  border: 1px solid rgba(15, 23, 42, 0.05);
+  border-radius: 10px; transition: all 0.2s;
+}
+.matrix-row:hover { background: rgba(255, 255, 255, 0.85); border-color: rgba(59, 130, 246, 0.2); }
+.matrix-ch { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; color: var(--accent-blue); letter-spacing: 0.04em; }
+.matrix-title { font-size: 0.92rem; font-weight: 500; color: var(--text-primary); }
+.matrix-essence { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.45; }
+.matrix-stage {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  font-weight: 500; text-align: center; padding: 4px 8px; border-radius: 6px;
+}
+.stage-1 { background: rgba(59, 130, 246, 0.08); color: var(--accent-blue); border: 1px solid rgba(59, 130, 246, 0.15); }
+.stage-2 { background: rgba(244, 63, 94, 0.08); color: var(--accent-rose); border: 1px solid rgba(244, 63, 94, 0.15); }
+.stage-3 { background: rgba(245, 158, 11, 0.08); color: var(--accent-amber); border: 1px solid rgba(245, 158, 11, 0.15); }
+.stage-4 { background: rgba(139, 92, 246, 0.08); color: var(--accent-violet); border: 1px solid rgba(139, 92, 246, 0.18); }
+.stage-5 { background: rgba(16, 185, 129, 0.08); color: var(--accent-emerald); border: 1px solid rgba(16, 185, 129, 0.15); }
+.stage-pyramid { margin: 24px 0; display: grid; gap: 8px; }
+.stage-block {
+  padding: 16px 24px; border-radius: 10px;
+  display: grid; grid-template-columns: 80px 1fr; gap: 14px; align-items: center;
+}
+.stage-block .num { font-family: 'JetBrains Mono', monospace; font-size: 11px; font-weight: 600; letter-spacing: 0.06em; }
+.stage-block .desc { font-size: 0.93rem; line-height: 1.6; }
+.stage-block.s1 { background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.15); margin: 0 60px; }
+.stage-block.s2 { background: rgba(244,63,94,0.06); border: 1px solid rgba(244,63,94,0.15); margin: 0 40px; }
+.stage-block.s3 { background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.15); margin: 0 20px; }
+.stage-block.s4 { background: rgba(139,92,246,0.06); border: 1px solid rgba(139,92,246,0.18); margin: 0 0; }
+.stage-block.s5 { background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.15); margin: 0 60px; }
+.hidden-line {
+  margin: 24px 0; padding: 28px 30px;
+  background: rgba(255,255,255,0.6); border-radius: 16px;
+  border: 1px solid rgba(15,23,42,0.06); position: relative;
+}
+.hidden-line::before {
+  content: ''; position: absolute; top: 0; left: 30px; right: 30px;
+  height: 3px; border-radius: 100px;
+}
+.hidden-line.l1::before { background: linear-gradient(90deg, #FFB6C1, #F43F5E, #8B5CF6); }
+.hidden-line.l2::before { background: linear-gradient(90deg, #06B6D4, #3B82F6, #8B5CF6); }
+.hidden-line.l3::before { background: linear-gradient(90deg, #F59E0B, #EF4444, #6366F1); }
+.hidden-line-tag {
+  display: inline-block; padding: 4px 12px;
+  font-family: 'JetBrains Mono', monospace; font-size: 11px;
+  font-weight: 600; letter-spacing: 0.06em;
+  border-radius: 6px; margin-bottom: 10px;
+}
+.hidden-line.l1 .hidden-line-tag { background: rgba(244,63,94,0.08); color: var(--accent-rose); border: 1px solid rgba(244,63,94,0.15); }
+.hidden-line.l2 .hidden-line-tag { background: rgba(59,130,246,0.08); color: var(--accent-blue); border: 1px solid rgba(59,130,246,0.15); }
+.hidden-line.l3 .hidden-line-tag { background: rgba(245,158,11,0.08); color: var(--accent-amber); border: 1px solid rgba(245,158,11,0.15); }
+.hidden-line h3 { margin-top: 4px; margin-bottom: 12px; font-size: 1.3rem; font-weight: 600; }
+.line-chapters {
+  display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0;
+  padding: 12px 16px; background: rgba(15,23,42,0.03); border-radius: 10px;
+}
+.line-chapter {
+  font-family: 'JetBrains Mono', monospace; font-size: 10.5px; font-weight: 500;
+  padding: 4px 10px; background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(15,23,42,0.07); border-radius: 6px;
+  color: var(--text-secondary);
+}
+.line-chapter.highlight { background: var(--accent-blue); color: white; border-color: var(--accent-blue); }
+.line-chapter.highlight-rose { background: var(--accent-rose); color: white; border-color: var(--accent-rose); }
+.line-chapter.highlight-amber { background: var(--accent-amber); color: white; border-color: var(--accent-amber); }
+.book-link {
+  display: grid; grid-template-columns: auto 1fr; gap: 14px;
+  padding: 18px 22px;
+  background: rgba(6, 182, 212, 0.04);
+  border: 1px solid rgba(6, 182, 212, 0.12);
+  border-radius: 12px; margin-bottom: 12px; align-items: start;
+}
+.book-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.06em;
+  padding: 3px 8px; background: rgba(6, 182, 212, 0.12);
+  color: var(--accent-cyan); border-radius: 4px;
+  white-space: nowrap; align-self: start; margin-top: 2px;
+}
+.book-title { font-size: 0.95rem; font-weight: 500; color: var(--text-primary); margin-bottom: 4px; }
+.book-title em { color: var(--accent-cyan); font-style: normal; }
+.book-relation { font-size: 0.86rem; color: var(--text-secondary); line-height: 1.65; }
+.culture-row {
+  display: grid; grid-template-columns: 110px 1fr 1fr;
+  gap: 16px; padding: 14px 18px;
+  background: rgba(255,255,255,0.5);
+  border: 1px solid rgba(15,23,42,0.05);
+  border-radius: 10px; margin-bottom: 8px; align-items: center;
+}
+.culture-east { font-weight: 500; color: var(--accent-violet); font-size: 0.94rem; }
+.culture-arrow { font-family: 'JetBrains Mono', monospace; color: var(--text-tertiary); text-align: center; font-size: 0.9rem; }
+.culture-west { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.5; }
+.absence {
+  padding: 20px 24px; margin-bottom: 12px;
+  background: rgba(244, 63, 94, 0.04);
+  border: 1px solid rgba(244, 63, 94, 0.14);
+  border-radius: 12px;
+}
+.absence-tag {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px; font-weight: 600; letter-spacing: 0.08em;
+  padding: 3px 9px; background: rgba(244, 63, 94, 0.1);
+  color: var(--accent-rose); border-radius: 4px;
+  margin-bottom: 10px; display: inline-block;
+}
+.absence h4 { font-size: 1.04rem; margin: 6px 0 8px; }
+.absence p { font-size: 0.9rem; margin: 0 0 8px; line-height: 1.7; }
+.rex-section {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.04) 0%, rgba(236, 72, 153, 0.04) 100%);
+  border: 1px solid rgba(139, 92, 246, 0.18);
+  border-radius: 20px; padding: 38px 44px; margin: 26px 0;
+}
+.rex-section .section-label { color: var(--accent-violet); }
+.rex-section .section-label::before {
+  background: var(--accent-violet);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+.rex-line {
+  padding: 22px 26px; margin-bottom: 14px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 14px;
+}
+.rex-line-header {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: 10px; margin-bottom: 12px;
+}
+.rex-line-name {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600; padding: 4px 10px;
+  background: rgba(139, 92, 246, 0.12); color: var(--accent-violet);
+  border-radius: 6px; letter-spacing: 0.04em;
+}
+.rex-line-summary { font-size: 0.98rem; font-weight: 500; color: var(--text-primary); }
+.rex-chapters { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+.rex-ch-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 500;
+  padding: 3px 8px; background: rgba(139, 92, 246, 0.08);
+  color: var(--accent-violet); border: 1px solid rgba(139, 92, 246, 0.15);
+  border-radius: 5px;
+}
+.rex-line p { font-size: 0.92rem; color: var(--text-secondary); line-height: 1.75; margin: 0; }
+.toc-integration {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(139, 92, 246, 0.05) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.2);
+  border-radius: 20px; padding: 38px 44px; margin: 26px 0;
+}
+.toc-integration .section-label { color: var(--accent-amber); }
+.toc-integration .section-label::before {
+  background: var(--accent-amber);
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.15);
+}
+.revision-block {
+  padding: 22px 26px; margin-bottom: 14px;
+  background: rgba(255,255,255,0.65);
+  border-left: 4px solid var(--accent-amber); border-radius: 10px;
+}
+.revision-num {
+  font-family: 'JetBrains Mono', monospace; font-size: 10px;
+  font-weight: 600; color: var(--accent-amber);
+  letter-spacing: 0.1em; margin-bottom: 6px; text-transform: uppercase;
+}
+.revision-block h4 { font-size: 1.1rem; margin-top: 0; margin-bottom: 8px; }
+.revision-block p { font-size: 0.93rem; line-height: 1.75; margin-bottom: 10px; }
+.action-tier {
+  margin-bottom: 22px; padding: 24px 28px;
+  background: rgba(255,255,255,0.55);
+  border: 1px solid rgba(16,185,129,0.15);
+  border-radius: 14px;
+}
+.action-tier-header {
+  display: flex; justify-content: space-between; align-items: baseline;
+  margin-bottom: 14px; padding-bottom: 10px;
+  border-bottom: 1px solid rgba(16,185,129,0.12);
+}
+.action-tier-name { font-size: 1.05rem; font-weight: 600; color: var(--accent-emerald); }
+.action-tier-time { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-tertiary); }
+.action-list { list-style: none; display: grid; gap: 10px; }
+.action-item {
+  display: grid; grid-template-columns: 32px 1fr; gap: 14px;
+  padding: 14px 16px;
+  background: rgba(16, 185, 129, 0.04);
+  border: 1px solid rgba(16, 185, 129, 0.14);
+  border-radius: 10px; align-items: start; transition: all 0.2s;
+}
+.action-item:hover { background: rgba(16, 185, 129, 0.08); border-color: rgba(16, 185, 129, 0.28); }
+.action-num {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; font-weight: 600;
+  color: var(--accent-emerald);
+  background: rgba(16, 185, 129, 0.12);
+  border-radius: 6px; padding: 4px 0; text-align: center; align-self: start;
+}
+.action-text { font-size: 0.92rem; color: var(--text-primary); line-height: 1.65; }
+.action-name { font-weight: 600; color: var(--accent-emerald); }
+.action-detail { font-size: 0.84rem; color: var(--text-secondary); margin-top: 5px; line-height: 1.6; }
+.action-source {
+  display: inline-block; font-family: 'JetBrains Mono', monospace;
+  font-size: 9px; color: var(--text-tertiary);
+  padding: 1px 6px; background: rgba(15,23,42,0.04);
+  border-radius: 3px; margin-left: 6px; vertical-align: 2px;
+}
+.questions { display: grid; gap: 12px; margin-top: 14px; }
+.question {
+  padding: 18px 22px;
+  background: rgba(139, 92, 246, 0.04);
+  border-left: 3px solid var(--accent-violet); border-radius: 8px;
+  font-size: 0.95rem; color: var(--text-primary); line-height: 1.7;
+}
+.question::before {
+  content: 'Q'; display: inline-block; width: 22px; height: 22px;
+  background: var(--accent-violet); color: white;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; font-weight: 600;
+  border-radius: 50%; text-align: center;
+  line-height: 22px; margin-right: 10px; vertical-align: 1px;
+}
+.metaphor-box {
+  margin: 30px 0; padding: 44px 48px;
+  background: linear-gradient(135deg, rgba(59,130,246,0.06) 0%, rgba(139,92,246,0.06) 50%, rgba(244,63,94,0.06) 100%);
+  border-radius: 20px;
+  border: 1px solid rgba(139,92,246,0.18);
+  text-align: center; position: relative;
+}
+.metaphor-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px; letter-spacing: 0.15em;
+  color: var(--accent-violet); font-weight: 500; margin-bottom: 18px;
+}
+.metaphor-text {
+  font-size: 1.18rem; line-height: 1.8;
+  color: var(--text-primary); font-weight: 400; font-style: italic;
+  max-width: 720px; margin: 0 auto;
+}
+.footer {
+  margin-top: 60px; padding: 28px;
+  text-align: center; font-family: 'JetBrains Mono', monospace;
+  font-size: 12px; color: var(--text-tertiary); letter-spacing: 0.05em;
+}
+@media print {
+  body { background: white; padding: 20px; }
+  .card, .rex-section, .toc-integration { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+  .neuron-bg { display: none; } .section-num { display: none; }
+}
+@media (max-width: 720px) {
+  body { padding: 30px 14px; }
+  .hero { padding: 48px 26px 38px; } .hero h1 { font-size: 2.1rem; }
+  .card, .rex-section, .toc-integration { padding: 28px 22px; }
+  .insight { grid-template-columns: 1fr; gap: 10px; }
+  .depth-tag { width: 60px; }
+  .matrix-row { grid-template-columns: 1fr; gap: 6px; }
+  .culture-row { grid-template-columns: 1fr; gap: 6px; }
+  .stage-block { margin: 0 !important; grid-template-columns: 1fr; }
+  .section-num { display: none; }
+}
+</style>
+</head>
+<body>
+
+<svg class="neuron-bg" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="nodeGlow" cx="50%" cy="50%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#3B82F6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <g stroke="rgba(59,130,246,0.07)" stroke-width="0.5" fill="none">
+    <line x1="15%" y1="20%" x2="35%" y2="35%"/>
+    <line x1="35%" y1="35%" x2="55%" y2="22%"/>
+    <line x1="55%" y1="22%" x2="78%" y2="38%"/>
+    <line x1="20%" y1="65%" x2="42%" y2="78%"/>
+    <line x1="42%" y1="78%" x2="68%" y2="68%"/>
+    <line x1="68%" y1="68%" x2="85%" y2="82%"/>
+    <line x1="35%" y1="35%" x2="42%" y2="78%"/>
+    <line x1="55%" y1="22%" x2="68%" y2="68%"/>
+  </g>
+  <g fill="url(#nodeGlow)">
+    <circle cx="15%" cy="20%" r="3"/>
+    <circle cx="35%" cy="35%" r="4"/>
+    <circle cx="55%" cy="22%" r="3"/>
+    <circle cx="78%" cy="38%" r="3.5"/>
+    <circle cx="20%" cy="65%" r="3"/>
+    <circle cx="42%" cy="78%" r="4"/>
+    <circle cx="68%" cy="68%" r="3"/>
+    <circle cx="85%" cy="82%" r="3.5"/>
+  </g>
+</svg>
+
+<div class="container">
+
+<header class="hero">
+  <div class="hero-tag">FULL BOOK · DEEP READ · 12 SECTIONS</div>
+  <h1>Out of Your Mind<br><span class="gradient">人腦最大的謎題</span> · 全書深度拆解</h1>
+  <p class="subtitle">從「你在哪？」到「人類何以為人？」── 11 個關於大腦的根本問題，用超級大腦讀書法做全域交叉比對，把章節重組為認知地圖。一份濃縮成 12 個 section 的整合報告。</p>
+  <div class="hero-meta">
+    <span>Jorge Cham · Dwayne Godwin</span>
+    <span>2025·Knopf Doubleday</span>
+    <span>ISBN 9780593317365</span>
+    <span>原書 ~85,000 字 / 11 章 + 4 漫畫</span>
+    <span>Rex 適配度 ★★★★★</span>
+  </div>
+</header>
+
+<nav class="toc-nav">
+  <a href="#s01">01 書籍資料 · 核心命題</a>
+  <a href="#s02">02 認知遞進設計</a>
+  <a href="#s03">03 全書五層洞見</a>
+  <a href="#s04">04 三條暗線深挖</a>
+  <a href="#s05">05 跨書連結網絡</a>
+  <a href="#s06">06 跨領域連結</a>
+  <a href="#s07">07 文化轉譯</a>
+  <a href="#s08">08 缺席分析</a>
+  <a href="#s09">09 Rex 四線透鏡</a>
+  <a href="#s10">10 TOC 神經學修訂</a>
+  <a href="#s11">11 立即可用清單</a>
+  <a href="#s12">12 自我檢核 · 收束</a>
+</nav>
+
+<!-- ============= SECTION 01 ============= -->
+<section class="card" id="s01">
+  <div class="section-num">01</div>
+  <div class="section-label">SECTION 01</div>
+  <h2 class="section-title">書籍資料 · 核心命題</h2>
+  <p class="section-desc">作者背景、智識血緣、一句話定位、三要素核心命題</p>
+
+  <h3>作者：兩種腦袋的對話</h3>
+  <p><strong>Jorge Cham</strong>──Caltech 機械工程博士、PHD Comics（PhD 漫畫）創作者，整個學術圈都認得的卡通家。捕捉了一代研究生的焦慮與不確定感。</p>
+  <p><strong>Dwayne Godwin</strong>──神經科學家，35 年研究資歷，目前主要研究領域是<em>成癮</em>與<em>戰場腦創傷與 PTSD</em>。也是漫畫迷。15 年前在三明治店第一次見面，因為都在收 X-Men 漫畫而合作。</p>
+  <p>這個搭配本身就是書的方法論宣告：<strong>用最簡單的敘事工具（漫畫）解釋最複雜的物件（大腦）</strong>。書的第一個成果是 2009 年贏了美國國家科學基金會 Visualization Challenge（Vizzies），後來成為 <em>Scientific American Mind</em> 的固定專欄。這本書是 15 年合作的累積。</p>
+
+  <h3>智識血緣（沒明說但能追溯）</h3>
+  <p>這本書的精神祖父是 <strong>Robert Sapolsky</strong>（Behave 800 頁巨著的權威版本）、<strong>V.S. Ramachandran</strong>（Phantoms in the Brain 風格的個案敘事）、<strong>Oliver Sacks</strong>（用人物故事帶出腦科學）。寫法則融合了 <strong>Randall Munroe</strong>（XKCD/What If 的科普漫畫敘事）。書中提到的所有研究都來自神經科學、心理學、哲學的主流文獻，沒有偏門理論。</p>
+
+  <div class="thesis-box">
+    <div class="thesis-label">THESIS · 一句話定位</div>
+    <p class="thesis-text">給普通人的腦科學羅生門 ── 用 11 個基本問題（你在哪？為何愛？為何恨？AI 會搶你工作？...）累積攻擊「你是誰」這個大哉問，用漫畫和謙遜代替學術的權威感。<strong>科學不是神諭，是過程</strong>。</p>
+  </div>
+
+  <h3>核心命題三要素</h3>
+
+  <h4>① 問題 · 要解決什麼？</h4>
+  <p>表面上：作者列了 11 個問題（位置、愛、恨、AI、記憶、成癮、意識、快樂、自由意志、死亡、人類獨特性）。但這些其實是同一個問題的不同臉孔──「<strong>『你』是什麼？而且，『你』可以被科學理解嗎？</strong>」</p>
+
+  <h4>② 論點 · 作者的核心主張</h4>
+  <p>作者很節制地避免下大斷言，但通讀全書可以萃出他們的隱含主張：「關於『你是誰』的所有答案都來自頭顱裡那 1.4 公斤的膠狀組織；但我們對它的理解永遠是進行式，不是終點。<strong>持續想理解</strong>本身比『得到完整答案』更接近人類本質。」</p>
+
+  <h4>③ 方法 · 用什麼路徑論證？</h4>
+  <p>累積式案例敘事法：每章用一個經典神經科學個案開場（H.M.、Phineas Gage、Henry Molaison、Anne Greene、Delgado 的鬥牛、裂腦病人、Hogan 雙胞胎...），再展開機制解釋，最後留一個哲學性的開放結論。<strong>不是定理→證明，是故事→反思→暫時結論</strong>。</p>
+
+  <h3>書籍類型 · 版權敏感度</h3>
+  <p><strong>類型</strong>：📖 學術研究型（神經科學基礎）+ 🧠 心理成長型（自我反思層）+ 📝 哲學散文型（每章末的開放性收束）三合一。比一般「腦科學科普」要哲學一些，比一般「自助心理書」要硬一些。</p>
+  <p><strong>版權敏感度</strong>：中。是商業出版品，不是知識共享。引用要克制，重點放在概念與框架的萃取轉化，避免段落直接複製。</p>
+</section>
+
+<!-- ============= SECTION 02 ============= -->
+<section class="card" id="s02">
+  <div class="section-num">02</div>
+  <div class="section-label">SECTION 02</div>
+  <h2 class="section-title">認知遞進設計</h2>
+  <p class="section-desc">11 章順序的隱藏邏輯 ── 章節排列本身就是一個認知旅程</p>
+
+  <p>作者從未說明為何用這個順序，但通讀後可以萃出五段式的認知遞進設計：<strong>從外往內、從具體往抽象、從個別往總體</strong>。每進一階，前一階的答案會被部分顛覆，但又被吸收進更大的框架中。</p>
+
+  <div class="stage-pyramid">
+    <div class="stage-block s1">
+      <div class="num">STAGE 1</div>
+      <div class="desc"><strong>定位層 · Ch1</strong> ── 「你」在哪？先給一個解剖學答案（在頭顱裡，分散在多個區域），但這個答案會在 Ch11 被重新質詢。</div>
+    </div>
+    <div class="stage-block s2">
+      <div class="num">STAGE 2</div>
+      <div class="desc"><strong>情緒層 · Ch2-3</strong> ── 最直接的人類經驗：愛與恨。這兩章共用「獎賞系統」這個底層機制，是書裡第一次暗示「同一個系統可以呈現不同臉孔」。</div>
+    </div>
+    <div class="stage-block s3">
+      <div class="num">STAGE 3</div>
+      <div class="desc"><strong>機制層 · Ch4-6</strong> ── 大腦怎麼運作。AI（神經網絡的源頭）、記憶（H.M. 案例）、成癮（系統被劫持）。這三章把「運作」拆給你看，然後給你看「運作可以被破壞」。</div>
+    </div>
+    <div class="stage-block s4">
+      <div class="num">STAGE 4</div>
+      <div class="desc"><strong>形而上層 · Ch7-10</strong> ── 最難的問題：意識、快樂、自由意志、死亡。這層的章節都不下定論，只是把直覺鬆動。</div>
+    </div>
+    <div class="stage-block s5">
+      <div class="num">STAGE 5</div>
+      <div class="desc"><strong>總結層 · Ch11</strong> ── 回到 Ch1 的問題（你是誰？人類是什麼？）但答案已經不一樣。重點從「位置」滑到「過程」，從「結構」滑到「好奇心」。</div>
+    </div>
+  </div>
+
+  <h3>四個漫畫插曲的位置也是設計過的</h3>
+  <p>4 個漫畫插曲（Comic Interludes）並非隨機分佈：<strong>恐懼</strong>插在 Ch3（恨）後（情緒延伸）、<strong>阿茲海默</strong>插在 Ch5（記憶）後（機制延伸）、<strong>成癮偵探</strong>插在 Ch6（成癮）後（戲謔的鬆弛）、<strong>什麼讓事情變好笑</strong>插在 Ch9（自由意志）後（最重的章節後給輕鬆喘息）。<span class="ai-marker">AI 原創洞見</span>這個排列暗示作者很在意讀者的認知負荷曲線──重的章節後一定有一個輕的緩衝。</p>
+
+  <h3>11 章速覽矩陣</h3>
+  <p>每章用一句話精華壓縮，標註所屬階段：</p>
+
+  <div class="chapter-matrix">
+    <div class="matrix-row">
+      <div class="matrix-ch">CH 01</div>
+      <div>
+        <div class="matrix-title">Where is the Mind?</div>
+        <div class="matrix-essence">「你」不是位置，是 86 億神經元連結形成的湍流；亞里士多德把心當主角是錯的，但他把「身體某個器官 = 你」這個直覺仍未被完全推翻。</div>
+      </div>
+      <div class="matrix-stage stage-1">定位層</div>
+      <div class="matrix-ch">★★★</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-ch">CH 02</div>
+      <div>
+        <div class="matrix-title">Why Do We Love?</div>
+        <div class="matrix-essence">愛是獎賞系統 + 催產素 + 多巴胺的合成體驗；4% 哺乳類終生一夫一妻（草原田鼠是模型生物），人類的愛比動物複雜的不是機制，是文化覆蓋層。</div>
+      </div>
+      <div class="matrix-stage stage-2">情緒層</div>
+      <div class="matrix-ch">★★★★</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-ch">CH 03</div>
+      <div>
+        <div class="matrix-title">Why Do We Hate?</div>
+        <div class="matrix-essence">內團體/外團體偏見從幼兒就形成；恨會「感覺很好」因為它也激活獎賞系統；訓練實驗顯示偏見可以被環境減弱（多元學校的小孩偏見少）。</div>
+      </div>
+      <div class="matrix-stage stage-2">情緒層</div>
+      <div class="matrix-ch">★★★★</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-ch">CH 04</div>
+      <div>
+        <div class="matrix-title">Will an AI Take My Job?</div>
+        <div class="matrix-essence">人工神經網絡的源頭就是大腦；AI 革命讓我們不得不重新理解大腦；作者沒給出「會或不會」的答案，但暗示我們設計 AI 越像人，就越能反推大腦。</div>
+      </div>
+      <div class="matrix-stage stage-3">機制層</div>
+      <div class="matrix-ch">★★★★★</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-ch">CH 05</div>
+      <div>
+        <div class="matrix-title">What are the Limits of Memory?</div>
+        <div class="matrix-essence">H.M.（Henry Molaison）失去海馬迴後，無法形成新長期記憶但保留舊記憶與技能記憶 ── 證明記憶不是一個系統，是多個。Brenda Milner 的研究奠定了現代記憶分類學。</div>
+      </div>
+      <div class="matrix-stage stage-3">機制層</div>
+      <div class="matrix-ch">★★★★</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-ch">CH 06</div>
+      <div>
+        <div class="matrix-title">What is Addiction?</div>
+        <div class="matrix-essence">成癮是獎賞系統劫持後的物理性硬體改寫；前額葉（剎車）正是被攻擊的部位 ── 意志力策略系統性失效。Wanting ≠ Liking。</div>
+      </div>
+      <div class="matrix-stage stage-3">機制層</div>
+      <div class="matrix-ch">★★★★★</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-ch">CH 07</div>
+      <div>
+        <div class="matrix-title">What is Consciousness?</div>
+        <div class="matrix-essence">意識的「硬問題」沒有定義共識；裂腦病人證明你可以「同時不知道自己看到了什麼」；意識有盲點（blindsight），自主神經系統在意識之外運作。</div>
+      </div>
+      <div class="matrix-stage stage-4">形而上</div>
+      <div class="matrix-ch">★★★★</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-ch">CH 08</div>
+      <div>
+        <div class="matrix-title">What Makes Us Happy?</div>
+        <div class="matrix-essence">Maslow 需求金字塔仍有效；金錢買快樂有上限（Easterlin paradox）；雙胞胎研究顯示快樂有 50% 是基因（set point）；過度追求快樂反而不快樂（北歐悖論）。</div>
+      </div>
+      <div class="matrix-stage stage-4">形而上</div>
+      <div class="matrix-ch">★★★★</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-ch">CH 09</div>
+      <div>
+        <div class="matrix-title">Do We Have Free Will?</div>
+        <div class="matrix-essence">fMRI 可以在你「意識決定」前 10 秒預測你的選擇；Delgado 的鬥牛實驗、寄生蟲操控行為（Toxoplasma、冬蟲夏草）；作者最後滑步：「不管有沒有，享受這趟車」。</div>
+      </div>
+      <div class="matrix-stage stage-4">形而上</div>
+      <div class="matrix-ch">★★★★★</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-ch">CH 10</div>
+      <div>
+        <div class="matrix-title">What Happens When We Die?</div>
+        <div class="matrix-essence">麥道格 21 克實驗的歷史錯誤；2022 年瀕死腦電波研究發現心跳停止後 30 秒大腦有 gamma 波爆發（可能是「人生跑馬燈」的神經基礎）；Becker 的「拒絕死亡」與「象徵性自我」理論。</div>
+      </div>
+      <div class="matrix-stage stage-4">形而上</div>
+      <div class="matrix-ch">★★★</div>
+    </div>
+    <div class="matrix-row">
+      <div class="matrix-ch">CH 11</div>
+      <div>
+        <div class="matrix-title">What Makes Us Human?</div>
+        <div class="matrix-essence">大腦演化從細菌的水分管理開始（鈉鉀通道演化為神經訊號），途經海綿、寒武紀大爆發、髓鞘化；人類獨特性不是大小或複雜度，而是<em>好奇心本身</em>。</div>
+      </div>
+      <div class="matrix-stage stage-5">總結層</div>
+      <div class="matrix-ch">★★★★</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= SECTION 03 ============= -->
+<section class="card" id="s03">
+  <div class="section-num">03</div>
+  <div class="section-label">SECTION 03</div>
+  <h2 class="section-title">全書級別 · 五層洞見</h2>
+  <p class="section-desc">不是某一章的洞見，是讀完全書才能萃出的整合性發現</p>
+
+  <div class="insight">
+    <span class="depth-tag">L1</span>
+    <div class="insight-content">
+      <h4>「你」不是位置，是過程</h4>
+      <p>書從第一章就明確指出：你的「自我」分散在多個腦區（前額葉、海馬迴、杏仁核、紋狀體...），甚至延伸到腸道菌相（vagus nerve）。沒有任何單一區域是「你」。</p>
+      <p>但更深的訊息是：<strong>「你」這個概念實際上是 86 億神經元之間電化學訊號的湍流結構</strong>。當訊號流動，「你」存在；當訊號停止，「你」消失。這個概念在 Ch11 被升級成「持續想理解」這個過程本身就是「你」的本質。</p>
+      <div class="critique">
+        <div class="critique-label">CRITIQUE · 適用邊界</div>
+        <p>這個觀點挑戰了西方哲學「靈魂作為實體」的基本假設，但作者沒有跟東方「無我」傳統對話。如果「你」是過程，那麼佛教 2500 年前就已經提出這個結論。神經科學證實了佛教不是哲學上的猜測，而是觀察上的精準描述。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <span class="depth-tag">L1</span>
+    <div class="insight-content">
+      <h4>獎賞系統是大腦的總開關</h4>
+      <p>VTA → 多巴胺 → 杏仁核（情緒）+ 海馬迴（記憶）+ 紋狀體（動機）+ 前額葉（覺察）。這條迴路解釋了書中至少四章的核心現象：愛（Ch2）、恨（Ch3，hate also feels good）、成癮（Ch6）、快樂（Ch8）。</p>
+      <p>書沒有合流但你會看到：<strong>所有與「動機」「驅力」「重複行為」相關的人類經驗，都跑在這同一條軌道上</strong>。理解這條軌道等於理解一半的人類心理學。</p>
+      <div class="critique">
+        <div class="critique-label">CRITIQUE · 隱含假設</div>
+        <p>把所有動機歸到一個系統有過度簡化的風險。Berridge 的「Wanting/Liking 分離」、Kent Berridge 的 hedonic hotspots 研究、Panksepp 的七大情緒系統理論，這些在書中都未提及。作者選擇一個簡潔的故事，犧牲了精確性。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <span class="depth-tag l2">L2</span>
+    <div class="insight-content">
+      <h4>意識可能是事後敘事，不是即時控制</h4>
+      <p>書沒明說但 Ch9 暗示：fMRI 可以在你「意識決定」前 10 秒預測你的選擇（Soon, Brass, Heinze, Haynes 2008）；Ch7 的裂腦病人研究顯示一半的腦可以「做事」而另一半「不知道」；自主神經系統管你呼吸心跳但你完全感覺不到。</p>
+      <p>把這些拼起來會看到一個顛覆性的圖像：<strong>「意識」可能不是大腦的駕駛員，而是說明員──大腦做了決定之後，意識負責編一個合理的故事讓「你」覺得自己在控制</strong>。這跟 Daniel Kahneman 的「事後敘事」、Michael Gazzaniga 的「左腦詮釋者」（left-brain interpreter）理論完全吻合。</p>
+      <div class="critique">
+        <div class="critique-label">CRITIQUE · 可對接學科</div>
+        <p>這條洞見對<strong>行為經濟學</strong>（Kahneman 系統一二）、<strong>哲學</strong>（Daniel Dennett 的多重草稿模型）、<strong>佛教</strong>（無我與緣起）、<strong>TOC</strong>（組織決策的事後合理化）都有大量對接點。但作者沒一條深挖 ── 這是書的克制（也是缺席）。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <span class="depth-tag l2">L2</span>
+    <div class="insight-content">
+      <h4>「你」是冗餘的、可變的、不必然的</h4>
+      <p>這是書中最不被注意但最深的洞見。H.M. 失去海馬迴後仍是 H.M.（保留人格、技能、舊記憶）；Phineas Gage 鐵棒穿腦後人格大變但仍是「他」；裂腦病人感覺自己仍是一個人。</p>
+      <p>意涵：<strong>大腦可以失去很多，「你」仍存在。「你」不是某個特定組合，是一個可變的功能集合。如果你的大腦切掉一塊還是「你」，那麼「你」其實沒有你以為的那麼固定</strong>。對 Rex 的多線業務人格、不同場合的「自我」切換 ── 這個洞見給出了神經學的支持：你不需要焦慮「哪個才是真的我」，因為「真的我」這個問法本身就是被神經學鬆動的概念。</p>
+      <div class="critique">
+        <div class="critique-label">CRITIQUE · 重新詮釋</div>
+        <p>這個洞見如果放回東方哲學，會被讀為「無常」與「無我」的當代神經學版本。如果放回西方存在主義（沙特），會被讀為「存在先於本質」的生物學基礎。作者讓讀者自己對接，這是慎重的科普態度。</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="insight">
+    <span class="depth-tag l3">L3</span>
+    <div class="insight-content">
+      <h4>大腦理解大腦悖論：好奇心是答案，不是問題</h4>
+      <p><span class="ai-marker">AI 原創洞見</span>全書最大的隱藏結構是這個：作者一開始用 Ch1 問「你在哪」，期待你以為答案是「在腦裡」。但隨著章節推進，他們持續鬆動「腦能完整理解自己」這個前提（Ch4 我們造的 AI 像腦但我們仍不懂腦；Ch7 意識的硬問題；Ch9 自由意志的不確定）。到 Ch11 他們做了一個漂亮的滑步：<strong>不是「答案在腦裡」，是「持續想找答案」這個過程本身就是答案</strong>。</p>
+      <p>這個結構性洞見對 Rex 你做 AI workflow 工作有直接含意：<em>當你建立越精密的 AI 自動化系統，你會越清楚意識到「人到底在做什麼」這個問題沒有完整答案</em>。但這不是失敗──這恰恰是 Ch11 結論的版本：你的工作不是「找到完整答案」，是「持續用更精密的工具去問同一個問題」。</p>
+      <div class="critique">
+        <div class="critique-label">CRITIQUE · 哲學張力</div>
+        <p>這個洞見隱含的哲學立場是<strong>過程哲學</strong>（Whitehead）而非<strong>實體哲學</strong>（亞里士多德）。書沒提，但讀者一旦看穿，會發現作者是站在過程那邊的。這跟東方道家「道可道，非常道」的張力很像──說出來的「道」就不是「常道」，但不能因此放棄說。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============= SECTION 04 ============= -->
+<section class="card" id="s04">
+  <div class="section-num">04</div>
+  <div class="section-label">SECTION 04 · CORE</div>
+  <h2 class="section-title">三條暗線深挖</h2>
+  <p class="section-desc">這是全書最有價值的部分。作者沒明說，但章節間暗藏三條結構性的線。發現這三條線等於發現作者的「未明說的論文」。</p>
+
+  <!-- ===== 暗線一 ===== -->
+  <div class="hidden-line l1">
+    <span class="hidden-line-tag">HIDDEN LINE 01</span>
+    <h3>獎賞系統三面像</h3>
+    <p>書中至少四章共用同一個神經迴路（VTA → NAc → 杏仁核 → 海馬迴 → 前額葉），但作者沒把它們合流講。把它們合流後，你會看到同一個系統的三張臉孔──這是書最大的隱藏結構。</p>
+
+    <div class="line-chapters">
+      <span class="line-chapter highlight">Ch2 愛 · 甜面</span>
+      <span class="line-chapter highlight">Ch6 成癮 · 劫持面</span>
+      <span class="line-chapter highlight">Ch8 快樂 · 調節面</span>
+      <span class="line-chapter">Ch3 恨 · 反向利用</span>
+    </div>
+
+    <h4>同一個機制的三張臉</h4>
+    <p><strong>甜面（Ch2）</strong>：獎賞系統健康運作。配偶、孩子、家人激活 VTA，多巴胺強化記憶與動機，催產素加深情感連結。這是「演化要你做的事」的神經獎勵。</p>
+    <p><strong>劫持面（Ch6）</strong>：同一系統被高純度刺激（藥物、賭博、短影片）超載後，蹺蹺板永久向反方向偏移。容忍度上升、依賴形成、戒斷出現。前額葉被攻擊，剎車失效。</p>
+    <p><strong>調節面（Ch8）</strong>：書中提到 Sonja Lyubomirsky 的快樂方程式（50% 基因 set point + 10% 環境 + 40% 行為），實際上講的是同一個系統的<em>長期校準</em>。冥想、運動、社交等練習能改變獎賞系統的基線設定。</p>
+
+    <h4>核心啟示（書沒明說）</h4>
+    <p>這三章拼起來就是一句話：<strong>愛、成癮、快樂在神經學上是同源的不同強度與時間尺度</strong>。它們共用同一條軌道，差別只在：愛是與特定他人的長期校準，成癮是被外部刺激的劫持，快樂是基線本身的調節。</p>
+    <p><span class="ai-marker">AI 原創洞見</span>對 Rex 這意味著：你做的「人情經濟」、你看的成癮章節、你思考的快樂──這三件事在神經層級是同一件事。你需要的是一個<em>整合的獎賞系統管理策略</em>，而不是分頭處理。</p>
+  </div>
+
+  <!-- ===== 暗線二 ===== -->
+  <div class="hidden-line l2">
+    <span class="hidden-line-tag">HIDDEN LINE 02</span>
+    <h3>大腦理解大腦悖論</h3>
+    <p>從 Ch1 到 Ch11 有一條暗線：作者持續挑戰「大腦能否完整理解自己」這個假設。但他們不直接攻擊，是用四個章節的累積攻擊。</p>
+
+    <div class="line-chapters">
+      <span class="line-chapter highlight-rose">Ch1 你的位置 · 86 億神經元</span>
+      <span class="line-chapter highlight-rose">Ch4 AI · 我們造的腦</span>
+      <span class="line-chapter highlight-rose">Ch7 意識 · 硬問題</span>
+      <span class="line-chapter highlight-rose">Ch11 人類獨特性 · 好奇心</span>
+    </div>
+
+    <h4>四章的累積攻擊</h4>
+    <p><strong>Ch1</strong>：「你」分散在 86 億神經元的湍流中。提問：86 億神經元能完整理解 86 億神經元嗎？</p>
+    <p><strong>Ch4</strong>：人工神經網絡是大腦的逆向工程。提問：當我們造的 AI 達到「general intelligence」，我們是更懂大腦，還是更不懂？作者克制地點到「current AI shows signs of theory of mind」就停下。</p>
+    <p><strong>Ch7</strong>：意識的「硬問題」沒有共識，沒有人能用客觀語言描述主觀經驗（Thomas Nagel 的「成為一隻蝙蝠是什麼感覺」沒被點名但精神在場）。</p>
+    <p><strong>Ch11</strong>：作者做了一個漂亮的滑步。他們不回答 Ch1 的「86 億神經元能否理解自己」，而是把問題改寫為：「持續想理解」這件事本身就是人類獨特性。</p>
+
+    <h4>結論的優雅</h4>
+    <p>這條暗線的結論是：<strong>「能否理解」是錯誤的問題；「持續想理解」才是答案</strong>。這把哥德爾不完備性、量子測不準性、認知科學困境，全都繞過去──<em>不是因為解開了，是因為承認不解開正是過程的一部分</em>。</p>
+    <p><span class="ai-marker">AI 原創洞見</span>對 Rex 你建 AI workflow 的工作：你不會「自動化完所有事」，你只會「持續用更精密的工具去問更精密的問題」。這不是失敗的徵兆，是你工作本質的徵兆。</p>
+  </div>
+
+  <!-- ===== 暗線三 ===== -->
+  <div class="hidden-line l3">
+    <span class="hidden-line-tag">HIDDEN LINE 03</span>
+    <h3>自由意志鬆動學</h3>
+    <p>書中至少五章在<em>持續鬆動</em>「我是自主主體」這個直覺，但每一章都不直接攻擊──都是側面包圍。讀完五章後，你會發現自己對「我能自由選擇」的信心已經大幅下降，但又找不到具體哪一頁說了什麼。這是作者的高明之處。</p>
+
+    <div class="line-chapters">
+      <span class="line-chapter highlight-amber">Ch5 失去記憶 · 失去你？</span>
+      <span class="line-chapter highlight-amber">Ch6 成癮 · 失去剎車</span>
+      <span class="line-chapter highlight-amber">Ch9 fMRI 預測 · 領先 10 秒</span>
+      <span class="line-chapter highlight-amber">Ch10 死亡 · 邊界模糊</span>
+      <span class="line-chapter">Ch3 偏見 · 內隱無意識</span>
+    </div>
+
+    <h4>五個側面攻擊</h4>
+    <p><strong>Ch5</strong>：H.M. 失去新記憶，但仍是 H.M.。如果記憶可以失去而「你」還在，那「你」並不是你以為的那個「自由選擇下一步的主體」──你的選擇能力是冗餘系統的湧現現象。</p>
+    <p><strong>Ch6</strong>：成癮會物理性削弱前額葉。如果你的「停止能力」可以被化學物質削弱，那它不是純粹的「自由」，是有物質基礎的功能。</p>
+    <p><strong>Ch9</strong>：書中明確引用：fMRI 可以在受試者「意識決定按哪個鈕」前<strong>長達 10 秒</strong>預測選擇。這比 Libet 1983 的 0.5 秒更激進。意涵：你以為的「現在做決定」，可能是大腦 10 秒前已經決定的事，意識只是事後讀稿。</p>
+    <p><strong>Ch10</strong>：心跳停止後 30 秒大腦仍有 gamma 波活動。「死亡」不是一個瞬間，是一個過程。如果連死亡的邊界都模糊，那「我作為主體存在」的時間範圍也模糊。</p>
+    <p><strong>Ch3</strong>：內隱偏見研究顯示你會在意識察覺前已經對某人形成判斷。你的「公平判斷」常常是事後合理化。</p>
+
+    <h4>作者的滑步</h4>
+    <p>章末作者做了一個著名的滑步：「不管有沒有自由意志，享受這趟車吧」（Whether we have free will, or we just <em>think</em> we have free will, may not make a difference in our experience of life. Perhaps the best choice we can make is to just enjoy the ride.）</p>
+    <p>這不是放棄，是<strong>實用主義立場</strong>：科學鬆動了直覺，但我們仍要過日子。承認自由意志可能是幻覺，並不妨礙我們行動──就像知道色彩是大腦虛構的不妨礙你看夕陽。</p>
+
+    <h4>對 Rex「習慣慣性」的最深含意</h4>
+    <p><span class="ai-marker">AI 原創洞見</span>把這條暗線壓到你的 TOC 瓶頸上：<strong>「我下次要改變習慣」這個決定，可能在你意識到它之前 10 秒就被你的大腦做完了</strong>。意志力策略系統性失效不是因為你不夠堅持，是因為「決定堅持」本身就是事後敘事。對策是繞開這個層次：直接設計環境（Ch6 的 conditioned place preference）、用結構化系統植入即時回饋（Ch6）、利用基線重置（Ch6+Ch8）。<em>不要對抗大腦，要重新設定它的環境</em>。</p>
+  </div>
+</section>
+
+<!-- ============= SECTION 05 ============= -->
+<section class="card" id="s05">
+  <div class="section-num">05</div>
+  <div class="section-label">SECTION 05</div>
+  <h2 class="section-title">跨書連結網絡</h2>
+  <p class="section-desc"><span class="ai-marker">AI 跨書連結</span>這本書在更大的知識血緣中的位置 ── 它的祖父、兄弟、後代、對手是誰</p>
+
+  <h3>精神祖父輩（這本書的源頭）</h3>
+
+  <div class="book-link">
+    <span class="book-tag">血緣</span>
+    <div>
+      <div class="book-title"><em>Behave: The Biology of Humans at Our Best and Worst</em>（Robert Sapolsky, 2017）</div>
+      <p class="book-relation">Out of Your Mind 講的所有神經機制（VTA、多巴胺、PFC、杏仁核、前後扣帶迴...）的權威完整版本就在 Sapolsky 這本 800 頁巨著。Cham/Godwin 是給普通人的入門版，Sapolsky 是給研究生的進階版。讀完 Out of Your Mind 想深入時，下一站就是 Behave。</p>
+    </div>
+  </div>
+
+  <div class="book-link">
+    <span class="book-tag">源頭</span>
+    <div>
+      <div class="book-title"><em>Phantoms in the Brain</em>（V.S. Ramachandran, 1998）</div>
+      <p class="book-relation">用個案敘事串起神經科學洞見的範本。Out of Your Mind 在每章用 H.M.、Phineas Gage、Anne Greene、Hogan 雙胞胎開場的寫法，直接繼承自 Ramachandran 與 Oliver Sacks 的傳統。</p>
+    </div>
+  </div>
+
+  <h3>同代兄弟（同主題的當代書）</h3>
+
+  <div class="book-link">
+    <span class="book-tag">同源</span>
+    <div>
+      <div class="book-title"><em>Dopamine Nation</em>（《多巴胺國度》, Anna Lembke, 2021）</div>
+      <p class="book-relation">把 Cham 第 6 章的「蹺蹺板模型」推到社會診斷層級。Lembke 主張現代人都生活在多巴胺過載狀態，全民基線被推高，因此普遍感覺日常無聊。Cham 點到 artificially intense experiences 但克制地停在那裡，Lembke 把它推到極致。先讀 Cham 看機制，再讀 Lembke 看結論，是最佳閱讀順序。</p>
+    </div>
+  </div>
+
+  <div class="book-link">
+    <span class="book-tag">補強</span>
+    <div>
+      <div class="book-title"><em>The Body Keeps the Score</em>（《身體會記住》, Bessel van der Kolk, 2014）</div>
+      <p class="book-relation">Out of Your Mind 對<em>創傷</em>幾乎沒有著墨（這是大缺席）。van der Kolk 從 PTSD 入手講大腦如何儲存情緒記憶在身體（不只腦）。對 Godwin 自己研究 PTSD 來說，書裡這部分的克制其實有點奇怪。如果要補上，這是必讀。</p>
+    </div>
+  </div>
+
+  <div class="book-link">
+    <span class="book-tag">補強</span>
+    <div>
+      <div class="book-title"><em>How to Know a Person</em>（David Brooks, 2023） · 你已分析過</div>
+      <p class="book-relation">Cham 在 Ch3（恨）裡點到內團體偏見的神經機制，但沒講「真正看見一個人」是什麼。Brooks 補上了這個人際層面。把 Cham + Brooks 對讀，等於得到「偏見的神經學 + 反偏見的實踐法」雙軌。</p>
+    </div>
+  </div>
+
+  <div class="book-link">
+    <span class="book-tag">處方</span>
+    <div>
+      <div class="book-title"><em>Atomic Habits</em>（《原子習慣》, James Clear, 2018）</div>
+      <p class="book-relation">Cham 第 6 章的「conditioned place preference」「環境就是觸發器」直接對應 Clear 的「環境設計」「習慣堆疊」。Cham 提供「為什麼環境會劫持你」的科學，Clear 提供「怎麼反過來設計環境」的工具。Clear 的弱點是不解釋為什麼這些方法有效──Cham 把這個底層補上了。</p>
+    </div>
+  </div>
+
+  <div class="book-link">
+    <span class="book-tag">互補</span>
+    <div>
+      <div class="book-title"><em>Hooked</em>（《鉤癮效應》, Nir Eyal, 2014）</div>
+      <p class="book-relation">Cham 第 4+6 章從<em>被害人</em>視角講劫持，Eyal 從<em>加害人/設計者</em>視角講「如何刻意讓使用者上癮」。把兩本對讀，你每天用的所有 app 都能被精準解構。Rex 做 AI workflow 必讀的反向角度──你正在製造的工具是新一代的成癮設備嗎？</p>
+    </div>
+  </div>
+
+  <h3>對立觀點（挑戰書的框架）</h3>
+
+  <div class="book-link">
+    <span class="book-tag">對立</span>
+    <div>
+      <div class="book-title"><em>The Globalisation of Addiction</em>（Bruce Alexander, 2008）</div>
+      <p class="book-relation">Alexander 的「老鼠樂園」實驗根本性挑戰 Cham 採用的「成癮 = 大腦化學失衡」框架。Alexander 給老鼠豐富社交環境後，老鼠不會對嗎啡上癮。他主張<strong>成癮不是腦袋失調，是社會疏離</strong>。Cham/Godwin 沒提這個視角是個重大缺席（見 Section 08）。對 Rex 看「人情經濟」有極大含意。</p>
+    </div>
+  </div>
+
+  <div class="book-link">
+    <span class="book-tag">對立</span>
+    <div>
+      <div class="book-title"><em>Free Will</em>（Sam Harris, 2012）</div>
+      <p class="book-relation">Harris 把 Cham Ch9 的所有暗示推到極端結論：自由意志根本不存在，是徹底的幻覺。Cham 採取的是「也許可能」的中庸立場，Harris 是強硬決定論者。讀完 Cham 想被推到哲學極端，下一站就是 Harris。Harris 的 < 100 頁小書非常密集。</p>
+    </div>
+  </div>
+
+  <div class="book-link">
+    <span class="book-tag">對立</span>
+    <div>
+      <div class="book-title"><em>Consciousness Explained</em>（Daniel Dennett, 1991）</div>
+      <p class="book-relation">Cham Ch7 把意識留在「沒有共識」的開放結尾。Dennett 是強烈的<em>還原主義者</em>──主張意識可以完全用神經機制解釋，「硬問題」是個假問題。Cham 沒站隊，Dennett 站得很硬。把兩本對讀，能看清意識辯論的兩極。</p>
+    </div>
+  </div>
+
+  <h3>哲學/源頭經典</h3>
+
+  <div class="book-link">
+    <span class="book-tag">源頭</span>
+    <div>
+      <div class="book-title"><em>The Denial of Death</em>（Ernest Becker, 1973）</div>
+      <p class="book-relation">Cham Ch10 直接引用 Becker 的「象徵性自我」與「遺產計劃」概念。Becker 是普立茲獎得主，他的論點是：人類所有文化、宗教、藝術、事業都是對死亡焦慮的防禦機制。如果 Ch10 對你有觸動，源頭在這裡。</p>
+    </div>
+  </div>
+
+  <div class="book-link">
+    <span class="book-tag">源頭</span>
+    <div>
+      <div class="book-title"><em>Thinking, Fast and Slow</em>（《快思慢想》, Daniel Kahneman, 2011）</div>
+      <p class="book-relation">Kahneman 系統一（直覺、快、無意識）vs 系統二（推理、慢、意識）的二元論，跟 Cham 全書的「VTA 即時回饋 vs PFC 延遲推理」幾乎完全平行。系統一 ≈ 獎賞系統的直接驅動；系統二 ≈ 前額葉的審議。Cham 不引用 Kahneman 但精神血緣明確。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============= SECTION 06 ============= -->
+<section class="card" id="s06">
+  <div class="section-num">06</div>
+  <div class="section-label">SECTION 06</div>
+  <h2 class="section-title">跨領域連結</h2>
+  <p class="section-desc"><span class="ai-marker">AI 跨領域連結</span>同一個機制在其他學科叫什麼 ── 把神經科學接到非神經科學的世界</p>
+
+  <h3>① AI 強化學習 · Reinforcement Learning</h3>
+  <p>Cham Ch4 點到神經網絡的源頭是大腦，但沒挑明一個更精彩的對接：<strong>多巴胺 = TD-error（時間差分誤差）</strong>。1997 年 Wolfram Schultz 的研究發現，獼猴的多巴胺神經元放電模式幾乎完美對應強化學習的 TD-error 公式：「實際得到的獎賞」減「預期的獎賞」。</p>
+  <p>意涵：<strong>大腦本來就是個強化學習機器，AI 強化學習不是「模仿大腦」，是「重新發明大腦做的同一件事」</strong>。對 Rex 你做 AI workflow 的直接含意：你的自動化系統如果要訓練 AI，獎勵函數設計失當會讓 AI 出現 reward hacking（找到不勞而獲的捷徑）──這跟人類成癮是同一個結構。設計時要問：「如果我是這個系統，我會找到什麼捷徑？」</p>
+
+  <h3>② TOC 制約理論 · Theory of Constraints</h3>
+  <p>TOC 的「五步驟聚焦法」（識別→利用→從屬→提升→重複）假設組織能識別並執行這些步驟。但若把 Cham 的洞見套上去：<strong>「執行新瓶頸方案」本身就是一個結構化、延遲回饋的活動</strong>，而組織日常的「救火、即時客戶服務、衝動決策」是直覺、即時回饋的活動。</p>
+  <p>這就是為什麼很多公司即使識別了瓶頸，還是無法持續執行新方案──<strong>組織的集體大腦也有獎賞系統，也會被即時回饋劫持</strong>。Eli Goldratt 寫《目標》時不知道神經科學，但他的「習慣慣性」（inertia）診斷其實在描述一個神經學現象。</p>
+  <p>Rex，你過去的 TOC 分析反覆診斷出「習慣慣性」是瓶頸──現在你有了神經學基礎。這不是你的弱點，是物種預設。</p>
+
+  <h3>③ 注意力經濟 · Attention Economy</h3>
+  <p>Tim Wu《注意力商人》（The Attention Merchants, 2016）把整個現代媒體史重寫成「劫持人類獎賞系統的競賽史」。從報紙標題、廣告、收音機、電視，到社群媒體、推薦演算法。<strong>Cham 的成癮機制其實是整個現代資本主義的核心生產力</strong>──所有平台都在比賽誰更有效地觸發 VTA。</p>
+  <p>對 Rex 的「人情經濟」有特殊含意：<strong>「人情經濟」之所以有市場，部分原因是它對抗注意力經濟對人類獎賞系統的劫持</strong>。但若不小心，「人情」本身也可以變成被劫持的商品（按讚、互動、立即回應的多巴胺）。</p>
+
+  <h3>④ 行為經濟學 · Behavioral Economics</h3>
+  <p>Kahneman 的「系統一/系統二」、Thaler 的「推力理論」（Nudge）、Ariely 的「可預測的非理性」──這整個學科建立在一個核心觀察：人類不是理性決策者。Cham 全書的神經學版本剛好說明<em>為什麼</em>不是。</p>
+  <p>具體對應：<br>
+  · 系統一（直覺）≈ 獎賞系統的即時驅動<br>
+  · 系統二（推理）≈ PFC 的審議功能<br>
+  · 損失趨避 ≈ 杏仁核對威脅的優先處理（Ch3）<br>
+  · 現時偏誤（hyperbolic discounting）≈ 多巴胺對即時 vs 延遲回饋的非線性反應（Ch6）</p>
+
+  <h3>⑤ 設計倫理 · Design Ethics</h3>
+  <p>Tristan Harris 的「Time Well Spent」運動、Cal Newport《Deep Work》《Digital Minimalism》、設計人類學家 Genevieve Bell 的 IoT 倫理研究──這些領域都在問同一個問題：<strong>「如果我們知道大腦這樣運作，我們有什麼倫理義務不去劫持它？」</strong></p>
+  <p>對 Rex 你建 AI workflow 的工作直接含意：<em>每個自動化決定都是在設計使用者的多巴胺軌跡</em>。你可以選擇做 Ethical AI 還是 Hooked-style AI。Cham 全書沒明說但精神在場。</p>
+</section>
+
+<!-- ============= SECTION 07 ============= -->
+<section class="card" id="s07">
+  <div class="section-num">07</div>
+  <div class="section-label">SECTION 07</div>
+  <h2 class="section-title">文化轉譯</h2>
+  <p class="section-desc"><span class="ai-marker">AI 文化轉譯</span>把神經科學概念放進東方文化脈絡 ── 不是簡單對應，而是指認張力</p>
+
+  <h3>佛教 ↔ 神經科學</h3>
+  <p>佛教 2500 年前的觀察，與當代神經科學的發現有驚人對應。但這不是「佛陀是神經科學家」的廉價結論──<strong>是兩個不同方法（內觀 vs 客觀測量）對同一現象的獨立觀察</strong>。</p>
+
+  <div class="culture-row">
+    <div class="culture-east">三毒 · 貪</div>
+    <div class="culture-arrow">↔</div>
+    <div class="culture-west">獎賞系統的「想要」傾斜（wanting 系統過度活化）；蹺蹺板永久向「更多」偏移（Ch6）</div>
+  </div>
+  <div class="culture-row">
+    <div class="culture-east">三毒 · 嗔</div>
+    <div class="culture-arrow">↔</div>
+    <div class="culture-west">戒斷期的「逃避不適」反向偏移；杏仁核 + VTA 反向激活（Ch3、Ch6）</div>
+  </div>
+  <div class="culture-row">
+    <div class="culture-east">三毒 · 痴</div>
+    <div class="culture-arrow">↔</div>
+    <div class="culture-west">PFC 削弱後的「看不清自己被劫持」狀態；意識自我覺察失效（Ch6、Ch7）</div>
+  </div>
+  <div class="culture-row">
+    <div class="culture-east">無我</div>
+    <div class="culture-arrow">↔</div>
+    <div class="culture-west">「你」分散在 86 億神經元的湍流中；沒有單一定位的自我（Ch1、Ch7）</div>
+  </div>
+  <div class="culture-row">
+    <div class="culture-east">無常</div>
+    <div class="culture-arrow">↔</div>
+    <div class="culture-west">大腦持續重塑（neuroplasticity）；H.M. 失去記憶仍是 H.M. 顯示「你」是動態而非固定（Ch5）</div>
+  </div>
+  <div class="culture-row">
+    <div class="culture-east">正念</div>
+    <div class="culture-arrow">↔</div>
+    <div class="culture-west">強化 PFC 對 VTA 的下行調控；Sara Lazar 研究顯示資深禪修者 PFC 確實增厚（Ch6、Ch8）</div>
+  </div>
+
+  <p style="margin-top: 16px;"><strong>關鍵張力</strong>：佛教的處方是「離苦」（離開蹺蹺板），西方神經科學的處方多半是「優化蹺蹺板」。一個是出世的、一個是入世的。Rex 你在「人情經濟」工作中夾在這兩個價值之間：你既要建立社群連結（這需要利用獎賞系統），又要不被連結本身綁架（這需要對獎賞系統保持距離）。<em>意識到這個張力存在，本身就是 PFC 在工作</em>。</p>
+
+  <h3>中醫 ↔ 神經傳導物質</h3>
+
+  <div class="culture-row">
+    <div class="culture-east">心藏神</div>
+    <div class="culture-arrow">↔</div>
+    <div class="culture-west">中醫的「心」對應的不只是心臟，更接近現代的「意識統合系統」。Cham Ch1 提到亞里士多德把心當主角是錯的，但中醫的「心」其實一直是隱喻，不是解剖位置。</div>
+  </div>
+  <div class="culture-row">
+    <div class="culture-east">肝藏魂</div>
+    <div class="culture-arrow">↔</div>
+    <div class="culture-west">「魂」與情緒、決策、夢境相關，對應到現代的<em>邊緣系統 + 前額葉</em>。中醫的「肝主謀慮」幾乎是 PFC 的描述。</div>
+  </div>
+  <div class="culture-row">
+    <div class="culture-east">腎藏志</div>
+    <div class="culture-arrow">↔</div>
+    <div class="culture-west">「志」是長期動機與意志力，對應到<em>腹側紋狀體 + 多巴胺系統的長期校準</em>。中醫的「腎虛」常見症狀（疲勞、失動機）跟多巴胺基線下降的症狀重疊。</div>
+  </div>
+
+  <p>注意：<strong>這不是說中醫科學化了</strong>，而是兩個系統在描述同一現象時找到了不同的語彙。中醫的力量在於整體觀察，神經科學的力量在於還原機制。互譯而不互替。</p>
+
+  <h3>紫微斗數 ↔ 大腦功能模組（給 Rex 的特別對接）</h3>
+  <p>紫微的主星系統其實在描述<em>人格的功能傾向</em>，而非命運決定論。這跟 Cham 全書「人格是多區域協作的湧現」的觀點呼應。</p>
+
+  <div class="culture-row">
+    <div class="culture-east">紫微·七殺</div>
+    <div class="culture-arrow">↔</div>
+    <div class="culture-west">獎賞系統高敏感、衝動傾向強的人格 ── 對應 Ch6 「seeking thrills」的人。並非命定，是<em>傾向</em>。</div>
+  </div>
+  <div class="culture-row">
+    <div class="culture-east">天機·巨門</div>
+    <div class="culture-arrow">↔</div>
+    <div class="culture-west">PFC 高度活躍的人格，思考多、分析多、可能伴隨焦慮 ── 對應 Cham 沒明說但暗示的「PFC 主導者」典型。</div>
+  </div>
+  <div class="culture-row">
+    <div class="culture-east">廉貞·貪狼</div>
+    <div class="culture-arrow">↔</div>
+    <div class="culture-west">獎賞系統與情緒系統高度耦合 ── 容易進入「愛」「恨」「成癮」的強烈狀態（Ch2、Ch3、Ch6 三章共用機制）。</div>
+  </div>
+
+  <p><span class="ai-marker">AI 文化轉譯</span>這個對接的價值不在「驗證紫微」，而在<strong>把紫微的傾向描述系統，當作個人化神經傾向的觀察工具</strong>。如果你的命盤顯示某種傾向，那是大腦預設值的另一種寫法。改變預設值需要環境設計（Ch6）和長期重塑（Ch8），而不是宿命接受。Rex 你做紫微時可以考慮這個視角。</p>
+</section>
+
+<!-- ============= SECTION 08 ============= -->
+<section class="card" id="s08">
+  <div class="section-num">08</div>
+  <div class="section-label">SECTION 08</div>
+  <h2 class="section-title">缺席分析</h2>
+  <p class="section-desc">這本書<strong>沒提</strong>但<strong>應該提</strong>的東西 ── 三類缺席</p>
+
+  <h3>類別一 · 刻意迴避（作者知道但選擇不談）</h3>
+
+  <div class="absence">
+    <span class="absence-tag">刻意迴避 01</span>
+    <h4>Bruce Alexander 的「老鼠樂園」實驗</h4>
+    <p>這是成癮研究中最著名的反神經化學派證據：在豐富社交環境中的老鼠，即使有嗎啡水可選也不會上癮。這個實驗根本性挑戰 Cham/Godwin 採用的「成癮 = 大腦化學失衡」敘事。作者沒提，可能是因為這會讓 Ch6 的故事複雜化。但缺席讓書錯失了一個關鍵洞見：<strong>「環境貧瘠」可能是成癮的必要條件，而不只是調節因子</strong>。</p>
+  </div>
+
+  <div class="absence">
+    <span class="absence-tag">刻意迴避 02</span>
+    <h4>創傷與 PTSD（Godwin 自己的研究領域！）</h4>
+    <p>Godwin 的研究專長就是創傷與 PTSD。但全書對創傷與情緒記憶的特殊處理機制著墨極少。Ch5 提到 PTSD 但只是順帶。van der Kolk 整本書講的「身體保留情緒記憶」這個現象，在 Cham 的書裡幾乎不存在。這個缺席很奇怪──可能是為了維持「樂觀好讀」的調性。</p>
+  </div>
+
+  <div class="absence">
+    <span class="absence-tag">刻意迴避 03</span>
+    <h4>神經多樣性（自閉症、ADHD、抑鬱）</h4>
+    <p>書討論的「正常大腦」其實是統計平均，不是普遍真理。自閉光譜、ADHD、雙極等非典型神經結構在書中幾乎沒有空間。對 ADHD 患者來說，「PFC 對 VTA 的下行調控」本來就先天較弱──Ch6 的所有處方對他們效果不同。</p>
+  </div>
+
+  <h3>類別二 · 盲點缺席（作者可能沒意識到的盲區）</h3>
+
+  <div class="absence">
+    <span class="absence-tag">盲點 04</span>
+    <h4>性別差異與 WEIRD 偏差</h4>
+    <p>大部分腦科學經典實驗（Phineas Gage 是男性、H.M. 是男性、Pavlov 是俄羅斯男性、大部分 fMRI 受試者是大學男性...）以男性、西方、教育良好、工業化、富裕（WEIRD）人群為主。書沒提這個方法論限制。對非 WEIRD 讀者，書中所有「人類普遍」的結論需要打個折扣。</p>
+  </div>
+
+  <div class="absence">
+    <span class="absence-tag">盲點 05</span>
+    <h4>正當化的成癮（工作狂、健身強迫、學習焦慮）</h4>
+    <p>作者列舉的成癮全是社會否定的（毒品、賭博、色情、電玩）。但用同一套機制──獎賞劫持、容忍、戒斷、PFC 削弱──可以完美描述工作狂、運動強迫、學習焦慮。這些<em>「正面成癮」</em>因為被社會獎勵，反而更難被本人察覺。對 Rex 這種多線創業者，<strong>「忙碌成癮」</strong>是最危險的版本──大腦從「持續救火、不停回應、永遠在線」中獲得多巴胺，結構化的深度工作反而引發戒斷不適。</p>
+  </div>
+
+  <div class="absence">
+    <span class="absence-tag">盲點 06</span>
+    <h4>意識的社會性</h4>
+    <p>Ch7 把意識當作個體現象來處理（裂腦、blindsight、雙胞胎）。但意識可能根本是<em>社會性的</em>──Lev Vygotsky 的內化理論、Andy Clark 的延伸心智（Extended Mind）都主張：你的意識不只在你頭裡，部分在你跟人/工具的互動中。書中沒這條線。</p>
+  </div>
+
+  <h3>類別三 · 時代缺席（超出作者時代框架的新問題）</h3>
+
+  <div class="absence">
+    <span class="absence-tag">時代缺席 07</span>
+    <h4>演算法時代的「分散式成癮」</h4>
+    <p>書寫於 2024-2025，但全章對「演算法精準推送 + AI 個人化內容」造成的新型態成癮著墨甚少。以前的成癮物是固定的（古柯鹼就是古柯鹼），但<strong>現在的成癮觸發物會學習你、針對你個人化</strong>。短影片演算法是史上最強的多巴胺投放系統。這個「演算法 × 大腦」的交互效應，書中第 4 章（AI）和第 6 章（成癮）本可合流卻沒有。Rex 你做 AI workflow 時要意識到：<em>你正在製造的工具，可能是新一代的成癮設備</em>。</p>
+  </div>
+
+  <div class="absence">
+    <span class="absence-tag">時代缺席 08</span>
+    <h4>神經科技倫理（Neuralink、BCI、深腦刺激）</h4>
+    <p>Cham Ch9 提到 Delgado 的鬥牛實驗，但沒延伸到 Elon Musk 的 Neuralink、Synchron 等當代腦機介面。如果幾年內 BCI 普及，所有書中的「自由意志」「意識」「自我」概念都需要重寫。這個近未來的議題書中迴避了。</p>
+  </div>
+
+  <div class="absence">
+    <span class="absence-tag">時代缺席 09</span>
+    <h4>AI 對腦科學研究本身的迴授</h4>
+    <p>Ch4 講「我們造 AI 像大腦」，但沒講「AI 反過來改變我們研究大腦的方法」。深度學習現在用來解碼 fMRI、預測神經元放電、生成「AI 解讀的腦影像」。<strong>大腦研究的工具本身就是大腦的逆向工程產物</strong>──這個遞迴沒被書處理。</p>
+  </div>
+</section>
+
+<!-- ============= SECTION 09 ============= -->
+<section class="rex-section" id="s09">
+  <div class="section-num">09</div>
+  <div class="section-label">SECTION 09 · REX 應用透鏡</div>
+  <h2 class="section-title" style="color: var(--text-primary);">11 章 × 4 條業務線的應用矩陣</h2>
+  <p class="section-desc">每章在哪條線上發作得最強？這是把神經學洞見落到你具體業務的對接表</p>
+
+  <div class="rex-line">
+    <div class="rex-line-header">
+      <span class="rex-line-name">叡思影像</span>
+      <span class="rex-line-summary">「感動」是有神經結構的；視覺敘事直接打獎賞系統</span>
+    </div>
+    <div class="rex-chapters">
+      <span class="rex-ch-tag">★ Ch2 愛</span>
+      <span class="rex-ch-tag">★ Ch3 恨</span>
+      <span class="rex-ch-tag">★ Ch8 快樂</span>
+      <span class="rex-ch-tag">Ch7 意識</span>
+      <span class="rex-ch-tag">Ch11 人類獨特性</span>
+    </div>
+    <p>影像工作的核心是「在 30 秒內激活觀眾獎賞系統」。Ch2-3 告訴你愛與恨共用一個系統──最有力的影像是<strong>同時啟動兩端的</strong>：「他們愛著什麼」+「他們對抗著什麼」。Ch8 告訴你 Maslow 需求層級：B2B 客戶的痛點若停在第 1-2 層（基本生存、業務安全），影像主軸就要不同於停在第 4-5 層（自我實現）的客戶。Ch7 的「意識盲點」對你尤其有用：<em>客戶說的不一定是他們真正在意的</em>──提案訪談時要設計問題去捕捉他們意識之外的偏好。Ch11 給你一個賣點：人類獨特性是「持續想理解」這種好奇心，影像作品如果能勾住這個，比單純煽情更耐看。</p>
+  </div>
+
+  <div class="rex-line">
+    <div class="rex-line-header">
+      <span class="rex-line-name">南山人壽</span>
+      <span class="rex-line-summary">死亡焦慮、風險偏好、長期規劃 ── 都是神經學議題</span>
+    </div>
+    <div class="rex-chapters">
+      <span class="rex-ch-tag">★ Ch10 死亡</span>
+      <span class="rex-ch-tag">★ Ch5 記憶</span>
+      <span class="rex-ch-tag">★ Ch6 成癮</span>
+      <span class="rex-ch-tag">Ch9 自由意志</span>
+      <span class="rex-ch-tag">Ch3 偏見</span>
+    </div>
+    <p>保險的本質是<em>對未來不確定性的金融化</em>。Ch10 給你保險業最深的工具：客戶不買保險不是因為計算錯誤，是因為<strong>Becker「拒絕死亡」機制讓他們無法直視風險</strong>。提案要繞過這個防禦，從「象徵性遺產」（給孩子留下什麼）入手，比從「死亡概率」入手有效。Ch5 的記憶限制告訴你：客戶答應後三天就忘了 80% 細節，所以提案後的書面 follow-up 不是禮貌，是必要。Ch6 的成癮章節對你個人最相關（見 Section 10 修訂）。Ch9 的自由意志暗示：客戶的「決定」常是事後敘事，所以引導他們做小決定（先簽 review、再簽試保、再簽正式）比逼他們一次大決定有效。Ch3 的內團體偏見：客戶傾向相信「跟自己同群」的業務員──這是你經營熟客社群的神經學基礎。</p>
+  </div>
+
+  <div class="rex-line">
+    <div class="rex-line-header">
+      <span class="rex-line-name">人情經濟</span>
+      <span class="rex-line-summary">最危險的一條 ── 你的核心理念可能被自己的獎賞系統劫持</span>
+    </div>
+    <div class="rex-chapters">
+      <span class="rex-ch-tag">★ Ch2 愛</span>
+      <span class="rex-ch-tag">★ Ch3 恨</span>
+      <span class="rex-ch-tag">★ Ch7 意識</span>
+      <span class="rex-ch-tag">Ch11 人類獨特性</span>
+      <span class="rex-ch-tag">Ch10 死亡</span>
+    </div>
+    <p>「人情經濟」的核心主張是「關係先於交易」，而關係本身會強烈觸發獎賞系統（社交多巴胺）。<strong>風險是：你會變成「為了關係的多巴胺而追求關係」，而不是「為了真正的人情經濟而建立關係」</strong>。Ch2 的催產素 + 多巴胺合成機制告訴你：真正的長期關係需要<em>催產素式</em>的安定感，不只是<em>多巴胺式</em>的興奮感──但社群媒體、按讚、立即回應的設計多半只給你後者。Ch3 的內團體偏見是雙面刃：有助於凝聚社群，但也容易產生對外排斥。Ch7 的意識盲點對你最關鍵：<em>你以為你「看見了」對方，但你看見的可能是你大腦事後合成的版本</em>──這呼應你之前讀的 Brooks《How to Know a Person》。Ch11 給你方向：人類獨特性是「持續想理解」，真正的人情經濟核心是<strong>持續的好奇心</strong>，而不是技巧化的關懷。Ch10 補上一個沉重維度：人情經濟最終要面對的是「我們都會死」這個共同處境，這個共同性本身就是連結的最深基礎。</p>
+  </div>
+
+  <div class="rex-line">
+    <div class="rex-line-header">
+      <span class="rex-line-name">AI Workflow</span>
+      <span class="rex-line-summary">你正在製造的工具可能是新一代的成癮設備 ── 設計倫理是核心議題</span>
+    </div>
+    <div class="rex-chapters">
+      <span class="rex-ch-tag">★ Ch4 AI</span>
+      <span class="rex-ch-tag">★ Ch6 成癮</span>
+      <span class="rex-ch-tag">★ Ch1 位置</span>
+      <span class="rex-ch-tag">Ch7 意識</span>
+      <span class="rex-ch-tag">Ch9 自由意志</span>
+    </div>
+    <p>Ch4 是這條線的核心：人工神經網絡的源頭是大腦，AI 革命實際上是「我們對大腦的逆向工程」。意涵：你建工作流時不是在「使用一個工具」，是在「複製人類認知的某個片段」──這個自覺會改變你的設計選擇。Ch6 警告你：<em>當你的 AI workflow 讓人「不需要思考就能得到結果」時，你正在繞過使用者的 PFC，直接刺激他們的 VTA</em>。這跟賭博 app、短影片是同一個機制，差別只在劑量。Ch1 給你哲學基礎：「你」是分散在 86 億神經元的湍流，所以 AI 自動化某個「子過程」不會威脅整體的「你」──但<strong>當所有子過程都被自動化，剩下的「你」是什麼？</strong>這個問題沒有簡單答案，但需要你定期思考。Ch7 的意識章節：你建的 AI 沒有意識（目前），但它的輸出會影響使用者的意識。Ch9 的自由意志章節：使用者的「選擇用你的工具」常常是被你的 UI 設計引導的──這給了你巨大的影響力，也巨大的責任。</p>
+  </div>
+
+  <h3 style="margin-top: 30px;">優先級提示</h3>
+  <p>如果只能選 4 章重讀（一條線一章），順序是：<strong>叡思影像 → Ch2</strong>（情緒影像的神經結構）；<strong>南山人壽 → Ch10</strong>（死亡焦慮的科學）；<strong>人情經濟 → Ch7</strong>（意識的盲點）；<strong>AI Workflow → Ch6</strong>（成癮機制 = 你工具的設計風險）。這四章合起來是書對你的最高密度價值點。</p>
+</section>
+
+<!-- ============= SECTION 10 ============= -->
+<section class="toc-integration" id="s10">
+  <div class="section-num">10</div>
+  <div class="section-label">SECTION 10 · TOC 神經學修訂</div>
+  <h2 class="section-title" style="color: var(--text-primary);">「習慣慣性」的全書級神經學修訂</h2>
+  <p class="section-desc">Rex 你過去的 TOC 分析反覆把「習慣慣性」標為主要瓶頸。這一章把整本書對這個診斷的修訂集合起來</p>
+
+  <p>過去你的 TOC 分析中，「習慣慣性」被描述為「直覺、即時回饋的偏好 vs 結構化、延遲回饋的迴避」。這是行為層的描述。整本書給這個診斷三個關鍵的神經學修訂：</p>
+
+  <div class="revision-block">
+    <div class="revision-num">REVISION 01 · 來自 Ch6</div>
+    <h4>這不是行為慣性，是被改寫的神經結構</h4>
+    <p>過去你可能還隱含期望「靠意志力 + 重複可以扭轉」。但 Cham 第 6 章明確：反覆走直覺路徑會<strong>物理性削弱 PFC 對該行為的監督迴路</strong>，並<strong>提高反向校準</strong>，讓結構化系統感覺起來特別累。</p>
+    <p>意涵：所有「需要意志力」的策略本質上都假設了一個健康的 PFC 在執行。但若你的習慣已經反覆強化到改寫 PFC 對它的監督機制，意志力策略會<em>系統性失效</em>。對策不是更強的意志，是<strong>繞開 PFC 的環境設計</strong>（Ch6 conditioned place preference）。</p>
+  </div>
+
+  <div class="revision-block">
+    <div class="revision-num">REVISION 02 · 來自 Ch6 + Ch9</div>
+    <h4>「多線業務」是反向校準的擴大器，不只是時間管理問題</h4>
+    <p>你之前的記憶資料中提到：「多線業務結構會重置習慣形成」。神經學的補充版是：<strong>每次 context-switch 都觸發短暫的多巴胺需求</strong>（找到「我這條線該做什麼」的快感），讓你的整體獎賞系統永遠處於高刺激基線。</p>
+    <p>所以你不只是在四條線間切換，你是在<em>四種不同的多巴胺供給之間切換</em>。每條線的「結構化系統」對應到一個更陡的反向校準。Ch9 的自由意志暗示加進來會更深刻：<strong>「我要切換到 X 線」這個決定，可能在你意識到它之前 10 秒就被你的大腦做完了</strong>──這意味著「我要更專注」這個意圖本身可能是事後敘事，無法直接執行。</p>
+  </div>
+
+  <div class="revision-block">
+    <div class="revision-num">REVISION 03 · 來自 Ch6 + Ch8 + Ch11</div>
+    <h4>解法不是「更努力」，是「給結構植入即時回饋」+「重設基線」+「重定義什麼是進步」</h4>
+    <p>這是整本書對你 TOC 分析最有價值的單一洞見。三層複合對策：</p>
+    <p><strong>① 給結構化系統植入即時回饋（Ch6）</strong>：讓多巴胺系統認識結構化任務。具體 SOP：填模板後立刻顯示「預估節省時間 +XX 分鐘」；結構化決策後立刻看到「決策樹深度：3 層」這類儀表板數字；完成 CRM 填寫看到「本月觸點數：7→8」即時跳升。這些都是給 VTA 一個小小的「This is important!」訊號。</p>
+    <p><strong>② 定期重設多巴胺基線（Ch8）</strong>：Lembke 的「多巴胺禁食」（dopamine fasting）做法。每週至少有半天無刺激（無社群、無工作、無新內容輸入）。讓蹺蹺板回到中位。這不是浪費時間，是讓所有後續的結構化工作能感覺起來「有獎勵」。</p>
+    <p><strong>③ 重新定義什麼是「有進度」（Ch11）</strong>：書最後 Ch11 的暗線是──人類獨特性不是「達成目標」，是「持續想理解」。把這個用到你的 TOC 上：<strong>「習慣慣性」可能永遠存在，但你的進步不是消除它，是發展出與它共存的新工具</strong>。每次發現新工具，本身就是 Ch11 意義上的「進步」。</p>
+  </div>
+
+  <h3 style="margin-top: 28px;">把三個修訂合併</h3>
+  <p>用一個句子壓縮全書對你 TOC 瓶頸的修訂：<strong>「習慣慣性」是被你過去幾百次選擇物理性塑造的神經結構，不是道德缺陷；對抗它無效，但繞開它（環境設計）+ 安撫它（即時回饋）+ 重設它（基線管理）+ 重定義進步（持續探索）四管齊下，是可以共存的。</strong></p>
+  <p>這個版本比過去的 TOC 描述準確得多，也仁慈得多。仁慈不是寬容，是把問題放回它真正的尺度。</p>
+</section>
+
+<!-- ============= SECTION 11 ============= -->
+<section class="card" id="s11">
+  <div class="section-num">11</div>
+  <div class="section-label">SECTION 11</div>
+  <h2 class="section-title">立即可用清單</h2>
+  <p class="section-desc">從全書 11 章萃取的可執行行動 ── 分三個時間維度</p>
+
+  <!-- 本週啟動 -->
+  <div class="action-tier">
+    <div class="action-tier-header">
+      <div class="action-tier-name">本週啟動 · 5 個微行動</div>
+      <div class="action-tier-time">5–15 分鐘 · 立刻可做</div>
+    </div>
+    <ul class="action-list">
+      <li class="action-item">
+        <span class="action-num">01</span>
+        <div class="action-text">
+          <span class="action-name">Wanting / Liking 日記</span><span class="action-source">Ch6</span>
+          <div class="action-detail">每次抓手機 / 開新頁籤 / 切換業務線之前，先在便條紙寫一行：「我現在是想要還是喜歡？」目標不是停下來，是把無意識變有意識──讓 PFC 重新上線。連續 7 天即可。</div>
+        </div>
+      </li>
+      <li class="action-item">
+        <span class="action-num">02</span>
+        <div class="action-text">
+          <span class="action-name">觸發物地圖</span><span class="action-source">Ch6</span>
+          <div class="action-detail">花 15 分鐘列出：哪些地點 / 時段 / 人物 / app 圖示，會自動觸發你「直覺出手」模式（譬如咖啡店一坐下就想開 LINE 回客戶）。Pavlovian 制約一旦看見，就有機會改造環境而非對抗環境。</div>
+        </div>
+      </li>
+      <li class="action-item">
+        <span class="action-num">03</span>
+        <div class="action-text">
+          <span class="action-name">死亡冥想 5 分鐘</span><span class="action-source">Ch10</span>
+          <div class="action-detail">每天早上花 5 分鐘思考「如果這是我這輩子最後一個月的工作，我今天要做什麼？」這不是悲觀，是利用 Becker 的「象徵性自我」機制反向工程：清晰看見什麼真正重要。對你的多線決策有篩選作用。</div>
+        </div>
+      </li>
+      <li class="action-item">
+        <span class="action-num">04</span>
+        <div class="action-text">
+          <span class="action-name">注意力錨點</span><span class="action-source">Ch7</span>
+          <div class="action-detail">每天三次（早午晚）做 60 秒練習：閉眼，把注意力放在呼吸上，不評判任何思緒。這是強化 PFC 對 VTA 下行調控的最低劑量起點。Sara Lazar 的 fMRI 研究顯示這個練習真的會改變大腦結構（持續才會）。</div>
+        </div>
+      </li>
+      <li class="action-item">
+        <span class="action-num">05</span>
+        <div class="action-text">
+          <span class="action-name">未知地圖</span><span class="action-source">Ch11</span>
+          <div class="action-detail">每週日花 10 分鐘寫下「這週我遇到、但還不理解的三件事」。這不是要你解答，是訓練「持續想理解」的肌肉──Ch11 的人類獨特性。對長期的好奇心健康極重要，也是對抗 burnout 的有效預防。</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 本月實驗 -->
+  <div class="action-tier">
+    <div class="action-tier-header">
+      <div class="action-tier-name">本月實驗 · 3 個系統改造</div>
+      <div class="action-tier-time">需要 2-4 週驗證</div>
+    </div>
+    <ul class="action-list">
+      <li class="action-item">
+        <span class="action-num">01</span>
+        <div class="action-text">
+          <span class="action-name">即時回饋儀表板</span><span class="action-source">Ch6 修訂版核心</span>
+          <div class="action-detail">挑你最常逃避的一個結構化任務（CRM、SOP、計劃文件），給它加一個簡單的儀表板：完成度條 + 預估節省時間 + 連續完成天數。第一個版本只要 Notion 公式或 Google Sheet 就好。目標：給 VTA 一個「結構化任務也很重要」的訊號。月底評估這個任務的執行率變化。</div>
+        </div>
+      </li>
+      <li class="action-item">
+        <span class="action-num">02</span>
+        <div class="action-text">
+          <span class="action-name">群體意識練習</span><span class="action-source">Ch7 + Ch3</span>
+          <div class="action-detail">每週一次，挑一個你「容易產生內團體偏見」的場合（同業聚會、客戶社群、紫微圈），刻意去理解一個立場與你不同的人。不是辯論，是<em>真正試著看見他們的世界觀</em>。Ch3 的內團體偏見可以被多元接觸減弱。對你的「人情經濟」工作是直接訓練。</div>
+        </div>
+      </li>
+      <li class="action-item">
+        <span class="action-num">03</span>
+        <div class="action-text">
+          <span class="action-name">自由意志暫停練習</span><span class="action-source">Ch9</span>
+          <div class="action-detail">每天三次，當你「想做某件事」的衝動出現時（開 app、切換任務、打電話），刻意暫停 30 秒。這不是壓抑，是觀察──觀察「衝動」與「選擇」之間的時間差。Ch9 暗示這個時間差可能是 fMRI 預測你決定的 10 秒中你能介入的窗口。連續一個月，你對自己「自動駕駛」的覺察會明顯提高。</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <!-- 長期追蹤 -->
+  <div class="action-tier">
+    <div class="action-tier-header">
+      <div class="action-tier-name">長期追蹤 · 1 個核心指標</div>
+      <div class="action-tier-time">3-12 個月觀察</div>
+    </div>
+    <ul class="action-list">
+      <li class="action-item">
+        <span class="action-num">01</span>
+        <div class="action-text">
+          <span class="action-name">「結構化深度工作」每週時數</span><span class="action-source">Ch6+Ch8 整合</span>
+          <div class="action-detail">每週統計：你在無干擾、有結構（按 SOP 或計劃）、產出延遲回饋型工作（深度文件、長期策略、系統建構）的累計時數。基準值是現在的數字（先測 1 週做基準）。目標不是衝高，是<em>觀察隨著上述行動的執行，這個數字是否緩慢上升</em>。如果三個月後上升 30%，意味著你的獎賞系統重新校準有效。如果沒變，需要重新檢視策略。這是一個誠實的 TOC 指標。</div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============= SECTION 12 ============= -->
+<section class="card" id="s12">
+  <div class="section-num">12</div>
+  <div class="section-label">SECTION 12</div>
+  <h2 class="section-title">自我檢核 · 收束</h2>
+  <p class="section-desc">5 個尖銳的全書級問題 ── 加上一個比喻，把 11 章壓縮成一個畫面</p>
+
+  <h3>5 個自我檢核問題</h3>
+  <div class="questions">
+    <div class="question">過去三個月，我四條業務線中，<strong>哪一條最常觸發我的「即時行動 → 多巴胺尖峰」</strong>？在這條線上我是否有過產出與時間嚴重不成比例的時期？這代表我可能在哪個層級被獎賞系統劫持？</div>
+    <div class="question">如果有人觀察我的一天，他們會說我看起來像<strong>「為了結果在工作」</strong>，還是<strong>「為了被需要的感覺在工作」</strong>？這兩者長得很像，但神經學上是非常不同的兩個迴路。我的客戶 / 家人 / 自己，能分辨嗎？</div>
+    <div class="question">我建構的 AI 自動化工具中，是否有任何一個正在<strong>降低使用者「自己思考」的肌肉強度</strong>，而我沒注意到？如果有，我願意接受 Ch11 意義上的責任：我製造的東西正在改變人類大腦的長期結構嗎？</div>
+    <div class="question">我做紫微諮詢、人情經濟、影像提案時，有多少比例的互動，事後我說不出「我從這個對話中具體理解了對方的什麼」？只記得「氛圍很好」可能是 Ch7「意識盲點」的訊號，意味著我看到的不是對方，是我大腦合成的版本。</div>
+    <div class="question">如果 Ch9 是對的，<strong>我「決定改變習慣」這個決定本身就可能是大腦 10 秒前就做完的事的事後解讀</strong>──那我是不是該把改變策略從「我下定決心」轉為「設計使我下次決定不一樣的環境」？這個從<em>意志層</em>到<em>系統層</em>的翻譯，我做了多少？</div>
+  </div>
+
+  <div class="metaphor-box">
+    <div class="metaphor-label">FINAL METAPHOR · 一個畫面收束 11 章</div>
+    <p class="metaphor-text">
+      這本書是一張大腦的解剖圖。<br>
+      但每個器官都有兩個標籤 ──<br>
+      一個是科學名（VTA、海馬迴、前額葉）；<br>
+      另一個是人生名（你想要的、你記得的、你害怕的）。<br><br>
+      讀完才會發現：<br>
+      不是大腦在運作你的人生，<br>
+      <strong style="color: var(--accent-violet); font-style: normal;">是你的人生本來就是大腦的運作。</strong><br><br>
+      中間沒有翻譯，只有同一件事的兩個說法。
+    </p>
+  </div>
+
+  <h3>給 Rex 的最後一句</h3>
+  <p>讀完這本書，最大的價值不是「我懂了大腦」，是「我不再認為『懂自己』是一個可以完成的目標」。<strong>持續想懂</strong>，本身就是 Ch11 意義上的人類獨特性。你的多線業務、你的人情經濟、你的 AI workflow──都是這個「持續想懂」的不同表達。</p>
+  <p>不是要你「克服習慣慣性」，是要你<em>持續用更精密的工具去與它共存</em>。這跟全書最後一句精神一致：whether or not we have free will, the best choice is to enjoy the ride.</p>
+</section>
+
+<footer class="footer">
+  Out of Your Mind · Jorge Cham &amp; Dwayne Godwin · Knopf Doubleday 2025<br>
+  Deep Read · 12 Sections · For Rex · 超級大腦讀書法整合輸出
+</footer>
+
+</div>
+</body>
+</html>
