@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>脆弱的力量 · 超級大腦深度解構</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F2EA;
+    --bg-soft: #FBF7F0;
+    --card: #FFFFFF;
+    --text: #2D2520;
+    --text-soft: #5B544E;
+    --text-muted: #9B9590;
+    --sage: #94A684;
+    --sage-deep: #6F8266;
+    --rose: #D5A4A0;
+    --rose-deep: #B87E7A;
+    --butter: #D4A574;
+    --butter-deep: #B48555;
+    --cocoa: #6B574B;
+    --border: rgba(45, 37, 32, 0.08);
+    --border-strong: rgba(45, 37, 32, 0.15);
+    --shadow-sm: 0 2px 8px rgba(45, 37, 32, 0.04);
+    --shadow: 0 4px 24px rgba(45, 37, 32, 0.06);
+    --shadow-lg: 0 12px 48px rgba(45, 37, 32, 0.08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans TC', 'Pretendard', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    font-weight: 400;
+    line-height: 1.85;
+    letter-spacing: 0.01em;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection { background: var(--rose); color: white; }
+
+  /* ===== Navigation ===== */
+  .nav {
+    position: sticky;
+    top: 0;
+    background: rgba(247, 242, 234, 0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    padding: 16px 0;
+  }
+  .nav-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .nav-logo {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--cocoa);
+    white-space: nowrap;
+  }
+  .nav-logo .dot { color: var(--rose-deep); }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    font-size: 13px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .nav-links::-webkit-scrollbar { display: none; }
+  .nav-links a {
+    color: var(--text-soft);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color 0.2s;
+    letter-spacing: 0.05em;
+  }
+  .nav-links a:hover { color: var(--rose-deep); }
+
+  /* ===== Hero ===== */
+  .hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 100px 32px 80px;
+    text-align: center;
+    position: relative;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    color: var(--sage-deep);
+    text-transform: uppercase;
+    background: rgba(148, 166, 132, 0.12);
+    padding: 8px 20px;
+    border-radius: 999px;
+    margin-bottom: 32px;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: clamp(38px, 6vw, 64px);
+    font-weight: 700;
+    line-height: 1.25;
+    color: var(--text);
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+  }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--rose-deep);
+    font-weight: 700;
+  }
+  .hero-sub {
+    font-family: 'Inter', 'Noto Sans TC', sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--text-muted);
+    letter-spacing: 0.15em;
+    margin-bottom: 40px;
+  }
+  .hero-meta {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    font-size: 13px;
+    color: var(--text-soft);
+    flex-wrap: wrap;
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 8px; }
+  .hero-meta .label {
+    color: var(--text-muted);
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-size: 10px;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 1px;
+    background: var(--border-strong);
+    margin: 60px auto 0;
+  }
+
+  /* ===== Container ===== */
+  .container {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 32px;
+  }
+
+  /* ===== Section ===== */
+  .section { padding: 80px 0; }
+  .section-head {
+    margin-bottom: 48px;
+    text-align: center;
+  }
+  .section-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.4em;
+    color: var(--rose-deep);
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .section-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    letter-spacing: 0.02em;
+  }
+  .section-sub {
+    font-family: 'Inter', 'Noto Sans TC', sans-serif;
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.12em;
+    font-weight: 300;
+  }
+
+  /* ===== Card ===== */
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+  }
+  .card-soft {
+    background: var(--bg-soft);
+    border: 1px solid var(--border);
+  }
+
+  /* ===== Info Grid ===== */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 16px 32px;
+    align-items: start;
+  }
+  .info-grid dt {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    padding-top: 4px;
+  }
+  .info-grid dd {
+    color: var(--text-soft);
+    line-height: 1.85;
+  }
+  .info-grid dd strong { color: var(--text); font-weight: 600; }
+
+  /* ===== Pull Quote ===== */
+  .quote {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 22px;
+    line-height: 1.75;
+    color: var(--cocoa);
+    padding: 32px 40px;
+    border-left: 3px solid var(--rose);
+    background: linear-gradient(90deg, rgba(213, 164, 160, 0.06) 0%, transparent 100%);
+    border-radius: 0 16px 16px 0;
+    margin: 32px 0;
+    font-weight: 500;
+  }
+  .quote-sage { border-left-color: var(--sage); background: linear-gradient(90deg, rgba(148, 166, 132, 0.08) 0%, transparent 100%); }
+  .quote-butter { border-left-color: var(--butter); background: linear-gradient(90deg, rgba(212, 165, 116, 0.08) 0%, transparent 100%); }
+
+  /* ===== Three-Act ===== */
+  .acts { display: grid; gap: 16px; }
+  .act {
+    background: var(--card);
+    padding: 32px;
+    border-radius: 16px;
+    border-left: 4px solid var(--sage);
+    box-shadow: var(--shadow-sm);
+  }
+  .act:nth-child(2) { border-left-color: var(--rose); }
+  .act:nth-child(3) { border-left-color: var(--butter); }
+  .act-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+  .act-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+  .act p { color: var(--text-soft); font-size: 15px; }
+
+  /* ===== Table ===== */
+  .table-wrap {
+    background: var(--card);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+  th {
+    background: rgba(148, 166, 132, 0.08);
+    color: var(--cocoa);
+    font-family: 'Inter', 'Noto Sans TC', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 16px 20px;
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    border-bottom: 1px solid var(--border-strong);
+  }
+  td {
+    padding: 16px 20px;
+    color: var(--text-soft);
+    border-bottom: 1px solid var(--border);
+    line-height: 1.7;
+  }
+  tr:last-child td { border-bottom: none; }
+  td.num { font-family: 'Inter', sans-serif; font-weight: 600; color: var(--rose-deep); width: 60px; }
+  td.title { color: var(--text); font-weight: 500; }
+  .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+  }
+  .tag-1 { background: rgba(148, 166, 132, 0.15); color: var(--sage-deep); }
+  .tag-2 { background: rgba(213, 164, 160, 0.15); color: var(--rose-deep); }
+  .tag-3 { background: rgba(212, 165, 116, 0.15); color: var(--butter-deep); }
+
+  /* ===== Core Proposition ===== */
+  .core {
+    background: linear-gradient(135deg, #fbf7f0 0%, #f5ecdf 100%);
+    padding: 56px 48px;
+    border-radius: 24px;
+    border: 1px solid var(--border);
+  }
+  .core-row {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 24px;
+    padding: 24px 0;
+    border-bottom: 1px dashed var(--border-strong);
+  }
+  .core-row:last-child { border-bottom: none; }
+  .core-label {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--rose-deep);
+  }
+  .core-text { color: var(--text); font-size: 16px; line-height: 1.85; }
+
+  /* ===== Chapter Cards (Module 5) ===== */
+  .chapters { display: grid; gap: 20px; }
+  .ch {
+    background: var(--card);
+    border-radius: 18px;
+    padding: 32px 36px;
+    box-shadow: var(--shadow-sm);
+    border-top: 3px solid var(--sage);
+  }
+  .ch:nth-child(3n+2) { border-top-color: var(--rose); }
+  .ch:nth-child(3n+3) { border-top-color: var(--butter); }
+  .ch-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border);
+  }
+  .ch-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--rose-deep);
+    letter-spacing: 0.1em;
+  }
+  .ch-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 19px;
+    font-weight: 600;
+    color: var(--text);
+    flex: 1;
+  }
+  .ch-core {
+    font-style: italic;
+    color: var(--cocoa);
+    margin-bottom: 20px;
+    font-size: 15px;
+    padding-left: 16px;
+    border-left: 2px solid var(--butter);
+  }
+  .ch-block { margin-bottom: 16px; }
+  .ch-block:last-child { margin-bottom: 0; }
+  .ch-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--sage-deep);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .ch-block ol, .ch-block ul {
+    padding-left: 20px;
+    color: var(--text-soft);
+    font-size: 14.5px;
+  }
+  .ch-block ol li, .ch-block ul li { margin-bottom: 4px; }
+  .ch-block p { color: var(--text-soft); font-size: 14.5px; }
+
+  /* ===== Insight Cards ===== */
+  .insights { display: grid; gap: 24px; }
+  .insight {
+    background: var(--card);
+    padding: 36px;
+    border-radius: 18px;
+    box-shadow: var(--shadow-sm);
+  }
+  .insight h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 20px;
+    color: var(--text);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .insight h3::before {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--rose);
+  }
+  .insight p { color: var(--text-soft); margin-bottom: 12px; }
+  .insight ul { padding-left: 20px; color: var(--text-soft); }
+  .insight ul li { margin-bottom: 8px; }
+
+  /* ===== Cross-reference (Module 7) ===== */
+  .cross { display: grid; gap: 32px; }
+  .cross-block {
+    background: var(--card);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+  }
+  .cross-block h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 22px;
+    color: var(--cocoa);
+    margin-bottom: 24px;
+    padding-bottom: 16px;
+    border-bottom: 1px dashed var(--border-strong);
+  }
+  .cross-block h4 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 17px;
+    color: var(--text);
+    margin: 20px 0 8px;
+  }
+  .cross-block p { color: var(--text-soft); margin-bottom: 12px; }
+
+  .vs-box {
+    background: var(--bg-soft);
+    padding: 24px;
+    border-radius: 12px;
+    margin-bottom: 16px;
+  }
+  .vs-box .vs {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--rose-deep);
+    margin: 0 12px;
+  }
+
+  .chain {
+    font-family: 'Inter', 'Noto Sans TC', sans-serif;
+    background: var(--bg-soft);
+    padding: 16px 24px;
+    border-radius: 12px;
+    color: var(--cocoa);
+    font-weight: 500;
+    text-align: center;
+    margin: 16px 0;
+    font-size: 14px;
+  }
+
+  .principle {
+    background: linear-gradient(135deg, rgba(148, 166, 132, 0.08) 0%, rgba(212, 165, 116, 0.08) 100%);
+    padding: 28px 32px;
+    border-radius: 16px;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+  }
+  .principle-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--sage-deep);
+    letter-spacing: 0.2em;
+    margin-bottom: 8px;
+  }
+  .principle-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  /* ===== Action Steps ===== */
+  .actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .action {
+    background: var(--card);
+    padding: 32px;
+    border-radius: 18px;
+    box-shadow: var(--shadow-sm);
+  }
+  .action-icon {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  .action-time {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.25em;
+    color: var(--rose-deep);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .action h4 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 18px;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+  .action ol { padding-left: 20px; color: var(--text-soft); font-size: 14.5px; }
+  .action ol li { margin-bottom: 8px; }
+
+  /* ===== Tabs (Module 11) ===== */
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .tab-btn {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-size: 14px;
+    padding: 12px 24px;
+    border-radius: 999px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text-soft);
+    cursor: pointer;
+    transition: all 0.25s;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+  }
+  .tab-btn:hover { color: var(--rose-deep); border-color: var(--rose); }
+  .tab-btn.active {
+    background: var(--cocoa);
+    color: var(--bg-soft);
+    border-color: var(--cocoa);
+  }
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; animation: fade 0.4s ease; }
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ===== Scene Cards ===== */
+  .scenes { display: grid; gap: 24px; }
+  .scene {
+    background: var(--card);
+    padding: 36px;
+    border-radius: 20px;
+    box-shadow: var(--shadow-sm);
+  }
+  .scene-num {
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--rose-deep);
+    background: rgba(213, 164, 160, 0.12);
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+  }
+  .scene-title {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+  .scene p { color: var(--text-soft); margin-bottom: 14px; }
+  .scene ul, .scene ol { color: var(--text-soft); padding-left: 22px; margin-bottom: 14px; }
+  .scene li { margin-bottom: 6px; }
+  .scene h4 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 16px;
+    color: var(--cocoa);
+    margin: 20px 0 12px;
+  }
+  .scene strong { color: var(--text); font-weight: 600; }
+
+  .reframe-box {
+    background: linear-gradient(135deg, #fef6f1 0%, #faeee2 100%);
+    padding: 28px 32px;
+    border-radius: 16px;
+    margin: 16px 0;
+    border-left: 4px solid var(--butter-deep);
+  }
+  .reframe-box .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: var(--butter-deep);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .reframe-box p { color: var(--cocoa); font-size: 15px; margin: 0; }
+
+  .compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+  }
+  .compare > div {
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 14px;
+  }
+  .compare-bad { background: rgba(213, 164, 160, 0.1); border: 1px solid rgba(213, 164, 160, 0.2); }
+  .compare-good { background: rgba(148, 166, 132, 0.1); border: 1px solid rgba(148, 166, 132, 0.2); }
+  .compare-bad .label { color: var(--rose-deep); font-weight: 700; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.15em; margin-bottom: 8px; }
+  .compare-good .label { color: var(--sage-deep); font-weight: 700; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 0.15em; margin-bottom: 8px; }
+
+  .warning {
+    background: rgba(212, 165, 116, 0.08);
+    border: 1px solid rgba(212, 165, 116, 0.25);
+    border-radius: 16px;
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+  .warning .label {
+    font-family: 'Inter', 'Noto Sans TC', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--butter-deep);
+    margin-bottom: 12px;
+    letter-spacing: 0.1em;
+  }
+  .warning ul { color: var(--text-soft); padding-left: 22px; margin: 0; }
+
+  /* ===== Resources ===== */
+  .resources { display: grid; gap: 16px; }
+  .resource {
+    background: var(--card);
+    padding: 24px 28px;
+    border-radius: 14px;
+    border-left: 3px solid var(--sage);
+    box-shadow: var(--shadow-sm);
+  }
+  .resource:nth-child(2) { border-left-color: var(--rose); }
+  .resource:nth-child(3) { border-left-color: var(--butter); }
+  .resource:nth-child(4) { border-left-color: var(--cocoa); }
+  .resource:nth-child(5) { border-left-color: var(--sage-deep); }
+  .resource-type {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .resource ul { padding-left: 0; list-style: none; }
+  .resource li { color: var(--text-soft); margin-bottom: 6px; font-size: 14.5px; }
+
+  /* ===== Footer ===== */
+  .footer {
+    margin-top: 100px;
+    padding: 80px 32px 60px;
+    background: var(--cocoa);
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+  }
+  .footer-quote {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 28px;
+    line-height: 1.6;
+    color: white;
+    max-width: 700px;
+    margin: 0 auto 32px;
+    font-weight: 600;
+  }
+  .footer-quote em {
+    font-style: normal;
+    color: var(--rose);
+  }
+  .footer-meta {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    letter-spacing: 0.3em;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
+    margin-top: 60px;
+  }
+
+  /* ===== Reflection ===== */
+  .reflection {
+    background: linear-gradient(135deg, #fbf7f0 0%, #f5ecdf 50%, #f8e9e6 100%);
+    padding: 56px 48px;
+    border-radius: 24px;
+    margin-top: 40px;
+  }
+  .reflection h3 {
+    font-family: 'Noto Serif TC', serif;
+    font-size: 24px;
+    color: var(--cocoa);
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .reflection ol {
+    padding-left: 20px;
+    color: var(--text);
+  }
+  .reflection ol li {
+    margin-bottom: 16px;
+    line-height: 1.85;
+    padding-left: 8px;
+  }
+  .reflection ol li::marker { color: var(--rose-deep); font-weight: 700; }
+
+  /* ===== Decorative ===== */
+  .ornament {
+    text-align: center;
+    margin: 40px 0;
+    color: var(--text-muted);
+    letter-spacing: 1em;
+    font-size: 12px;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero { padding: 60px 24px 40px; }
+    .container { padding: 0 20px; }
+    .section { padding: 60px 0; }
+    .card, .cross-block, .insight, .scene { padding: 24px; }
+    .info-grid { grid-template-columns: 1fr; gap: 4px 0; }
+    .info-grid dt { padding-top: 12px; }
+    .info-grid dd { padding-bottom: 8px; }
+    .core { padding: 32px 24px; }
+    .core-row { grid-template-columns: 80px 1fr; gap: 12px; }
+    .compare { grid-template-columns: 1fr; }
+    .reflection { padding: 32px 24px; }
+    .footer-quote { font-size: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-logo">脆弱的力量 <span class="dot">·</span> <span style="font-family:'Inter',sans-serif;font-weight:300;font-size:13px;color:var(--text-muted);">Deep Reading</span></div>
+    <div class="nav-links">
+      <a href="#m01">資料</a>
+      <a href="#m02">三幕</a>
+      <a href="#m03">章節</a>
+      <a href="#m04">命題</a>
+      <a href="#m05">解析</a>
+      <a href="#m06">洞見</a>
+      <a href="#m07">交叉</a>
+      <a href="#m08">行動</a>
+      <a href="#m11">透鏡</a>
+      <a href="#m12">延伸</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<header class="hero">
+  <div class="hero-tag">SUPER BRAIN READING · 深度解構</div>
+  <h1>脆弱的<em>力量</em></h1>
+  <div class="hero-sub">THE POWER OF VULNERABILITY · BRENÉ BROWN</div>
+  <div class="hero-meta">
+    <span><span class="label">講者</span> Brené Brown</span>
+    <span><span class="label">場合</span> TEDxHouston 2010</span>
+    <span><span class="label">分析模組</span> 12 / 12</span>
+    <span><span class="label">個人化透鏡</span> 4 種角色</span>
+  </div>
+  <div class="hero-divider"></div>
+</header>
+
+<!-- Module 01: Speaker Card -->
+<section id="m01" class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">MODULE 01</div>
+      <h2 class="section-title">演講資料卡</h2>
+      <div class="section-sub">SPEAKER & CONTEXT</div>
+    </div>
+
+    <div class="card">
+      <dl class="info-grid">
+        <dt>SPEAKER</dt>
+        <dd><strong>Brené Brown</strong> — 休士頓大學社會工作學院研究教授，質性研究者，專攻羞愧、脆弱、勇氣、同理心</dd>
+
+        <dt>EVENT</dt>
+        <dd>2010 年 TEDxHouston，後成為 TED 史上觀看次數前五的演講，破億次觀看</dd>
+
+        <dt>CREDENTIALS</dt>
+        <dd>學士、碩士、博士皆社會工作；十年田野研究；數千個故事、上百次深度訪談、焦點團體；後續出版《Daring Greatly》《Rising Strong》《Atlas of the Heart》</dd>
+
+        <dt>INTELLECTUAL ROOTS</dt>
+        <dd>質性研究／紮根理論（Glaser & Strauss）、社會工作人本傳統、Carl Rogers、Theodore Roosevelt 的「Man in the Arena」、Pema Chödrön 的不確定性哲學</dd>
+
+        <dt>OPPOSING TRADITIONS</dt>
+        <dd>實證主義（「測量不到就不存在」）、控制與預測典範、自助書的「五步驟解決脆弱」承諾</dd>
+      </dl>
+
+      <div class="quote">
+        十年研究證明：「全心全意活著的人」唯一的共同點是「相信自己值得被愛」，而抵達那裡的唯一通道是「擁抱脆弱」——這個發現徹底背叛了講者自己原本信奉的研究觀。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Module 02: Three Acts -->
+<section id="m02" class="section" style="background: var(--bg-soft);">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">MODULE 02</div>
+      <h2 class="section-title">認知遞進設計</h2>
+      <div class="section-sub">THREE-ACT STRUCTURE</div>
+    </div>
+
+    <div class="acts">
+      <div class="act">
+        <div class="act-num">ACT I</div>
+        <div class="act-title">研究員的傲慢與撞牆（段 1–5）</div>
+        <p>講者先建立自己「秩序狂、A 型人格、要把混亂打包進便當盒」的形象。她讓觀眾接受她「不可能是脆弱倡導者」的設定——這樣後面的轉折才有重量。她研究連結，撞上羞愧，又撞上脆弱。<strong>作者刻意讓自己看起來像最糟糕的脆弱代言人，再讓研究強迫她改變。</strong></p>
+      </div>
+      <div class="act">
+        <div class="act-num">ACT II</div>
+        <div class="act-title">重大發現與個人崩潰（段 6–10）</div>
+        <p>這是情緒的最低點。她發現了「全心全意活著的人」的祕密配方，然後親自跌進一年的精神崩潰。<strong>若她直接說「擁抱脆弱吧」，觀眾會抗拒；但她讓觀眾看見她自己掙扎了一年才能接受，觀眾就會覺得「如果連研究員都這麼難，我也不必感到羞愧」。</strong></p>
+      </div>
+      <div class="act">
+        <div class="act-num">ACT III</div>
+        <div class="act-title">社會診斷與解方（段 11–15）</div>
+        <p>她從個人轉到社會：我們作為一個文化在做什麼來逃避脆弱？答案是麻痺、確定化、完美化。最後的解方部分非常短，幾乎是丟下一個邀請——<strong>她不給五步驟，因為五步驟本身就是控制與預測的傲慢。</strong></p>
+      </div>
+    </div>
+
+    <div class="quote quote-sage" style="margin-top:40px;">
+      <strong>隱藏教學邏輯：</strong>講者用「先承認自己也抗拒 → 證明研究結果 → 親自崩潰 → 才能談解方」的順序，避開了所有自助講者最常掉進的陷阱——站在道德高地上要別人改變。
+    </div>
+  </div>
+</section>
+
+<!-- Module 03: Chapter Matrix -->
+<section id="m03" class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">MODULE 03</div>
+      <h2 class="section-title">完整章節速覽</h2>
+      <div class="section-sub">15-SECTION MATRIX</div>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr><th>#</th><th>段落主題</th><th>一句話精華</th><th>階段</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="num">01</td><td class="title">「研究員」vs「故事說書人」</td><td>學術自我認同的危機，預示全篇的「身分鬆動」主題</td><td><span class="tag tag-1">第一幕</span></td></tr>
+          <tr><td class="num">02</td><td class="title">求學背景：測量主義</td><td>「測不到就不存在」是她抗拒脆弱的源頭信仰</td><td><span class="tag tag-1">第一幕</span></td></tr>
+          <tr><td class="num">03</td><td class="title">研究連結</td><td>連結是人類存在的意義，但訪談中卻浮現「斷連」的故事</td><td><span class="tag tag-1">第一幕</span></td></tr>
+          <tr><td class="num">04</td><td class="title">撞上羞愧</td><td>羞愧 = 害怕「我不被連結」；普世存在；越不談越強大</td><td><span class="tag tag-1">第一幕</span></td></tr>
+          <tr><td class="num">05</td><td class="title">羞愧底下是脆弱</td><td>連結需要「真的被看見」，而被看見就要脆弱</td><td><span class="tag tag-1">第一幕</span></td></tr>
+          <tr><td class="num">06</td><td class="title">六年研究的關鍵變數</td><td>唯一的差別：「全心活著的人相信自己值得」</td><td><span class="tag tag-2">第二幕</span></td></tr>
+          <tr><td class="num">07</td><td class="title">全心全意者的四特質</td><td>勇氣、慈悲、連結、擁抱脆弱</td><td><span class="tag tag-2">第二幕</span></td></tr>
+          <tr><td class="num">08</td><td class="title">脆弱是「必要的」</td><td>先說「我愛你」、無保證投資、等候醫生來電</td><td><span class="tag tag-2">第二幕</span></td></tr>
+          <tr><td class="num">09</td><td class="title">個人崩潰 / 治療師對話</td><td>「不要原生家庭、不要童年——給我策略就好」</td><td><span class="tag tag-2">第二幕</span></td></tr>
+          <tr><td class="num">10</td><td class="title">一年的街頭巷戰</td><td>「我輸了這場仗，但贏回了我的人生」</td><td><span class="tag tag-2">第二幕</span></td></tr>
+          <tr><td class="num">11</td><td class="title">防衛機制 1：麻痺</td><td>美國史上最負債、肥胖、上癮、用藥的世代</td><td><span class="tag tag-3">第三幕</span></td></tr>
+          <tr><td class="num">12</td><td class="title">不能選擇性麻痺</td><td>麻痺壞情緒，同時也麻痺喜悅、感恩、快樂</td><td><span class="tag tag-3">第三幕</span></td></tr>
+          <tr><td class="num">13</td><td class="title">防衛機制 2：把不確定變確定</td><td>宗教獨斷化、政治只剩責備（責備 = 排放痛苦）</td><td><span class="tag tag-3">第三幕</span></td></tr>
+          <tr><td class="num">14</td><td class="title">防衛機制 3：完美化</td><td>完美化自己、完美化孩子（最危險）、企業假裝沒事</td><td><span class="tag tag-3">第三幕</span></td></tr>
+          <tr><td class="num">15</td><td class="title">真正的解方</td><td>被深刻看見、全心去愛、在恐懼中練感恩、相信自己夠好</td><td><span class="tag tag-3">第三幕</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- Module 04: Core Proposition -->
+<section id="m04" class="section" style="background: var(--bg-soft);">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">MODULE 04</div>
+      <h2 class="section-title">核心命題</h2>
+      <div class="section-sub">CORE THESIS</div>
+    </div>
+
+    <div class="core">
+      <div class="core-row">
+        <div class="core-label">問題</div>
+        <div class="core-text">為什麼有些人能感受到深刻的愛、歸屬感與連結，有些人卻終身掙扎於「我不夠好」？差別究竟在哪裡？</div>
+      </div>
+      <div class="core-row">
+        <div class="core-label">論點</div>
+        <div class="core-text">差別不在他們經歷了什麼，而在他們相信什麼——全心活著的人相信自己「值得」（worthy）。而通往「值得感」的唯一通道，是「擁抱脆弱」：願意被深刻看見、願意去愛沒有保證的事。</div>
+      </div>
+      <div class="core-row">
+        <div class="core-label">方法</div>
+        <div class="core-text">六年質性研究 → 紮根理論編碼 → 個人實踐驗證。<strong>注意：方法本身——「測量、控制、預測」——最終被研究結果反證並推翻。</strong></div>
+      </div>
+    </div>
+
+    <div class="quote quote-butter" style="margin-top:32px;">
+      <strong>這篇演講的最大反諷：</strong>一個用「控制與預測」的科學典範開始研究的人，研究結果告訴她「停止控制與預測才是活著的方式」。論證形式本身就是一種自我顛覆。
+    </div>
+  </div>
+</section>
+
+<!-- Module 05: Chapter Analysis -->
+<section id="m05" class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">MODULE 05</div>
+      <h2 class="section-title">逐段五維解析</h2>
+      <div class="section-sub">15 CHAPTERS · 5 DIMENSIONS EACH</div>
+    </div>
+
+    <div class="chapters">
+
+      <div class="ch">
+        <div class="ch-head"><div class="ch-num">SEG · 01</div><div class="ch-title">「研究員」vs「故事說書人」</div></div>
+        <div class="ch-core">身分標籤之爭，是全篇「自我接納」主題的微縮預告。</div>
+        <div class="ch-block"><div class="ch-label">關鍵洞見</div><ol><li>「故事是有靈魂的數據」——重新定義質性研究，讓敘事獲得學術正當性</li><li>「研究員-故事說書人」這個被否定的混合身分，正是她整篇演講要爭取的：<strong>人不必非此即彼</strong></li><li>她的不安全感讓觀眾立刻與她站在同一邊</li></ol></div>
+        <div class="ch-block"><div class="ch-label">立即可用</div><p>當你被要求用單一標籤定義自己時，問：我能不能發明一個混合詞？</p></div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-head"><div class="ch-num">SEG · 02</div><div class="ch-title">測量主義的童年</div></div>
+        <div class="ch-core">講者誠實揭露自己原本是「擁抱脆弱」最不可能的代言人。</div>
+        <div class="ch-block"><div class="ch-label">關鍵洞見</div><ol><li>「測不到就不存在」是現代理性主義的極端版本，也是控制焦慮的學術化身</li><li>社工教「俯身擁抱不舒服」，但她的反應是「給不舒服一拳，整理好它，拿全 A」</li><li>「Bento Box 整理人生」這個比喻為後面所有段落設定了參照框架</li></ol></div>
+        <div class="ch-block"><div class="ch-label">自我檢核</div><p>你用什麼工具去控制本來無法控制的東西？</p></div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-head"><div class="ch-num">SEG · 03</div><div class="ch-title">從「連結」開始的研究</div></div>
+        <div class="ch-core">人類存在的意義是連結；但問人們連結，他們會告訴你斷連。</div>
+        <div class="ch-block"><div class="ch-label">關鍵洞見</div><ol><li>「神經生物學上我們生來就為連結」——把人本主義主張降落到硬科學上</li><li>「老闆 37 個讚美和 1 個批評」——人類大腦的負面偏誤決定了訪談內容</li><li>研究一個東西，要研究它的反面：問愛得到心碎、問歸屬得到排擠</li></ol></div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-head"><div class="ch-num">SEG · 04</div><div class="ch-title">羞愧：未命名的怪物</div></div>
+        <div class="ch-core">羞愧 = 害怕「我有某種特質會讓我不值得連結」。</div>
+        <div class="ch-block"><div class="ch-label">關鍵洞見</div><ol><li><strong>羞愧的功能性定義</strong>：對斷連的恐懼，而非對某個錯誤的內疚</li><li><strong>普世性</strong>：唯一不感到羞愧的人，是沒有同理能力的人</li><li><strong>「越不談它，它越強大」</strong>——曝光在語言裡就會枯萎</li></ol></div>
+        <div class="ch-block"><div class="ch-label">立即可用</div><p>找一個信任的人，說出一件你從沒說過的「我不夠 X」感受。觀察羞愧縮小的速度。</p></div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-head"><div class="ch-num">SEG · 05</div><div class="ch-title">脆弱：羞愧底下的真相</div></div>
+        <div class="ch-core">要連結，就要被看見；要被看見，就要脆弱。</div>
+        <div class="ch-block"><div class="ch-label">關鍵洞見</div><ol><li>邏輯鏈：連結 ← 被看見 ← 脆弱。任何一步斷裂都無法到達連結</li><li>「我恨脆弱。所以這是我用測量棒打它的機會」——講者承認她原本想征服脆弱</li><li>更深的命題：<strong>我們追求的「被愛」，需要先付出「被看見」這個代價</strong></li></ol></div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-head"><div class="ch-num">SEG · 06</div><div class="ch-title">唯一的變數：值得感</div></div>
+        <div class="ch-core">六年數千個故事，最終濃縮成一句話——他們相信自己值得。</div>
+        <div class="ch-block"><div class="ch-label">關鍵洞見</div><ol><li>值得感不是有條件的（「我做到 X 才值得」），而是無條件的（「我就是值得」）</li><li>所有可以努力的東西都不是答案——這個發現破壞了她整個學術訓練</li><li>這個變數無法被外部給予</li></ol></div>
+        <div class="ch-block"><div class="ch-label">自我檢核</div><p>你今天做的事，有多少是因為相信自己值得，有多少是為了賺取值得感？</p></div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-head"><div class="ch-num">SEG · 07</div><div class="ch-title">全心全意者的四特質</div></div>
+        <div class="ch-core">勇氣（不完美）、慈悲（先對自己）、連結（放下「應該的我」）、擁抱脆弱（必要而非舒服）。</div>
+        <div class="ch-block"><div class="ch-label">關鍵洞見</div><ol><li><strong>「Courage 詞源是 cor（拉丁文：心）」——原意是「用整顆心訴說你是誰的故事」</strong></li><li>「無法慈悲對待別人，如果不能先對自己慈悲」——顛覆「先愛人後愛己」的順序</li><li>連結的代價是放下「我應該成為誰」——這個交易很多人不願意付</li></ol></div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-head"><div class="ch-num">SEG · 08</div><div class="ch-title">脆弱是「必要的」</div></div>
+        <div class="ch-core">脆弱不是舒服，也不是劇痛——它就是必要。</div>
+        <div class="ch-block"><div class="ch-label">關鍵洞見</div><ol><li>全心活著者既不浪漫化也不戲劇化它，只是當成空氣對待</li><li>三個經典場景：先說「我愛你」、做沒保證的事、等待醫生來電——<strong>全是「無法控制結果」的時刻</strong></li><li>「投資一段不一定會成的關係」——這是最反「投資理性」的句子</li></ol></div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-head"><div class="ch-num">SEG · 09</div><div class="ch-title">治療師對話：誠實的崩潰</div></div>
+        <div class="ch-core">「我有脆弱的問題。但不要原生家庭、不要童年——給我策略。」</div>
+        <div class="ch-block"><div class="ch-label">關鍵洞見</div><ol><li>講者仍想用「策略」來解決一個根本不能用策略解決的問題</li><li>治療師那句「不好也不壞，它就是它」——對 A 型人格的人是地獄回應，但是真理</li><li>這段是整篇演講的「謙卑時刻」</li></ol></div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-head"><div class="ch-num">SEG · 10</div><div class="ch-title">一年的街頭巷戰</div></div>
+        <div class="ch-core">「我輸了這場仗，但贏回了我的人生。」</div>
+        <div class="ch-block"><div class="ch-label">關鍵洞見</div><ol><li>她拒絕浪漫化轉變過程：不是「啊哈時刻」、不是「臣服」、是一年的肉搏與失敗</li><li>對抗自己的防衛機制就是一場必輸的仗，輸了才是贏</li><li>對所有「靈性覺醒在一個瞬間發生」的論述提出強烈反證</li></ol></div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-head"><div class="ch-num">SEG · 11</div><div class="ch-title">防衛機制 1：麻痺</div></div>
+        <div class="ch-core">我們是美國歷史上最負債、最肥胖、最上癮、最用藥的成人世代。</div>
+        <div class="ch-block"><div class="ch-label">關鍵洞見</div><ol><li>把脆弱與成癮社會學連起來——這個連結是公共衛生學界少有的詩意敘述</li><li>麻痺不限於物質——也包括強迫加班、滑手機、暴吃、追劇</li><li>「這是我們居住的世界」——把個人問題正常化為集體現象</li></ol></div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-head"><div class="ch-num">SEG · 12</div><div class="ch-title">不能選擇性麻痺</div></div>
+        <div class="ch-core">你麻痺脆弱、悲傷、羞愧、恐懼，你也同時麻痺喜悅、感恩、快樂。</div>
+        <div class="ch-block"><div class="ch-label">關鍵洞見</div><ol><li><strong>整場演講最重要的神經學斷言</strong>：情緒系統是整體的，不能模組化關閉</li><li>麻痺循環：感到痛苦 → 麻痺 → 失去喜悅 → 失去意義 → 更痛苦 → 更麻痺</li><li>直接攻擊消費主義「快樂可以被買、痛苦可以被消除」的核心承諾</li></ol></div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-head"><div class="ch-num">SEG · 13</div><div class="ch-title">防衛機制 2：把不確定變確定</div></div>
+        <div class="ch-core">宗教從信仰與奧祕變成獨斷；政治從對話變成責備；責備是排放痛苦的方式。</div>
+        <div class="ch-block"><div class="ch-label">關鍵洞見</div><ol><li><strong>「責備是排放痛苦的方式」</strong>——把責備從道德問題重新框架為情緒生理學</li><li>「我們越害怕，越脆弱，越害怕」——恐懼自我強化的循環</li><li>宗教與政治的退化是同一機制——對奧祕的不耐</li></ol></div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-head"><div class="ch-num">SEG · 14</div><div class="ch-title">防衛機制 3：完美化</div></div>
+        <div class="ch-core">完美化自己、完美化孩子（最危險），但孩子生來就是「為掙扎而設計」（hardwired for struggle）。</div>
+        <div class="ch-block"><div class="ch-label">關鍵洞見</div><ol><li><strong>「為掙扎而設計」顛覆「快樂童年」中產夢</strong>——孩子不是被保護免於掙扎，而是要被告知「你不完美，但你值得」</li><li>精準諷刺中產家長的焦慮輸出（「五年級進網球隊、七年級進耶魯」）</li><li>企業層級的完美化（產品召回、漏油）也是同一機制</li></ol></div>
+      </div>
+
+      <div class="ch">
+        <div class="ch-head"><div class="ch-num">SEG · 15</div><div class="ch-title">真正的解方（四個短句）</div></div>
+        <div class="ch-core">被深刻看見、全心去愛、在恐懼中練感恩、相信自己夠好。</div>
+        <div class="ch-block"><div class="ch-label">關鍵洞見</div><ol><li>解方很短，因為長解方本身就是控制思維——她拒絕給觀眾五步驟</li><li>「在那些恐懼時刻練習感恩」——感恩的革命性定義：不是事情順利時的禮貌，而是恐懼時刻的逆向操作</li><li><strong>「相信自己夠好」是整場演講的終極標靶</strong></li></ol></div>
+        <div class="ch-block"><div class="ch-label">立即可用</div><p>每晚睡前一句話：「今天我感到脆弱的那個時刻，意味著我活著。」</p></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Module 06: Four Insights -->
+<section id="m06" class="section" style="background: var(--bg-soft);">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">MODULE 06</div>
+      <h2 class="section-title">四類整合洞見</h2>
+      <div class="section-sub">META INSIGHTS</div>
+    </div>
+
+    <div class="insights">
+      <div class="insight">
+        <h3>6.1　隱藏的邏輯線</h3>
+        <p>整場演講的隱藏結構是<strong>「研究員的死亡與重生」的英雄旅程</strong>：</p>
+        <ul>
+          <li><strong>啟程</strong>：A 型人格研究員想征服「混亂的人生」</li>
+          <li><strong>試煉</strong>：撞上羞愧、撞上脆弱、撞上自己無法控制的研究結果</li>
+          <li><strong>深淵</strong>：個人崩潰、街頭巷戰</li>
+          <li><strong>寶藏</strong>：發現「值得感」是內在的，無法外部給予</li>
+          <li><strong>歸途</strong>：把寶藏帶回，但拒絕變成大師——她把自己的失敗與崩潰當作禮物</li>
+        </ul>
+        <p style="margin-top:12px;"><em>這個英雄旅程的版型本身就是反高潮的：英雄沒有變強，只是變得更願意被看見。</em></p>
+      </div>
+
+      <div class="insight">
+        <h3>6.2　作者的潛台詞</h3>
+        <ul>
+          <li><strong>假設 1</strong>：人類有一個「真實自我」被防衛機制掩蓋。脆弱是回到真實自我的鑰匙。</li>
+          <li><strong>假設 2</strong>：個人改變足以帶來社會改變。她沒有討論結構性問題（貧窮、種族、健保）如何讓「擁抱脆弱」對某些群體比其他群體更危險。</li>
+          <li><strong>假設 3</strong>：「全心活著的人」是可清晰識別的群體——但這種二分法可能掩蓋了光譜的存在。</li>
+          <li><strong>假設 4</strong>：北美中產階級的脆弱經驗具有普世性。她舉的例子（醫生來電、被解雇、健身房）有強烈文化定位。</li>
+        </ul>
+      </div>
+
+      <div class="insight">
+        <h3>6.3　批判與邊界</h3>
+        <p>這個框架什麼時候會失效：</p>
+        <ul>
+          <li><strong>權力差距情境</strong>：職場上對下、受虐者對加害者，「先脆弱被看見」可能不安全</li>
+          <li><strong>臨床心理疾患</strong>：邊緣型、自戀型人格患者面前，過度脆弱化暴露可能被武器化</li>
+          <li><strong>集體主義文化</strong>：在強調群體和諧的文化中，可能被視為自我中心</li>
+          <li><strong>危機情境</strong>：戰爭、急救、創業早期等，需要平衡「果斷行動」</li>
+          <li><strong>「脆弱表演」反噬</strong>：社群媒體時代脆弱被商品化為人設，反而成為新的完美化偽裝</li>
+        </ul>
+      </div>
+
+      <div class="insight">
+        <h3>6.4　知識對話</h3>
+        <p>與其他經典的關係——</p>
+        <ul>
+          <li><strong>Carl Rogers《成為一個人》</strong>—「無條件正向關懷」是 Brown「值得感」的心理學前身</li>
+          <li><strong>Pema Chödrön《當生命陷落時》</strong>—從佛教提供「與不確定共處」的修行方法</li>
+          <li><strong>Viktor Frankl《活出意義來》</strong>—在極端情境下發現「意義」優於「快樂」，是 Brown「值得感」的同一系譜</li>
+          <li><strong>Stoicism</strong>（對立面）—斯多噶要你不在意失去；Brown 要你完整去愛即使會失去</li>
+          <li><strong>Carol Dweck《心態致勝》</strong>—成長心態與全心全意有相同的反完美化精神</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Module 07: Cross-Reference -->
+<section id="m07" class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">MODULE 07</div>
+      <h2 class="section-title">隱藏連結網絡</h2>
+      <div class="section-sub">CROSS-REFERENCE NETWORK · 核心方法</div>
+    </div>
+
+    <div class="cross">
+
+      <div class="cross-block">
+        <h3>7.1　表面矛盾組 + 深層統一</h3>
+
+        <h4>矛盾組 1：研究是為了控制與預測 vs 答案是停止控制與預測</h4>
+        <div class="vs-box">
+          <p>講者身為研究員，整個職業就是控制與預測（段 9）<span class="vs">↔</span>研究結果是放下控制與預測（段 6-8）</p>
+        </div>
+        <p><strong>深層統一</strong>：她沒有放棄科學，而是區分了「方法」與「結論」——<strong>真正的科學態度，是接受數據反駁你的世界觀</strong>。</p>
+
+        <h4>矛盾組 2：脆弱是必要的 vs 不要在所有情境都脆弱</h4>
+        <div class="vs-box">
+          <p>脆弱是基本必要（段 8）<span class="vs">↔</span>她的訪談對象選擇性脆弱（不會對銀行櫃員說我愛你）</p>
+        </div>
+        <p><strong>深層統一</strong>：脆弱不是無差別暴露，是<strong>「在值得的關係中，願意冒險被看見」</strong>。脆弱是有對象、有時機的。</p>
+
+        <h4>矛盾組 3：我們生來為連結 vs 我們生來為掙扎</h4>
+        <div class="vs-box">
+          <p>神經生物學上我們是為連結而生（段 3）<span class="vs">↔</span>孩子生來就是 hardwired for struggle（段 14）</p>
+        </div>
+        <p><strong>深層統一</strong>：兩者不矛盾——<strong>正是因為連結這麼重要，失去連結的恐懼（羞愧）才這麼劇烈，所以掙扎是必然</strong>。</p>
+
+        <h4>矛盾組 4：我輸了這場仗 vs 我贏回了我的人生</h4>
+        <p><strong>深層統一</strong>：在心理整合的領域，<strong>「對抗自己」永遠會輸；輸了之後才贏</strong>。你不能戰勝自己的某個部分，你只能與它和解。</p>
+      </div>
+
+      <div class="cross-block">
+        <h3>7.2　隱形因果鏈</h3>
+
+        <h4>因果鏈 1：羞愧的解構鏈</h4>
+        <div class="chain">段 3（連結是根本）→ 段 4（羞愧 = 害怕斷連）→ 段 5（脆弱 = 連結的入場費）→ 段 6（值得感 = 不需要支付入場費也覺得自己屬於這裡）→ 段 15（相信夠好 = 值得感的日常版本）</div>
+        <p><strong>跳過任何一步的後果</strong>：</p>
+        <ul style="color:var(--text-soft);padding-left:22px;">
+          <li>跳過段 4：你會以為連結問題是技巧問題（學會聊天、學會社交），而不是內在問題</li>
+          <li>跳過段 5：你會努力「被連結」但不允許被看見——會發展出表演式關係</li>
+          <li>跳過段 6：你會把脆弱當成「達成連結的手段」（這是工具化）</li>
+        </ul>
+
+        <h4>因果鏈 2：社會麻木的反饋循環</h4>
+        <div class="chain">段 11（個人麻痺）→ 段 12（也麻痺了喜悅）→ 失去意義感 → 更感到脆弱 → 段 13（把不確定變確定）→ 段 14（完美化）→ 更深的麻痺需求 → 回到段 11</div>
+        <p>這是一個社會層級的閉環，無法靠意志力跳出，需要在循環中找到一個「願意感受脆弱」的中斷點。<strong>段 12「不能選擇性麻痺」就是這個中斷點的關鍵知識。</strong></p>
+      </div>
+
+      <div class="cross-block">
+        <h3>7.3　元原則萃取</h3>
+        <p style="color:var(--text-muted);font-size:14px;margin-bottom:24px;">作者沒明說的隱藏法則</p>
+
+        <div class="principle">
+          <div class="principle-num">META PRINCIPLE 01</div>
+          <div class="principle-title">「無法被選擇性處理」原理</div>
+          <p style="color:var(--text-soft);">你想要的東西與你逃避的東西，是同一個感受系統的兩面。麻痺一邊，另一邊也消失。</p>
+          <p style="color:var(--text-muted);font-size:13px;margin-top:8px;">涵蓋：段 11、12、13、14、15</p>
+        </div>
+
+        <div class="principle">
+          <div class="principle-num">META PRINCIPLE 02</div>
+          <div class="principle-title">「身分先於行為」原理</div>
+          <p style="color:var(--text-soft);">全心活著的人不是因為他們做了不同的事，而是因為他們相信自己是不同的存在。從「不夠好」的身分出發做的所有「自我提升」，都在強化「不夠好」的身分。</p>
+          <p style="color:var(--text-muted);font-size:13px;margin-top:8px;">涵蓋：段 6、7、15</p>
+        </div>
+
+        <div class="principle">
+          <div class="principle-num">META PRINCIPLE 03</div>
+          <div class="principle-title">「降低期待是逃避，提高接納是勇氣」原理</div>
+          <p style="color:var(--text-soft);">不是讓自己對結果不在意（斯多噶），而是讓自己充分在意但同時接受無保證。</p>
+          <p style="color:var(--text-muted);font-size:13px;margin-top:8px;">涵蓋：段 8、15</p>
+        </div>
+
+        <div class="principle">
+          <div class="principle-num">META PRINCIPLE 04</div>
+          <div class="principle-title">「對自己慈悲是對他人慈悲的前提」原理</div>
+          <p style="color:var(--text-soft);">你不能給別人你自己沒有的東西。家長無法接納自己的不完美，就無法接納孩子的不完美。</p>
+          <p style="color:var(--text-muted);font-size:13px;margin-top:8px;">涵蓋：段 7、14、15</p>
+        </div>
+
+        <div class="principle">
+          <div class="principle-num">META PRINCIPLE 05</div>
+          <div class="principle-title">「奧祕是脆弱的同盟，獨斷是脆弱的敵人」原理</div>
+          <p style="color:var(--text-soft);">能與「不知道」共處的能力，與能與「脆弱」共處的能力，是同一種能力。</p>
+          <p style="color:var(--text-muted);font-size:13px;margin-top:8px;">涵蓋：段 13、15</p>
+        </div>
+      </div>
+
+      <div class="cross-block">
+        <h3>7.4　頻率分析</h3>
+        <div class="table-wrap" style="box-shadow:none;">
+          <table>
+            <thead><tr><th>隱藏主題</th><th style="width:100px;">出現次數</th><th>解讀</th></tr></thead>
+            <tbody>
+              <tr><td class="title">「我不夠 X」的羞愧句型</td><td>4</td><td>講者反覆回到這個句型，因為它是普世經驗的最簡公式</td></tr>
+              <tr><td class="title">控制 vs 臣服的張力</td><td>7</td><td>整場演講的中心軸</td></tr>
+              <tr><td class="title">「無保證」的處境</td><td>5</td><td>脆弱永遠出現在無保證的時刻</td></tr>
+              <tr><td class="title">看見 / 被看見</td><td>6</td><td>從「測不到就不存在」到「讓自己被深刻看見」的弧線</td></tr>
+              <tr><td class="title">時間（一年、六年、十年）</td><td>5</td><td>反抗自助文化的「快速見效」承諾</td></tr>
+              <tr><td class="title">個人崩潰的自我揭露</td><td>3</td><td>她對抗自己權威性的方式</td></tr>
+              <tr><td class="title">集體層次（社會、政治、企業）</td><td>4</td><td>避免成為純個人成長書</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="quote quote-sage" style="margin-top:24px;">
+          <strong>一句話概括 Brown 的世界觀：</strong>「人類的所有痛苦，都是因為害怕『我不值得被連結』；所有自由，都來自相信即使脆弱、即使無保證，我們仍然值得。」
+        </div>
+      </div>
+
+      <div class="cross-block">
+        <h3>7.5　缺席分析</h3>
+        <p style="color:var(--text-muted);font-size:14px;margin-bottom:24px;">作者選擇不放進去的重要概念</p>
+
+        <h4>缺席 1：權力與結構性不平等</h4>
+        <p>Brown 沒談對某些族群來說，「擁抱脆弱」可能更危險。職場少數族裔、男性陽剛文化、受暴婦女。</p>
+        <p style="color:var(--text-muted);font-size:13px;">搭配：bell hooks《關於愛》、Audre Lorde《姐妹外人》</p>
+
+        <h4>缺席 2：邊界（Boundaries）</h4>
+        <p>整場演講談「打開」，但很少談「保護」。脆弱的健康版本需要強壯的邊界。</p>
+        <p style="color:var(--text-muted);font-size:13px;">搭配：Nedra Glover Tawwab《Set Boundaries, Find Peace》</p>
+
+        <h4>缺席 3：佛教 / 東方哲學的「無常」</h4>
+        <p>佛教的「無常、苦、無我」三法印與她的命題深度共鳴，但她沒對話。Chödrön 提供具體禪修方法，是 Brown 缺乏的「How」。</p>
+
+        <h4>缺席 4：神經科學的具體機制</h4>
+        <p>她提到「神經生物學上我們為連結而生」，但沒進一步解釋多巴胺、催產素、迷走神經理論。</p>
+        <p style="color:var(--text-muted);font-size:13px;">搭配：Stephen Porges《多元迷走神經理論》、Bessel van der Kolk《心靈的傷，身體會記住》</p>
+
+        <h4>缺席 5：失敗的脆弱（脆弱表演的陷阱）</h4>
+        <p>當脆弱變成 Instagram 美學、變成 TED 講者必備的故事弧線，它就失去了原本的力量。她演講後 15 年，這個現象已經很嚴重。</p>
+        <p style="color:var(--text-muted);font-size:13px;">搭配：Jia Tolentino《Trick Mirror》</p>
+      </div>
+
+      <div class="cross-block">
+        <h3>7.6　實踐優先序</h3>
+        <p style="color:var(--text-muted);font-size:14px;margin-bottom:24px;">如果只能內化 5 個概念，最高 ROI 順序</p>
+
+        <ol style="padding-left:24px;color:var(--text);line-height:2;">
+          <li><strong>段 12 — 「不能選擇性麻痺」（最高優先）</strong><br><span style="color:var(--text-soft);font-size:14px;">這是其他所有概念的基礎。先讓這個事實沉入身體：你今天滑手機逃避的痛苦，正在偷走你明天感受喜悅的能力。</span></li>
+          <li><strong>段 6 — 「他們相信自己值得」</strong><br><span style="color:var(--text-soft);font-size:14px;">「身分先於行為」的元原則，是改變的入口。</span></li>
+          <li><strong>段 7 — 「Courage 詞源是『心』」</strong><br><span style="color:var(--text-soft);font-size:14px;">把勇氣從戰場拉回日常自我揭露。</span></li>
+          <li><strong>段 8 — 「脆弱是必要的，不是舒服的」</strong><br><span style="color:var(--text-soft);font-size:14px;">正常化脆弱。它不會變舒服，但會從「災難」變成「天氣」。</span></li>
+          <li><strong>段 15 — 「在恐懼時刻練感恩」</strong><br><span style="color:var(--text-soft);font-size:14px;">最反直覺的實踐，因此 ROI 最高。</span></li>
+        </ol>
+      </div>
+
+      <div class="cross-block">
+        <h3>7.7　情境決策矩陣</h3>
+        <div class="table-wrap" style="box-shadow:none;">
+          <table>
+            <thead><tr><th>情境</th><th>參考段落</th><th>行動建議</th></tr></thead>
+            <tbody>
+              <tr><td class="title">親密關係中猶豫先說「我愛你」</td><td>段 8、15</td><td>問：我害怕的「沒保證」真的有那麼可怕嗎？先說。</td></tr>
+              <tr><td class="title">家長感到孩子「不夠優秀」的焦慮</td><td>段 14</td><td>對自己練習接納，再對孩子練習。</td></tr>
+              <tr><td class="title">職場被批評後想「證明對方錯」</td><td>段 4、13</td><td>暫停。先處理感受，再回應內容。</td></tr>
+              <tr><td class="title">下班後總是無法停止滑手機</td><td>段 11、12</td><td>我今天在迴避哪個情緒？讓自己單純坐 10 分鐘感受它。</td></tr>
+              <tr><td class="title">創作 / 創業前夕的不敢發布</td><td>段 5、8</td><td>你抗拒的不是品質不夠好，是被看見會羞愧。發布。</td></tr>
+              <tr><td class="title">面臨重大失去（喪親、失業）</td><td>段 12、15</td><td>不要用麻痺度過。允許感受完整。在最痛時找一個小小的感恩。</td></tr>
+              <tr><td class="title">主管要對團隊承認錯誤</td><td>段 14 結尾</td><td>「我們很抱歉，我們會修正。」這四個字比任何完美化說辭都有力。</td></tr>
+              <tr><td class="title">與孩子談他們的失敗</td><td>段 14</td><td>不要說「下次更努力」。說：「你不完美，但你值得被愛。」</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Module 08: Action Steps -->
+<section id="m08" class="section" style="background: var(--bg-soft);">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">MODULE 08</div>
+      <h2 class="section-title">行動轉化</h2>
+      <div class="section-sub">THREE TIME HORIZONS</div>
+    </div>
+
+    <div class="actions">
+      <div class="action">
+        <div class="action-icon">🌱</div>
+        <div class="action-time">THIS WEEK</div>
+        <h4>本週啟動</h4>
+        <ol>
+          <li><strong>「不能選擇性麻痺」實驗</strong>：下次想拿手機/酒精/食物逃避情緒時，設 10 分鐘計時器純粹感受</li>
+          <li><strong>一次「先說我愛你」</strong>：對某個你猶豫的對象先說一次表達</li>
+          <li><strong>說出一句「我不夠 ___」</strong>：寫下、告訴信任的人。觀察它的力量是否減弱</li>
+        </ol>
+      </div>
+
+      <div class="action">
+        <div class="action-icon">🌿</div>
+        <div class="action-time">THIS MONTH</div>
+        <h4>本月實驗</h4>
+        <ol>
+          <li><strong>「身分先於行為」晨間宣告</strong>：每天對鏡子說「我今天要做的事，不是為了證明我夠好，而是因為我已經夠好」。連做 30 天</li>
+          <li><strong>每週一次「無保證投資」</strong>：投履歷、寄稿件、約朋友、嘗試新作品。不為結果，為練習</li>
+        </ol>
+      </div>
+
+      <div class="action">
+        <div class="action-icon">🌳</div>
+        <div class="action-time">LONG TERM</div>
+        <h4>長期追蹤</h4>
+        <p style="color:var(--text-soft);font-size:14.5px;"><strong>「脆弱-喜悅同步指數」</strong></p>
+        <p style="color:var(--text-soft);font-size:14.5px;margin-top:8px;">每月底自評兩個 1-10 分數：</p>
+        <ul style="padding-left:20px;color:var(--text-soft);font-size:14.5px;">
+          <li>這個月我有多願意被深刻看見？</li>
+          <li>這個月我感受到多少喜悅？</li>
+        </ul>
+        <p style="color:var(--text-soft);font-size:14.5px;margin-top:8px;">兩條曲線應該<strong>同步上升</strong>。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Module 10: Narrative Arc -->
+<section id="m10" class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">MODULE 10</div>
+      <h2 class="section-title">敘事弧線</h2>
+      <div class="section-sub">EMOTIONAL DESIGN</div>
+    </div>
+
+    <div class="card">
+      <div class="info-grid">
+        <dt>起點</dt>
+        <dd>觀眾帶著「我想學一個技巧讓人生更好」進入（這是控制思維的標準姿勢）</dd>
+        <dt>破壞</dt>
+        <dd>講者花了 5 分鐘證明自己曾經完全是這樣想的人，建立同盟。接著證明這個思考方式撞牆了</dd>
+        <dt>最低點</dt>
+        <dd>段 9-10「個人崩潰」與「街頭巷戰」（承認連研究員都搞不定，觀眾的羞愧減輕）</dd>
+        <dt>重建</dt>
+        <dd>段 11-14 把鏡頭拉到社會層級（個人問題擴大為文化問題，觀眾不再覺得自己有缺陷）</dd>
+        <dt>著陸</dt>
+        <dd>段 15 短短四個邀請。不給五步驟、不給保證。最後一句：「That's all I have. Thank you.」（刻意低調的結尾，反抗 TED 結尾要轟動的慣性）</dd>
+      </div>
+
+      <div class="quote quote-sage" style="margin-top:32px;">
+        <strong>情緒設計：</strong>傲慢 → 困惑 → 崩潰 → 同情 → 釋放 → 邀請<br><br>
+        這場演講能破億次觀看的祕密——它不是知識傳遞，是<strong>情緒同行</strong>。觀眾在 20 分鐘內，重演了講者六年的研究歷程。
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Module 11: Personal Lenses with Tabs -->
+<section id="m11" class="section" style="background: var(--bg-soft);">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">MODULE 11</div>
+      <h2 class="section-title">個人化透鏡</h2>
+      <div class="section-sub">FOUR ROLES · CHOOSE YOUR LENS</div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="lens-1">知識工作者</button>
+      <button class="tab-btn" data-tab="lens-2">家長 · 業務員</button>
+      <button class="tab-btn" data-tab="lens-3">3 歲小孩家長</button>
+      <button class="tab-btn" data-tab="lens-4">遇上「無理取鬧」老婆的老公</button>
+    </div>
+
+    <!-- Lens 1: Knowledge Worker -->
+    <div id="lens-1" class="tab-pane active">
+      <div class="card">
+        <p style="color:var(--text-muted);font-size:13px;margin-bottom:24px;letter-spacing:0.05em;">中文知識工作者 / 創作者 / 高功能 A 型人格的場景轉化</p>
+        <div class="scenes" style="gap:16px;">
+          <div class="scene" style="padding:28px;">
+            <div class="scene-num">01</div>
+            <h3 class="scene-title" style="font-size:18px;margin-bottom:12px;">創作者的「不寫作焦慮」</h3>
+            <p>你之所以遲遲不發布作品，不是因為「準備不夠」，是因為<strong>「準備好了 = 失去藉口 = 必須面對被看見的脆弱」</strong>。</p>
+            <p style="margin-top:8px;">承認：你不需要再準備了。發布是脆弱練習，不是品質檢驗。</p>
+          </div>
+          <div class="scene" style="padding:28px;">
+            <div class="scene-num">02</div>
+            <h3 class="scene-title" style="font-size:18px;margin-bottom:12px;">中文社群的高互動焦慮</h3>
+            <p>中文社群文化對「失敗」格外嚴厲（嘲諷、截圖、群嘲）。但這不是不發的理由，是更需要練習的證據。</p>
+          </div>
+          <div class="scene" style="padding:28px;">
+            <div class="scene-num">03</div>
+            <h3 class="scene-title" style="font-size:18px;margin-bottom:12px;">知識工作者的「立場焦慮」</h3>
+            <p>社群媒體要求「清晰立場」，這個壓力把所有議題變成獨斷。練習：對某個議題，<strong>刻意保留「我不確定」的版本不刪</strong>。</p>
+          </div>
+          <div class="scene" style="padding:28px;">
+            <div class="scene-num">04</div>
+            <h3 class="scene-title" style="font-size:18px;margin-bottom:12px;">A 型人格的「自我育兒」</h3>
+            <p>你對自己內在的「小孩」執行的就是完美化。內在批評者對你的指令，正是高焦慮家長對孩子指令的縮影。<br>練習：<strong>對自己說「你不完美，且你值得被愛」</strong>。</p>
+          </div>
+          <div class="scene" style="padding:28px;">
+            <div class="scene-num">05</div>
+            <h3 class="scene-title" style="font-size:18px;margin-bottom:12px;">AI 時代的職涯焦慮</h3>
+            <p>擔心被取代、擔心錯過浪潮——這些恐懼瞬間正是練感恩的最佳時機。<br><strong>「我擔心失去這份工作」就是「我感謝我有這份工作」的反面。</strong></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lens 2: Parent + Insurance -->
+    <div id="lens-2" class="tab-pane">
+
+      <h3 style="font-family:'Noto Serif TC',serif;font-size:24px;color:var(--cocoa);margin-bottom:24px;text-align:center;">A. 家長的場景轉化</h3>
+      <div class="scenes">
+        <div class="scene">
+          <div class="scene-num">01</div>
+          <h3 class="scene-title">完美化孩子 → 你最隱密的恐懼是什麼？</h3>
+          <p>家長完美化孩子，其實是把自己內心對「不夠好」的恐懼外包給孩子：</p>
+          <ul>
+            <li>你要孩子「優秀」，因為孩子優秀＝你是好家長＝你夠好</li>
+            <li>你怕孩子「輸在起跑點」，因為輸＝你疏忽＝你不夠好</li>
+          </ul>
+          <div class="reframe-box">
+            <div class="label">翻譯練習</div>
+            <p>把「我希望你考上 XX」改寫成「我害怕你考不上 XX 時，我會被認為是個 ___ 的家長」。</p>
+          </div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">02</div>
+          <h3 class="scene-title">值得感 → 你給孩子的是哪一種愛？</h3>
+          <p><strong>最殘酷的問題</strong>：你的孩子知道，他考砸的那天，你一樣愛他嗎？</p>
+          <p>不是嘴上說，而是身體語言、語氣、晚餐桌上的氣壓。<strong>孩子的雷達比語言精細百倍。</strong></p>
+          <div class="quote quote-butter">「我的工作是看著孩子說：『你不完美，你 hardwired 為掙扎，但你值得被愛與歸屬。』」<br><span style="font-size:14px;color:var(--text-muted);">把這句話印出來貼在書桌前。</span></div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">03</div>
+          <h3 class="scene-title">對孩子認錯 → 反華人文化但最有力的練習</h3>
+          <p>「對不起，剛剛我太累了，不該對你大吼。你沒做錯，是媽媽的情緒。」這 30 個字會做三件事：</p>
+          <ol>
+            <li>教孩子「大人也會錯」——他不必完美</li>
+            <li>教孩子「錯了可以修復」——關係不是脆弱的玻璃</li>
+            <li>給孩子一個範本：他長大後犯錯時，會記得「先承認，再修復」</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="ornament">· · ·</div>
+
+      <h3 style="font-family:'Noto Serif TC',serif;font-size:24px;color:var(--cocoa);margin:40px 0 24px;text-align:center;">B. 保險業務員的場景轉化</h3>
+
+      <div class="reframe-box" style="margin-bottom:32px;">
+        <div class="label">職業悖論</div>
+        <p>你的工作是幫客戶面對自己的脆弱（疾病、意外、死亡），但業界訓練你「永遠展現自信」——也就是否認自己的脆弱。<strong>結果你成了一個要求別人脆弱、自己卻不能脆弱的人。客戶其實感覺得到。</strong></p>
+      </div>
+
+      <div class="scenes">
+        <div class="scene">
+          <div class="scene-num">01</div>
+          <h3 class="scene-title">「投資沒保證的關係」 = 你的工作定義</h3>
+          <p>Brown 說：「全心活著的人願意投資一段不一定會成的關係。」這幾乎逐字描述了業務員的日常——<strong>你每天打的每一通電話、每一次拜訪，都是「沒保證的投資」</strong>。</p>
+          <p>你不是「在做沒保證的銷售」，你是「<strong>每天在練 Brown 說的最高級脆弱實踐</strong>」。這個職業在精神層面比 90% 的工作都困難。</p>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">02</div>
+          <h3 class="scene-title">業務員的雙層羞愧</h3>
+          <ul>
+            <li><strong>內層羞愧</strong>：「我是不是在打擾別人？」「我家人朋友都躲我」</li>
+            <li><strong>外層羞愧</strong>：社會對「業務員」三個字的偏見——尤其在華人文化裡</li>
+          </ul>
+          <p style="margin-top:12px;"><strong>翻譯成行動</strong>：找一個信任的同業，每週一次互相說：「我這週最害怕的拒絕是 ___」。光是說出口，羞愧就減半。</p>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">03</div>
+          <h3 class="scene-title">值得感 → 業績不是值得感的入口</h3>
+          <div class="reframe-box">
+            <div class="label">最危險的心態</div>
+            <p>「我成交，所以我值得；我沒成交，所以我不值得。」</p>
+          </div>
+          <p>這個心態製造的後果：客戶感受得到你的飢渴 → 抗拒；被拒絕後自尊崩塌 → 影響下一通電話；你會把不適合的產品塞給客戶（為了證明自己） → 違反專業倫理。</p>
+          <div class="quote quote-sage">「我是值得被信任的專業者，無論這次是否成交。」</div>
+          <p>弔詭的是——<strong>從「值得感不靠業績」出發的業務員，業績通常更好</strong>。因為客戶感覺得到。</p>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">04</div>
+          <h3 class="scene-title">客戶要的是「被看見」，不是被話術</h3>
+          <p><strong>保險的「產品」其實在賣同一件事</strong>——把客戶內心最深的恐懼（疾病、意外、家人失去依靠）換成一張紙的安心。</p>
+          <p>但客戶踏進你辦公室時，他不會說「我害怕死後家人活不下去」——他會說「我來看看保單」。</p>
+          <h4>具體技術</h4>
+          <ul>
+            <li>不要先講產品，先問：「您最想保護的是誰？」</li>
+            <li>客戶說出某個人時，停頓。眼神接觸。</li>
+            <li>然後問：「如果您不在了，您最希望他/她過什麼樣的生活？」</li>
+            <li>那個瞬間，客戶會脆弱。<strong>你的工作不是趁機推銷，是溫柔承接這個脆弱。</strong></li>
+          </ul>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">05</div>
+          <h3 class="scene-title">不要用獨斷話術逃避脆弱</h3>
+          <div class="compare">
+            <div class="compare-bad"><div class="label">業界經典話術</div>「您一定要買！」「現在不買就後悔！」「我跟您保證！」</div>
+            <div class="compare-good"><div class="label">更高級的對話</div>「我不能保證未來，但我可以幫您把可控的部分管好。」「您不一定要買這份。但讓我幫您想清楚不買的代價是什麼。」</div>
+          </div>
+          <p>確定話術讓客戶防衛，承認不確定反而讓他信任。</p>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">06</div>
+          <h3 class="scene-title">業務員職業壽命的真相</h3>
+          <p>這個行業 70% 的人三年內離開。表面原因：業績不夠。<strong>深層原因</strong>：他們選擇用麻痺處理拒絕。</p>
+          <p>但段 12 的鐵律：<strong>麻痺被拒絕的痛，也麻痺成交的喜悅</strong>。久了之後——簽到大單也沒感覺、看到客戶感謝你也沒感覺、整個職業變成空殼。</p>
+          <p><strong>長壽業務員的祕密</strong>：他們允許自己感受拒絕的痛——回家寫日記、跟伴侶哭一下、運動發洩——<strong>不麻痺</strong>。所以他們也保留了感受成交喜悅的能力。</p>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">07</div>
+          <h3 class="scene-title">理賠出問題時的對話</h3>
+          <p>業務員職涯最殘酷的時刻：客戶出事了，理賠卻卡住了。很多業務員此時消失。</p>
+          <div class="quote quote-butter">「我們很抱歉。我們會修正。」</div>
+          <ul>
+            <li>不要消失。<strong>不消失本身就贏過 80% 的同業。</strong></li>
+            <li>不要先解釋「公司條款是這樣」。先說「我知道你現在很難過」</li>
+            <li>不要急著辯解。先承接情緒</li>
+            <li>然後盡全力幫他爭取——即使爭取不到，他會記得你陪他走過</li>
+          </ul>
+          <p><strong>這種時刻的業務員品格，會決定你接下來十年的轉介紹來源。</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Lens 3: 3-year-old parent -->
+    <div id="lens-3" class="tab-pane">
+
+      <div class="reframe-box" style="margin-bottom:32px;">
+        <div class="label">為什麼 3 歲是 BROWN 框架最高 STAKES 的階段</div>
+        <p>0-5 歲是大腦形成「內在工作模型」的關鍵期。<strong>你今天用來對 3 歲孩子說話的聲音，會變成他 33 歲時用來對自己說話的內在聲音。</strong>段 6 的「值得感」正是這 5 年內，由你每天的回應，一磚一瓦砌起來的。</p>
+      </div>
+
+      <div class="scenes">
+        <div class="scene">
+          <div class="scene-num">SCENE 01</div>
+          <h3 class="scene-title">💢 超市大爆炸 — 你以為你在管教，其實你在示範</h3>
+          <p>3 歲孩子在超市倒地哭吼要糖果。所有人盯著你看。你的羞愧瞬間衝到頂。</p>
+          <h4>你最常做的兩種反應</h4>
+          <div class="compare">
+            <div class="compare-bad"><div class="label">A · 威脅</div>「你給我起來！丟臉死了！」<br><br>把你的羞愧丟回給孩子（段 4：羞愧像熱馬鈴薯，誰拿到誰燙）</div>
+            <div class="compare-bad"><div class="label">B · 妥協</div>「好啦好啦，買一個別哭了！」<br><br>用麻痺解決脆弱（段 11：你買糖不是給他，是讓自己不用面對其他人的目光）</div>
+          </div>
+          <h4>第三條路</h4>
+          <div class="quote quote-sage">蹲下來，眼神平視。「你很想要那個糖果，是不是？媽媽知道。你現在很難過。可以難過。但今天我們不買糖。我抱你一下，等你好一點，我們再走。」</div>
+          <p>這裡發生了三件 Brown 級別的事：</p>
+          <ol>
+            <li><strong>看見他</strong>（段 5）——「媽媽知道你想要」</li>
+            <li><strong>允許脆弱</strong>（段 8）——「可以難過」</li>
+            <li><strong>保持邊界但不羞辱</strong>（段 4）——「不買糖」但沒有「丟臉死了」</li>
+          </ol>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">SCENE 02</div>
+          <h3 class="scene-title">😡 你終於對他大吼了 — 然後你恨自己一整晚</h3>
+          <p>凌晨 3 點他哭第五次。早上他打翻牛奶。下午他不肯穿鞋。晚上他把粥倒在地上。你吼了。他嚇到了。</p>
+          <p>接下來 4 小時你陷入羞愧地獄：「我是個糟糕的媽媽/爸爸。我傷了他。我毀了他。」</p>
+
+          <h4>第一層 · 你不是糟糕的家長，你是被「不能選擇性麻痺」撞擊的人類（段 12）</h4>
+          <p>你的疲憊、挫折、無力感被你壓抑了一整天——它們不會消失，會在某個小事上爆發。<strong>你不是失控的家長，你是麻痺失敗的人</strong>。修復的起點不是更多自律，是更多自我慈悲（段 7）。</p>
+
+          <h4>第二層 · 你的羞愧地獄正是要傳給孩子的東西</h4>
+          <p>如果你陷在「我是糟糕的家長」一整晚，你正在示範什麼？<strong>「犯錯 = 自我攻擊一整晚」</strong>——這就是你 30 年後的孩子，犯錯後會做的事。</p>
+
+          <h4>修復的關鍵動作</h4>
+          <div class="quote quote-butter">隔天平靜後，蹲下來：<br>「昨天媽媽對你大吼，我嚇到你了。那不是因為你做錯，是媽媽太累了，沒有處理好自己的情緒。對不起。媽媽會努力。我永遠愛你。」</div>
+          <p>心理學家 Ed Tronick 的「修復理論」明確指出——<strong>重要的不是「永不破裂」的關係，而是「破裂後修復」的關係</strong>。修復過的關係比從未破裂的關係更牢固。</p>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">SCENE 03</div>
+          <h3 class="scene-title">😱 「他怎麼還不會 ㄅㄆㄇ／注音／英文……」</h3>
+          <p>朋友的孩子 3 歲已經會背 100 首唐詩。你的孩子還在說「狗狗」「車車」。</p>
+          <p>但 3 歲的腦科學告訴你——<strong>3 歲腦最需要的不是知識，是安全感與遊戲</strong>。</p>
+          <ul>
+            <li>3 歲前額葉皮質還在快速髓鞘化中</li>
+            <li>大腦此時最重要的學習是「情緒調節能力」</li>
+            <li>一個焦慮父母教出來的會背唐詩的孩子，會在 15 歲出現焦慮症狀</li>
+            <li>一個放鬆父母教出來的會在地上滾的孩子，3 年後語言會自己追上</li>
+          </ul>
+          <div class="quote quote-sage">你 3 歲孩子此刻最需要的訊息不是「你好聰明」，而是「<strong>你存在本身就讓我快樂</strong>」。</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">SCENE 04</div>
+          <h3 class="scene-title">🎭 「好棒棒」陷阱 — 你以為你在誇獎，其實你在訓練條件式值得感</h3>
+          <p>每次孩子做了什麼，你說：「好棒！」「你最棒！」「好乖！」</p>
+          <p><strong>聽起來愛意滿滿，但 Brown 段 6 的鏡頭下</strong>——你正在訓練「<strong>有條件的值得感</strong>」。孩子在學的是：「我做對事 → 我棒 → 我值得；我做錯事 → 我不棒 → 我不值得」。</p>
+
+          <h4>讚美語言對照（Carol Dweck + Brown 整合）</h4>
+          <div class="compare">
+            <div class="compare-bad"><div class="label">條件式讚美</div>「你好聰明」<br>「你好乖」<br>「考一百分爸爸最愛你」<br>「你最棒了！」</div>
+            <div class="compare-good"><div class="label">過程 / 存在式肯定</div>「你想了好久，找到方法了！」<br>「我看到你幫妹妹拿了積木，謝謝你」<br>「不管你考幾分爸爸都愛你」<br>「我喜歡跟你在一起」</div>
+          </div>
+          <p>最後一句尤其關鍵——「<strong>我喜歡跟你在一起</strong>」這 6 個字傳遞的是純粹的存在式喜愛。</p>
+          <div class="reframe-box">
+            <div class="label">本週實驗</div>
+            <p>把「你好棒」換成「我喜歡跟你在一起」，連續一週。觀察他的反應。</p>
+          </div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">SCENE 05</div>
+          <h3 class="scene-title">🍝 他不吃飯 — 你跟他打仗，其實你跟自己打仗</h3>
+          <p>晚餐桌上他把碗推開。你心裡的火上來：「我辛苦煮的！」「不吃就餓肚子！」</p>
+          <p>你之所以這麼執著「他必須現在吃這碗飯」，深層是因為——<strong>你需要一個確定的勝利來證明「我是稱職的家長」</strong>。</p>
+          <p>但 3 歲的「自主期」（Erikson 的 autonomy vs. shame and doubt 階段）就是要練習說 NO。<strong>他拒絕吃飯不是針對你，是針對「我能不能做主」這個發展任務。</strong></p>
+
+          <div class="quote quote-sage">「你不想吃，可以。飯就在這裡。我吃我的。你餓了告訴我。」</div>
+          <p>不威脅、不討好、不焦慮。<strong>讓自然後果教他</strong>——他真的餓了會吃，沒餓不該吃。</p>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">SCENE 06</div>
+          <h3 class="scene-title">😢 他第一次說「我不喜歡你」</h3>
+          <p>你心碎了。你以為你做錯了什麼。</p>
+          <div class="reframe-box">
+            <div class="label">段 15 對你說</div>
+            <p>那個心碎的瞬間，正是練感恩的精準時機。</p>
+            <p>「他能對我說『我不喜歡你』」 ↔ <strong>「他在我面前夠安全，敢表達真實情緒」</strong></p>
+          </div>
+          <h4>回應的範本</h4>
+          <div class="quote">「你現在不喜歡我。我聽到了。我有時候也會生氣不喜歡某個人。我等一下還是會在這裡，當你想找我的時候。」</div>
+          <ol>
+            <li>不修正他的情緒</li>
+            <li>正常化他的情緒</li>
+            <li>保證關係不變</li>
+          </ol>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">SCENE 07</div>
+          <h3 class="scene-title">🌙 睡前 — 24 小時最重要的 10 分鐘</h3>
+          <p>3 歲孩子的大腦在睡前進入高度暗示狀態，此時你說的話會直接寫入潛意識。</p>
+          <p>這 10 分鐘有兩句話值得每天說：</p>
+          <div class="quote quote-butter">「我今天看到你 ___（一個具體的、過程式的事）。我喜歡跟你在一起。」<br><br>「不管明天發生什麼，我永遠愛你。」</div>
+          <p>第一句植入「值得感」（段 6）。第二句植入「無條件愛」（段 14 結尾）。連續 5 年，每晚 30 秒。<strong>你正在用 Brown 整套框架的最濃縮版本，砌他一輩子的內在底色。</strong></p>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">SCENE 08</div>
+          <h3 class="scene-title">🪞 最深的真相 — 你正在重演你的童年</h3>
+          <p>每個家長最害怕的時刻：你說了一句話，突然意識到——<strong>「靠，我媽以前就是這樣對我說話」</strong>。</p>
+          <div class="quote quote-sage">你能給孩子的「值得感」，永遠不會超過你給自己的「值得感」。<br>你能對孩子說的「你夠好」，永遠不會超過你對自己說的「我夠好」。</div>
+          <p>如果你內心有一個從不放過自己的批評者，那個批評者會一字不漏地遺傳給孩子。</p>
+          <h4>最高 ROI 的事</h4>
+          <p><strong>找一個治療師 / 教練 / 信任的朋友 / 紙筆，認真處理你自己的童年議題。</strong>不是為了控訴你的父母，是為了——讓那些你不喜歡的內在聲音，<strong>到你這一代為止</strong>。</p>
+        </div>
+      </div>
+
+      <div class="reflection">
+        <h3>🌱 3 歲家長本週三件事</h3>
+        <ol>
+          <li><strong>找一個你最常脫口而出的童年聲音</strong>。那句你媽/爸最常對你說、你發誓不對孩子說、卻常常脫口的話。寫下來。看著它。</li>
+          <li><strong>今晚睡前對他說：「我喜歡跟你在一起。」</strong>觀察他的表情。也觀察你說這句話的不適感。</li>
+          <li><strong>今天某個你「失控想吼」的瞬間，深呼吸 5 秒</strong>。不要追求「永遠不吼」，那是完美化。只要在「想吼到吼出來」之間多 5 秒。</li>
+        </ol>
+      </div>
+
+      <div class="quote quote-butter" style="margin-top:32px;">
+        <strong>給 3 歲家長的最後一句話：</strong><br><br>
+        你不需要成為完美的家長。<br>
+        你只需要成為一個「會修復的家長」。<br><br>
+        破裂後修復的關係，比從未破裂的關係更牢固。<br>
+        你今天累成這樣還在讀這份文件——這個事實本身就是「你是足夠好的家長」的證據。
+      </div>
+    </div>
+
+    <!-- Lens 4: Husband -->
+    <div id="lens-4" class="tab-pane">
+
+      <div class="warning" style="margin-bottom:32px;">
+        <div class="label">⚠️ 開場必要的誠實</div>
+        <p style="color:var(--text-soft);"><strong>「無理取鬧」本身，就是 Brown 框架要拆的第一個東西。</strong></p>
+        <p style="color:var(--text-soft);margin-top:8px;">不是說你的疲憊不真實（那絕對真實），而是「無理取鬧」這個標籤，在 Brown 的鏡頭下會被識別為「<strong>段 13 的責備</strong>」——責備是排放痛苦的方式。</p>
+        <p style="color:var(--text-soft);margin-top:8px;">把伴侶歸類為「無理取鬧」，跟她把你歸類為「冷漠不在乎」，是同一個心理動作的兩個版本。<strong>兩個都關上了真正解決問題的門。</strong></p>
+      </div>
+
+      <h3 style="font-family:'Noto Serif TC',serif;font-size:24px;color:var(--cocoa);margin:40px 0 24px;text-align:center;">🎯 核心翻譯：「無理取鬧」其實是什麼？</h3>
+
+      <div class="card">
+        <p>Brown 段 4-5 的鏡頭下，當一個人「無理取鬧」時，<strong>底下幾乎永遠是這四種之一</strong>：</p>
+        <div class="table-wrap" style="margin-top:16px;box-shadow:none;">
+          <table>
+            <thead><tr><th style="width:40%;">表面</th><th>底層真相</th></tr></thead>
+            <tbody>
+              <tr><td>「為什麼襪子又亂丟？！」</td><td>「我覺得我在這個家被當看不見」</td></tr>
+              <tr><td>「你都不關心我！」</td><td>「我害怕你不再愛我了」</td></tr>
+              <tr><td>「我媽說的話你都不聽！」</td><td>「我的家人不被你尊重，我會被夾死在中間」</td></tr>
+              <tr><td>為一件超小的事爆炸</td><td>累積了 200 件她說過你沒聽進去的事</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="quote quote-rose" style="margin-top:24px;">
+          「無理取鬧」是一個翻譯失敗的求救訊號。<br>
+          她沒辦法直接說「我害怕你不愛我了」，所以變形成「你昨天為什麼沒回我訊息！」<br>
+          你聽到的是「無理取鬧」。<strong>她說的是「請看見我」。</strong>
+        </div>
+      </div>
+
+      <div class="scenes" style="margin-top:32px;">
+
+        <div class="scene">
+          <div class="scene-num">SCENE 01</div>
+          <h3 class="scene-title">💔 她為「一件小事」爆炸 — 冰山的尖角</h3>
+          <p>她突然為一件小事大爆炸（你忘了買衛生紙、回訊息晚了 30 分鐘）。你想：「就這點小事？」</p>
+          <p>她爆炸的不是「衛生紙」，是這件事背後她已經累積但你沒收到的訊息。可能是：</p>
+          <ul>
+            <li>過去三個月她跟你抱怨了 7 次「你都不主動」，你都用「你太敏感了」帶過</li>
+            <li>過去半年她默默承擔所有家務，你不曾說過謝謝</li>
+            <li>上週她加班她媽生病三歲孩子腸胃炎，你還在打電動</li>
+          </ul>
+          <p>「衛生紙」是第 100 滴水。<strong>你只看到第 100 滴，所以覺得不成比例。</strong></p>
+
+          <div class="compare">
+            <div class="compare-bad"><div class="label">不要說</div>「你又來了」<br>「你怎麼這麼小題大作」<br>「我哪有你說的那樣」</div>
+            <div class="compare-good"><div class="label">試著說</div>「我聽到了。我想我之前可能漏掉了一些東西，不只是衛生紙。你願意告訴我嗎？」</div>
+          </div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">SCENE 02</div>
+          <h3 class="scene-title">🥶 冷戰 — 你以為冷靜處理，其實你在進行情感家暴</h3>
+          <p>她在哭、在吼。你選擇沉默。可能還轉身去房間。可能去打電動。</p>
+          <p>你的內心：「她現在不可理喻，等她冷靜再說。」</p>
+
+          <div class="reframe-box">
+            <div class="label">Brown 段 11-12 的硬核翻譯</div>
+            <p>你的沉默，是麻痺策略。但段 12 的鐵律：<strong>麻痺了她的存在，也麻痺了你對她的愛</strong>。</p>
+          </div>
+
+          <p><strong>更深的真相</strong>：沉默對哭泣中的伴侶，在 Gottman 婚姻研究中心的「四騎士」中被定義為 Stonewalling——<strong>這是預測離婚最強的指標之一，比吵架還可怕</strong>。</p>
+
+          <div class="quote quote-sage">「我剛剛走開是因為我也亂掉了。我不知道怎麼回應。但我想留在這裡跟你一起。我沒有要逃走。」</div>
+          <p>這幾句話超難說（如果你是迴避型依附，會像被火燒）。<strong>但這就是 Brown 段 10 的「街頭巷戰」</strong>——你跟自己的迴避本能打仗，輸了那場仗，才能贏回婚姻。</p>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">SCENE 03</div>
+          <h3 class="scene-title">🧠 「我跟你講道理！」 — 你以為在解決，其實在說「你的感受不合法」</h3>
+          <p>她在哭。你開始拿出邏輯：「但是事情不是這樣，你聽我說……」「你想想看，這件事其實……」</p>
+          <p>你內心覺得自己很冷靜、很理性、在幫她釐清。</p>
+
+          <div class="reframe-box">
+            <div class="label">Brown 段 5 鏡頭下</div>
+            <p>你正在做一件殘忍的事：<strong>她在請求被看見，你在告訴她「你看的世界是錯的」</strong>。</p>
+            <p>「邏輯說服一個正在脆弱的人」這件事的潛台詞是：<strong>「你的感受不合法。等你的感受合理了，我才願意處理。」</strong></p>
+          </div>
+
+          <p><strong>這就是為什麼很多老公越「講道理」，老婆越「無理取鬧」</strong>——她不是在反抗你的邏輯，她在反抗你不允許她有感受。</p>
+
+          <h4>翻譯成行動 · 先處理情緒，不處理事實</h4>
+          <ol>
+            <li><strong>第一步</strong>（5 分鐘）：「你現在很生氣 / 很難過。我看到了。」</li>
+            <li><strong>第二步</strong>（10 分鐘）：「告訴我發生了什麼。」（不打斷，不糾正，不解釋）</li>
+            <li><strong>第三步</strong>（之後）：「你想聽我的看法嗎？」（<strong>問！不要假設她要</strong>）</li>
+          </ol>
+          <p><strong>90% 的「無理取鬧」吵架，會在第一步停下來</strong>。</p>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">SCENE 04</div>
+          <h3 class="scene-title">🤐 「我又沒怎樣」 — 你做的「沒做」就是錯</h3>
+          <p>她說：「你都不關心我。」你立刻反駁：「我哪有不關心你！我上週才陪你回娘家！」</p>
+          <p>你在用「具體事件清單」防衛「整體感受」。這是兩個維度。</p>
+          <p>她說的「不關心」可能是：</p>
+          <ul>
+            <li>你在場但心不在</li>
+            <li>你做了事但沒情感連結</li>
+            <li>你問「吃飽沒」但不問「今天好嗎」</li>
+            <li>你解決問題但不陪伴感受</li>
+          </ul>
+
+          <div class="reframe-box">
+            <div class="label">問問自己</div>
+            <p>你回家把臉書/IG/手機放下、好好看著她的眼睛、認真問「你今天怎麼樣？」上一次是什麼時候？<br><br>如果你想不起來，<strong>那她說「你不關心我」是一個準確的觀察，不是無理取鬧</strong>。</p>
+          </div>
+
+          <div class="quote quote-sage">「你說我不關心你，我聽到了，雖然我有點受傷。我想知道——你最希望我怎麼做，你會感受到我關心？不是我以為的關心，是你需要的關心。」</div>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">SCENE 05</div>
+          <h3 class="scene-title">😤 真正失控時 — 你的責任界線</h3>
+          <p>有些情況不是 Brown 框架能解釋的「翻譯失敗」。</p>
+
+          <div class="warning">
+            <div class="label">⚠️ 超出脆弱框架，需要其他資源的訊號</div>
+            <ul>
+              <li>肢體暴力（推、打、摔東西指向人）</li>
+              <li>反覆的言語羞辱（罵你「沒用」「廢物」「該死」）</li>
+              <li>威脅（「我要傷害自己」「我要傷害孩子」）</li>
+              <li>控制行為（不准你跟朋友見面、查你手機到病態程度）</li>
+              <li>反覆失控且事後完全不認、把責任全推給你</li>
+              <li>顯著的人格疾患或未處理的心理健康狀況</li>
+            </ul>
+          </div>
+
+          <p><strong>這些情況，「擁抱脆弱」不是答案</strong>。Brown 自己後續著作明確指出——<strong>脆弱有前提：基本的安全與互惠</strong>。</p>
+          <p>如果是這些情況，你需要的是：個別諮商、伴侶諮商、必要時的物理界線、嚴重情況下離開。</p>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">SCENE 06</div>
+          <h3 class="scene-title">🪞 最深的真相 — 你婚姻裡的痛苦在告訴你關於你自己的事</h3>
+          <p>你選擇了她。她可能在某些時刻很像你媽（或某個對你重要的人）的某個面向。你跟她的吵架模式，可能跟你父母當年的吵架模式很像。</p>
+
+          <div class="quote quote-butter">你不是只在對付一個老婆，你在對付你整個原生家庭沒處理完的劇本。她按到的某些「按鈕」之所以那麼痛，<strong>是因為那個按鈕不是她裝上去的——是你 5 歲時就裝在那裡的</strong>。</div>
+
+          <p>如果你想真正改善這段關係，最高 ROI 的事<strong>不是學溝通技巧</strong>，是：</p>
+          <p style="text-align:center;font-size:18px;color:var(--cocoa);font-weight:600;margin:24px 0;">→ 找一個治療師，認真處理你自己的議題</p>
+          <p>很多男人不願意去治療，因為這違反了「我要自己搞定」的男性腳本。但 Brown 段 7：<strong>「Courage 詞源是『心』」</strong>——真正的勇氣不是自己撐著，是<strong>用整顆心去面對自己內在那個小男孩</strong>。</p>
+        </div>
+
+        <div class="scene">
+          <div class="scene-num">SCENE 07</div>
+          <h3 class="scene-title">🔄 你已經試了 — 她還是「無理取鬧」怎麼辦？</h3>
+          <p>很公平的問題。Brown 框架不是萬能。</p>
+          <p>如果你真的認真聽、認真道歉、認真改變、認真陪伴、認真去諮商了，她仍然每天「無理取鬧」——<strong>那有兩種可能</strong>：</p>
+
+          <h4>可能 1：你的「認真」是表演</h4>
+          <p>Brown 段 8 的脆弱不是表演——<strong>如果你做這些事是為了「讓她閉嘴」，她會感覺到，並且會更生氣</strong>。脆弱不能假裝。</p>
+          <p style="color:var(--cocoa);font-style:italic;">問自己誠實的問題：你做這些事時，是真心想看見她，還是想讓這場仗結束？</p>
+
+          <h4>可能 2：她真的有未處理的議題</h4>
+          <p>Brown 段 8 的另一面：「全心活著的人願意投資一段不一定會成的關係」——<strong>但「投資」不等於「無條件犧牲」</strong>。</p>
+          <ul>
+            <li>你能控制的：你自己的成長、你自己的脆弱練習、你自己的清晰邀請</li>
+            <li>你不能控制的：她要不要也一起做這個工作</li>
+          </ul>
+          <p><strong>先做完你那一邊的功課，再做這個判斷</strong>。否則你會帶著未做完的功課進入下一段關係，撞到一樣的牆。</p>
+        </div>
+      </div>
+
+      <div class="reflection">
+        <h3>✦ 給「老婆無理取鬧」老公的最後三句話</h3>
+        <ol>
+          <li><strong>你的疲憊是真的。但「無理取鬧」這個標籤是你的選擇。</strong>標籤她讓你站在道德高地上，但沒讓你比較幸福。試著放下標籤一週，看會發生什麼。</li>
+          <li><strong>她「無理取鬧」的背後，幾乎永遠有一個你沒看見的東西。</strong>找到那個東西，是你能給這段婚姻的最大禮物。</li>
+          <li><strong>你能改變的只有 50%——那個 50% 是你自己。</strong>不要等她改變。先做完你的功課。<strong>奇蹟通常發生在你停止等她改變的那一刻。</strong></li>
+        </ol>
+      </div>
+
+      <div class="card card-soft" style="margin-top:32px;">
+        <h4 style="font-family:'Noto Serif TC',serif;color:var(--cocoa);margin-bottom:16px;">📚 給你的延伸資源</h4>
+        <ul style="color:var(--text-soft);padding-left:20px;">
+          <li><strong>John Gottman《七個讓愛延續的方法》</strong> — 婚姻研究的硬核實證，「四騎士」與修復技術</li>
+          <li><strong>Stan Tatkin《Wired for Love》</strong> — 從依附理論看伴侶互動，特別適合迴避型 + 焦慮型組合</li>
+          <li><strong>Esther Perel</strong> YouTube / TED — 用法式銳利對伴侶關係的拆解</li>
+          <li><strong>Sue Johnson《Hold Me Tight》</strong> — 情緒取向治療（EFT）的伴侶練習</li>
+          <li><strong>Terry Real《Us》</strong> — 男性視角寫的伴侶治療書，特別誠實討論「男性如何進入脆弱」</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Module 12: Extended Resources -->
+<section id="m12" class="section">
+  <div class="container">
+    <div class="section-head">
+      <div class="section-num">MODULE 12</div>
+      <h2 class="section-title">延伸資源</h2>
+      <div class="section-sub">FIVE DIRECTIONS</div>
+    </div>
+
+    <div class="resources">
+      <div class="resource">
+        <div class="resource-type">⬆ UPSTREAM · 上游</div>
+        <ul>
+          <li><strong>Carl Rogers《On Becoming a Person》(1961)</strong> — 人本心理學奠基作。「無條件正向關懷」是 Brown「值得感」的直接前身</li>
+          <li><strong>Theodore Roosevelt 1910「The Man in the Arena」演講</strong> — Brown 的脆弱意象來源</li>
+          <li><strong>Viktor Frankl《活出意義來》(1946)</strong> — 在最極端情境下證明「意義」優先於「快樂」</li>
+        </ul>
+      </div>
+
+      <div class="resource">
+        <div class="resource-type">↔ PARALLEL · 平行</div>
+        <ul>
+          <li><strong>Rick Hanson《Hardwiring Happiness》</strong> — 類似主題（神經機制 + 喜悅實踐），更偏神經科學</li>
+          <li><strong>Susan Cain《安靜，就是力量》</strong> — 對「外向理想」的文化批判</li>
+          <li><strong>Jonathan Haidt《好人總是自以為是》</strong> — 從道德心理學進入「為何人們無法對話」</li>
+        </ul>
+      </div>
+
+      <div class="resource">
+        <div class="resource-type">→ EXTENSION · 延伸</div>
+        <ul>
+          <li><strong>《Daring Greatly》(2012)</strong> — 本演講的書本版，方法更系統</li>
+          <li><strong>《Rising Strong》(2015)</strong> — 失敗後的重建——填補「街頭巷戰」如何打的細節</li>
+          <li><strong>《Braving the Wilderness》(2017)</strong> — 社會層級的歸屬感</li>
+          <li><strong>《Atlas of the Heart》(2021)</strong> — 87 種情緒的細緻地圖</li>
+        </ul>
+      </div>
+
+      <div class="resource">
+        <div class="resource-type">⚔ OPPOSITE · 對立</div>
+        <ul>
+          <li><strong>Mark Manson《管他的》</strong> — 以「不在乎」反對過度情緒處理</li>
+          <li><strong>Stoicism（Seneca、Marcus Aurelius）</strong> — 用「降低 attachment」對抗痛苦</li>
+          <li><strong>Jordan Peterson《生存的十二條法則》</strong> — 強調紀律與責任，對「脆弱優先」抱持懷疑</li>
+        </ul>
+      </div>
+
+      <div class="resource">
+        <div class="resource-type">⊕ COMPLEMENT · 互補</div>
+        <ul>
+          <li><strong>Pema Chödrön《當生命陷落時》</strong> — 補上「How」：與不確定共處的具體禪修方法</li>
+          <li><strong>Bessel van der Kolk《心靈的傷，身體會記住》</strong> — 補上創傷神經學機制</li>
+          <li><strong>Nedra Glover Tawwab《Set Boundaries, Find Peace》</strong> — 補上「邊界」這個 Brown 缺席的概念</li>
+          <li><strong>bell hooks《關於愛》</strong> — 補上權力與結構性不平等如何影響「脆弱的安全性」</li>
+          <li><strong>Esther Perel《Mating in Captivity》</strong> — 補上親密關係中「脆弱與慾望」的張力</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="reflection" style="margin-top:60px;">
+      <h3>✦ 終極反思題</h3>
+      <p style="text-align:center;color:var(--text-muted);margin-bottom:24px;font-size:14px;">讀完這份解構，三個問題請你寫下答案</p>
+      <ol>
+        <li>在你的生命中，<strong>你最常用什麼工具麻痺脆弱</strong>？這個工具同時在偷走你哪種喜悅？</li>
+        <li>如果「值得感」是無條件的，<strong>你今天有哪些行為是出自「我必須證明我夠好」</strong>？把它們列出來——你願意停掉哪一個？</li>
+        <li>在你身邊有一個人，<strong>你正在試圖完美化他們</strong>（孩子、伴侶、自己）。如果今天對他們說「你不完美，且你值得被愛」，會發生什麼？</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-quote">
+    我用六年研究想征服脆弱，<br>
+    結果發現脆弱不能被征服——<br>
+    因為它不是敵人，<em>是我活著的證明。</em>
+  </div>
+  <div class="footer-meta">SUPER BRAIN READING · 12 MODULES · 4 LENSES · CROSS-REFERENCED</div>
+</footer>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById(target).classList.add('active');
+      // smooth scroll to section
+      document.getElementById('m11').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+
+</body>
+</html>
