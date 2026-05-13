@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reality Transurfing — 超級大腦深度解構</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@200;300;400;500;700&family=Noto+Serif+TC:wght@300;400;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --lavender: #9b8ab8;
+    --soft-pink: #e8b4b8;
+    --cream: #f5e6d3;
+    --sage: #a8b5a0;
+    --ink: #2d2a3a;
+    --ink-light: #5e5870;
+    --paper: #fefcf8;
+    --line: rgba(155, 138, 184, 0.18);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Noto Sans TC', sans-serif;
+    font-weight: 300;
+    color: var(--ink);
+    background: linear-gradient(135deg, #f8f6ff 0%, #fff5f8 50%, #fffaf0 100%);
+    line-height: 2;
+    letter-spacing: 0.02em;
+    min-height: 100vh;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 80px 40px 120px; }
+  /* HERO */
+  .hero { text-align: center; padding: 80px 0 100px; position: relative; }
+  .hero::before {
+    content: "✦"; position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+    color: var(--lavender); font-size: 1.4em; opacity: 0.6;
+  }
+  .hero .en-sub {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    color: var(--lavender); font-size: 1.1em; letter-spacing: 0.3em;
+    text-transform: uppercase; margin-bottom: 24px;
+  }
+  .hero h1 {
+    font-family: 'Noto Serif TC', serif; font-weight: 300;
+    font-size: 3em; letter-spacing: 0.05em; line-height: 1.4; margin-bottom: 24px;
+    color: var(--ink);
+  }
+  .hero h1 .accent { color: var(--soft-pink); font-style: italic; }
+  .hero .meta { color: var(--ink-light); font-size: 0.95em; margin-top: 32px; }
+  .hero .meta span { margin: 0 16px; }
+  .hero .divider {
+    width: 60px; height: 1px; background: var(--lavender);
+    margin: 48px auto 0; opacity: 0.5;
+  }
+  /* TOC */
+  .toc {
+    background: rgba(255,255,255,0.5); border-radius: 24px;
+    padding: 48px 56px; margin: 60px 0;
+    box-shadow: 0 10px 60px rgba(155, 138, 184, 0.08);
+    backdrop-filter: blur(10px);
+  }
+  .toc h2 { font-family: 'Noto Serif TC', serif; font-weight: 400; font-size: 1.4em; margin-bottom: 24px; letter-spacing: 0.1em; }
+  .toc .en-label { color: var(--lavender); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.85em; letter-spacing: 0.2em; display: block; margin-bottom: 8px; }
+  .toc ol { list-style: none; counter-reset: toc; columns: 2; column-gap: 48px; }
+  .toc li { counter-increment: toc; padding: 10px 0; font-size: 0.95em; break-inside: avoid; }
+  .toc li::before {
+    content: counter(toc, decimal-leading-zero);
+    color: var(--lavender); font-family: 'Cormorant Garamond', serif;
+    margin-right: 12px; font-weight: 400;
+  }
+  .toc a { color: var(--ink); text-decoration: none; transition: color 0.2s; }
+  .toc a:hover { color: var(--soft-pink); }
+  /* SECTION */
+  section { margin: 100px 0; }
+  .module-label {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    color: var(--lavender); letter-spacing: 0.3em; text-transform: uppercase;
+    font-size: 0.85em; margin-bottom: 12px;
+  }
+  h2.section-title {
+    font-family: 'Noto Serif TC', serif; font-weight: 400;
+    font-size: 2em; letter-spacing: 0.05em; margin-bottom: 8px; line-height: 1.4;
+  }
+  .section-sub { color: var(--ink-light); font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 1.05em; margin-bottom: 40px; letter-spacing: 0.05em; }
+  .section-divider { width: 40px; height: 1px; background: var(--lavender); opacity: 0.4; margin: 24px 0 40px; }
+  /* CARDS */
+  .card {
+    background: rgba(255,255,255,0.6); border-radius: 20px;
+    padding: 40px 48px; margin: 24px 0;
+    box-shadow: 0 8px 40px rgba(155, 138, 184, 0.06);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--line);
+  }
+  .card-title { font-family: 'Noto Serif TC', serif; font-weight: 400; font-size: 1.3em; margin-bottom: 16px; letter-spacing: 0.05em; }
+  .card-title .en { color: var(--lavender); font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.8em; display: block; margin-bottom: 4px; letter-spacing: 0.2em; text-transform: uppercase; }
+  .card p { margin-bottom: 14px; color: var(--ink); }
+  .card strong { font-weight: 500; color: var(--ink); border-bottom: 1px dashed var(--soft-pink); padding-bottom: 1px; }
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 0.92em; }
+  th, td { padding: 14px 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+  th { font-weight: 500; color: var(--lavender); font-family: 'Cormorant Garamond', serif; font-style: italic; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.85em; }
+  tr:hover td { background: rgba(155, 138, 184, 0.03); }
+  /* CHAPTER */
+  .chapter {
+    background: rgba(255,255,255,0.5); border-radius: 20px;
+    padding: 32px 40px; margin: 20px 0;
+    border-left: 3px solid var(--soft-pink);
+    box-shadow: 0 6px 24px rgba(155, 138, 184, 0.05);
+  }
+  .chapter h3 {
+    font-family: 'Noto Serif TC', serif; font-weight: 400;
+    font-size: 1.2em; margin-bottom: 20px; letter-spacing: 0.05em;
+  }
+  .chapter .ch-num {
+    color: var(--lavender); font-family: 'Cormorant Garamond', serif;
+    font-style: italic; font-size: 0.85em; letter-spacing: 0.3em;
+    margin-right: 12px; text-transform: uppercase;
+  }
+  .dim {
+    display: grid; grid-template-columns: 100px 1fr; gap: 16px;
+    padding: 12px 0; border-bottom: 1px dashed var(--line);
+  }
+  .dim:last-child { border-bottom: none; }
+  .dim-label {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    color: var(--lavender); letter-spacing: 0.15em; font-size: 0.9em;
+    text-transform: uppercase;
+  }
+  .dim ul { padding-left: 1.2em; }
+  .dim li { margin-bottom: 4px; }
+  /* QUOTE */
+  blockquote {
+    font-family: 'Noto Serif TC', serif; font-style: italic;
+    font-size: 1.15em; color: var(--ink-light);
+    padding: 24px 32px; margin: 32px 0;
+    border-left: 2px solid var(--soft-pink); background: rgba(255,255,255,0.4);
+    border-radius: 0 16px 16px 0;
+  }
+  /* MATRIX */
+  .matrix-pair {
+    display: grid; grid-template-columns: 1fr auto 1fr; gap: 24px; align-items: stretch;
+    margin: 32px 0;
+  }
+  .matrix-side {
+    background: rgba(255,255,255,0.6); padding: 24px; border-radius: 16px;
+    border: 1px solid var(--line);
+  }
+  .matrix-vs {
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    color: var(--lavender); font-size: 1.5em;
+  }
+  .matrix-side h4 { font-family: 'Noto Serif TC', serif; font-weight: 400; color: var(--soft-pink); margin-bottom: 8px; }
+  .unify { margin-top: 16px; padding: 16px; background: rgba(168, 181, 160, 0.08); border-radius: 12px; font-size: 0.92em; }
+  .unify::before { content: "深層統一 — "; color: var(--sage); font-weight: 500; font-family: 'Noto Serif TC', serif; }
+  /* CHAIN */
+  .chain {
+    display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+    margin: 20px 0; padding: 16px; background: rgba(255,255,255,0.4); border-radius: 12px;
+  }
+  .chain-node {
+    padding: 8px 16px; background: rgba(155, 138, 184, 0.1);
+    border-radius: 8px; font-size: 0.9em; color: var(--ink);
+  }
+  .chain-arrow { color: var(--lavender); font-family: 'Cormorant Garamond', serif; }
+  /* META-PRINCIPLE */
+  .meta-p {
+    background: linear-gradient(135deg, rgba(155, 138, 184, 0.08) 0%, rgba(232, 180, 184, 0.08) 100%);
+    padding: 32px 40px; border-radius: 20px; margin: 20px 0;
+  }
+  .meta-p .num {
+    font-family: 'Cormorant Garamond', serif; color: var(--lavender);
+    font-size: 2.5em; font-weight: 300; line-height: 1; float: left; margin-right: 20px;
+  }
+  .meta-p .heading {
+    font-family: 'Noto Serif TC', serif; font-weight: 400; font-size: 1.15em;
+    color: var(--ink); margin-bottom: 8px; letter-spacing: 0.05em;
+  }
+  .meta-p .covers { font-size: 0.85em; color: var(--lavender); margin: 8px 0 16px; letter-spacing: 0.1em; }
+  /* ACTION */
+  .action-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 32px 0; }
+  .action-card {
+    background: rgba(255,255,255,0.6); padding: 28px 24px; border-radius: 16px;
+    border-top: 3px solid var(--lavender);
+  }
+  .action-card.month { border-top-color: var(--soft-pink); }
+  .action-card.long { border-top-color: var(--sage); }
+  .action-card h4 {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    color: var(--lavender); letter-spacing: 0.2em; font-size: 0.9em;
+    text-transform: uppercase; margin-bottom: 16px;
+  }
+  .action-card ol { padding-left: 1.2em; }
+  .action-card li { margin-bottom: 10px; font-size: 0.92em; }
+  /* NARRATIVE ARC */
+  .arc {
+    background: rgba(255,255,255,0.5); padding: 40px; border-radius: 20px;
+    margin: 32px 0;
+  }
+  .arc-row {
+    display: grid; grid-template-columns: 120px 1fr; gap: 24px;
+    padding: 16px 0; border-bottom: 1px dashed var(--line);
+  }
+  .arc-row:last-child { border-bottom: none; }
+  .arc-stage {
+    font-family: 'Cormorant Garamond', serif; font-style: italic;
+    color: var(--lavender); letter-spacing: 0.15em; font-size: 0.95em;
+  }
+  /* GLOSSARY DOT */
+  .keyword { color: var(--soft-pink); font-weight: 500; }
+  .footer {
+    text-align: center; padding: 80px 0 0; color: var(--ink-light);
+    font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.95em;
+    letter-spacing: 0.2em;
+  }
+  .footer ✦ { color: var(--lavender); }
+  /* RESPONSIVE */
+  @media (max-width: 720px) {
+    .wrap { padding: 40px 20px 80px; }
+    .hero h1 { font-size: 2em; }
+    .toc ol { columns: 1; }
+    .matrix-pair { grid-template-columns: 1fr; }
+    .matrix-vs { padding: 8px 0; }
+    .action-grid { grid-template-columns: 1fr; }
+    .arc-row { grid-template-columns: 1fr; gap: 8px; }
+    .dim { grid-template-columns: 1fr; gap: 8px; }
+    .card, .chapter { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- HERO -->
+<header class="hero">
+  <div class="en-sub">Super Brain Reading · Deep Deconstruction</div>
+  <h1>跨越鏡像的<span class="accent">意圖</span>之書<br>Reality Transurfing</h1>
+  <div class="meta">
+    <span>Vadim Zeland</span>
+    <span>·</span>
+    <span>Steps I — V</span>
+    <span>·</span>
+    <span>19 章 / 5 階</span>
+  </div>
+  <div class="divider"></div>
+</header>
+
+<!-- TOC -->
+<nav class="toc">
+  <span class="en-label">Table of Contents</span>
+  <h2>解構地圖</h2>
+  <ol>
+    <li><a href="#m01">書籍資料卡</a></li>
+    <li><a href="#m02">認知遞進設計</a></li>
+    <li><a href="#m03">完整章節清單</a></li>
+    <li><a href="#m04">核心命題</a></li>
+    <li><a href="#m05">逐章五維解析</a></li>
+    <li><a href="#m06">四類整合洞見</a></li>
+    <li><a href="#m07">隱藏連結網絡</a></li>
+    <li><a href="#m08">行動轉化</a></li>
+    <li><a href="#m10">敘事弧線</a></li>
+    <li><a href="#m11">個人化透鏡</a></li>
+    <li><a href="#m12">延伸資源</a></li>
+  </ol>
+</nav>
+
+<!-- ============ STRUCTURE LAYER ============ -->
+
+<!-- MODULE 01 -->
+<section id="m01">
+  <div class="module-label">Module 01 · Book Profile</div>
+  <h2 class="section-title">書籍資料卡</h2>
+  <div class="section-divider"></div>
+  <div class="card">
+    <p><strong>作者</strong>：Vadim Zeland — 俄羅斯量子物理學家轉形上學作者。他刻意對個人生平保持神秘（公開資訊極少），自稱「曾任職於極機密科學研究機構」。作品出版後在俄語世界引發地下熱潮，被譯成 20 多種語言。他的「資格」不來自學術頭銜，而來自一套自洽完整、可驗證的方法論。</p>
+    <p><strong>版本說明</strong>：本書是「Reality Transurfing Steps I—V」合訂本（978-5-9573-2880-3），把原來 1996—2005 年間分五冊出版的內容整合進一本書。Step I 對應 Ch I—V（地基）、Step II 對應 Ch VI—VIII（風）、Step III 對應 Ch IX—XI（向前）、Step IV 對應 Ch XII—XIV（行）、Step V 對應 Ch XV—XIX（蘋果落上天）。</p>
+    <p><strong>智識源頭</strong>：Carl Jung 的共時性（synchronicity，作者在後記直接引用 Jung 的金龜蟲故事）；量子物理的多重宇宙觀（David Deutsch 風格）；俄羅斯神秘主義傳統（Gurdjieff 的「機械人類」與「自我記憶」概念）；卡斯塔尼達 Carlos Castaneda 的「意圖」與「鏡子兩面」；古印度吠陀的 Maya（幻象）；以及作者自承讀過的所有「成功學書」（他寫此書是為了反對它們）。</p>
+    <p><strong>一句話定位</strong>：<span class="keyword">這不是一本要你改變自己的自助書，而是一本要你「別再為現實奮戰」、改為「選擇」並讓現實自行流向你的反自助書。</span></p>
+  </div>
+</section>
+
+<!-- MODULE 02 -->
+<section id="m02">
+  <div class="module-label">Module 02 · Cognitive Progression</div>
+  <h2 class="section-title">認知遞進設計</h2>
+  <p class="section-sub">— Why this order? 為什麼是這個順序 —</p>
+  <div class="section-divider"></div>
+
+  <div class="card">
+    <p>本書 19 章不是知識點的堆積，而是一條精密的「拆——建——交鑰匙」三幕劇。Zeland 故意把終極答案放最後，因為若一開始就說「你是現實的創造者」（Ch XIX），讀者會把它當成正向心理學的口號。他得先用前五章拆掉你對「現實」的所有預設。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="en">Act I · Demolition</span>第一階段：拆除世界觀（Ch I—V）</div>
+    <p>作者先用 <span class="keyword">替代空間（alternatives space）</span>這個全新本體論替換你頭腦中的「唯一現實」。然後揭露三大不可見力量：<strong>鐘擺</strong>（吸食你能量的群體念力結構）、<strong>幸運之波</strong>（不吸食你能量的良性結構）、<strong>平衡力</strong>（你過度看重事物時自動產生的反作用力）。最後用「被誘導的轉移」說明：你大部分痛苦不是命運，是你自己在每次抱怨中主動切換到了較糟的平行世界線。</p>
+    <p><em class="keyword">設計意圖</em>：先讓你接受「現實不是固定的、是你選擇的」，否則後面所有方法都會被你的舊世界觀消化掉。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="en">Act II · Reconstruction</span>第二階段：重建操作系統（Ch VI—XI）</div>
+    <p>拆完之後，作者開始給你新工具。<strong>替代之流</strong>（Ch VI）教你不要對抗：阻力是頭腦自己製造的。<strong>意圖</strong>（Ch VII）—— 全書最核心的一章 —— 區分了「內在意圖（行動）」和「外在意圖（讓事情自然發生的力量）」，後者是 Transurfing 的真正引擎。<strong>幻燈片</strong>（Ch VIII）給你具象化技術。<strong>心與心智</strong>（Ch IX）—— 全書最動人的一章 —— 教你辨識「靈魂的呼聲」與「頭腦的算計」。<strong>目標與門</strong>（Ch X）破解最致命的陷阱：追求別人的目標。<strong>能量</strong>（Ch XI）給你體力學的工具。</p>
+    <p><em class="keyword">設計意圖</em>：核心三角是「<strong>降低重要性 + 統一心與心智 + 走向你自己的目標</strong>」。先有正確的世界觀，才能用對技術，否則所有技術都變成新的鐘擺。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="en">Act III · Mastery</span>第三階段：實戰與終極授權（Ch XII—XIX）</div>
+    <p><strong>Frailing</strong>（Ch XII）把方法用於人際——核心反直覺：不要爭取被注意，而要讓對方在你面前感到自己重要。<strong>協調</strong>（Ch XIII）給最強大的單句咒語：「<em>蘋果落向天空（apples fall to the sky）</em>」——把所有看似負面的事件預先選擇為正面。<strong>前進到過去</strong>（Ch XIV）是中段休息，用「交易」技術讓你親眼看見替代空間的移動。Ch XV—XVI 處理你必然會卡關的具體情境。然後 Ch XVII—XIX 是「世界觀大反轉」：原來整個世界是一面雙鏡，你以為你在鏡中走動，其實你就是<strong>創造者（the Maker）</strong>。</p>
+    <p><em class="keyword">設計意圖</em>：最後一階段是把「鑰匙」交到讀者手上。前面所有的技術細節都是為了讓你最終能在心中說出 Ch XIX 的那句話：「<em>我做這個決定，因為我是我自己現實的創造者</em>」——並且真的相信它。</p>
+  </div>
+</section>
+
+<!-- MODULE 03 -->
+<section id="m03">
+  <div class="module-label">Module 03 · Full Chapter Matrix</div>
+  <h2 class="section-title">完整章節清單</h2>
+  <div class="section-divider"></div>
+  <table>
+    <thead>
+      <tr><th>#</th><th>標題</th><th>一句話精華</th><th>階段</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>I</td><td>替代模型 The Alternatives Model</td><td>所有可能的「事件腳本與場景」都已存在於替代空間，你不創造現實，你選擇進入哪個版本。</td><td>I 拆</td></tr>
+      <tr><td>II</td><td>鐘擺 Pendulums</td><td>群體共同念頭形成的能量結構，靠吸食成員能量壯大，會把你拐離你的幸運之波。</td><td>I 拆</td></tr>
+      <tr><td>III</td><td>幸運之波 The Wave of Fortune</td><td>一連串對你有利的人生線形成的金礦脈，搭上第一道後讓自己被它的喜悅充滿，剩下的會自動跟來。</td><td>I 拆</td></tr>
+      <tr><td>IV</td><td>平衡 Balance</td><td>對任何事物賦予「過度重要性」就會召喚平衡力來消除這份不平衡——而它消除的方式通常就是把你的願望反向實現。</td><td>I 拆</td></tr>
+      <tr><td>V</td><td>誘導的轉移 The Induced Transition</td><td>每次你對負面事件表達反應，就主動把自己切換到更糟的平行線——所以不要避開，而是「拒絕注意」。</td><td>I 拆</td></tr>
+      <tr><td>VI</td><td>替代之流 The Alternatives Flow</td><td>事件本來會循阻力最小的路徑流動，是你的頭腦想控制而把你帶到瀑布邊。</td><td>II 建</td></tr>
+      <tr><td>VII</td><td>意圖 Intention</td><td>內在意圖＝行動的決心；外在意圖＝擁有的決心——後者才是 Transurfing 的引擎。</td><td>II 建</td></tr>
+      <tr><td>VIII</td><td>幻燈片 Slides</td><td>你頭腦裡反覆播放的心象會被外在意圖逐步實現——把它們從負面改成正面。</td><td>II 建</td></tr>
+      <tr><td>IX</td><td>心與心智 The Heart and Mind</td><td>心能感覺外在意圖卻沒有意志；心智有意志卻感覺不到外在意圖——兩者統一才能釋放真正的力量。</td><td>II 建</td></tr>
+      <tr><td>X</td><td>目標與門 Goals and Doors</td><td>不要去追別人定義的目標（外來目標總是讓你感覺有壓力），找你的目標、走你的門。</td><td>II 建</td></tr>
+      <tr><td>XI</td><td>能量 Energy</td><td>意圖的能量被壓力（=重要性）阻塞——降重要性比累積能量更重要。</td><td>II 建</td></tr>
+      <tr><td>XII</td><td>Frailing</td><td>使用他人的內在意圖達成你的目標——方法是真誠地讓對方在你面前感到自己重要。</td><td>III 實戰</td></tr>
+      <tr><td>XIII</td><td>協調 Coordination</td><td>結束戰鬥；對所有事件預先選擇正面詮釋——「蘋果落向天空」。</td><td>III 實戰</td></tr>
+      <tr><td>XIV</td><td>前進到過去 Forward to the Past</td><td>透過「交易」技術，你可以親眼看見場景在替代空間中的移動。</td><td>III 實戰</td></tr>
+      <tr><td>XV</td><td>來自過去的信 Letters from the Past</td><td>連續壞運是「過度重要性 + 對抗模式」的累積——用反轉現實的視角破除。</td><td>III 實戰</td></tr>
+      <tr><td>XVI</td><td>與影共舞 Dances with Shadows</td><td>所有外在問題都來自內在的兩極化——破除「應該」、宣告你的意圖。</td><td>III 實戰</td></tr>
+      <tr><td>XVII</td><td>神的夢境 The Dreams of the Gods</td><td>每個生命的生活都是神的一場夢，你是參與創造的共同造物者。</td><td>III 實戰</td></tr>
+      <tr><td>XVIII</td><td>鏡像世界 The Mirror World</td><td>世界是一面有延遲的鏡子，反映你對它的「關係」——改變心象而非反射。</td><td>III 實戰</td></tr>
+      <tr><td>XIX</td><td>永恆守門人 The Gatekeeper to Eternity</td><td>離開人群，宣告你的判決：「我是我自己現實的創造者」。</td><td>III 實戰</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- MODULE 04 -->
+<section id="m04">
+  <div class="module-label">Module 04 · Core Thesis</div>
+  <h2 class="section-title">核心命題</h2>
+  <div class="section-divider"></div>
+
+  <div class="card">
+    <div class="card-title"><span class="en">The Question</span>問題</div>
+    <p>為什麼大部分人越是努力追求成功、健康、幸福，越是失去它？而少數人卻看似不費力地擁有一切？傳統自助書答案是「你還不夠努力」或「你還沒改變自己」——但這條路為什麼總是讓人更累且更得不到？</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="en">The Thesis</span>論點</div>
+    <p>因為現實的結構不是「努力 → 改變現實」，而是「<span class="keyword">念頭能量的頻率 → 把你的肉體從一條人生線切換到另一條已存在的人生線</span>」。所有可能的「事件腳本」已存在於一個叫做「替代空間」的資訊場中。你以為自己在創造未來，其實你只是在無數已存在的版本之間滑行——而切換你滑向哪裡的，是你對事件的「內在關係」（你重視什麼、你恐懼什麼、你重複播放什麼心象）。所以解方不是「努力」，而是「<strong>降低重要性 + 統一心與心智 + 順流</strong>」三件事。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="en">The Method</span>方法</div>
+    <p>作者用三種論證並行：①<strong>形上學論證</strong>——直接給出替代空間/鐘擺/平衡力/外在意圖的模型；②<strong>日常觀察論證</strong>——用大量讀者一定有過的經驗（「為什麼你越想要的越得不到」「為什麼壞事都成串地來」）反向印證模型；③<strong>實作論證</strong>——每章後段都有可立即操作的技術（鬆綁鐘擺、目標幻燈片、單元化問句、交易、聲明意圖），讓讀者「不用相信，去測試」。作者反覆強調：「我不要求你相信，我要求你驗證」。</p>
+  </div>
+</section>
+
+<!-- ============ DEPTH LAYER ============ -->
+
+<!-- MODULE 05 -->
+<section id="m05">
+  <div class="module-label">Module 05 · Chapter-by-Chapter</div>
+  <h2 class="section-title">逐章五維解析</h2>
+  <p class="section-sub">— 19 chapters · 5 dimensions each —</p>
+  <div class="section-divider"></div>
+
+  <!-- Ch I -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch I</span>替代模型 The Alternatives Model</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>所有可能的事件腳本都已存在；你不創造命運，你選擇在哪個版本實現。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li><strong>變異是宇宙最根本的性質</strong>——任何聲稱「這就是現實」的理論都只是其中一個面向。</li>
+      <li><strong>你的選擇必然會被實現</strong>，但「選擇」≠ 願望，而是你念頭能量持續發出的頻率。</li>
+      <li>守門人之謎：「每個人都可以擁有選擇任何東西的自由——這份自由如何取得？」答案要讀到最後一章才會懂。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>下次抱怨之前停一秒問：「我現在用的這個假設（『我做不到 X』）只是無限選項中的一個，我為什麼選了它？」</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>過去一週你重複最多次的「我就是這樣的人」是哪一句？你正在把自己鎖進哪一條人生線？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>為 Ch VII（意圖）、Ch XVIII（鏡像）鋪設本體論地基；守門人之謎在 Ch XIX 揭曉。</div></div>
+  </div>
+
+  <!-- Ch II -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch II</span>鐘擺 Pendulums</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>群體共同念頭會產生一個自主的能量結構，靠吸食你的能量壯大，並把你拐離你個人的幸運。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li><strong>沒有任何鐘擺是「建設性的」</strong>——對其本身建設，對成員一律破壞。連你的健身房都是。</li>
+      <li><strong>你不想要的東西反而會出現</strong>——因為「強烈不想要」也是同頻共振，鐘擺照樣吸食。</li>
+      <li>停下鐘擺的方法不是對抗，而是<strong>讓它「無處安放」</strong>——刻意忽略、不給注意。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>當你發現自己又在罵新聞/同事/政治人物時，立刻意識「我又被鐘擺勾走了」——停止參與該話題就是把能量收回。</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>列出你每天耗能最大的三個「對話/思考主題」——它們有任何一個是真的對你的目標有貢獻嗎？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>鐘擺是貫穿全書的反派；Ch V 講鐘擺的旋渦、Ch XVI 講鐘擺的兩條法則、Ch XIX 講脫離鐘擺自立門戶。</div></div>
+  </div>
+
+  <!-- Ch III -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch III</span>幸運之波 The Wave of Fortune</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>幸運之波是「對你個人有利的人生線聚合」——和鐘擺相反，它不吸你能量，但你也得主動搭上去。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li>一連串好運只在你「<strong>讓自己被第一次幸運的喜悅充滿</strong>」時才會繼續。</li>
+      <li>你的念頭像迴力鏢——你發出什麼頻率，世界回應什麼。</li>
+      <li>市集小販給第一個客人折扣不是迷信——他在用實際動作把自己調頻到「成功交易」的人生線。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>今天發生的最小一件好事——刻意停下來「讓喜悅充滿你 30 秒」，這是 Zeland 說的調頻動作。</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>你上次「真心放鬆地享受好運」是什麼時候？還是好事一發生你就趕忙警戒「下一個壞事什麼時候來」？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>Ch II 的反命題；為 Ch VIII（幻燈片）的「正面具象化」奠基。</div></div>
+  </div>
+
+  <!-- Ch IV -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch IV</span>平衡 Balance</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>對任何事過度賦予重要性 → 召喚平衡力 → 平衡力消除過量勢能的方式通常是「把你願望反向實現」。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li>「越想要的越得不到」不是運氣，是<strong>過量勢能</strong>。</li>
+      <li>「自卑」與「自大」產生同樣大小的過量勢能，只是極性相反。</li>
+      <li><strong>依賴關係（如果你 X，我就 Y）必然產生過量勢能</strong>——這就是為什麼條件式愛情總是失敗。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>選一件你「非要不可」的東西，今天刻意對自己說：「我即使失去這個也沒關係，沒有它我也是完整的」——練習降重要性。</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>你最近一次「過度準備、過度演練」的場合，結果如何？（多半是反向實現了你最害怕的事）</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>「重要性」是本書真正的中心反派；Ch VII、Ch XI、Ch XIII、Ch XVI 都繞著它打轉。</div></div>
+  </div>
+
+  <!-- Ch V -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch V</span>誘導的轉移 The Induced Transition</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>每次你對負面事件做出反應（憤怒、抱怨、討論），就主動把自己切換到更糟的平行人生線。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li>「老人覺得世界變差了」不是世界在退化——是他持續發出負面念頭頻率，自己慢慢漂到較糟的人生線。</li>
+      <li>鐘擺挑釁你的方式像旋渦，捲入後旋出時你會在很遠的負面區域。</li>
+      <li>「不要讓負面訊息進入你的層次」不是逃避，而是<strong>「刻意不感興趣、不關注」</strong>。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>明天試一天：完全不看社群媒體上的負面新聞、不參與抱怨。觀察你的情緒層和遇到的事件。</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>你今天分享/轉發/談論過幾次負面內容？這些次數加起來，等於你「主動切換到較糟人生線」的次數。</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>具體說明 Ch II 鐘擺如何運作；Ch XIII 協調章節提供解方。</div></div>
+  </div>
+
+  <!-- Ch VI -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch VI</span>替代之流 The Alternatives Flow</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>事件本來會循阻力最小的路徑流動；是你的頭腦試圖控制流的方向，反而把你帶到瀑布邊。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li>所有「直覺、靈感、新發明」都不是頭腦創造的，是你的潛意識從替代空間下載的。</li>
+      <li><strong>「指引徵兆」</strong>不在事件本身，而在事件讓你產生「有點不對勁」的感覺——這是切換人生線的信號。</li>
+      <li>「如果你必須說服自己去做某件事，那就是心在說『不』」——這是書中最強的單句判斷工具之一。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>下次要做重要決定，問：「想到去做這件事，我的身體（特別是腹腔）是輕鬆還是沉重？」沉重就是不。</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>你過去一年「不得不」的決定中，有多少在做決定那刻你已經感覺不對，但你說服了自己？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>本章把控制中心「從控制流轉移到觀察流」——這是 Ch VII 外在意圖的前置心態。</div></div>
+  </div>
+
+  <!-- Ch VII -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch VII</span>意圖 Intention（全書最核心）</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>內在意圖 = 行動的決心；外在意圖 = 擁有的決心——後者才是讓事情自行實現的引擎。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li><strong>「意圖」≠ 「願望」</strong>——願望是「我想要」，意圖是「我已決定要有並要去做」。</li>
+      <li>外在意圖的運作機制是「跨越替代空間的不同扇區」——不在當前現實中操作，而是切換到目標已實現的扇區。</li>
+      <li>遊戲必須以「參與的觀察者」姿態玩——這個「detachment + lucidity」的態度是外在意圖的觸發鑰匙。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>把所有「我希望……」「我想要……」全部改寫成「我選擇……」「我已決定擁有……」——強迫頭腦從祈求模式切到擁有模式。</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>你對主要目標的內心姿態，比較像「乞求一份禮物」還是「從信箱取自己的信」？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>本書的物理引擎；Ch VIII（幻燈片）是它的燃料、Ch IX（心智合一）是它的火星塞、Ch XI（能量）是它的燃油箱。</div></div>
+  </div>
+
+  <!-- Ch VIII -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch VIII</span>幻燈片 Slides</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>你頭腦裡反覆播放的心象（不管正面負面）會被外在意圖逐步實現。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li><strong>具象化「過程」比具象化「結果」有效</strong>——具象化結果會強化「現在沒有」的感受，具象化過程則把你放在路上。</li>
+      <li>幻燈片要<strong>常常打開、每次加細節</strong>——而不是一次想完。</li>
+      <li>絕不可在幻燈片中複製別人的成功畫面——那會把你導向別人的人生線（外來目標）。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>每天睡前 2 分鐘，打開你的目標幻燈片，加一個新細節（不是想結果，而是想「住在裡面」的細節）。</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>你目前最常反覆播放的心象是什麼？正面還是負面？它正在實現嗎？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>Ch VII 外在意圖的「燃料」；Ch XVIII 鏡像世界中「移動心象而非反射」的具體技術。</div></div>
+  </div>
+
+  <!-- Ch IX -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch IX</span>心與心智 The Heart and Mind</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>心能感覺外在意圖卻沒有意志；心智有意志卻感覺不到外在意圖——兩者統一才能釋放真正的力量。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li><strong>Fraile</strong>（作者自創詞）= 你靈魂獨一無二的「振動特徵」——找到它，世界會自動為你開門。</li>
+      <li>「內在舒適」不能無條件等於「對」，但「內在不舒服」<strong>絕對</strong>等於「不對」——這是非對稱的判斷工具。</li>
+      <li>「你的心和別人的心一樣好；你應得最好的；你已擁有所需，只是還沒使用」——本書罕見的、近乎詩的段落。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>下次面對選擇，先別問「這合理嗎/應該嗎」，問「想到它我的胸口/腹部是擴張還是收緊？」</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>過去三年你完成的重要決定中，有幾項是「心和心智都同意」，有幾項是「心智強迫心妥協」？後者的結果如何？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>整合 Ch VI 的「聽身體訊號」、Ch VII 的「意圖」、Ch X 的「找你的目標」。</div></div>
+  </div>
+
+  <!-- Ch X -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch X</span>目標與門 Goals and Doors</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>不要追別人定義的目標；找你的目標、走你的門。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li><strong>外來目標的七個徵兆</strong>——感覺像義務、以流行/聲望為包裝、看似不可及而誘人、強迫你向人證明自己、來自他人、服務別人的利益、想到它時你感到不安。</li>
+      <li>「在追求你的目標的過程中，你會在路上順便實現所有其他願望」——本書最反「設目標 SMART」的句子。</li>
+      <li>「不要把目標和門放進同一個籃子」——保留替代的門/路徑，否則一旦那扇門關上你就會放棄目標。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>對你目前最大的目標做「外來目標七檢」，如果中三項以上——那不是你的目標。</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>如果沒有人會知道你做了什麼、沒有人會評價你——你還會追現在這個目標嗎？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>是 Ch IX 心與心智合一的應用——你的目標是心做的，門是心智找的。</div></div>
+  </div>
+
+  <!-- Ch XI -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch XI</span>能量 Energy</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>意圖需要自由能量；自由能量被壓力（即重要性）阻塞——所以降重要性比累積能量更重要。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li>有兩種能量：<strong>生理能量</strong>（吃睡運動補）和<strong>自由能量</strong>（=意圖能量，來自宇宙循中央經脈流動）。</li>
+      <li>「不要試圖累積能量，讓它自由通過你」——蓄水反而會堵塞。</li>
+      <li>對「疾病鐘擺」絕不參與遊戲——不要過度討論、不要過度檢查、不要在頭腦中持續播放生病的幻燈片。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>每天早上做 5 分鐘「中央經脈」呼吸：想像一條光從會陰升至頭頂、另一條從頭頂降至會陰，同時進行。</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>你的疲憊感哪些是肉體的、哪些其實是「持續高重要性」造成的能量阻塞？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>給 Ch VII 意圖配置「燃油」；給 Ch XIII、Ch XIX 的「行動」配置體力。</div></div>
+  </div>
+
+  <!-- Ch XII -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch XII</span>Frailing</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>使用他人的內在意圖達成你的目標——方法是真誠地讓對方在你面前感到自己重要。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li>「在對話中，人們不是評估你有不有趣，而是評估你能多大程度上實現他們的自我價值感」——這是本書最冷靜的人類學觀察。</li>
+      <li>不要試圖改變別人（更不要改變自己）；改變「注意力的方向」——從自我轉到他人。</li>
+      <li><strong>請對方幫個小忙</strong>是最快成為朋友的方法（Ben Franklin 效應的形上學版本）。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>下次社交場合，刻意不再準備「我要說什麼有趣的話」，改為「我要怎麼讓對方感到他重要」——觀察結果差異。</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>你最近一次和重要人物的對話，有多少比例你在說自己、多少比例對方在說自己？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>Ch IV 平衡的人際版——「給出意圖」自動消除過量勢能。</div></div>
+  </div>
+
+  <!-- Ch XIII -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch XIII</span>協調 Coordination</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>結束所有戰鬥；對所有事件預先選擇正面詮釋——「蘋果落向天空」。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li>「我沒有重要性，就沒什麼要捍衛、沒什麼要征服」——這是本書的禪宗時刻。</li>
+      <li>「採用一個愚蠢的習慣：對挫折感到喜悅」——這聽起來瘋狂，但作者解釋：人生線在每個事件處分叉，你的詮釋決定你進哪一條。</li>
+      <li>所有「如何不害怕/不焦慮/不嫉妒」的問題，答案都是「行動」+「接受失敗的可能性」+「停止為自己辯護」。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>今天起練習「協調規則」：發生任何不順時，立刻說「太好了，這對我有利」——並真的相信它能變有利。</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>你過去一個月遇到的「壞事」中，有沒有一件其實兩年後回頭看會慶幸它發生？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>解 Ch V 誘導轉移之毒；為 Ch XVIII 鏡像世界的「移動心象」做心態準備。</div></div>
+  </div>
+
+  <!-- Ch XIV -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch XIV</span>前進到過去 Forward to the Past</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>透過「交易（transaction）」技術，你可以親眼看到場景在替代空間中的移動。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li>這章是全書中最近乎「練功」的一章——「轉動鑰匙 + 具象化 + 清晰聚焦」三步驟。</li>
+      <li>「不要對交易技術賦予過度意義；放鬆地做；不要逼自己頻繁做」——典型 Zeland：給你一個技術，立刻警告你不要把技術變成新的鐘擺。</li>
+      <li>「世界是反映你對它關係的鏡子。停止戰鬥就贏得自由」——出現在這章不是巧合，是 Ch XVIII 的伏筆。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>每週做一次「交易」實驗：在熟悉的場景（如同一條路）放鬆雙肩、想像兩條箭從身體前後伸出、保持柔和注視——觀察場景中細節的變化。</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>你願意接受「現實有可能在你眼前細微地、可驗證地改變」這個假設嗎？還是這已超過你頭腦能接受的閾值？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>是全書的「實證實驗」章——讓讀者親身驗證前面理論。</div></div>
+  </div>
+
+  <!-- Ch XV -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch XV</span>來自過去的信 Letters from the Past</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>連續壞運 = 過去累積的高重要性 + 戰鬥姿態（過去的「信件」現在寄達）。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li>「壞運是因為當下重要性太高 + 你還在和過去戰鬥」——而非命運懲罰。</li>
+      <li><strong>反轉現實（Reality Inversion）</strong>：把「我必須贏回他/她」反過來——刻意降低對結果的執著，讓對方來到你身邊。</li>
+      <li>「祕教知識」如果讓你變得更焦慮、更需要儀式，那它本身就成了一個鐘擺。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>面對「我必須挽回 X」時，先問：「如果我接受失去 X 的可能性，並停止戰鬥，會怎樣？」</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>你目前正在「努力挽回」的事或人——你的努力是讓事情變好還是變僵？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>Ch IV 平衡 + Ch XIII 協調的綜合應用。</div></div>
+  </div>
+
+  <!-- Ch XVI -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch XVI</span>與影共舞 Dances with Shadows</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>所有外在問題的根源都是內在的兩極化（polarisation）——你對某一極過度賦予重要性，就召喚出反極。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li>鐘擺的兩條法則：①激化衝突能量、②盡可能穩定既有結構（=拒絕任何改變）。</li>
+      <li>「<strong>覺察</strong>」的精確定義：「在這一刻我是清醒的，並且清楚地知道我正在做什麼、為什麼做、為什麼以這種方式做」——一個可立即操作的覺察提示。</li>
+      <li>「<strong>意圖宣告</strong>」：每當你收到任何「能量信用」（小成功、小好運），立刻宣告你的意圖——這把短暫的順流變成持續的軌道。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>下次拿到任何小成就/好運（無論多小），立刻在心中說：「我選擇這個方向。我繼續走。」</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>列出你目前最強的三個「應該」——它們各自對應的反極是什麼？反極是否已開始出現？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>Ch IV 平衡的進階版；為 Ch XVII—XIX 的「成為造物者」清場。</div></div>
+  </div>
+
+  <!-- Ch XVII -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch XVII</span>神的夢境 The Dreams of the Gods</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>每個生命的人生都是神的一場夢；服侍神 = 與祂共創。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li>「物種演化的多樣性是由意圖驅動的」——這是作者對達爾文模型的形上學補充（不是反對，是加上「意圖」這層）。</li>
+      <li>「如果你表達一個意圖，請把它視為神的意圖——你怎麼可能懷疑它不會實現？」</li>
+      <li>「<strong>不要祈求，不要要求，不要奮戰——只創造</strong>」——本書最詩意的單句。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>把所有「神啊請賜給我 X」改寫成「神在我裡面選擇了 X，所以 X 必然發生」——觀察心理狀態的差異。</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>你的靈性觀目前是「人在下、神在上、人乞求」還是「神在人之內、人是創造者」？哪個讓你更有力量？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>從「個人技術」躍升到「形上身分」——為 Ch XVIII—XIX 的「世界是鏡子」做哲學底盤。</div></div>
+  </div>
+
+  <!-- Ch XVIII -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch XVIII</span>鏡像世界 The Mirror World</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>世界是一面有延遲、有特殊規則的鏡子——它反映你對它的「關係」（不是你的願望、不是你的努力）。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li><strong>鏡子六法則</strong>：①世界反映你的關係；②反映在「心與心智合一」處產生；③鏡子有延遲反應；④鏡子只反映「內容」忽略「形式」（「我不想要 X」和「我想要 X」對鏡子是同一個——X）；⑤所以別想你不要的，想你要的；⑥任何反映都解讀為正面。</li>
+      <li>「<strong>你要移動的是心象，不是反射</strong>」——這是書中最強的單句指令。對著鏡中的反射使力沒有用，要改變那個被反射的內在影像。</li>
+      <li>「鏡子的延遲」解釋了為什麼有些人「我都已經改變心態了，怎麼還沒看到效果」——鏡子需要時間。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>每天寫下三個「目標已實現」的句子（不是「我希望」是「我已經是…」）——讓鏡子有東西反映。</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>你目前對世界的「主要關係」是什麼？（是「我必須打贏它」「我必須證明自己」還是「我已經擁有，我享受著」？）</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>整合 Ch VII 意圖、Ch VIII 幻燈片、Ch IX 心與心智 的成熟模型。</div></div>
+  </div>
+
+  <!-- Ch XIX -->
+  <div class="chapter">
+    <h3><span class="ch-num">Ch XIX</span>永恆守門人 The Gatekeeper to Eternity</h3>
+    <div class="dim"><div class="dim-label">🎯 核心</div><div>離開人群，宣告你的判決：「我是我自己現實的創造者」。</div></div>
+    <div class="dim"><div class="dim-label">💡 洞見</div><div><ul>
+      <li>「<strong>你不需要想出新點子，只要在它們擊中你時認出它們</strong>」——徹底翻轉「創意 = 努力想」的迷思。</li>
+      <li>「離開人群、宣告你的判決、主張造物者的權利」——這是 Ch I「守門人之謎」的最終解答。</li>
+      <li>「<strong>把意圖的焦點從『接收』改為『創造』</strong>」——這是 Transurfing 的最終升級：從祈求 → 接收 → 選擇 → 創造。</li>
+    </ul></div></div>
+    <div class="dim"><div class="dim-label">🔧 可用</div><div>每天早上對鏡說一次：「<em>我做這個決定，因為我是我自己現實的創造者</em>」——直到你相信它。</div></div>
+    <div class="dim"><div class="dim-label">❓ 自檢</div><div>讀到這裡，你準備好離開「受害者—奮戰者—接收者」的舊身分嗎？如果還沒，是什麼擋著你？</div></div>
+    <div class="dim"><div class="dim-label">🔗 連結</div><div>解開 Ch I 的守門人之謎；終結全書的形上學完整閉環。</div></div>
+  </div>
+</section>
+
+<!-- MODULE 06 -->
+<section id="m06">
+  <div class="module-label">Module 06 · Integrated Insights</div>
+  <h2 class="section-title">四類整合洞見</h2>
+  <div class="section-divider"></div>
+
+  <div class="card">
+    <div class="card-title"><span class="en">6.1 The Hidden Logic Line</span>隱藏的邏輯線</div>
+    <p>表面上 19 章是 19 個獨立主題，實際上它們構成一條精準的「<strong>單字進化階梯</strong>」：<br>
+    <em>奮戰 → 順流 → 意圖 → 創造</em>。<br>
+    Ch I—V 把你從「奮戰」（戰鬥姿態）拉出來；Ch VI—VIII 教你「順流」（不抗）；Ch IX—XI 教你「意圖」（不是想要而是選擇）；Ch XII—XVI 是過渡期實戰；Ch XVII—XIX 把你升級為「創造」（不再是接收方）。<br>
+    這條線在書中從未明說，因為作者怕讀者跳級——你必須真的內化「順流」才能進「意圖」，真的內化「意圖」才能進「創造」。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="en">6.2 The Author's Subtext</span>作者的潛台詞</div>
+    <p>Zeland 的隱含假設：<br>
+    ①<strong>讀者大多是俄羅斯/東歐文化中受過高等教育、對唯物論失望、對教會也失望的中產知識分子</strong>——所以他大量用科學詞彙（量子、扇區、向量）包裝形上學，這是文化適配。<br>
+    ②<strong>他預設讀者已試過所有自助方法且失敗</strong>，所以他不教你怎麼「努力」，他教你「停止努力」——這是針對「努力—失敗—更努力」迴圈中的讀者。<br>
+    ③<strong>他刻意保持神秘的個人身分</strong>——這既是俄羅斯文化的「анонимность（匿名）」傳統，也是 Transurfing 自身教義的實踐（不成為鐘擺）。<br>
+    ④<strong>他自己對「神」的定義非常開放</strong>（Ch XVII 把神和你的意圖混合）——這允許不同宗教背景的讀者各自代入。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="en">6.3 Critique & Boundaries</span>批判與邊界</div>
+    <p>本書框架在以下情況可能失效：<br>
+    ①<strong>外部結構性問題</strong>——戰爭、政治壓迫、生理疾病、貧困——Ch V 雖然觸及但解法仍偏向「不要參與鐘擺遊戲」，對「已身處集中營該如何 Transurfing」沒有答案（Viktor Frankl 的《意義的尋找》在此處更有效）。<br>
+    ②<strong>急性精神健康問題</strong>——重度憂鬱、創傷後壓力——「降重要性」對神經系統病變無效，需要醫療介入。<br>
+    ③<strong>可證偽性問題</strong>——「鏡子有延遲」這條法則使整個系統難以證偽：方法沒用？等久一點；還沒效果？你重要性還太高。這在科學意義上是一個漏洞。<br>
+    ④<strong>「意圖」的物理機制</strong>從未被作者具體描述——他借用量子語言但沒有定量模型，所以本書最好被理解為「自我修養的指導性比喻」而非「驗證過的物理理論」。<br>
+    ⑤<strong>過度個人主義風險</strong>——「離開人群、創造自己的世界」可能滑向逃避社會責任、靈性自戀（spiritual narcissism）。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="en">6.4 Conversations Across Fields</span>知識對話</div>
+    <p><strong>同意</strong>：與 Eckhart Tolle《當下的力量》（停止認同思想流）、Wayne Dyer 後期作品（意圖的力量）、Carl Jung（共時性）方向一致。<br>
+    <strong>延伸</strong>：把卡斯塔尼達的「stalking 跟蹤」和「dreaming 作夢」具體化為可操作技術；把吠陀的「Maya（幻象）」與西方「平行宇宙」融合。<br>
+    <strong>反對</strong>：與行為主義心理學（B.F. Skinner）、認知行為療法 CBT（強調「改變思考」）相反——Zeland 認為改變思考不夠，要改變「對自己的關係」。與《祕密》（The Secret）表面相似但實質相反——《祕密》強調「想得越強烈越好」，Zeland 強調「越強烈越糟，要降重要性」。<br>
+    <strong>補充</strong>：與 Stoicism（接受、不抗）有大量交集；與佛教「無常」「無我」概念互通；與當代「Manifestation」社群對話。<br>
+    <strong>原創</strong>：「鐘擺」是 Zeland 對「群體心理學 + 宗教批判 + 注意力經濟」的獨特綜合，這個比喻在思想史上有原創性。</p>
+  </div>
+</section>
+
+<!-- ============ CROSS LAYER ============ -->
+
+<!-- MODULE 07 -->
+<section id="m07">
+  <div class="module-label">Module 07 · Hidden Network</div>
+  <h2 class="section-title">隱藏連結網絡</h2>
+  <p class="section-sub">— Global cross-reference · The core method —</p>
+  <div class="section-divider"></div>
+
+  <!-- 7.1 -->
+  <h3 style="font-family:'Noto Serif TC',serif;font-weight:400;font-size:1.4em;margin:48px 0 24px;letter-spacing:0.05em;">7.1　表面矛盾組與深層統一</h3>
+
+  <div class="matrix-pair">
+    <div class="matrix-side">
+      <h4>矛盾 1A — Ch VII</h4>
+      <p>「意圖必須堅定——擁有的決心」</p>
+    </div>
+    <div class="matrix-vs">vs</div>
+    <div class="matrix-side">
+      <h4>矛盾 1B — Ch IV</h4>
+      <p>「目標的重要性越高，越不可能達成」</p>
+    </div>
+  </div>
+  <div class="unify">堅定的是「方向」與「我已擁有的姿態」；要鬆綁的是「失敗就完了」這份焦慮。意圖的方向 ≠ 結果的執著。一個是羅盤指針，一個是緊握羅盤的手——指針要穩，手要鬆。<br><strong>切換判斷</strong>：若你想到目標時是「擴張的喜悅」就是意圖；若是「焦慮的飢渴」就是重要性過量。</div>
+
+  <div class="matrix-pair">
+    <div class="matrix-side">
+      <h4>矛盾 2A — Ch VI、Ch XIII</h4>
+      <p>「順流；不要對抗；蘋果落向天空」</p>
+    </div>
+    <div class="matrix-vs">vs</div>
+    <div class="matrix-side">
+      <h4>矛盾 2B — Ch XIX</h4>
+      <p>「離開人群，宣告你的判決——我是創造者」</p>
+    </div>
+  </div>
+  <div class="unify">「順流」是順「替代之流」（事件本身的最小阻力路徑），不是順「鐘擺的流」（群體期待的方向）。「離開人群」是離開鐘擺的流，「順流」是順自己心的流。表面相反，本質是「拒絕外部驅動、回歸內部源頭」的同一動作。<br><strong>切換判斷</strong>：當你不知道要不要堅持時——若堅持是為了證明給別人看，就放下；若堅持是來自內心深處安靜的「是」，就堅持。</div>
+
+  <div class="matrix-pair">
+    <div class="matrix-side">
+      <h4>矛盾 3A — Ch II、Ch V</h4>
+      <p>「不要對抗鐘擺；忽略它就好」</p>
+    </div>
+    <div class="matrix-vs">vs</div>
+    <div class="matrix-side">
+      <h4>矛盾 3B — Ch XVI</h4>
+      <p>「對鐘擺的挑釁——刻意違反它的遊戲規則」</p>
+    </div>
+  </div>
+  <div class="unify">「忽略」是面對已存在的鐘擺；「打破規則」是當鐘擺找上門你無法忽略時。但兩種都是「不依其規則玩」——一個是不上場、一個是上場但按你自己的規則玩。<br><strong>切換判斷</strong>：能避開時就忽略（90% 情況）；避不開時用幽默+反規則應對。</div>
+
+  <div class="matrix-pair">
+    <div class="matrix-side">
+      <h4>矛盾 4A — Ch IX</h4>
+      <p>「你的心永遠知道答案；聽心」</p>
+    </div>
+    <div class="matrix-vs">vs</div>
+    <div class="matrix-side">
+      <h4>矛盾 4B — Ch X</h4>
+      <p>「但心沒有意志——只有心智有」</p>
+    </div>
+  </div>
+  <div class="unify">心 = GPS（知道目的地）；心智 = 引擎+方向盤（執行）。沒有 GPS 引擎再強只是亂跑；沒有引擎 GPS 再準也到不了。本書的「統一」不是讓兩者合而為一，而是各司其職——心定目標、心智找門。</div>
+
+  <div class="matrix-pair">
+    <div class="matrix-side">
+      <h4>矛盾 5A — Ch VIII</h4>
+      <p>「具象化幻燈片；越常播放越好」</p>
+    </div>
+    <div class="matrix-vs">vs</div>
+    <div class="matrix-side">
+      <h4>矛盾 5B — Ch XIV</h4>
+      <p>「不要對技術賦予過度意義；不要逼自己做」</p>
+    </div>
+  </div>
+  <div class="unify">技術要做但不執著——「做」是頻率；「不執著」是降重要性。每天做但每天不在意它有沒有「奏效」。這正是「外在意圖」的姿態：用做的方式擁有，用擁有的姿態做。</div>
+
+  <!-- 7.2 -->
+  <h3 style="font-family:'Noto Serif TC',serif;font-weight:400;font-size:1.4em;margin:48px 0 24px;letter-spacing:0.05em;">7.2　隱形因果鏈</h3>
+
+  <div class="card">
+    <div class="card-title">因果鏈 A — 為什麼你會卡關</div>
+    <div class="chain">
+      <span class="chain-node">追別人目標 (Ch X)</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">心智單獨運作 (Ch IX)</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">過量勢能 (Ch IV)</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">平衡力反向實現 (Ch IV)</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">負面誘導轉移 (Ch V)</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">連串壞運 (Ch XV)</span>
+    </div>
+    <p><strong>跳過任何一步的後果</strong>：你會以為自己「就是命不好」，但根源在第一步——你追的根本不是你的目標。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">因果鏈 B — 為什麼你會破局</div>
+    <div class="chain">
+      <span class="chain-node">找到 Fraile (Ch IX)</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">找到自己的目標 (Ch X)</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">建立目標幻燈片 (Ch VIII)</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">降低重要性 (Ch IV+XI)</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">外在意圖啟動 (Ch VII)</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">門自動打開 (Ch X)</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">蘋果落向天空 (Ch XIII)</span>
+    </div>
+    <p><strong>跳過任何一步的後果</strong>：很多自助書從第三步開始（讓你具象化）但跳過前兩步，所以越具象化你越焦慮（因為你具象化的根本不是你要的）。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">因果鏈 C — 為什麼大部分人「越想要越得不到」</div>
+    <div class="chain">
+      <span class="chain-node">慾望強烈</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">「沒有」感被強化</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">焦慮 = 重要性</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">心象內容 = 缺乏</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">鏡子反映「缺乏」</span>
+      <span class="chain-arrow">→</span>
+      <span class="chain-node">缺乏被實現</span>
+    </div>
+    <p><strong>本書最深刻的因果鏈</strong>——也是本書最大膽的反直覺主張。鏡子（Ch XVIII）只反映「內容」忽略「形式」——所以「我不要 X」和「我要 X 但我沒有」在鏡子裡都是 X 缺乏。解法：把心象從「我多想要」轉成「我已是擁有它的人」。</p>
+  </div>
+
+  <!-- 7.3 -->
+  <h3 style="font-family:'Noto Serif TC',serif;font-weight:400;font-size:1.4em;margin:48px 0 24px;letter-spacing:0.05em;">7.3　元原則萃取</h3>
+
+  <div class="meta-p">
+    <span class="num">01</span>
+    <div class="heading">「重要性是唯一真正的敵人」</div>
+    <div class="covers">涵蓋：Ch IV, V, VII, IX, X, XI, XIII, XV, XVI, XIX</div>
+    <p>本書真正的反派不是鐘擺、不是平衡力、不是外來目標——是「重要性」。鐘擺靠你的重要性才能勾住你；平衡力被你的重要性召喚出來；外來目標靠重要性偽裝；甚至連你自己的目標也會因為過度重要性而被反向實現。<strong>降重要性 = 解開所有結</strong>。這個原則作者從未在任何一章用單句講透，但它出現在 10 章以上的核心論述中。</p>
+  </div>
+
+  <div class="meta-p">
+    <span class="num">02</span>
+    <div class="heading">「意圖 = 已擁有的姿態，不是強烈的想要」</div>
+    <div class="covers">涵蓋：Ch VII, VIII, IX, X, XVIII, XIX</div>
+    <p>從乞求 → 接收 → 選擇 → 擁有 → 創造——這是本書的姿態進化梯。所有有效的技術都在「擁有」這個位置上才能運作。你不能「強烈想要」進入擁有，你必須「平靜地擁有」。這就是為什麼 Zeland 反覆強調「就像從信箱取信一樣自然」。</p>
+  </div>
+
+  <div class="meta-p">
+    <span class="num">03</span>
+    <div class="heading">「『有/沒有』是頻率問題，不是事實問題」</div>
+    <div class="covers">涵蓋：Ch I, III, V, VII, XVIII</div>
+    <p>替代空間中所有版本都存在——「你有錢」和「你沒錢」的版本都實際存在於資訊場中。你在哪個版本，取決於你的念頭頻率。所以「事實」不是固定的，是「你在哪一條人生線」的結果。這個原則一旦內化，「我做不到」就變成一個荒謬的句子——應該說「我目前在做不到的那條線上，我可以切換」。</p>
+  </div>
+
+  <div class="meta-p">
+    <span class="num">04</span>
+    <div class="heading">「不抗 + 不離 = 流動」</div>
+    <div class="covers">涵蓋：Ch VI, VII, XII, XIII, XIV, XVIII</div>
+    <p>本書反覆出現「停止戰鬥」（end the battle）——但它不是叫你放棄、不是叫你麻木。它是教你<strong>第三種姿態</strong>：既不對抗也不逃跑。觀察、選擇、接受徵兆、輕輕轉舵。這個態度在書中出現了至少 8 次的不同變體——「順流」「不抗」「協調」「不執著」「降重要性」「allow」「let go」「rent yourself out」。</p>
+  </div>
+
+  <div class="meta-p">
+    <span class="num">05</span>
+    <div class="heading">「世界對你的『關係』而非你的『努力』做反應」</div>
+    <div class="covers">涵蓋：Ch IV, VII, IX, XIII, XVIII, XIX</div>
+    <p>努力不直接創造結果——你和事物的「關係」（depending、demanding、grateful、entitled、joyful）才創造結果。一個自卑的人和一個自信的人做同樣的事，結果不一樣，因為他們和「結果」的關係不同。這個原則解釋了為什麼「fake it till you make it」有時有效有時無效——它要 fake 的不是行為，是「關係」。</p>
+  </div>
+
+  <!-- 7.4 -->
+  <h3 style="font-family:'Noto Serif TC',serif;font-weight:400;font-size:1.4em;margin:48px 0 24px;letter-spacing:0.05em;">7.4　頻率分析（隱藏主題）</h3>
+
+  <table>
+    <thead><tr><th>隱藏主題</th><th>頻率</th><th>解讀</th></tr></thead>
+    <tbody>
+      <tr><td><strong>降低重要性</strong>（reduce importance）</td><td>13 章</td><td>真正的核心主題；幾乎每章都有一個變體（importance、potential、stress、battle、demand…）</td></tr>
+      <tr><td><strong>意圖 vs 慾望</strong></td><td>11 章</td><td>整本書都在區分「強烈想要」和「平靜選擇」——這是 Transurfing 與《祕密》的最大區別</td></tr>
+      <tr><td><strong>停止戰鬥/不抗</strong></td><td>9 章</td><td>作者反覆強調這不是被動——是更高層次的主動</td></tr>
+      <tr><td><strong>覺察/醒著</strong>（awareness, lucidity）</td><td>9 章</td><td>「人生是一場非清醒夢」——這是本書借自卡斯塔尼達的核心隱喻</td></tr>
+      <tr><td><strong>身體訊號</strong>（內在舒適/不適）</td><td>7 章</td><td>本書最具體可操作的判斷工具，比任何邏輯分析都可靠</td></tr>
+      <tr><td><strong>心象內容（slides）</strong></td><td>7 章</td><td>潛意識內在影像被外在意圖實現的核心機制</td></tr>
+      <tr><td><strong>群體 vs 個體</strong>（鐘擺 vs 自由）</td><td>7 章</td><td>反群體心理學的線——但不是教你反社會，是教你「在群體中保持個體頻率」</td></tr>
+      <tr><td><strong>給予 → 接收</strong>（Frailing 邏輯）</td><td>5 章</td><td>反直覺人際法則——你想得到什麼，先給出它（注意力、價值感、自由）</td></tr>
+    </tbody>
+  </table>
+
+  <blockquote>一句話概括作者的世界觀：「<strong>現實是一個巨大的、有延遲的、會反映你『內在關係』的鏡子；你不是鏡中物，你是鏡前的人——也是鏡子本身——也是看著這一切的旁觀者。從這四個身分中走出，宣告：我是創造者。</strong>」</blockquote>
+
+  <!-- 7.5 -->
+  <h3 style="font-family:'Noto Serif TC',serif;font-weight:400;font-size:1.4em;margin:48px 0 24px;letter-spacing:0.05em;">7.5　缺席分析</h3>
+
+  <div class="card">
+    <div class="card-title">缺席 1 — 集體創傷與結構性壓迫</div>
+    <p>作者完全沒談戰爭創傷、政治壓迫、結構性貧困、種族歧視等「個人意圖無法直接改變」的處境。在這些情境下「降重要性」可能被誤讀為麻木。<br><em>補上的書</em>：Viktor Frankl《活出意義來》、bell hooks《Teaching to Transgress》。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">缺席 2 — 親密關係的長期經營</div>
+    <p>Frailing（Ch XII）談了「如何讓對方在你面前感到自己重要」，但這偏向社交與初期吸引。對「七年之癢」「子女撫養衝突」「老去的伴侶」這類需要長期共同建構的關係問題，書中近乎空白。<br><em>補上的書</em>：John Gottman《七個讓婚姻成功的原則》、Esther Perel《情慾智慧》。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">缺席 3 — 身體與生理的限制</div>
+    <p>「能量」一章（Ch XI）僅輕觸生理層，「疾病鐘擺」要你「拒絕參與」——但對慢性病、神經系統疾病、遺傳病沒有實際指引。本書整體偏向「意識先於物質」，對「物質有自己的規律」較少正視。<br><em>補上的書</em>：Bessel van der Kolk《身體會記得》、Gabor Maté《創傷的本質》。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">缺席 4 — 創造性工作的「日常勞動」</div>
+    <p>Ch XIX 說「不要想新點子，認出它們」——但忽略了：認出點子之後，把它做出來需要大量重複、無聊、勤奮的勞動。本書的姿態太「靈感主義」，對「執行的技藝」沒有教導。<br><em>補上的書</em>：Steven Pressfield《藝術之戰》、Cal Newport《Deep Work》。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">缺席 5 — 可證偽性與科學認知論</div>
+    <p>作者借量子語言但不提它的數學模型；提共時性但不深究心理學機制；提替代空間但不提它如何被驗證。對科學取向的讀者，這是本書最大的弱點。<br><em>補上的書</em>：Karl Popper《科學發現的邏輯》、Daniel Kahneman《快思慢想》（用於對沖本書的形上學浪漫主義）。</p>
+  </div>
+
+  <!-- 7.6 -->
+  <h3 style="font-family:'Noto Serif TC',serif;font-weight:400;font-size:1.4em;margin:48px 0 24px;letter-spacing:0.05em;">7.6　實踐優先序（只內化 5 個概念）</h3>
+
+  <div class="card">
+    <ol style="padding-left:24px;">
+      <li style="margin-bottom:24px;">
+        <strong>Ch IV — 降低重要性</strong>（最高 ROI）<br>
+        <em>單一動作影響最多其他章節。每天起床問自己：「我今天最重視的三件事，能不能各降一級？」這個動作能瞬間鬆開 80% 的卡關。</em>
+      </li>
+      <li style="margin-bottom:24px;">
+        <strong>Ch IX — 心與心智的合一（特別是「內在不適 = 不」）</strong><br>
+        <em>這是你唯一可以信任的、可以立即操作的判斷工具。任何決定先過這一關。一旦你能可靠地讀到內在訊號，後面所有技術都有了基準。</em>
+      </li>
+      <li style="margin-bottom:24px;">
+        <strong>Ch X — 找到你自己的目標、走你自己的門</strong><br>
+        <em>大部分人卡在這裡——他們以全力追求別人的目標。沒做這一步，後面所有的具象化都是把自己送進更深的陷阱。</em>
+      </li>
+      <li style="margin-bottom:24px;">
+        <strong>Ch XIII — 協調規則：對所有事件預先選擇正面詮釋</strong><br>
+        <em>這是「停止誘導負面轉移」的單一最強動作。每次失敗、不順、被拒，立刻說「太好了，這對我有利」——並真的相信。重複幾個月就會發現你的「壞運」變少了。</em>
+      </li>
+      <li>
+        <strong>Ch XVIII — 鏡子原則：移動心象而非反射</strong><br>
+        <em>當你已內化前四項，這條會把你從「修身」帶到「造境」。每天用 5 分鐘把你目標已實現的「鏡前心象」在腦中轉動——讓鏡子有東西反映。</em>
+      </li>
+    </ol>
+  </div>
+
+  <!-- 7.7 -->
+  <h3 style="font-family:'Noto Serif TC',serif;font-weight:400;font-size:1.4em;margin:48px 0 24px;letter-spacing:0.05em;">7.7　情境決策矩陣</h3>
+
+  <table>
+    <thead><tr><th>情境</th><th>參考章節</th><th>行動建議</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><strong>正在追一個你「應該想要」的目標但越追越累</strong></td>
+        <td>Ch IX, X</td>
+        <td>對目標做「外來目標七檢」；問身體：想到它時是擴張還是收緊？收緊就放下。</td>
+      </tr>
+      <tr>
+        <td><strong>正陷入連串壞運</strong></td>
+        <td>Ch IV, V, XV</td>
+        <td>找最近一個高重要性的事；意識到自己一直在和它「戰鬥」；立刻停戰；給自己 24 小時不參與該議題。</td>
+      </tr>
+      <tr>
+        <td><strong>越想要 X 越得不到</strong></td>
+        <td>Ch IV, VII, XVIII</td>
+        <td>心象從「我想要 X」改為「我是擁有 X 的人」；接受失去 X 的可能性；停止為這件事辯護。</td>
+      </tr>
+      <tr>
+        <td><strong>無法停止抱怨/被新聞激怒</strong></td>
+        <td>Ch II, V, XVI</td>
+        <td>承認自己被鐘擺勾住；刻意 7 天不討論該議題；發現自己又想參與時，會心一笑然後跳開。</td>
+      </tr>
+      <tr>
+        <td><strong>重要對話/面試/談判前</strong></td>
+        <td>Ch IV, XII</td>
+        <td>降重要性——對結果接受任一可能；轉換注意力從「我要表現好」到「我要讓對方在我面前感到自己重要」。</td>
+      </tr>
+      <tr>
+        <td><strong>不知道自己想要什麼</strong></td>
+        <td>Ch IX, X</td>
+        <td>不問「我應該做什麼」，問「想到什麼會讓我快樂得忘了時間？」並對它做心智辯解的反向操作——不要排除任何看似「不現實」的選項。</td>
+      </tr>
+      <tr>
+        <td><strong>感到能量低、做什麼都累</strong></td>
+        <td>Ch XI, IV</td>
+        <td>檢查不是缺能量而是「重要性堵塞」；列出當前 5 個「必須做好」的事，把每個降一級為「做做看就好」；做 5 分鐘中央經脈呼吸。</td>
+      </tr>
+      <tr>
+        <td><strong>在重要關係裡卡關</strong></td>
+        <td>Ch IV, XII, XV</td>
+        <td>消除「依賴關係」式條件句（「如果你 X，我就 Y」）；改為單向給出（注意力、價值感、自由）；接受失去對方的可能性。</td>
+      </tr>
+      <tr>
+        <td><strong>覺得人生卡住、迷失方向</strong></td>
+        <td>Ch VI, VII, XIX</td>
+        <td>停止「我應該知道」的焦慮；觀察 1 個月內你的「指引徵兆」（哪些事讓你感到「不對勁」，哪些讓你感到「對了」）；其餘交給外在意圖。</td>
+      </tr>
+      <tr>
+        <td><strong>剛得到一個小成功</strong></td>
+        <td>Ch III, XVI</td>
+        <td>讓喜悅充滿你 30 秒；立刻做「意圖宣告」——「我選擇這個方向，我繼續走」；保留能量到下一個動作。</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ============ TRANSFORMATION LAYER ============ -->
+
+<!-- MODULE 08 -->
+<section id="m08">
+  <div class="module-label">Module 08 · Action Conversion</div>
+  <h2 class="section-title">行動轉化</h2>
+  <p class="section-sub">— Three time horizons —</p>
+  <div class="section-divider"></div>
+
+  <div class="action-grid">
+    <div class="action-card">
+      <h4>This Week 本週啟動</h4>
+      <ol>
+        <li><strong>列重要性清單</strong>：寫下你目前最重視的 5 件事，對每件問：「如果失去它我也沒關係嗎？」——標出「不能失去」的 → 那是你被勾住的點。</li>
+        <li><strong>身體檢驗</strong>：本週每個重要決定前先問身體（不是頭腦）—— 想到 A：擴張？收緊？想到 B：擴張？收緊？選擴張的那個。</li>
+        <li><strong>協調規則練習</strong>：本週只要發生不順，立刻在心中說「太好了，這對我有利」——做 7 次以上。</li>
+      </ol>
+    </div>
+    <div class="action-card month">
+      <h4>This Month 本月實驗</h4>
+      <ol>
+        <li><strong>目標幻燈片晚禱</strong>：每天睡前 2 分鐘，打開你的目標心象（不是「我想要」的姿態，是「我已擁有」的視角）—— 每次加一個細節。</li>
+        <li><strong>鐘擺斷食</strong>：選一個鐘擺（社群媒體某個話題、特定新聞、某個讓你激動的議題），完全不參與 30 天 —— 觀察能量水平、心情、隨機事件的變化。</li>
+      </ol>
+    </div>
+    <div class="action-card long">
+      <h4>Long Term 長期追蹤</h4>
+      <ol>
+        <li><strong>「擁有的姿態」指標</strong>：每個月底評分（1-10）——「過去這個月我面對主要目標時，有多少比例是『已擁有』的姿態 vs『乞求』的姿態？」追蹤這個分數的長期趨勢——這比追蹤任何結果都更可靠。</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- MODULE 10 -->
+<section id="m10">
+  <div class="module-label">Module 10 · Narrative Arc</div>
+  <h2 class="section-title">敘事弧線</h2>
+  <p class="section-sub">— The book's emotional design —</p>
+  <div class="section-divider"></div>
+
+  <div class="arc">
+    <div class="arc-row"><div class="arc-stage">起點</div><div>你帶著「我必須努力、必須改變自己、必須對抗世界」的疲憊進入。前言用一段「不愉快的夢」場景準確診斷你的狀態。</div></div>
+    <div class="arc-row"><div class="arc-stage">破壞</div><div>Ch I—V 一章一章拆掉你的世界觀：你以為的「現實」是無數可選版本之一；你以為的「努力」是被鐘擺吸食；你以為的「強烈想要」是製造反向結果的引擎；你以為的「奮戰」是把自己推到更糟的人生線。</div></div>
+    <div class="arc-row"><div class="arc-stage">最低點</div><div>Ch V 末尾 —— 「人生不滿意 = 你發出的負面頻率 = 你切換到負面線」—— 這句話讓你發現「我可能一直都是自己受苦的源頭」。這是讀者最容易停下來的章節（也是書最危險的章節，因為若停在這就會變成自責螺旋）。</div></div>
+    <div class="arc-row"><div class="arc-stage">重建</div><div>Ch VI—XI 一階階給你新工具：順流、外在意圖、心象、心與心智合一、找自己的目標、能量管理。每一章都讓你重獲一點力量。Ch IX 是情緒高點——它對你說「你的心和別人的一樣好，你應得最好的」。</div></div>
+    <div class="arc-row"><div class="arc-stage">實戰震盪</div><div>Ch XII—XVI 在你開始實踐時，告訴你會遇到的具體障礙——人際、連串壞運、極化、與影共舞。這是一個「實際應用 + 防呆設計」段落。情緒上比 II 段平緩。</div></div>
+    <div class="arc-row"><div class="arc-stage">著陸</div><div>Ch XVII—XIX 把你升級到全書最高的形上身分：你是創造者、世界是你的鏡子、宣告你的判決。最後一句「我是我自己現實的創造者」——把鑰匙正式交到讀者手上。後記再用 Jung 的金龜蟲故事把「這一切是真的」用一個西方權威的故事釘住。</div></div>
+  </div>
+
+  <p style="margin-top:24px;color:var(--ink-light);text-align:center;font-style:italic;">情緒設計：<strong>疲憊 → 拆解 → 自責危險區 → 工具復原 → 平緩實戰 → 加冕</strong></p>
+</section>
+
+<!-- MODULE 11 -->
+<section id="m11">
+  <div class="module-label">Module 11 · Personal Lens</div>
+  <h2 class="section-title">個人化透鏡</h2>
+  <p class="section-sub">— Translated for the reader —</p>
+  <div class="section-divider"></div>
+
+  <div class="card">
+    <p>根據此會話背景（讀者使用 Claude Code、熟悉技術工作流、有清晰的編碼/系統思維偏好），以下是針對「技術工作者/系統思考者」的場景轉化：</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">1.「鐘擺」 → 注意力陷阱與技術鐘擺</div>
+    <p>每一個「框架戰爭」（React vs Vue、Vim vs Emacs、Rust vs Go）都是一個典型鐘擺——它吸食你的時間和能量但不直接幫你寫出更好的軟體。同理：開源社群的 drama、HN 上的爭吵、Twitter 上的熱議——這些都是鐘擺。<br><strong>應用</strong>：每週審視你關注的訊息源，問：「這在過去 3 個月有沒有真的改變我做出來的東西？」若無——這就是鐘擺。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">2.「外來目標」 → 別人的技術棧</div>
+    <p>你正在學 X 是因為它真的解你的問題，還是因為「大家都在學」「招聘要求寫了」「會 X 看起來比較厲害」？——Zeland 的「外來目標」徵兆完全適用於職涯選擇。<br><strong>應用</strong>：對你「應該學」的技術做七檢——感覺像義務嗎？以聲望為包裝？來自他人？若中三項以上，那不是你的目標。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">3.「外在意圖」 → 系統的湧現屬性</div>
+    <p>對熟悉複雜系統的人而言，外在意圖其實很好理解——它就像系統的「湧現屬性」（emergent property）。你不能命令一個分散式系統做 X，但你可以調整局部規則，讓 X 自然湧現。Zeland 的「不要直接抓結果，調整關係」其實就是這個原理應用在個人現實上。<br><strong>應用</strong>：當你想要某個結果（升職、客戶、機會），不要直接「跑算法去拿它」——調整你的「節點關係」（信譽、能見度、技藝水平、心態），讓它湧現。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">4.「降低重要性」 → 解開過度耦合</div>
+    <p>過度重要性就像系統中的高耦合——「一個失敗會引發連鎖崩潰」。降重要性 = 增加 fault tolerance。如果你的人生方案只有「Plan A 成功」一條路，那是一個沒有 redundancy 的脆弱系統。<br><strong>應用</strong>：對每個重要目標準備一個 Plan B（不必很正式，知道存在即可）。Plan B 的存在會讓你對 Plan A 的執著鬆綁——而鬆綁正是 Plan A 成功的關鍵。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">5.「鏡子原則」 → Output 反映 Input 但有延遲</div>
+    <p>軟體工程師熟悉「garbage in, garbage out」——但 Zeland 的版本是「<strong>關係 in, 結果 out</strong>」。你和自己工作的關係（愛/恨/勉強/驕傲）會反映在你做出來的東西的品質。你和客戶的關係（服務/防衛/競爭）會反映在他們對你的回應上。<br><strong>應用</strong>：當你某個專案結果不理想——不要先檢查代碼，先檢查「你和這個專案的關係是什麼？」</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title">6.「Frailing」 → 在 issues / PR / Slack 中的應用</div>
+    <p>每次寫 PR 評論、回覆 issue、回 Slack——Frailing 法則仍然有效：別人不在意你說的話多有道理，他們在意你的回覆有沒有讓他們感覺自己被重視。<br><strong>應用</strong>：下次寫技術評論，把 60% 的精力放在「讓對方感到被聽見」，40% 放在內容——你會發現協作品質直線上升。</p>
+  </div>
+</section>
+
+<!-- MODULE 12 -->
+<section id="m12">
+  <div class="module-label">Module 12 · Beyond This Book</div>
+  <h2 class="section-title">延伸資源</h2>
+  <p class="section-sub">— Five directions —</p>
+  <div class="section-divider"></div>
+
+  <div class="card">
+    <div class="card-title"><span class="en">Upstream</span>上游（影響本書的經典）</div>
+    <p>• <strong>Carl Jung</strong>《Synchronicity: An Acausal Connecting Principle》—— Zeland 在後記直接引用，「外在意圖」的西方學術原型。<br>
+    • <strong>Carlos Castaneda</strong>《Journey to Ixtlan》《The Power of Silence》—— 「stalking」「dreaming」「intent」概念的直接來源。<br>
+    • <strong>G.I. Gurdjieff / P.D. Ouspensky</strong>《In Search of the Miraculous》—— 「機械人類」「自我記憶」「醒著」概念的俄羅斯神秘主義根源。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="en">Parallel</span>平行（同類型）</div>
+    <p>• <strong>Eckhart Tolle</strong>《The Power of Now》—— 「停止認同思想流」與本書「降重要性」共振。<br>
+    • <strong>Michael Singer</strong>《The Untethered Soul》《The Surrender Experiment》—— 「不抗 + 順流」的西方溫和版本。<br>
+    • <strong>Florence Scovel Shinn</strong>《The Game of Life》—— 1925 年的「現實創造」古典版本。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="en">Extension</span>延伸（作者其他作品）</div>
+    <p>• <strong>Vadim Zeland</strong>《Reality Transurfing 5: Apples Fall to the Sky》（單冊版）—— 把 Ch XIII 協調規則展開的單冊。<br>
+    • <strong>Vadim Zeland</strong>《Tafti the Priestess》（後期作品，2018+）—— 同樣世界觀但採用「女祭司教導」的敘事，更具體化「外在意圖」的實踐。<br>
+    • <strong>Vadim Zeland</strong>《Hacking the Technogenic System》—— 把「鐘擺」概念延伸到當代科技與媒體系統的批判。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="en">Opposition</span>對立（反對觀點）</div>
+    <p>• <strong>Daniel Kahneman</strong>《Thinking, Fast and Slow》—— 對「直覺/內在訊號可靠」的系統懷疑——讀本書同時讀這本能保持平衡。<br>
+    • <strong>Barbara Ehrenreich</strong>《Bright-Sided / Smile or Die》—— 對「正向思維 = 解方」的尖銳批判。<br>
+    • <strong>Viktor Frankl</strong>《Man's Search for Meaning》—— 對「重要性過高 → 反向實現」的反例：在集中營這種極限環境中，「意義感」（一種重要性）才是存活關鍵。</p>
+  </div>
+
+  <div class="card">
+    <div class="card-title"><span class="en">Complement</span>互補（補上本書缺席）</div>
+    <p>• <strong>Bessel van der Kolk</strong>《The Body Keeps the Score》—— 補上 Zeland 對「身體層」的不足，特別是創傷影響。<br>
+    • <strong>Steven Pressfield</strong>《The War of Art》—— 補上 Zeland 對「日常勞動的技藝」的不足，特別是創造性工作的執行面。<br>
+    • <strong>John Gottman</strong>《The Seven Principles for Making Marriage Work》—— 補上 Zeland 對親密關係長期經營的不足。<br>
+    • <strong>Cal Newport</strong>《Deep Work》—— 補上 Zeland 對「專注力作為現代生產要素」的不足。<br>
+    • <strong>Annie Duke</strong>《Thinking in Bets》—— 補上 Zeland 對「機率思維 vs 結果論」的不足，提供更實證的「降重要性」工具。</p>
+  </div>
+</section>
+
+<div class="footer">
+  ✦ &nbsp;&nbsp; SUPER BRAIN READING &nbsp;&nbsp; ✦ &nbsp;&nbsp; END OF DECONSTRUCTION &nbsp;&nbsp; ✦
+</div>
+
+</div>
+</body>
+</html>
