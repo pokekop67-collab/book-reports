@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>《讓愛延續的七個方法》｜AI 書僮 5.0 六階段深讀手冊</title>
+<style>
+  :root{
+    --paper:#faf7f2; --ink:#2b2b2e; --muted:#6b6b70; --line:#e6ddd0;
+    --wine:#7d2935; --wine-soft:#a04a55; --gold:#b08d57; --card:#ffffff;
+    --tint:#f3ece2; --green:#3f6b4f; --blue:#3a5a78;
+    --serif:"Georgia","Songti TC","Noto Serif TC",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+    line-height:1.85;font-size:16.5px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:860px;margin:0 auto;padding:0 22px}
+
+  /* ---- top nav ---- */
+  nav.top{position:sticky;top:0;z-index:50;background:rgba(250,247,242,.92);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav.top .wrap{display:flex;gap:4px;flex-wrap:wrap;align-items:center;
+    padding:9px 22px;font-size:13px}
+  nav.top a{color:var(--muted);text-decoration:none;padding:4px 9px;border-radius:6px;
+    white-space:nowrap;transition:.15s}
+  nav.top a:hover{background:var(--tint);color:var(--wine)}
+  nav.top .brand{font-weight:700;color:var(--wine);font-family:var(--serif)}
+
+  /* ---- hero ---- */
+  header.hero{padding:70px 0 46px;border-bottom:3px double var(--gold);text-align:center}
+  header.hero .kicker{letter-spacing:.32em;font-size:12px;color:var(--gold);
+    text-transform:uppercase;margin-bottom:18px;font-weight:600}
+  header.hero h1{font-family:var(--serif);font-size:38px;line-height:1.25;margin:0 0 10px;
+    color:var(--wine);font-weight:700}
+  header.hero .en{font-family:var(--serif);font-style:italic;color:var(--muted);font-size:18px;margin-bottom:22px}
+  header.hero .meta{font-size:13.5px;color:var(--muted);line-height:1.7}
+  header.hero .meta b{color:var(--ink)}
+
+  section{padding:46px 0;border-bottom:1px solid var(--line)}
+  .phase-tag{display:inline-block;background:var(--wine);color:#fff;font-size:12px;
+    font-weight:700;letter-spacing:.05em;padding:4px 12px;border-radius:20px;margin-bottom:14px}
+  h2{font-family:var(--serif);font-size:27px;color:var(--wine);margin:6px 0 6px;line-height:1.3}
+  h2 .sub{display:block;font-size:14px;color:var(--muted);font-style:italic;font-weight:400;font-family:var(--serif);margin-top:4px}
+  h3{font-family:var(--serif);font-size:20px;color:var(--ink);margin:30px 0 8px;
+    padding-left:12px;border-left:4px solid var(--gold)}
+  h4{font-size:15.5px;margin:20px 0 6px;color:var(--wine-soft);font-weight:700}
+  p{margin:10px 0}
+  ul,ol{padding-left:22px;margin:10px 0}
+  li{margin:5px 0}
+  strong{color:#1f1f22}
+  em{color:var(--wine-soft);font-style:normal;font-weight:600}
+  a.ref{color:var(--blue);text-decoration:none;border-bottom:1px dotted var(--blue)}
+  hr{border:0;border-top:1px solid var(--line);margin:26px 0}
+
+  /* tables */
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14.5px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:var(--tint);font-weight:700;color:var(--wine)}
+  tr:nth-child(even) td{background:#fdfbf7}
+
+  /* callouts */
+  .call{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--gold);
+    border-radius:8px;padding:14px 18px;margin:18px 0;box-shadow:0 1px 3px rgba(0,0,0,.03)}
+  .call.key{border-left-color:var(--wine);background:#fdf6f6}
+  .call.warn{border-left-color:#c9923a;background:#fcf7ee}
+  .call .lbl{font-size:12px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--gold);margin-bottom:4px;display:block}
+  .call.key .lbl{color:var(--wine)}
+  blockquote{margin:16px 0;padding:12px 20px;border-left:4px solid var(--wine-soft);
+    background:var(--tint);font-family:var(--serif);font-style:italic;color:#3a3a3d;border-radius:0 8px 8px 0}
+
+  /* verdict box */
+  .verdict{background:var(--wine);color:#fbeeee;border-radius:12px;padding:20px 24px;margin:22px 0}
+  .verdict b{color:#fff}
+  .verdict .lbl{color:var(--gold);font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:700}
+
+  /* Sound Relationship House visual */
+  .srh{max-width:430px;margin:24px auto;font-size:13.5px}
+  .srh .roof{width:0;height:0;margin:0 auto;border-left:215px solid transparent;
+    border-right:215px solid transparent;border-bottom:46px solid var(--wine)}
+  .srh .body{display:flex;border:0}
+  .srh .wall{width:46px;background:var(--gold);color:#3a2a14;display:flex;align-items:center;
+    justify-content:center;text-align:center;writing-mode:vertical-rl;font-weight:700;font-size:12px;letter-spacing:.08em;padding:6px 0}
+  .srh .floors{flex:1}
+  .srh .floor{background:#fff;border:1px solid var(--line);border-top:0;padding:9px 12px;text-align:center}
+  .srh .floor:first-child{border-top:1px solid var(--line)}
+  .srh .floor b{color:var(--wine)}
+  .srh .floor span{color:var(--muted);font-size:12px}
+
+  .pill{display:inline-block;background:var(--tint);border:1px solid var(--line);border-radius:14px;
+    padding:2px 10px;font-size:12.5px;margin:2px 3px;color:var(--wine-soft)}
+  .idx{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 16px;margin:12px 0}
+  .idx .t{font-weight:700;color:var(--wine);font-family:var(--serif);font-size:16px}
+  .idx .row{font-size:14px;margin:5px 0}
+  .idx .row .k{color:var(--gold);font-weight:700}
+
+  footer{padding:40px 0 70px;text-align:center;color:var(--muted);font-size:13px}
+  footer .big{font-family:var(--serif);color:var(--wine);font-size:17px;margin-bottom:6px}
+
+  @media print{
+    nav.top{display:none} body{font-size:11pt;background:#fff}
+    section{break-inside:avoid;border-color:#ccc} .call,table,.idx{break-inside:avoid}
+    header.hero{padding-top:0}
+  }
+  @media(max-width:560px){
+    header.hero h1{font-size:28px} h2{font-size:22px} body{font-size:15.5px}
+    .srh .wall{writing-mode:horizontal-tb;width:40px;font-size:10px}
+  }
+</style>
+</head>
+<body>
+
+<nav class="top"><div class="wrap">
+  <span class="brand">書僮 5.0</span>
+  <a href="#p0">0 審計</a><a href="#p1">1 深讀</a><a href="#p2">2 結構</a>
+  <a href="#p3">3 驗證</a><a href="#p4">4 模型</a><a href="#p5">5 溯源</a>
+  <a href="#p6">6 索引</a><a href="#ax">實戰附錄</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="kicker">AI 書僮 5.0 · 六階段深讀系統</div>
+  <h1>讓愛延續的七個方法</h1>
+  <div class="en">The Seven Principles for Making Marriage Work</div>
+  <div class="meta">
+    <b>John Mordechai Gottman, Ph.D. &amp; Nan Silver</b>　|　Harmony Books（Penguin Random House）<br>
+    1999 初版 · <b>2015 修訂二版</b>（本手冊據英文原文全文 92,704 字深讀）<br>
+    為 <b>Rex</b> 製作 · 婚姻關係深讀專案
+  </div>
+</div></header>
+
+<main class="wrap">
+
+<!-- ===================== PHASE 0 ===================== -->
+<section id="p0">
+  <span class="phase-tag">PHASE 0</span>
+  <h2>知識來源審計<span class="sub">這本書值不值得、能不能被嚴謹拆解？</span></h2>
+  <p>本書建立在西雅圖「愛情實驗室」40+ 年縱貫研究上，是<strong>實證關係心理學（類型 B）</strong>，並帶強烈<strong>決策模型書（類型 A）</strong>特徵——交付的是可重複使用的預測模型與決策框架。</p>
+  <table>
+    <tr><th>面向</th><th>分數</th><th>說明</th></tr>
+    <tr><td>原始內容覆蓋</td><td>5/5</td><td>完整原書全文，非摘要</td></tr>
+    <tr><td>論點可驗證性</td><td>5/5</td><td>實證派，有數據、有對照，可被學界檢驗</td></tr>
+    <tr><td>多來源一致性</td><td>5/5</td><td>同時握有英文原文＋中文譯本＋摘要本三版本</td></tr>
+  </table>
+  <div class="call warn"><span class="lbl">風險標記</span>
+    ① <b>「94% 預測率」「5:1 神奇比例」</b>易記但方法學有爭議（Phase 3 查證）；
+    ② 作者透過 Gottman Institute 有明確商業利益；
+    ③ 樣本以美國、異性戀、中產為主。</div>
+  <div class="call key"><span class="lbl">決策</span><b>✅ 建議深讀。</b>三項完整度全 5/5，可重用模型密度極高，跨領域價值明確。</div>
+</section>
+
+<!-- ===================== PHASE 1 ===================== -->
+<section id="p1">
+  <span class="phase-tag">PHASE 1</span>
+  <h2>兩遍深讀<span class="sub">全書摘要、核心主張、關鍵觀念、盲點</span></h2>
+
+  <h3>作者核心主張</h3>
+  <blockquote>幸福婚姻不靠化解衝突的技巧，而靠日常友誼的厚度。婚姻的成敗是可被科學預測、也可被科學修復的——不是靠運氣或天賦，而是靠一套可學習的習慣。</blockquote>
+  <ol>
+    <li><b>可預測性</b>：婚姻成敗有可觀測的行為指紋。</li>
+    <li><b>友誼優先於溝通技巧</b>：前三法則（全在不吵架時）才是地基。</li>
+    <li><b>負面不是問題，比例才是</b>：幸福夫妻照樣大吵，差別在 5:1 與修復能力。</li>
+    <li><b>多數問題無解、且不必解</b>：69% 是永久問題，要「對話」而非「結案」。</li>
+    <li><b>愛在小事</b>：bids、轉向、六秒吻——日常勝過浪漫大手筆。</li>
+  </ol>
+
+  <h3>八個關鍵觀念</h3>
+  <table>
+    <tr><th>觀念</th><th>精華 / 數據</th></tr>
+    <tr><td>穩固關係之屋＋七法則</td><td>婚姻是可施工的建築，信任/承諾是承重牆</td></tr>
+    <tr><td>友誼 → PSO 正向情感凌駕</td><td>友誼＝性滿意度 70% 決定因素（男女皆然）</td></tr>
+    <tr><td>末日四騎士＋鄙視</td><td>批評→鄙視→防衛→築牆；四騎士預測離婚 82%</td></tr>
+    <tr><td>出價與轉向</td><td>留婚 86% vs 離婚 33% 回應率</td></tr>
+    <tr><td>嚴厲 vs 軟化開場</td><td>前 3 分鐘預測 96% 結果</td></tr>
+    <tr><td>永久問題＋衝突中的夢想</td><td>69% 問題永久無解</td></tr>
+    <tr><td>接受影響力</td><td>丈夫不分享權力 → 81% 崩解</td></tr>
+    <tr><td>共同意義（四支柱）／神奇六小時</td><td>每週 6 小時針對性投入</td></tr>
+  </table>
+
+  <h3>盲點與爭議（誠實列出）</h3>
+  <ul>
+    <li><b>預測率方法學爭議</b>：高準確率多來自事後配適，非前瞻預測（Phase 3 詳）。</li>
+    <li><b>相關 ≠ 因果</b>：多是相關性觀察，常滑向因果語氣。</li>
+    <li><b>性別本質主義</b>：把行為差異大量歸因生物。</li>
+    <li><b>對情慾理論化偏淺</b>：把性完全建立在友誼上——Esther Perel 的核心反論（見附錄 C）。</li>
+  </ul>
+</section>
+
+<!-- ===================== PHASE 2 ===================== -->
+<section id="p2">
+  <span class="phase-tag">PHASE 2</span>
+  <h2>文本結構解剖<span class="sub">這個論證是怎麼蓋起來的</span></h2>
+
+  <h4>穩固關係之屋（全書總模型）</h4>
+  <div class="srh">
+    <div class="roof"></div>
+    <div class="body">
+      <div class="wall">信任 TRUST</div>
+      <div class="floors">
+        <div class="floor"><b>7</b> 創造共同意義 <span>Shared Meaning</span></div>
+        <div class="floor"><b>6</b> 破解僵局 <span>Manage Conflict</span></div>
+        <div class="floor"><b>5</b> 解決可解問題</div>
+        <div class="floor"><b>4</b> 接受影響力</div>
+        <div class="floor"><b>3</b> 轉向彼此 <span>Turn Toward</span></div>
+        <div class="floor"><b>2</b> 喜愛與讚賞</div>
+        <div class="floor"><b>1</b> 愛情地圖 <span>Love Maps</span></div>
+      </div>
+      <div class="wall">承諾 COMMIT</div>
+    </div>
+  </div>
+  <div class="call"><span class="lbl">結構洞察</span>七法則<b>不是線性清單，是一個迴圈</b>：友誼(1–3)→讓修復(5)落地→讓接受影響力(4)變容易→讓僵局(6)可航行→累積共同意義(7)→回頭加厚友誼。法則互相充電。</div>
+
+  <h3>核心問題與論證鏈</h3>
+  <p>表層問「怎樣讓婚姻幸福」，骨子裡是一篇<strong>針對主流婚姻治療典範（Carl Rogers 主動傾聽／衝突化解學派）的反駁論文</strong>。</p>
+  <table>
+    <tr><th>環節</th><th>內容</th></tr>
+    <tr><td>問題</td><td>婚姻建議向來基於意見；婚姻治療復發率 30–50%</td></tr>
+    <tr><td>假設</td><td>愛的真相可在實驗室客觀觀測；「預測失敗」≠「製造成功」</td></tr>
+    <tr><td>推論 1（承重點）</td><td>化解衝突技巧無法區分幸福/不幸夫妻 → 主流典範錯了</td></tr>
+    <tr><td>推論 2</td><td>真正區分者是友誼 → 產生 PSO → 讓修復被聽見 → 阻止四騎士</td></tr>
+    <tr><td>結論</td><td>七法則＝可學習系統：建友誼→分享權力→處理可解→用夢想拆僵局→創造意義</td></tr>
+  </table>
+
+  <div class="call key"><span class="lbl">全書最深的內在張力：修復悖論</span>
+  Gottman 反覆說「修復成敗幾乎與技巧無關，全看關係<b>狀態</b>」。但若結果取決於既存狀態而非可學技巧，就<b>部分掏空了本書的核心承諾</b>——「你可以靠訓練技巧改善婚姻」。到底是技巧造就好婚姻，還是好婚姻讓技巧顯得有效？</div>
+</section>
+
+<!-- ===================== PHASE 3 ===================== -->
+<section id="p3">
+  <span class="phase-tag">PHASE 3</span>
+  <h2>外部世界交叉驗證<span class="sub">公眾世界怎麼讀這本書</span></h2>
+
+  <h3>外界最認同</h3>
+  <p>四騎士作為「診斷語言」、轉向/情感銀行帳戶的日常可操作性、「69% 問題無解」的解放、「累積正面 &gt; 減少負面」。</p>
+
+  <h3>外界最有爭議 🔥</h3>
+  <div class="call warn"><span class="lbl">地雷一：91% 預測率近乎被學界判定為誤導</span>
+  Heyman (2001)《不做交叉驗證去預測離婚的危險》：Gottman 做的是 <b>postdiction（事後解釋）而非 prediction</b>。Heyman 親手複製一個 90% 準確的公式，做交叉驗證後<b>暴跌到 29%</b>。Milton Spett：無對照組、無隨機分派、無盲測。<b>Gottman 從未公開回應。</b></div>
+  <div class="call warn"><span class="lbl">地雷二：政府資助大型對照試驗中，Gottman 課程「墊底」</b></span>
+  一項聯邦資助多中心研究裡，Gottman 課綱在三種方法中<b>效果最差，且相對對照組無統計顯著益處</b>——衝擊「神奇六小時」「75% 成功率」等自家數據。</div>
+  <p>此外：性別不對稱的建議（丈夫應讓步）被批為「意識形態而非證據」；模型「治標不治本」，不碰依附創傷與童年根源。</p>
+
+  <h3>被過度簡化</h3>
+  <p>「築牆＝冷暴力/壞人」（其實常是被淹沒後的生理性自保）；四騎士框架<b>預設雙方對稱有責</b>，因而低估「該離開那些遠比你更常動用四騎士的人」。</p>
+
+  <div class="verdict">
+    <div class="lbl">結論：這本書真正被記住的是什麼</div>
+    <p>被記住的不是「七法則」，而是<b>「四騎士」與「鄙視是頭號殺手」</b>。它真正的貢獻是<b>「描述性的詞彙學」（命名了關係動態），而非它自稱的「預測性的科學」</b>。它靠科學光環征服大眾，卻在科學嚴謹度上被同行打了最低分。</p>
+  </div>
+  <div class="call"><span class="lbl">東方 vs 西方</span>骨子裡是<b>徹底西方個人主義</b>的作品。「丈夫須站妻子這邊、對抗母親」直接撞上<b>儒家孝道</b>；「婚姻＝兩個本可另選的平等個體之友誼」是西方現代建構。華語圈書評<b>幾乎不談那章，只吸收感覺普世的工具層</b>。最聰明的用法：<b>借它的診斷語言，不照搬它的家庭優先序</b>。</div>
+</section>
+
+<!-- ===================== PHASE 4 ===================== -->
+<section id="p4">
+  <span class="phase-tag">PHASE 4</span>
+  <h2>思維模型抽取<span class="sub">蒸餾成可跨領域重用的思考工具</span></h2>
+
+  <table>
+    <tr><th>模型</th><th>邏輯</th><th>限制</th></tr>
+    <tr><td><b>1 情感設定點</b><br>（路徑依賴）</td><td>關係累積出正/負設定點，當成詮釋濾鏡套在模糊訊號上；有遲滯性，難翻轉</td><td>多是描述性；未說清如何翻轉；易致宿命論</td></tr>
+    <tr><td><b>2 裂痕—修復循環</b><br>（韌性≠無衝突）</td><td>系統健康看修復速度，不看有無裂痕；修復力來自「水庫存量」非話術</td><td>若靠水庫非技巧，「學會修復」便部分循環</td></tr>
+    <tr><td><b>3 立場下的夢想</b><br>（可解 vs 永久）</td><td>69% 衝突永久；卡死＝沒被看見的夢想；目標從「贏」轉「理解」</td><td>有把結構性/零和衝突過度心理學化的風險</td></tr>
+    <tr><td><b>4 以退為進的影響力</b></td><td>持久影響力來自接受影響；小事讓步＝存合作</td><td>對純剝削者（零和對手）會被吃乾抹淨</td></tr>
+    <tr><td><b>5 情感複利</b><br>（出價→帳戶）</td><td>信任建立在微小高頻瞬間，複利累積；小而恆 &gt; 大而稀</td><td>借自 Covey；記帳隱喻易滑成斤斤計較</td></tr>
+  </table>
+
+  <div class="call key"><span class="lbl">80/20 洞察</span>
+  若全書只留三句：① <b>不吵架時經營友誼</b>（水庫是主變數）② <b>吵架時只要拔掉「鄙視」</b> ③ <b>把 69% 的問題當對話而非戰役</b>。其餘九章都是這三件事的放大器。</div>
+
+  <h3>智囊團圓桌（節選）</h3>
+  <table>
+    <tr><th>關係</th><th>思想家</th><th>對照</th></tr>
+    <tr><td>🔴 衝突</td><td><b>Esther Perel</b></td><td>友誼養激情 vs 距離養激情（見附錄 C，全書最大對撞）</td></tr>
+    <tr><td>🔴 衝突</td><td><b>Nassim Taleb</b></td><td>痛斥 91% 是過度配適/敘事謬誤；但「先拔鄙視」＝他的 via negativa</td></tr>
+    <tr><td>🟢 互補</td><td><b>Kahneman</b></td><td>情感淹沒＝System 1 劫持；PSO＝月暈效應；補上認知機制層</td></tr>
+    <tr><td>🟢 互補</td><td><b>Frankl / 斯多葛</b></td><td>共同意義＝意義意志；自我安撫＝刺激與反應間的空間／控制二分法</td></tr>
+    <tr><td>🟢 互補</td><td><b>Carl Jung</b></td><td>「寬恕自己」章＝陰影投射：對配偶的鄙視是被投射的自我批評</td></tr>
+    <tr><td>🟡 共鳴</td><td><b>Munger</b></td><td>反演（研究婚姻如何死以避開）；但「給我看誘因」也提醒其商業利益</td></tr>
+  </table>
+</section>
+
+<!-- ===================== PHASE 5 ===================== -->
+<section id="p5">
+  <span class="phase-tag">PHASE 5</span>
+  <h2>作者模型來源溯源<span class="sub">原創 vs 整合 vs 借用</span></h2>
+  <table>
+    <tr><th>概念</th><th>真實源頭</th><th>標注誠實度</th></tr>
+    <tr><td>情感銀行帳戶</td><td><b>Stephen Covey《7 Habits》(1989)</b></td><td>⚠️ 軟性自claim（「我稱之為」）</td></tr>
+    <tr><td>情感智能</td><td>Salovey &amp; Mayer (1990)；Goleman (1995) 普及</td><td>△ 借框架未點名創始者</td></tr>
+    <tr><td>裂痕—修復</td><td><b>Ed Tronick 靜止臉實驗 (1970s)</b></td><td>△ 像自創，實坐在依附心理學譜系上</td></tr>
+    <tr><td>永久問題</td><td>Dan Wile《After the Honeymoon》(1988)</td><td>✅✅ 整合的典範（充分致謝＋重大加值）</td></tr>
+    <tr><td>PSO / 持久脆弱性 / I訊息</td><td>Robert Weiss / Tom Bradbury / Thomas Gordon</td><td>✅ 誠實</td></tr>
+    <tr><td>末日四騎士／穩固關係之屋／5:1</td><td><b>Gottman 原創</b></td><td>⭐ 真原創（但見爭議）</td></tr>
+  </table>
+  <div class="verdict">
+    <div class="lbl">最關鍵的反諷</div>
+    <p>這本書<b>「最屬於他的部分」恰好是「科學上最受質疑的部分」</b>（91%、5:1、86/33 全靠有爭議的愛情實驗室方法學）；而<b>「最借來的部分」反而是「最穩固的部分」</b>（I訊息、認知練習、永久問題等被他人獨立驗證過）。<br><b>你越被「閃亮的科學數字」打動，踩的地基越鬆；越採用那些「不起眼的借來技巧」，站的地面越實。</b></p>
+  </div>
+  <p style="font-size:14px;color:var(--muted)">一句話：Gottman 是站在六條成熟支流匯流處的<b>「綜合建築師」</b>——天才在於把零散的關係科學焊成一棟可居住、可操作、可商業化的房子；軟肋是這棟房子最華麗的承重數字，是他自己澆灌、卻未經外部交叉驗證的混凝土。</p>
+</section>
+
+<!-- ===================== PHASE 6 ===================== -->
+<section id="p6">
+  <span class="phase-tag">PHASE 6</span>
+  <h2>全書結構索引<span class="sub">每章：摘要 · 關鍵字 · 核心洞見</span></h2>
+
+  <div class="idx"><div class="t">Ch 1　愛情實驗室：幸福婚姻的真相</div>
+    <div class="row"><span class="k">💡</span> 化解衝突的技巧救不了婚姻——連幸福夫妻吵架都違反主動傾聽規則。</div>
+    <div><span class="pill">愛情實驗室</span><span class="pill">91%預測</span><span class="pill">八大迷思</span><span class="pill">情感智能</span></div></div>
+
+  <div class="idx"><div class="t">Ch 2　是什麼讓婚姻成功？</div>
+    <div class="row"><span class="k">💡</span> 友誼讓你對配偶的中性行為做善意解讀——這是全書地基。</div>
+    <div><span class="pill">友誼</span><span class="pill">PSO/NSO</span><span class="pill">穩固關係之屋</span><span class="pill">修復嘗試</span></div></div>
+
+  <div class="idx"><div class="t">Ch 3　我如何預測離婚</div>
+    <div class="row"><span class="k">💡</span> 鄙視是離婚頭號預測因子；前 3 分鐘決定 96% 的對話結局。</div>
+    <div><span class="pill">嚴厲開場</span><span class="pill">四騎士</span><span class="pill">情感淹沒</span><span class="pill">改寫記憶</span></div></div>
+
+  <div class="idx"><div class="t">Ch 4　法則一：強化愛情地圖</div>
+    <div class="row"><span class="k">💡</span> 不認識，就無法真愛——聖經說「認識」即性愛。</div>
+    <div><span class="pill">愛情地圖</span><span class="pill">20問遊戲</span><span class="pill">開放式問題</span><span class="pill">「我是誰」</span></div></div>
+
+  <div class="idx"><div class="t">Ch 5　法則二：培養喜愛與讚賞</div>
+    <div class="row"><span class="k">💡</span> 主動掃描並說出配偶的好——這是抵禦鄙視的盾牌。</div>
+    <div><span class="pill">珍惜</span><span class="pill">鄙視解藥</span><span class="pill">七週課程</span><span class="pill">只注意到50%正面</span></div></div>
+
+  <div class="idx"><div class="t">Ch 6　法則三：轉向彼此而非轉離</div>
+    <div class="row"><span class="k">💡</span> 浪漫藏在「奶油用完了嗎？」這種小事裡，不在峇里島度假。</div>
+    <div><span class="pill">出價 bids</span><span class="pill">情感銀行帳戶</span><span class="pill">減壓對話</span><span class="pill">86% vs 33%</span></div></div>
+
+  <div class="idx"><div class="t">Ch 7　法則四：接受另一半的影響</div>
+    <div class="row"><span class="k">💡</span> 拒絕被影響的人，終將失去影響力。</div>
+    <div><span class="pill">以退為進</span><span class="pill">權力分享</span><span class="pill">情感智能丈夫</span><span class="pill">81%崩解</span></div></div>
+
+  <div class="idx"><div class="t">Ch 8　兩種婚姻衝突</div>
+    <div class="row"><span class="k">💡</span>「選伴侶，就是選一組你要纏鬥一輩子的無解問題。」（Dan Wile）</div>
+    <div><span class="pill">可解 vs 永久</span><span class="pill">69%</span><span class="pill">僵局</span><span class="pill">接受</span></div></div>
+
+  <div class="idx"><div class="t">Ch 9　法則五：解決可解問題</div>
+    <div class="row"><span class="k">💡</span> 像對待客人一樣對待配偶——軟化開場的四要素是關鍵。</div>
+    <div><span class="pill">軟化開場</span><span class="pill">修復語句</span><span class="pill">自我安撫</span><span class="pill">同心圓妥協</span></div></div>
+
+  <div class="idx"><div class="t">Ch 10　應付典型的可解問題</div>
+    <div class="row"><span class="k">💡</span>「每件正面小事都是前戲」；獎勵配偶說「不」，反而得到更多「要」。</div>
+    <div><span class="pill">七大戰場</span><span class="pill">我們感</span><span class="pill">男人多做家務</span><span class="pill">孩子是手榴彈</span></div></div>
+
+  <div class="idx"><div class="t">Ch 11　法則六：破解僵局</div>
+    <div class="row"><span class="k">💡</span> 每個卡死的爭吵底下，埋著一個沒被尊重的人生夢。</div>
+    <div><span class="pill">衝突中的夢想</span><span class="pill">夢想偵探</span><span class="pill">魔法問句</span><span class="pill">雙圓法</span></div></div>
+
+  <div class="idx"><div class="t">Ch 12　法則七：創造共同意義</div>
+    <div class="row"><span class="k">💡</span> 最強的婚姻，把兩個人的人生織成一個有意義的「我們」。</div>
+    <div><span class="pill">微文化</span><span class="pill">四支柱</span><span class="pill">連結儀式</span><span class="pill">家庭憲法</span></div></div>
+
+  <div class="idx"><div class="t">後記　現在怎麼辦？</div>
+    <div class="row"><span class="k">💡</span> 每天為婚姻花一點功夫，對健康長壽的效益勝過上健身房。</div>
+    <div><span class="pill">神奇六小時</span><span class="pill">六秒吻</span><span class="pill">糞便偵測器</span><span class="pill">別降低期待</span></div></div>
+
+  <h3>作者整體思考脈絡</h3>
+  <blockquote>Gottman 的思路是一條「除魅 → 重建」的鏈：先用實驗室數據打掉「溝通技巧能救婚姻」的迷思，證明真正的分水嶺是不吵架時累積的友誼厚度——友誼養出「正向情感凌駕」這個水庫，水庫決定吵架時一切修復有沒有用。前三法則灌水庫，第四法則平衡權力；到了衝突，他指出 69% 的問題本就無解，該做的是「對話那個底層的夢想」；最後用共同意義把兩人織成「我們」。<b>愛不在於不吵架，而在於日常小事的存款，與吵架後修得回來的能力。</b></blockquote>
+</section>
+
+<!-- ===================== APPENDICES ===================== -->
+<section id="ax">
+  <span class="phase-tag" style="background:var(--gold);color:#3a2a14">實戰附錄</span>
+  <h2>三份可直接拿來用的工具</h2>
+
+  <h3>附錄 A　法則三：減壓對話完整逐字稿</h3>
+  <div class="call warn"><span class="lbl">鐵律</span>這是給「<b>婚姻以外</b>的壓力」用的（老闆、塞車、家人），<b>不是拿來吵你們之間的事</b>。每天 20–30 分鐘，輪流，一人 15 分鐘當抱怨者，另一人純聽。</div>
+  <table>
+    <tr><th>#</th><th>步驟</th><th>怎麼做</th><th>致命錯誤</th></tr>
+    <tr><td>1</td><td>輪流</td><td>各 15 分鐘，不打斷</td><td>搶著講自己的</td></tr>
+    <tr><td>2</td><td>展現真興趣</td><td>眼神、點頭、「嗯哼」、問問題</td><td>滑手機</td></tr>
+    <tr><td>3</td><td><b>別給建議</b></td><td>「理解必須先於建議」「別做什麼，就在那兒」</td><td>急著「你應該…」</td></tr>
+    <tr><td>4</td><td>說出理解</td><td>用句庫（見下）</td><td>沉默或評斷</td></tr>
+    <tr><td>5</td><td><b>站對方這邊</b></td><td>即使對方理虧也說「真倒楣！」</td><td>「可是你也有錯」（站敵人那邊）</td></tr>
+    <tr><td>6</td><td>「我們一起對抗外面」</td><td>表達同盟感</td><td>讓對方孤軍奮戰</td></tr>
+    <tr><td>7</td><td>肢體關愛</td><td>摟一下、「我愛你」</td><td>冷處理</td></tr>
+    <tr><td>8</td><td>認可情緒</td><td>「難怪你會這樣」</td><td>「這沒什麼好生氣」</td></tr>
+  </table>
+  <h4>句庫（步驟 4 直接抄）</h4>
+  <p>「那真的很雷。」「換我也會壓力爆表。」「我懂你為什麼這樣覺得。」「你說的完全合理。」「你現在處境很難。」「我站你這邊。」「難怪你不爽。」「聽起來很令人抓狂。」</p>
+  <div class="call key"><span class="lbl">一句話心法</span>當對方在痛苦裡，你的工作不是「修好問題」，是「<b>Poor baby</b>」。</div>
+
+  <h3>附錄 B　自我診斷：四騎士 + 愛情地圖</h3>
+  <h4>末日四騎士速查 + 解藥</h4>
+  <table>
+    <tr><th>騎士</th><th>怎麼認出</th><th>🛡️ 解藥</th></tr>
+    <tr><td>1 批評</td><td>攻擊「人」：「你總是這麼自私」</td><td>軟化開場（我感受＋具體情境＋正向需求）</td></tr>
+    <tr><td>2 鄙視 🔴頭號殺手</td><td>翻白眼、嘲諷、模仿、道德高地</td><td>培養喜愛讚賞，平日說出對方的好</td></tr>
+    <tr><td>3 防衛</td><td>「不是我的錯，是你」、無辜受害者</td><td>承擔哪怕一點責任</td></tr>
+    <tr><td>4 築牆</td><td>別過頭、沉默、零回應（85% 是丈夫）</td><td>生理自我安撫：心跳破百先暫停 20 分鐘</td></tr>
+  </table>
+  <h4>愛情地圖 20 題自測（True 計 1 分）</h4>
+  <p style="font-size:14px;line-height:1.7">1. 我說得出伴侶最好的朋友　2. 我知道伴侶最近的壓力　3. 我知道最近惹毛伴侶的人　4. 我說得出伴侶的人生夢想　5. 我熟悉伴侶的宗教信仰　6. 我說得出伴侶的人生哲學　7. 我列得出伴侶最不喜歡的親戚　8. 我知道伴侶最愛的音樂　9. 我說得出伴侶最愛的三部電影　10. 伴侶熟悉我的壓力　11. 我知道伴侶最特別的三段時光　12. 我說得出伴侶童年最大壓力事件　13. 我列得出伴侶的抱負　14. 我知道伴侶目前的擔憂　15. 伴侶知道我的朋友　16. 我知道伴侶中樂透會做什麼　17. 我能詳述對伴侶的第一印象　18. 我定期問伴侶近況　19. 我覺得伴侶蠻了解我　20. 伴侶熟悉我的希望</p>
+  <p><b>計分：≥10 = 強項；&lt;10 = 需補強</b>（回頭做第 4 章 20 問遊戲與開放式問題）。</p>
+
+  <h3>附錄 C　Gottman vs Perel：友誼養激情，還是距離養激情？</h3>
+  <table>
+    <tr><th>維度</th><th>Gottman《七法則》</th><th>Perel《Mating in Captivity》</th></tr>
+    <tr><td>核心命題</td><td>友誼是激情的地基</td><td>愛求接近，慾望需要距離</td></tr>
+    <tr><td>了解對方</td><td>愛情地圖：盡知一切</td><td>「愛喜歡知道你的一切；慾望需要神祕」「人人該有祕密花園」</td></tr>
+    <tr><td>距離</td><td>轉向：縮短距離</td><td>「慾望被距離點燃」「分離是連結的前提」</td></tr>
+    <tr><td>熟悉</td><td>熟悉＝安全＝激情溫床</td><td>「情慾被重複麻痺…靠神祕、新奇而活」</td></tr>
+    <tr><td>一句結晶</td><td>「每件正面小事都是前戲」</td><td>「他們忘了——火，需要空氣」</td></tr>
+  </table>
+  <div class="call key"><span class="lbl">關鍵洞察</span>
+  Gottman 管的是<b>「愛」</b>（安全、信任、不死）；Perel 管的是<b>「慾」</b>（火花、神祕、想要）。<b>Gottman 的成功，可能正是 Perel 診斷的病因</b>：把一切攤開、距離縮到最短，會得到一段 Gottman 打高分的「好室友婚姻」，而這恰是 Perel 看到最多人「相愛卻無慾」的原因。</div>
+  <table>
+    <tr><th>你的關係現況</th><th>該聽誰</th></tr>
+    <tr><td>常吵、有鄙視、信任低、想分手</td><td><b>先 Gottman</b>——先把安全地基救回來</td></tr>
+    <tr><td>不吵、相敬如賓、像室友、床上熄火</td><td><b>轉向 Perel</b>——你不缺親密，缺距離與神祕</td></tr>
+    <tr><td>想長治久安</td><td><b>兩者交替</b>：Gottman 蓋房子，Perel 留一扇透氣的窗</td></tr>
+  </table>
+  <div class="verdict"><div class="lbl">給 Rex 的整合判準</div>
+  <p>健康的長期關係不是「選安全或選火花」，而是學會在兩者間擺盪——<b>用 Gottman 的友誼當底火（讓關係不死），用 Perel 的距離當鼓風（讓慾望不熄）</b>。最危險的單一信仰，是把「我們無話不談、形影不離」當成婚姻的最高成就——那是 Gottman 的滿分，卻可能是 Perel 的死刑。</p></div>
+</section>
+
+</main>
+
+<footer><div class="wrap">
+  <div class="big">書已備好。</div>
+  <p>AI 書僮 5.0 · 六階段深讀系統　|　據英文原文全文深讀，外部來源已交叉查證<br>
+  本手冊為研究與個人學習用途；書中數據之方法學爭議已於 Phase 3／5 誠實標註。</p>
+</div></footer>
+
+</body>
+</html>
