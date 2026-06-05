@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>放下的關係操作系統｜Gottman × 喜悅 × 金剛經 × Let Them 四書化學反應</title>
+<style>
+  :root{
+    --paper:#f6f4ee; --paper2:#fbfaf6; --ink:#232826; --muted:#6e7370; --line:#e3ddd0;
+    --jade:#2f6b5e; --jade-soft:#4c8a7b; --amber:#c08a3e; --amber-soft:#d9a85f;
+    --rust:#b4623f; --card:#ffffff; --tint:#edeae0; --jade-tint:#e8efe9;
+    --serif:"Georgia","Songti TC","Noto Serif TC",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--sans);
+    line-height:1.92;font-size:16.5px;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:830px;margin:0 auto;padding:0 24px}
+
+  nav.top{position:sticky;top:0;z-index:50;background:rgba(246,244,238,.93);
+    backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav.top .wrap{display:flex;gap:3px;flex-wrap:wrap;align-items:center;padding:9px 24px;font-size:12.5px}
+  nav.top a{color:var(--muted);text-decoration:none;padding:4px 8px;border-radius:6px;white-space:nowrap;transition:.15s}
+  nav.top a:hover{background:var(--jade-tint);color:var(--jade)}
+  nav.top .brand{font-weight:700;color:var(--jade);font-family:var(--serif);margin-right:4px}
+
+  header.hero{padding:78px 0 50px;text-align:center}
+  header.hero .kicker{letter-spacing:.34em;font-size:11.5px;color:var(--amber);
+    text-transform:uppercase;margin-bottom:20px;font-weight:600}
+  header.hero h1{font-family:var(--serif);font-size:40px;line-height:1.28;margin:0 0 16px;color:var(--jade);font-weight:700}
+  header.hero .lead{font-size:16px;color:var(--muted);max-width:560px;margin:0 auto;line-height:1.85}
+  header.hero .books{margin-top:22px;font-family:var(--serif);font-style:italic;color:var(--jade-soft);font-size:15px}
+
+  section{padding:42px 0;border-bottom:1px solid var(--line)}
+  h2{font-family:var(--serif);font-size:25px;color:var(--jade);margin:0 0 18px;line-height:1.35}
+  h2 .n{color:var(--amber);font-style:italic}
+  p{margin:12px 0}
+  strong{color:#161a18;font-weight:700}
+  em{color:var(--jade);font-style:normal;font-weight:600}
+
+  /* axis bar */
+  .axis{margin:26px 0 8px}
+  .axis .bar{height:14px;border-radius:8px;background:linear-gradient(90deg,#c97a55 0%,#cf9a55 38%,#7fa893 68%,#2f6b5e 100%)}
+  .axis .ends{display:flex;justify-content:space-between;margin-top:8px;font-weight:700;font-size:14px}
+  .axis .ends .l{color:var(--rust)} .axis .ends .r{color:var(--jade)}
+  .axis .ticks{position:relative;height:64px;margin-top:6px;font-size:12.5px}
+  .axis .tick{position:absolute;transform:translateX(-50%);text-align:center;width:120px}
+  .axis .tick .dot{width:9px;height:9px;border-radius:50%;background:var(--jade);margin:0 auto 4px}
+  .axis .tick b{display:block;color:var(--ink);font-size:13px}
+  .axis .tick span{color:var(--muted)}
+
+  /* cast cards */
+  .cast{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0}
+  .cast .c{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px 14px;text-align:center}
+  .cast .c .role{font-size:11px;letter-spacing:.08em;text-transform:uppercase;font-weight:700;color:var(--amber);margin-bottom:6px}
+  .cast .c .bk{font-family:var(--serif);font-weight:700;color:var(--jade);font-size:15.5px;line-height:1.4}
+  .cast .c .d{font-size:12.5px;color:var(--muted);margin-top:5px}
+
+  /* step blocks */
+  .step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:26px 28px;margin:22px 0;
+    box-shadow:0 2px 10px rgba(47,107,94,.05)}
+  .step .head{display:flex;align-items:baseline;gap:14px;margin-bottom:6px}
+  .step .num{font-family:var(--serif);font-size:40px;font-weight:700;color:var(--jade-tint);line-height:1;
+    -webkit-text-stroke:1px var(--jade-soft);min-width:54px}
+  .step .ttl{font-family:var(--serif);font-size:22px;color:var(--jade);font-weight:700;line-height:1.3}
+  .step .essence{font-size:15.5px;color:#3a3f3c;background:var(--jade-tint);border-radius:8px;padding:11px 16px;margin:10px 0 18px;font-weight:500}
+  .sub{margin:16px 0}
+  .sub .lbl{display:inline-block;font-size:11.5px;font-weight:700;letter-spacing:.06em;
+    color:#fff;background:var(--jade-soft);border-radius:5px;padding:2px 9px;margin-bottom:4px}
+  .sub.why .lbl{background:var(--amber)}
+  .sub.stuck .lbl{background:var(--rust)}
+  .sub ol,.sub ul{margin:8px 0;padding-left:20px}
+  .sub li{margin:6px 0}
+  .scriptbox{background:var(--tint);border-radius:8px;padding:4px 16px;margin:10px 0;font-size:14.5px}
+
+  blockquote{margin:16px 0;padding:13px 22px;border-left:4px solid var(--amber);background:var(--paper2);
+    font-family:var(--serif);font-style:italic;color:#3a3f3c;border-radius:0 8px 8px 0;line-height:1.8}
+  blockquote .src{display:block;font-style:normal;font-family:var(--sans);font-size:12.5px;color:var(--muted);margin-top:6px;text-align:right}
+
+  table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:9px 12px;text-align:left;vertical-align:top}
+  th{background:var(--jade-tint);color:var(--jade);font-weight:700}
+  tr:nth-child(even) td{background:var(--paper2)}
+
+  .guard{display:grid;grid-template-columns:1fr 1fr;gap:0;margin:18px 0;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+  .guard .col{padding:16px 18px}
+  .guard .ok{background:var(--jade-tint)} .guard .no{background:#f6ece6}
+  .guard .col h4{margin:0 0 8px;font-size:14.5px}
+  .guard .ok h4{color:var(--jade)} .guard .no h4{color:var(--rust)}
+  .guard ul{margin:0;padding-left:18px;font-size:13.5px} .guard li{margin:5px 0}
+
+  .summary{background:var(--jade);color:#eaf2ee;border-radius:16px;padding:26px 30px;margin:26px 0}
+  .summary .lbl{color:var(--amber-soft);font-size:12px;letter-spacing:.12em;text-transform:uppercase;font-weight:700;margin-bottom:8px}
+  .summary b{color:#fff}
+  .summary .dash{font-family:var(--serif);font-style:italic;font-size:17px;margin-top:12px;color:#fff;line-height:1.7}
+
+  footer{padding:44px 0 76px;text-align:center;color:var(--muted);font-size:13px}
+  footer .big{font-family:var(--serif);color:var(--jade);font-size:18px;margin-bottom:8px}
+
+  @media print{nav.top{display:none}body{background:#fff;font-size:11pt}.step,table,.guard{break-inside:avoid}}
+  @media(max-width:620px){
+    header.hero h1{font-size:30px} h2{font-size:21px} .cast{grid-template-columns:repeat(2,1fr)}
+    .guard{grid-template-columns:1fr} .step{padding:20px} .axis .ticks{height:120px}
+  }
+</style>
+</head>
+<body>
+
+<nav class="top"><div class="wrap">
+  <span class="brand">放下 · OS</span>
+  <a href="#axis">化學反應</a><a href="#engine">三層引擎</a>
+  <a href="#s1">①診斷</a><a href="#s2">②Let Them</a><a href="#s3">③Let Me</a>
+  <a href="#s4">④反觀</a><a href="#s5">⑤支柱</a><a href="#s6">⑥護欄</a><a href="#table">共振表</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <div class="kicker">四書化學反應 · 完整操作手冊</div>
+  <h1>放下的關係操作系統</h1>
+  <p class="lead">當你發現婚姻裡有些仗，怎麼吵都吵不完——這不是你們的失敗，是 Gottman 用數據證明的事實：69% 的衝突，結構性無解。<br>真正的功夫，不是把它「修好」，是學會「放下」。</p>
+  <div class="books">Gottman《七法則》 × 達賴喇嘛/屠圖《喜悅》 × 王思迅《金剛經白話講座》 × Mel Robbins《Let Them》</div>
+</div></header>
+
+<main class="wrap">
+
+<!-- AXIS -->
+<section id="axis">
+  <h2>化學反應：一條軸線，貫穿四本書</h2>
+  <p>你挑的這三本書不是隨機的——它們和 Gottman 共用<strong>同一條軸線</strong>，只是站在不同位置。Gottman 給了「診斷」，這三本給了他給不出的「療法」。</p>
+  <div class="axis">
+    <div class="bar"></div>
+    <div class="ends"><span class="l">← 控制（執著、想贏、想改造對方）</span><span class="r">放下（接受、不執著、只管自己）→</span></div>
+    <div class="ticks">
+      <div class="tick" style="left:14%"><div class="dot" style="background:var(--rust)"></div><b>Gottman</b><span>診斷：哪 69% 無解</span></div>
+      <div class="tick" style="left:46%"><div class="dot" style="background:var(--amber)"></div><b>Let Them</b><span>當場收手的開關</span></div>
+      <div class="tick" style="left:72%"><div class="dot"></div><b>金剛經</b><span>鬆開執著的根</span></div>
+      <div class="tick" style="left:92%"><div class="dot"></div><b>喜悅</b><span>放手後的目的地</span></div>
+    </div>
+  </div>
+  <p><strong>關鍵洞察：</strong>Gottman 是行為科學家，不是修行者——他能告訴你「該放下」，卻給不出「如何放下」的內在技術。這三本書，正好就是那套缺失的「放下引擎」。</p>
+  <blockquote>心「誤用 → 充滿執著 → 養成各種固定的腦迴路 → 作繭自縛 → 數不盡的煩惱。」
+    <span class="src">——《金剛經白話講座》。這 2000 年前就描述了 Gottman 的「負向情感凌駕（NSO）」：同一個自我強化的負面神經迴路。</span></blockquote>
+</section>
+
+<!-- ENGINE / CAST -->
+<section id="engine">
+  <h2>三層放下引擎：三個深度不同的放手工具</h2>
+  <div class="cast">
+    <div class="c"><div class="role">第 0 層 · 診斷</div><div class="bk">Gottman</div><div class="d">分清哪場仗不必打（69% 永久問題）</div></div>
+    <div class="c"><div class="role">第 1 層 · 開關</div><div class="bk">Let Them</div><div class="d">當下的斷路器（行為層，最快）</div></div>
+    <div class="c"><div class="role">第 2 層 · 根</div><div class="bk">金剛經</div><div class="d">鬆開「為什麼放不下」（心智層，最深）</div></div>
+    <div class="c"><div class="role">第 3 層 · 目的地</div><div class="bk">喜悅八支柱</div><div class="d">放手後種進去什麼（心靈層，最高）</div></div>
+  </div>
+  <p>下面是把四本焊成一套的<strong>六步操作手冊</strong>。每一步都標明：本質 → 怎麼做 → 為什麼有效 → 最容易卡在哪。讀懂、內化、平時練；衝突當下自然跑得出來。</p>
+</section>
+
+<!-- STEP 1 -->
+<section id="s1">
+  <div class="step">
+    <div class="head"><div class="num">1</div><div class="ttl">診斷：這場仗，值不值得打？</div></div>
+    <div class="essence">先分辨——這是「可以解決的問題」，還是「永遠不會解決的問題」。Gottman 用 20 年數據證明：你婚姻裡的衝突，<strong>69% 是後者</strong>。這個數字會重新定義你對「吵架」的整個態度。</div>
+    <div class="sub"><span class="lbl">怎麼做</span>
+      <p>衝突一起來，先別反應，問三個問題：</p>
+      <ol>
+        <li><strong>就事論事，還是翻舊帳翻到人？</strong>若你攻擊的不是「這件事」而是「你這個人就是…」，底下有大議題（信任、尊重、被愛、自由）。</li>
+        <li><strong>這場仗，吵過一模一樣的嗎？</strong>Gottman 發現永久問題的夫妻「換了髮型、胖了幾公斤，卻還在吵同一件事，彷彿只過了四分鐘」。若是第 N 次，幾乎篤定永久。</li>
+        <li><strong>背後有沒有一個「我是誰」？</strong>金錢之爭底下是「安全感 vs 自由」、家務之爭底下是「被尊重 vs 被控制」。一旦有，它就無解——你不是在吵家務，你在吵你是誰。</li>
+      </ol>
+    </div>
+    <div class="sub why"><span class="lbl">為什麼有效</span>
+      <p>Gottman 最反直覺的發現：<strong>把「永久問題」誤當「可解問題」去硬解，正是婚姻崩壞的頭號路徑。</strong>你以為在「溝通解決」，其實每一次「想解決」都是在同一個傷口上摩擦 → 僵局 → 四騎士 → 鄙視 → 情感撤退。診斷錯誤，後面全錯。</p>
+    </div>
+    <div class="sub stuck"><span class="lbl">⚠ 最容易卡在哪</span>
+      <p>你會<strong>很想相信「這次一定能解決」</strong>——因為承認「永遠無解」感覺像認輸。關鍵轉念：<em>「無解」不等於「無望」</em>。幸福夫妻不是沒有永久問題，是學會了「帶著幽默與它共處」。承認無解，才是解脫的起點。</p>
+    </div>
+    <p style="font-size:14px;color:var(--muted)">✅ 可解（約 31%）→ 直接用 Gottman 的軟化開場，好好談、解決它。&nbsp;&nbsp;⚠️ 永久（約 69%）→ 停止「修理」的衝動，進入下面的放下流程。</p>
+  </div>
+</section>
+
+<!-- STEP 2 -->
+<section id="s2">
+  <div class="step">
+    <div class="head"><div class="num">2</div><div class="ttl">Let Them：把掐著對方的手鬆開</div></div>
+    <div class="essence">Mel Robbins 一刀見血：<strong>你絕大部分的痛苦，來自試圖控制你根本控制不了的東西</strong>——別人的行為、情緒、看法、選擇。「Let Them」就是兩個字的斷路器：隨他去。</div>
+    <div class="sub"><span class="lbl">怎麼做</span>
+      <p>當對方又做了那件讓你抓狂的事——又遲到、又用那種語氣、又不讓步——在你開口反擊之前，在心裡說：<strong>「Let Them。隨他去。」</strong></p>
+      <div class="scriptbox">
+        <p>他要晚睡，Let Them。<br>他要為這件事生氣，Let Them。<br>他就是這種個性，Let Them。</p>
+      </div>
+      <p>這不是口號，是一個<strong>主動的鬆手</strong>——你正握緊的、想把對方掰成「正確版本」的那隻手，鬆開。</p>
+    </div>
+    <div class="sub why"><span class="lbl">為什麼有效</span>
+      <p>這一步同時踩中三本書的同一個點：</p>
+      <ul>
+        <li><strong>金剛經</strong>：你的執著（想控制）正是「作繭自縛」——你織的繭，困住的是你自己。</li>
+        <li><strong>喜悅</strong>：「我們的煩惱多半是自己造成的…完全取決於我們處世的態度、看法和反應。」對方的行為是「事件」，你的痛苦是你「對事件的抓取」加上去的。</li>
+        <li><strong>Gottman</strong>：那件事 99% 是永久問題的同一症狀（第一步已診斷）。既然不會變，繼續推它，只會讓你心跳飆破 100、進入「情感淹沒」，連話都聽不進去。</li>
+      </ul>
+    </div>
+    <div class="sub stuck"><span class="lbl">⚠ 最容易卡在哪</span>
+      <p><strong>咬牙切齒地說「Let Them」不算放下，那叫壓抑。</strong>真正的 Let Them 帶著「鬆一口氣」的感覺，不是「我忍」。若你一邊說 let them 一邊更氣，代表還沒真的鬆手——那就需要往下走到第四步，去看你到底卡在哪。</p>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 3 -->
+<section id="s3">
+  <div class="step">
+    <div class="head"><div class="num">3</div><div class="ttl">Let Me：把手收回到自己身上</div></div>
+    <div class="essence">Let Them 是「鬆開對方」，Let Me 是「接管自己」。放掉你控制不了的（別人），抓回你唯一控制得了的（你自己的回應）。<strong>這一步把你從「受害者」變回「掌舵者」。</strong></div>
+    <div class="sub"><span class="lbl">怎麼做（三動作）</span>
+      <ol>
+        <li><strong>先處理身體，再處理事情。</strong>心跳超過每分鐘 100 下，理性腦已下線。<em>離開現場至少 20 分鐘</em>，做能真正讓你平靜的事——但不准在這 20 分鐘排練要射的箭，那只會更淹沒。</li>
+        <li><strong>認領你的那一半。</strong>問：「這僵局裡，我貢獻了什麼？」我的語氣？舊帳？先翻的白眼？願意說一句「我也有責任」，是化解的關鍵。</li>
+        <li><strong>奪回「刺激與反應之間的空間」。</strong>對方按了你的鈕，但按鈕到反應之間有一個空間，那裡住著你的自由。Let Me，就是搬進那個空間。</li>
+      </ol>
+    </div>
+    <div class="sub why"><span class="lbl">為什麼有效</span>
+      <p>你無法靠改變對方來改變關係（他是永久問題），但你 100% 能改變你丟進系統的東西。Gottman 的「正向情感凌駕」水庫，就是靠你這邊一次次不升級、不報復，慢慢蓄回來的。<strong>你管好你這半，等於替整個系統止血。</strong></p>
+    </div>
+    <div class="sub stuck"><span class="lbl">⚠ 最容易卡在哪</span>
+      <p>把「Let Me」做成「都是我的錯」的自我攻擊。不是。Let Me 是<em>「我只為我能控制的那部分負責——我的回應、語氣、下一步」</em>，不多也不少。對方那一半，還給對方。</p>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 4 -->
+<section id="s4">
+  <div class="step">
+    <div class="head"><div class="num">4</div><div class="ttl">反觀自照：看見你到底「卡」在哪</div></div>
+    <div class="essence">整套系統的<strong>心臟</strong>，金剛經給你、Gottman 給不出的東西。前三步處理「當下」，這一步處理「根」。</div>
+    <blockquote>「遇到苦惱，如果我們能反觀自照，好好反省，必能看到自己『執著』的地方。只要放下這些執著，那些糾纏不清的因果，自然就被鬆開了。」<span class="src">——王思迅《金剛經白話講座》</span></blockquote>
+    <div class="sub"><span class="lbl">怎麼做（往內挖三層執著）</span>
+      <p>安靜下來（通常在第三步的 20 分鐘裡），誠實問：<strong>「此刻，我到底卡在哪一個執著上？」</strong>九成是這三個之一——</p>
+      <ol>
+        <li><strong>執著於「我是對的」（想贏）。</strong>你真正要的，往往不是解決問題，是<em>贏</em>、是對方認錯。問自己：「我是要解決事情，還是要贏這個人？」若是後者——你贏了也輸了，因為代價是關係。</li>
+        <li><strong>執著於「對方應該是另一個版本」（想改造）。</strong>最隱形也最毒。喜悅書戳破：你的苦來自「渴望擁有一個不同版本的人生／伴侶」。你愛的不是眼前這人，是你腦中那個幻影。放下它，不是降低標準，是<em>停止跟一個不存在的人過日子</em>。</li>
+        <li><strong>執著於「那本舊帳」（作繭自縛）。</strong>金剛經那句驚人的話：固定腦迴路 → 作繭自縛 → 數不盡的煩惱。<em>這字面上就是 Gottman 的「改寫婚姻史」</em>——你看見的不是眼前的人，是一整部累積的怨懟劇本。解藥叫「應無所住而生其心」：不帶舊劇本，用乾淨的心重新看他此刻真正在做什麼。</li>
+      </ol>
+    </div>
+    <div class="sub why"><span class="lbl">為什麼有效</span>
+      <p>痛苦的真正來源<strong>從來不是對方的行為，是你抓著那行為不放的那隻手</strong>。「執著就是被困在因果上，動彈不得；放下執著就可以在因果上脫困。」你一旦看清自己卡在哪、並鬆開它——那個吵不完的結，會在你這端自己鬆開。<em>這一步是在你心裡動手術，不是在對方身上。</em></p>
+    </div>
+    <div class="sub stuck"><span class="lbl">⚠ 最容易卡在哪</span>
+      <p>反觀自照很容易變成「反觀『對方』」——「我在想他為什麼這麼自私」。不對，那還是向外。反觀自照的箭頭<strong>永遠指向自己</strong>：不是「他哪裡有問題」，是「我此刻緊抓著什麼不放？」誠實到有點痛，就對了。</p>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 5 -->
+<section id="s5">
+  <div class="step">
+    <div class="head"><div class="num">5</div><div class="ttl">種一根支柱：放下之後，填進去什麼</div></div>
+    <div class="essence">放下會留下一個空位。只放下、不填補，那個空位會被冷漠填滿（就滑向築牆了）。所以放手之後，必須<strong>主動種進一個正向的東西</strong>。達賴喇嘛與屠圖的八大支柱，就是你要種的種子；衝突裡最有用的是這三根——</div>
+    <div class="sub"><span class="lbl">三根最有用的支柱</span>
+      <ol>
+        <li><strong>感恩（鄙視的解藥）。</strong>「心懷感恩，你就會依照資源充足而非匱乏的準則行動。」Gottman 補刀：不快樂的夫妻會<em>漏看整整 50% 對方做的好事</em>。種感恩＝在剛還在生氣的這人身上，逼自己找出一件具體的好。這一動，直接把鄙視（離婚頭號殺手）的燃料抽掉。</li>
+        <li><strong>原諒（放下過去的唯一路）。</strong>屠圖畫出兩個循環：<em>復仇循環</em>（你傷我、我傷回去、永不終止）vs <em>寬恕循環</em>（打破它，療傷再生）。每次衝突你都站在這岔路口。原諒不是說對方對了，是你決定<strong>不再讓那件事繼續向你收利息</strong>。</li>
+        <li><strong>慈悲（看見對方的苦）。</strong>接到 Gottman 最深的工具「衝突中的夢想」：對方那個讓你抓狂的立場底下，埋著一個來自他童年的受傷需求。慈悲＝從「他在攻擊我」切換到「他在保護一個受傷的自己」。看見那個怕的小孩，火會自己小一半。</li>
+      </ol>
+    </div>
+    <div class="sub why"><span class="lbl">為什麼有效</span>
+      <p>「放下」是減法，「種支柱」是加法，<strong>關係不能只靠減法活著</strong>。Gottman 證明關係命脈是「正向情感的存款」（PSO 水庫），八支柱——尤其感恩——是最直接的存款。喜悅書也說，快樂 50% 由「態度與行動」決定，威力最大的三個恰恰是：重新建構觀點、感恩、選擇善良慷慨。</p>
+    </div>
+    <div class="sub stuck"><span class="lbl">⚠ 最容易卡在哪</span>
+      <p>「我都還在氣，哪擠得出感恩」——很真實。但認知療法的原理是：<strong>感恩不必先有感覺才做，是先做了，感覺才回來。</strong>哪怕只是冷冷地找出一件對方的好，那個動作本身就在重設你的頻道。真誠會隨練習長出來。</p>
+    </div>
+  </div>
+</section>
+
+<!-- STEP 6 -->
+<section id="s6">
+  <div class="step">
+    <div class="head"><div class="num">6</div><div class="ttl">護欄自檢：放下的是「控制」，還是「這個人」？</div></div>
+    <div class="essence">整套系統唯一會出人命的地方，放最後當煞車。Gottman 的數據藏著對「放下／Let Them」的致命警告——<strong>「築牆（stonewalling）」是四騎士裡最後、最致命的那一隻。</strong>而偽裝成「放下」的築牆，長得幾乎一模一樣。</div>
+    <div class="sub"><span class="lbl">三個自檢問句</span>
+      <ol>
+        <li>我放鬆的，是<strong>掐著他脖子的手</strong>，還是<strong>牽著他的手</strong>？</li>
+        <li>我接下來會「轉向」他，還是轉身滑手機？</li>
+        <li>我心裡是「我接受他這樣，而我仍然在乎」，還是「隨便啦，懶得理了」？</li>
+      </ol>
+    </div>
+    <div class="guard">
+      <div class="col ok"><h4>✅ 健康的放下</h4><ul>
+        <li>放下<strong>控制對方</strong>的執念</li>
+        <li>「我接受他就是這樣」+ 仍轉向、仍關愛</li>
+        <li>接受<strong>不是</strong>聽天由命、消沉挫敗</li>
+        <li>放下執著，但「慈悲」仍在</li>
+        <li>Let Them + Let Me（我仍負責我的付出）</li>
+      </ul></div>
+      <div class="col no"><h4>❌ 偽裝成放下的築牆</h4><ul>
+        <li>放下<strong>對關係的投入</strong></li>
+        <li>「隨便啦」+ 轉身滑手機</li>
+        <li>聽天由命、情感撤退</li>
+        <li>放下執著，順便也放下了人</li>
+        <li>只有 Let Them（把責任全推給對方）</li>
+      </ul></div>
+    </div>
+    <div class="sub why"><span class="lbl">為什麼有效</span>
+      <blockquote>「接受，不是聽天由命，也不是消沉挫敗…大主教和達賴喇嘛兩人都是努力不懈的行動派…他們的行動力源自於在內心深處接受了事實。」<span class="src">——《喜悅》。這句話就是護欄本身。</span></blockquote>
+      <p><strong>真正的接受／放下，讓你更投入、更柔軟地靠近；假的放下，讓你撤退、關機、冷掉。</strong>金剛經放下的是「執著」，不是「慈悲」。Let Them 永遠要配上 Let Me。</p>
+    </div>
+    <div class="sub stuck"><span class="lbl">⚠ 最容易卡在哪</span>
+      <p>這套系統用久了，最大的風險是它變成你「合理化冷漠」的工具——「我這是在放下啊」。不。<strong>檢驗標準只有一個：放下之後，你和對方的距離是更近了，還是更遠了？</strong>更近，做對了；更遠，你把放下做成了築牆，請回到第五步，種一根支柱，然後轉向他。</p>
+    </div>
+  </div>
+</section>
+
+<!-- TABLE -->
+<section id="table">
+  <h2>交叉共振表：化學反應的具體接點</h2>
+  <table>
+    <tr><th>Gottman 概念</th><th>Let Them</th><th>金剛經</th><th>喜悅八支柱</th></tr>
+    <tr><td>69% 永久問題、無法解決</td><td>Let Them（別控制對方）</td><td>放下執著</td><td><strong>接受</strong>（改變起點）</td></tr>
+    <tr><td>自我安撫、接受影響力</td><td>Let Me（只管我的回應）</td><td>應無所住而生其心</td><td><strong>觀點 / 謙卑</strong></td></tr>
+    <tr><td><strong>鄙視的解藥 = 讚賞</strong></td><td>—</td><td>—</td><td><strong>感恩</strong>（匱乏→豐足）</td></tr>
+    <tr><td>寬恕章、放下舊怨</td><td>—</td><td>放下過去</td><td><strong>原諒</strong>（破復仇循環）</td></tr>
+    <tr><td><strong>NSO / 改寫婚姻史</strong></td><td>—</td><td><strong>作繭自縛 / 固定腦迴路</strong></td><td>—</td></tr>
+    <tr><td>we-ness / 共同意義</td><td>—</td><td>無我相、人相</td><td><strong>付出</strong>（我→我們）</td></tr>
+    <tr><td>PSO 設定點</td><td>—</td><td>—</td><td>快樂「設定值」+ 重構 / 感恩</td></tr>
+  </table>
+
+  <div class="summary">
+    <div class="lbl">一句話總綱</div>
+    <p>先分清哪場仗不必打（<b>診斷</b>），當場把控制的手鬆開（<b>Let Them</b>），把責任收回自己身上（<b>Let Me</b>），往內看見並鬆開你真正卡住的執著（<b>反觀自照</b>），在空出來的位子種下感恩與慈悲（<b>八支柱</b>），最後確認你靠得更近而不是退得更遠（<b>護欄</b>）。</p>
+    <div class="dash">——放手的從來不是這個人，是你以為「他必須不一樣」的那個執念。</div>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap">
+  <div class="big">放下控制，不放下連結。</div>
+  <p>四書化學反應 · 放下的關係操作系統　|　為 Rex 製作<br>
+  Gottman《七法則》× 達賴喇嘛/屠圖《喜悅》× 王思迅《金剛經白話講座》× Mel Robbins《Let Them》<br>
+  本手冊各書內容均經原文研讀，整合為個人實踐用途。</p>
+</div></footer>
+
+</body>
+</html>
